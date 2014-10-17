@@ -1,0 +1,101 @@
+HTTP Switchboard (Gratuit et Open Source) vous donne les PLEINS POUVOIRS sur votre navigateur et sur les endroits vers lesquels ce dernier peut se connecter, ce qu'il peut télécharger, et ce qu'il peut exécuter. Personne d'autre ne décidera pour vous : VOUS décidez. Vous avez toutes les cartes en main pour contrôler votre vie privée en ligne.
+
+Le moteur de filtrage d'HTTPSB (abréviation d'HTTP Switchboard) comprend deux types de filtrage spécialisé : Le moteur de filtrage matriciel (utilisant des filtres similaires à ceux d'un parefeu), et le moteur de filtrage type ABP (employant des filtres compatibles Adblock Plus).
+
+[IMPORTANT : Par défaut, HTTPSB fonctionne en mode Blocage total/Permissions exceptionnelles, ce qui veut dire que les sites Web utilisant des scripts peuvent dysfonctionner. En seulement deux clics, l'extension peut être configurée pour travailler en mode Tout autoriser/Blocage exceptionnel, ce qui en général n'empêchera pas des sites Web de fonctionner. Pour plus d'information à ce sujet, consultez cette page Web en Anglais : https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views ]
+
+[IMPORTANT : À propos du soi-disant fait que "les navigateurs à moteurs Chromium ne peuvent bloquer le code JavaScript en toute fiabilité", consultez cette page Web en Anglais : https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers]
+
+Caractéristiques d'HTTP Switchboard :
+
+* Consultez TOUTES les tentatives de connexions distantes, échouées ou réussies, selon qu'elles soient bloquées ou autorisées(c'est vous qui en décidez)
+
+* En un clic, vous pouvez mettre en liste blanche/noire une ou plusieurs sortes de requêtes d'après la destination et le type des données (sachant qu'une requête bloquée ne "sortira" JAMAIS de votre navigateur)
+
+* Mise en liste noire efficace : Les cookies ne sortiront pas de votre navigateur, le code JavaScript ne sera pas exécuté, les plugins ne démarreront pas, les pixels de pistage ne seront pas téléchargés, etc
+
+* Attention à ne pas simplement compter que sur une seule liste noire prédéfinie pour vous protéger, pensez à utiliser les multiples listes prédéfinies pour renforcer le moteur de filtrage type ADB
+
+* Facilité d'utilisation : HTTPSB vous laisse facilement mettre en liste blance/noire des requêtes réseau provenant d'une page Web d'après une matrice qui vous permet de manipuler en quelques clics de souris :
+
+- Les noms de domaine (colonne de gauche)
+  * De très spécifique
+  * À très générique
+
+- Les types de requête (première ligne)
+  * cookies
+  * stylesheets (connu sous l'abréviation CSS) (et polices Web)
+  * images
+  * objects (objets)
+  * scripts
+  * XHR (requêtes effectuées par des scripts)
+  * frames
+  * others (autres)
+
+Vous pouvez en un clic mettre en liste noire/blanche une simple cellule, une ligne entière, un ensemble de lignes, une colonne entière, ou la matrice toute entière.
+
+Le moteur de filtrage matriciel d'HTTP Switchboard utilise une logique de priorité pour évaluer ce qui doit être bloqué/autorisé d'après l'état des cellules (liste noire/blanche). Par exemple, cela vous permet de mettre en liste blanche tout une page Web en un clic, sans avoir à mettre en liste blanche de manière répétitive toute nouvelle donnée apparaissant sur la page.
+
+Vous pouvez aussi créer des règles de différentes portées pour vos règles blanches/noires. Par exemple, cela vous permet de mettre en liste blanche "twitter.com" UNIQUEMENT si vous visitez le site Web de Twitter.
+
+Le but de cette extension est de rendre l'autorisation/le refus de sites Web, en totalité ou partiellement, aussi direct(e) que possible, pour ne pas décourager les utilisateurs qui abandonnent facilement les bonnes habitudes en matière de sécurité et de confidentialité.
+
+Au mois d'Avril 2014, HTTPSB fournit des listes prédéfinies de blocage totalisant plus de 55 000 noms de domaine différents, sachant que chacune de ces listes peut être désactivée/activé selon vos choix, et qu'il y a des listes prédéfinies supplémentaires qui peuvent aussi être activées si vous le souhaitez.
+
+Enfin, vous pouvez choisir comment surfer sur le Net :
+
+* Tout mettre en liste noire, et accorder des permissions exceptionnelles si besoin est (il s'agit du mode par défaut)
+
+* Tout mettre en liste blanche, et bloquer exceptionnellement si nécessaire (non recommandé)
+
+Sitôt l'installation de l'extension terminée, vous aurez le choix entre différents modes de filtrage matriciel, une fois le mode choisi, il ne tient qu'à vous de le personnaliser et de l'accorder à vos besoins !
+
+De toute manière, vous bénéficierez toujours des listes de règles prédéfinis pour avoir ne serait-ce qu'une protection basique contre les pisteurs, les sites Web malveillants, etc. Ou vous pouvez désactiver tout cela (non recommandé) !
+
+Encore une fois, c'est votre choix.
+
+Retrouvez ici en langue anglaise de la documentation rassemblée aléatoirement sur l'extension : https://github.com/gorhill/httpswitchboard/wiki
+
+=====
+
+RETOURS : Pour n'importe quel doute/souci que vous pourriez avoir, n'hésitez pas à me contacter. Je ne suis pas en mesure de répondre directement aux avis des utilisateurs sur Chrome/Opera Web Store, mais je serais ravi de vous répondre directement.
+
+=====
+
+Il s'agit d'une préversion qui nécessite encore un peu de travail, bien que proche de la version 1.0. Les anomalies/problèmes/suggestions sont traités le plus rapidement possible. Rendez-vous ici (en Anglais) : https://github.com/gorhill/httpswitchboard/issues?state=open
+
+Vous êtes plus que bienvenue pour apporter vos points de vue sur les problèmes et suggestions discutés, et argumenter en sa faveur/défaveur peut m'aider à me décider de ce qui doit être fait pour améliorer l'extension.
+
+La facilité d'utilisation est l'objectif principal. J'ai déjà vu des utilisateurs jeter l'éponge au sujet de l'extension NoScript à cause du fait qu'elle leur a paru trop contraignante, alors plutôt que de les blâmer pour de piètres habitudes de sécurité, je préfère en vouloir aux développeurs; et ce projet est une tentative de rectifier ces erreurs qui ont entrainé l'abandon des bonnes habitudes de sécurité chez certaines personnes.
+
+HTTP Switchboard est également utile pour comprendre ce qu'effectue en coulisses une page Web dans votre navigateur. Vous pouvez parfaitement voir et décider avec quoi une page Web communique, et restreindre ces différentes communications.
+
+Le nombre qui apparait sur l'icone de l'extension correpond au nombre total de requêtes distinctes tentées (et réussies ou non selon qu'elles ont été autorisées/refusées) en coulisses.
+
+Cliquez simplement à l'endroit approprié dans la matrice pour mettre en liste blanche/noire/grise un élément. La liste grise signifie que leur statut d'autorisation/de refus est héritier depuis une entrée parent dans la matrice.
+
+Rectangle rouge = Mise en liste noire, c'est-à-dire que le moteur de filtrage matriciel empêche les requêtes d'atteindre la destination qu'elles convoitaient :
+* Rectangle rouge vif : Le nom de domaine et/ou le type de requête est tout particulièrement mis en liste noire
+* Rectangle rouge pâle : Le statut de liste blanche est tributaire de l'élément parent (placé sur liste grise)
+
+Rectangle vert = Mise en liste blanche, c'est-à-dire que les requêtes sont autorisées à atteindre la destination qu'elles convoitaient :
+* Rectangle vert vif : Le nom de domaine et/ou le type de requête est tout particulièrement mis en liste blanche
+* Rectangle vert pâle : Le statut de liste blanche est tributaire de l'élément parent (placé sur liste grise)
+
+La cellule en haut à gauche de la matrice ("all") représente le paramètre global par défaut, qui vous permet de choisir ce qui est autorisé ou bloqué entièrement dans le comportement par défaut. D'aucuns préfèrent tout autoriser et bloquer exceptionnellement. Personnellement je préfère l'inverse, tout bloquer et autoriser exceptionnellement.
+
+Cette extension est aussi utile si vous souhaitez accélérer votre navigation, en bloquant toutes les requêtes d'images par exemple.
+
+=====
+
+HTTP Switchboard est le fruit d'un projet personnel, il n'y a aucune entreprise impliquée, ainsi je n'ai pas de cahier des charges à tenir, seulement à donner aux utilisateurs les outils pour pouvoir tout contrôler de leurs navigateurs. J'apprécie le geste, mais je ne veux pas de dons, que ce soit maintenant ou à l'avenir. Si vous tenez VRAIMENT à donner quelque chose en retour, alors je souhaiterais que vous fassiez vos dons à un organisme authentiquement dédié à la défense de principes basiques de la démocratie, comme par exemple, la Fondation pour la Liberté de la Presse (https://pressfreedomfoundation.org/), l'Electronic Frontier Foundation (https://www.eff.org/), Wikileaks (https://wikileaks.org/), ou tout organisme à but non-lucratif répond au critère de "défendeur des valeurs de la démocratie" et qui se trouve dans votre pays.
+
+Contributeurs: https://github.com/gorhill/httpswitchboard/graphs/contributors
+
+=====
+
+Le Code Source est sous licence GPLv3, et est disponible à l'adresse suivante : https://github.com/gorhill/httpswitchboard
+
+----------
+
+Consultez le Journal des changements à l'adresse suivante (en Anglais) : https://github.com/gorhill/httpswitchboard/wiki/Change-log

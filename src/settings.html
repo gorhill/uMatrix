@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>µMatrix — Settings</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
+<style>
+div > p:first-child {
+    margin-top: 0;
+    }
+div > p:last-child {
+    margin-bottom: 0;
+    }
+ul {
+    padding: 0;
+    list-style-type: none;
+    }
+ul > li {
+    margin: 0 0 0 1em;
+    }
+.dim {
+    font-weight: 100;
+    color: #888;
+    }
+#subframe-color-demo {
+    margin: 0;
+    border: 1px dotted transparent;
+    padding: 0;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    width: 2em;
+    height: 20px;
+    text-align: center;
+    vertical-align: baseline;
+    background-color: transparent;
+    background-size: 10px 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<h2 data-i18n="settingsMatrixDisplayHeader"></h2>
+<ul style="list-style:none">
+    <li><span data-i18n="settingsMatrixDisplayTextSizePrompt"></span>&ensp;<input type="radio" name="displayTextSize" value="13px"><span data-i18n="settingsMatrixDisplayTextSizeNormal"></span>&ensp;<input type="radio" name="displayTextSize" value="16px"><span data-i18n="settingsMatrixDisplayTextSizeLarge"></span>
+    <li style="margin-top:0.5em;"><input id="colorBlindFriendly" type="checkbox" data-range="bool"><span data-i18n="settingsMatrixDisplayColorBlind"></span>
+    <li style="margin-top:0.5em;">
+        <span data-i18n="settingsSubframeColor"></span> <input id="subframe-color" type="color" value="#c00">
+        &ensp;<span data-i18n="settingsSubframeOpacity"></span> <input id="subframe-opacity" type="range" min="0" max="100" value="100">
+        &ensp;<span id="subframe-color-demo">&nbsp;</span>
+</ul>
+
+<h2 data-i18n="settingsMatrixMoreSecurityHeader"></h2>
+<ul>
+    <li>
+        <input id="strictBlocking" type="checkbox" data-range="bool"><span data-i18n="settingsStrictBlockingPrompt"></span>
+        <button class="whatisthis"></button>
+        <div class="whatisthis-expandable para" data-i18n="settingsStrictBlockingInfo"></div>
+    <li>
+</ul>
+
+<h2 data-i18n="settingsMatrixLessSecurityHeader"></h2>
+<ul>
+    <li>
+        <input id="autoWhitelistPageDomain" type="checkbox" data-range="bool"><span data-i18n="settingsAutoWhitelistPrompt"></span>
+        <button class="whatisthis"></button>
+        <div class="whatisthis-expandable para" data-i18n="settingsAutoWhitelistHelp"></div>
+    </ul>
+    
+<h2 data-i18n="settingsMatrixConvenienceHeader"></h2>
+<ul>
+    <li>
+        <span data-i18n="settingsMatrixAutoReloadPrompt"></span> <select id="smart-auto-reload">
+            <option value="none" data-i18n="settingsMatrixAutoReloadNone">
+            <option value="current" data-i18n="settingsMatrixAutoReloadCurrent">
+            <option value="all" data-i18n="settingsMatrixAutoReloadAll">
+            </select> <button class="whatisthis"></button>
+        <div class="whatisthis-expandable para" data-i18n="settingsMatrixAutoReloadInfo"></div>
+</ul>
+
+
+<script src="lib/jquery-2.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/dashboard-common.js"></script>
+<script src="js/messaging-client.js"></script>
+<script src="js/settings.js"></script>
+</body>
+
+</html>

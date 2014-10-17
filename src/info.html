@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>µMatrix &mdash; Info</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
+<style>
+select {
+    max-width: 20em;
+    }
+#stats div div,#lists div div {
+    padding: 0 1em 0 0;
+    display: inline-block;
+    text-align: right;
+    }
+#requests-filters {
+    font-size: 13px;
+    }
+#requests-filters label {
+    padding-right: 1em
+    }
+#requests-log {
+    margin: 0;
+    border: 1px inset #eee;
+    padding: 0;
+    font: 11px monospace;
+    background-color: white;
+    overflow: scroll;
+    width: calc(100% - 1.5em);
+    }
+#requests-log table {
+    border-collapse: collapse;
+    }
+#requests-log tr {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    color: #070;
+    }
+#requests-log tr.ro {
+    color: gray;
+    }
+#requests-log tr:hover {
+    background-color: #eee;
+    }
+#requests-log tr.blocked-true {
+    color: #c00;
+    }
+#requests-log tr:first-child {
+    font-weight: bold;
+    background-color: #eee;
+    }
+#requests-log tr > td {
+    padding: 1px 0.75em 1px 0;
+    white-space: nowrap;
+    }
+#requests-log tr > td:nth-of-type(2) {
+    text-align: right;
+    }
+.type-main_frame {
+    font-weight: bold;
+    }
+tr.unused {
+    display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<h2 data-i18n="statsPageGenericStats" id="generic-stats"></h2>
+<div>
+<ul>
+<li id="statsPageCookieHeadersFoiled">
+<li id="statsPageRefererHeadersFoiled">
+<li id="statsPageHyperlinkAuditingFoiled">
+<li id="statsPageCookiesRemoved">
+<li id="statsPageLocalStoragesCleared">
+<li id="statsPageBrowserCacheCleared">
+</ul>
+</div>
+
+<h2 data-i18n="statsPageDetailedStats" id="detailed-stats"></h2>
+<div> 
+<select id="selectPageUrls">
+<option value="all" data-i18n="statsPageDetailedAllPages"></option>
+<option id="selectPageUrlTemplate" value="http://chromium-behind-the-scene/" data-i18n="statsPageDetailedBehindTheScenePage"></option>
+</select>
+
+<h3 data-i18n="statsPageOverview"></h3>
+<div id="stats">
+<div style="white-space:nowrap;">
+
+<div>
+    <span data-i18n="statsPageRequests"></span><br>
+    All:<br>
+    Pages:<br>
+    <a href="http://en.wikipedia.org/wiki/Http_cookie">Cookies</a>:<br>
+    <a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS</a>:<br>
+    Images:<br>
+    <span title="i.e. Flash, ActiveX, Java applets, etc.">Plugins</span>:<br>
+    <a href="http://en.wikipedia.org/wiki/HTML_scripting">Scripts</a>:<br>
+    <a href="http://en.wikipedia.org/wiki/XMLHttpRequest">XMLHttpRequests</a>:<br>
+    <a href="http://en.wikipedia.org/wiki/Framing_(World_Wide_Web)">Frames</a>:<br>
+    <a title="i.e. HTML5 audio, HTML5 video, HTML5 canvas, etc." href="https://github.com/gorhill/httpswitchboard/wiki/In-the-top-right-of-the-matrix,-what-is-%22other%22%3F">Others</a>:<br>
+    </div>
+<div style="color:#c00">
+    <span data-i18n="statsPageBlocked"></span><br>
+    <span id="blockedAllCount"></span><br>
+    <span id="blockedMainFrameCount"></span><br>
+    <span id="blockedCookieCount"></span><br>
+    <span id="blockedStylesheetCount"></span><br>
+    <span id="blockedImageCount"></span><br>
+    <span id="blockedObjectCount"></span><br>
+    <span id="blockedScriptCount"></span><br>
+    <span id="blockedXHRCount"></span><br>
+    <span id="blockedSubFrameCount"></span><br>
+    <span id="blockedOtherCount"></span><br>
+    </div>
+<div style="color:#070">
+    <span data-i18n="statsPageAllowed"></span><br>
+    <span id="allowedAllCount"></span><br>
+    <span id="allowedMainFrameCount"></span><br>
+    <span id="allowedCookieCount"></span><br>
+    <span id="allowedStylesheetCount"></span><br>
+    <span id="allowedImageCount"></span><br>
+    <span id="allowedObjectCount"></span><br>
+    <span id="allowedScriptCount"></span><br>
+    <span id="allowedXHRCount"></span><br>
+    <span id="allowedSubFrameCount"></span><br>
+    <span id="allowedOtherCount"></span><br>
+    </div>
+</div>
+</div>
+
+
+<h3 data-i18n="statsPageDetailed"></h3>
+<div id="requests">
+    <div><span data-i18n="statsPageLogSizePrompt1"></span> <input id="max-logged-requests" type="text" value="50" size="3"> <span data-i18n="statsPageLogSizePrompt2"></span> 
+        <button class="whatisthis"></button>
+        <p class="whatisthis-expandable para" data-i18n="statsPageLogSizeHelp"></p>
+        <p id="requests-filters"><button id="refresh-requests" data-i18n="statsPageRefresh"></button>&emsp;Show:
+            <input id="show-main_frame" type="checkbox" checked value="1"><label for="show-main_frame">Pages</label>
+            <input id="show-blocked" type="checkbox" checked value="1"><label for="show-blocked"><span style="color:#c00" data-i18n="statsPageBlocked">Blocked</span></label>
+            <input id="show-allowed" type="checkbox" checked value="1"><label for="show-allowed"><span style="color:#070" data-i18n="statsPageAllowed">Allowed</span></label>
+            <input id="show-cookie" type="checkbox" checked value="1"><label for="show-cookie">Cookies</label>
+            <input id="show-image" type="checkbox" checked value="1"><label for="show-image">Images</label>
+            <input id="show-stylesheet" type="checkbox" checked value="1"><label for="show-stylesheet">CSS</label>
+            <input id="show-object" type="checkbox" checked value="1"><label for="show-object">Objects</label>
+            <input id="show-script" type="checkbox" checked value="1"><label for="show-script">Scripts</label>
+            <input id="show-xmlhttprequest" type="checkbox" checked value="1"><label for="show-xmlhttprequest">XHRs</label>
+            <input id="show-sub_frame" type="checkbox" checked value="1"><label for="show-sub_frame">Frames</label>
+            <input id="show-other" type="checkbox" checked value="1"><label for="show-other">Others</label>
+        </p>
+    </div>
+    <div id="requests-log" style="overflow-y:hidden">
+    <table id="requestsTable">
+    <tr class="ro"><td>when<td>what<td><td class="fa">&#xf0b0;<td>where</tr>
+    <tr class="ro" id="requestRowTemplate"><td><td><td><a href="" style="display:none">&lt;a&gt;</a><td class="fa"><td></tr>
+    </table>
+    </div>
+</div>
+
+</div> <!-- end of detailed stats -->
+
+<script src="lib/jquery-2.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/dashboard-common.js"></script>
+<script src="js/messaging-client.js"></script>
+<script src="js/info.js"></script>
+</body>
+</html>

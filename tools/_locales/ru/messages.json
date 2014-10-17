@@ -1,0 +1,764 @@
+{
+    "extName": {
+        "message": "µMatrix",
+        "description": "название расширения"
+    },
+    "extShortDesc": {
+        "message": "Расширение, позволяющее запретить или разрешить разные классы запросов браузера: скрипты, баннеры, реклама, соцсети, и т.д.",
+        "description": "this will in chrome web store: must be 132 characters or less"
+    },
+    "settingsPageName": {
+        "message": "Настройки",
+        "description": "appears as tab name in dashboard."
+    },
+    "privacyPageName": {
+        "message": "Конфиденциальность",
+        "description": "appears as tab name in dashboard."
+    },
+    "statsPageName": {
+        "message": "Статистика",
+        "description": "appears as tab name in dashboard."
+    },
+    "ubiquitousRulesPageName" : {
+        "message": "Глобальные правила",
+        "description": "appears as tab name in dashboard"
+    },
+    "scopedRulesPageName": {
+        "message": "Правила для сайтов",
+        "description": "appears as tab name in dashboard."
+    },
+    "aboutPageName": {
+        "message": "О расширении",
+        "description": "appears as tab name in dashboard."
+    },
+
+
+    "allPrettyName": {
+        "message": "все",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "куки",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyNamePlural": {
+        "message": "куки",
+        "description": "..."
+    },
+    "stylesheetPrettyName": {
+        "message": "css",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "stylesheetPrettyNamePlural": {
+        "message": "css",
+        "description": "..."
+    },
+    "imagePrettyName": {
+        "message": "картинка",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyNamePlural": {
+        "message": "картинки",
+        "description": "..."
+    },
+    "objectPrettyName": {
+        "message": "плагин",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "objectPrettyNamePlural": {
+        "message": "плагины",
+        "description": "..."
+    },
+    "scriptPrettyName": {
+        "message": "скрипт",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyNamePlural": {
+        "message": "скрипты",
+        "description": "..."
+    },
+    "xmlhttprequestPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xmlhttprequestPrettyNamePlural": {
+        "message": "XHR",
+        "description": "..."
+    },
+    "sub_framePrettyName": {
+        "message": "рамка",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "sub_framePrettyNamePlural": {
+        "message": "рамки",
+        "description": "..."
+    },
+    "otherPrettyName": {
+        "message": "другое",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyNamePlural": {
+        "message": "другие",
+        "description": "..."
+    },
+
+
+    "matrixPresetAbsentPrompt" : {
+        "message": "Не найдено правил для этой страницы",
+        "description": "..."
+    },
+    "matrixPresetPresentPrompt" : {
+        "message": "Нажмите, чтобы импортировать готовое правило",
+        "description": "..."
+    },
+    "matrixNoNetTrafficPrompt" : {
+        "message": "Не получен траффик на этой странице",
+        "description": "..."
+    },
+    "matrixMtxButtonTip" : {
+        "message": "Выкл./вкл. фильтрацию по матрице для области. \u000aЗаблокировано запросов \u000aна странице этим правилом: {{count}}.",
+        "description": "Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    },
+    "matrixPersistButtonTip" : {
+        "message": "Сохранить временные изменения \u000a для это области.",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip" : {
+        "message": "Убрать временные изменения \u000a для этой области.",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixRevertButtonAllTip" : {
+        "message": "Убрать все временные \u000a изменения.",
+        "description": "Tool tip for the revert all permissions button"
+    },
+    "matrixReloadButton" : {
+        "message": "Перезагрузить страницу.",
+        "description": "Tool tip for the reload button"
+    },
+    "matrixPresetMoreReadTip" : {
+        "message": "Экспорт рецепта: Временные правила \u000a из текущей области будут кодированы \u000a как рецепт",
+        "description": "English: Export a recipe: Temporary rules \u000a of current scope will be encoded \u000a as a recipe"
+    },
+    "matrixPresetMoreWriteTip" : {
+        "message": "Импорт рецепта: Временные правила \u000a будут созданы для текущей области",
+        "description": "English: Import a recipe: Temporary rules \u000a will be created into current scope"
+    },
+    "matrixPresetMoreRecipeTip" : {
+        "message": "Пользователи могут обмениваться рецептами здесь, чтобы помогать друг другу. Обычное предупреждение при использовании ненадежных источников.",
+        "description": "English: Users can exchange recipes here to help each other. Usual warnings about untrusted sources apply."
+    },
+
+
+    "statsPageTitle" : {
+        "message": "µMatrix &ndash; Статистика",
+        "description": "header for the whole stats page"
+    },
+    "statsPageGenericStats" : {
+        "message": "Общая статистика",
+        "description": "English: Generic statistics"
+    },
+    "statsPageCookieHeadersFoiled" : {
+        "message": "<a href='https://ru.wikipedia.org/wiki/HTTP_cookie'>HTTP куки</a> блокировано: {{count}}",
+        "description": "English: HTTP cookie headers foiled: {{count}}"
+    },
+    "statsPageRefererHeadersFoiled" : {
+        "message": "<a href='https://ru.wikipedia.org/wiki/HTTP_referer'>HTTP ссылок</a> блокировано: {{count}}",
+        "description": "English: HTTP referer headers foiled: {{count}}"
+    },
+    "statsPageHyperlinkAuditingFoiled" : {
+        "message": "Заблокировано запросов на <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>Попытоку проверки ссылок</a> : {{count}}",
+        "description": "English: Hyperlink auditing attempts foiled: {{count}}"
+    },
+    "statsPageCookiesRemoved" : {
+        "message": "Удалено локальных кукисов: {{count}}",
+        "description": "Local cookies removed: {{count}}"
+    },
+    "statsPageLocalStoragesCleared" : {
+        "message": "<a href='http://diveintohtml5.info/storage.html'>Локальное хранилище</a> очищено: {{count}}",
+        "description": "Local storages emptied: {{count}}"
+    },
+    "statsPageBrowserCacheCleared" : {
+        "message": "Удалено элементов кеша браузера: {{count}}",
+        "description": "Browser caches cleared: {{count}}"
+    },
+    "statsPageDetailedStats" : {
+        "message": "Детальная статистика",
+        "description": "English: Detailed statistics"
+    },
+    "statsPageDetailedAllPages" : {
+        "message": "Все",
+        "description": "English: All"
+    },
+    "statsPageDetailedBehindTheScenePage" : {
+        "message": "Chromium: Фоновые запросы",
+        "description": "English: Chromium: Behind the scene"
+    },
+    "statsPageOverview" : {
+        "message": "Обзор",
+        "description": "English: Overview"
+    },
+    "statsPageRequests" : {
+        "message": "Запросы",
+        "description": "in detailed stats section, header for the type of request"
+    },
+    "statsPageAllowed" : {
+        "message": "Разрешено",
+        "description": "capitalized"
+    },
+    "statsPageBlocked" : {
+        "message": "Блокировано",
+        "description": "capitalized"
+    },
+    "statsPageDetailed" : {
+        "message": "Статистика запросов",
+        "description": "English: Request log"
+    },
+    "statsPageLogSizePrompt1" : {
+        "message": "Запомнить последние",
+        "description": "English: Remember the last"
+    },
+    "statsPageLogSizePrompt2" : {
+        "message": "HTTP запросов <b>для страницы</b>.",
+        "description": "English: HTTP requests <b>per page</b>."
+    },
+    "statsPageLogSizeHelp" : {
+        "message": "<p>Вы можете проверить информацию о самых последних необработанных HTTP запросах, которые были сделаны на веб-странице (см. ниже)</p><p>Это в основном пригодится продвинутым пользователям, которые хотят исследовать именно то, что произошло на веб-странице. Для записи HTTP запросов требуется память, и если вам не нужна эта техническая информация, то память будет расходоваться впустую.</p><p>Следовательно, это поле, которое позволяет установить максимальное количество самых последних HTTP запросов, которые должны войти в список для просмотра.<p><p>Введите &ldquo;<code>0</code>&rdquo; для отключения детельной записи запросов (это уменьшит занимаемую память расшинения <i>µMatrix</i>).</p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh" : {
+        "message": "Обновить",
+        "description": "text for refresh button"
+    },
+
+
+    "settingsPageTitle" : {
+        "message": "µMatrix &ndash; Настройки",
+        "description": "header for the whole Settings page"
+    },
+    "settingsMatrixHeader" : {
+        "message": "Матрица",
+        "description": "header of Matrix settings section"
+    },
+    "settingsMatrixDisplayHeader" : {
+        "message": "Показать",
+        "description": "заголовок Матрицы/Показать секцию настроек"
+    },
+    "settingsMatrixDisplayTextSizePrompt" : {
+        "message": "Размер текста:",
+        "description": "..."
+    },
+    "settingsMatrixDisplayTextSizeNormal" : {
+        "message": "Нормальный",
+        "description": "..."
+    },
+    "settingsMatrixDisplayTextSizeLarge" : {
+        "message": "Большой",
+        "description": "..."
+    },
+    "settingsMatrixDisplayColorBlind" : {
+        "message": "Режим для дальтоников",
+        "description": "English: Color-blind friendly"
+    },
+    "settingsMatrixMoreSecurityHeader" : {
+        "message": "Больше защиты",
+        "description": "..."
+    },
+    "settingsStrictBlockingPrompt": {
+        "message": "Включить строгую блокировку.",
+        "description": ""
+    },
+    "settingsStrictBlockingInfo": {
+        "message": "<p><strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">Строгое\nблокирование</a></strong>,\nознокомиться на <a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">версии 0.3.6</a>,\nозначает, что\nесли вы внесли сайт в белый список, заблокированые запросы:  (<i>плагинов</i>,\n<i>фреймов</i>, и т.д.) будут в черном списке. Для некоторых пользователей это может быть\nнадоедливым, следовательно, нужен этот переключатель.</p>\n<p><strong>Строгие блокировки ВКЛ.</strong>: в черный список типов запросов (если любой)\nдля сайтов из белого списка будет блокированы (если явно не белый список\nспециально эти запросы для сайтов из белого списка.)</p>\n<p><strong>Строгие блокировки ВЫКЛ.</strong>: попавшие в черный список запросы (если любой)\nдля сайтов из белого списка разрешены (если вы явно не внесли эти запросы в ченый список для сайтов из белого списка.)</p>",
+        "description": "To help user understand the purpose of strict blocking"
+    },
+    "settingsAutoCreateScopePrompt1": {
+        "message": "Автоматически создавать временные",
+        "description": "English: Auto create temporary"
+    },
+    "settingsAutoCreateDomainScope": {
+        "message": "на уровне домена",
+        "description": "English: domain-level"
+    },
+    "settingsAutoCreateSiteScope": {
+        "message": "на уровне сайта",
+        "description": "English: site-level"
+    },
+    "settingsAutoCreateScopePrompt2": {
+        "message": "области.",
+        "description": "English: scope"
+    },
+    "settingsAutoCreateScopeInfo": {
+        "message": "<p>Эта опция позволяет автоматически создавать временные правила для новых сайтов.</p><p>There are many advantages to using domain- or site-scoped rules, one of them being the sandboxing of rules, a good habit for enhanced security.</p><p>For example, should you want to whitelist &ldquo;all&rdquo; for a web site (www.example.com), using a domain-level scope will limit this extremely permissive rule to only pages on that specific domain (example.com), while if used in the global scope (&ldquo;&#x2217;&rdquo;) the extremely permissive rule would apply to all pages on all web sites, i.e. the whitelisting of the whole internet.</p>",
+        "description": "English: see relevant messages.json file"
+    },
+    "settingsMatrixLessSecurityHeader" : {
+        "message": "Меньше защиты",
+        "description": "..."
+    },
+    "settingsAutoWhitelistPrompt": {
+        "message": "Автосоздание белых списков для домена.",
+        "description": ""
+    },
+    "settingsAutoWhitelistHelp": {
+        "message": "<p>Некоторые пользователи не любят добавлять домен текущей страницы в белый список по-умолчанию. Эта функция позволяет автоматически создавать временные белые списки из всей области страницы, когда она впервые загружается в браузере. The temporary auto-whitelisting will occur <b>only</b> если страница домена в серых списках.</p><p>Хотя включать эту опцию не рекомендуется, она была включена из-за удобства — я лучше включу её, нежели потеряю пользователей.</p><p>Если опция включена, рекомендуется включить блокировку <b>frame</b> запросов и <b>строгую блокировку</b>.</p>",
+        "description": "To help user understand the purpose of auto-whitelist"
+    },
+    "settingsMatrixConvenienceHeader" : {
+        "message": "Удобство",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt" : {
+        "message": "Когда матрица закроется, перезагрузить вкладку:",
+        "description": "..."
+    },
+    "settingsMatrixAutoReloadNone" : {
+        "message": "Ничего",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent" : {
+        "message": "Текущую",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll" : {
+        "message": "Все",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo" : {
+        "message": "Каждый раз, когда вы вносите изменения в матрицу, которые могут повлиять на отображение и/или поведение одной или нескольких страниц, <i>µMatrix</i> перезагрузит все затронутые страницы автоматически, после закрытия матрицы.",
+        "description": "..."
+    },
+    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
+        "message": "Копировать все правила из глобальной области во вновь создаваемые локальные области.",
+        "description": "English: Auto delete unused temporary scopes."
+    },
+    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
+        "message": "<p>Области являются изолированными, т.е. они не придерживаются правил, и это также относится и к глобальной области видимости: более узкие области “не видят” правил в глобальной области.</p> <p>Некоторые пользователи видят в этом препятствие, как они хотят, чтобы их глобальные правила были замечены более узкие области. Эта опция позволяет смягчить этот “недостаток”, позволяя копировать правила глобальных областей, в новую созданную узкую область.</p> <p>Помните, что <b>все</b> правила, копируемые из глобальной области видимости могут иметь предназначение для веб-сайта, для которых область была создана. Это может привести к “Правилам наворотов”, когда есть много правил в глобальной области видимости.</p>",
+        "description": "English: ..."
+    },
+    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
+        "message": "Автоматически удалять временные области.",
+        "description": "English: Auto delete unused temporary scopes."
+    },
+    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
+        "message": "",
+        "description": "English:"
+    },
+    "settingsSubframeColor" : {
+        "message": "Цвет заблокированного фрейма:",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity" : {
+        "message": "Прозрачность:",
+        "description": "English: Opacity:"
+    },
+
+
+    "privacyHeader" : {
+        "message": "Конфиденциальность",
+        "description": "header of Privacy section"
+    },
+    "privacyDeleteBlockedCookiesPrompt" : {
+        "message": "Удалять заблокированные куки.",
+        "description": "..."
+    },
+    "privacyDeleteBlockedCookiesHelp" : {
+        "message": "<p><i>µMatrix</i> не может помешать нежелательным кукам попасть в браузер, однако они могут остаться и храниться в браузере. Возможность попасть в бразуер позволит пользователю увидеть, что сайт попытался это сделать и проанализировать их содержимое.</p><p>После того, как <i>µMatrix</i> отнес куки к нежелательным, они могут быть удалены из браузера.</p><p><b>Важное дополнение:</b> Расширения могут делать web запросы, это вполне обычная для них операция. Эти запросы могут создать куки. Исли хост не из белого списка, то <i>µMatrix</i> удалит куки. Поэтому убедитесь, что хосты, с которыми работают расширения находятся в белом списке.</p>",
+        "description": "..."
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1" : {
+        "message": "Удалить не блокированные сеансовые куки через",
+        "description": "English: Delete non-blocked session cookies"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2" : {
+        "message": " минут после того, как они были последний раз использованы",
+        "description": "English: minutes after the last time they have been used."
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp" : {
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;Куки(cookie) сессии удалятся при завершении сеанса браузера. Они находятся во временной памяти и не сохранятся после закрытия браузера.&rdquo;</p><p>Но существует проблема, когда <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>это может не происходить</a> при использовании браузера на основе Chromium. Эта опция будет гарантией, что куки будут удалены, даже если этого не сделает браузер после закрытия.</p>",
+        "description": "..."
+    },
+    "privacyDeleteBlockedLocalStoragePrompt" : {
+        "message": "Удалить <a href='http://ru.wikipedia.org/wiki/Web_storage'>локальное хранилище</a> данных для заблокированных ресурсов",
+        "description": "..."
+    },
+    "privacyDeleteBlockedLocalStorageHelp" : {
+        "message": "TODO",
+        "description": "..."
+    },
+    "privacyClearCachePrompt1" : {
+        "message": "Очищать кеш браузера каждые",
+        "description": "English: Clear browser cache every"
+    },
+    "privacyClearCachePrompt2" : {
+        "message": "минут.",
+        "description": "English: minutes."
+    },
+    "privacyClearCacheHelp" : {
+        "message": "<p>Некоторые веб-сайты могут предпринимать разные методы, что отследить личную информацию</p><p>Некоторые из приемов опираются <sup style='font-size:smaller'>[1, 2]</sup>на<a href='https://en.wikipedia.org/wiki/Web_cache'> использование кеша браузера</a>, который зачастую долго хранится, поэтому рекомендуется его переодически очищать.</p><p>Вручную очищать его не удобно.</p><p>Выбирете эту опцию и  <i>µMatrix</i> все сделает за вас.</p><p style='font-size:smaller'>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Предотвращение отслеживание с помощью кэша веб-браузера&rdquo;</a><br>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Без куки&rdquo;</a></p>",
+        "description": "..."
+    },
+    "privacyProcessRefererPrompt" : {
+        "message": "Удалить стороннюю информацию из <a href='https://ru.wikipedia.org/wiki/HTTP_referer'>HTTP запросов</a> к хостам, которых нет в белом списке.",
+        "описание": "..."
+    },
+    "privacyProcessRefererHelp" : {
+        "message": "<p>Из Википедии: &ldquo;в протоколе HTTP один из заголовков запроса клиента. Содержит URL источника запроса. Если перейти с одной страницы на другую, referer будет содержать адрес первой страницы.  ... <b>Поскольку посылаемая информация может нарушить конфиденциальность, некоторые веб браузеры могут позволить пользователям отключить посылку этих данных.</b>&rdquo;</p><p>Если выбрана эта опция, <i>µMatrix</i> будет удалять HTTP запросы, при условии, что выполняются условия <b>ниже</b>:<ul style='padding-left:1em;list-style-type:disc;'><li>Доменное имя HTTP-referer не соответствует имени домена из URL запроса (referer сторонней веб-страницы);<li>Адрес хоста в запросе не из белого списка.</ul></p>",
+        "описание": "..."
+    },
+    "privacyProcessHyperlinkAuditingPrompt" : {
+        "message": "Блокировать все <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>запросы на проверку ссылок</a>.",
+        "description": "..."
+    },
+    "privacyProcessHyperlinkAuditingHelp" : {
+        "message": "<p>Проверка ссылок, это механизм, который позволяет <b>3м лицим</b>отслеживать нажатие на ссылки. Считай, что с помощью этой функции могут следить за вашей активностью т.к. сайт или 3-и лица будут информированы, нажали ли вы на ссылку. Это еще один из сбособов слежки за деятельность пользователя.</p>",
+        "description": "..."
+    },
+    "privacySpoofUserAgentPrompt1" : {
+        "message": "Подмена <a href='https://ru.wikipedia.org/wiki/User_agent'>User-Agent</a> строки, выбирая случайную строку ниже каждые",
+        "description": "Spoof <a href='https://ru.wikipedia.org/wiki/User_agent'>User-Agent</a> string by picking one randomly below every"
+    },
+    "privacySpoofUserAgentPrompt2" : {
+        "message": "минут.",
+        "description": "minutes."
+    },
+    "privacySpoofUserAgentHelp" : {
+        "message": "<a href='https://www.eff.org/deeplinks/2010/01/tracking-by-user-agent'>В соответствии с <i>Electronic Frontier Foundation</i></a>: &ldquo;[...] Ваш браузер отправляет &lsquo;User Agent&rsquo; заголовок сайту, сообщая каким браузером и ОС вы пользуетесь. Эта мнформация помогает различать пользователей в сети, often considerably, from person to person. [...] <b>Данные User Agent становятся конфиденциальной информацией</b>.&rdquo;<p>эта опция позволяет Вам решить проблемы конфиденциальности, поднятые EFF.</p><p>Вы можете указать свой собственный список User Agent пользователя. Одно слово на строку. Пустые строки и линии с префиксом &lsquo;#&rsquo; будут пропущены.</p>",
+        "description": "..."
+    },
+    "privacyBehindTheSceneHeader" : {
+        "message": "Chromium: Фоновые запросы",
+        "description": "header of Chromium: behind-the-scene requests section"
+    },
+    "privacyProcessBehindTheSceneHelp" : {
+        "message": "<p>В соответствии с <a href='https://www.google.ru/intl/ru/chrome/browser/privacy/whitepaper.html'>Google Chrome Privacy Whitepaper</a>, <i>Chromium</i> может послать HTTP-запросы в <i>Google</i> даже, если пользователь не загружает веб страницы. Давайте назовем это - <strong>фоновые запросы</strong>. Кроме того, другие установленные расширения могут делать <strong>фоновые запросы</strong>.</p><p><i>µMatrix</i> позволяет контролировать доступ к этой информации: эти запросы могут быть обработаны, чтобы разрешить/запретить их в соответствии с настройками белого/черного списков.</p><p>Кликните на иконку расширения, для начала работы. Обязательно прочтите: <a href='https://github.com/gorhill/httpswitchboard/wiki/Behind-the-scene-requests'>Фоновые запросы</a>.</p><div class='warn'><p><span style='color:red; font-weight:bold'>Внимание!</span> Запрещение <strong>фоновых запросов</strong> может вызвать <a href='https://github.com/gorhill/httpswitchboard/issues/27'>проблему</a> когда пользовать хочет установить расширение из Chrome store (включая проблемы с обновлением расширений), возможно отключить эту функцию здесь. Блокирование этих запросов может вызывать разные проблемы с работой расширений.</p> <p>Даже если эта функция не включена, то <strong>фоновые запросы</strong> логируются в <i>µMatrix</i>. Вы можете посмотреть эти запросы на (на странице <a href='dashboard.html#statistics'>Статистики</a>).</p>",
+        "description": "..."
+    },
+    "privacyDoneButton" : {
+        "message": "Применить",
+        "description": "Close the Privacy page"
+    },
+
+
+    "ubiquitousWhatIsThisHeader" : {
+        "message": "Что это?",
+        "description": "English: What is this?"
+    },
+    "ubiquitousWhatIsThisPrompt" : {
+        "message": "&ldquo;Глобальные правила&rdquo; правила, применяемые везде, во всех областях.",
+        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which applies everywhere, i.e. in all scopes."
+    },
+    "ubiquitousListsOfBlockedHostsPrompt1" : {
+        "message": "Все списки заблокированных хостов загружаются, как глобальные правила, в связи с чем их владельцы находятся в черном списке для всех областей.",
+        "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."
+    },
+    "ubiquitousListsOfBlockedHostsPrompt2" : {
+        "message": "{{ubiquitousBlacklistCount}} блокируется хостов, помимо:",
+        "description": "English: {{ubiquitousBlacklistCount}} distinct blocked hostnames from:"
+    },
+    "ubiquitousListsOfBlockedHostsPerListStats" : {
+        "message": "{{used}} используется из {{total}}",
+        "description": "English: {{used}} used out of {{total}}"
+    },
+    "ubiquitousListsOfBlockedHostsHeader" : {
+        "message": "Список блокируемых хостов",
+        "description": "English: Lists of blocked hosts"
+    },
+    "userUbiquitousBlacklistHeader" : {
+        "message": "Ваши правила блокирования",
+        "description": "English: Your block rules"
+    },
+    "userUbiquitousWhitelistHeader" : {
+        "message": "Ваши правила разрешения",
+        "description": "English: Your allow rules"
+    },
+    "ubiquitousApplyChanges" : {
+        "message": "Применить изменения",
+        "description": "English: Apply changes"
+    },
+    "ubiquitousFormatHint" : {
+        "message": "Одно правило на строку. Правилом может быть обычное имя сайти, или <a href='https://adblockplus.org/ru/filters'>Adblock Plus-совместимый фильтр</a> . Линии начинающиеся с &lsquo;#&rsquo; будут пропущены.",
+        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible filter. Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    },
+    "ubiquitousAllowFormatHint" : {
+        "message": "Одно правило на строку. Правилом может быть обычное имя сайти, или Adblock Plus-совместимый фильтр. Линии начинающиеся с &lsquo;#&rsquo; будут пропущены.",
+        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible exception filter (prefixed with &lsquo;@@&rsquo;). Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    },
+    "ubiquitousImport" : {
+        "message": "Импортировать и добавить",
+        "description": "English: Import and append"
+    },
+    "ubiquitousExport" : {
+        "message": "Экспортировать",
+        "description": "English: Export"
+    },
+
+
+    "scopedCommitAllButton": {
+        "message": "Применить все",
+        "description": "English: Commit all"
+    },
+    "scopedRevertAllButton": {
+        "message": "Вернуть все",
+        "description": "English: Revert all"
+    },
+    "scopedMarkAllForDeletionButton": {
+        "message": "Отметить все для удаления",
+        "description": "English: Mark all for deletion"
+    },
+    "scopedResetToFactoryButton": {
+        "message": "Сброс к заводским",
+        "description": "English: Reset to factory"
+    },
+    "scopedRulesHeader": {
+        "message": "Правила",
+        "description": "English: Rules"
+    },
+    "scopedRulesInfo": {
+        "message": "Тут вы можете сохранить все ваши области и правила: Нажмите &ldquo;Экспорт правил&rdquo;, можно нажать &ldquo;закодировать рецепт&rdquo;, сохраняем данные в файл, который может быть загружен сюда. <p>Синтаксис простой, только продвинутым пользователям рекомендуется изменять их. Если вы импортируете рецепт из ненадежного источника, убедитесь, в белые списки не попали вредоносные сайты (типа.: <b>&ldquo;whitelist * вирусы.рф&rdquo;</b>)</p>",
+        "description": "English: [see english message.json]"
+    },
+    "scopedRecipeHeader": {
+        "message": "Рецепт",
+        "description": "English: Recipes"
+    },
+    "scopedRecipesInfo": {
+        "message": "&ldquo;Рецепт&rdquo; - это набор правил закодированый для облегчения его сохранения или обмена между пользователями. Надеюсь, продвинутые пользователи будут делиться своими готовыми рецептами, чтобы помочь новичкам.",
+        "description": "English: [see english message.json]"
+    },
+    "scopedBackupRecipeButton": {
+        "message": "Сохранить в файл",
+        "description": "English: Backup to file"
+    },
+    "scopedRestoreRecipeButton": {
+        "message": "Восстановить из файла",
+        "description": "English: Restore from file"
+    },
+    "scopedDecodeRecipeButton": {
+        "message": "Декодировать рецепт",
+        "description": "English: Decode recipe"
+    },
+    "scopedEncodeRecipeButton": {
+        "message": "Закодировать рецепт",
+        "description": "English: Encode recipe"
+    },
+    "scopedImportRulesButton": {
+        "message": "Импорт правил",
+        "description": "English: Import rules"
+    },
+    "scopedExportRulesButton": {
+        "message": "Экспорт правил",
+        "description": "English: Export rules"
+    },
+    "scopedGlobalScopeHeader": {
+        "message": "Глобальная область",
+        "description": "English: Global scope"
+    },
+    "scopedBtsScopeHeader": {
+        "message": "Behind-the-scene scope",
+        "description": "English: Behind-the-scene scope"
+    },
+    "scopedDomainScopeHeader": {
+        "message": "Область домена",
+        "description": "English: Domain-level scope"
+    },
+    "scopedSiteScopeHeader": {
+        "message": "Область сайта",
+        "description": "English: Site-level scope"
+    },
+    "scopedDeletionPrompt": {
+        "message": "Вы собираетесь удалить {{deleteCount}} правил.\nЭто необратимо.\nНажмите Да для продолжения.",
+        "description": "English: You are about to delete {{deleteCount}} rules.\nIt is irreversible.\nClick OK to confirm."
+    },
+
+
+    "aboutChangelog" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Change-log'>Список изменений</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Change-log'>Change log</a>"
+    },
+    "aboutStorageUsed" : {
+        "message": "Памяти используется: {{storageUsed}}%",
+        "description": "English: Storage used: {{storageUsed}}%"
+    },
+    "aboutDoc" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki'>Документация</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki'>Documentation</a>"
+    },
+    "aboutPermissions" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Разрешения</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Permissions</a>"
+    },
+    "aboutCode" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard'>Исходный код (GPLv3)</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard'>Source code (GPLv3)</a>"
+    },
+    "aboutCredits" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>Благодарности</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>Credits</a>"
+    },
+    "aboutUserDataHeader" : {
+        "message": "Ваши настройки",
+        "description": "English: Your data"
+    },
+    "aboutUserDataBackupButton" : {
+        "message": "Сохранить в файл...",
+        "description": "English: Backup all..."
+    },
+    "aboutUserDataRestoreButton" : {
+        "message": "Восстановить из файла...",
+        "description": "English: Restore all..."
+    },
+    "aboutUserDataOr" : {
+        "message": "... или ...",
+        "description": "English: ... or ..."
+    },
+    "aboutUserDataResetButton" : {
+        "message": "Запустить настройку с нуля...",
+        "description": "English: Start from scratch..."
+    },
+    "aboutUserDataRestoreConfirm" : {
+        "message": "Все ваши настройки и правила будет перезаписаны\nданными от {{time}},\nи µMatrix перезапустится.\n\nПерезаписать все существующие данные резервной копией?",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutExtensionDataHeader" : {
+        "message": "Данные расширения",
+        "description": "English: Extension data"
+    },
+    "aboutAssetsUpdatePrompt" : {
+        "message": "<i>µMatrix</i> подписки могут быть обновлены здесь вручную, если не хотите ждать новой версии расширения. Они загружаются из <a href=\"https://github.com/gorhill/httpswitchboard\">Github хранилища</a>.",
+        "description": "Short descriptive text of the update feature"
+    },
+    "aboutAssetsUpdateColPath" : {
+        "message": "Путь",
+        "description": "Path column header"
+    },
+    "aboutAssetsUpdateColStatus" : {
+        "message": "Состояние",
+        "description": "Status column header"
+    },
+    "aboutAssetsUpdateGetListError" : {
+        "message": "Произошла ошибка. <b>XHR</b> заблокирован для <b>raw2.github.com</b>?",
+        "description": "Successful outcome of clicking 'update' button"
+    },
+    "aboutAssetsUpdateStatusAdded" : {
+        "message": "Добавить",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusChanged" : {
+        "message": "Доступно обновление",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusUnchanged" : {
+        "message": "Обновлений не найдено",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusRemoved" : {
+        "message": "Для удаления",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateButton" : {
+        "message": "Обновить",
+        "description": "Update button"
+    },
+    "aboutAssetsUpdatingButton" : {
+        "message": "Обновление...",
+        "description": "Updating..."
+    },
+
+
+    "setupPagePrompt" : {
+        "message": "<p><b>µMatrix</b> можно гибко настроить: в любом месте можно уставновить &ldquo;блокирование всего&rdquo; и &ldquo;ничего не блокировать&rdquo;. <p>Чем выше безопасность, тем больше вероятность &ldquo;поломки&rdquo; сайтов, это означает, что сайт будет загружаться не полностью или вести себя не так, как задумавал создатель. Поэтому скорее всего потребуется вмешательство пользователя, чтобы &ldquo;починить&rdquo; эти страницы, которым пользователь доверяет, разрешив в матрице данные необходимые для нормальной работы сайта. <p>Здесь вы можете выбрать готовый профиль, как будет работать <b>µMatrix</b>. Можно считать это начальной настройкой т.к. дальше их можно дополнять для конкретных сайтов отдельно.",
+        "description": "Appears at the top of the setup page"
+    },
+    "setupBlockAllAllowExceptionally" : {
+        "message": "Блокировать все / разрешать исключения",
+        "description": "English: Block all / allow exceptionally"
+    },
+    "setupAllowAllBlockExceptionally" : {
+        "message": "Разрешить все / блокировать исключения",
+        "description": "English: Allow all / block exceptionally"
+    },
+    "setupAdBlocker" : {
+        "message": "Как блокировщик рекламы",
+        "description": "English: Ad blocker-like"
+    },
+    "setupNoScript" : {
+        "message": "Как блокировщик скриптов",
+        "description": "English: NoScript-like"
+    },
+    "setupRequestPolicy" : {
+        "message": "Как политика запросов",
+        "description": "English: RequestPolicy-like"
+    },
+    "setupBlockNothingReportAll" : {
+        "message": "Ничего не блокировать / докладывать обо всем",
+        "description": "English: Block nothing / report everything"
+    },
+    "setupSecurity" : {
+        "message": "Безопасность:",
+        "description": "English: Security:"
+    },
+    "setupBreakage" : {
+        "message": "Вероятность неправильного отображения сайта::",
+        "description": "English: Breakage:"
+    },
+    "setupVeryHigh" : {
+        "message": "очень высокая",
+        "description": "English: very high"
+    },
+    "setupHigh" : {
+        "message": "высокая",
+        "description": "English: high"
+    },
+    "setupMediumHigh" : {
+        "message": "выше среднего",
+        "description": "English: medium high"
+    },
+    "setupMedium" : {
+        "message": "средняя",
+        "description": "English: medium"
+    },
+    "setupMediumLow" : {
+        "message": "ниже среднего",
+        "description": "English: medium low"
+    },
+    "setupLow" : {
+        "message": "низкая",
+        "description": "English: low"
+    },
+    "setupVeryLow" : {
+        "message": "очень низкая",
+        "description": "English: very low"
+    },
+    "setupNone" : {
+        "message": "ни влияет",
+        "description": "English: none"
+    },
+    "setupRestoreConfirm" : {
+        "message": "Все ваши правила и настройки будут перезаписаны\nи µMatrix перезапустится.\n\nПерезаписать существующие настройки?",
+        "description": "English: All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?"
+    },
+
+
+    "commandRevertAll" : {
+        "message": "Remove all temporary changes",
+        "description": "English: Remove all temporary changes"
+    },
+    "commandWhitelistPageDomain" : {
+        "message": "Temporarily whitelist page domain",
+        "description": "English: Temporarily whitelist page domain"
+    },
+    "commandWhitelistAll" : {
+        "message": "Temporarily whitelist all",
+        "description": "English: Temporarily whitelist all"
+    },
+    "commandOpenDashboard" : {
+        "message": "Open dashboard",
+        "description": "English: Open dashboard"
+    },
+
+
+    "dummy": {
+        "message": "Эта запись должна быть последней",
+        "description": "so we dont need to deal with comma for last entry"
+    }
+}

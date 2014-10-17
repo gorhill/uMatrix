@@ -1,0 +1,88 @@
+{
+    "manifest_version": 2,
+    "name": "__MSG_extName__",
+    "short_name": "µMatrix",
+    "version": "0.8.0.0",
+    "description": "__MSG_extShortDesc__",
+    "icons": {
+        "16": "icon_16.png",
+        "128": "icon_128.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "19": "img/browsericons/icon19.png"
+        },
+        "default_title": "__MSG_extName__",
+        "default_popup": "popup.html"
+    },
+    "author": "Raymond Hill",
+    "background": {
+        "page": "background.html"
+    },
+    "commands": {
+       "revert-all": {
+            "description": "__MSG_commandRevertAll__",
+            "suggested_key": {
+                "default": "Alt+Q",
+                "mac": "Command+Shift+Q"
+            }
+        },
+       "whitelist-all": {
+            "description": "__MSG_commandWhitelistAll__",
+            "suggested_key": {
+                "default": "Alt+A",
+                "mac": "Command+Shift+A"
+            }
+        },
+       "whitelist-page-domain": {
+            "description": "__MSG_commandWhitelistPageDomain__",
+            "suggested_key": {
+                "default": "Alt+W",
+                "mac": "Command+Shift+W"
+            }
+        },
+       "open-dashboard": {
+            "description": "__MSG_commandOpenDashboard__",
+            "suggested_key": {
+                "default": "Alt+S",
+                "mac": "Command+Shift+S"
+            }
+        }
+    },
+    "content_scripts": [
+    {
+        "matches": ["http://*/*", "https://*/*"],
+        "js": ["js/contentscript-start.js"],
+        "run_at": "document_start",
+        "all_frames": true
+        },
+    {
+        "matches": ["http://*/*", "https://*/*"],
+        "js": ["js/contentscript-end.js"],
+        "run_at": "document_end",
+        "all_frames": true
+        }
+    ],
+    "default_locale": "en",
+    "homepage_url": "https://github.com/gorhill/uMatrix/wiki",
+    "minimum_chrome_version": "22.0",
+    "options_page": "dashboard.html",
+    "permissions": [
+        "browsingData",
+        "contentSettings",
+        "cookies",
+        "downloads",
+        "storage",
+        "tabs",
+        "unlimitedStorage",
+        "webNavigation",
+        "webRequest",
+        "webRequestBlocking",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "web_accessible_resources": [
+        "css/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf",
+        "css/noop.css"
+    ]
+}

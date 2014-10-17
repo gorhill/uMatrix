@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="css/common.css" type="text/css">
+<link rel="stylesheet" href="css/popup.css" type="text/css">
+<title>HTTP Switchboard</title>
+</head>
+
+<body>
+
+<div id="templates" style="display:none">
+    <div class="groupSeparator"></div>
+    <div class="domainSeparator"></div>
+    <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+    <div id="cellHotspots"><div id="whitelist"></div><div id="blacklist"></div><div id="domainOnly"><span class="fa"></span></div></div>
+</div>
+
+<div class="paneHead">
+    <div id="toolbarLeft" class="toolbar alignLeft">
+        <button id="scopeCell" class="dropdown-menu-button" tabindex="-1"></button>
+        <div id="scopeKeys" class="dropdown-menu">
+            <ul>
+                <li id="scopeKeyGlobal" class="dropdown-menu-entry">&#x2217;
+                <li id="scopeKeyDomain" class="dropdown-menu-entry">
+                <li id="scopeKeySite" class="dropdown-menu-entry">
+            </ul>
+        </div>
+        <div class="dropdown-menu-capture"></div>
+        <button id="buttonMtxFiltering" type="button" class="dropdown-menu-entry fa scopeRel switch tip-anchor-left" data-i18n-tip="matrixMtxButtonTip">&#xf011;<span class="badge"></span></button>
+        <button id="buttonPersist" type="button" class="fa scopeRel tip-anchor-left" data-i18n-tip="matrixPersistButtonTip">&#xf023;<span class="badge"></span></button>
+        <button id="buttonRevertScope" type="button" class="fa scopeRel tip-anchor-left" tabindex="-1" data-i18n-tip="matrixRevertButtonTip">&#xf12d;</button>
+    </div>
+
+    <!-- Yandex: float works correctly only if it is the first child -->
+    <div class="toolbar alignRight">
+        <button id="buttonRevertAll" type="button" class="fa tip-anchor-right" tabindex="-1" data-i18n-tip="matrixRevertButtonAllTip">&#xf12d;<span class="fa">&#xf12d;</span><span class="fa">&#xf12d;</span><span class="fa">&#xf12d;</span><span class="fa">&#xf12d;</span></button>
+        <button id="buttonReload" type="button" class="fa tip-anchor-right" data-i18n-tip="matrixReloadButton">&#xf021;</button>
+        <button id="buttonDashboard" type="button" class="dropdown-menu-entry extensionURL fa tip-anchor-right" data-extension-url="dashboard.html">&#xf085;</button>
+    </div>
+
+    <div id="matHead" class="matrix collapsible">
+        <div class="matRow rw" style="display:none"><div class="matCell" data-req-type="all">all</div><div class="matCell" data-req-type="cookie">cookie</div><div class="matCell" data-req-type="stylesheet">css</div><div class="matCell" data-req-type="image">img</div><div class="matCell" data-req-type="object">plugin</div><div class="matCell" data-req-type="script">script</div><div class="matCell" data-req-type="xmlhttprequest">XHR</div><div class="matCell" data-req-type="sub_frame">frame</div><div class="matCell" data-req-type="other" title="<video>&#13;<audio>">other</div></div>
+    </div>
+</div>
+
+<div class="paneContent">
+    <div id="matList" class="matrix" style="display:none">
+        <!-- the spaces are important: they ensure text nodes in the DOM -->
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+        <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+    </div>
+    <div id="noNetTrafficPrompt" style="display:none;text-align:center;font-size:large"></div>
+</div>
+
+<script src="lib/jquery-2.min.js"></script>
+<script src="lib/punycode.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/messaging-client.js"></script>
+<script src="js/popup.js"></script>
+</body>
+
+</html>

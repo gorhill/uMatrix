@@ -1,0 +1,590 @@
+body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font: 13px httpsb,sans-serif;
+    background-color: white;
+    min-width: 32em;
+    min-height: 15em;
+    }
+*:focus {
+    outline: none;
+    }
+
+.paneHead {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    height: 5.5em;
+    left:0;
+    right: 0;
+    background-color: white;
+    z-index: 10;
+    }
+.paneContent {
+    padding-top: 5.5em;
+    }
+
+
+
+.toolbar {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    padding-bottom: 0.25em;
+    display: inline-block;
+    white-space: nowrap;
+    vertical-align: top;
+    position: absolute;
+    top: 0;
+    }
+.toolbar.alignLeft {
+    left: 0;
+    }
+.toolbar.alignRight {
+    right: 0;
+    }
+
+
+
+body .toolbar button {
+    margin: 0;
+    border: 0;
+    padding: 4px;
+    font: inherit;
+    background-color: white;
+    opacity: 0.9;
+    cursor: pointer;
+    vertical-align: top;
+    }
+body .toolbar button:hover {
+    background-color: #eee;
+    opacity: 1;
+    }
+body .toolbar button.disabled {
+    color: #ccc;
+    }
+body .toolbar button.switch.disabled {
+    color: #a00;
+    }
+body .toolbar button.fa {
+    font: 1.75em 'FontAwesome';
+    min-width: 1.1em;
+    }
+body.tScopeGlobal .toolbar button.scopeRel:not(.disabled) {
+    color: #000;
+    }
+body.tScopeLocal .toolbar button.scopeRel:not(.disabled) {
+    color: #24c;
+    }
+
+
+
+.dropdown-menu {
+    margin: 0;
+    border: 0;
+    padding: 3px 0 0 0;
+    position: absolute;
+    z-index: 50;
+    font-size: 110%;
+    display: none;
+    white-space: normal;
+    }
+.dropdown-menu > ul {
+    margin: 0;
+    border: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.25em;
+    background-color: white;
+    list-style-type: none;
+    }
+.dropdown-menu > ul > li.dropdown-menu-entry {
+    margin: 0;
+    border: 0;
+    padding: 4px 0.5em;
+    color: black;
+    cursor: pointer;
+    }
+.dropdown-menu > ul > li.dropdown-menu-entry:hover {
+    background: #eee;
+    }
+.dropdown-menu > ul > li.dropdown-menu-entry-divider {
+    margin: 0.5em 0;
+    border-top: 1px solid #ccc;
+    }
+.dropdown-menu > ul > li.dropdown-menu-entry > .fa {
+    margin-right: 0.5em;
+    font-size: 110%;
+    color: #aaa;
+    }
+.dropdown-menu {
+    display: none;
+    }
+.dropdown-menu.show {
+    display: block;
+    }
+.dropdown-menu-capture {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    opacity: 0.1;
+    display: none;
+    z-index: 40;
+    }
+.dropdown-menu.show ~ .dropdown-menu-capture {
+    display: block;
+    }
+
+body #buttonRevertAll {
+    position: relative;
+    color: transparent;
+    }
+body #buttonRevertAll > span {
+    position: absolute;
+    font-size: 60%;
+    color: black;
+    }
+body #buttonRevertAll > span:nth-of-type(1) {
+    left: 3px;
+    top: 3px;
+    }
+body #buttonRevertAll > span:nth-of-type(2) {
+    right: 3px;
+    top: 3px;
+    }
+body #buttonRevertAll > span:nth-of-type(3) {
+    right: 3px;
+    bottom: 3px;
+    }
+body #buttonRevertAll > span:nth-of-type(4) {
+    left: 3px;
+    bottom: 3px;
+    }
+
+button {
+    position: relative;
+    }
+button > span.badge {
+    padding: 1px 1px;
+    display: inline-block;
+    font-size: 40%;
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    color: #000;
+    background-color: rgba(240,240,240,0.75)
+    }
+button.disabled > span.badge {
+    display: none;
+    }
+#buttonPresets + .dropdown-menu {
+    position: fixed;
+    left: 10vw;
+    width: 80vw;
+    }
+.presetInfo {
+    margin: 0.25em 0.5em;
+    text-align: center;
+    }
+.presetEntry {
+    margin: 0.25em 0.25em;
+    border-radius: 3px;
+    padding: 0.5em;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #eee;
+    }
+.presetEntry .fa {
+    margin-right: 0.25em;
+    font-size: 110%;
+    }
+.presetEntry:hover {
+    background-color: #80e2ff;
+    }
+#presetMore > *:first-child {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #888;
+    cursor: pointer;
+    font-size: 13px;
+    }
+#presetMore > *:first-child + div {
+    margin: 0.25em 0 0 0;
+    padding: 0.25em 0 0 0;
+    display: none;
+    text-align: center;
+    }
+#presetMore > *:first-child + div.show {
+    display: block;
+    }
+#presetMore > *:first-child + div > * {
+    vertical-align: middle;
+    }
+#presetMoreRecipe {
+    border: 1px solid #aaa;
+    width: 75%;
+    height: 4em;
+    overflow: hidden;
+    resize: none;
+    font-size: 10px;
+    color: #888;
+    }
+#presetMoreRecipe.bad {
+    border: 1px solid #fcc;
+    color: #aaa;
+    }
+#presetMoreWrite.bad {
+    visibility: hidden;
+    }
+
+/* I think this is obsolete */
+.dropdown-menu > li > a > i {
+    padding: 0 6px;
+    font-size: 1.2em;
+    }
+
+body .toolbar button#scopeCell {
+    margin: 0;
+    border: 1px dotted rgba(0,0,0,0.2);
+    padding: 6px 1px 3px 1px;
+    box-sizing: content-box;
+    width: 16em;
+    height: 1.5em;
+    white-space: nowrap;
+    text-align: right;
+    line-height: 100%;
+    color: white;
+    background-repeat: no-repeat;
+    background-position: -1px -1px;
+    }
+body #scopeCell + .dropdown-menu {
+    padding: 6px 1px 3px 1px;
+    left: 0;
+    right: 0;
+    text-align: right;
+    width: 16em;
+    }
+body.tScopeGlobal #scopeCell {
+    background-color: #000;
+    }
+body.tScopeLocal #scopeCell {
+    background-color: #24c;
+    }
+
+
+.matrix {
+    text-align: left;
+    }
+.matRow {
+    white-space: nowrap;
+    }
+.matCell {
+    margin: 1px 1px 0 0;
+    border: 1px dotted rgba(0,0,0,0.2);
+    padding: 6px 1px 3px 1px;
+    display: inline-block;
+    box-sizing: content-box;
+    width: 2.4em;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 110%;
+    position: relative;
+    }
+
+.paneHead #matHead {
+    position: absolute;
+    bottom: 3px;
+    }
+.paneHead .matCell:nth-child(2) {
+    letter-spacing: -0.3px;
+    }
+
+.paneContent .matrix .matRow > .matCell:first-child {
+    font-weight: 100;
+    }
+.paneContent .matrix .matRow > .matCell:first-child > b {
+    font-weight: normal;
+    }
+
+.matrix .matRow > .matCell:first-child {
+    width: 16em;
+    text-align: start;
+    direction: rtl;
+    }
+.matrix .matRow.l2 > .matCell:first-child {
+    margin-left: 1px;
+    width: calc(16em - 1px);
+    }
+.matrix .matRow > .matCell:hover {
+    border-style: solid;
+    }
+.matrix .matGroup .matSection {
+    margin: 2px 0 0 0;
+    border: 0;
+    padding: 0;
+    /* background-color: rgba(0,0,0,0.05); */
+    }
+.matrix .matGroup .matSection:first-child {
+    margin-top: 2px;
+    border-top: 1px dotted #ccc;
+    padding-top: 1px;
+    }
+.matrix .matGroup.g0 .matSection:first-child {
+    margin-top: 0;
+    }
+.matrix .matGroup.g3 .matSection:first-child {
+    margin-top: 0;
+    }
+/* Collapsing of domains */
+.matrix .matSection .matRow.meta {
+    display: none;
+    }
+.matrix .matSection.collapsible.collapsed .matRow.meta {
+    display: block;
+    }
+.matrix .matSection.collapsible.collapsed .matRow.l1:not(.meta) {
+    display: none;
+    }
+.matrix .matSection.collapsible.collapsed .matRow.l2.collapsible {
+    display: none;
+    }
+
+/* Collapsing of blacklisted */
+.matrix .g3Meta {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 6px;
+    background: url('/img/matrix-group-hide.png') no-repeat center top,
+                url('/img/matrix-group-hline.png') repeat-x center top 3px;
+    opacity: 0.2;
+    cursor: pointer;
+    }
+.matrix .g3Meta:hover {
+    opacity: 0.4;
+    }
+.matrix .g3Meta.g3Collapsed {
+    background: url('/img/matrix-group-show.png') no-repeat center top,
+                url('/img/matrix-group-hline.png') repeat-x center top 3px;
+    }
+.matrix .g3Meta.g3Collapsed ~ .matSection {
+    display: none;
+    }
+body.powerOff .matrix .g3Meta.g3Collapsed ~ .matSection {
+    display: block;
+    }
+.matrix .g3Meta ~ .matRow.ro {
+    display: none;
+    }
+.matrix .g3Meta.g3Collapsed ~ .matRow.ro {
+    display: block;
+    }
+body.powerOff .matrix .g3Meta.g3Collapsed ~ .matRow.ro {
+    display: none;
+    }
+.matrix .matGroup .g3Meta + *,.matrix .matGroup .g3Meta + * + * {
+    margin-top: 0;
+    padding-top: 0;
+    }
+
+/* Cell coloring */
+.rd {
+    color: white;
+    background-color: #c00;
+    }
+.gd {
+    color: white;
+    background-color: #080;
+    }
+.ri,
+.rg {
+    border-color: #debaba;
+    color: black;
+    background-color: #f8d0d0;
+    }
+.gi,
+.gg {
+    border-color: #bad6ba;
+    color: black;
+    background-color: #d0f0d0;
+    }
+.matCell.rdp {
+    background-image: url('/img/permanent-black-small.png');
+    background-repeat: no-repeat;
+    background-position: -1px -1px;
+    }
+.matCell.gdp {
+    background-image: url('/img/permanent-white-small.png');
+    background-repeat: no-repeat;
+    background-position: -1px -1px;
+    }
+
+/* Cell coloring for color blind-friendly (hopefully) */
+body.colorblind .rd {
+    color: white;
+    background-color: #000;
+    }
+body.colorblind .gd {
+    border-color: #aaa;
+    color: black;
+    background-color: #fff;
+    }
+body.colorblind .ri,
+body.colorblind .rg {
+    border-color: #333;
+    color: white;
+    background-color: #555;
+    }
+body.colorblind .gi,
+body.colorblind .gg {
+    border-color: #aaa;
+    color: black;
+    background-color: #ddd;
+    }
+body.colorblind .matCell.rdp {
+    background-image: url('/img/permanent-black-small-cb.png');
+    }
+body.colorblind .matCell.gdp {
+    background-image: url('/img/permanent-white-small-cb.png');
+    }
+    
+
+.matRow.rw .matCell {
+    cursor: pointer;
+    }
+body.powerOff .matRow.rw .matCell {
+    cursor: auto;
+    opacity: 0.6;
+    }
+
+.top {
+    font-weight: bold;
+    }
+
+#cellHotspots {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    }
+#whitelist, #blacklist {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: transparent;
+    }
+#whitelist {
+    top: 0;
+    }
+#blacklist {
+    top: 50%;
+    }
+body.powerOff #whitelist, body.powerOff #blacklist {
+    display: none;
+    }
+.rw .matCell.ri #whitelist:hover,
+.rw .matCell.rg #whitelist:hover {
+    background-color: #080;
+    opacity: 0.25;
+    }
+body.colorblind .rw .matCell.ri #whitelist:hover,
+body.colorblind .rw .matCell.rg #whitelist:hover {
+    background-color: #fff;
+    opacity: 0.6;
+    }
+.rw .matCell.gi #whitelist:hover,
+.rw .matCell.gg #whitelist:hover {
+    background-color: #080;
+    opacity: 0.25;
+    }
+body.colorblind .rw .matCell.gi #whitelist:hover,
+body.colorblind .rw .matCell.gg #whitelist:hover {
+    background-color: #fff;
+    opacity: 0.6;
+    }
+.matCell.rdt #whitelist:hover {
+    background-color: transparent;
+    }
+.matCell.gdt #whitelist:hover {
+    background-color: transparent;
+    }
+.rw .matCell.ri #blacklist:hover,
+.rw .matCell.rg #blacklist:hover {
+    background-color: #c00;
+    opacity: 0.25;
+    }
+body.colorblind .rw .matCell.ri #blacklist:hover,
+body.colorblind .rw .matCell.rg #blacklist:hover {
+    background-color: #000;
+    opacity: 0.4;
+    }
+.rw .matCell.gi #blacklist:hover,
+.rw .matCell.gg #blacklist:hover {
+    background-color: #c00;
+    opacity: 0.25;
+    }
+body.colorblind .rw .matCell.gi #blacklist:hover,
+body.colorblind .rw .matCell.gg #blacklist:hover {
+    background-color: #000;
+    opacity: 0.4;
+    }
+.matCell.rd #blacklist:hover {
+    background-color: transparent;
+    }
+.matCell.gd #blacklist:hover {
+    background-color: transparent;
+    }
+#domainOnly {
+    margin: 0;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 0 1px;
+    position: absolute;
+    font-size: 1.1em;
+    left: 20%;
+    bottom: -20%;
+    visibility: hidden;
+    color: black;
+    background-color: white;
+    opacity: 0.25;
+    z-index: 10000;
+    cursor: pointer;
+    }
+.matSection #domainOnly .fa:before {
+    content: '\f106';
+    }
+.matSection.collapsed #domainOnly .fa:before {
+    content: '\f107';
+    }
+.matSection.collapsible .matRow.l1 .matCell:nth-of-type(1):hover #domainOnly {
+    visibility: visible;
+    }
+#matHead #domainOnly .fa:before {
+    content: '\f106';
+    }
+#matHead.collapsed #domainOnly .fa:before {
+    content: '\f107';
+    }
+#matHead.collapsible .matRow .matCell:nth-of-type(1):hover #domainOnly {
+    visibility: visible;
+    }
+#domainOnly:hover {
+    opacity: 1;
+    }

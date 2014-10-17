@@ -1,0 +1,764 @@
+{
+    "extName": {
+        "message": "µMatrix",
+        "description": "extension name."
+    },
+    "extShortDesc": {
+        "message": "Kontrolliere alle Anfragen deines Browsers durch einfaches Point & Click. Blockiere damit Skripte, IFrames, Werbung, Facebook usw.",
+        "description": "this will in chrome web store: must be 132 characters or less"
+    },
+    "settingsPageName": {
+        "message": "Einstellungen",
+        "description": "appears as tab name in dashboard"
+    },
+    "privacyPageName": {
+        "message": "Privatsphäre",
+        "description": "appears as tab name in dashboard."
+    },
+    "statsPageName": {
+        "message": "Statistik",
+        "description": "appears as tab name in dashboard"
+    },
+    "ubiquitousRulesPageName" : {
+        "message": "Omnipräsente Regeln",
+        "description": "appears as tab name in dashboard"
+    },
+    "scopedRulesPageName": {
+        "message": "Regeln für einen bestimmten Geltungsbereich",
+        "description": "appears as tab name in dashboard"
+    },
+    "aboutPageName": {
+        "message": "Über",
+        "description": "appears as tab name in dashboard"
+    },
+
+
+    "allPrettyName": {
+        "message": "alle",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "Cookie",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyNamePlural": {
+        "message": "Cookies",
+        "description": "..."
+    },
+    "stylesheetPrettyName": {
+        "message": "CSS",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "stylesheetPrettyNamePlural": {
+        "message": "CSS",
+        "description": "..."
+    },
+    "imagePrettyName": {
+        "message": "Bild",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyNamePlural": {
+        "message": "Bilder",
+        "description": "..."
+    },
+    "objectPrettyName": {
+        "message": "Plugin",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "objectPrettyNamePlural": {
+        "message": "Plugins",
+        "description": "..."
+    },
+    "scriptPrettyName": {
+        "message": "Skript",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyNamePlural": {
+        "message": "Skripte",
+        "description": "..."
+    },
+    "xmlhttprequestPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xmlhttprequestPrettyNamePlural": {
+        "message": "XHR",
+        "description": "..."
+    },
+    "sub_framePrettyName": {
+        "message": "Frame",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "sub_framePrettyNamePlural": {
+        "message": "Frames",
+        "description": "..."
+    },
+    "otherPrettyName": {
+        "message": "andere",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyNamePlural": {
+        "message": "andere",
+        "description": "..."
+    },
+
+
+    "matrixPresetAbsentPrompt" : {
+        "message": "Kein passendes vordefiniertes Rezept für diese Seite",
+        "description": "..."
+    },
+    "matrixPresetPresentPrompt" : {
+        "message": "Klicke auf ein vordefiniertes Rezept, um die Regeln zu importieren",
+        "description": "..."
+    },
+    "matrixNoNetTrafficPrompt" : {
+        "message": "Bisher kein Netzverkehr für diesen Tab.",
+        "description": "..."
+    },
+    "matrixMtxButtonTip" : {
+        "message": "Aktiviere/deaktiviere die Matrix-Filter \u000a für diesen Geltungsbereich. \u000aAnfragen geblockt durch \u000a die Matrix-Filter auf dieser Seite: {{count}}.",
+        "description": "Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    },
+    "matrixPersistButtonTip" : {
+        "message": "Speichere alle temporären Änderungen \u000a für diesen Geltungsbereich.",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip" : {
+        "message": "Entferne alle temporären Änderungen \u000a für diesen Geltungsbereich.",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixRevertButtonAllTip" : {
+        "message": "Entferne alle temporären \u000a Änderungen.",
+        "description": "Tool tip for the revert all permissions button"
+    },
+    "matrixReloadButton" : {
+        "message": "Seite neu laden.",
+        "description": "Tool tip for the reload button"
+    },
+    "matrixPresetMoreReadTip" : {
+        "message": "Exportiere ein Rezept: Temporäre Regeln \u000a des aktuellen Geltungsbereichs werden als ein Rezept \u000a kodiert",
+        "description": "English: Export a recipe: Temporary rules \u000a of current scope will be encoded \u000a as a recipe"
+    },
+    "matrixPresetMoreWriteTip" : {
+        "message": "Importiere ein Rezept: Im  aktuellen Geltungsbereichs \u000a werden temporäre Regeln erzeugt",
+        "description": "English: Import a recipe: Temporary rules \u000a will be created into current scope"
+    },
+    "matrixPresetMoreRecipeTip" : {
+        "message": "Benutzer können hier Rezepte untereinander tauschen, um sich gegenseitig zu helfen. Die üblichen Warnungen vor nicht vertrauenswürdigen Quellen gelten auch hier.",
+        "description": "English: Users can exchange recipes here to help each other. Usual warnings about untrusted sources apply."
+    },
+
+
+    "statsPageTitle" : {
+        "message": "µMatrix &ndash; Statistik",
+        "description": "header for the whole stats page"
+    },
+    "statsPageGenericStats" : {
+        "message": "Statistik nach Gattungen",
+        "description": "English: Generic statistics"
+    },
+    "statsPageCookieHeadersFoiled" : {
+        "message": "<a href='https://de.wikipedia.org/wiki/HTTP_Cookie'>HTTP Cookie</a> Header blockiert: {{count}}",
+        "description": "English: HTTP cookie headers foiled: {{count}}"
+    },
+    "statsPageRefererHeadersFoiled" : {
+        "message": "<a href='https://de.wikipedia.org/wiki/Referrer'>HTTP Referrer</a> Header blockiert: {{count}}",
+        "description": "English: HTTP referer headers foiled: {{count}}"
+    },
+    "statsPageHyperlinkAuditingFoiled" : {
+        "message": "<a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>Hyperlink auditing</a> Versuche vereitelt: {{count}}",
+        "description": "English: Hyperlink auditing attempts foiled: {{count}}"
+    },
+    "statsPageCookiesRemoved" : {
+        "message": "Lokale Cookies entfernt: {{count}}",
+        "description": "Local cookies removed: {{count}}"
+    },
+    "statsPageLocalStoragesCleared" : {
+        "message": "<a href='http://diveintohtml5.info/storage.html'>Local Storage</a> geleert: {{count}}",
+        "description": "Local storages emptied: {{count}}"
+    },
+    "statsPageBrowserCacheCleared" : {
+        "message": "Browser Cache geleert: {{count}}",
+        "description": "Browser caches cleared: {{count}}"
+    },
+    "statsPageDetailedStats" : {
+        "message": "Detaillierte Statistik",
+        "description": "English: Detailed statistics"
+    },
+    "statsPageDetailedAllPages" : {
+        "message": "Alle",
+        "description": "English: All"
+    },
+    "statsPageDetailedBehindTheScenePage" : {
+        "message": "Chromium: Hintergrundanfragen",
+        "description": "English: Chromium: Behind the scene"
+    },
+    "statsPageOverview" : {
+        "message": "Übersicht",
+        "description": "header for 'overview' section"
+    },
+    "statsPageRequests" : {
+        "message": "Requests (Anfragen des Browsers)",
+        "description": "in detailed stats section, header for the type of request"
+    },
+    "statsPageAllowed" : {
+        "message": "Erlaubt",
+        "description": "capitalized"
+    },
+    "statsPageBlocked" : {
+        "message": "Blockiert",
+        "description": "capitalized"
+    },
+    "statsPageDetailed" : {
+        "message": "Detailliert",
+        "description": "header for 'detailed' section"
+    },
+    "statsPageLogSizePrompt1" : {
+        "message": "Speichere die letzten",
+        "description": "English: Remember the last"
+    },
+    "statsPageLogSizePrompt2" : {
+        "message": "HTTP Anfragen <b>pro Seite</b>.",
+        "description": "English: HTTP requests <b>per page</b>."
+    },
+    "statsPageLogSizeHelp" : {
+        "message": "<p>Die Details der letzten HTTP Anfragen einer Webseite kannst du dir unten anschauen.</p><p>Das ist besonders nützlich für neugierige bzw. erfahrene Benutzer, die genau wissen wollen, was eine Webseite gemacht hat. Allerdings benötigt das Logging dieser HTTP Anfragen Arbeitsspeicher, und wenn du an diesen detaillierten Informationen nicht interessiert bist, belegst du diesen Speicher unnötigerweise.</p><p>Daher lässt sich mit diesem Feld die maximale Zahl der letzten HTTP Anfragen, die aufgezeichnet werden sollen, festlegen.<p><p>Gib &ldquo;<code>0</code>&rdquo; ein, um dieses detaillierte Logging ganz abzuschalten (und entsprechend die Speicherbelegung von <i>µMatrix</i> zu reduzieren).</p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh" : {
+        "message": "Aktualisieren",
+        "description": "text for refresh button"
+    },
+
+
+    "settingsPageTitle" : {
+        "message": "µMatrix &ndash; Einstellungen",
+        "description": "header for the whole Settings page"
+    },
+    "settingsMatrixHeader" : {
+        "message": "Matrix",
+        "description": "header of Matrix settings section"
+    },
+    "settingsMatrixDisplayHeader" : {
+        "message": "Anzeige",
+        "description": "English: Appearance"
+    },
+    "settingsMatrixDisplayTextSizePrompt" : {
+        "message": "Textgröße:",
+        "description": "..."
+    },
+    "settingsMatrixDisplayTextSizeNormal" : {
+        "message": "Normal",
+        "description": "..."
+    },
+    "settingsMatrixDisplayTextSizeLarge" : {
+        "message": "Groß",
+        "description": "..."
+    },
+    "settingsMatrixDisplayColorBlind" : {
+        "message": "Anzeige für farbenblinde Benutzer",
+        "description": "English: Color-blind friendly"
+    },
+    "settingsMatrixMoreSecurityHeader" : {
+        "message": "Mehr Sicherheit",
+        "description": "..."
+    },
+    "settingsStrictBlockingPrompt": {
+        "message": "Striktes Blockieren aktivieren.",
+        "description": ""
+    },
+    "settingsStrictBlockingInfo": {
+        "message": "<p><strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">Striktes\nBlockieren</a></strong>,\neingeführt in <a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">version 0.3.6</a>,\nbedeutet: Selbst\nwenn du einen spezifischen Hostnamen auf die Whitelist setzt, bleiben die Arten von Anfragen, die standardmäßig blockiert sind (<i>Plugins</i>,\n<i>Frames</i>, etc.), weiterhin auf der Blacklist. Für einige Benutzer ist das möglicherweise\nzu lästig, daher dieser Schalter.</p>\n<p><strong>Striktes Blockieren an</strong>: blockierte Arten von Anfragen (falls vorhanden)\nfür einen Hostnamen auf der Whitelist bleiben weiterhin auf der Blacklist (sofern du diese Arten von Anfragen für diesen Hostnamen nicht ausdrücklich erlaubst.)</p>\n<p><strong>Striktes Blockieren aus</strong>: blockierte Arten von Anfragen (falls vorhanden)\nfür einen Hostnamen auf der Whitelist sind erlaubt (sofern du diese Arten von Anfragen für diesen Hostnamen nicht ausdrücklich verbietest.)</p>",
+        "description": "To help user understand the purpose of strict blocking"
+    },
+    "settingsAutoCreateScopePrompt1": {
+        "message": "Automatisches Erzeugen eines temporären Geltungsbereichs auf ",
+        "description": "English: Auto create temporary"
+    },
+    "settingsAutoCreateDomainScope": {
+        "message": "Domain-Ebene",
+        "description": "English: domain-level"
+    },
+    "settingsAutoCreateSiteScope": {
+        "message": "Webseiten-Ebene",
+        "description": "English: site-level"
+    },
+    "settingsAutoCreateScopePrompt2": {
+        "message": " ",
+        "description": "English: scope"
+    },
+    "settingsAutoCreateScopeInfo": {
+        "message": "<p>Diese Option ermöglicht das automatische Erzeugen eines temporären Geltungsbereichs für eine besuchte Webseite, falls für diese noch kein Geltungsbereich definiert ist.</p><p>Das Benutzen von Domain- oder Webseiten-spezifischen Regeln hat viele Vorteile, vor allem der, dass diese Regeln in einer Art Sandbox eingesperrt werden - eine gute Angewohnheit für mehr Sicherheit.</p><p>Beispiel: Wenn du &ldquo;alles&rdquo; auf einer Webseite (www.example.com) erlaubst (also auf die Whitelist setzt), hat die Benutzung eines Geltungsbereichs auf Domain-Ebene zur Folge, dass diese extrem freizügige Regel tatsächlich nur für Webseiten dieser spezifischen Domain (example.com) gültig ist; hättest du stattdessen einen Globalen Geltungsbereich (&ldquo;&#x2217;&rdquo;) benutzt, würde diese extrem freizügige Regel für <i>alle</i> Webseiten gelten, d.h. du würdest damit das ganze Internet auf die Whitelist setzen.</p>",
+        "description": "English: see relevant messages.json file"
+    },
+    "settingsMatrixLessSecurityHeader" : {
+        "message": "Weniger Sicherheit",
+        "description": "..."
+    },
+    "settingsAutoWhitelistPrompt": {
+        "message": "Auto-Whitelist: automatisches Hinzufügen von Domänen zur Whitelist.",
+        "description": ""
+    },
+    "settingsAutoWhitelistHelp": {
+        "message": "<p>Einige Benutzer möchten nicht andauernd Webseiten auf die Whitelist setzen müssen. Daher ermöglicht diese Einstellung, dass Domänen temporär automatisch zur Whitelist hinzugefügt werden. Dieses temporäre Auto-Whitelisting findet <b>nur</b> statt, wenn die Domäne auf der &ldquo;Greylist&rdquo; (=hellrote Zellen) ist, d.h. nicht explizit auf die Blacklist gesetzt wurde oder sich auf einer der externen Listen blockierter Hostnamen befindet.</p><p>Obwohl diese Einstellung unter Sicherheitsaspekten nicht empfehlenswert ist, wurde sie aufgrund entsprechender Benutzerwünsche hinzu gefügt -- lieber gebe ich Benutzern diese Option, als dass sie ganz auf die Benutzung dieser Erweiterung verzichten.</p><p>Sofern du diese Option benutzen willst, rate ich dazu, zumindest  <b>frame</b> auf die Blacklist zu setzen und <b>Striktes Blockieren</b> zu aktivieren.</p>",
+        "description": "To help user understand the purpose of auto-whitelist"
+    },
+    "settingsMatrixConvenienceHeader" : {
+        "message": "Komforteinstellungen",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt" : {
+        "message": "Intelligentes Neuladen folgender Tabs beim Schließen der Matrix:",
+        "description": "..."
+    },
+    "settingsMatrixAutoReloadNone" : {
+        "message": "Keinen",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent" : {
+        "message": "den Aktuellen",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll" : {
+        "message": "Alle",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo" : {
+        "message": "Immer wenn du Änderungen in der Matrix durchführst, die die Anzeige und /oder das Verhalten einer oder mehrerer Seiten beeinflusst, wird <i>µMatrix</i> die betroffenen Seiten automatisch neu laden, sobald du die Matrix schließt.",
+        "description": "..."
+    },
+    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
+        "message": "Kopiere alle Regeln aus dem Globalen Geltungsbereich in neu erstellte lokale Geltungsbereiche (d. h. auf Domain- oder Webseiten-Ebene).",
+        "description": "English: Auto delete unused temporary scopes."
+    },
+    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
+        "message": "<p>Geltungsbereiche existieren in einer Art Sandbox, d. h. sie teilen keine Regeln untereinander, und das gilt auch für den Globalen Geltungsbereich: enger gefasste Geltungsbereiche sehen <b>nicht</b> die Regeln im Globalen Geltungsbereich.</p> <p>Von einigen Benutzern wird dies aber als Hindernis angesehen, da sie möchten, dass ihre globalen Regeln auch von enger gefassten Geltungsbereichen erkannt werden. Diese Option behebt dieses &ldquo;Manko&rdquo; indem sie erzwingt, dass alle globalen Regeln in neu erstellte enger gefasste Geltungsbereiche hineinkopiert werden.</p> <p>Bedenke aber, dass <b>alle</b> Regeln aus dem Globalen Geltungsbereich kopiert werden, einschließlich der Regeln, die möglicherweise irrelevant sind für die Webseite, für die der enger gefasste Geltungsbereich erstellt wurde. Dies kann daher zu &ldquo;aufgeblähten Regelwerken&rdquo; führen, falls im Globalen Geltungsbereich viele Regeln angelegt wurden.</p>",
+        "description": "English: ..."
+    },
+    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
+        "message": "Automatisches Löschen unbenutzter temporärer Geltungsbereiche.",
+        "description": "English: Auto delete unused temporary scopes."
+    },
+    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
+        "message": "",
+        "description": "English:"
+    },
+    "settingsSubframeColor" : {
+        "message": "Farbe blockierter Frames:",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity" : {
+        "message": "Undurchsichtigkeit:",
+        "description": "English: Opacity:"
+    },
+
+
+    "privacyHeader" : {
+        "message": "Privatsphäre",
+        "description": "header of Privacy section"
+    },
+    "privacyDeleteBlockedCookiesPrompt" : {
+        "message": "Entferne blockierte Cookies",
+        "description": "..."
+    },
+    "privacyDeleteBlockedCookiesHelp" : {
+        "message": "<p>Cookies auf der Blacklist werden von <i>µMatrix</i> nicht daran gehindert, vom Browser empfangen zu werden. Vielmehr werden sie daran gehindert, den Browser wieder zu verlassen - das ist es, worauf es wirklich ankommt. Dass Cookies nicht blockiert werden, bevor sie vom Browser empfangen werden, gibt dir die Gelegenheit, dich zu informieren, welche Seiten Cookies zu verwenden versuchen, und dir den Inhalt der Cookies anzuschauen, wenn du möchtest.</p><p>Sobald diese sich auf der Blacklist befindlichen Cookies von <i>µMatrix</i> erfasst sind, können sie aus deinem Browser gelöscht werden, falls du möchtest.</p><p><b>Wichtiger Hinweis:</b> Erweiterungen können während ihrer Benutzung Webanfragen tätigen. Diese Anfragen können dazu führen, dass Cookies im Browser erzeugt werden. Falls der Hostname, von dem das Cookie stammt, nicht auf der Whitelist ist, wird das Cookie von <i>µMatrix</i> aus dem Browser entfernt, sofern dieser Schalter aktiviert ist. Stelle daher sicher, dass Hostnamen, mit denen eine Erweiterung kommuniziert, auf der Whitelist stehen.</p>",
+        "description": "..."
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1" : {
+        "message": "Entferne nicht-blockierte Sitzungscookies ",
+        "description": "English: Delete non-blocked session cookies"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2" : {
+        "message": " Minuten nach ihrer letzten Benutzung.",
+        "description": "English: minutes after the last time they have been used."
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp" : {
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;Ein Sitzungscookie ... wird gelöscht, wenn die Browsersitzung beendet wird. Das Sitzungscookie wird temporär gespeichert und nicht behalten, wenn der Browser geschlossen ist.&rdquo;</p><p>Nur dass das möglicherweise <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>nicht passiert</a>, wenn man einen Chromium-basierten Browser verwendet. Außerdem bevorzugen es manche Benutzer, Sitzungscookies loszuwerden, bevor sie den Browser schließen.</p>",
+        "description": "..."
+    },
+    "privacyDeleteBlockedLocalStoragePrompt" : {
+        "message": "Lösche den Inhalt des <a href='http://de.wikipedia.org/wiki/Web_Storage'>Local Storage</a> von blockierten Hostnamen",
+        "description": "..."
+    },
+    "privacyDeleteBlockedLocalStorageHelp" : {
+        "message": "TODO",
+        "description": "..."
+    },
+    "privacyClearCachePrompt1" : {
+        "message": "Lösche den Browser-Cache alle",
+        "description": "English: Clear browser cache every"
+    },
+    "privacyClearCachePrompt2" : {
+        "message": "Minuten.",
+        "description": "English: minutes."
+    },
+    "privacyClearCacheHelp" : {
+        "message": "<p>Einige Webseiten sind wirklich darauf aus, dich zu verfolgen bzw. zu tracken, und scheuen nicht davor zurück, unfeine Tricks zu verwenden, um Maßnahmen, die dieses Tracking verhindern sollen, zu unterlaufen.</p><p>Einige dieser Tricks benutzen dazu den <sup style='font-size:smaller'>[1, 2]</sup> on the <a href='https://de.wikipedia.org/wiki/Browser-Cache'>Browser Cache</a>, dessen Inhalt häufig für lange Zeit auslesbar ist, da viele Benutzer ihn nicht regelmäßig löschen.</p><p>Das regelmäßige Löschen des Browser Caches bringt kaum Nachteile mit sich (wahrscheinlich wirst du gar keine bemerken), während die Vorteile darin bestehen, dass diese fiesen Tracker davon abgehalten werden, in deine Privatsphäre einzudringen.</p><p>Aktiviere diesen Schalter, damit  <i>µMatrix</i> diese Aufgabe in dem von dir gewünschten Intervall übernimmt.</p><p style='font-size:smaller'>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a><br>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
+        "description": "..."
+    },
+    "privacyProcessRefererPrompt" : {
+        "message": "Entferne den <a href='https://de.wikipedia.org/wiki/Referrer'>HTTP Referrer</a> für Drittseiten, wenn der Hostname nicht auf der Whitelist steht.",
+        "description": "..."
+    },
+    "privacyProcessRefererHelp" : {
+        "message": "<p>Aus Wikipedia: &ldquo;Ein Referrer ist die Internetadresse der Webseite, von der der Benutzer durch Anklicken eines Links zu der aktuellen Seite gekommen ist. ... <b>(Die Übertragung eines Referrers zu verhindern) ...ist unter anderem aus Datenschutzerwägungen interessant, da andernfalls die Möglichkeit besteht, die Referrer mit den Nutzer-IP-Adressen in Verbindung zu bringen.</b>&rdquo;</p><p>Wenn dieser Schalter aktiviert ist, wird <i>µMatrix</i> den HTTP Referrer entfernen, wenn <b>beide</b> folgenden Bedingungen erfüllt sind:<ul style='padding-left:1em;list-style-type:disc;'><li>Der Domänenname des HTTP Referrer stimmt nicht mit dem Domänenname der anfragenden URL überein (das heißt, der Referrer stammt von einer Drittseite);<li>Der anfragende Hostname ist nicht auf der Whitelist.</ul></p>",
+        "description": "..."
+    },
+    "privacyProcessHyperlinkAuditingPrompt" : {
+        "message": "Blockiere alle <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>Hyperlink Auditing</a> Versuche.",
+        "description": "..."
+    },
+    "privacyProcessHyperlinkAuditingHelp" : {
+        "message": "<p>Hyperlink Auditing ist ein Mechanismus, der es <b>allen</b> beteiligten Parteien erlaubt herauszufinden, auf welchen Link ein Benutzer auf einer bestimmten Webseite klickt. Im Grunde ist es eine Tracking-Funktion: Es erlaubt einer Webseite oder auch Drittparteien auf dieser Webseite, sich darüber zu informieren, auf welche Links du auf eine dieser Seiten geklickt hast. Der einzige Zweck besteht darin, deine Browsing-Aktivitätten zu verfolgen.</p>",
+        "description": "..."
+    },
+    "privacySpoofUserAgentPrompt1" : {
+        "message": "Verschleiere den <a href='https://de.wikipedia.org/wiki/User_Agent'>User-Agent</a> durch die zufällige Wahl eines neuen aus der Liste alle",
+        "description": "Spoof <a href='https://en.wikipedia.org/wiki/User_agent'>User-Agent</a> string by picking one randomly below every"
+    },
+    "privacySpoofUserAgentPrompt2" : {
+        "message": "Minuten.",
+        "description": "minutes."
+    },
+    "privacySpoofUserAgentHelp" : {
+        "message": "<a href='https://www.eff.org/deeplinks/2010/01/tracking-by-user-agent'>Laut der <i>Electronic Frontier Foundation</i></a>: &ldquo;[...] sendet dein Browser einen &lsquo;User Agent&rsquo; Header an die Webseite und sagt damit präzise, welches Betriebssystem und welchen Webbrowser du benutzt. Diese Informationen tragen dazu bei, Internet-Nutzer von anderen zu unterscheiden, da diese Versionen häufig beträchtlich von Person zu Person unterschiedlich sind. [...] <b>der User Agent wird damit zu einer reellen Gefahr für die Privatsphäre</b>.&rdquo;<p>Diese Option ermöglicht dir, auf diese Bedrohung zu reagieren.</p><p>Du kannst deine eigene Liste von User Agents einstellen, und zwar eine Variante pro Zeile. Leere Zeilen und Zeilen mit einem vorangestellten &lsquo;#&rsquo; werden ignoriert.</p>",
+        "description": "..."
+    },
+    "privacyBehindTheSceneHeader" : {
+        "message": "Chromium: Hintergrundanfragen",
+        "description": "header of Chromium: behind-the-scene requests section"
+    },
+    "privacyProcessBehindTheSceneHelp" : {
+        "message": "<p>Gemäß dem <a href='http://www.google.com/intl/de/chrome/browser/privacy/whitepaper.html'>Google Chrome - Whitepaper zum Datenschutz</a>, kann <i>Chromium</i>  HTTP Anfragen zu <i>Google</i> senden, ohne dass der Benutzer eine Webseite ausdrücklich besucht. Lasst uns diese speziellen Anfragen <strong>Hintergrund</strong>-Anfragen nennen. Auch andere installierte  Browser-Erweiterungen können <strong>Hintergrund</strong>- HTTP Anfragen senden.</p><p><i>µMatrix</i> kann diese Anfragen abfangen und verarbeiten wie jede andere Anfrage: sie können entsprechend deiner Whitelist/Blacklist erlaubt/blockiert werden.</p><p>Um Hintergrund-Anfragen insgesamt oder teilweise zu erlauben/blockieren, musst du jetzt die Matrix benutzen, die sich beim Klicken auf das Symbol dieser Erweiterung öffnet, während du dich auf dieser Seite befindest. Pflichtlektüre: <a href='https://github.com/gorhill/httpswitchboard/wiki/Behind-the-scene-requests'>Behind-the-scene requests</a>.</p><div class='warn'><p><span style='color:red; font-weight:bold'>Achtung!</span> Das Blockieren von <strong>Hintergrund</strong>-Anfragen kann z.Z. einen <a href='https://github.com/gorhill/httpswitchboard/issues/27'>Fehler</a> verursachen, wenn der Benutzer eine Erweiterung aus dem Chrome Store installieren möchte (außerdem kann es beim Update von Erweiterungen Probleme geben) - daher die Möglichkeit, dieses Feature zu deaktivieren. Zudem kann das Blockieren dieser Anfragen dazu führen, dass andere installierte Erweiterungen nicht richtig funktionieren (sofern sie Daten aus dem Internet abfragen).</p> <p>Aber selbst wenn diese Funktion nicht aktiviert ist, werden <strong>Hintergrund</strong>-Anfragen dennoch durch <i>µMatrix</i> aufgezeichnet, so dass du sie zumindest auf der  <a href='dashboard.html#statistics'>Statistik</a>-Seite inspizieren kannst.</p>",
+        "description": "..."
+    },
+    "privacyDoneButton" : {
+        "message": "Fertig",
+        "description": "Close the Privacy page"
+    },
+
+
+    "ubiquitousWhatIsThisHeader" : {
+        "message": "Was ist das?",
+        "description": "English: What is this?"
+    },
+    "ubiquitousWhatIsThisPrompt" : {
+        "message": "&ldquo;Omnipräsente Regeln&rdquo; sind Regeln, die überall gelten, d.h. in allen Geltungsbereichen.",
+        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which applies everywhere, i.e. in all scopes."
+    },
+    "ubiquitousListsOfBlockedHostsPrompt1" : {
+        "message": "Alle Listen blockierter Hostnamen werden als omnipräsente Regeln geladen, womit diese Hostnamen in allen Geltungsbereichen auf der Blacklist stehen.",
+        "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."
+    },
+    "ubiquitousListsOfBlockedHostsPrompt2" : {
+        "message": "{{ubiquitousBlacklistCount}} eindeutig blockierte Hostnamen aus:",
+        "description": "English: {{ubiquitousBlacklistCount}} distinct blocked hostnames from:"
+    },
+    "ubiquitousListsOfBlockedHostsPerListStats" : {
+        "message": "{{used}} benutzt aus {{total}}",
+        "description": "English: {{used}} used out of {{total}}"
+    },
+    "ubiquitousListsOfBlockedHostsHeader" : {
+        "message": "Listen blockierter Hostnamen",
+        "description": "English: Lists of blocked hosts"
+    },
+    "userUbiquitousBlacklistHeader" : {
+        "message": "Deine Blockierregeln",
+        "description": "English: Your block rules"
+    },
+    "userUbiquitousWhitelistHeader" : {
+        "message": "Deine Ausnahmeregeln",
+        "description": "English: Your allow rules"
+    },
+    "ubiquitousApplyChanges" : {
+        "message": "Änderungen anwenden",
+        "description": "English: Apply changes"
+    },
+    "ubiquitousFormatHint" : {
+        "message": "Eine Regel pro Zeile. Eine Regel kann ein einfacher Hostname sein oder ein <a href='https://adblockplus.org/de/filters'>Adblock Plus-kompatibler Filter</a>. Zeilen mit vorangestelltem &lsquo;#&rsquo; werden ignoriert.",
+        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible filter. Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    },
+    "ubiquitousAllowFormatHint" : {
+        "message": "Eine Regel pro Zeile. Eine Regel kann ein einfacher Hostname sein oder ein Adblock Plus-kompatibler Ausnahme-Filter (letztere mit vorangestelltem &lsquo;@@&rsquo;). Zeilen mit vorangestelltem &lsquo;#&rsquo; werden ignoriert.",
+        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible exception filter (prefixed with &lsquo;@@&rsquo;). Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    },
+    "ubiquitousImport" : {
+        "message": "Importieren und anfügen",
+        "description": "English: Import and append"
+    },
+    "ubiquitousExport" : {
+        "message": "Exportieren",
+        "description": "English: Export"
+    },
+
+
+    "scopedCommitAllButton": {
+        "message": "Alle dauerhaft speichern",
+        "description": "English: Commit all"
+    },
+    "scopedRevertAllButton": {
+        "message": "Alle rückgängig machen",
+        "description": "English: Revert all"
+    },
+    "scopedMarkAllForDeletionButton": {
+        "message": "Alle zum Löschen markieren",
+        "description": "English: Mark all for deletion"
+    },
+    "scopedResetToFactoryButton": {
+        "message": "Auf Werkseinstellungen zurücksetzen",
+        "description": "English: Reset to factory"
+    },
+    "scopedRulesHeader": {
+        "message": "Regeln",
+        "description": "English: Rules"
+    },
+    "scopedRulesInfo": {
+        "message": "Hier kannst du für deine Geltungsbereiche und Regeln ein Backup anlegen: Klicke auf &ldquo;Regeln exportieren&rdquo;, klicke optional auf &ldquo;Als Rezept kodieren&rdquo;, und speichere das Ergebnis als Datei, dessen Inhalt später hier eingefügt werden kann.<p>Die Syntax ist strikt, nur fortgeschrittene Benutzer sollten es riskieren, hier zu editieren. Wenn du ein Rezept von einer nicht vertrauenswürdigen Quelle importierst, solltest du sicher sein, dass nichts damit verkehrt ist (Bsp.: <b>&ldquo;whitelist * evil.com&rdquo;</b>)</p>",
+        "description": "English: [see english message.json]"
+    },
+    "scopedRecipeHeader": {
+        "message": "Rezepte",
+        "description": "English: Recipes"
+    },
+    "scopedRecipesInfo": {
+        "message": "Ein &ldquo;Rezept&rdquo; ist einfach ein Satz von Regeln, die auf eine Weise kodiert sind, dass sie leicht gesichert oder mit anderen Benutzern ausgetauscht werden können. In der Hoffnung, dass fortgeschrittene Benutzer ihre sorgfältig erstellten Rezepte mit Neulingen teilen werden, um diese zu unterstützen.",
+        "description": "English: [see english message.json]"
+    },
+    "scopedBackupRecipeButton": {
+        "message": "Backup in eine Datei",
+        "description": "English: Backup to file"
+    },
+    "scopedRestoreRecipeButton": {
+        "message": "Aus einer Datei wiederherstellen",
+        "description": "English: Restore from file"
+    },
+    "scopedDecodeRecipeButton": {
+        "message": "Rezept dekodieren",
+        "description": "English: Decode recipe"
+    },
+    "scopedEncodeRecipeButton": {
+        "message": "Als Rezept kodieren",
+        "description": "English: Encode recipe"
+    },
+    "scopedImportRulesButton": {
+        "message": "Regeln importieren",
+        "description": "English: Import rules"
+    },
+    "scopedExportRulesButton": {
+        "message": "Regeln exportieren",
+        "description": "English: Export rules"
+    },
+    "scopedGlobalScopeHeader": {
+        "message": "Globaler Geltungsbereich",
+        "description": "English: Global scope"
+    },
+    "scopedBtsScopeHeader": {
+        "message": "Geltungsbereich Hintergrundanfragen",
+        "description": "English: Behind-the-scene scope"
+    },
+    "scopedDomainScopeHeader": {
+        "message": "Geltungsbereich Domain-Ebene",
+        "description": "English: Domain-level scope"
+    },
+    "scopedSiteScopeHeader": {
+        "message": "Geltungsbereich Webseiten-Ebene",
+        "description": "English: Site-level scope"
+    },
+    "scopedDeletionPrompt": {
+        "message": "Du bist dabei, {{deleteCount}} Regeln zu löschen.\nDas ist irreversibel.\nKlicke OK zur Bestätigung.",
+        "description": "English: You are about to delete {{deleteCount}} rules.\nIt is irreversible.\nClick OK to confirm."
+    },
+
+
+    "aboutChangelog" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Changelog'>Changelog</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Change-log'>Change log</a>"
+    },
+    "aboutStorageUsed" : {
+        "message": "Benutzter Speicherplatz: {{storageUsed}}%",
+        "description": "English: Storage used: {{storageUsed}}%"
+    },
+    "aboutDoc" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki'>Dokumentation/Wiki</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki'>Documentation</a>"
+    },
+    "aboutPermissions" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Berechtigungen</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Permissions</a>"
+    },
+    "aboutCode" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard'>Quellcode (GPLv3)</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard'>Source code (GPLv3)</a>"
+    },
+    "aboutCredits" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>Danksagungen</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>Credits</a>"
+    },
+    "aboutUserDataHeader" : {
+        "message": "Deine Daten",
+        "description": "English: Your data"
+    },
+    "aboutUserDataBackupButton" : {
+        "message": "Backup in eine Datei...",
+        "description": "English: Backup all..."
+    },
+    "aboutUserDataRestoreButton" : {
+        "message": "Aus einer Datei wiederherstellen...",
+        "description": "English: Restore all..."
+    },
+    "aboutUserDataOr" : {
+        "message": "... oder ...",
+        "description": "English: ... or ..."
+    },
+    "aboutUserDataResetButton" : {
+        "message": "Fange von ganz vorne an ...",
+        "description": "English: Start from scratch..."
+    },
+    "aboutUserDataRestoreConfirm" : {
+        "message": "Alle deine Einstellungen und Regeln werden überschrieben\nmit Daten gesichert am {{time}},\nund µMatrix wird neu starten.\n\nSollen alle existierenden Daten mit Backup-Daten überschrieben werden?",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutExtensionDataHeader" : {
+        "message": "Externe Ressourcen dieser Erweiterung",
+        "description": "English: Extension data"
+    },
+    "aboutAssetsUpdatePrompt" : {
+        "message": "Von <i>µMatrix</i> benutzte externe Ressourcen können hier upgedatet werden, ohne auf eine neue Version dieser Erweiterung warten zu müssen. Diese Ressourcen werden bezogen vom <a href=\"https://github.com/gorhill/httpswitchboard\">Github Repository dieses Projekts</a>.",
+        "description": "Short descriptive text of the update feature"
+    },
+    "aboutAssetsUpdateColPath" : {
+        "message": "Pfad",
+        "description": "Path column header"
+    },
+    "aboutAssetsUpdateColStatus" : {
+        "message": "Status",
+        "description": "Status column header"
+    },
+    "aboutAssetsUpdateGetListError" : {
+        "message": "Ein Fehler ist aufgetreten. Ist <b>XHR</b> blockiert für <b>raw2.github.com</b>?",
+        "description": "Successful outcome of clicking 'update' button"
+    },
+    "aboutAssetsUpdateStatusAdded" : {
+        "message": "Hinzufügen",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusChanged" : {
+        "message": "Neue Version verfügbar",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusUnchanged" : {
+        "message": "Up-to-date",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusRemoved" : {
+        "message": "Entfernen",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateButton" : {
+        "message": "Update",
+        "description": "Update button"
+    },
+    "aboutAssetsUpdatingButton" : {
+        "message": "Updating...",
+        "description": "Updating..."
+    },
+
+
+    "setupPagePrompt" : {
+        "message": "<p><b>µMatrix</b> ist hochgradig konfigurierbar: Die Einstellungen können fast beliebig gesetzt werden zwischen den beiden Extremen &ldquo;alles blockieren&rdquo; und &ldquo;nichts blockieren&rdquo;. <p>Je höher die Sicherheit, desto höher die Wahrscheinlichkeit, dass Webseiten &ldquo;nicht funktionieren&rdquo;, d.h. sie werden nicht gerendert  und/oder verhalten sich nicht wie gewünscht. Daher bedeutet höhere Sicherheit auch mehr notwendige Interventionen durch den Benutzer, damit vertrauenswürdige Webseiten wieder &ldquo;funktionieren&rdquo;. <p>Hier kannst du ein Profil wählen, das am besten zu dem passt, wie du gedenkst, <b>µMatrix</b> zu benutzen. Bitte berücksichtige, dass diese Profile lediglich einen Startpunkt repräsentieren, den du später beliebig an deine Vorstellungen anpassen kannst .",
+        "description": "Appears at the top of the setup page"
+    },
+    "setupBlockAllAllowExceptionally" : {
+        "message": "Blockiere alles / erlaube ausnahmsweise",
+        "description": "English: Block all / allow exceptionally"
+    },
+    "setupAllowAllBlockExceptionally" : {
+        "message": "Erlaube alles / blockiere ausnahmsweise",
+        "description": "English: Allow all / block exceptionally"
+    },
+    "setupAdBlocker" : {
+        "message": "Benutzen als Werbeblocker",
+        "description": "English: Ad blocker-like"
+    },
+    "setupNoScript" : {
+        "message": "Verhalten wie NoScript",
+        "description": "English: NoScript-like"
+    },
+    "setupRequestPolicy" : {
+        "message": "Verhalten wie RequestPolicy",
+        "description": "English: RequestPolicy-like"
+    },
+    "setupBlockNothingReportAll" : {
+        "message": "Blockiere nichts / melde alles",
+        "description": "English: Block nothing / report everything"
+    },
+    "setupSecurity" : {
+        "message": "Sicherheit:",
+        "description": "English: Security:"
+    },
+    "setupBreakage" : {
+        "message": "Bruchgefahr:",
+        "description": "English: Breakage:"
+    },
+    "setupVeryHigh" : {
+        "message": "sehr hoch",
+        "description": "English: very high"
+    },
+    "setupHigh" : {
+        "message": "hoch",
+        "description": "English: high"
+    },
+    "setupMediumHigh" : {
+        "message": "mittel - hoch",
+        "description": "English: medium high"
+    },
+    "setupMedium" : {
+        "message": "mittel",
+        "description": "English: medium"
+    },
+    "setupMediumLow" : {
+        "message": "mittel - niedrig",
+        "description": "English: medium low"
+    },
+    "setupLow" : {
+        "message": "niedrig",
+        "description": "English: low"
+    },
+    "setupVeryLow" : {
+        "message": "sehr niedrig",
+        "description": "English: very low"
+    },
+    "setupNone" : {
+        "message": "gar nicht",
+        "description": "English: none"
+    },
+    "setupRestoreConfirm" : {
+        "message": "Alle deine Einstellungen und Regeln werden überschrieben\nund µMatrix wird neu starten.\n\nAlle existierenden Daten überschreiben?",
+        "description": "English: All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?"
+    },
+
+
+    "commandRevertAll" : {
+        "message": "Alle temporären Änderungen löschen",
+        "description": "English: Remove all temporary changes"
+    },
+    "commandWhitelistPageDomain" : {
+        "message": "Temporär die aktuelle Domain erlauben",
+        "description": "English: Temporarily whitelist page domain"
+    },
+    "commandWhitelistAll" : {
+        "message": "Temporär alles erlauben",
+        "description": "English: Temporarily whitelist all"
+    },
+    "commandOpenDashboard" : {
+        "message": "Einstellungen",
+        "description": "English: Open dashboard"
+    },
+
+
+    "dummy": {
+        "message": "This entry must be the last one",
+        "description": "so we dont need to deal with comma for last entry"
+    }
+}

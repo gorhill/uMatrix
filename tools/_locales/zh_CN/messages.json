@@ -1,0 +1,764 @@
+{
+    "extName": {
+        "message": "µMatrix",
+        "description": "extension name."
+    },
+    "extShortDesc": {
+        "message": "通过指向和点击来禁止/允许您的浏览器发出的任何类型的请求。您可以使用它来屏蔽脚本、子文档、广告以及facebook等等。",
+        "description": "this will be in the chrome web store: must be 132 characters or less"
+    },
+    "settingsPageName": {
+        "message": "设置",
+        "description": "appears as tab name in dashboard."
+    },
+    "privacyPageName": {
+        "message": "隐私设置",
+        "description": "appears as tab name in dashboard."
+    },
+    "statsPageName": {
+        "message": "统计信息",
+        "description": "appears as tab name in dashboard."
+    },
+    "ubiquitousRulesPageName" : {
+        "message": "通用规则",
+        "description": "appears as tab name in dashboard."
+    },
+    "scopedRulesPageName": {
+        "message": "作用域规则",
+        "description": "appears as tab name in dashboard."
+    },
+    "aboutPageName": {
+        "message": "关于",
+        "description": "appears as tab name in dashboard."
+    },
+
+
+    "allPrettyName": {
+        "message": "全部",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "cookie",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyNamePlural": {
+        "message": "cookies",
+        "description": "..."
+    },
+    "stylesheetPrettyName": {
+        "message": "样式",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "stylesheetPrettyNamePlural": {
+        "message": "样式",
+        "description": "..."
+    },
+    "imagePrettyName": {
+        "message": "图片",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyNamePlural": {
+        "message": "图片",
+        "description": "..."
+    },
+    "objectPrettyName": {
+        "message": "插件",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "objectPrettyNamePlural": {
+        "message": "插件",
+        "description": "..."
+    },
+    "scriptPrettyName": {
+        "message": "脚本",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyNamePlural": {
+        "message": "脚本",
+        "description": "..."
+    },
+    "xmlhttprequestPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xmlhttprequestPrettyNamePlural": {
+        "message": "XHR",
+        "description": "..."
+    },
+    "sub_framePrettyName": {
+        "message": "子文档",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "sub_framePrettyNamePlural": {
+        "message": "子文档",
+        "description": "..."
+    },
+    "otherPrettyName": {
+        "message": "其它",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyNamePlural": {
+        "message": "其它",
+        "description": "..."
+    },
+
+
+    "matrixPresetAbsentPrompt" : {
+        "message": "没有适合这个页面的预设配方",
+        "description": "..."
+    },
+    "matrixPresetPresentPrompt" : {
+        "message": "点击一个预设配方来导入其规则集",
+        "description": "..."
+    },
+    "matrixNoNetTrafficPrompt" : {
+        "message": "没有发现这个标签页的网络通信。",
+        "description": "..."
+    },
+    "matrixMtxButtonTip" : {
+        "message": "在此作用域禁用/启用矩阵过滤。\u000a当前页面被矩阵过滤屏蔽掉 \u000a 的请求数：{{count}}。",
+        "description": "Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    },
+    "matrixPersistButtonTip" : {
+        "message": "保存对当前作用域作出的 \u000a 所有临时变更。",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip" : {
+        "message": "移除对当前作用域作出的 \u000a 所以临时变更。",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixRevertButtonAllTip" : {
+        "message": "移除所有临时变更。",
+        "description": "Tool tip for the revert all permissions button"
+    },
+    "matrixReloadButton" : {
+        "message": "重新加载当前页面。",
+        "description": "Tool tip for the reload button"
+    },
+    "matrixPresetMoreReadTip" : {
+        "message": "导出一条配方：当前作用域的临时 \u000a 规则将被编码为一条配方",
+        "description": "English: Export a recipe: Temporary rules \u000a of current scope will be encoded \u000a as a recipe"
+    },
+    "matrixPresetMoreWriteTip" : {
+        "message": "导入一条配方：配方中的规则将作 \u000a 为临时规则被加入到当前作用域中",
+        "description": "English: Import a recipe: Temporary rules \u000a will be created into current scope"
+    },
+    "matrixPresetMoreRecipeTip" : {
+        "message": "用户可以在此交流配方进行互助。应用非可信源时的通常警告。",
+        "description": "English: Users can exchange recipes here to help each other. Usual warnings about untrusted sources apply."
+    },
+
+
+    "statsPageTitle" : {
+        "message": "µMatrix &ndash; 统计信息",
+        "description": "header for the whole stats page"
+    },
+    "statsPageGenericStats" : {
+        "message": "一般统计信息",
+        "description": "English: Generic statistics"
+    },
+    "statsPageCookieHeadersFoiled" : {
+        "message": "从HTTP请求头中移除的<a href='https://zh.wikipedia.org/wiki/Cookie'>cookie</a>数：{{count}}",
+        "description": "English: HTTP cookie headers foiled: {{count}}"
+    },
+    "statsPageRefererHeadersFoiled" : {
+        "message": "从HTTP请求头中移除的<a href='https://zh.wikipedia.org/wiki/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>引用地址</a>数：{{count}}",
+        "description": "English: HTTP referer headers foiled: {{count}}"
+    },
+    "statsPageHyperlinkAuditingFoiled" : {
+        "message": "阻止的<a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>超链接审计</a>尝试数：{{count}}",
+        "description": "English: Hyperlink auditing attempts foiled: {{count}}"
+    },
+    "statsPageCookiesRemoved" : {
+        "message": "本地cookie移除数：{{count}}",
+        "description": "Local cookies removed: {{count}}"
+    },
+    "statsPageLocalStoragesCleared" : {
+        "message": "清空本地<a href='https://zh.wikipedia.org/wiki/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8'>网页存储</a>次数：{{count}}",
+        "description": "Local storages emptied: {{count}}"
+    },
+    "statsPageBrowserCacheCleared" : {
+        "message": "清空浏览器缓存次数：{{count}}",
+        "description": "Browser caches cleared: {{count}}"
+    },
+    "statsPageDetailedStats" : {
+        "message": "详细统计信息",
+        "description": "English: Detailed statistics"
+    },
+    "statsPageDetailedAllPages" : {
+        "message": "全部",
+        "description": "English: All"
+    },
+    "statsPageDetailedBehindTheScenePage" : {
+        "message": "Chrome浏览器后台",
+        "description": "English: Chromium: Behind the scene"
+    },
+    "statsPageOverview" : {
+        "message": "概览",
+        "description": "English: Overview"
+    },
+    "statsPageRequests" : {
+        "message": "请求类型",
+        "description": "in detailed stats section, header for the type of request"
+    },
+    "statsPageAllowed" : {
+        "message": "允许数",
+        "description": "capitalized"
+    },
+    "statsPageBlocked" : {
+        "message": "屏蔽数",
+        "description": "capitalized"
+    },
+    "statsPageDetailed" : {
+        "message": "请求日志",
+        "description": "English: Request log"
+    },
+    "statsPageLogSizePrompt1" : {
+        "message": "记住最近的",
+        "description": "English: Remember the last"
+    },
+    "statsPageLogSizePrompt2" : {
+        "message": "条HTTP请求于<b>每个页面</b>.",
+        "description": "English: HTTP requests <b>per page</b>."
+    },
+    "statsPageLogSizeHelp" : {
+        "message": "<p>您可以检查一个网页最近发出的裸HTTP请求的详细情况（见下）。</p><p>这个功能主要是对想调查一个网页究竟在做什么的高级用户有用。但记录这些HTTP请求需要占用内存，所以如果您不关心这些技术信息的话，这些被占用的内存将被浪费。</p><p>因此有了这项设置，来让您调整将被记录下用于进一步调查的最近的HTTP请求数的最大值。</p><p>输入&ldquo;<code>0</code>&rdquo;来关闭详细记录（从而减少<i>µMatrix</i>的内存使用量）。</p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh" : {
+        "message": "刷新",
+        "description": "text for refresh button"
+    },
+
+
+    "settingsPageTitle" : {
+        "message": "µMatrix &ndash; 设置",
+        "description": "header for the whole Settings page"
+    },
+    "settingsMatrixHeader" : {
+        "message": "过滤矩阵",
+        "description": "header of Matrix settings section"
+    },
+    "settingsMatrixDisplayHeader" : {
+        "message": "外观",
+        "description": "English: Appearance"
+    },
+    "settingsMatrixDisplayTextSizePrompt" : {
+        "message": "字体大小:",
+        "description": "..."
+    },
+    "settingsMatrixDisplayTextSizeNormal" : {
+        "message": "常规",
+        "description": "..."
+    },
+    "settingsMatrixDisplayTextSizeLarge" : {
+        "message": "大号",
+        "description": "..."
+    },
+    "settingsMatrixDisplayColorBlind" : {
+        "message": "适合色盲患者的外观",
+        "description": "English: Color-blind friendly"
+    },
+    "settingsMatrixMoreSecurityHeader" : {
+        "message": "增强安全性设置",
+        "description": "..."
+    },
+    "settingsStrictBlockingPrompt": {
+        "message": "启用严格屏蔽",
+        "description": ""
+    },
+    "settingsStrictBlockingInfo": {
+        "message": "<p><strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">严格屏蔽</a></strong>，导入于<a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">0.3.6版</a>，意味着即使您把一个站点名加入了白名单，被加入黑名单的请求类型（<i>插件</i>、<i>子文档</i>等等)仍会保持被黑名单的状态。对部分用户来说这可能有点太麻烦，于是有了这个开关选项。</p><p><strong>开启严格屏蔽</strong>：对一个白名单中的站点名，被添加到黑名单的请求类型（如果有的话）将被屏蔽（除非您，为白名单中的站点名，明确地把这些特殊的请求类型加入到白名单中。）</p><p><strong>关闭严格屏蔽</strong>：对一个白名单中的站点名，被添加到黑名单的请求类型（如果有的话）将被允许（除非您，为白名单中的站点名，明确地把这些特殊的请求类型加入到黑名单中。）</p>",
+        "description": "To help the user understand the purpose of strict blocking"
+    },
+    "settingsAutoCreateScopePrompt1": {
+        "message": "自动添加临时",
+        "description": "English: Auto create temporary"
+    },
+    "settingsAutoCreateDomainScope": {
+        "message": "域名级",
+        "description": "English: domain-level"
+    },
+    "settingsAutoCreateSiteScope": {
+        "message": "站点级",
+        "description": "English: site-level"
+    },
+    "settingsAutoCreateScopePrompt2": {
+        "message": "作用域。",
+        "description": "English: scope"
+    },
+    "settingsAutoCreateScopeInfo": {
+        "message": "<p>这个选项开启临时作用域的自动创建，如果不存在适用于您访问的网站的作用域。</p><p>使用域名或站点级作用域的规则有许多的好处，其中之一是规则的沙盒化，这是一个增强安全性的好习惯。</p><p>例如，如果您想添加一个站点的“全部”请求到白名单（如www.example.com），使用一个域名级的作用域会把这条极其宽容的规则限制到那个特殊域名（example.com）的网页上。而如果运用到全局作用域（“*”）上，这条极其宽容的规则将被运用到所有网站的所有页面上，也就是说把整个互联网添加到白名单中。</p>",
+        "description": "English: see relevant messages.json file"
+    },
+    "settingsMatrixLessSecurityHeader" : {
+        "message": "减弱安全性设置",
+        "description": "..."
+    },
+    "settingsAutoWhitelistPrompt": {
+        "message": "自动添加页面域名至白名单。",
+        "description": ""
+    },
+    "settingsAutoWhitelistHelp": {
+        "message": "<p>有些用户不喜欢要一直把页面的域名添加到默认的白名单。这项功能开启页面上所有域名的临时白名单自动添加，只要这个页面是第一次加载到浏览器。临时白名单自动添加<b>只会</b>发生在页面的域名当前处在灰名单里的情况下。</p><p>虽然从安全性的角度来说，这不是一项被推荐的功能，但它还是因为广泛的需求而被加入————比起看到他们完全放弃一个屏蔽工具，我更倾向于给予用户这项功能。</p><p>如果您使用这项功能，我建议您至少把<b>子文档</b>类型的请求添加到黑名单中，并且开启<b>严格屏蔽</b>。</p>",
+        "description": "To help user understand the purpose of auto-whitelist"
+    },
+    "settingsMatrixConvenienceHeader" : {
+        "message": "便利设置",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt" : {
+        "message": "在过滤矩阵显示关闭后，智能重载这些标签页：",
+        "description": "..."
+    },
+    "settingsMatrixAutoReloadNone" : {
+        "message": "无",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent" : {
+        "message": "当前",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll" : {
+        "message": "所有",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo" : {
+        "message": "当您对过滤矩阵作出任何会影响一个或多个页面的显示或行为的变更时，<i>µMatrix</i> 会在您关闭过滤矩阵的显示后，自动重载受影响的页面。",
+        "description": "..."
+    },
+    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
+        "message": "拷贝所有全局作用域中的规则到新创建的局部作用域中。",
+        "description": "English: Auto delete unused temporary scopes."
+    },
+    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
+        "message": "<p>作用域是沙盒化相互隔离的，即它们不共享规则，这对全局作用域来说也是适用的：局部作用域无法看到全局作用域中的规则。</p> <p>有些用户把这视为一种阻碍，因为他们希望他们的全局作用规则能被局部作用域所看到。这个选项使这个“短处”能得以缓和，通过强制把所以全局作用规则拷贝到一个新创建的局部作用域中来实现。</p> <p>请特别注意：<b>所有</b>来自全局作用域的规则都会被拷贝，包括那些可能和新创建作用域对应网站无关的规则。当全局作用域中有非常多的规则时，这可能会导致“规则膨胀”。</p>",
+        "description": "English: ..."
+    },
+    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
+        "message": "自动删除未使用的临时作用域。",
+        "description": "English: Auto delete unused temporary scopes."
+    },
+    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
+        "message": "",
+        "description": "English:"
+    },
+    "settingsSubframeColor" : {
+        "message": "被屏蔽子文档：颜色",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity" : {
+        "message": "不透明度",
+        "description": "English: Opacity"
+    },
+
+
+    "privacyHeader" : {
+        "message": "隐私设置",
+        "description": "header of Privacy section"
+    },
+    "privacyDeleteBlockedCookiesPrompt" : {
+        "message": "删除被屏蔽的cookie。",
+        "description": "..."
+    },
+    "privacyDeleteBlockedCookiesHelp" : {
+        "message": "<p>被添加到黑名单的cookie不会被<i>µMatrix</i>阻止进入您的浏览器。然而它们会被阻止离开您的浏览器，这是真正重要的。不在cookie进入浏览器之前屏蔽它们，将给您一个被告知一个网站正在试图使用cookie和进一步调查cookie内容的机会。</p><p>一旦这些被添加到黑名单中的cookie被<i>µMatrix</i>审计后，如果您愿意，它们就可以被清除出您的浏览器。</p><p><b>重要提示：</b>浏览器扩展能在它们的通常运作中发起HTTP请求。这些请求可能导致cookie的创建。如果这个选项被选中，而cookie起源的站点名没有在白名单里，这个cookie会被<i>µMatrix</i>从浏览器中清除。所以请确保浏览器扩展会与之通信的站点名在白名单中。</p>",
+        "description": "..."
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1" : {
+        "message": "于非被屏蔽的会话cookie最后被使用的 ",
+        "description": "English: Delete non-blocked session cookies"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2" : {
+        "message": " 分钟后，删除它们。",
+        "description": "English: minutes after the last time they have been used."
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp" : {
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>：“一个会话cookie……会被消除，当您终结浏览器的会话。会话cookie是存储在临时内存空间里的，并且在浏览器被关闭后不会被保持。”</p><p>但这<a href='https://code.google.com/p/chromium/issues/detail?id=128513'>可能不会发生</a>，当您使用一个基于Chromium的浏览器。而且对有些人来说，需要关闭浏览器来清除会话cookie可能不够及时。</p>",
+        "description": "..."
+    },
+    "privacyDeleteBlockedLocalStoragePrompt" : {
+        "message": "删除被屏蔽站点名的<a href='https://zh.wikipedia.org/wiki/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8'>本地网页存储</a>内容集。",
+        "description": "English: Delete <a href='https://en.wikipedia.org/wiki/Web_storage'>local storage</a> content set by blocked hostnames"
+    },
+    "privacyDeleteBlockedLocalStorageHelp" : {
+        "message": "TODO",
+        "description": "..."
+    },
+    "privacyClearCachePrompt1" : {
+        "message": "清除浏览器缓存每隔",
+        "description": "English: Clear browser cache every"
+    },
+    "privacyClearCachePrompt2" : {
+        "message": "分钟。",
+        "description": "English: minutes."
+    },
+    "privacyClearCacheHelp" : {
+        "message": "<p>有些网站真的很热衷于追踪您，以至于它们会使用一些不那么友好的技巧来避开您用于不被追踪的任何措施。</p><p>一小部分这些技巧依赖<sup style='font-size:smaller'>[1, 2]</sup>于浏览器缓存。浏览器缓存中的内容通常会存在相当长的时间，因为极少会有用户花时间去定期清理它们。</p><p>清除浏览器缓存只有很少的不便（很可能当其发生时您都不会注意到），而它的好处是可以阻止这些追踪者们侵犯您的隐私。</p><p>勾选这个选项来让<i>µMatrix</i>为您自动清除浏览器缓存，用您设置的时间间隔。</p><p style='font-size:smaller'>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a><br>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
+        "description": "..."
+    },
+    "privacyProcessRefererPrompt" : {
+        "message": "从向非白名单中站点名发起的HTTP请求中移除第三方<a href='https://zh.wikipedia.org/wiki/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>引用地址</a>信息。",
+        "description": "..."
+    },
+    "privacyProcessRefererHelp" : {
+        "message": "<p>参照维基百科：“HTTP来源地址是一个HTTP表头字段，用于识别链接到正在被请求资源的网页的地址。…… <b>因为引用信息可能泄漏隐私，一些浏览器允许用户禁用发送引用信息的功能。</b>”</p><p>如果这个设置被选中，<i>µMatrix</i>会移除引用地址信息如果以下条件<b>同时</b>得到满足：<ul style='padding-left:1em;list-style-type:disc;'><li>引用地址的域名和HTTP请求地址的域名不吻合（即这是一个第三方引用）；<li>HTTP请求地址的站点名不在白名单中。</ul></p>",
+        "description": "..."
+    },
+    "privacyProcessHyperlinkAuditingPrompt" : {
+        "message": "屏蔽所有<a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>超链接审计</a>尝试。",
+        "description": "..."
+    },
+    "privacyProcessHyperlinkAuditingHelp" : {
+        "message": "<p>超链接审计是一种允许一个团体，<b>任何一个团体</b>，被告知一个用户在某个具体页面中点击了哪个链接的机制。它实质上是一个追踪用户的功能：它允许一个网站，或任何第三方，被告知您在该网站的哪个页面中点击了哪个链接。它唯一的目的就是追踪您的浏览活动。</p>",
+        "description": "..."
+    },
+    "privacySpoofUserAgentPrompt1" : {
+        "message": "从下面列表中随机选取新的一条，来伪装<a href='https://zh.wikipedia.org/wiki/%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86'>用户代理</a>字符串，每隔",
+        "description": "Spoof <a href='https://en.wikipedia.org/wiki/User_agent'>User-Agent</a> string by randomly picking a new one below every"
+    },
+    "privacySpoofUserAgentPrompt2" : {
+        "message": "分钟。",
+        "description": "minutes."
+    },
+    "privacySpoofUserAgentHelp" : {
+        "message": "<a href='https://www.eff.org/deeplinks/2010/01/tracking-by-user-agent'>根据<i>电子前哨基金会</i></a>：“……您的浏览器会发送一个‘用户代理’表头给访问的网站，精确地描述了您正在使用的操作系统及浏览器。这些信息可以帮助区分互联网用户，因为用户间操作系统和浏览器的版本会有所不同,甚至经常会在两人之间相差很大。……<b>用户代理字符串变成一个确实的隐私问题</b>。”<p>这个选项允许您解决这个被EFF指出的隐私问题。</p><p>您可以提供自己的用户代理字符串列表。每行一条。空行和以‘#’开头的行会被忽略。</p>",
+        "description": "..."
+    },
+    "privacyBehindTheSceneHeader" : {
+        "message": "Chrome浏览器后台请求",
+        "description": "header of Chromium: behind-the-scene requests section"
+    },
+    "privacyProcessBehindTheSceneHelp" : {
+        "message": "<p>根据<a href='https://www.google.com/intl/zh-CN/chrome/browser/privacy/whitepaper.html'>Google Chrome 隐私权白皮书</a>，<i>Chromium</i>可能会发送HTTP请求到<i>Google</i>，即使在用户没有明确地访问一个网页的情况下。让我们称这种特殊的请求为<strong>后台</strong>请求。同时，用户安装的其它的浏览器扩展也有可能发送<strong>后台</strong>HTTP请求。</p><p><i>µMatrix</i>让您拦截这些请求，并能像对待别的请求一样对待这些请求：它们可以依照您的白名单/黑名单来被处理，从而实现对它们的允许/屏蔽。</p><p>如需启用这个功能，从浏览这个页面时点击此扩展的图标开始。请先阅读：<a href='https://github.com/gorhill/httpswitchboard/wiki/Behind-the-scene-requests'>后台请求</a>.</p><div class='warn'><p><span style='color:red; font-weight:bold'>注意！</span>屏蔽<strong>后台</strong>网络请求可能会导致<a href='https://github.com/gorhill/httpswitchboard/issues/27'>一个问题</a>，当用户想要从Chrome商店安装一个浏览器扩展的时候（包括可能会阻拦浏览器扩展的更新），因此添加了可以在此屏蔽此功能的设置。屏蔽也可能会导致用户安装的其它的浏览器扩展不能正常工作（那些需要查询远程数据的）。</p><p>即使这项功能没有被启用，<strong>后台</strong>HTTP请求仍然会被<i>µMatrix</i>记录下来。您可以在<a href='dashboard.html#statistics'>统计信息</a>页面检查这些请求。</p>",
+        "description": "..."
+    },
+    "privacyDoneButton" : {
+        "message": "完成",
+        "description": "Close the Privacy page"
+    },
+
+
+    "ubiquitousWhatIsThisHeader" : {
+        "message": "这是什么？",
+        "description": "English: What is this?"
+    },
+    "ubiquitousWhatIsThisPrompt" : {
+        "message": "“普适规则”是应用到所有地方，即所有作用域，的规则。一条普适规则可以被任何针对同一元素的作用域规则所覆盖。",
+        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which apply everywhere, i.e. in all scopes. A ubiquitous rule can be overridden by any scoped rule for the same element."
+    },
+    "ubiquitousListsOfBlockedHostsPrompt1" : {
+        "message": "所有屏蔽站点的列表都作为普适规则被加载，所以这些站点将在所有作用域的黑名单中。",
+        "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."
+    },
+    "ubiquitousListsOfBlockedHostsPrompt2" : {
+        "message": "共{{ubiquitousBlacklistCount}}个不同的屏蔽站点名，来自：",
+        "description": "English: {{ubiquitousBlacklistCount}} distinct blocked hostnames from:"
+    },
+    "ubiquitousListsOfBlockedHostsPerListStats" : {
+        "message": "{{total}}中使用{{used}}",
+        "description": "English: {{used}} used out of {{total}}"
+    },
+    "ubiquitousListsOfBlockedHostsHeader" : {
+        "message": "被屏蔽站点列表",
+        "description": "English: Lists of blocked hosts"
+    },
+    "userUbiquitousBlacklistHeader" : {
+        "message": "您的自定义屏蔽规则",
+        "description": "English: Your block rules"
+    },
+    "userUbiquitousWhitelistHeader" : {
+        "message": "您的自定义允许规则",
+        "description": "English: Your allow rules"
+    },
+    "ubiquitousApplyChanges" : {
+        "message": "应用变更",
+        "description": "English: Apply changes"
+    },
+    "ubiquitousFormatHint" : {
+        "message": "每行一条规则。一条规则可以是单纯的一个站点名或者是一条<a href='https://adblockplus.org/zh_CN/filters'>与Adblock Plus相容的过滤规则</a>。以“#”开头的行将被忽略。",
+        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible filter. Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    },
+    "ubiquitousAllowFormatHint" : {
+        "message": "每行一条规则。一条规则可以是单纯的一个站点名或者是一条与Adblock Plus相容的例外规则（以“@@”开头）。以“#”开头的行将被忽略。",
+        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible exception filter (prefixed with &lsquo;@@&rsquo;). Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    },
+    "ubiquitousImport" : {
+        "message": "导入并附加规则",
+        "description": "English: Import and append"
+    },
+    "ubiquitousExport" : {
+        "message": "导出规则",
+        "description": "English: Export"
+    },
+
+
+    "scopedCommitAllButton": {
+        "message": "提交所有变更",
+        "description": "English: Commit all"
+    },
+    "scopedRevertAllButton": {
+        "message": "移除所有变更",
+        "description": "English: Revert all"
+    },
+    "scopedMarkAllForDeletionButton": {
+        "message": "把所有规则标志为删除",
+        "description": "English: Mark all for deletion"
+    },
+    "scopedResetToFactoryButton": {
+        "message": "重设至出厂状态",
+        "description": "English: Reset to factory"
+    },
+    "scopedRulesHeader": {
+        "message": "规则",
+        "description": "English: Rules"
+    },
+    "scopedRulesInfo": {
+        "message": "这里是您可以备份所有您的作用域和规则的地方：点击“导出规则”，可选地点击“编码配方”，把结果保存到一个文件里，这个文件的内容可以在日后粘帖到这里。<p>规则的语法是非常严格的，只有高级用户才适合冒险在此编辑。如果您将要导入一个来自非可信来源的配方时，请确保其没有任何错误（例如：<b>“whitelist * evil.com”</b>）</p>",
+        "description": "English: [see english message.json]"
+    },
+    "scopedRecipeHeader": {
+        "message": "配方",
+        "description": "English: Recipes"
+    },
+    "scopedRecipesInfo": {
+        "message": "一条“配方”只是一个，用某种方式编码了的，为了方便备份和用户间进行交流的，规则集。理想地，高级用户会共享出他们经过精雕细刻的配方，来帮助新手用户。",
+        "description": "English: [see english message.json]"
+    },
+    "scopedBackupRecipeButton": {
+        "message": "备份到文件",
+        "description": "English: Backup to file"
+    },
+    "scopedRestoreRecipeButton": {
+        "message": "从文件恢复",
+        "description": "English: Restore from file"
+    },
+    "scopedDecodeRecipeButton": {
+        "message": "解码配方",
+        "description": "English: Decode recipe"
+    },
+    "scopedEncodeRecipeButton": {
+        "message": "编码配方",
+        "description": "English: Encode recipe"
+    },
+    "scopedImportRulesButton": {
+        "message": "导入规则",
+        "description": "English: Import rules"
+    },
+    "scopedExportRulesButton": {
+        "message": "导出规则",
+        "description": "English: Export rules"
+    },
+    "scopedGlobalScopeHeader": {
+        "message": "全局作用域",
+        "description": "English: Global scope"
+    },
+    "scopedBtsScopeHeader": {
+        "message": "后台作用域",
+        "description": "English: Behind-the-scene scope"
+    },
+    "scopedDomainScopeHeader": {
+        "message": "域名级作用域",
+        "description": "English: Domain-level scope"
+    },
+    "scopedSiteScopeHeader": {
+        "message": "站点级作用域",
+        "description": "English: Site-level scope"
+    },
+    "scopedDeletionPrompt": {
+        "message": "您即将要删除{{deleteCount}}条规则。\n这是不可逆的操作。\n点击OK进行确认。",
+        "description": "English: You are about to delete {{deleteCount}} rules.\nThis is irreversible.\nClick OK to confirm."
+    },
+
+
+    "aboutChangelog" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Change-log'>变更日志</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Change-log'>Change log</a>"
+    },
+    "aboutStorageUsed" : {
+        "message": "存储空间使用率：{{storageUsed}}%",
+        "description": "English: Storage used: {{storageUsed}}%"
+    },
+    "aboutDoc" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki'>文档</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki'>Documentation</a>"
+    },
+    "aboutPermissions" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>权限</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Permissions</a>"
+    },
+    "aboutCode" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard'>源代码 (GPLv3)</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard'>Source code (GPLv3)</a>"
+    },
+    "aboutCredits" : {
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>赞扬</a>",
+        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>Credits</a>"
+    },
+    "aboutUserDataHeader" : {
+        "message": "您的数据",
+        "description": "English: Your data"
+    },
+    "aboutUserDataBackupButton" : {
+        "message": "备份到文件...",
+        "description": "English: Backup all..."
+    },
+    "aboutUserDataRestoreButton" : {
+        "message": "从文件恢复...",
+        "description": "English: Restore all..."
+    },
+    "aboutUserDataOr" : {
+        "message": "... 或者 ...",
+        "description": "English: ... or ..."
+    },
+    "aboutUserDataResetButton" : {
+        "message": "从头来过……",
+        "description": "English: Start from scratch..."
+    },
+    "aboutUserDataRestoreConfirm" : {
+        "message": "所有您的设置和规则将被覆盖，\n使用备份于{{time}}时的数据，\n随后µMatrix将会重启。\n\n是否要使用备份数据覆盖所有现存数据？",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutExtensionDataHeader" : {
+        "message": "扩展数据",
+        "description": "English: Extension data"
+    },
+    "aboutAssetsUpdatePrompt" : {
+        "message": "<i>µMatrix</i>使用的资源可以在这里进行升级，而不必等到扩展的下一个发行版。这些资源是拉取自<a href=\"https://github.com/gorhill/httpswitchboard\">本项目的Github代码托管库</a>。",
+        "description": "Short descriptive text of the update feature"
+    },
+    "aboutAssetsUpdateColPath" : {
+        "message": "路径",
+        "description": "Path column header"
+    },
+    "aboutAssetsUpdateColStatus" : {
+        "message": "状态",
+        "description": "Status column header"
+    },
+    "aboutAssetsUpdateGetListError" : {
+        "message": "有一个错误发生。<b>raw2.github.com</b>的<b>XHR</b>是否被屏蔽？",
+        "description": "Successful outcome of clicking 'update' button"
+    },
+    "aboutAssetsUpdateStatusAdded" : {
+        "message": "将被添加",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusChanged" : {
+        "message": "有新版本",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusUnchanged" : {
+        "message": "已是最新",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateStatusRemoved" : {
+        "message": "将被移除",
+        "description": "Displayed in the status column for each entry"
+    },
+    "aboutAssetsUpdateButton" : {
+        "message": "马上更新",
+        "description": "Update button"
+    },
+    "aboutAssetsUpdatingButton" : {
+        "message": "正在更新...",
+        "description": "Updating..."
+    },
+
+
+    "setupPagePrompt" : {
+        "message": "<p><b>µMatrix</b>是高度可配置的：它可以被设置为“屏蔽所有”和“完全不屏蔽”间的任何状态。<p>安全性越高，网页破损的可能性也就越高，即不能如设想的一样渲染或运作。因此，更高的安全性也意味着需要更多来自用户的介入，来“修复”那些用户信任的网页。<p>这里您可以选择一个最适合您使用<b>µMatrix</b>计划的设定档。您只需把这当作一个起点，因为您之后仍可随意自行定制。",
+        "description": "Appears at the top of the setup page"
+    },
+    "setupBlockAllAllowExceptionally" : {
+        "message": "屏蔽所有 / 允许例外",
+        "description": "English: Block all / allow exceptionally"
+    },
+    "setupAllowAllBlockExceptionally" : {
+        "message": "允许所有 / 屏蔽例外",
+        "description": "English: Allow all / block exceptionally"
+    },
+    "setupAdBlocker" : {
+        "message": "类似Adblock Plus",
+        "description": "English: Ad blocker-like"
+    },
+    "setupNoScript" : {
+        "message": "类似NoScript",
+        "description": "English: NoScript-like"
+    },
+    "setupRequestPolicy" : {
+        "message": "类似RequestPolicy",
+        "description": "English: RequestPolicy-like"
+    },
+    "setupBlockNothingReportAll" : {
+        "message": "完全不屏蔽 / 报告所有",
+        "description": "English: Block nothing / report everything"
+    },
+    "setupSecurity" : {
+        "message": "安全性：",
+        "description": "English: Security:"
+    },
+    "setupBreakage" : {
+        "message": "不兼容性：",
+        "description": "English: Breakage:"
+    },
+    "setupVeryHigh" : {
+        "message": "非常高",
+        "description": "English: very high"
+    },
+    "setupHigh" : {
+        "message": "高",
+        "description": "English: high"
+    },
+    "setupMediumHigh" : {
+        "message": "中高",
+        "description": "English: medium high"
+    },
+    "setupMedium" : {
+        "message": "中等",
+        "description": "English: medium"
+    },
+    "setupMediumLow" : {
+        "message": "中低",
+        "description": "English: medium low"
+    },
+    "setupLow" : {
+        "message": "低",
+        "description": "English: low"
+    },
+    "setupVeryLow" : {
+        "message": "非常低",
+        "description": "English: very low"
+    },
+    "setupNone" : {
+        "message": "无",
+        "description": "English: none"
+    },
+    "setupRestoreConfirm" : {
+        "message": "所有您的设置和规则将被覆盖，\n然后µMatrix将会重启。\n\n是否要覆盖所有现存数据？",
+        "description": "English: All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?"
+    },
+
+
+    "commandRevertAll" : {
+        "message": "移除所有临时变更",
+        "description": "English: Remove all temporary changes"
+    },
+    "commandWhitelistPageDomain" : {
+        "message": "临时把当前页面的域名添加到白名单",
+        "description": "English: Temporarily whitelist page domain"
+    },
+    "commandWhitelistAll" : {
+        "message": "临时把当前页面的所有请求添加到白名单",
+        "description": "English: Temporarily whitelist all"
+    },
+    "commandOpenDashboard" : {
+        "message": "打开仪表板",
+        "description": "English: Open dashboard"
+    },
+
+
+    "dummy": {
+        "message": "This entry must be the last one",
+        "description": "so we dont need to deal with comma for last entry"
+    }
+}
