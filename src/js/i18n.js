@@ -22,19 +22,24 @@
 // Helper to deal with the i18n'ing of HTML files.
 // jQuery must be present at this point.
 
-$(function() {
-    $('[data-i18n]').each(function() {
-        var me = $(this);
-        var key = me.data('i18n');
-        me.html(chrome.i18n.getMessage(key));
-    });
+window.addEventListener('load', function() {
+    var nodeList = document.querySelectorAll('[data-i18n]');
+    var i = nodeList.length;
+    var node;
+    while ( i-- ) {
+        node = nodeList[i];
+        node.innerHTML = chrome.i18n.getMessage(node.getAttribute('data-i18n'));
+    }
     // copy text of <h1> if any to document title
-    document.title = $('h1').first().text();
-
+    node = document.querySelector('h1');
+    if ( node !== null ) {
+        document.title = node.textContent;
+    }
     // Tool tips
-    $('[data-i18n-tip]').each(function() {
-        var me = $(this);
-        var key = me.data('i18nTip');
-        me.attr('data-tip', chrome.i18n.getMessage(key));
-    });
+    nodeList = document.querySelectorAll('[data-i18n-tip]');
+    i = nodeList.length;
+    while ( i-- ) {
+        node = nodeList[i];
+        node.setAttribute('data-tip', chrome.i18n.getMessage(node.getAttribute('data-i18n-tip')));
+    }
 });

@@ -74,7 +74,7 @@ body .toolbar button.fa {
 body.tScopeGlobal .toolbar button.scopeRel:not(.disabled) {
     color: #000;
     }
-body.tScopeLocal .toolbar button.scopeRel:not(.disabled) {
+body.tScopeNarrow .toolbar button.scopeRel:not(.disabled) {
     color: #24c;
     }
 
@@ -275,7 +275,7 @@ body #scopeCell + .dropdown-menu {
 body.tScopeGlobal #scopeCell {
     background-color: #000;
     }
-body.tScopeLocal #scopeCell {
+body.tScopeNarrow #scopeCell {
     background-color: #24c;
     }
 

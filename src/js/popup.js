@@ -495,17 +495,16 @@ function getCollapseState(domain) {
     return getUserSetting('popupCollapseDomains');
 }
 
-function toggleCollapseState(element) {
-    var el = uDom(element);
-    if ( el.ancestors('#matHead.collapsible').length() > 0 ) {
-        toggleMainCollapseState(el);
+function toggleCollapseState(elem) {
+    if ( elem.ancestors('#matHead.collapsible').length > 0 ) {
+        toggleMainCollapseState(elem);
     } else {
-        toggleSpecificCollapseState(el);
+        toggleSpecificCollapseState(elem);
     }
 }
 
-function toggleMainCollapseState(element) {
-    var matHead = element.ancestors('#matHead.collapsible').toggleClass('collapsed');
+function toggleMainCollapseState(uelem) {
+    var matHead = uelem.ancestors('#matHead.collapsible').toggleClass('collapsed');
     var collapsed = matHead.hasClassName('collapsed');
     uDom('#matList .matSection.collapsible').toggleClass('collapsed', collapsed);
     setUserSetting('popupCollapseDomains', collapsed);
@@ -523,10 +522,10 @@ function toggleMainCollapseState(element) {
     setUserSetting('popupCollapseSpecificDomains', specificCollapseStates);
 }
 
-function toggleSpecificCollapseState(element) {
+function toggleSpecificCollapseState(uelem) {
     // Remember collapse state forever, but only if it is different
     // from main collapse switch.
-    var section = element.ancestors('.matSection.collapsible').toggleClass('collapsed');
+    var section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed');
     var domain = section.prop('domain');
     var collapsed = section.hasClassName('collapsed');
     var mainCollapseState = getUserSetting('popupCollapseDomains');
@@ -546,13 +545,12 @@ function toggleSpecificCollapseState(element) {
 // Color changes when rules change
 
 function updateMatrixColors() {
-    var cells = $('.matrix .matRow.rw > .matCell');
+    var cells = uDom('.matrix .matRow.rw > .matCell').removeClass();
     var i = cells.length;
     var cell;
     while ( i-- ) {
-        cell = $(cells[i]);
-        cell.removeClass()
-            .addClass('matCell ' + getCellClass(cell.prop('hostname'), cell.prop('reqType')));
+        cell = cells.node(i);
+        cell.className = 'matCell ' + getCellClass(cell.hostname, cell.reqType);
     }
 }
 
@@ -573,17 +571,17 @@ function updateMatrixCounts() {
 //   - It is not part of group 3 (blacklisted hostnames)
 
 function updateMatrixBehavior() {
-    matrixList = matrixList || $('#matList');
-    var sections = matrixList.find('.matSection');
+    matrixList = matrixList || uDom('#matList');
+    var sections = matrixList.descendants('.matSection');
     var i = sections.length;
     var section, subdomainRows, j, subdomainRow;
     while ( i-- ) {
-        section = $(sections[i]);
-        subdomainRows = section.children('.l2:not(.g3)');
+        section = sections.unode(i);
+        subdomainRows = section.descendants('.l2:not(.g3)');
         j = subdomainRows.length;
         while ( j-- ) {
-            subdomainRow = $(subdomainRows[j]);
-            subdomainRow.toggleClass('collapsible', subdomainRow.children('.gd,.rd').length === 0);
+            subdomainRow = subdomainRows.unode(j);
+            subdomainRow.toggleClass('collapsible', subdomainRow.descendants('.gd,.rd').length === 0);
         }
         section.toggleClass('collapsible', subdomainRows.filter('.collapsible').length > 0);
     }
@@ -596,7 +594,7 @@ function updateMatrixBehavior() {
 function handleFilter(button, leaning) {
     var µm = µMatrix;
     // our parent cell knows who we are
-    var cell = button.closest('div.matCell');
+    var cell = button.ancestors('div.matCell');
     var type = cell.prop('reqType');
     var hostname = cell.prop('hostname');
     var nextAction = getNextAction(hostname, type, leaning);
@@ -676,7 +674,7 @@ function getTemporaryRuleset() {
         if ( permanentSwitches.hasOwnProperty(k) === false ) {
             continue;
         }
-        if ( temporarySwitches[rule] === undefined ) {
+        if ( temporarySwitches[k] === undefined ) {
             ruleset.switchesToRemove.push(k);
         }
     }
@@ -696,15 +694,15 @@ var matrixRowTemplate = null;
 var matrixList = null;
 
 var startMatrixUpdate = function() {
-    matrixList =  matrixList || $('#matList');
+    matrixList =  matrixList || uDom('#matList');
     matrixList.detach();
-    var rows = matrixList.find('.matRow');
+    var rows = matrixList.descendants('.matRow');
     rows.detach();
     matrixRowPool = matrixRowPool.concat(rows.toArray());
-    var sections = matrixList.find('.matSection');
+    var sections = matrixList.descendants('.matSection');
     sections.detach();
     matrixSectionPool = matrixSectionPool.concat(sections.toArray());
-    var groups = matrixList.find('.matGroup');
+    var groups = matrixList.descendants('.matGroup');
     groups.detach();
     matrixGroupPool = matrixGroupPool.concat(groups.toArray());
 };
@@ -720,36 +718,36 @@ var endMatrixUpdate = function() {
     }
     updateMatrixBehavior();
     matrixList.css('display', '');
-    matrixList.appendTo($('.paneContent'));
+    matrixList.appendTo('.paneContent');
 };
 
 var createMatrixGroup = function() {
     var group = matrixGroupPool.pop();
     if ( group ) {
-        return $(group).removeClass().addClass('matGroup');
+        return uDom(group).removeClass().addClass('matGroup');
     }
-    return $('<div>').addClass('matGroup');
+    return uDom('<div>').addClass('matGroup');
 };
 
 var createMatrixSection = function() {
     var section = matrixSectionPool.pop();
     if ( section ) {
-        return $(section).removeClass().addClass('matSection');
+        return uDom(section).removeClass().addClass('matSection');
     }
-    return $('<div>').addClass('matSection');
+    return uDom('<div>').addClass('matSection');
 };
 
 var createMatrixRow = function() {
     var row = matrixRowPool.pop();
     if ( row ) {
         row.style.visibility = '';
-        row = $(row);
-        row.children('.matCell').removeClass().addClass('matCell');
+        row = uDom(row);
+        row.descendants('.matCell').removeClass().addClass('matCell');
         row.removeClass().addClass('matRow');
         return row;
     }
     if ( matrixRowTemplate === null ) {
-        matrixRowTemplate = $('#templates .matRow');
+        matrixRowTemplate = uDom('#templates .matRow');
     }
     return matrixRowTemplate.clone();
 };
@@ -759,7 +757,7 @@ var createMatrixRow = function() {
 function renderMatrixHeaderRow() {
     var matHead = uDom('#matHead.collapsible');
     matHead.toggleClass('collapsed', getUserSetting('popupCollapseDomains'));
-    var cells = matHead.find('.matCell');
+    var cells = matHead.descendants('.matCell');
     uDom(cells.node(0))
         .prop('reqType', '*')
         .prop('hostname', '*')
@@ -845,38 +843,38 @@ function renderMatrixCellType(cell, hostname, type, stats) {
 }
 
 function renderMatrixCellTypes(cells, hostname, stats) {
-    renderMatrixCellType(cells[1], hostname, 'cookie', stats.cookie);
-    renderMatrixCellType(cells[2], hostname, 'css', stats.css);
-    renderMatrixCellType(cells[3], hostname, 'image', stats.image);
-    renderMatrixCellType(cells[4], hostname, 'plugin', stats.plugin);
-    renderMatrixCellType(cells[5], hostname, 'script', stats.script);
-    renderMatrixCellType(cells[6], hostname, 'xhr', stats.xhr);
-    renderMatrixCellType(cells[7], hostname, 'frame', stats.frame);
-    renderMatrixCellType(cells[8], hostname, 'other', stats.other);
+    renderMatrixCellType(cells.unode(1), hostname, 'cookie', stats.cookie);
+    renderMatrixCellType(cells.unode(2), hostname, 'css', stats.css);
+    renderMatrixCellType(cells.unode(3), hostname, 'image', stats.image);
+    renderMatrixCellType(cells.unode(4), hostname, 'plugin', stats.plugin);
+    renderMatrixCellType(cells.unode(5), hostname, 'script', stats.script);
+    renderMatrixCellType(cells.unode(6), hostname, 'xhr', stats.xhr);
+    renderMatrixCellType(cells.unode(7), hostname, 'frame', stats.frame);
+    renderMatrixCellType(cells.unode(8), hostname, 'other', stats.other);
 }
 
 /******************************************************************************/
 
 function makeMatrixRowDomain(domain) {
     var matrixRow = createMatrixRow().addClass('rw');
-    var cells = matrixRow.children('.matCell');
-    renderMatrixCellDomain(cells[0], domain);
+    var cells = matrixRow.descendants('.matCell');
+    renderMatrixCellDomain(cells.node(0), domain);
     renderMatrixCellTypes(cells, domain, HTTPSBPopup.matrixStats[domain].types);
     return matrixRow;
 }
 
 function makeMatrixRowSubdomain(domain, subdomain) {
     var matrixRow = createMatrixRow().addClass('rw');
-    var cells = matrixRow.children('.matCell');
-    renderMatrixCellSubdomain(cells[0], domain, subdomain);
+    var cells = matrixRow.descendants('.matCell');
+    renderMatrixCellSubdomain(cells.node(0), domain, subdomain);
     renderMatrixCellTypes(cells, subdomain, HTTPSBPopup.matrixStats[subdomain].types);
     return matrixRow;
 }
 
 function makeMatrixMetaRowDomain(domain, stats) {
     var matrixRow = createMatrixRow().addClass('rw');
-    var cells = matrixRow.children('.matCell');
-    renderMatrixMetaCellDomain(cells[0], domain);
+    var cells = matrixRow.descendants('.matCell');
+    renderMatrixMetaCellDomain(cells.node(0), domain);
     renderMatrixCellTypes(cells, domain, stats);
     return matrixRow;
 }
@@ -893,11 +891,9 @@ function renderMatrixMetaCellType(cell, count) {
 
 function makeMatrixMetaRow(stats) {
     var typeStats = stats.types;
-    var matrixRow = uDom(createMatrixRow()[0]).addClass('ro');
-    var cells = matrixRow.find('.matCell');
-    var contents = uDom(cells.node(0))
-        .addClass('matCell rd')
-        .contents();
+    var matrixRow = createMatrixRow().unode(0).addClass('ro');
+    var cells = matrixRow.descendants('.matCell');
+    var contents = cells.unode(0).addClass('rd').contents();
     contents.node(0).textContent = ' ';
     contents.node(1).textContent = '\u202A' + typeStats['*'].count + ' blacklisted hostname(s)';
     renderMatrixMetaCellType(cells.node(1), typeStats.cookie.count);
@@ -908,7 +904,7 @@ function makeMatrixMetaRow(stats) {
     renderMatrixMetaCellType(cells.node(6), typeStats.xhr.count);
     renderMatrixMetaCellType(cells.node(7), typeStats.frame.count);
     renderMatrixMetaCellType(cells.node(8), typeStats.other.count);
-    return $(matrixRow.node(0));
+    return matrixRow;
 }
 
 /******************************************************************************/
@@ -1204,7 +1200,7 @@ function initMenuEnvironment() {
     var cell, key, text;
     while ( i-- ) {
         key = keys[i];
-        cell = $('#matHead .matCell[data-filter-type="'+ key +'"]');
+        cell = uDom('#matHead .matCell[data-filter-type="'+ key +'"]');
         text = chrome.i18n.getMessage(key + 'PrettyName');
         cell.text(text);
         prettyNames[key] = text;
@@ -1242,19 +1238,14 @@ function createSiteScope() {
     dropDownMenuHide();
 }
 
-function getClassSuffixFromScopeKey(scopeKey) {
-    if ( scopeKey === '*' ) {
-        return 'ScopeGlobal';
+function getClassFromTargetScope() {
+    if ( targetScope === '*' ) {
+        return 'tScopeGlobal';
     }
-    return 'ScopeLocal';
-}
-
-function getClassFromTemporaryScopeKey(scopeKey) {
-    return 't' + getClassSuffixFromScopeKey(scopeKey);
-}
-
-function getClassFromPermanentScopeKey(scopeKey) {
-    return 'p' + getClassSuffixFromScopeKey(scopeKey);
+    if ( targetScope === targetPageDomain ) {
+        return 'tScopeNarrow';
+    }
+    return 'tScopeNarrow';
 }
 
 function initScopeCell() {
@@ -1264,21 +1255,19 @@ function initScopeCell() {
         return;
     }
     // Fill in the scope menu entries
-    var µm = µMatrix;
     if ( targetPageDomain === '' || targetPageDomain === targetPageHostname ) {
-        $('#scopeKeyDomain').css('display', 'none');
+        uDom('#scopeKeyDomain').css('display', 'none');
     } else {
-        $('#scopeKeyDomain').text(targetPageDomain);
+        uDom('#scopeKeyDomain').text(targetPageDomain);
     }
-    $('#scopeKeySite').text(targetPageHostname);
+    uDom('#scopeKeySite').text(targetPageHostname);
     updateScopeCell();
 }
 
 function updateScopeCell() {
-    var µm = µMatrix;
     uDom('body')
-        .removeClass('tScopeGlobal tScopeLocal tScopeSite')
-        .addClass(getClassFromTemporaryScopeKey(targetScope))
+        .removeClass('tScopeGlobal tScopeNarrow')
+        .addClass(getClassFromTargetScope());
     uDom('#scopeCell').text(targetScope.replace('*', '\u2217'));
 }
 
@@ -1289,11 +1278,11 @@ function updateMtxbutton() {
     var masterSwitch = µm.getTemporaryMtxFiltering(targetScope);
     var pageStats = getPageStats();
     var count = pageStats ? pageStats.requestStats.blocked.all : '';
-    var button = $('#buttonMtxFiltering');
+    var button = uDom('#buttonMtxFiltering');
     button.toggleClass('disabled', !masterSwitch);
-    button.children('span.badge').text(µm.formatCount(count));
-    button.attr('data-tip', button.data('tip').replace('{{count}}', count));
-    $('body').toggleClass('powerOff', !masterSwitch);
+    button.descendants('span.badge').text(µm.formatCount(count));
+    button.attr('data-tip', button.attr('data-tip').replace('{{count}}', count));
+    uDom('body').toggleClass('powerOff', !masterSwitch);
 }
 
 function toggleMtxFiltering() {
@@ -1309,12 +1298,12 @@ function toggleMtxFiltering() {
 
 function updatePersistButton() {
     var ruleset = getTemporaryRuleset();
-    var button = $('#buttonPersist');
+    var button = uDom('#buttonPersist');
     button.contents()
           .filter(function(){return this.nodeType===3;})
-          .first()[0]
-          .textContent = ruleset.count > 0 ? '\uf13e' : '\uf023';
-    button.children('span.badge').text(ruleset.count > 0 ? ruleset.count : '');
+          .first()
+          .text(ruleset.count > 0 ? '\uf13e' : '\uf023');
+    button.descendants('span.badge').text(ruleset.count > 0 ? ruleset.count : '');
     var disabled = ruleset.count === 0;
     button.toggleClass('disabled', disabled);
     uDom('#buttonRevertScope').toggleClass('disabled', disabled);
@@ -1405,7 +1394,7 @@ function gotoExternalURL() {
 /******************************************************************************/
 
 function dropDownMenuShow() {
-    $(this).next('.dropdown-menu').addClass('show');
+    uDom(this).next('.dropdown-menu').addClass('show');
 }
 
 function dropDownMenuHide() {
@@ -1443,8 +1432,8 @@ var bindToTab = function(tabs) {
 
     // After popup menu is built, check whether there is a non-empty matrix
     if ( !targetPageURL ) {
-        $('#matHead').remove();
-        $('#toolbarLeft').remove();
+        uDom('#matHead').remove();
+        uDom('#toolbarLeft').remove();
 
         // https://github.com/gorhill/httpswitchboard/issues/191
         uDom('#noNetTrafficPrompt').text(chrome.i18n.getMessage('matrixNoNetTrafficPrompt'));
@@ -1456,55 +1445,50 @@ var bindToTab = function(tabs) {
 
 // Make menu only when popup html is fully loaded
 
-$(function() {
+uDom.onLoad(function() {
 
     chrome.tabs.query({ currentWindow: true, active: true }, bindToTab);
 
     // Below is UI stuff which is not key to make the menu, so this can
     // be done without having to wait for a tab to be bound to the menu.
 
-    var popup = HTTPSBPopup;
-
     // Matrix appearance
-    $('body').css('font-size', getUserSetting('displayTextSize'));
-    $('body').toggleClass('colorblind', getUserSetting('colorBlindFriendly') === true);
+    uDom('body').css('font-size', getUserSetting('displayTextSize'));
+    uDom('body').toggleClass('colorblind', getUserSetting('colorBlindFriendly') === true);
 
     // We reuse for all cells the one and only cell hotspots.
-    matrixCellHotspots = $('#cellHotspots').detach();
-    $('#whitelist', matrixCellHotspots)
-        .on('click', function() {
-            handleWhitelistFilter($(this));
+    uDom('#whitelist').on('click', function() {
+            handleWhitelistFilter(uDom(this));
             return false;
         });
-    $('#blacklist', matrixCellHotspots)
-        .on('click', function() {
-            handleBlacklistFilter($(this));
+    uDom('#blacklist').on('click', function() {
+            handleBlacklistFilter(uDom(this));
             return false;
         });
-    $('#domainOnly', matrixCellHotspots)
-        .on('click', function() {
-            toggleCollapseState(this);
+    uDom('#domainOnly').on('click', function() {
+            toggleCollapseState(uDom(this));
             return false;
         });
-    $('body')
+    matrixCellHotspots = uDom('#cellHotspots').detach();
+    uDom('body')
         .on('mouseenter', '.matCell', mouseenterMatrixCellHandler)
         .on('mouseleave', '.matCell', mouseleaveMatrixCellHandler);
-    $('#scopeKeyGlobal').on('click', createGlobalScope);
-    $('#scopeKeyDomain').on('click', createDomainScope);
-    $('#scopeKeySite').on('click', createSiteScope);
-    $('#buttonMtxFiltering').on('click', toggleMtxFiltering);
-    $('#buttonPersist').on('click', persistScope);
-    $('#buttonRevertScope').on('click', revertScope);
+    uDom('#scopeKeyGlobal').on('click', createGlobalScope);
+    uDom('#scopeKeyDomain').on('click', createDomainScope);
+    uDom('#scopeKeySite').on('click', createSiteScope);
+    uDom('#buttonMtxFiltering').on('click', toggleMtxFiltering);
+    uDom('#buttonPersist').on('click', persistScope);
+    uDom('#buttonRevertScope').on('click', revertScope);
 
-    $('#buttonRevertAll').on('click', revertAll);
-    $('#buttonReload').on('click', buttonReloadHandler);
-    $('.extensionURL').on('click', gotoExtensionURL);
-    $('.externalURL').on('click', gotoExternalURL);
+    uDom('#buttonRevertAll').on('click', revertAll);
+    uDom('#buttonReload').on('click', buttonReloadHandler);
+    uDom('.extensionURL').on('click', gotoExtensionURL);
+    uDom('.externalURL').on('click', gotoExternalURL);
 
-    $('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
-    $('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
+    uDom('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
+    uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
 
-    $('#matList').on('click', '.g3Meta', function() {
+    uDom('#matList').on('click', '.g3Meta', function() {
         var collapsed = uDom(this)
             .toggleClass('g3Collapsed')
             .hasClass('g3Collapsed');

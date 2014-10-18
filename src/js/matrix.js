@@ -20,6 +20,7 @@
 */
 
 /* global µMatrix */
+/* jshint bitwise: false */
 
 /******************************************************************************/
 
@@ -55,7 +56,7 @@ Matrix.GrayIndirect  = Matrix.Gray | Matrix.Indirect;
 
 /******************************************************************************/
 
-typeBitOffsets = {
+var typeBitOffsets = {
          '*':  0,
     'cookie':  2,
        'css':  4,
@@ -258,6 +259,7 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     var rl = this.evaluateCellZ(srcHostname, desHostname, '*');
     if ( rl === 1 ) { return Matrix.RedIndirect; }
     var d = desHostname;
+    var pos;
     for (;;) {
         pos = d.indexOf('.');
         if ( pos === -1 ) {
@@ -328,15 +330,9 @@ Matrix.prototype.desHostnameFromRule = function(rule) {
 
 /******************************************************************************/
 
-Matrix.prototype.typeFromRule = function(rule) {
-    return;
-};
-
-/******************************************************************************/
-
 Matrix.prototype.extractZRules = function(srcHostname, desHostname, out) {
     var s = srcHostname;
-    var rule, bitmap;
+    var rule, bitmap, pos;
     for (;;) {
         rule = s + ' ' + desHostname;
         bitmap = this.rules[rule];
@@ -350,25 +346,6 @@ Matrix.prototype.extractZRules = function(srcHostname, desHostname, out) {
         }
         if ( s !== '*' ) {
             s = '*';
-            continue;
-        }
-        break;
-    }
-};
-
-/******************************************************************************/
-
-Matrix.prototype.extractZYRules = function(srcHostname, desHostname, out) {
-    var d = srcHostname;
-    for (;;) {
-        this.extractZRules(srcHostname, d, out);
-        pos = d.indexOf('.');
-        if ( pos !== -1 ) {
-            d = d.slice(pos + 1);
-            continue;
-        }
-        if ( d !== '*' ) {
-            d = '*';
             continue;
         }
         break;
@@ -411,6 +388,7 @@ Matrix.prototype.toggleSwitch = function(srcHostname, newState) {
 Matrix.prototype.evaluateSwitch = function(srcHostname) {
     var b;
     var s = srcHostname;
+    var pos;
     for (;;) {
         b = this.switchedOn[s];
         if ( b !== undefined ) {
@@ -434,7 +412,7 @@ Matrix.prototype.evaluateSwitch = function(srcHostname) {
 
 Matrix.prototype.extractSwitches = function(srcHostname, out) {
     var s = srcHostname;
-    var v;
+    var v, pos;
     for (;;) {
         v = this.rules[s];
         if ( v !== undefined ) {

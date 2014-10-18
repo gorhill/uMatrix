@@ -38,12 +38,15 @@ var DOMList = function() {
 
 /******************************************************************************/
 
-var addNodeToList = function(list, node) {
-    if ( node ) {
-        list.nodes.push(node);
+Object.defineProperty(
+    DOMList.prototype,
+    'length',
+    {
+        get: function() {
+            return this.nodes.length;
+        }
     }
-    return list;
-};
+);
 
 /******************************************************************************/
 
@@ -74,6 +77,15 @@ var DOMListFactory = function(selector, context) {
 
 DOMListFactory.onLoad = function(callback) {
     window.addEventListener('load', callback);
+};
+
+/******************************************************************************/
+
+var addNodeToList = function(list, node) {
+    if ( node ) {
+        list.nodes.push(node);
+    }
+    return list;
 };
 
 /******************************************************************************/
@@ -114,6 +126,8 @@ var pTagOfChildTag = {
     'option': 'select'
 };
 
+// TODO: documentFragment
+
 var addHTMLToList = function(list, html) {
     var matches = html.match(/^<([a-z]+)/);
     if ( !matches || matches.length !== 2 ) {
@@ -134,6 +148,12 @@ var addHTMLToList = function(list, html) {
 
 /******************************************************************************/
 
+var isChildOf = function(child, parent) {
+    return child !== null && parent !== null && child.parentNode === parent;
+};
+
+/******************************************************************************/
+
 var isDescendantOf = function(descendant, ancestor) {
     while ( descendant.parentNode !== null ) {
         if ( descendant.parentNode === ancestor ) {
@@ -146,6 +166,34 @@ var isDescendantOf = function(descendant, ancestor) {
 
 /******************************************************************************/
 
+var doesMatchSelector = function(node, selector) {
+    if ( !node ) {
+        return false;
+    }
+    if ( node.nodeType !== 1 ) {
+        return false;
+    }
+    if ( selector === undefined ) {
+        return true;
+    }
+    var parentNode = node.parentNode;
+    if ( !parentNode || !parentNode.setAttribute ) {
+        return false;
+    }
+    var doesMatch = false;
+    parentNode.setAttribute('uDom-32kXc6xEZA7o73AMB8vLbLct1RZOkeoO', '');
+    var grandpaNode = parentNode.parentNode || document;
+    var nl = grandpaNode.querySelectorAll('[uDom-32kXc6xEZA7o73AMB8vLbLct1RZOkeoO] > ' + selector);
+    var i = nl.length;
+    while ( doesMatch === false && i-- ) {
+        doesMatch = nl[i] === node;
+    }
+    parentNode.removeAttribute('uDom-32kXc6xEZA7o73AMB8vLbLct1RZOkeoO');
+    return doesMatch;
+};
+
+/******************************************************************************/
+
 DOMList.prototype.length = function() {
     return this.nodes.length;
 };
@@ -154,6 +202,16 @@ DOMList.prototype.length = function() {
 
 DOMList.prototype.node = function(i) {
     return this.nodes[i];
+};
+
+DOMList.prototype.unode = function(i) {
+    return addNodeToList(new DOMList(), this.nodes[i]);
+};
+
+/******************************************************************************/
+
+DOMList.prototype.toArray = function() {
+    return this.nodes.slice();
 };
 
 /******************************************************************************/
@@ -176,6 +234,29 @@ DOMList.prototype.first = function() {
 
 /******************************************************************************/
 
+DOMList.prototype.next = function(selector) {
+    var r = new DOMList();
+    var n = this.nodes.length;
+    var node;
+    for ( var i = 0; i < n; i++ ) {
+        node = this.nodes[i];
+        while ( node.nextSibling !== null ) {
+            node = node.nextSibling;
+            if ( node.nodeType !== 1 ) {
+                continue;
+            }
+            if ( doesMatchSelector(node, selector) === false ) {
+                continue;
+            }
+            addNodeToList(r, node);
+            break;
+        }
+    }
+    return r;
+};
+
+/******************************************************************************/
+
 DOMList.prototype.parent = function() {
     var r = new DOMList();
     if ( this.nodes.length ) {
@@ -186,21 +267,26 @@ DOMList.prototype.parent = function() {
 
 /******************************************************************************/
 
-DOMList.prototype.ancestors = function(selector) {
+DOMList.prototype.filter = function(filter) {
     var r = new DOMList();
-    if ( this.nodes.length === 0 ) {
-        return r;
+    var filterFunc;
+    if ( typeof filter === 'string' ) {
+        filterFunc = function() {
+            return doesMatchSelector(this, filter);
+        };
+    } else if ( typeof filter === 'function' ) {
+        filterFunc = filter;
+    } else {
+        filterFunc = function(){
+            return true;
+        };
     }
-    var candidates = document.querySelectorAll(selector);
-    var i = candidates.length;
-    var j, candidate;
-    while ( i-- ) {
-        candidate = candidates[i];
-        j = this.nodes.length;
-        while ( j-- ) {
-            if ( isDescendantOf(this.nodes[j], candidate) ) {
-                addNodeToList(r, candidate);
-            }
+    var n = this.nodes.length;
+    var node;
+    for ( var i = 0; i < n; i++ ) {
+        node = this.nodes[i];
+        if ( filterFunc.apply(node) ) {
+            addNodeToList(r, node);
         }
     }
     return r;
@@ -208,7 +294,27 @@ DOMList.prototype.ancestors = function(selector) {
 
 /******************************************************************************/
 
-DOMList.prototype.find = function(selector) {
+// TODO: Avoid possible duplicates
+
+DOMList.prototype.ancestors = function(selector) {
+    var r = new DOMList();
+    var n = this.nodes.length;
+    var node;
+    for ( var i = 0; i < n; i++ ) {
+        node = this.nodes[i].parentNode;
+        while ( node ) {
+            if ( doesMatchSelector(node, selector) ) {
+                addNodeToList(r, node);
+            }
+            node = node.parentNode;
+        }
+    }
+    return r;
+};
+
+/******************************************************************************/
+
+DOMList.prototype.descendants = function(selector) {
     var r = new DOMList();
     var n = this.nodes.length;
     var nl;
@@ -248,16 +354,18 @@ DOMList.prototype.forEach = function(callback) {
 /******************************************************************************/
 
 DOMList.prototype.remove = function() {
-    var n = this.nodes.length;
-    var c, p;
-    for ( var i = 0; i < n; i++ ) {
-        c = this.nodes[i];
-        if ( p = c.parentNode ) {
-            p.removeChild(c);
+    var cn, p;
+    var i = this.nodes.length;
+    while ( i-- ) {
+        cn = this.nodes[i];
+        if ( p = cn.parentNode ) {
+            p.removeChild(cn);
         }
      }
     return this;
 };
+
+DOMList.prototype.detach = DOMList.prototype.remove;
 
 /******************************************************************************/
 
@@ -304,12 +412,10 @@ DOMList.prototype.prepend = function(selector, context) {
 /******************************************************************************/
 
 DOMList.prototype.appendTo = function(selector, context) {
-    var p = DOMListFactory(selector, context);
-    if ( p.length ) {
-        var n = this.nodes.length;
-        for ( var i = 0; i < n; i++ ) {
-            p.nodes[0].appendChild(this.nodes[i]);
-        }
+    var p = selector instanceof DOMListFactory ? selector : DOMListFactory(selector, context);
+    var n = p.length;
+    for ( var i = 0; i < n; i++ ) {
+        p.nodes[0].appendChild(this.nodes[i]);
     }
     return this;
 };
@@ -491,22 +597,10 @@ DOMList.prototype.toggleClass = function(className, targetState) {
 
 /******************************************************************************/
 
-var makeEventHandler = function(context, selector, callback) {
+var makeEventHandler = function(selector, callback) {
     return function(event) {
-        var candidates = context.querySelectorAll(selector);
-        if ( !candidates.length ) {
-            return;
-        }
-        var node = event.target;
-        var i;
-        while ( node && node !== context ) {
-            i = candidates.length;
-            while ( i-- ) {
-                if ( candidates[i] === node ) {
-                    return callback.call(node, event);
-                }
-            }
-            node = node.parentNode;
+        if ( doesMatchSelector(event.target, selector) ) {
+            callback.call(event.target, event);
         }
     };
 };
@@ -519,7 +613,7 @@ DOMList.prototype.on = function(etype, selector, callback) {
     var i = this.nodes.length;
     while ( i-- ) {
         if ( selector !== undefined ) {
-            this.nodes[i].addEventListener(etype, makeEventHandler(this.nodes[i], selector, callback), true);
+            this.nodes[i].addEventListener(etype, makeEventHandler(selector, callback), true);
         } else {
             this.nodes[i].addEventListener(etype, callback);
         }
