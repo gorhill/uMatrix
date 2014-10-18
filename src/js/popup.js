@@ -549,7 +549,7 @@ function updateMatrixColors() {
     var i = cells.length;
     var cell;
     while ( i-- ) {
-        cell = cells.node(i);
+        cell = cells.nodeAt(i);
         cell.className = 'matCell ' + getCellClass(cell.hostname, cell.reqType);
     }
 }
@@ -576,11 +576,11 @@ function updateMatrixBehavior() {
     var i = sections.length;
     var section, subdomainRows, j, subdomainRow;
     while ( i-- ) {
-        section = sections.unode(i);
+        section = sections.at(i);
         subdomainRows = section.descendants('.l2:not(.g3)');
         j = subdomainRows.length;
         while ( j-- ) {
-            subdomainRow = subdomainRows.unode(j);
+            subdomainRow = subdomainRows.at(j);
             subdomainRow.toggleClass('collapsible', subdomainRow.descendants('.gd,.rd').length === 0);
         }
         section.toggleClass('collapsible', subdomainRows.filter('.collapsible').length > 0);
@@ -758,39 +758,39 @@ function renderMatrixHeaderRow() {
     var matHead = uDom('#matHead.collapsible');
     matHead.toggleClass('collapsed', getUserSetting('popupCollapseDomains'));
     var cells = matHead.descendants('.matCell');
-    uDom(cells.node(0))
+    cells.at(0)
         .prop('reqType', '*')
         .prop('hostname', '*')
         .addClass(getCellClass('*', '*'));
-    uDom(cells.node(1))
+    cells.at(1)
         .prop('reqType', 'cookie')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'cookie'));
-    uDom(cells.node(2))
+    cells.at(2)
         .prop('reqType', 'css')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'css'));
-    uDom(cells.node(3))
+    cells.at(3)
         .prop('reqType', 'image')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'image'));
-    uDom(cells.node(4))
+    cells.at(4)
         .prop('reqType', 'plugin')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'plugin'));
-    uDom(cells.node(5))
+    cells.at(5)
         .prop('reqType', 'script')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'script'));
-    uDom(cells.node(6))
+    cells.at(6)
         .prop('reqType', 'xhr')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'xhr'));
-    uDom(cells.node(7))
+    cells.at(7)
         .prop('reqType', 'frame')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'frame'));
-    uDom(cells.node(8))
+    cells.at(8)
         .prop('reqType', 'other')
         .prop('hostname', '*')
         .addClass(getCellClass('*', 'other'));
@@ -800,57 +800,53 @@ function renderMatrixHeaderRow() {
 /******************************************************************************/
 
 function renderMatrixCellDomain(cell, domain) {
-    var contents = uDom(cell)
-        .prop('reqType', '*')
+    var contents = cell.prop('reqType', '*')
         .prop('hostname', domain)
         .addClass(getCellClass(domain, '*'))
         .contents();
-    contents.node(0).textContent = '\u202A' + punycode.toUnicode(domain);
-    contents.node(1).textContent = ' ';
+    contents.nodeAt(0).textContent = '\u202A' + punycode.toUnicode(domain);
+    contents.nodeAt(1).textContent = ' ';
 }
 
 function renderMatrixCellSubdomain(cell, domain, subomain) {
-    var contents = uDom(cell)
-        .prop('reqType', '*')
+    var contents = cell.prop('reqType', '*')
         .prop('hostname', subomain)
         .addClass(getCellClass(subomain, '*'))
         .contents();
-    contents.node(0).textContent = '\u202A' + punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
-    contents.node(1).textContent = punycode.toUnicode(domain);
+    contents.nodeAt(0).textContent = '\u202A' + punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
+    contents.nodeAt(1).textContent = punycode.toUnicode(domain);
 }
 
 function renderMatrixMetaCellDomain(cell, domain) {
-    var contents = uDom(cell)
-        .prop('reqType', '*')
+    var contents = cell.prop('reqType', '*')
         .prop('hostname', domain)
         .addClass(getCellClass(domain, '*'))
         .contents();
-    contents.node(0).textContent = '\u202A\u2217.' + punycode.toUnicode(domain);
-    contents.node(1).textContent = ' ';
+    contents.nodeAt(0).textContent = '\u202A\u2217.' + punycode.toUnicode(domain);
+    contents.nodeAt(1).textContent = ' ';
 }
 
 function renderMatrixCellType(cell, hostname, type, stats) {
-    var ce = uDom(cell)
-        .prop('reqType', type)
+    cell.prop('reqType', type)
         .prop('hostname', hostname)
         .prop('count', stats.count)
         .addClass(getCellClass(hostname, type));
     if ( stats.count ) {
-        ce.text(stats.count);
+        cell.text(stats.count);
     } else {
-        ce.text('\u00A0');
+        cell.text('\u00A0');
     }
 }
 
 function renderMatrixCellTypes(cells, hostname, stats) {
-    renderMatrixCellType(cells.unode(1), hostname, 'cookie', stats.cookie);
-    renderMatrixCellType(cells.unode(2), hostname, 'css', stats.css);
-    renderMatrixCellType(cells.unode(3), hostname, 'image', stats.image);
-    renderMatrixCellType(cells.unode(4), hostname, 'plugin', stats.plugin);
-    renderMatrixCellType(cells.unode(5), hostname, 'script', stats.script);
-    renderMatrixCellType(cells.unode(6), hostname, 'xhr', stats.xhr);
-    renderMatrixCellType(cells.unode(7), hostname, 'frame', stats.frame);
-    renderMatrixCellType(cells.unode(8), hostname, 'other', stats.other);
+    renderMatrixCellType(cells.at(1), hostname, 'cookie', stats.cookie);
+    renderMatrixCellType(cells.at(2), hostname, 'css', stats.css);
+    renderMatrixCellType(cells.at(3), hostname, 'image', stats.image);
+    renderMatrixCellType(cells.at(4), hostname, 'plugin', stats.plugin);
+    renderMatrixCellType(cells.at(5), hostname, 'script', stats.script);
+    renderMatrixCellType(cells.at(6), hostname, 'xhr', stats.xhr);
+    renderMatrixCellType(cells.at(7), hostname, 'frame', stats.frame);
+    renderMatrixCellType(cells.at(8), hostname, 'other', stats.other);
 }
 
 /******************************************************************************/
@@ -858,7 +854,7 @@ function renderMatrixCellTypes(cells, hostname, stats) {
 function makeMatrixRowDomain(domain) {
     var matrixRow = createMatrixRow().addClass('rw');
     var cells = matrixRow.descendants('.matCell');
-    renderMatrixCellDomain(cells.node(0), domain);
+    renderMatrixCellDomain(cells.at(0), domain);
     renderMatrixCellTypes(cells, domain, HTTPSBPopup.matrixStats[domain].types);
     return matrixRow;
 }
@@ -866,7 +862,7 @@ function makeMatrixRowDomain(domain) {
 function makeMatrixRowSubdomain(domain, subdomain) {
     var matrixRow = createMatrixRow().addClass('rw');
     var cells = matrixRow.descendants('.matCell');
-    renderMatrixCellSubdomain(cells.node(0), domain, subdomain);
+    renderMatrixCellSubdomain(cells.at(0), domain, subdomain);
     renderMatrixCellTypes(cells, subdomain, HTTPSBPopup.matrixStats[subdomain].types);
     return matrixRow;
 }
@@ -874,7 +870,7 @@ function makeMatrixRowSubdomain(domain, subdomain) {
 function makeMatrixMetaRowDomain(domain, stats) {
     var matrixRow = createMatrixRow().addClass('rw');
     var cells = matrixRow.descendants('.matCell');
-    renderMatrixMetaCellDomain(cells.node(0), domain);
+    renderMatrixMetaCellDomain(cells.at(0), domain);
     renderMatrixCellTypes(cells, domain, stats);
     return matrixRow;
 }
@@ -882,28 +878,27 @@ function makeMatrixMetaRowDomain(domain, stats) {
 /******************************************************************************/
 
 function renderMatrixMetaCellType(cell, count) {
-    var ce = uDom(cell);
-    ce.addClass('ri');
+    cell.addClass('ri');
     if ( count ) {
-        ce.text(count);
+        cell.text(count);
     }
 }
 
 function makeMatrixMetaRow(stats) {
     var typeStats = stats.types;
-    var matrixRow = createMatrixRow().unode(0).addClass('ro');
+    var matrixRow = createMatrixRow().at(0).addClass('ro');
     var cells = matrixRow.descendants('.matCell');
-    var contents = cells.unode(0).addClass('rd').contents();
-    contents.node(0).textContent = ' ';
-    contents.node(1).textContent = '\u202A' + typeStats['*'].count + ' blacklisted hostname(s)';
-    renderMatrixMetaCellType(cells.node(1), typeStats.cookie.count);
-    renderMatrixMetaCellType(cells.node(2), typeStats.css.count);
-    renderMatrixMetaCellType(cells.node(3), typeStats.image.count);
-    renderMatrixMetaCellType(cells.node(4), typeStats.plugin.count);
-    renderMatrixMetaCellType(cells.node(5), typeStats.script.count);
-    renderMatrixMetaCellType(cells.node(6), typeStats.xhr.count);
-    renderMatrixMetaCellType(cells.node(7), typeStats.frame.count);
-    renderMatrixMetaCellType(cells.node(8), typeStats.other.count);
+    var contents = cells.at(0).addClass('rd').contents();
+    contents.nodeAt(0).textContent = ' ';
+    contents.nodeAt(1).textContent = '\u202A' + typeStats['*'].count + ' blacklisted hostname(s)';
+    renderMatrixMetaCellType(cells.at(1), typeStats.cookie.count);
+    renderMatrixMetaCellType(cells.at(2), typeStats.css.count);
+    renderMatrixMetaCellType(cells.at(3), typeStats.image.count);
+    renderMatrixMetaCellType(cells.at(4), typeStats.plugin.count);
+    renderMatrixMetaCellType(cells.at(5), typeStats.script.count);
+    renderMatrixMetaCellType(cells.at(6), typeStats.xhr.count);
+    renderMatrixMetaCellType(cells.at(7), typeStats.frame.count);
+    renderMatrixMetaCellType(cells.at(8), typeStats.other.count);
     return matrixRow;
 }
 

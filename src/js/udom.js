@@ -200,11 +200,11 @@ DOMList.prototype.length = function() {
 
 /******************************************************************************/
 
-DOMList.prototype.node = function(i) {
+DOMList.prototype.nodeAt = function(i) {
     return this.nodes[i];
 };
 
-DOMList.prototype.unode = function(i) {
+DOMList.prototype.at = function(i) {
     return addNodeToList(new DOMList(), this.nodes[i]);
 };
 
@@ -480,7 +480,7 @@ DOMList.prototype.attr = function(attr, value) {
 DOMList.prototype.prop = function(prop, value) {
     var i = this.nodes.length;
     if ( value === undefined ) {
-        return i ? this.nodes[0][prop] : undefined;
+        return i !== 0 ? this.nodes[0][prop] : undefined;
     }
     while ( i-- ) {
         this.nodes[i][prop] = value;
