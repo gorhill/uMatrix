@@ -496,19 +496,18 @@ function getCollapseState(domain) {
 }
 
 function toggleCollapseState(element) {
-    element = $(element);
-    if ( element.parents('#matHead.collapsible').length > 0 ) {
-        toggleMainCollapseState(element);
+    var el = uDom(element);
+    if ( el.ancestors('#matHead.collapsible').length() > 0 ) {
+        toggleMainCollapseState(el);
     } else {
-        toggleSpecificCollapseState(element);
+        toggleSpecificCollapseState(el);
     }
 }
 
 function toggleMainCollapseState(element) {
-    var matHead = element.parents('#matHead.collapsible')
-        .toggleClass('collapsed');
-    var collapsed = matHead.hasClass('collapsed');
-    $('#matList .matSection.collapsible').toggleClass('collapsed', collapsed);
+    var matHead = element.ancestors('#matHead.collapsible').toggleClass('collapsed');
+    var collapsed = matHead.hasClassName('collapsed');
+    uDom('#matList .matSection.collapsible').toggleClass('collapsed', collapsed);
     setUserSetting('popupCollapseDomains', collapsed);
 
     var specificCollapseStates = getUserSetting('popupCollapseSpecificDomains') || {};
@@ -527,10 +526,9 @@ function toggleMainCollapseState(element) {
 function toggleSpecificCollapseState(element) {
     // Remember collapse state forever, but only if it is different
     // from main collapse switch.
-    var section = element.parents('.matSection.collapsible')
-        .toggleClass('collapsed');
+    var section = element.ancestors('.matSection.collapsible').toggleClass('collapsed');
     var domain = section.prop('domain');
-    var collapsed = section.hasClass('collapsed');
+    var collapsed = section.hasClassName('collapsed');
     var mainCollapseState = getUserSetting('popupCollapseDomains');
     var specificCollapseStates = getUserSetting('popupCollapseSpecificDomains') || {};
     if ( collapsed !== mainCollapseState ) {
@@ -759,58 +757,90 @@ var createMatrixRow = function() {
 /******************************************************************************/
 
 function renderMatrixHeaderRow() {
-    var matHead = $('#matHead.collapsible');
+    var matHead = uDom('#matHead.collapsible');
     matHead.toggleClass('collapsed', getUserSetting('popupCollapseDomains'));
     var cells = matHead.find('.matCell');
-    $(cells[0]).prop({reqType: '*', hostname: '*'}).addClass(getCellClass('*', '*'));
-    $(cells[1]).prop({reqType: 'cookie', hostname: '*'}).addClass(getCellClass('*', 'cookie'));
-    $(cells[2]).prop({reqType: 'css', hostname: '*'}).addClass(getCellClass('*', 'css'));
-    $(cells[3]).prop({reqType: 'image', hostname: '*'}).addClass(getCellClass('*', 'image'));
-    $(cells[4]).prop({reqType: 'plugin', hostname: '*'}).addClass(getCellClass('*', 'plugin'));
-    $(cells[5]).prop({reqType: 'script', hostname: '*'}).addClass(getCellClass('*', 'script'));
-    $(cells[6]).prop({reqType: 'xhr', hostname: '*'}).addClass(getCellClass('*', 'xhr'));
-    $(cells[7]).prop({reqType: 'frame', hostname: '*'}).addClass(getCellClass('*', 'frame'));
-    $(cells[8]).prop({reqType: 'other', hostname: '*'}).addClass(getCellClass('*', 'other'));
-    $('#matHead .matRow').css('display', '');
+    uDom(cells.node(0))
+        .prop('reqType', '*')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', '*'));
+    uDom(cells.node(1))
+        .prop('reqType', 'cookie')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'cookie'));
+    uDom(cells.node(2))
+        .prop('reqType', 'css')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'css'));
+    uDom(cells.node(3))
+        .prop('reqType', 'image')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'image'));
+    uDom(cells.node(4))
+        .prop('reqType', 'plugin')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'plugin'));
+    uDom(cells.node(5))
+        .prop('reqType', 'script')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'script'));
+    uDom(cells.node(6))
+        .prop('reqType', 'xhr')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'xhr'));
+    uDom(cells.node(7))
+        .prop('reqType', 'frame')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'frame'));
+    uDom(cells.node(8))
+        .prop('reqType', 'other')
+        .prop('hostname', '*')
+        .addClass(getCellClass('*', 'other'));
+    uDom('#matHead .matRow').css('display', '');
 }
 
 /******************************************************************************/
 
 function renderMatrixCellDomain(cell, domain) {
-    var contents = $(cell)
-        .prop({reqType: '*', hostname: domain})
+    var contents = uDom(cell)
+        .prop('reqType', '*')
+        .prop('hostname', domain)
         .addClass(getCellClass(domain, '*'))
         .contents();
-    contents[0].textContent = '\u202A' + punycode.toUnicode(domain);
-    contents[1].textContent = ' ';
+    contents.node(0).textContent = '\u202A' + punycode.toUnicode(domain);
+    contents.node(1).textContent = ' ';
 }
 
 function renderMatrixCellSubdomain(cell, domain, subomain) {
-    var contents = $(cell)
-        .prop({reqType: '*', hostname: subomain})
+    var contents = uDom(cell)
+        .prop('reqType', '*')
+        .prop('hostname', subomain)
         .addClass(getCellClass(subomain, '*'))
         .contents();
-    contents[0].textContent = '\u202A' + punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
-    contents[1].textContent = punycode.toUnicode(domain);
+    contents.node(0).textContent = '\u202A' + punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
+    contents.node(1).textContent = punycode.toUnicode(domain);
 }
 
 function renderMatrixMetaCellDomain(cell, domain) {
-    var contents = $(cell)
-        .prop({reqType: '*', hostname: domain})
+    var contents = uDom(cell)
+        .prop('reqType', '*')
+        .prop('hostname', domain)
         .addClass(getCellClass(domain, '*'))
         .contents();
-    contents[0].textContent = '\u202A\u2217.' + punycode.toUnicode(domain);
-    contents[1].textContent = ' ';
+    contents.node(0).textContent = '\u202A\u2217.' + punycode.toUnicode(domain);
+    contents.node(1).textContent = ' ';
 }
 
 function renderMatrixCellType(cell, hostname, type, stats) {
-    cell = $(cell);
-    cell.prop({reqType: type, hostname: hostname, count: stats.count})
+    var ce = uDom(cell)
+        .prop('reqType', type)
+        .prop('hostname', hostname)
+        .prop('count', stats.count)
         .addClass(getCellClass(hostname, type));
     if ( stats.count ) {
-        cell.text(stats.count);
+        ce.text(stats.count);
     } else {
-        cell.text('\u00A0');
+        ce.text('\u00A0');
     }
 }
 
@@ -854,31 +884,31 @@ function makeMatrixMetaRowDomain(domain, stats) {
 /******************************************************************************/
 
 function renderMatrixMetaCellType(cell, count) {
-    cell = $(cell);
-    cell.addClass('ri');
+    var ce = uDom(cell);
+    ce.addClass('ri');
     if ( count ) {
-        cell.text(count);
+        ce.text(count);
     }
 }
 
 function makeMatrixMetaRow(stats) {
     var typeStats = stats.types;
-    var matrixRow = createMatrixRow().addClass('ro');
-    var cells = matrixRow.children('.matCell');
-    var contents = $(cells[0])
+    var matrixRow = uDom(createMatrixRow()[0]).addClass('ro');
+    var cells = matrixRow.find('.matCell');
+    var contents = uDom(cells.node(0))
         .addClass('matCell rd')
         .contents();
-    contents[0].textContent = ' ';
-    contents[1].textContent = '\u202A' + typeStats['*'].count + ' blacklisted hostname(s)';
-    renderMatrixMetaCellType(cells[1], typeStats.cookie.count);
-    renderMatrixMetaCellType(cells[2], typeStats.css.count);
-    renderMatrixMetaCellType(cells[3], typeStats.image.count);
-    renderMatrixMetaCellType(cells[4], typeStats.plugin.count);
-    renderMatrixMetaCellType(cells[5], typeStats.script.count);
-    renderMatrixMetaCellType(cells[6], typeStats.xhr.count);
-    renderMatrixMetaCellType(cells[7], typeStats.frame.count);
-    renderMatrixMetaCellType(cells[8], typeStats.other.count);
-    return matrixRow;
+    contents.node(0).textContent = ' ';
+    contents.node(1).textContent = '\u202A' + typeStats['*'].count + ' blacklisted hostname(s)';
+    renderMatrixMetaCellType(cells.node(1), typeStats.cookie.count);
+    renderMatrixMetaCellType(cells.node(2), typeStats.css.count);
+    renderMatrixMetaCellType(cells.node(3), typeStats.image.count);
+    renderMatrixMetaCellType(cells.node(4), typeStats.plugin.count);
+    renderMatrixMetaCellType(cells.node(5), typeStats.script.count);
+    renderMatrixMetaCellType(cells.node(6), typeStats.xhr.count);
+    renderMatrixMetaCellType(cells.node(7), typeStats.frame.count);
+    renderMatrixMetaCellType(cells.node(8), typeStats.other.count);
+    return $(matrixRow.node(0));
 }
 
 /******************************************************************************/
@@ -1246,10 +1276,10 @@ function initScopeCell() {
 
 function updateScopeCell() {
     var µm = µMatrix;
-    $('body')
+    uDom('body')
         .removeClass('tScopeGlobal tScopeLocal tScopeSite')
         .addClass(getClassFromTemporaryScopeKey(targetScope))
-    $('#scopeCell').text(targetScope.replace('*', '\u2217'));
+    uDom('#scopeCell').text(targetScope.replace('*', '\u2217'));
 }
 
 /******************************************************************************/
@@ -1287,7 +1317,7 @@ function updatePersistButton() {
     button.children('span.badge').text(ruleset.count > 0 ? ruleset.count : '');
     var disabled = ruleset.count === 0;
     button.toggleClass('disabled', disabled);
-    $('#buttonRevertScope').toggleClass('disabled', disabled);
+    uDom('#buttonRevertScope').toggleClass('disabled', disabled);
 }
 
 function persistScope() {
@@ -1357,7 +1387,7 @@ function mouseleaveMatrixCellHandler() {
 /******************************************************************************/
 
 function gotoExtensionURL() {
-    var url = $(this).data('extensionUrl');
+    var url = this.getAttribute('data-extension-url');
     if ( url ) {
         messaging.tell({ what: 'gotoExtensionURL', url: url });
     }
@@ -1366,7 +1396,7 @@ function gotoExtensionURL() {
 /******************************************************************************/
 
 function gotoExternalURL() {
-    var url = $(this).data('externalUrl');
+    var url = this.getAttribute('data-external-url');
     if ( url ) {
         messaging.tell({ what: 'gotoURL', url: url });
     }
@@ -1379,7 +1409,7 @@ function dropDownMenuShow() {
 }
 
 function dropDownMenuHide() {
-    $('.dropdown-menu').removeClass('show');
+    uDom('.dropdown-menu').removeClass('show');
 }
 
 /******************************************************************************/
@@ -1417,8 +1447,8 @@ var bindToTab = function(tabs) {
         $('#toolbarLeft').remove();
 
         // https://github.com/gorhill/httpswitchboard/issues/191
-        $('#noNetTrafficPrompt').text(chrome.i18n.getMessage('matrixNoNetTrafficPrompt'));
-        $('#noNetTrafficPrompt').css('display', '');
+        uDom('#noNetTrafficPrompt').text(chrome.i18n.getMessage('matrixNoNetTrafficPrompt'));
+        uDom('#noNetTrafficPrompt').css('display', '');
     }
 };
 
@@ -1475,9 +1505,10 @@ $(function() {
     $('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
 
     $('#matList').on('click', '.g3Meta', function() {
-        var separator = $(this);
-        separator.toggleClass('g3Collapsed');
-        setUserSetting('popupHideBlacklisted', separator.hasClass('g3Collapsed'));
+        var collapsed = uDom(this)
+            .toggleClass('g3Collapsed')
+            .hasClass('g3Collapsed');
+        setUserSetting('popupHideBlacklisted', collapsed);
     });
 });
 
