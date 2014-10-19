@@ -1208,6 +1208,7 @@ function initMenuEnvironment() {
 
 function createGlobalScope() {
     targetScope = '*';
+    setUserSetting('scopeLevel', '*');
     updateMatrixStats();
     updateMatrixColors();
     updateMatrixBehavior();
@@ -1217,6 +1218,7 @@ function createGlobalScope() {
 
 function createDomainScope() {
     targetScope = targetPageDomain;
+    setUserSetting('scopeLevel', 'domain');
     updateMatrixStats();
     updateMatrixColors();
     updateMatrixBehavior();
@@ -1226,6 +1228,7 @@ function createDomainScope() {
 
 function createSiteScope() {
     targetScope = targetPageHostname;
+    setUserSetting('scopeLevel', 'site');
     updateMatrixStats();
     updateMatrixColors();
     updateMatrixBehavior();
@@ -1256,6 +1259,14 @@ function initScopeCell() {
         uDom('#scopeKeyDomain').text(targetPageDomain);
     }
     uDom('#scopeKeySite').text(targetPageHostname);
+    var scopeLevel = getUserSetting('scopeLevel');
+    if ( scopeLevel === 'site' ) {
+        targetScope = targetPageHostname;
+    } else if ( scopeLevel === 'domain' ) {
+        targetScope = targetPageDomain;
+    } else {
+        targetScope = '*';
+    }
     updateScopeCell();
 }
 
@@ -1419,7 +1430,7 @@ var bindToTab = function(tabs) {
         targetPageURL = µm.pageUrlFromTabId(targetTabId);
     }
     targetPageHostname = µm.URI.hostnameFromURI(targetPageURL);
-    targetPageDomain = µm.URI.domainFromHostname(targetPageHostname);
+    targetPageDomain = µm.URI.domainFromHostname(targetPageHostname) || targetPageHostname;
 
     // Now that tabId and pageURL are set, we can build our menu
     initMenuEnvironment();

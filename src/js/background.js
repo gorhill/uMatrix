@@ -61,6 +61,7 @@ return {
         processBehindTheSceneRequests: false,
         processHyperlinkAuditing: true,
         processReferer: false,
+        scopeLevel: '*',
         smartAutoReload: 'all',
         spoofUserAgent: false,
         spoofUserAgentEvery: 5,
