@@ -43,16 +43,16 @@ var smartReload = function(tabs) {
 
 // Constructor is faster than object literal
 
-var HostnameSnapshot = function(srcHostname, desHostname, desDomain) {
+var RowSnapshot = function(srcHostname, desHostname, desDomain) {
     this.domain = desDomain;
     this.temporary = µm.tMatrix.evaluateRowZXY(srcHostname, desHostname);
     this.permanent = µm.pMatrix.evaluateRowZXY(srcHostname, desHostname);
-    this.counts = HostnameSnapshot.counts.slice();
-    this.totals = HostnameSnapshot.counts.slice();
+    this.counts = RowSnapshot.counts.slice();
+    this.totals = RowSnapshot.counts.slice();
 };
 
-HostnameSnapshot.counts = (function() {
-    var i = Object.keys(µm.tMatrix.getColumnHeaders()).length;
+RowSnapshot.counts = (function() {
+    var i = Object.keys(µm.Matrix.getColumnHeaders()).length;
     var aa = new Array(i);
     while ( i-- ) {
         aa[i] = 0;
@@ -62,19 +62,32 @@ HostnameSnapshot.counts = (function() {
 
 /******************************************************************************/
 
-var matrixSnapshot = function (tabId) {
+var matrixSnapshot = function(details) {
     var r = {
-        tabId: tabId,
+        tabId: details.tabId,
         url: '',
         hostname: '',
         domain: '',
+        scopeLevel: µm.userSettings.scopeLevel,
         scope: '*',
-        headers: µm.tMatrix.getColumnHeaders(),
+        headers: µm.Matrix.getColumnHeaders(),
+        tSwitch: false,
+        pSwitch: false,
         rows: {},
-        rowCount: 0
+        rowCount: 0,
+        diff: []
     };
-
-    var pageStore = µm.pageStatsFromTabId(tabId);
+/*
+    // Allow to scope on behind-the-scene virtual tab
+    if ( tab.url.indexOf('chrome-extension://' + chrome.runtime.id + '/') === 0 ) {
+        targetTabId = µm.behindTheSceneTabId;
+        targetPageURL = µm.behindTheSceneURL;
+    } else {
+        targetTabId = tab.id;
+        targetPageURL = µm.pageUrlFromTabId(targetTabId);
+    }
+*/
+    var pageStore = µm.pageStatsFromTabId(details.tabId);
     if ( !pageStore ) {
         return r;
     }
@@ -85,14 +98,17 @@ var matrixSnapshot = function (tabId) {
     r.hostname = pageStore.pageHostname;
     r.domain = pageStore.pageDomain;
 
-    if ( µm.userSettings.scopeLevel === 'site' ) {
+    if ( r.scopeLevel === 'site' ) {
         r.scope = r.hostname;
-    } else if ( µm.userSettings.scopeLevel === 'domain' ) {
+    } else if ( r.scopeLevel === 'domain' ) {
         r.scope = r.domain;
     }
 
+    r.tSwitch = µm.tMatrix.evaluateSwitchZ(r.scope);
+    r.pSwitch = µm.pMatrix.evaluateSwitchZ(r.scope);
+
     // This one always exist
-    r.rows['*'] = new HostnameSnapshot(r.hostname, '*', '*');
+    r.rows['*'] = new RowSnapshot(r.scope, '*', '*');
     r.rowCount += 1;
 
     var µmuri = µm.URI;
@@ -124,7 +140,7 @@ var matrixSnapshot = function (tabId) {
             if ( r.rows.hasOwnProperty(desHostname) !== false ) {
                 break;
             }
-            r.rows[desHostname] = new HostnameSnapshot(r.hostname, desHostname, reqDomain);
+            r.rows[desHostname] = new RowSnapshot(r.scope, desHostname, reqDomain);
             r.rowCount += 1;
             if ( desHostname === reqDomain ) {
                 break;
@@ -153,6 +169,8 @@ var matrixSnapshot = function (tabId) {
         row.totals[anyIndex] += 1;
     }
 
+    r.diff = µm.tMatrix.diff(µm.pMatrix, r.hostname, Object.keys(r.rows));
+
     return r;
 };
 
@@ -171,23 +189,37 @@ var onMessage = function(request, sender, callback) {
     switch ( request.what ) {
         case 'disconnected':
             // https://github.com/gorhill/httpswitchboard/issues/94
-            if ( µMatrix.userSettings.smartAutoReload ) {
+            if ( µm.userSettings.smartAutoReload ) {
                 chrome.tabs.query({ active: true }, smartReload);
             }
             break;
 
         case 'matrixSnapshot':
-            response = matrixSnapshot(request.tabId);
+            response = matrixSnapshot(request);
+            break;
+
+        case 'applyDiffToPermanentMatrix': // aka "persist"
+            if ( µm.pMatrix.applyDiff(request.diff, µm.tMatrix) ) {
+                µm.saveMatrix();
+            }
+            break;
+
+        case 'applyDiffToTemporaryMatrix': // aka "revert"
+            µm.tMatrix.applyDiff(request.diff, µm.pMatrix);
+            break;
+
+        case 'revertTemporaryMatrix':
+            µm.tMatrix.assign(µm.pMatrix);
             break;
 
         default:
-            return µMatrix.messaging.defaultHandler(request, sender, callback);
+            return µm.messaging.defaultHandler(request, sender, callback);
     }
 
     callback(response);
 };
 
-µMatrix.messaging.listen('popup.js', onMessage);
+µm.messaging.listen('popup.js', onMessage);
 
 })();
 

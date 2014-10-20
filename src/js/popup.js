@@ -30,16 +30,6 @@
 /******************************************************************************/
 /******************************************************************************/
 
-var µMatrix = chrome.extension.getBackgroundPage().µMatrix;
-var matrixSnapshot = {};
-var matrixStats = {};
-var targetTabId;
-var targetPageURL;
-var targetPageHostname;
-var targetPageDomain;
-var targetScope = '*';
-var matrixCellHotspots = null;
-
 // Must be consistent with definitions in matrix.js
 const Pale        = 0x00;
 const Dark        = 0x80;
@@ -53,6 +43,30 @@ const DarkGreen   = Dark | Green;
 const PaleGreen   = Pale | Green;
 const DarkGray    = Dark | Gray;
 const PaleGray    = Pale | Gray;
+
+var µMatrix = chrome.extension.getBackgroundPage().µMatrix;
+var matrixSnapshot = {};
+var groupsSnapshot = [];
+var allHostnamesSnapshot = 'do not leave this initial string empty';
+
+var targetTabId;
+var targetPageURL;
+var targetPageHostname;
+var targetPageDomain;
+var targetScope = '*';
+var matrixCellHotspots = null;
+
+var matrixHeaderPrettyNames = {
+    'all': '',
+    'cookie': '',
+    'css': '',
+    'image': '',
+    'plugin': '',
+    'script': '',
+    'xhr': '',
+    'frame': '',
+    'other': ''
+};
 
 /******************************************************************************/
 /******************************************************************************/
@@ -94,31 +108,6 @@ function setUserSetting(setting, value) {
 
 /******************************************************************************/
 
-var HTTPSBPopup = {
-    matrixDomains: {},
-    matrixHeaderTypes: ['*'],
-    matrixGroup3Collapsed: false,
-
-    groupsSnapshot: [],
-    domainListSnapshot: 'do not leave this initial string empty',
-
-    matrixHeaderPrettyNames: {
-        'all': '',
-        'cookie': '',
-        'css': '',
-        'image': '',
-        'plugin': '',
-        'script': '',
-        'xhr': '',
-        'frame': '',
-        'other': ''
-    },
-
-    dummy: 0
-};
-
-/******************************************************************************/
-
 function updateMatrixSnapshot() {
     var snapshotReady = function(response) {
         matrixSnapshot = response;
@@ -126,7 +115,7 @@ function updateMatrixSnapshot() {
         updateMatrixBehavior();
         updateMatrixButtons();
     };
-    messaging.ask({ what: 'matrixSnapshot', tabId: matrixSnapshot.tabId }, snapshotReady);
+    queryMatrixSnapshot(snapshotReady);
 }
 
 /******************************************************************************/
@@ -142,10 +131,10 @@ function getGroupStats() {
     // Try to not reshuffle groups around while popup is opened if
     // no new hostname added.
     var latestDomainListSnapshot = Object.keys(matrixSnapshot.rows).sort().join();
-    if ( latestDomainListSnapshot === HTTPSBPopup.domainListSnapshot ) {
-        return HTTPSBPopup.groupsSnapshot;
+    if ( latestDomainListSnapshot === allHostnamesSnapshot ) {
+        return groupsSnapshot;
     }
-    HTTPSBPopup.domainListSnapshot = latestDomainListSnapshot;
+    allHostnamesSnapshot = latestDomainListSnapshot;
 
     // First, group according to whether at least one node in the domain
     // hierarchy is white or blacklisted
@@ -216,7 +205,7 @@ function getGroupStats() {
         group[domain][hostname] = true;
     }
 
-    HTTPSBPopup.groupsSnapshot = groups;
+    groupsSnapshot = groups;
 
     return groups;
 }
@@ -385,71 +374,6 @@ function handleWhitelistFilter(button) {
 
 function handleBlacklistFilter(button) {
     handleFilter(button, 'blacklisting');
-}
-
-/******************************************************************************/
-
-function getTemporaryRuleset() {
-    var µm = µMatrix;
-    var temporaryRules = {};
-    var permanentRules = {};
-    var temporarySwitches = {};
-    var permanentSwitches = {};
-    var ruleset = {
-        rulesToAdd: [],
-        rulesToRemove: [],
-        switchesToAdd: [],
-        switchesToRemove: [],
-        count: 0
-    };
-    for ( var hostname in matrixStats ) {
-        if ( matrixStats.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        µm.tMatrix.extractZRules(targetPageHostname, hostname, temporaryRules);
-        µm.pMatrix.extractZRules(targetPageHostname, hostname, permanentRules);
-    }
-    µm.tMatrix.extractSwitches(targetPageHostname, temporarySwitches);
-    µm.pMatrix.extractSwitches(targetPageHostname, permanentSwitches);
-
-    var k;
-    for ( k in temporaryRules ) {
-        if ( temporaryRules.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        if ( temporaryRules[k] !== permanentRules[k] ) {
-            ruleset.rulesToAdd.push({ k: k, v: temporaryRules[k] });
-        }
-    }
-    for ( k in permanentRules ) {
-        if ( permanentRules.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        if ( temporaryRules[k] === undefined ) {
-            ruleset.rulesToRemove.push(k);
-        }
-    }
-    for ( k in temporarySwitches ) {
-        if ( temporarySwitches.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        if ( temporarySwitches[k] !== permanentSwitches[k] ) {
-            ruleset.switchesToAdd.push({ k: k, v: temporarySwitches[k] });
-        }
-    }
-    for ( k in permanentSwitches ) {
-        if ( permanentSwitches.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        if ( temporarySwitches[k] === undefined ) {
-            ruleset.switchesToRemove.push(k);
-        }
-    }
-    ruleset.count = ruleset.rulesToAdd.length +
-                    ruleset.rulesToRemove.length +
-                    ruleset.switchesToAdd.length +
-                    ruleset.switchesToRemove.length;
-    return ruleset;
 }
 
 /******************************************************************************/
@@ -685,6 +609,7 @@ function computeMatrixGroupMetaStats(group) {
             totals[i] += matrixSnapshot.rows[domains[j]].totals[i];
         }
     }
+    // TODO: column 0 is supposed to be count of blacklisted hostnames
     return totals;
 }
 
@@ -881,8 +806,7 @@ function makeMatrixGroup3(group) {
     if ( domains.length === 0 ) {
         return;
     }
-    var groupDiv = createMatrixGroup()
-        .addClass('g3');
+    var groupDiv = createMatrixGroup().addClass('g3');
     createMatrixSection()
         .addClass('g3Meta')
         .toggleClass('g3Collapsed', !!getUserSetting('popupHideBlacklisted'))
@@ -930,7 +854,7 @@ var makeMenu = function() {
 // Do all the stuff that needs to be done before building menu et al.
 
 function initMenuEnvironment() {
-    var prettyNames = HTTPSBPopup.matrixHeaderPrettyNames;
+    var prettyNames = matrixHeaderPrettyNames;
     var keys = Object.keys(prettyNames);
     var i = keys.length;
     var cell, key, text;
@@ -1013,7 +937,7 @@ function updateScopeCell() {
 
 function updateMtxbutton() {
     var µm = µMatrix;
-    var masterSwitch = µm.getTemporaryMtxFiltering(targetScope);
+    var masterSwitch = matrixSnapshot.tSwitch;
     var pageStats = getPageStats();
     var count = pageStats ? pageStats.requestStats.blocked.all : '';
     var button = uDom('#buttonMtxFiltering');
@@ -1032,23 +956,26 @@ function toggleMtxFiltering() {
 /******************************************************************************/
 
 function updatePersistButton() {
-    var ruleset = getTemporaryRuleset();
+    var diffCount = matrixSnapshot.diff.length;
     var button = uDom('#buttonPersist');
     button.contents()
           .filter(function(){return this.nodeType===3;})
           .first()
-          .text(ruleset.count > 0 ? '\uf13e' : '\uf023');
-    button.descendants('span.badge').text(ruleset.count > 0 ? ruleset.count : '');
-    var disabled = ruleset.count === 0;
+          .text(diffCount > 0 ? '\uf13e' : '\uf023');
+    button.descendants('span.badge').text(diffCount > 0 ? diffCount : '');
+    var disabled = diffCount === 0;
     button.toggleClass('disabled', disabled);
     uDom('#buttonRevertScope').toggleClass('disabled', disabled);
 }
 
-function persistScope() {
-    var µm = µMatrix;
-    var ruleset = getTemporaryRuleset();
-    µm.applyRulesetPermanently(ruleset);
-    updateMatrixSnapshot();
+/******************************************************************************/
+
+function persistMatrix() {
+    var request = {
+        what: 'applyDiffToPermanentMatrix',
+        diff: matrixSnapshot.diff
+    };
+    messaging.ask(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1056,11 +983,12 @@ function persistScope() {
 // rhill 2014-03-12: revert completely ALL changes related to the
 // current page, including scopes.
 
-function revertScope() {
-    var µm = µMatrix;
-    var ruleset = getTemporaryRuleset();
-    µm.revertScopeRules(ruleset.tScopeKey);
-    updateMatrixSnapshot();
+function revertMatrix() {
+    var request = {
+        what: 'applyDiffToTemporaryMatrix',
+        diff: matrixSnapshot.diff
+    };
+    messaging.ask(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1076,8 +1004,10 @@ function updateMatrixButtons() {
 /******************************************************************************/
 
 function revertAll() {
-    µMatrix.revertAllRules();
-    updateMatrixSnapshot();
+    var request = {
+        what: 'revertTemporaryMatrix'
+    };
+    messaging.ask(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1132,24 +1062,6 @@ function dropDownMenuHide() {
 // Because chrome.tabs.query() is async
 
 var onMatrixSnapshotReady = function(response) {
-/*
-    // TODO: can tabs be empty?
-    if ( !tabs.length ) {
-        return;
-    }
-
-    var µm = µMatrix;
-
-    // Important! Before calling makeMenu()
-    // Allow to scope on behind-the-scene virtual tab
-    if ( tab.url.indexOf('chrome-extension://' + chrome.runtime.id + '/') === 0 ) {
-        targetTabId = µm.behindTheSceneTabId;
-        targetPageURL = µm.behindTheSceneURL;
-    } else {
-        targetTabId = tab.id;
-        targetPageURL = µm.pageUrlFromTabId(targetTabId);
-    }
-*/
     matrixSnapshot = response;
 
     targetTabId = response.tabId;
@@ -1175,11 +1087,23 @@ var onMatrixSnapshotReady = function(response) {
 
 /******************************************************************************/
 
-var onTabsReceived = function(tabs) {
-    if ( tabs.length === 0 ) {
-        return;
+var queryMatrixSnapshot = function(callback) {
+    var request = {
+        what: 'matrixSnapshot',
+        tabId: targetTabId
+    };
+    var onTabsReceived = function(tabs) {
+        if ( tabs.length === 0 ) {
+            return;
+        }
+        request.tabId = targetTabId = tabs[0].id;
+        messaging.ask(request, callback);
+    };
+    if ( targetTabId === undefined ) {
+        chrome.tabs.query({ active: true, currentWindow: true }, onTabsReceived);
+    } else {
+        messaging.ask(request, callback);
     }
-    messaging.ask({ what: 'matrixSnapshot', tabId: tabs[0].id }, onMatrixSnapshotReady);
 };
 
 /******************************************************************************/
@@ -1187,7 +1111,7 @@ var onTabsReceived = function(tabs) {
 // Make menu only when popup html is fully loaded
 
 uDom.onLoad(function() {
-    chrome.tabs.query({ active: true, currentWindow: true }, onTabsReceived);
+    queryMatrixSnapshot(onMatrixSnapshotReady);
 
     // Below is UI stuff which is not key to make the menu, so this can
     // be done without having to wait for a tab to be bound to the menu.
@@ -1217,8 +1141,8 @@ uDom.onLoad(function() {
     uDom('#scopeKeyDomain').on('click', createDomainScope);
     uDom('#scopeKeySite').on('click', createSiteScope);
     uDom('#buttonMtxFiltering').on('click', toggleMtxFiltering);
-    uDom('#buttonPersist').on('click', persistScope);
-    uDom('#buttonRevertScope').on('click', revertScope);
+    uDom('#buttonPersist').on('click', persistMatrix);
+    uDom('#buttonRevertScope').on('click', revertMatrix);
 
     uDom('#buttonRevertAll').on('click', revertAll);
     uDom('#buttonReload').on('click', buttonReloadHandler);

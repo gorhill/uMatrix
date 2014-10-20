@@ -135,44 +135,6 @@
 
 /******************************************************************************/
 
-// Apply a set of rules
-
-µMatrix.applyRulesetPermanently = function(ruleset) {
-    var changed = false;
-    var aa, i, o;
-    if ( aa = ruleset.rulesToAdd ) {
-        i = aa.length;
-        while ( i-- ) {
-            o = aa[i];
-            changed = this.pMatrix.setRule(o.k, o.v) || changed;
-        }
-    }
-    if ( aa = ruleset.rulesToRemove ) {
-        i = aa.length;
-        while ( i-- ) {
-            changed = this.pMatrix.setRule(aa[i]) || changed;
-        }
-    }
-    if ( aa = ruleset.switchesToAdd ) {
-        i = aa.length;
-        while ( i-- ) {
-            o = aa[i];
-            changed = this.pMatrix.setSwitch(o.k, o.v) || changed;
-        }
-    }
-    if ( aa = ruleset.switchesToRemove ) {
-        i = aa.length;
-        while ( i-- ) {
-            changed = this.pMatrix.setSwitch(aa[i]) || changed;
-        }
-    }
-    if ( changed ) {
-        this.saveMatrix();
-    }
-};
-
-/******************************************************************************/
-
 // TODO: Should type be transposed by the caller or in place here? Not an
 // issue at this point but to keep in mind as this function is called
 // more and more from different places.
@@ -214,23 +176,12 @@
 
 /******************************************************************************/
 
-µMatrix.getTemporaryColor = function(srcHostname, type, desHostname) {
-    // console.debug('HTTP Switchboard > getTemporaryColor(%s, %s, %s) = %s', src, type, hostname, evaluate(src, type, hostname));
-    return this.tMatrix.evaluateCellZXYColor(srcHostname, desHostname, type);
-};
-
-µMatrix.getPermanentColor = function(srcHostname, type, desHostname) {
-    return this.pMatrix.evaluateCellZXYColor(srcHostname, desHostname, type);
-};
-
-/******************************************************************************/
-
 µMatrix.getTemporaryMtxFiltering = function(srcHostname) {
-    return this.tMatrix.evaluateSwitch(srcHostname);
+    return this.tMatrix.evaluateSwitchZ(srcHostname);
 };
 
 µMatrix.getPermanentMtxFiltering = function(srcHostname) {
-    return this.pMatrix.evaluateSwitch(srcHostname);
+    return this.pMatrix.evaluateSwitchZ(srcHostname);
 };
 
 µMatrix.toggleTemporaryMtxFiltering = function(srcHostname, state) {

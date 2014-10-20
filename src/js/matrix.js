@@ -70,6 +70,26 @@ var typeBitOffsets = {
 
 /******************************************************************************/
 
+var columnHeaders = (function() {
+    var out = {};
+    var i = 0;
+    for ( var type in typeBitOffsets ) {
+        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
+            continue;
+        }
+        out[type] = i++;
+    }
+    return out;
+})();
+
+/******************************************************************************/
+
+Matrix.getColumnHeaders = function() {
+    return columnHeaders;
+};
+
+/******************************************************************************/
+
 Matrix.prototype.reset = function() {
     this.switchedOn = {};
     this.rules = {};
@@ -99,25 +119,6 @@ Matrix.prototype.assign = function(other) {
 
 /******************************************************************************/
 
-// If value is undefined, the rule is removed
-
-Matrix.prototype.setRule = function(rule, value) {
-    if ( value !== undefined ) {
-        if ( this.rules.hasOwnProperty(rule) === false || this.rules[rule] !== value ) {
-            this.rules[rule] = value;
-            return true;
-        }
-    } else {
-        if ( this.rules.hasOwnProperty(rule) ) {
-            delete this.rules[rule];
-            return true;
-        }
-    }
-    return false;
-};
-
-/******************************************************************************/
-
 // If value is undefined, the switch is removed
 
 Matrix.prototype.setSwitch = function(srcHostname, state) {
@@ -137,14 +138,14 @@ Matrix.prototype.setSwitch = function(srcHostname, state) {
 
 /******************************************************************************/
 
-Matrix.prototype.setCell = function(srcHostname, desHostname, type, v) {
+Matrix.prototype.setCell = function(srcHostname, desHostname, type, state) {
     var bitOffset = typeBitOffsets[type];
     var k = srcHostname + ' ' + desHostname;
     var oldBitmap = this.rules[k];
     if ( oldBitmap === undefined ) {
         oldBitmap = 0;
     }
-    var newBitmap = oldBitmap & ~(3 << bitOffset) | (v << bitOffset);
+    var newBitmap = oldBitmap & ~(3 << bitOffset) | (state << bitOffset);
     if ( newBitmap === oldBitmap ) {
         return false;
     }
@@ -218,7 +219,7 @@ Matrix.prototype.evaluateCell = function(srcHostname, desHostname, type) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
-    if ( this.evaluateSwitch(srcHostname) !== true ) {
+    if ( this.evaluateSwitchZ(srcHostname) !== true ) {
         return Matrix.Transparent;
     }
     var bitOffset = typeBitOffsets[type];
@@ -286,6 +287,19 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 
 /******************************************************************************/
 
+Matrix.prototype.evaluateRow = function(srcHostname, desHostname) {
+    var out = [];
+    for ( var type in typeBitOffsets ) {
+        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
+            continue;
+        }
+        out.push(this.evaluateCell(srcHostname, desHostname, type));
+    }
+    return out.join('');
+};
+
+/******************************************************************************/
+
 Matrix.prototype.evaluateRowZ = function(srcHostname, desHostname) {
     var out = [];
     for ( var type in typeBitOffsets ) {
@@ -306,20 +320,6 @@ Matrix.prototype.evaluateRowZXY = function(srcHostname, desHostname) {
             continue;
         }
         out.push(this.evaluateCellZXY(srcHostname, desHostname, type));
-    }
-    return out;
-};
-
-/******************************************************************************/
-
-Matrix.prototype.getColumnHeaders = function() {
-    var out = {};
-    var i = 0;
-    for ( var type in typeBitOffsets ) {
-        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
-            continue;
-        }
-        out[type] = i++;
     }
     return out;
 };
@@ -368,28 +368,9 @@ Matrix.prototype.extractZRules = function(srcHostname, desHostname, out) {
 
 /******************************************************************************/
 
-Matrix.prototype.evaluateCellZXYColor = function(srcHostname, desHostname, type) {
-    var v = this.evaluateCellZXY(srcHostname, desHostname, type);
-    if ( v === Matrix.RedIndirect ) {
-        return 'ri';
-    }
-    if ( v === Matrix.GreenIndirect ) {
-        return 'gi';
-    }
-    if ( v === Matrix.RedDirect ) {
-        return 'rd';
-    }
-    if ( v === Matrix.GreenDirect ) {
-        return 'gd';
-    }
-    return 'xx';
-};
-
-/******************************************************************************/
-
 Matrix.prototype.toggleSwitch = function(srcHostname, newState) {
     delete this.switchedOn[srcHostname];
-    var oldState = this.evaluateSwitch(srcHostname);
+    var oldState = this.evaluateSwitchZ(srcHostname);
     if ( newState === oldState ) {
         return false;
     }
@@ -400,6 +381,16 @@ Matrix.prototype.toggleSwitch = function(srcHostname, newState) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateSwitch = function(srcHostname) {
+    var b = this.switchedOn[srcHostname];
+    if ( b !== undefined ) {
+        return b;
+    }
+    return true;
+};
+
+/******************************************************************************/
+
+Matrix.prototype.evaluateSwitchZ = function(srcHostname) {
     var b;
     var s = srcHostname;
     var pos;
@@ -420,29 +411,6 @@ Matrix.prototype.evaluateSwitch = function(srcHostname) {
         break;
     }
     return true;
-};
-
-/******************************************************************************/
-
-Matrix.prototype.extractSwitches = function(srcHostname, out) {
-    var s = srcHostname;
-    var v, pos;
-    for (;;) {
-        v = this.rules[s];
-        if ( v !== undefined ) {
-            out[s] = v;
-        }
-        pos = s.indexOf('.');
-        if ( pos !== -1 ) {
-            s = s.slice(pos + 1);
-            continue;
-        }
-        if ( s !== '*' ) {
-            s = '*';
-            continue;
-        }
-        break;
-    }
 };
 
 /******************************************************************************/
@@ -474,6 +442,76 @@ Matrix.prototype.toSelfie = function() {
 Matrix.prototype.fromSelfie = function(selfie) {
     this.switchedOn = selfie.switchedOn;
     this.rules = selfie.rules;
+};
+
+/******************************************************************************/
+
+Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
+    var out = [];
+    var desHostname, type;
+    var i, pos, thisVal, otherVal;
+    for (;;) {
+        thisVal = this.evaluateSwitch(srcHostname);
+        otherVal = other.evaluateSwitch(srcHostname);
+        if ( thisVal !== otherVal ) {
+            out.push({
+                'what': 'switch',
+                'src': srcHostname
+            });
+        }
+        i = desHostnames.length;
+        while ( i-- ) {
+            desHostname = desHostnames[i];
+            for ( type in typeBitOffsets ) {
+                if ( typeBitOffsets.hasOwnProperty(type) === false ) {
+                    continue;
+                }
+                thisVal = this.evaluateCell(srcHostname, desHostname, type);
+                otherVal = other.evaluateCell(srcHostname, desHostname, type);
+                if ( thisVal === otherVal ) {
+                    continue;
+                }
+                out.push({
+                    'what': 'rule',
+                    'src': srcHostname,
+                    'des': desHostname,
+                    'type': type
+                });
+            }
+        }
+        if ( srcHostname === '*' ) {
+            break;
+        }
+        pos = srcHostname.indexOf('.');
+        if ( pos !== -1 ) {
+            srcHostname = srcHostname.slice(pos + 1);
+        } else {
+            srcHostname = '*';
+        }
+    }
+    return out;
+};
+
+/******************************************************************************/
+
+Matrix.prototype.applyDiff = function(diff, from) {
+    var changed = false;
+    var i = diff.length;
+    var action, val;
+    while ( i-- ) {
+        action = diff[i];
+        if ( action.what === 'switch' ) {
+            val = from.evaluateSwitch(action.src);
+            changed = this.setSwitch(action.src, val) || changed;
+            continue;
+        }
+        if ( action.what === 'rule' ) {
+            val = from.evaluateCell(action.src, action.des, action.type);
+            changed = this.setCell(action.src, action.des, action.type, val) || changed;
+            continue;
+        }
+    }
+    return changed;
 };
 
 /******************************************************************************/
