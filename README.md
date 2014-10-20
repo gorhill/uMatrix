@@ -7,7 +7,7 @@ Forked from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 Differences with HTTP Switchboard:
 
 - No pattern-based filtering -- use more advanced [µBlock](https://github.com/gorhill/uBlock) for this
-- Rules from broader scopes propagate to narrower scopes
+- Rules from broader scopes propagate to narrower scopes ([HTTP Switchboard issue #227](https://github.com/gorhill/httpswitchboard/issues/227)):
     - This means rules in global scope are ubiquitous, i.e. no longer sandboxed
     - See matrix as really 3D: evaluation order: Z, then X and Y, where
         - Z is the source hostname axis (aka "scope"), from global scope to narrower scopes
