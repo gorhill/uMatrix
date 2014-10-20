@@ -12,7 +12,7 @@ Differences with HTTP Switchboard:
     - See matrix as really 3D: evaluation order: Z, then X and Y, where
         - Z is the source hostname axis (aka "scope"), from global scope to narrower scopes
         - X is the request type axis: `*`, `cookie`, `css`, etc.
-        - Y is the destination hostname axis (`www.example.com`, `example.com`, `com`, `*`
+        - Y is the destination hostname axis (`www.example.com`, `example.com`, `com`, `*`)
 - Much needed [code refactoring](http://en.wikipedia.org/wiki/Code_refactoring) toward portability/efficiency
     - Big chunks of tired code have been removed, or replaced by small chunks of better code
     - There is no longer a hierarchical data structures for scopes/rules (**major** contribution toward code simplification)
