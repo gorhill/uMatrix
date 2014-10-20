@@ -22,19 +22,138 @@
 /* global chrome, µMatrix */
 
 /******************************************************************************/
+/******************************************************************************/
 
 (function() {
 
 // popup.js
 
+var µm = µMatrix;
+
 /******************************************************************************/
 
 var smartReload = function(tabs) {
-    var µm = µMatrix;
     var i = tabs.length;
     while ( i-- ) {
         µm.smartReloadTabs(µm.userSettings.smartAutoReload, tabs[i].id);
     }
+};
+
+/******************************************************************************/
+
+// Constructor is faster than object literal
+
+var HostnameSnapshot = function(srcHostname, desHostname, desDomain) {
+    this.domain = desDomain;
+    this.temporary = µm.tMatrix.evaluateRowZXY(srcHostname, desHostname);
+    this.permanent = µm.pMatrix.evaluateRowZXY(srcHostname, desHostname);
+    this.counts = HostnameSnapshot.counts.slice();
+    this.totals = HostnameSnapshot.counts.slice();
+};
+
+HostnameSnapshot.counts = (function() {
+    var i = Object.keys(µm.tMatrix.getColumnHeaders()).length;
+    var aa = new Array(i);
+    while ( i-- ) {
+        aa[i] = 0;
+    }
+    return aa;
+})();
+
+/******************************************************************************/
+
+var matrixSnapshot = function (tabId) {
+    var r = {
+        tabId: tabId,
+        url: '',
+        hostname: '',
+        domain: '',
+        scope: '*',
+        headers: µm.tMatrix.getColumnHeaders(),
+        rows: {},
+        rowCount: 0
+    };
+
+    var pageStore = µm.pageStatsFromTabId(tabId);
+    if ( !pageStore ) {
+        return r;
+    }
+
+    var headers = r.headers;
+
+    r.url = pageStore.pageUrl;
+    r.hostname = pageStore.pageHostname;
+    r.domain = pageStore.pageDomain;
+
+    if ( µm.userSettings.scopeLevel === 'site' ) {
+        r.scope = r.hostname;
+    } else if ( µm.userSettings.scopeLevel === 'domain' ) {
+        r.scope = r.domain;
+    }
+
+    // This one always exist
+    r.rows['*'] = new HostnameSnapshot(r.hostname, '*', '*');
+    r.rowCount += 1;
+
+    var µmuri = µm.URI;
+    var reqKey, reqType, reqHostname, reqDomain;
+    var desHostname;
+    var row, typeIndex;
+    var anyIndex = headers['*'];
+
+    var pageRequests = pageStore.requests;
+    var reqKeys = pageRequests.getRequestKeys();
+    var iReqKey = reqKeys.length;
+    var pos;
+
+    while ( iReqKey-- ) {
+        reqKey = reqKeys[iReqKey];
+        reqType = pageRequests.typeFromRequestKey(reqKey);
+        reqHostname = pageRequests.hostnameFromRequestKey(reqKey);
+        // rhill 2013-10-23: hostname can be empty if the request is a data url
+        // https://github.com/gorhill/httpswitchboard/issues/26
+        if ( reqHostname === '' ) {
+            reqHostname = pageStore.pageHostname;
+        }
+        reqDomain = µmuri.domainFromHostname(reqHostname) || reqHostname;
+
+        // We want rows of self and ancestors
+        desHostname = reqHostname;
+        for ( ;; ) {
+            // If row exists, ancestors exist
+            if ( r.rows.hasOwnProperty(desHostname) !== false ) {
+                break;
+            }
+            r.rows[desHostname] = new HostnameSnapshot(r.hostname, desHostname, reqDomain);
+            r.rowCount += 1;
+            if ( desHostname === reqDomain ) {
+                break;
+            }
+            pos = desHostname.indexOf('.');
+            if ( pos === -1 ) {
+                break;
+            }
+            desHostname = desHostname.slice(pos + 1);
+        }
+
+        typeIndex = headers[reqType];
+
+        row = r.rows[reqHostname];
+        row.counts[typeIndex] += 1;
+        row.counts[anyIndex] += 1;
+
+        if ( reqDomain !== reqHostname ) {
+            row = r.rows[reqDomain];
+            row.totals[typeIndex] += 1;
+            row.totals[anyIndex] += 1;
+        }
+
+        row = r.rows['*'];
+        row.totals[typeIndex] += 1;
+        row.totals[anyIndex] += 1;
+    }
+
+    return r;
 };
 
 /******************************************************************************/
@@ -57,6 +176,10 @@ var onMessage = function(request, sender, callback) {
             }
             break;
 
+        case 'matrixSnapshot':
+            response = matrixSnapshot(request.tabId);
+            break;
+
         default:
             return µMatrix.messaging.defaultHandler(request, sender, callback);
     }
@@ -68,6 +191,7 @@ var onMessage = function(request, sender, callback) {
 
 })();
 
+/******************************************************************************/
 /******************************************************************************/
 
 // content scripts
@@ -201,6 +325,7 @@ var onMessage = function(request, sender, callback) {
 })();
 
 /******************************************************************************/
+/******************************************************************************/
 
 // settings.js
 
@@ -231,6 +356,7 @@ var onMessage = function(request, sender, callback) {
 })();
 
 /******************************************************************************/
+/******************************************************************************/
 
 // info.js
 
@@ -241,7 +367,7 @@ var getRequestLog = function(pageURL) {
     var requestLogs = {};
     var pageStores = µMatrix.pageStats;
     var pageURLs = pageURL ? [pageURL] : Object.keys(pageStores);
-    var pageRequestLog, logEntries, i, j, logEntry;
+    var pageStore, pageRequestLog, logEntries, j, logEntry;
 
     for ( var i = 0; i < pageURLs.length; i++ ) {
         pageURL = pageURLs[i];
@@ -316,6 +442,7 @@ var onMessage = function(request, sender, callback) {
 })();
 
 /******************************************************************************/
+/******************************************************************************/
 
 // ubiquitous-rules.js
 
@@ -345,6 +472,7 @@ var onMessage = function(request, sender, callback) {
 
 })();
 
+/******************************************************************************/
 /******************************************************************************/
 
 // about.js

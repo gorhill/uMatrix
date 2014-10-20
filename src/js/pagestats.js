@@ -459,7 +459,7 @@ function PageStore(pageUrl) {
 PageStore.prototype.init = function(pageUrl) {
     this.pageUrl = pageUrl;
     this.pageHostname = µm.URI.hostnameFromURI(pageUrl);
-    this.pageDomain = µm.URI.domainFromHostname(this.pageHostname);
+    this.pageDomain = µm.URI.domainFromHostname(this.pageHostname) || this.pageHostname;
     this.pageScriptBlocked = false;
     this.thirdpartyScript = false;
     this.requests = µm.PageRequestStats.factory();

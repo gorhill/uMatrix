@@ -39,13 +39,13 @@ var Matrix = function() {
 
 /******************************************************************************/
 
-Matrix.Transparent = 0;
-Matrix.Red         = 1;
-Matrix.Green       = 2;
-Matrix.Gray        = 3;
+Matrix.Transparent   = 0;
+Matrix.Red           = 1;
+Matrix.Green         = 2;
+Matrix.Gray          = 3;
 
-Matrix.Direct      = 0x00;
-Matrix.Indirect    = 0x80;
+Matrix.Indirect      = 0x00;
+Matrix.Direct        = 0x80;
 
 Matrix.RedDirect     = Matrix.Red | Matrix.Direct;
 Matrix.RedIndirect   = Matrix.Red | Matrix.Indirect;
@@ -210,7 +210,7 @@ Matrix.prototype.evaluateCell = function(srcHostname, desHostname, type) {
     var key = srcHostname + ' ' + desHostname;
     var bitmap = this.rules[key];
     if ( bitmap === undefined ) {
-        return undefined;
+        return 0;
     }
     return bitmap >> typeBitOffsets[type] & 3;
 };
@@ -307,7 +307,21 @@ Matrix.prototype.evaluateRowZXY = function(srcHostname, desHostname) {
         }
         out.push(this.evaluateCellZXY(srcHostname, desHostname, type));
     }
-    return out.join('');
+    return out;
+};
+
+/******************************************************************************/
+
+Matrix.prototype.getColumnHeaders = function() {
+    var out = {};
+    var i = 0;
+    for ( var type in typeBitOffsets ) {
+        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
+            continue;
+        }
+        out[type] = i++;
+    }
+    return out;
 };
 
 /******************************************************************************/

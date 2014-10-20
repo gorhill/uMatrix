@@ -19,7 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-// TODO: cleanup
+/* global punycode, uDom, messaging */
+/* jshint esnext: true, bitwise: false */
 
 /******************************************************************************/
 /******************************************************************************/
@@ -30,14 +31,28 @@
 /******************************************************************************/
 
 var µMatrix = chrome.extension.getBackgroundPage().µMatrix;
+var matrixSnapshot = {};
+var matrixStats = {};
 var targetTabId;
 var targetPageURL;
 var targetPageHostname;
 var targetPageDomain;
 var targetScope = '*';
-
 var matrixCellHotspots = null;
-var matrixHasRows = false;
+
+// Must be consistent with definitions in matrix.js
+const Pale        = 0x00;
+const Dark        = 0x80;
+const Transparent = 0;
+const Red         = 1;
+const Green       = 2;
+const Gray        = 3;
+const DarkRed     = Dark | Red;
+const PaleRed     = Pale | Red;
+const DarkGreen   = Dark | Green;
+const PaleGreen   = Pale | Green;
+const DarkGray    = Dark | Gray;
+const PaleGray    = Pale | Gray;
 
 /******************************************************************************/
 /******************************************************************************/
@@ -79,148 +94,8 @@ function setUserSetting(setting, value) {
 
 /******************************************************************************/
 
-function EntryStats(hostname, type) {
-    this.hostname = hostname;
-    this.type = type;
-    this.count = 0;
-    this.temporaryColor = '';
-    this.permanentColor = '';
-}
-
-EntryStats.prototype.reset = function(hostname, type) {
-    if ( hostname ) {
-        this.hostname = hostname;
-    }
-    if ( type ) {
-        this.type = type;
-    }
-    this.count = 0;
-};
-
-EntryStats.prototype.colourize = function(µm, scopeKey) {
-    µm = µm || µMatrix;
-    if ( !this.hostname || !this.type ) {
-        return;
-    }
-    this.temporaryColor = µm.getTemporaryColor(scopeKey, this.type, this.hostname);
-    this.permanentColor = µm.getPermanentColor(scopeKey, this.type, this.hostname);
-};
-
-EntryStats.prototype.add = function(other) {
-    this.count += other.count;
-};
-
-/******************************************************************************/
-
-function HostnameStats(hostname) {
-    this.hostname = hostname;
-    this.types = {
-        '*': new EntryStats(hostname, '*'),
-        cookie: new EntryStats(hostname, 'cookie'),
-        css: new EntryStats(hostname, 'css'),
-        image: new EntryStats(hostname, 'image'),
-        plugin: new EntryStats(hostname, 'plugin'),
-        script: new EntryStats(hostname, 'script'),
-        xhr: new EntryStats(hostname, 'xhr'),
-        frame: new EntryStats(hostname, 'frame'),
-        other: new EntryStats(hostname, 'other')
-    };
-}
-
-HostnameStats.prototype.junkyard = [];
-
-HostnameStats.prototype.factory = function(hostname) {
-    var domainStats = HostnameStats.prototype.junkyard.pop();
-    if ( domainStats ) {
-        domainStats.reset(hostname);
-    } else {
-        domainStats = new HostnameStats(hostname);
-    }
-    return domainStats;
-};
-
-HostnameStats.prototype.reset = function(hostname) {
-    if ( hostname ) {
-        this.hostname = hostname;
-    } else {
-        hostname = this.hostname;
-    }
-    this.types['*'].reset(hostname);
-    this.types.cookie.reset(hostname);
-    this.types.css.reset(hostname);
-    this.types.image.reset(hostname);
-    this.types.plugin.reset(hostname);
-    this.types.script.reset(hostname);
-    this.types.xhr.reset(hostname);
-    this.types.frame.reset(hostname);
-    this.types.other.reset(hostname);
-};
-
-HostnameStats.prototype.dispose = function() {
-    HostnameStats.prototype.junkyard.push(this);
-};
-
-HostnameStats.prototype.colourize = function(µm, scopeKey) {
-    µm = µm || µMatrix;
-    this.types['*'].colourize(µm, scopeKey);
-    this.types.cookie.colourize(µm, scopeKey);
-    this.types.css.colourize(µm, scopeKey);
-    this.types.image.colourize(µm, scopeKey);
-    this.types.plugin.colourize(µm, scopeKey);
-    this.types.script.colourize(µm, scopeKey);
-    this.types.xhr.colourize(µm, scopeKey);
-    this.types.frame.colourize(µm, scopeKey);
-    this.types.other.colourize(µm, scopeKey);
-};
-
-HostnameStats.prototype.add = function(other) {
-    var thisTypes = this.types;
-    var otherTypes = other.types;
-    thisTypes['*'].add(otherTypes['*']);
-    thisTypes.cookie.add(otherTypes.cookie);
-    thisTypes.css.add(otherTypes.css);
-    thisTypes.image.add(otherTypes.image);
-    thisTypes.plugin.add(otherTypes.plugin);
-    thisTypes.script.add(otherTypes.script);
-    thisTypes.xhr.add(otherTypes.xhr);
-    thisTypes.frame.add(otherTypes.frame);
-    thisTypes.other.add(otherTypes.other);
-};
-
-/******************************************************************************/
-
-function MatrixStats() {
-    // hostname '*' always present
-    this['*'] = HostnameStats.prototype.factory('*');
-}
-
-MatrixStats.prototype.createMatrixStats = function() {
-    return new MatrixStats();
-};
-
-MatrixStats.prototype.reset = function() {
-    var hostnames = Object.keys(this);
-    var i = hostnames.length;
-    var hostname, prop;
-    while ( i-- ) {
-        hostname = hostnames[i];
-        prop = this[hostname];
-        if ( hostname !== '*' && prop instanceof HostnameStats ) {
-            prop.dispose();
-            delete this[hostname];
-        }
-    }
-    this['*'].reset();
-};
-
-/******************************************************************************/
-
 var HTTPSBPopup = {
-    scopeKey: '*',
-    
     matrixDomains: {},
-
-    matrixStats: MatrixStats.prototype.createMatrixStats(),
     matrixHeaderTypes: ['*'],
     matrixGroup3Collapsed: false,
 
@@ -244,76 +119,14 @@ var HTTPSBPopup = {
 
 /******************************************************************************/
 
-// This creates a stats entry for each possible rows in the matrix.
-
-function initMatrixStats() {
-    var pageStats = getPageStats();
-    if ( !pageStats ) {
-        return;
-    }
-
-    var matrixStats = HTTPSBPopup.matrixStats;
-    matrixStats.reset();
-
-    // collect all hostnames and ancestors from net traffic
-    var µmuri = µMatrix.URI;
-    var hostname, reqType, nodes, iNode, node, reqKey, types;
-    var pageRequests = pageStats.requests;
-    var reqKeys = pageRequests.getRequestKeys();
-    var iReqKey = reqKeys.length;
-
-    matrixHasRows = iReqKey > 0;
-
-    while ( iReqKey-- ) {
-        reqKey = reqKeys[iReqKey];
-        hostname = pageRequests.hostnameFromRequestKey(reqKey);
-
-        // rhill 2013-10-23: hostname can be empty if the request is a data url
-        // https://github.com/gorhill/httpswitchboard/issues/26
-        if ( hostname === '' ) {
-            hostname = targetPageHostname;
-        }
-        reqType = pageRequests.typeFromRequestKey(reqKey);
-
-        // we want a row for self and ancestors
-        nodes = µmuri.allHostnamesFromHostname(hostname);
-        iNode = nodes.length;
-        while ( iNode-- ) {
-            node = nodes[iNode];
-            if ( !matrixStats[node] ) {
-                matrixStats[node] = HostnameStats.prototype.factory(node);
-            }
-        }
-
-        types = matrixStats[hostname].types;
-
-        // Count only types which make sense to count
-        if ( types.hasOwnProperty(reqType) ) {
-            types[reqType].count += 1;
-        }
-
-        // https://github.com/gorhill/httpswitchboard/issues/12
-        // Count requests for whole row.
-        types['*'].count += 1;
-    }
-
-    updateMatrixStats();
-
-    return matrixStats;
-}
-
-/******************************************************************************/
-
-function updateMatrixStats() {
-    // For each hostname/type occurrence, evaluate colors
-    var µm = µMatrix;
-    var scopeKey = targetScope;
-    var matrixStats = HTTPSBPopup.matrixStats;
-    for ( var hostname in matrixStats ) {
-        if ( matrixStats.hasOwnProperty(hostname) ) {
-            matrixStats[hostname].colourize(µm, scopeKey);
-        }
-    }
+function updateMatrixSnapshot() {
+    var snapshotReady = function(response) {
+        matrixSnapshot = response;
+        updateMatrixColors();
+        updateMatrixBehavior();
+        updateMatrixButtons();
+    };
+    messaging.ask({ what: 'matrixSnapshot', tabId: matrixSnapshot.tabId }, snapshotReady);
 }
 
 /******************************************************************************/
@@ -328,98 +141,79 @@ function getGroupStats() {
 
     // Try to not reshuffle groups around while popup is opened if
     // no new hostname added.
-    var matrixStats = HTTPSBPopup.matrixStats;
-    var latestDomainListSnapshot = Object.keys(matrixStats).sort().join();
+    var latestDomainListSnapshot = Object.keys(matrixSnapshot.rows).sort().join();
     if ( latestDomainListSnapshot === HTTPSBPopup.domainListSnapshot ) {
         return HTTPSBPopup.groupsSnapshot;
     }
     HTTPSBPopup.domainListSnapshot = latestDomainListSnapshot;
 
-    var groups = [
-        {},
-        {},
-        {},
-        {}
-    ];
-
     // First, group according to whether at least one node in the domain
     // hierarchy is white or blacklisted
-    var µmuri = µMatrix.URI;
     var pageDomain = targetPageDomain;
-    var hostname, domain, nodes, node;
-    var temporaryColor;
-    var dark, group;
-    var hostnames = Object.keys(matrixStats);
-    var iHostname = hostnames.length;
-    while ( iHostname-- ) {
-        hostname = hostnames[iHostname];
-        // '*' is for header, ignore, since header is always at the top
+    var rows = matrixSnapshot.rows;
+    var columnOffsets = matrixSnapshot.headers;
+    var anyTypeOffset = columnOffsets['*'];
+    var hostname, domain;
+    var row, color, groupIndex;
+    var domainToGroupMap = {};
+
+    // First pass: put each domain in a group
+    for ( hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) {
+            continue;
+        }
+        // '*' is for header, ignore since header is always at the top
         if ( hostname === '*' ) {
             continue;
         }
-        // https://github.com/gorhill/httpswitchboard/issues/12
-        // Ignore rows with no request for now.
-        if ( matrixStats[hostname].types['*'].count === 0 ) {
+        row = rows[hostname];
+        domain = row.domain;
+        // 1st-party always into group 0
+        if ( domain === pageDomain ) {
+            domainToGroupMap[domain] = 0;
             continue;
         }
-        // Walk upward the chain of hostname and find at least one which
-        // is expressly whitelisted or blacklisted.
-        nodes = µmuri.allHostnamesFromHostname(hostname);
-        domain = nodes[nodes.length-1];
+        color = row.temporary[anyTypeOffset];
+        groupIndex = domainToGroupMap[domain] || 2; // anything overrides 2
+        // group 1: whitelisted (does not override 0)
+        if ( color === DarkGreen ) {
+            domainToGroupMap[domain] = 1;
+            continue;
+        }
+        // group 3: blacklisted (does not override 0, 1)
+        if ( color === DarkRed ) {
+            if ( groupIndex === 2 ) {
+                domainToGroupMap[domain] = 3;
+            }
+            continue;
+        }
 
-        while ( true ) {
-            node = nodes.shift();
-            if ( !node ) {
-                break;
-            }
-            temporaryColor = matrixStats[node].types['*'].temporaryColor;
-            dark = temporaryColor.charAt(1) === 'd';
-            if ( dark ) {
-                break;
-            }
+        // group 2: graylisted (does not override 0, 1, 3)
+        if ( groupIndex !== 2 ) {
+            continue;
         }
-        // Domain of the page comes first
-        if ( domain === pageDomain ) {
-            group = 0;
-        }
-        // Whitelisted hostnames are second, blacklisted are fourth
-        else if ( dark ) {
-            group = temporaryColor.charAt(0) === 'g' ? 1 : 3;
-        // Graylisted are third
-        } else {
-            group = 2;
-        }
-        if ( !groups[group][domain] ) {
-            groups[group][domain] = { all: {}, withRules: {} };
-        }
-        groups[group][domain].withRules[hostname] = true;
+
+        domainToGroupMap[domain] = 2;
     }
-    // At this point, one domain could end up in two different groups.
 
-    // Generate all nodes possible for each groups, this is useful
-    // to allow users to toggle permissions for higher-level hostnames
-    // which are not explicitly part of the web page.
-    var iGroup = groups.length;
-    var domains, iDomain;
-    while ( iGroup-- ) {
-        group = groups[iGroup];
-        domains = Object.keys(group);
-        iDomain = domains.length;
-        while ( iDomain-- ) {
-            domain = domains[iDomain];
-            hostnames = Object.keys(group[domain].withRules);
-            iHostname = hostnames.length;
-            while ( iHostname-- ) {
-                nodes = µmuri.allHostnamesFromHostname(hostnames[iHostname]);
-                while ( true ) {
-                    node = nodes.shift();
-                    if ( !node ) {
-                        break;
-                    }
-                    group[domain].all[node] = group[domain].withRules[node];
-                }
-            }
+    // Second pass: put each domain in a group
+    var groups = [ {}, {}, {}, {} ];
+    var group;
+    for ( hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) {
+            continue;
         }
+        if ( hostname === '*' ) {
+            continue;
+        }
+        row = rows[hostname];
+        domain = row.domain;
+        groupIndex = domainToGroupMap[domain];
+        group = groups[groupIndex];
+        if ( group.hasOwnProperty(domain) === false ) {
+            group[domain] = {};
+        }
+        group[domain][hostname] = true;
     }
 
     HTTPSBPopup.groupsSnapshot = groups;
@@ -431,51 +225,36 @@ function getGroupStats() {
 
 // helpers
 
-function getCellStats(hostname, type) {
-    var matrixStats = HTTPSBPopup.matrixStats;
-    if ( matrixStats[hostname] ) {
-        return matrixStats[hostname].types[type];
-    }
-    return null;
-}
-
 function getTemporaryColor(hostname, type) {
-    var entry = getCellStats(hostname, type);
-    if ( entry ) {
-        return entry.temporaryColor;
-    }
-    return '';
+    return matrixSnapshot.rows[hostname].temporary[matrixSnapshot.headers[type]];
 }
 
 function getPermanentColor(hostname, type) {
-    var entry = getCellStats(hostname, type);
-    if ( entry ) {
-        return entry.permanentColor;
-    }
-    return '';
+    return matrixSnapshot.rows[hostname].permanent[matrixSnapshot.headers[type]];
 }
 
 function getCellClass(hostname, type) {
-    return getTemporaryColor(hostname, type) + ' ' + getPermanentColor(hostname, type) + 'p';
+    return 't' + getTemporaryColor(hostname, type).toString(16) +
+          ' p' + getPermanentColor(hostname, type).toString(16);
 }
 
-// compute next state
 function getNextAction(hostname, type, leaning) {
-    var entry = HTTPSBPopup.matrixStats[hostname].types[type];
-    var temporaryColor = entry.temporaryColor;
+    var temporaryColor = getTemporaryColor(hostname, type);
+    var hue = temporaryColor & 0x03;
+    var saturation = temporaryColor & 0x80;
     // special case: root toggle only between two states
     if ( type === '*' && hostname === '*' ) {
-        return temporaryColor.charAt(0) === 'g' ? 'blacklist' : 'whitelist';
+        return hue === Green ? 'blacklist' : 'whitelist';
     }
     // Lean toward whitelisting?
     if ( leaning === 'whitelisting' ) {
-        if ( temporaryColor.charAt(1) !== 'd' ) {
+        if ( saturation !== Dark ) {
             return 'whitelist';
         }
         return 'graylist';
     }
     // Lean toward blacklisting
-    if ( temporaryColor.charAt(1) !== 'd' ) {
+    if ( saturation !== Dark ) {
         return 'blacklist';
     }
     return 'graylist';
@@ -556,14 +335,6 @@ function updateMatrixColors() {
 
 /******************************************************************************/
 
-// Update request count of matrix cells(s)
-// Count changes when number of distinct requests changes
-
-function updateMatrixCounts() {
-}
-
-/******************************************************************************/
-
 // Update behavior of matrix:
 // - Whether a section is collapsible or not. It is collapsible if:
 //   - It has at least one subdomain AND
@@ -605,10 +376,7 @@ function handleFilter(button, leaning) {
     } else {
         µm.graylistTemporarily(targetScope, hostname, type);
     }
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
 }
 
 function handleWhitelistFilter(button) {
@@ -623,7 +391,6 @@ function handleBlacklistFilter(button) {
 
 function getTemporaryRuleset() {
     var µm = µMatrix;
-    var matrixStats = HTTPSBPopup.matrixStats;
     var temporaryRules = {};
     var permanentRules = {};
     var temporarySwitches = {};
@@ -713,7 +480,7 @@ var endMatrixUpdate = function() {
     // to ensure the extension pop-up is properly sized. This is needed because
     // the header pane's `position` property is `fixed`, which means it doesn't
     // affect layout size, hence the matrix header row will be truncated.
-    if ( !matrixHasRows ) {
+    if ( matrixSnapshot.rowCount <= 1 ) {
         matrixList.append(createMatrixRow().css('visibility', 'hidden'));
     }
     updateMatrixBehavior();
@@ -826,27 +593,29 @@ function renderMatrixMetaCellDomain(cell, domain) {
     contents.nodeAt(1).textContent = ' ';
 }
 
-function renderMatrixCellType(cell, hostname, type, stats) {
+function renderMatrixCellType(cell, hostname, type, count) {
     cell.prop('reqType', type)
         .prop('hostname', hostname)
-        .prop('count', stats.count)
+        .prop('count', count)
         .addClass(getCellClass(hostname, type));
-    if ( stats.count ) {
-        cell.text(stats.count);
+    if ( count ) {
+        cell.text(count);
     } else {
         cell.text('\u00A0');
     }
 }
 
-function renderMatrixCellTypes(cells, hostname, stats) {
-    renderMatrixCellType(cells.at(1), hostname, 'cookie', stats.cookie);
-    renderMatrixCellType(cells.at(2), hostname, 'css', stats.css);
-    renderMatrixCellType(cells.at(3), hostname, 'image', stats.image);
-    renderMatrixCellType(cells.at(4), hostname, 'plugin', stats.plugin);
-    renderMatrixCellType(cells.at(5), hostname, 'script', stats.script);
-    renderMatrixCellType(cells.at(6), hostname, 'xhr', stats.xhr);
-    renderMatrixCellType(cells.at(7), hostname, 'frame', stats.frame);
-    renderMatrixCellType(cells.at(8), hostname, 'other', stats.other);
+function renderMatrixCellTypes(cells, hostname, countName) {
+    var counts = matrixSnapshot.rows[hostname][countName];
+    var countIndices = matrixSnapshot.headers;
+    renderMatrixCellType(cells.at(1), hostname, 'cookie', counts[countIndices.cookie]);
+    renderMatrixCellType(cells.at(2), hostname, 'css', counts[countIndices.css]);
+    renderMatrixCellType(cells.at(3), hostname, 'image', counts[countIndices.image]);
+    renderMatrixCellType(cells.at(4), hostname, 'plugin', counts[countIndices.plugin]);
+    renderMatrixCellType(cells.at(5), hostname, 'script', counts[countIndices.script]);
+    renderMatrixCellType(cells.at(6), hostname, 'xhr', counts[countIndices.xhr]);
+    renderMatrixCellType(cells.at(7), hostname, 'frame', counts[countIndices.frame]);
+    renderMatrixCellType(cells.at(8), hostname, 'other', counts[countIndices.other]);
 }
 
 /******************************************************************************/
@@ -855,7 +624,7 @@ function makeMatrixRowDomain(domain) {
     var matrixRow = createMatrixRow().addClass('rw');
     var cells = matrixRow.descendants('.matCell');
     renderMatrixCellDomain(cells.at(0), domain);
-    renderMatrixCellTypes(cells, domain, HTTPSBPopup.matrixStats[domain].types);
+    renderMatrixCellTypes(cells, domain, 'counts');
     return matrixRow;
 }
 
@@ -863,66 +632,60 @@ function makeMatrixRowSubdomain(domain, subdomain) {
     var matrixRow = createMatrixRow().addClass('rw');
     var cells = matrixRow.descendants('.matCell');
     renderMatrixCellSubdomain(cells.at(0), domain, subdomain);
-    renderMatrixCellTypes(cells, subdomain, HTTPSBPopup.matrixStats[subdomain].types);
+    renderMatrixCellTypes(cells, subdomain, 'counts');
     return matrixRow;
 }
 
-function makeMatrixMetaRowDomain(domain, stats) {
+function makeMatrixMetaRowDomain(domain) {
     var matrixRow = createMatrixRow().addClass('rw');
     var cells = matrixRow.descendants('.matCell');
     renderMatrixMetaCellDomain(cells.at(0), domain);
-    renderMatrixCellTypes(cells, domain, stats);
+    renderMatrixCellTypes(cells, domain, 'totals');
     return matrixRow;
 }
 
 /******************************************************************************/
 
 function renderMatrixMetaCellType(cell, count) {
-    cell.addClass('ri');
+    cell.addClass('t1');
     if ( count ) {
         cell.text(count);
     }
 }
 
-function makeMatrixMetaRow(stats) {
-    var typeStats = stats.types;
+function makeMatrixMetaRow(totals) {
+    var typeOffsets = matrixSnapshot.headers;
     var matrixRow = createMatrixRow().at(0).addClass('ro');
     var cells = matrixRow.descendants('.matCell');
-    var contents = cells.at(0).addClass('rd').contents();
+    var contents = cells.at(0).addClass('t81').contents();
     contents.nodeAt(0).textContent = ' ';
-    contents.nodeAt(1).textContent = '\u202A' + typeStats['*'].count + ' blacklisted hostname(s)';
-    renderMatrixMetaCellType(cells.at(1), typeStats.cookie.count);
-    renderMatrixMetaCellType(cells.at(2), typeStats.css.count);
-    renderMatrixMetaCellType(cells.at(3), typeStats.image.count);
-    renderMatrixMetaCellType(cells.at(4), typeStats.plugin.count);
-    renderMatrixMetaCellType(cells.at(5), typeStats.script.count);
-    renderMatrixMetaCellType(cells.at(6), typeStats.xhr.count);
-    renderMatrixMetaCellType(cells.at(7), typeStats.frame.count);
-    renderMatrixMetaCellType(cells.at(8), typeStats.other.count);
+    contents.nodeAt(1).textContent = '\u202A' + totals[typeOffsets['*']] + ' blacklisted hostname(s)';
+    renderMatrixMetaCellType(cells.at(1), totals[typeOffsets.cookie]);
+    renderMatrixMetaCellType(cells.at(2), totals[typeOffsets.css]);
+    renderMatrixMetaCellType(cells.at(3), totals[typeOffsets.image]);
+    renderMatrixMetaCellType(cells.at(4), totals[typeOffsets.plugin]);
+    renderMatrixMetaCellType(cells.at(5), totals[typeOffsets.script]);
+    renderMatrixMetaCellType(cells.at(6), totals[typeOffsets.xhr]);
+    renderMatrixMetaCellType(cells.at(7), totals[typeOffsets.frame]);
+    renderMatrixMetaCellType(cells.at(8), totals[typeOffsets.other]);
     return matrixRow;
 }
 
 /******************************************************************************/
 
 function computeMatrixGroupMetaStats(group) {
-    var metaStats = new HostnameStats();
+    var types = Object.keys(matrixSnapshot.headers);
+    var i = types.length, j;
+    var totals = new Array(i);
     var domains = Object.keys(group);
-    var blacklistedCount = 0;
-    var i = domains.length;
-    var hostnames, hostname, j;
     while ( i-- ) {
-        hostnames = Object.keys(group[domains[i]].all);
-        j = hostnames.length;
+        totals[i] = 0;
+        j = domains.length;
         while ( j-- ) {
-            hostname = hostnames[j];
-            if ( getTemporaryColor(hostname, '*') === 'rd' ) {
-                blacklistedCount++;
-            }
-            metaStats.add(HTTPSBPopup.matrixStats[hostname]);
+            totals[i] += matrixSnapshot.rows[domains[j]].totals[i];
         }
     }
-    metaStats.types['*'].count = blacklistedCount;
-    return metaStats;
+    return totals;
 }
 
 /******************************************************************************/
@@ -956,14 +719,8 @@ function makeMatrixGroup0SectionSubomain(domain, subdomain) {
         .addClass('g0 l2');
 }
 
-function makeMatrixGroup0SectionMetaDomain(hostnames) {
-    var metaStats = new HostnameStats();
-    var i = hostnames.length;
-    while ( i-- ) {
-        metaStats.add(HTTPSBPopup.matrixStats[hostnames[i]]);
-    }
-    return makeMatrixMetaRowDomain(hostnames[0], metaStats.types)
-        .addClass('g0 l1 meta');
+function makeMatrixGroup0SectionMetaDomain(domain) {
+    return makeMatrixMetaRowDomain(domain).addClass('g0 l1 meta');
 }
 
 function makeMatrixGroup0Section(hostnames) {
@@ -972,7 +729,7 @@ function makeMatrixGroup0Section(hostnames) {
         .toggleClass('collapsed', getCollapseState(domain))
         .prop('domain', domain);
     if ( hostnames.length > 1 ) {
-        makeMatrixGroup0SectionMetaDomain(hostnames)
+        makeMatrixGroup0SectionMetaDomain(domain)
             .appendTo(domainDiv);
     }
     makeMatrixGroup0SectionDomain(domain)
@@ -987,12 +744,11 @@ function makeMatrixGroup0Section(hostnames) {
 function makeMatrixGroup0(group) {
     var domains = Object.keys(group).sort(hostnameCompare);
     if ( domains.length ) {
-        var groupDiv = createMatrixGroup()
-            .addClass('g0');
-        makeMatrixGroup0Section(Object.keys(group[domains[0]].all).sort(hostnameCompare))
+        var groupDiv = createMatrixGroup().addClass('g0');
+        makeMatrixGroup0Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
             .appendTo(groupDiv);
         for ( var i = 1; i < domains.length; i++ ) {
-            makeMatrixGroup0Section(Object.keys(group[domains[i]].all).sort(hostnameCompare))
+            makeMatrixGroup0Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
                 .appendTo(groupDiv);
         }
         groupDiv.appendTo(matrixList);
@@ -1011,14 +767,8 @@ function makeMatrixGroup1SectionSubomain(domain, subdomain) {
         .addClass('g1 l2');
 }
 
-function makeMatrixGroup1SectionMetaDomain(hostnames) {
-    var metaStats = new HostnameStats();
-    var i = hostnames.length;
-    while ( i-- ) {
-        metaStats.add(HTTPSBPopup.matrixStats[hostnames[i]]);
-    }
-    return makeMatrixMetaRowDomain(hostnames[0], metaStats.types)
-        .addClass('g1 l1 meta');
+function makeMatrixGroup1SectionMetaDomain(domain) {
+    return makeMatrixMetaRowDomain(domain).addClass('g1 l1 meta');
 }
 
 function makeMatrixGroup1Section(hostnames) {
@@ -1027,8 +777,7 @@ function makeMatrixGroup1Section(hostnames) {
         .toggleClass('collapsed', getCollapseState(domain))
         .prop('domain', domain);
     if ( hostnames.length > 1 ) {
-        makeMatrixGroup1SectionMetaDomain(hostnames)
-            .appendTo(domainDiv);
+        makeMatrixGroup1SectionMetaDomain(domain).appendTo(domainDiv);
     }
     makeMatrixGroup1SectionDomain(domain)
         .appendTo(domainDiv);
@@ -1044,10 +793,10 @@ function makeMatrixGroup1(group) {
     if ( domains.length) {
         var groupDiv = createMatrixGroup()
             .addClass('g1');
-        makeMatrixGroup1Section(Object.keys(group[domains[0]].all).sort(hostnameCompare))
+        makeMatrixGroup1Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
             .appendTo(groupDiv);
         for ( var i = 1; i < domains.length; i++ ) {
-            makeMatrixGroup1Section(Object.keys(group[domains[i]].all).sort(hostnameCompare))
+            makeMatrixGroup1Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
                 .appendTo(groupDiv);
         }
         groupDiv.appendTo(matrixList);
@@ -1066,14 +815,8 @@ function makeMatrixGroup2SectionSubomain(domain, subdomain) {
         .addClass('g2 l2');
 }
 
-function makeMatrixGroup2SectionMetaDomain(hostnames) {
-    var metaStats = new HostnameStats();
-    var i = hostnames.length;
-    while ( i-- ) {
-        metaStats.add(HTTPSBPopup.matrixStats[hostnames[i]]);
-    }
-    return makeMatrixMetaRowDomain(hostnames[0], metaStats.types)
-        .addClass('g2 l1 meta');
+function makeMatrixGroup2SectionMetaDomain(domain) {
+    return makeMatrixMetaRowDomain(domain).addClass('g2 l1 meta');
 }
 
 function makeMatrixGroup2Section(hostnames) {
@@ -1082,8 +825,7 @@ function makeMatrixGroup2Section(hostnames) {
         .toggleClass('collapsed', getCollapseState(domain))
         .prop('domain', domain);
     if ( hostnames.length > 1 ) {
-        makeMatrixGroup2SectionMetaDomain(hostnames)
-            .appendTo(domainDiv);
+        makeMatrixGroup2SectionMetaDomain(domain).appendTo(domainDiv);
     }
     makeMatrixGroup2SectionDomain(domain)
         .appendTo(domainDiv);
@@ -1099,10 +841,10 @@ function makeMatrixGroup2(group) {
     if ( domains.length) {
         var groupDiv = createMatrixGroup()
             .addClass('g2');
-        makeMatrixGroup2Section(Object.keys(group[domains[0]].all).sort(hostnameCompare))
+        makeMatrixGroup2Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
             .appendTo(groupDiv);
         for ( var i = 1; i < domains.length; i++ ) {
-            makeMatrixGroup2Section(Object.keys(group[domains[i]].all).sort(hostnameCompare))
+            makeMatrixGroup2Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
                 .appendTo(groupDiv);
         }
         groupDiv.appendTo(matrixList);
@@ -1147,10 +889,10 @@ function makeMatrixGroup3(group) {
         .appendTo(groupDiv);
     makeMatrixMetaRow(computeMatrixGroupMetaStats(group), 'g3')
         .appendTo(groupDiv);
-    makeMatrixGroup3Section(Object.keys(group[domains[0]].all).sort(hostnameCompare))
+    makeMatrixGroup3Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
         .appendTo(groupDiv);
     for ( var i = 1; i < domains.length; i++ ) {
-        makeMatrixGroup3Section(Object.keys(group[domains[i]].all).sort(hostnameCompare))
+        makeMatrixGroup3Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
             .appendTo(groupDiv);
     }
     groupDiv.appendTo(matrixList);
@@ -1158,8 +900,7 @@ function makeMatrixGroup3(group) {
 
 /******************************************************************************/
 
-function makeMenu() {
-    initMatrixStats();
+var makeMenu = function() {
     var groupStats = getGroupStats();
 
     if ( Object.keys(groupStats).length === 0 ) {
@@ -1182,7 +923,7 @@ function makeMenu() {
 
     initScopeCell();
     updateMatrixButtons();
-}
+};
 
 /******************************************************************************/
 
@@ -1209,30 +950,21 @@ function initMenuEnvironment() {
 function createGlobalScope() {
     targetScope = '*';
     setUserSetting('scopeLevel', '*');
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
 function createDomainScope() {
     targetScope = targetPageDomain;
     setUserSetting('scopeLevel', 'domain');
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
 function createSiteScope() {
     targetScope = targetPageHostname;
     setUserSetting('scopeLevel', 'site');
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
@@ -1294,10 +1026,7 @@ function updateMtxbutton() {
 function toggleMtxFiltering() {
     var µm = µMatrix;
     µm.toggleTemporaryMtxFiltering(targetScope);
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
 }
 
 /******************************************************************************/
@@ -1319,10 +1048,7 @@ function persistScope() {
     var µm = µMatrix;
     var ruleset = getTemporaryRuleset();
     µm.applyRulesetPermanently(ruleset);
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
 }
 
 /******************************************************************************/
@@ -1334,10 +1060,7 @@ function revertScope() {
     var µm = µMatrix;
     var ruleset = getTemporaryRuleset();
     µm.revertScopeRules(ruleset.tScopeKey);
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
 }
 
 /******************************************************************************/
@@ -1354,10 +1077,7 @@ function updateMatrixButtons() {
 
 function revertAll() {
     µMatrix.revertAllRules();
-    updateMatrixStats();
-    updateMatrixColors();
-    updateMatrixBehavior();
-    updateMatrixButtons();
+    updateMatrixSnapshot();
 }
 
 /******************************************************************************/
@@ -1411,14 +1131,14 @@ function dropDownMenuHide() {
 
 // Because chrome.tabs.query() is async
 
-var bindToTab = function(tabs) {
+var onMatrixSnapshotReady = function(response) {
+/*
     // TODO: can tabs be empty?
     if ( !tabs.length ) {
         return;
     }
 
     var µm = µMatrix;
-    var tab = tabs[0];
 
     // Important! Before calling makeMenu()
     // Allow to scope on behind-the-scene virtual tab
@@ -1429,8 +1149,13 @@ var bindToTab = function(tabs) {
         targetTabId = tab.id;
         targetPageURL = µm.pageUrlFromTabId(targetTabId);
     }
-    targetPageHostname = µm.URI.hostnameFromURI(targetPageURL);
-    targetPageDomain = µm.URI.domainFromHostname(targetPageHostname) || targetPageHostname;
+*/
+    matrixSnapshot = response;
+
+    targetTabId = response.tabId;
+    targetPageURL = response.url;
+    targetPageHostname = response.hostname;
+    targetPageDomain = response.domain;
 
     // Now that tabId and pageURL are set, we can build our menu
     initMenuEnvironment();
@@ -1447,13 +1172,22 @@ var bindToTab = function(tabs) {
     }
 };
 
+
+/******************************************************************************/
+
+var onTabsReceived = function(tabs) {
+    if ( tabs.length === 0 ) {
+        return;
+    }
+    messaging.ask({ what: 'matrixSnapshot', tabId: tabs[0].id }, onMatrixSnapshotReady);
+};
+
 /******************************************************************************/
 
 // Make menu only when popup html is fully loaded
 
 uDom.onLoad(function() {
-
-    chrome.tabs.query({ currentWindow: true, active: true }, bindToTab);
+    chrome.tabs.query({ active: true, currentWindow: true }, onTabsReceived);
 
     // Below is UI stuff which is not key to make the menu, so this can
     // be done without having to wait for a tab to be bound to the menu.
