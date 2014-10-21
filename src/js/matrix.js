@@ -287,32 +287,6 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 
 /******************************************************************************/
 
-Matrix.prototype.evaluateRow = function(srcHostname, desHostname) {
-    var out = [];
-    for ( var type in typeBitOffsets ) {
-        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
-            continue;
-        }
-        out.push(this.evaluateCell(srcHostname, desHostname, type));
-    }
-    return out.join('');
-};
-
-/******************************************************************************/
-
-Matrix.prototype.evaluateRowZ = function(srcHostname, desHostname) {
-    var out = [];
-    for ( var type in typeBitOffsets ) {
-        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
-            continue;
-        }
-        out.push(this.evaluateCellZ(srcHostname, desHostname, type));
-    }
-    return out.join('');
-};
-
-/******************************************************************************/
-
 Matrix.prototype.evaluateRowZXY = function(srcHostname, desHostname) {
     var out = [];
     for ( var type in typeBitOffsets ) {
@@ -369,6 +343,9 @@ Matrix.prototype.extractZRules = function(srcHostname, desHostname, out) {
 /******************************************************************************/
 
 Matrix.prototype.toggleSwitch = function(srcHostname, newState) {
+    if ( newState === undefined ) {
+        newState = !this.evaluateSwitchZ(srcHostname);
+    }
     delete this.switchedOn[srcHostname];
     var oldState = this.evaluateSwitchZ(srcHostname);
     if ( newState === oldState ) {

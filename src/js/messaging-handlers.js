@@ -63,19 +63,28 @@ RowSnapshot.counts = (function() {
 /******************************************************************************/
 
 var matrixSnapshot = function(details) {
+    var µmuser = µm.userSettings;
     var r = {
         tabId: details.tabId,
         url: '',
         hostname: '',
         domain: '',
-        scopeLevel: µm.userSettings.scopeLevel,
+        blockedCount: 0,
         scope: '*',
         headers: µm.Matrix.getColumnHeaders(),
         tSwitch: false,
         pSwitch: false,
         rows: {},
         rowCount: 0,
-        diff: []
+        diff: [],
+        userSettings: {
+            colorBlindFriendly: µmuser.colorBlindFriendly,
+            displayTextSize: µmuser.displayTextSize,
+            popupCollapseDomains: µmuser.popupCollapseDomains,
+            popupCollapseSpecificDomains: µmuser.popupCollapseSpecificDomains,
+            popupHideBlacklisted: µmuser.popupHideBlacklisted,
+            popupScopeLevel: µmuser.popupScopeLevel
+        }
     };
 /*
     // Allow to scope on behind-the-scene virtual tab
@@ -97,10 +106,11 @@ var matrixSnapshot = function(details) {
     r.url = pageStore.pageUrl;
     r.hostname = pageStore.pageHostname;
     r.domain = pageStore.pageDomain;
+    r.blockedCount = pageStore.requestStats.blocked.all;
 
-    if ( r.scopeLevel === 'site' ) {
+    if ( µmuser.popupScopeLevel === 'site' ) {
         r.scope = r.hostname;
-    } else if ( r.scopeLevel === 'domain' ) {
+    } else if ( µmuser.popupScopeLevel === 'domain' ) {
         r.scope = r.domain;
     }
 
@@ -196,6 +206,34 @@ var onMessage = function(request, sender, callback) {
 
         case 'matrixSnapshot':
             response = matrixSnapshot(request);
+            break;
+
+        case 'toggleMatrixSwitch':
+            µm.tMatrix.toggleSwitch(request.srcHostname);
+            break;
+
+        case 'blacklistMatrixCell':
+            µm.tMatrix.blacklistCell(
+                request.srcHostname,
+                request.desHostname,
+                request.type
+            );
+            break;
+
+        case 'whitelistMatrixCell':
+            µm.tMatrix.whitelistCell(
+                request.srcHostname,
+                request.desHostname,
+                request.type
+            );
+            break;
+
+        case 'graylistMatrixCell':
+            µm.tMatrix.graylistCell(
+                request.srcHostname,
+                request.desHostname,
+                request.type
+            );
             break;
 
         case 'applyDiffToPermanentMatrix': // aka "persist"

@@ -44,16 +44,11 @@ const PaleGreen   = Pale | Green;
 const DarkGray    = Dark | Gray;
 const PaleGray    = Pale | Gray;
 
-var µMatrix = chrome.extension.getBackgroundPage().µMatrix;
 var matrixSnapshot = {};
 var groupsSnapshot = [];
 var allHostnamesSnapshot = 'do not leave this initial string empty';
 
 var targetTabId;
-var targetPageURL;
-var targetPageHostname;
-var targetPageDomain;
-var targetScope = '*';
 var matrixCellHotspots = null;
 
 var matrixHeaderPrettyNames = {
@@ -77,7 +72,7 @@ messaging.start('popup.js');
 
 var onMessage = function(msg) {
     if ( msg.what === 'urlStatsChanged' ) {
-        if ( targetPageURL === msg.pageURL ) {
+        if ( matrixSnapshot.url === msg.pageURL ) {
             makeMenu();
         }
     }
@@ -88,17 +83,12 @@ messaging.listen(onMessage);
 /******************************************************************************/
 /******************************************************************************/
 
-function getPageStats() {
-    return µMatrix.pageStatsFromTabId(targetTabId);
-}
-
-/******************************************************************************/
-
 function getUserSetting(setting) {
-    return µMatrix.userSettings[setting];
+    return matrixSnapshot.userSettings[setting];
 }
 
 function setUserSetting(setting, value) {
+    matrixSnapshot.userSettings[setting] = value;
     messaging.tell({
         what: 'userSettings',
         name: setting,
@@ -138,7 +128,7 @@ function getGroupStats() {
 
     // First, group according to whether at least one node in the domain
     // hierarchy is white or blacklisted
-    var pageDomain = targetPageDomain;
+    var pageDomain = matrixSnapshot.domain;
     var rows = matrixSnapshot.rows;
     var columnOffsets = matrixSnapshot.headers;
     var anyTypeOffset = columnOffsets['*'];
@@ -225,28 +215,6 @@ function getPermanentColor(hostname, type) {
 function getCellClass(hostname, type) {
     return 't' + getTemporaryColor(hostname, type).toString(16) +
           ' p' + getPermanentColor(hostname, type).toString(16);
-}
-
-function getNextAction(hostname, type, leaning) {
-    var temporaryColor = getTemporaryColor(hostname, type);
-    var hue = temporaryColor & 0x03;
-    var saturation = temporaryColor & 0x80;
-    // special case: root toggle only between two states
-    if ( type === '*' && hostname === '*' ) {
-        return hue === Green ? 'blacklist' : 'whitelist';
-    }
-    // Lean toward whitelisting?
-    if ( leaning === 'whitelisting' ) {
-        if ( saturation !== Dark ) {
-            return 'whitelist';
-        }
-        return 'graylist';
-    }
-    // Lean toward blacklisting
-    if ( saturation !== Dark ) {
-        return 'blacklist';
-    }
-    return 'graylist';
 }
 
 /******************************************************************************/
@@ -351,21 +319,33 @@ function updateMatrixBehavior() {
 
 // handle user interaction with filters
 
+function getCellAction(hostname, type, leaning) {
+    var temporaryColor = getTemporaryColor(hostname, type);
+    var hue = temporaryColor & 0x03;
+    // Special case: root toggle only between two states
+    if ( type === '*' && hostname === '*' ) {
+        return hue === Green ? 'blacklistMatrixCell' : 'whitelistMatrixCell';
+    }
+    // When explicitly blocked/allowed, can only graylist
+    var saturation = temporaryColor & 0x80;
+    if ( saturation === Dark ) {
+        return 'graylistMatrixCell';
+    }
+    return leaning === 'whitelisting' ? 'whitelistMatrixCell' : 'blacklistMatrixCell';
+}
+
 function handleFilter(button, leaning) {
-    var µm = µMatrix;
     // our parent cell knows who we are
     var cell = button.ancestors('div.matCell');
     var type = cell.prop('reqType');
     var hostname = cell.prop('hostname');
-    var nextAction = getNextAction(hostname, type, leaning);
-    if ( nextAction === 'blacklist' ) {
-        µm.blacklistTemporarily(targetScope, hostname, type);
-    } else if ( nextAction === 'whitelist' ) {
-        µm.whitelistTemporarily(targetScope, hostname, type);
-    } else {
-        µm.graylistTemporarily(targetScope, hostname, type);
-    }
-    updateMatrixSnapshot();
+    var request = {
+        what: getCellAction(hostname, type, leaning),
+        srcHostname: matrixSnapshot.scope,
+        desHostname: hostname,
+        type: type
+    };
+    messaging.ask(request, updateMatrixSnapshot);
 }
 
 function handleWhitelistFilter(button) {
@@ -854,6 +834,9 @@ var makeMenu = function() {
 // Do all the stuff that needs to be done before building menu et al.
 
 function initMenuEnvironment() {
+    uDom('body').css('font-size', getUserSetting('displayTextSize'));
+    uDom('body').toggleClass('colorblind', getUserSetting('colorBlindFriendly') === true);
+
     var prettyNames = matrixHeaderPrettyNames;
     var keys = Object.keys(prettyNames);
     var i = keys.length;
@@ -871,32 +854,29 @@ function initMenuEnvironment() {
 
 // Create page scopes for the web page
 
-function createGlobalScope() {
-    targetScope = '*';
-    setUserSetting('scopeLevel', '*');
+function selectGlobalScope() {
+    setUserSetting('popupScopeLevel', '*');
     updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
-function createDomainScope() {
-    targetScope = targetPageDomain;
-    setUserSetting('scopeLevel', 'domain');
+function selectDomainScope() {
+    setUserSetting('popupScopeLevel', 'domain');
     updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
-function createSiteScope() {
-    targetScope = targetPageHostname;
-    setUserSetting('scopeLevel', 'site');
+function selectSiteScope() {
+    setUserSetting('popupScopeLevel', 'site');
     updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
-function getClassFromTargetScope() {
-    if ( targetScope === '*' ) {
+function getClassFromScope() {
+    if ( matrixSnapshot.scope === '*' ) {
         return 'tScopeGlobal';
     }
-    if ( targetScope === targetPageDomain ) {
+    if ( matrixSnapshot.scope === matrixSnapshot.domain ) {
         return 'tScopeNarrow';
     }
     return 'tScopeNarrow';
@@ -905,52 +885,44 @@ function getClassFromTargetScope() {
 function initScopeCell() {
     // It's possible there is no page URL at this point: some pages cannot
     // be filtered by µMatrix.
-    if ( !targetPageURL ) {
+    if ( matrixSnapshot.url === '' ) {
         return;
     }
     // Fill in the scope menu entries
-    if ( targetPageDomain === '' || targetPageDomain === targetPageHostname ) {
-        uDom('#scopeKeyDomain').css('display', 'none');
+    if ( matrixSnapshot.hostname === matrixSnapshot.domain ) {
+        uDom('#scopeKeySite').css('display', 'none');
     } else {
-        uDom('#scopeKeyDomain').text(targetPageDomain);
+        uDom('#scopeKeySite').text(matrixSnapshot.hostname);
     }
-    uDom('#scopeKeySite').text(targetPageHostname);
-    var scopeLevel = getUserSetting('scopeLevel');
-    if ( scopeLevel === 'site' ) {
-        targetScope = targetPageHostname;
-    } else if ( scopeLevel === 'domain' ) {
-        targetScope = targetPageDomain;
-    } else {
-        targetScope = '*';
-    }
+    uDom('#scopeKeyDomain').text(matrixSnapshot.domain);
     updateScopeCell();
 }
 
 function updateScopeCell() {
     uDom('body')
         .removeClass('tScopeGlobal tScopeNarrow')
-        .addClass(getClassFromTargetScope());
-    uDom('#scopeCell').text(targetScope.replace('*', '\u2217'));
+        .addClass(getClassFromScope());
+    uDom('#scopeCell').text(matrixSnapshot.scope.replace('*', '\u2217'));
 }
 
 /******************************************************************************/
 
 function updateMtxbutton() {
-    var µm = µMatrix;
     var masterSwitch = matrixSnapshot.tSwitch;
-    var pageStats = getPageStats();
-    var count = pageStats ? pageStats.requestStats.blocked.all : '';
+    var count = matrixSnapshot.blockedCount;
     var button = uDom('#buttonMtxFiltering');
     button.toggleClass('disabled', !masterSwitch);
-    button.descendants('span.badge').text(µm.formatCount(count));
+    button.descendants('span.badge').text(count.toLocaleString());
     button.attr('data-tip', button.attr('data-tip').replace('{{count}}', count));
     uDom('body').toggleClass('powerOff', !masterSwitch);
 }
 
 function toggleMtxFiltering() {
-    var µm = µMatrix;
-    µm.toggleTemporaryMtxFiltering(targetScope);
-    updateMatrixSnapshot();
+    var request = {
+        what: 'toggleMatrixSwitch',
+        srcHostname: matrixSnapshot.scope
+    };
+    messaging.ask(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1015,7 +987,7 @@ function revertAll() {
 function buttonReloadHandler() {
     messaging.tell({
         what: 'forceReloadTab',
-        pageURL: targetPageURL
+        pageURL: matrixSnapshot.url
     });
 }
 
@@ -1065,16 +1037,13 @@ var onMatrixSnapshotReady = function(response) {
     matrixSnapshot = response;
 
     targetTabId = response.tabId;
-    targetPageURL = response.url;
-    targetPageHostname = response.hostname;
-    targetPageDomain = response.domain;
 
     // Now that tabId and pageURL are set, we can build our menu
     initMenuEnvironment();
     makeMenu();
 
     // After popup menu is built, check whether there is a non-empty matrix
-    if ( !targetPageURL ) {
+    if ( matrixSnapshot.url === '' ) {
         uDom('#matHead').remove();
         uDom('#toolbarLeft').remove();
 
@@ -1116,10 +1085,6 @@ uDom.onLoad(function() {
     // Below is UI stuff which is not key to make the menu, so this can
     // be done without having to wait for a tab to be bound to the menu.
 
-    // Matrix appearance
-    uDom('body').css('font-size', getUserSetting('displayTextSize'));
-    uDom('body').toggleClass('colorblind', getUserSetting('colorBlindFriendly') === true);
-
     // We reuse for all cells the one and only cell hotspots.
     uDom('#whitelist').on('click', function() {
             handleWhitelistFilter(uDom(this));
@@ -1137,9 +1102,9 @@ uDom.onLoad(function() {
     uDom('body')
         .on('mouseenter', '.matCell', mouseenterMatrixCellHandler)
         .on('mouseleave', '.matCell', mouseleaveMatrixCellHandler);
-    uDom('#scopeKeyGlobal').on('click', createGlobalScope);
-    uDom('#scopeKeyDomain').on('click', createDomainScope);
-    uDom('#scopeKeySite').on('click', createSiteScope);
+    uDom('#scopeKeyGlobal').on('click', selectGlobalScope);
+    uDom('#scopeKeyDomain').on('click', selectDomainScope);
+    uDom('#scopeKeySite').on('click', selectSiteScope);
     uDom('#buttonMtxFiltering').on('click', toggleMtxFiltering);
     uDom('#buttonPersist').on('click', persistMatrix);
     uDom('#buttonRevertScope').on('click', revertMatrix);
@@ -1155,7 +1120,7 @@ uDom.onLoad(function() {
     uDom('#matList').on('click', '.g3Meta', function() {
         var collapsed = uDom(this)
             .toggleClass('g3Collapsed')
-            .hasClass('g3Collapsed');
+            .hasClassName('g3Collapsed');
         setUserSetting('popupHideBlacklisted', collapsed);
     });
 });

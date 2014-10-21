@@ -25,10 +25,15 @@
 
 (function() {
     var µm = µMatrix;
-    µm.tMatrix = new µm.Matrix();
-    µm.tMatrix.whitelistCell('*', '*', '*');
     µm.pMatrix = new µm.Matrix();
     µm.pMatrix.whitelistCell('*', '*', '*');
+    µm.pMatrix.toggleSwitch('chrome-extension-scheme', false);
+    µm.pMatrix.toggleSwitch('chrome-scheme', false);
+    µm.pMatrix.toggleSwitch('chromium-behind-the-scene', false);
+    µm.pMatrix.toggleSwitch('opera-scheme', false);
+
+    µm.tMatrix = new µm.Matrix();
+    µm.tMatrix.assign(µm.pMatrix);
 })();
 
 /******************************************************************************/
@@ -208,43 +213,6 @@
 
 µMatrix.revertAllRules = function() {
     this.tMatrix.assign(this.pMatrix);
-};
-
-/******************************************************************************/
-
-// Reset all rules to their default state.
-
-µMatrix.revertScopeRules = function(scopeKey) {
-    var tscope = this.temporaryScopeFromScopeKey(scopeKey);
-    if ( !tscope ) {
-        return;
-    }
-    var pscope = this.permanentScopeFromScopeKey(scopeKey);
-    if ( pscope ) {
-        // TODO: if global scope, intersect using ruleset
-        tscope.assign(pscope);
-        return;
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/248
-    // If no permanent scope found, use generic rules in global scope
-    tscope.removeAllRules();
-    pscope = this.permanentScopeFromScopeKey('*');
-    tscope.mtxFiltering = pscope.mtxFiltering;
-    var listKeys = ['white', 'black'];
-    var listKey, list;
-    while ( listKey = listKeys.pop() ) {
-        list = pscope[listKey];
-        for ( var ruleKey in list.list ) {
-            if ( list.list.hasOwnProperty(ruleKey) === false ) {
-                continue;
-            }
-            // Mind only rules which apply on any domain
-            if ( list.hostnameFromRuleKey(ruleKey) === '*' ) {
-                tscope[listKey].addOne(ruleKey);
-            }
-        }
-    }
 };
 
 /******************************************************************************/
