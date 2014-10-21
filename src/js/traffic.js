@@ -177,7 +177,7 @@ var onBeforeChromeExtensionRequestHandler = function(details) {
     // Is the target page still blacklisted?
     var pageURL = decodeURIComponent(matches[1]);
     var hostname = decodeURIComponent(matches[2]);
-    if ( µMatrix.mustBlock(this.scopeFromURL(pageURL), hostname, '*') ) {
+    if ( µMatrix.mustBlock(µMatrix.scopeFromURL(pageURL), hostname, '*') ) {
         return;
     }
 
