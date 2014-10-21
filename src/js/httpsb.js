@@ -88,11 +88,11 @@
 };
 
 µMatrix.autoWhitelist1stPartyTemporarily = function(pageURL) {
-    var srcHostname = this.URI.hostnameFromURI(pageURL);
-    if ( this.tMatrix.evaluateCellZXY(srcHostname, srcHostname, '*') !== this.Matrix.RedIndirect ) {
+    var srcDomain = this.URI.domainFromURI(pageURL);
+    if ( this.tMatrix.evaluateCellZXY(srcDomain, srcDomain, '*') !== this.Matrix.RedIndirect ) {
         return false;
     }
-    this.tMatrix.whitelistCell(srcHostname, srcHostname, '*');
+    this.tMatrix.whitelistCell(srcDomain, srcDomain, '*');
     return true;
 };
 
