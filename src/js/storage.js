@@ -73,7 +73,7 @@
 
 // save white/blacklist
 µMatrix.saveMatrix = function() {
-    µMatrix.XAL.keyvalSetOne('matrix', this.pMatrix.toSelfie());
+    µMatrix.XAL.keyvalSetOne('userMatrix', this.pMatrix.toString());
 };
 
 /******************************************************************************/
@@ -81,18 +81,12 @@
 µMatrix.loadMatrix = function() {
     var µm = this;
     var onLoaded = function(bin) {
-        if ( bin.matrix ) {
-            µm.tMatrix.fromSelfie(bin.matrix);
-        } else {
-            µm.whitelistTemporarily('*', '*', 'css');
-            µm.whitelistTemporarily('*', '*', 'image');
-            µm.blacklistTemporarily('*', '*', 'frame');
-            µm.whitelistTemporarily(µm.behindTheSceneScope, '*', '*');
-            µm.tMatrix.toggleSwitch(µm.behindTheSceneScope, false);
+        if ( bin.hasOwnProperty('userMatrix') ) {
+            µm.pMatrix.fromString(bin.userMatrix);
+            µm.tMatrix.assign(µm.pMatrix);
         }
-        µm.pMatrix.assign(µm.tMatrix);
     };
-    this.XAL.keyvalGetOne('matrix', onLoaded);
+    this.XAL.keyvalGetOne('userMatrix', onLoaded);
 };
 
 /******************************************************************************/
@@ -223,7 +217,7 @@
     var reLocalhost = /(^|\s)(localhost\.localdomain|localhost|local|broadcasthost|0\.0\.0\.0|127\.0\.0\.1|::1|fe80::1%lo0)(?=\s|$)/g;
     var reAsciiSegment = /^[\x21-\x7e]+$/;
     var matches;
-    var lineBeg = 0, lineEnd, currentLineBeg;
+    var lineBeg = 0, lineEnd;
     var line, c;
 
     while ( lineBeg < rawEnd ) {
@@ -239,7 +233,6 @@
         // could be a lingering `\r` which would cause problems in the
         // following parsing code.
         line = rawText.slice(lineBeg, lineEnd).trim();
-        currentLineBeg = lineBeg;
         lineBeg = lineEnd + 1;
 
         // Strip comments

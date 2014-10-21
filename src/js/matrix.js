@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global µMatrix */
+/* global punycode, µMatrix */
 /* jshint bitwise: false */
 
 /******************************************************************************/
@@ -66,6 +66,23 @@ var typeBitOffsets = {
        'xhr': 12,
      'frame': 14,
      'other': 16
+};
+
+var stateToNameMap = {
+    '1': 'block',
+    '2': 'allow',
+    '3': 'inherit'
+};
+
+var nameToStateMap = {
+      'block': 1,
+      'allow': 2,
+    'inherit': 3
+};
+
+var nameToSwitchMap = {
+      'on': true,
+      'off': false
 };
 
 /******************************************************************************/
@@ -233,6 +250,7 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
                 return v;
             }
         }
+        // TODO: external rules? (for presets)
         pos = s.indexOf('.');
         if ( pos !== -1 ) {
             s = s.slice(pos + 1);
@@ -402,6 +420,175 @@ Matrix.prototype.extractAllSourceHostnames = function() {
         srcHostnames[rule.slice(0, rule.indexOf(' '))] = true;
     }
     return Object.keys(srcHostnames);
+};
+
+/******************************************************************************/
+
+Matrix.prototype.toString = function() {
+    var out = [];
+    var rule, type, val;
+    var srcHostname, desHostname;
+    for ( rule in this.rules ) {
+        if ( this.rules.hasOwnProperty(rule) === false ) {
+            continue;
+        }
+        srcHostname = this.srcHostnameFromRule(rule);
+        desHostname = this.desHostnameFromRule(rule);
+        for ( type in typeBitOffsets ) {
+            if ( typeBitOffsets.hasOwnProperty(type) === false ) {
+                continue;
+            }
+            val = this.evaluateCell(srcHostname, desHostname, type);
+            if ( val === 0 ) {
+                continue;
+            }
+            out.push(srcHostname + ' ' + desHostname + ' ' + type + ' ' + stateToNameMap[val]);
+        }
+    }
+    for ( srcHostname in this.switchedOn ) {
+        if ( this.switchedOn.hasOwnProperty(srcHostname) === false ) {
+            continue;
+        }
+        val = this.switchedOn[srcHostname] ? 'on' : 'off';
+        out.push(srcHostname + ' switch: ' + val);
+    }
+    return out.sort().join('\n');
+};
+
+/******************************************************************************/
+
+Matrix.prototype.fromString = function(text) {
+    var textEnd = text.length;
+    var lineBeg = 0, lineEnd;
+    var line, pos;
+    var fields, nextField, fieldVal;
+    var srcHostname = '';
+    var desHostname = '';
+    var type, state;
+
+    while ( lineBeg < textEnd ) {
+        lineEnd = text.indexOf('\n', lineBeg);
+        if ( lineEnd < 0 ) {
+            lineEnd = text.indexOf('\r', lineBeg);
+            if ( lineEnd < 0 ) {
+                lineEnd = textEnd;
+            }
+        }
+        line = text.slice(lineBeg, lineEnd).trim();
+        lineBeg = lineEnd + 1;
+
+        pos = line.indexOf('# ');
+        if ( pos !== -1 ) {
+            line = line.slice(0, pos).trim();
+        }
+        if ( line === '' ) {
+            continue;
+        }
+
+        fields = line.split(/\s+/);
+
+        // Special directives:
+
+        // title
+        pos = fields[0].indexOf('title:');
+        if ( pos !== -1 ) {
+            // TODO
+            continue;
+        }
+
+        // Name
+        pos = fields[0].indexOf('name:');
+        if ( pos !== -1 ) {
+            // TODO
+            continue;
+        }
+
+        // Valid rule syntax:
+
+        // srcHostname desHostname type state
+        //      type = a valid request type
+        //      state = [`block`, `allow`, `inherit`]
+
+        // srcHostname desHostname type
+        //      type = a valid request type
+        //      state = `allow`
+
+        // srcHostname desHostname
+        //      type = `*`
+        //      state = `allow`
+
+        // desHostname
+        //      srcHostname from a previous line
+        //      type = `*`
+        //      state = `allow`
+
+        // srcHostname `switch:` state
+        //      state = [`on`, `off`]
+
+        // `switch:` state
+        //      srcHostname from a previous line
+        //      state = [`on`, `off`]
+
+       // Lines with invalid syntax silently ignored
+
+        if ( fields.length === 1 ) {
+            // Can't infer srcHostname: reject
+            if ( srcHostname === '' ) {
+                continue;
+            }
+            desHostname = punycode.toASCII(fields[0]);
+            nextField = 1;
+        } else {
+            srcHostname = punycode.toASCII(fields[0]);
+            desHostname = punycode.toASCII(fields[1]);
+            nextField = 2;
+        }
+
+        fieldVal = fields[nextField];
+        nextField += 1;
+
+        // Special rule: switch on/off
+
+        if ( desHostname === 'switch:' ) {
+            // No state field: reject
+            if ( fieldVal === null ) {
+                continue;
+            }
+            // Unknown state: reject
+            if ( nameToSwitchMap.hasOwnProperty(fieldVal) === false ) {
+                continue;
+            }
+            this.setSwitch(srcHostname, nameToSwitchMap[fieldVal]);
+            continue;
+        }
+
+        // Standard rule
+
+        if ( fieldVal !== null ) {
+            type = fieldVal;
+            // Unknown type: reject
+            if ( typeBitOffsets.hasOwnProperty(type) === false ) {
+                continue;
+            }
+        } else {
+            type = '*';
+        }
+
+        fieldVal = fields[nextField];
+        nextField += 1;
+
+        if ( fieldVal !== null ) {
+            // Unknown state: reject
+            if ( nameToStateMap.hasOwnProperty(fieldVal) === false ) {
+                continue;
+            }
+            state = nameToStateMap[fieldVal];
+        } else {
+            state = 2;
+        }
+
+        this.setCell(srcHostname, desHostname, type, state);
+    }
 };
 
 /******************************************************************************/
