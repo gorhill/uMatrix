@@ -19,13 +19,13 @@
         "message": "Статистика",
         "description": "appears as tab name in dashboard."
     },
+    "userRulesPageName": {
+        "message": "Your rules",
+        "description": "appears as tab name in dashboard."
+    },
     "ubiquitousRulesPageName" : {
         "message": "Глобальные правила",
         "description": "appears as tab name in dashboard"
-    },
-    "scopedRulesPageName": {
-        "message": "Правила для сайтов",
-        "description": "appears as tab name in dashboard."
     },
     "aboutPageName": {
         "message": "О расширении",
@@ -439,6 +439,28 @@
     },
 
 
+    "userRulesApplyChanges": {
+        "message": "Apply changes",
+        "description": "English: Apply changes"
+    },
+    "userRulesImport": {
+        "message": "Import from file...",
+        "description": "English: Import from file..."
+    },
+    "userRulesExport": {
+        "message": "Export to file...",
+        "description": "English: Export to file..."
+    },
+    "userRulesFormatHint": {
+        "message": "See this page for rule syntax.",
+        "description": "English: See this page for rule syntax."
+    },
+    "userRulesDefaultFileName": {
+        "message": "your-umatrix-rules.txt",
+        "description": "English: See this page for rule syntax."
+    },
+
+
     "ubiquitousWhatIsThisHeader" : {
         "message": "Что это?",
         "description": "English: What is this?"
@@ -490,84 +512,6 @@
     "ubiquitousExport" : {
         "message": "Экспортировать",
         "description": "English: Export"
-    },
-
-
-    "scopedCommitAllButton": {
-        "message": "Применить все",
-        "description": "English: Commit all"
-    },
-    "scopedRevertAllButton": {
-        "message": "Вернуть все",
-        "description": "English: Revert all"
-    },
-    "scopedMarkAllForDeletionButton": {
-        "message": "Отметить все для удаления",
-        "description": "English: Mark all for deletion"
-    },
-    "scopedResetToFactoryButton": {
-        "message": "Сброс к заводским",
-        "description": "English: Reset to factory"
-    },
-    "scopedRulesHeader": {
-        "message": "Правила",
-        "description": "English: Rules"
-    },
-    "scopedRulesInfo": {
-        "message": "Тут вы можете сохранить все ваши области и правила: Нажмите &ldquo;Экспорт правил&rdquo;, можно нажать &ldquo;закодировать рецепт&rdquo;, сохраняем данные в файл, который может быть загружен сюда. <p>Синтаксис простой, только продвинутым пользователям рекомендуется изменять их. Если вы импортируете рецепт из ненадежного источника, убедитесь, в белые списки не попали вредоносные сайты (типа.: <b>&ldquo;whitelist * вирусы.рф&rdquo;</b>)</p>",
-        "description": "English: [see english message.json]"
-    },
-    "scopedRecipeHeader": {
-        "message": "Рецепт",
-        "description": "English: Recipes"
-    },
-    "scopedRecipesInfo": {
-        "message": "&ldquo;Рецепт&rdquo; - это набор правил закодированый для облегчения его сохранения или обмена между пользователями. Надеюсь, продвинутые пользователи будут делиться своими готовыми рецептами, чтобы помочь новичкам.",
-        "description": "English: [see english message.json]"
-    },
-    "scopedBackupRecipeButton": {
-        "message": "Сохранить в файл",
-        "description": "English: Backup to file"
-    },
-    "scopedRestoreRecipeButton": {
-        "message": "Восстановить из файла",
-        "description": "English: Restore from file"
-    },
-    "scopedDecodeRecipeButton": {
-        "message": "Декодировать рецепт",
-        "description": "English: Decode recipe"
-    },
-    "scopedEncodeRecipeButton": {
-        "message": "Закодировать рецепт",
-        "description": "English: Encode recipe"
-    },
-    "scopedImportRulesButton": {
-        "message": "Импорт правил",
-        "description": "English: Import rules"
-    },
-    "scopedExportRulesButton": {
-        "message": "Экспорт правил",
-        "description": "English: Export rules"
-    },
-    "scopedGlobalScopeHeader": {
-        "message": "Глобальная область",
-        "description": "English: Global scope"
-    },
-    "scopedBtsScopeHeader": {
-        "message": "Behind-the-scene scope",
-        "description": "English: Behind-the-scene scope"
-    },
-    "scopedDomainScopeHeader": {
-        "message": "Область домена",
-        "description": "English: Domain-level scope"
-    },
-    "scopedSiteScopeHeader": {
-        "message": "Область сайта",
-        "description": "English: Site-level scope"
-    },
-    "scopedDeletionPrompt": {
-        "message": "Вы собираетесь удалить {{deleteCount}} правил.\nЭто необратимо.\nНажмите Да для продолжения.",
-        "description": "English: You are about to delete {{deleteCount}} rules.\nIt is irreversible.\nClick OK to confirm."
     },
 
 

@@ -428,6 +428,81 @@ var onMessage = function(request, sender, callback) {
 /******************************************************************************/
 /******************************************************************************/
 
+// user-rules.js
+
+(function() {
+
+var µm = µMatrix;
+
+/******************************************************************************/
+
+var onMessage = function(request, sender, callback) {
+
+    // Async
+    switch ( request.what ) {
+        default:
+            break;
+    }
+
+    // Sync
+    var response;
+
+    switch ( request.what ) {
+        case 'getUserRules':
+            response = µm.pMatrix.toString();
+            break;
+
+        case 'setUserRules':
+            µm.pMatrix.fromString(request.rules);
+            µm.tMatrix.assign(µm.pMatrix);
+            µm.saveMatrix();
+            break;
+
+        default:
+            return µm.messaging.defaultHandler(request, sender, callback);
+    }
+
+    callback(response);
+};
+
+µMatrix.messaging.listen('user-rules.js', onMessage);
+
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
+// ubiquitous-rules.js
+
+(function() {
+
+var onMessage = function(request, sender, callback) {
+    var µm = µMatrix;
+
+    // Async
+    switch ( request.what ) {
+        default:
+            break;
+    }
+
+    // Sync
+    var response;
+
+    switch ( request.what ) {
+        default:
+            return µm.messaging.defaultHandler(request, sender, callback);
+    }
+
+    callback(response);
+};
+
+µMatrix.messaging.listen('ubiquitous-rules.js', onMessage);
+
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
 // info.js
 
 (function() {
@@ -508,37 +583,6 @@ var onMessage = function(request, sender, callback) {
 };
 
 µMatrix.messaging.listen('info.js', onMessage);
-
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// ubiquitous-rules.js
-
-(function() {
-
-var onMessage = function(request, sender, callback) {
-    var µm = µMatrix;
-
-    // Async
-    switch ( request.what ) {
-        default:
-            break;
-    }
-
-    // Sync
-    var response;
-
-    switch ( request.what ) {
-        default:
-            return µm.messaging.defaultHandler(request, sender, callback);
-    }
-
-    callback(response);
-};
-
-µMatrix.messaging.listen('ubiquitous-rules.js', onMessage);
 
 })();
 

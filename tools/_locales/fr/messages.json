@@ -19,12 +19,12 @@
         "message": "Statistiques",
         "description": "appears as tab name in dashboard"
     },
+    "userRulesPageName": {
+        "message": "Your rules",
+        "description": "appears as tab name in dashboard."
+    },
     "ubiquitousRulesPageName" : {
         "message": "Règles à portée universelle",
-        "description": "appears as tab name in dashboard"
-    },
-    "scopedRulesPageName": {
-        "message": "Règles à portée restreinte",
         "description": "appears as tab name in dashboard"
     },
     "aboutPageName": {
@@ -439,6 +439,28 @@
     },
 
 
+    "userRulesApplyChanges": {
+        "message": "Apply changes",
+        "description": "English: Apply changes"
+    },
+    "userRulesImport": {
+        "message": "Import from file...",
+        "description": "English: Import from file..."
+    },
+    "userRulesExport": {
+        "message": "Export to file...",
+        "description": "English: Export to file..."
+    },
+    "userRulesFormatHint": {
+        "message": "See this page for rule syntax.",
+        "description": "English: See this page for rule syntax."
+    },
+    "userRulesDefaultFileName": {
+        "message": "your-umatrix-rules.txt",
+        "description": "English: See this page for rule syntax."
+    },
+
+
     "ubiquitousWhatIsThisHeader" : {
         "message": "De quoi s'agit-il ?",
         "description": "English: What is this?"
@@ -490,84 +512,6 @@
     "ubiquitousExport" : {
         "message": "Exporter",
         "description": "English: Export"
-    },
-
-
-    "scopedCommitAllButton": {
-        "message": "Tout valider",
-        "description": "English: Commit all"
-    },
-    "scopedRevertAllButton": {
-        "message": "Tout annuler",
-        "description": "English: Revert all"
-    },
-    "scopedMarkAllForDeletionButton": {
-        "message": "Tout supprimer",
-        "description": "English: Mark all for deletion"
-    },
-    "scopedResetToFactoryButton": {
-        "message": "Repartir à zéro",
-        "description": "English: Reset to factory"
-    },
-    "scopedRulesHeader": {
-        "message": "Règles",
-        "description": "English: Rules"
-    },
-    "scopedRulesInfo": {
-        "message": "Cette page vous permet de sauvegarder vos règles. Pour cela, il vous suffit de cliquer sur &ldquo;Exporter&rdquo;, &ldquo;Encoder&rdquo;, puis sur &ldquo;Exporter vers un fichier&rdquo;.<p>La syntaxe est très stricte, aussi seuls les utilisateurs expérimentés devraient s'aventurer à la modifier. Si vous importez une recette d'une source peu familière, assurez-vous que le contenu ne soit pas compromis (ex. : <b>&ldquo;whitelist * dangereusesource.com&rdquo;</b>)</p>",
-        "description": "English: [see english message.json]"
-    },
-    "scopedRecipeHeader": {
-        "message": "Recette",
-        "description": "English: Recipes"
-    },
-    "scopedRecipesInfo": {
-        "message": "Une &ldquo;recette&rdquo; est simplement un ensemble de règles encodées de façon à faciliter les échanges entre utilisateurs. Le but est d'encourager les utilisateurs chevronnés à aider les novices quand vient le temps de déterminer les règles nécessaires au bon fonctionnement d'un site quelconque.",
-        "description": "English: [see english message.json]"
-    },
-    "scopedBackupRecipeButton": {
-        "message": "Exporter vers un fichier",
-        "description": "English: Backup to file"
-    },
-    "scopedRestoreRecipeButton": {
-        "message": "Importer depuis un fichier",
-        "description": "English: Restore from file"
-    },
-    "scopedDecodeRecipeButton": {
-        "message": "Décoder",
-        "description": "English: Decode recipe"
-    },
-    "scopedEncodeRecipeButton": {
-        "message": "Encoder",
-        "description": "English: Encode recipe"
-    },
-    "scopedImportRulesButton": {
-        "message": "Importer les règles",
-        "description": "English: Import rules"
-    },
-    "scopedExportRulesButton": {
-        "message": "Exporter les règles",
-        "description": "English: Export rules"
-    },
-    "scopedGlobalScopeHeader": {
-        "message": "Contexte global",
-        "description": "English: Global scope"
-    },
-    "scopedBtsScopeHeader": {
-        "message": "Contexte des requêtes en coulisse",
-        "description": "English: Behind-the-scene scope"
-    },
-    "scopedDomainScopeHeader": {
-        "message": "Contexte(s) des règles à portée domaine",
-        "description": "English: Domain-level scope"
-    },
-    "scopedSiteScopeHeader": {
-        "message": "Contexte(s) des règles à portée site",
-        "description": "English: Site-level scope"
-    },
-    "scopedDeletionPrompt": {
-        "message": "{{deleteCount}} règle(s) sera/seront\nirrémédiablement supprimée(s).\nCliquez sur OK pour confirmer",
-        "description": "English: You are about to delete {{deleteCount}} rules.\nIt is irreversible.\nClick OK to confirm."
     },
 
 

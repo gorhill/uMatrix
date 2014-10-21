@@ -442,7 +442,12 @@ Matrix.prototype.toString = function() {
             if ( val === 0 ) {
                 continue;
             }
-            out.push(srcHostname + ' ' + desHostname + ' ' + type + ' ' + stateToNameMap[val]);
+            out.push(
+                punycode.toUnicode(srcHostname) + ' ' +
+                punycode.toUnicode(desHostname) + ' ' +
+                type + ' ' +
+                stateToNameMap[val]
+            );
         }
     }
     for ( srcHostname in this.switchedOn ) {
@@ -450,7 +455,7 @@ Matrix.prototype.toString = function() {
             continue;
         }
         val = this.switchedOn[srcHostname] ? 'on' : 'off';
-        out.push(srcHostname + ' switch: ' + val);
+        out.push('switch: ' + srcHostname + ' ' + val);
     }
     return out.sort().join('\n');
 };
@@ -461,7 +466,7 @@ Matrix.prototype.fromString = function(text) {
     var textEnd = text.length;
     var lineBeg = 0, lineEnd;
     var line, pos;
-    var fields, nextField, fieldVal;
+    var fields, fieldVal;
     var srcHostname = '';
     var desHostname = '';
     var type, state;
@@ -487,25 +492,62 @@ Matrix.prototype.fromString = function(text) {
 
         fields = line.split(/\s+/);
 
+        // Less than 2 fields make no sense
+        if ( fields.length < 2 ) {
+            continue;
+        }
+
+        fieldVal = fields[0];
+
         // Special directives:
 
         // title
-        pos = fields[0].indexOf('title:');
+        pos = fieldVal.indexOf('title:');
         if ( pos !== -1 ) {
             // TODO
             continue;
         }
 
         // Name
-        pos = fields[0].indexOf('name:');
+        pos = fieldVal.indexOf('name:');
         if ( pos !== -1 ) {
             // TODO
             continue;
         }
 
+        // Switch on/off
+
+        // `switch:` srcHostname state
+        //      state = [`on`, `off`]
+
+        pos = fieldVal.indexOf('switch:');
+        if ( pos !== -1 ) {
+            srcHostname = punycode.toASCII(fields[1]);
+
+            // No state field: reject
+            fieldVal = fields[2];
+            if ( fieldVal === null ) {
+                continue;
+            }
+            // Unknown state: reject
+            if ( nameToSwitchMap.hasOwnProperty(fieldVal) === false ) {
+                continue;
+            }
+
+            this.setSwitch(srcHostname, nameToSwitchMap[fieldVal]);
+            continue;
+        }
+
+        // Unknown directive
+
+        pos = fieldVal.indexOf(':');
+        if ( pos !== -1 ) {
+            continue;
+        }
+
         // Valid rule syntax:
 
-        // srcHostname desHostname type state
+        // srcHostname desHostname [type [state]]
         //      type = a valid request type
         //      state = [`block`, `allow`, `inherit`]
 
@@ -517,52 +559,12 @@ Matrix.prototype.fromString = function(text) {
         //      type = `*`
         //      state = `allow`
 
-        // desHostname
-        //      srcHostname from a previous line
-        //      type = `*`
-        //      state = `allow`
-
-        // srcHostname `switch:` state
-        //      state = [`on`, `off`]
-
-        // `switch:` state
-        //      srcHostname from a previous line
-        //      state = [`on`, `off`]
-
        // Lines with invalid syntax silently ignored
 
-        if ( fields.length === 1 ) {
-            // Can't infer srcHostname: reject
-            if ( srcHostname === '' ) {
-                continue;
-            }
-            desHostname = punycode.toASCII(fields[0]);
-            nextField = 1;
-        } else {
-            srcHostname = punycode.toASCII(fields[0]);
-            desHostname = punycode.toASCII(fields[1]);
-            nextField = 2;
-        }
+        srcHostname = punycode.toASCII(fields[0]);
+        desHostname = punycode.toASCII(fields[1]);
 
-        fieldVal = fields[nextField];
-        nextField += 1;
-
-        // Special rule: switch on/off
-
-        if ( desHostname === 'switch:' ) {
-            // No state field: reject
-            if ( fieldVal === null ) {
-                continue;
-            }
-            // Unknown state: reject
-            if ( nameToSwitchMap.hasOwnProperty(fieldVal) === false ) {
-                continue;
-            }
-            this.setSwitch(srcHostname, nameToSwitchMap[fieldVal]);
-            continue;
-        }
-
-        // Standard rule
+        fieldVal = fields[2];
 
         if ( fieldVal !== null ) {
             type = fieldVal;
@@ -574,8 +576,7 @@ Matrix.prototype.fromString = function(text) {
             type = '*';
         }
 
-        fieldVal = fields[nextField];
-        nextField += 1;
+        fieldVal = fields[3];
 
         if ( fieldVal !== null ) {
             // Unknown state: reject

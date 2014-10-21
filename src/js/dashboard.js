@@ -24,12 +24,12 @@
 (function() {
 
 var loadDashboardPanel = function(hash) {
-    var button = $(hash);
-    var url = button.data('dashboardPanelUrl');
-    $('iframe')[0].src = url;
-    $('.tabButton').each(function(){
-        var button = $(this);
-        button.toggleClass('selected', button.data('dashboardPanelUrl') === url);
+    var button = uDom(hash);
+    var url = button.attr('data-dashboard-panel-url');
+    uDom('iframe').nodeAt(0).src = url;
+    uDom('.tabButton').toArray().forEach(function(tab){
+        var button = uDom(tab);
+        button.toggleClass('selected', button.attr('data-dashboard-panel-url') === url);
     });
 }
 
@@ -41,8 +41,8 @@ var onTabClickHandler = function() {
 
 /******************************************************************************/
 
-$(function() {
-    $(window).on('hashchange', onTabClickHandler);
+uDom.onLoad(function() {
+    window.addEventListener('hashchange', onTabClickHandler);
     var hash = window.location.hash;
     if ( hash.length < 2 ) {
         hash = '#settings';

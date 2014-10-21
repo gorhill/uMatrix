@@ -19,12 +19,12 @@
         "message": "统计信息",
         "description": "appears as tab name in dashboard."
     },
-    "ubiquitousRulesPageName" : {
-        "message": "通用规则",
+    "userRulesPageName": {
+        "message": "Your rules",
         "description": "appears as tab name in dashboard."
     },
-    "scopedRulesPageName": {
-        "message": "作用域规则",
+    "ubiquitousRulesPageName" : {
+        "message": "通用规则",
         "description": "appears as tab name in dashboard."
     },
     "aboutPageName": {
@@ -439,6 +439,28 @@
     },
 
 
+    "userRulesApplyChanges": {
+        "message": "Apply changes",
+        "description": "English: Apply changes"
+    },
+    "userRulesImport": {
+        "message": "Import from file...",
+        "description": "English: Import from file..."
+    },
+    "userRulesExport": {
+        "message": "Export to file...",
+        "description": "English: Export to file..."
+    },
+    "userRulesFormatHint": {
+        "message": "See this page for rule syntax.",
+        "description": "English: See this page for rule syntax."
+    },
+    "userRulesDefaultFileName": {
+        "message": "your-umatrix-rules.txt",
+        "description": "English: See this page for rule syntax."
+    },
+
+
     "ubiquitousWhatIsThisHeader" : {
         "message": "这是什么？",
         "description": "English: What is this?"
@@ -490,84 +512,6 @@
     "ubiquitousExport" : {
         "message": "导出规则",
         "description": "English: Export"
-    },
-
-
-    "scopedCommitAllButton": {
-        "message": "提交所有变更",
-        "description": "English: Commit all"
-    },
-    "scopedRevertAllButton": {
-        "message": "移除所有变更",
-        "description": "English: Revert all"
-    },
-    "scopedMarkAllForDeletionButton": {
-        "message": "把所有规则标志为删除",
-        "description": "English: Mark all for deletion"
-    },
-    "scopedResetToFactoryButton": {
-        "message": "重设至出厂状态",
-        "description": "English: Reset to factory"
-    },
-    "scopedRulesHeader": {
-        "message": "规则",
-        "description": "English: Rules"
-    },
-    "scopedRulesInfo": {
-        "message": "这里是您可以备份所有您的作用域和规则的地方：点击“导出规则”，可选地点击“编码配方”，把结果保存到一个文件里，这个文件的内容可以在日后粘帖到这里。<p>规则的语法是非常严格的，只有高级用户才适合冒险在此编辑。如果您将要导入一个来自非可信来源的配方时，请确保其没有任何错误（例如：<b>“whitelist * evil.com”</b>）</p>",
-        "description": "English: [see english message.json]"
-    },
-    "scopedRecipeHeader": {
-        "message": "配方",
-        "description": "English: Recipes"
-    },
-    "scopedRecipesInfo": {
-        "message": "一条“配方”只是一个，用某种方式编码了的，为了方便备份和用户间进行交流的，规则集。理想地，高级用户会共享出他们经过精雕细刻的配方，来帮助新手用户。",
-        "description": "English: [see english message.json]"
-    },
-    "scopedBackupRecipeButton": {
-        "message": "备份到文件",
-        "description": "English: Backup to file"
-    },
-    "scopedRestoreRecipeButton": {
-        "message": "从文件恢复",
-        "description": "English: Restore from file"
-    },
-    "scopedDecodeRecipeButton": {
-        "message": "解码配方",
-        "description": "English: Decode recipe"
-    },
-    "scopedEncodeRecipeButton": {
-        "message": "编码配方",
-        "description": "English: Encode recipe"
-    },
-    "scopedImportRulesButton": {
-        "message": "导入规则",
-        "description": "English: Import rules"
-    },
-    "scopedExportRulesButton": {
-        "message": "导出规则",
-        "description": "English: Export rules"
-    },
-    "scopedGlobalScopeHeader": {
-        "message": "全局作用域",
-        "description": "English: Global scope"
-    },
-    "scopedBtsScopeHeader": {
-        "message": "后台作用域",
-        "description": "English: Behind-the-scene scope"
-    },
-    "scopedDomainScopeHeader": {
-        "message": "域名级作用域",
-        "description": "English: Domain-level scope"
-    },
-    "scopedSiteScopeHeader": {
-        "message": "站点级作用域",
-        "description": "English: Site-level scope"
-    },
-    "scopedDeletionPrompt": {
-        "message": "您即将要删除{{deleteCount}}条规则。\n这是不可逆的操作。\n点击OK进行确认。",
-        "description": "English: You are about to delete {{deleteCount}} rules.\nThis is irreversible.\nClick OK to confirm."
     },
 
 

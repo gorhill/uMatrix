@@ -23,6 +23,10 @@ h2 + * {
 a {
     text-decoration: none;
     }
+button {
+    padding: 0.4em;
+    }
+
 .para {
     width: 40em;
     }
