@@ -25,22 +25,6 @@
 
 /******************************************************************************/
 
-var whitelistPageDomain = function(tabs) {
-    if ( tabs.length === 0 ) {
-        return;
-    }
-    var tab = tabs[0];
-    if ( !tab.url ) {
-        return;
-    }
-    var µm = µMatrix;
-    if ( µm.autoWhitelist1stPartyTemporarily(tab.url) ) {
-        µm.smartReloadTab(tab.id);
-    }
-};
-
-/******************************************************************************/
-
 var whitelistAll = function(tabs) {
     if ( tabs.length === 0 ) {
         return;
@@ -61,9 +45,6 @@ var onCommand = function(command) {
     switch ( command ) {
     case 'revert-all':
         µMatrix.revertAllRules();
-        break;
-    case 'whitelist-page-domain':
-        chrome.tabs.query({ active: true }, whitelistPageDomain);
         break;
     case 'whitelist-all':
         chrome.tabs.query({ active: true }, whitelistAll);

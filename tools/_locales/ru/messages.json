@@ -263,45 +263,9 @@
         "message": "Больше защиты",
         "description": "..."
     },
-    "settingsStrictBlockingPrompt": {
-        "message": "Включить строгую блокировку.",
-        "description": ""
-    },
-    "settingsStrictBlockingInfo": {
-        "message": "<p><strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">Строгое\nблокирование</a></strong>,\nознокомиться на <a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">версии 0.3.6</a>,\nозначает, что\nесли вы внесли сайт в белый список, заблокированые запросы:  (<i>плагинов</i>,\n<i>фреймов</i>, и т.д.) будут в черном списке. Для некоторых пользователей это может быть\nнадоедливым, следовательно, нужен этот переключатель.</p>\n<p><strong>Строгие блокировки ВКЛ.</strong>: в черный список типов запросов (если любой)\nдля сайтов из белого списка будет блокированы (если явно не белый список\nспециально эти запросы для сайтов из белого списка.)</p>\n<p><strong>Строгие блокировки ВЫКЛ.</strong>: попавшие в черный список запросы (если любой)\nдля сайтов из белого списка разрешены (если вы явно не внесли эти запросы в ченый список для сайтов из белого списка.)</p>",
-        "description": "To help user understand the purpose of strict blocking"
-    },
-    "settingsAutoCreateScopePrompt1": {
-        "message": "Автоматически создавать временные",
-        "description": "English: Auto create temporary"
-    },
-    "settingsAutoCreateDomainScope": {
-        "message": "на уровне домена",
-        "description": "English: domain-level"
-    },
-    "settingsAutoCreateSiteScope": {
-        "message": "на уровне сайта",
-        "description": "English: site-level"
-    },
-    "settingsAutoCreateScopePrompt2": {
-        "message": "области.",
-        "description": "English: scope"
-    },
-    "settingsAutoCreateScopeInfo": {
-        "message": "<p>Эта опция позволяет автоматически создавать временные правила для новых сайтов.</p><p>There are many advantages to using domain- or site-scoped rules, one of them being the sandboxing of rules, a good habit for enhanced security.</p><p>For example, should you want to whitelist &ldquo;all&rdquo; for a web site (www.example.com), using a domain-level scope will limit this extremely permissive rule to only pages on that specific domain (example.com), while if used in the global scope (&ldquo;&#x2217;&rdquo;) the extremely permissive rule would apply to all pages on all web sites, i.e. the whitelisting of the whole internet.</p>",
-        "description": "English: see relevant messages.json file"
-    },
     "settingsMatrixLessSecurityHeader" : {
         "message": "Меньше защиты",
         "description": "..."
-    },
-    "settingsAutoWhitelistPrompt": {
-        "message": "Автосоздание белых списков для домена.",
-        "description": ""
-    },
-    "settingsAutoWhitelistHelp": {
-        "message": "<p>Некоторые пользователи не любят добавлять домен текущей страницы в белый список по-умолчанию. Эта функция позволяет автоматически создавать временные белые списки из всей области страницы, когда она впервые загружается в браузере. The temporary auto-whitelisting will occur <b>only</b> если страница домена в серых списках.</p><p>Хотя включать эту опцию не рекомендуется, она была включена из-за удобства — я лучше включу её, нежели потеряю пользователей.</p><p>Если опция включена, рекомендуется включить блокировку <b>frame</b> запросов и <b>строгую блокировку</b>.</p>",
-        "description": "To help user understand the purpose of auto-whitelist"
     },
     "settingsMatrixConvenienceHeader" : {
         "message": "Удобство",
@@ -326,22 +290,6 @@
     "settingsMatrixAutoReloadInfo" : {
         "message": "Каждый раз, когда вы вносите изменения в матрицу, которые могут повлиять на отображение и/или поведение одной или нескольких страниц, <i>µMatrix</i> перезагрузит все затронутые страницы автоматически, после закрытия матрицы.",
         "description": "..."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
-        "message": "Копировать все правила из глобальной области во вновь создаваемые локальные области.",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
-        "message": "<p>Области являются изолированными, т.е. они не придерживаются правил, и это также относится и к глобальной области видимости: более узкие области “не видят” правил в глобальной области.</p> <p>Некоторые пользователи видят в этом препятствие, как они хотят, чтобы их глобальные правила были замечены более узкие области. Эта опция позволяет смягчить этот “недостаток”, позволяя копировать правила глобальных областей, в новую созданную узкую область.</p> <p>Помните, что <b>все</b> правила, копируемые из глобальной области видимости могут иметь предназначение для веб-сайта, для которых область была создана. Это может привести к “Правилам наворотов”, когда есть много правил в глобальной области видимости.</p>",
-        "description": "English: ..."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
-        "message": "Автоматически удалять временные области.",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
-        "message": "",
-        "description": "English:"
     },
     "settingsSubframeColor" : {
         "message": "Цвет заблокированного фрейма:",

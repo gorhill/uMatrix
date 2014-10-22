@@ -263,45 +263,9 @@
         "message": "More security",
         "description": "..."
     },
-    "settingsStrictBlockingPrompt": {
-        "message": "Enable strict blocking.",
-        "description": ""
-    },
-    "settingsStrictBlockingInfo": {
-        "message": "<p><strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">Strict\nblocking</a></strong>,\nintroduced in <a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">version 0.3.6</a>,\nmeans that even\nif you whitelist a specific hostname, blacklisted type of requests (<i>plugins</i>,\n<i>frames</i>, etc.) will remain blacklisted. For some users this maybe\ntoo bothersome, hence this switch.</p>\n<p><strong>Strict blocking on</strong>: blacklisted types of request (if any)\nfor a whitelisted hostname are blocked (unless you explicitly whitelist\nspecifically these types of request for the whitelisted hostname.)</p>\n<p><strong>Strict blocking off</strong>: blacklisted types of request (if any)\nfor a whitelisted hostname are allowed (unless you explicitly blacklist\nspecifically these types of request for the whitelisted hostname.)</p>",
-        "description": "To help the user understand the purpose of strict blocking"
-    },
-    "settingsAutoCreateScopePrompt1": {
-        "message": "Auto create temporary",
-        "description": "English: Auto create temporary"
-    },
-    "settingsAutoCreateDomainScope": {
-        "message": "domain-level",
-        "description": "English: domain-level"
-    },
-    "settingsAutoCreateSiteScope": {
-        "message": "site-level",
-        "description": "English: site-level"
-    },
-    "settingsAutoCreateScopePrompt2": {
-        "message": "scope.",
-        "description": "English: scope"
-    },
-    "settingsAutoCreateScopeInfo": {
-        "message": "<p>This option enables the automatic creation of a temporary scope if no scope exists for a web site you visit.</p><p>There are many advantages to using domain- or site-scoped rules, one of them being the sandboxing of rules, a good habit for enhanced security.</p><p>For example, should you want to whitelist &ldquo;all&rdquo; for a web site (www.example.com), using a domain-level scope will limit this extremely permissive rule to only pages on that specific domain (example.com), while if used in the global scope (&ldquo;&#x2217;&rdquo;) the extremely permissive rule would apply to all pages on all web sites, i.e. the whitelisting of the whole internet.</p>",
-        "description": "English: see relevant messages.json file"
-    },
     "settingsMatrixLessSecurityHeader" : {
         "message": "Less security",
         "description": "..."
-    },
-    "settingsAutoWhitelistPrompt": {
-        "message": "Auto whitelist page domain.",
-        "description": ""
-    },
-    "settingsAutoWhitelistHelp": {
-        "message": "<p>Some users do not like to constantly whitelist the domain of the page by default. This feature enables automatic temporary whitelisting of a page's whole domain whenever it is first loaded in the browser. The temporary auto-whitelisting will occur <b>only</b> if the page domain is currently graylisted.</p><p>Although it is not a recommended feature from a security perspective, it has been included due to popular demand -- I would rather give users this feature than see them give up completely on a blocker.</p><p>If you use this feature, I advise that you at least blacklist <b>frame</b> requests and turn on <b>strict blocking</b>.</p>",
-        "description": "To help user understand the purpose of auto-whitelist"
     },
     "settingsMatrixConvenienceHeader" : {
         "message": "Convenience",
@@ -326,22 +290,6 @@
     "settingsMatrixAutoReloadInfo" : {
         "message": "Whenever you make changes in the matrix which can affect the display and/or behavior of one or more pages, <i>µMatrix</i> will reload affected pages automatically when you close the matrix.",
         "description": "..."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
-        "message": "Copy all rules from global scope into newly created local scopes.",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
-        "message": "<p>Scopes are sandboxed, i.e. they do not share rules, and this also applies to the global scope: narrower scopes do not see rules in the global scope.</p> <p>Some users see this as an impediment, as they wish their global rules were seen by narrower scopes. This option allows to mitigate this &ldquo;shortcoming&rdquo; by forcing a copy of all global rules into a newly created narrower scope.</p> <p>Be mindful that <b>all</b> rules from the global scope are copied, including rules which could be irrelevant to the web site for which the scope was created. This could lead to &ldquo;rules bloat&rdquo; when there are many rules in the global scope.</p>",
-        "description": "English: ..."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
-        "message": "Auto delete unused temporary scopes.",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
-        "message": "",
-        "description": "English:"
     },
     "settingsSubframeColor" : {
         "message": "Blocked frames:&ensp;Color",

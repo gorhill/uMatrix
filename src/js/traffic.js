@@ -227,7 +227,6 @@ var onBeforeRootFrameRequestHandler = function(details) {
         if ( tabId !== µm.behindTheSceneTabId ) {
             µm.cookieHunter.recordPageCookies(pageStats);
         }
-        // quickProfiler.stop();
         return;
     }
 
@@ -250,8 +249,6 @@ var onBeforeRootFrameRequestHandler = function(details) {
     html = html.replace('{{now}}', String(Date.now()));
     var dataURI = 'data:text/html;base64,' + btoa(html);
 
-    // quickProfiler.stop();
-    
     return { 'redirectUrl': dataURI };
 };
 
@@ -341,8 +338,6 @@ var onBeforeRequestHandler = function(details) {
     if ( requestScheme === 'filesystem' ) {
         return;
     }
-
-    // quickProfiler.start('onBeforeRequest');
 
     // console.debug('onBeforeRequestHandler()> "%s": %o', details.url, details);
 
@@ -699,14 +694,9 @@ var onMainDocHeadersReceived = function(details) {
         // console.debug('onMainDocHeadersReceived()> redirect "%s" to "%s"', requestURL, headers[i].value);
     }
 
-    // rhill 2014-01-11: Auto-scope and/or auto-whitelist only when the
-    // `main_frame` object is really received (status = 200 OK), i.e. avoid
-    // redirection, because the final URL might differ. This ensures proper
-    // scope is looked-up before auto-site-scoping and/or auto-whitelisting.
-    // https://github.com/gorhill/httpswitchboard/issues/119
+    // rhill 2014-01-15: Report redirects if any.
+    // https://github.com/gorhill/httpswitchboard/issues/112
     if ( details.statusLine.indexOf(' 200') > 0 ) {
-        // rhill 2014-01-15: Report redirects if any.
-        // https://github.com/gorhill/httpswitchboard/issues/112
         var mainFrameStack = [requestURL];
         var destinationURL = requestURL;
         var sourceURL;
@@ -718,11 +708,6 @@ var onMainDocHeadersReceived = function(details) {
 
         while ( destinationURL = mainFrameStack.pop() ) {
             pageStats.recordRequest('doc', destinationURL, false);
-        }
-
-        // rhill 2013-12-23: Auto-whitelist page domain?
-        if ( µm.userSettings.autoWhitelistPageDomain ) {
-            µm.autoWhitelist1stPartyTemporarily(requestURL);
         }
     }
 
@@ -871,6 +856,12 @@ var requestTypeNormalizer = {
 /******************************************************************************/
 
 chrome.webRequest.onBeforeRequest.addListener(
+    //function(details) {
+    //    quickProfiler.start('onBeforeRequest');
+    //    var r = onBeforeRequestHandler(details);
+    //    quickProfiler.stop();
+    //    return r;
+    //},
     onBeforeRequestHandler,
     {
         "urls": [

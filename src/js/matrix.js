@@ -122,6 +122,36 @@ Matrix.toBroaderHostname = toBroaderHostname;
 
 /******************************************************************************/
 
+// Find out src-des relationship, using coarse-to-fine grained tests for
+// speed. If desHostname is 1st-party to srcHostname, the domain is returned,
+// otherwise the empty string.
+
+var extractFirstPartyDesDomain = function(srcHostname, desHostname) {
+    if ( srcHostname === '*' || desHostname === '*' || desHostname === '1st-party' ) {
+        return '';
+    }
+    var srcLength = srcHostname.length;
+    var desLength = desHostname.length;
+    var len = srcLength < desLength ? srcLength : desLength;
+    if ( srcHostname.slice(-len) !== desHostname.slice(-len) ) {
+        return '';
+    }
+    var desDomain = µm.URI.domainFromHostname(desHostname);
+    if ( desDomain === '' ) {
+        return '';
+    }
+    var pos = srcLength - desDomain.length;
+    if ( pos < 0 || srcHostname.slice(pos) !== desDomain ) {
+        return '';
+    }
+    if ( pos !== 0 && srcHostname.charAt(pos - 1) !== '.' ) {
+        return '';
+    }
+    return desDomain;
+};
+
+/******************************************************************************/
+
 Matrix.prototype.reset = function() {
     this.switchedOn = {};
     this.rules = {};
@@ -274,12 +304,9 @@ Matrix.prototype.evaluateCell = function(srcHostname, desHostname, type) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
-    if ( this.evaluateSwitchZ(srcHostname) !== true ) {
-        return Matrix.Transparent;
-    }
     var bitOffset = typeBitOffsets[type];
     var s = srcHostname;
-    var v, pos;
+    var v;
     for (;;) {
         v = this.rules[s + ' ' + desHostname];
         if ( v !== undefined ) {
@@ -304,36 +331,90 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
+    // Matrix filtering switch
+    if ( this.evaluateSwitchZ(srcHostname) !== true ) {
+        return Matrix.GreenIndirect;
+    }
+
+    // Specific-hostname specific-type cell
     var r = this.evaluateCellZ(srcHostname, desHostname, type);
     if ( r === 1 ) { return Matrix.RedDirect; }
     if ( r === 2 ) { return Matrix.GreenDirect; }
+
+    // Specific-hostname any-type cell
     var rl = this.evaluateCellZ(srcHostname, desHostname, '*');
     if ( rl === 1 ) { return Matrix.RedIndirect; }
-    var d = desHostname;
+
     var pos;
+    var d = desHostname;
+    var firstPartDesDomain = extractFirstPartyDesDomain(srcHostname, desHostname);
+
+    // Ancestor cells, up to 1st-party destination domain
+    if ( firstPartDesDomain !== '' ) {
+        for (;;) {
+            if ( d === firstPartDesDomain ) {
+                break;
+            }
+            d = d.slice(d.indexOf('.') + 1);
+
+            // specific-hostname specific-type cell
+            r = this.evaluateCellZ(srcHostname, d, type);
+            if ( r === 1 ) { return Matrix.RedIndirect; }
+            if ( r === 2 ) { return Matrix.GreenIndirect; }
+            // Do not override narrower rule
+            if ( rl !==  2 ) {
+                rl = this.evaluateCellZ(srcHostname, d, '*');
+                if ( rl === 1 ) { return Matrix.RedIndirect; }
+            }
+        }
+
+        // 1st-party specific-type cell: it's a special row, it exists only in
+        // global scope.
+        r = this.evaluateCellZ('*', '1st-party', type);
+        if ( r === 1 ) { return Matrix.RedIndirect; }
+        if ( r === 2 ) { return Matrix.GreenIndirect; }
+        // Do not override narrower rule
+        if ( rl !==  2 ) {
+            rl = this.evaluateCellZ('*', '1st-party', '*');
+            if ( rl === 1 ) { return Matrix.RedIndirect; }
+        }
+    }
+
+    // Keep going, up to root
     for (;;) {
         pos = d.indexOf('.');
         if ( pos === -1 ) {
             break;
         }
         d = d.slice(pos + 1);
+
+        // specific-hostname specific-type cell
         r = this.evaluateCellZ(srcHostname, d, type);
         if ( r === 1 ) { return Matrix.RedIndirect; }
         if ( r === 2 ) { return Matrix.GreenIndirect; }
+        // Do not override narrower rule
         if ( rl !==  2 ) {
             rl = this.evaluateCellZ(srcHostname, d, '*');
             if ( rl === 1 ) { return Matrix.RedIndirect; }
         }
     }
+
+    // Any-hostname specific-type cells
     r = this.evaluateCellZ(srcHostname, '*', type);
+    // Line below is strict-blocking
     if ( r === 1 ) { return Matrix.RedIndirect; }
+    // Narrower rule wins
     if ( rl === 2 ) { return Matrix.GreenIndirect; }
     if ( r === 2 ) { return Matrix.GreenIndirect; }
+
+    // Any-hostname any-type cell
     r = this.evaluateCellZ(srcHostname, '*', '*');
     if ( r === 1 ) { return Matrix.RedIndirect; }
     if ( r === 2 ) { return Matrix.GreenIndirect; }
     return this.rootValue;
 };
+
+// https://www.youtube.com/watch?v=4C5ZkwrnVfM
 
 /******************************************************************************/
 
@@ -368,24 +449,6 @@ Matrix.prototype.desHostnameFromRule = function(rule) {
 
 /******************************************************************************/
 
-Matrix.prototype.extractZRules = function(srcHostname, desHostname, out) {
-    var s = srcHostname;
-    var rule, bitmap, pos;
-    for (;;) {
-        rule = s + ' ' + desHostname;
-        bitmap = this.rules[rule];
-        if ( bitmap !== undefined ) {
-            out[rule] = bitmap;
-        }
-        s = toBroaderHostname(s);
-        if ( s === '' ) {
-            break;
-        }
-    }
-};
-
-/******************************************************************************/
-
 Matrix.prototype.toggleSwitch = function(srcHostname, newState) {
     if ( newState === undefined ) {
         newState = !this.evaluateSwitchZ(srcHostname);
@@ -414,7 +477,6 @@ Matrix.prototype.evaluateSwitch = function(srcHostname) {
 Matrix.prototype.evaluateSwitchZ = function(srcHostname) {
     var b;
     var s = srcHostname;
-    var pos;
     for (;;) {
         b = this.switchedOn[s];
         if ( b !== undefined ) {
@@ -639,7 +701,7 @@ Matrix.prototype.fromSelfie = function(selfie) {
 Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
     var out = [];
     var desHostname, type;
-    var i, pos, thisVal, otherVal;
+    var i, thisVal, otherVal;
     for (;;) {
         thisVal = this.evaluateSwitch(srcHostname);
         otherVal = other.evaluateSwitch(srcHostname);

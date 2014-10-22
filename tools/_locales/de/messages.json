@@ -263,45 +263,9 @@
         "message": "Mehr Sicherheit",
         "description": "..."
     },
-    "settingsStrictBlockingPrompt": {
-        "message": "Striktes Blockieren aktivieren.",
-        "description": ""
-    },
-    "settingsStrictBlockingInfo": {
-        "message": "<p><strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">Striktes\nBlockieren</a></strong>,\neingeführt in <a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">version 0.3.6</a>,\nbedeutet: Selbst\nwenn du einen spezifischen Hostnamen auf die Whitelist setzt, bleiben die Arten von Anfragen, die standardmäßig blockiert sind (<i>Plugins</i>,\n<i>Frames</i>, etc.), weiterhin auf der Blacklist. Für einige Benutzer ist das möglicherweise\nzu lästig, daher dieser Schalter.</p>\n<p><strong>Striktes Blockieren an</strong>: blockierte Arten von Anfragen (falls vorhanden)\nfür einen Hostnamen auf der Whitelist bleiben weiterhin auf der Blacklist (sofern du diese Arten von Anfragen für diesen Hostnamen nicht ausdrücklich erlaubst.)</p>\n<p><strong>Striktes Blockieren aus</strong>: blockierte Arten von Anfragen (falls vorhanden)\nfür einen Hostnamen auf der Whitelist sind erlaubt (sofern du diese Arten von Anfragen für diesen Hostnamen nicht ausdrücklich verbietest.)</p>",
-        "description": "To help user understand the purpose of strict blocking"
-    },
-    "settingsAutoCreateScopePrompt1": {
-        "message": "Automatisches Erzeugen eines temporären Geltungsbereichs auf ",
-        "description": "English: Auto create temporary"
-    },
-    "settingsAutoCreateDomainScope": {
-        "message": "Domain-Ebene",
-        "description": "English: domain-level"
-    },
-    "settingsAutoCreateSiteScope": {
-        "message": "Webseiten-Ebene",
-        "description": "English: site-level"
-    },
-    "settingsAutoCreateScopePrompt2": {
-        "message": " ",
-        "description": "English: scope"
-    },
-    "settingsAutoCreateScopeInfo": {
-        "message": "<p>Diese Option ermöglicht das automatische Erzeugen eines temporären Geltungsbereichs für eine besuchte Webseite, falls für diese noch kein Geltungsbereich definiert ist.</p><p>Das Benutzen von Domain- oder Webseiten-spezifischen Regeln hat viele Vorteile, vor allem der, dass diese Regeln in einer Art Sandbox eingesperrt werden - eine gute Angewohnheit für mehr Sicherheit.</p><p>Beispiel: Wenn du &ldquo;alles&rdquo; auf einer Webseite (www.example.com) erlaubst (also auf die Whitelist setzt), hat die Benutzung eines Geltungsbereichs auf Domain-Ebene zur Folge, dass diese extrem freizügige Regel tatsächlich nur für Webseiten dieser spezifischen Domain (example.com) gültig ist; hättest du stattdessen einen Globalen Geltungsbereich (&ldquo;&#x2217;&rdquo;) benutzt, würde diese extrem freizügige Regel für <i>alle</i> Webseiten gelten, d.h. du würdest damit das ganze Internet auf die Whitelist setzen.</p>",
-        "description": "English: see relevant messages.json file"
-    },
     "settingsMatrixLessSecurityHeader" : {
         "message": "Weniger Sicherheit",
         "description": "..."
-    },
-    "settingsAutoWhitelistPrompt": {
-        "message": "Auto-Whitelist: automatisches Hinzufügen von Domänen zur Whitelist.",
-        "description": ""
-    },
-    "settingsAutoWhitelistHelp": {
-        "message": "<p>Einige Benutzer möchten nicht andauernd Webseiten auf die Whitelist setzen müssen. Daher ermöglicht diese Einstellung, dass Domänen temporär automatisch zur Whitelist hinzugefügt werden. Dieses temporäre Auto-Whitelisting findet <b>nur</b> statt, wenn die Domäne auf der &ldquo;Greylist&rdquo; (=hellrote Zellen) ist, d.h. nicht explizit auf die Blacklist gesetzt wurde oder sich auf einer der externen Listen blockierter Hostnamen befindet.</p><p>Obwohl diese Einstellung unter Sicherheitsaspekten nicht empfehlenswert ist, wurde sie aufgrund entsprechender Benutzerwünsche hinzu gefügt -- lieber gebe ich Benutzern diese Option, als dass sie ganz auf die Benutzung dieser Erweiterung verzichten.</p><p>Sofern du diese Option benutzen willst, rate ich dazu, zumindest  <b>frame</b> auf die Blacklist zu setzen und <b>Striktes Blockieren</b> zu aktivieren.</p>",
-        "description": "To help user understand the purpose of auto-whitelist"
     },
     "settingsMatrixConvenienceHeader" : {
         "message": "Komforteinstellungen",
@@ -326,22 +290,6 @@
     "settingsMatrixAutoReloadInfo" : {
         "message": "Immer wenn du Änderungen in der Matrix durchführst, die die Anzeige und /oder das Verhalten einer oder mehrerer Seiten beeinflusst, wird <i>µMatrix</i> die betroffenen Seiten automatisch neu laden, sobald du die Matrix schließt.",
         "description": "..."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
-        "message": "Kopiere alle Regeln aus dem Globalen Geltungsbereich in neu erstellte lokale Geltungsbereiche (d. h. auf Domain- oder Webseiten-Ebene).",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
-        "message": "<p>Geltungsbereiche existieren in einer Art Sandbox, d. h. sie teilen keine Regeln untereinander, und das gilt auch für den Globalen Geltungsbereich: enger gefasste Geltungsbereiche sehen <b>nicht</b> die Regeln im Globalen Geltungsbereich.</p> <p>Von einigen Benutzern wird dies aber als Hindernis angesehen, da sie möchten, dass ihre globalen Regeln auch von enger gefassten Geltungsbereichen erkannt werden. Diese Option behebt dieses &ldquo;Manko&rdquo; indem sie erzwingt, dass alle globalen Regeln in neu erstellte enger gefasste Geltungsbereiche hineinkopiert werden.</p> <p>Bedenke aber, dass <b>alle</b> Regeln aus dem Globalen Geltungsbereich kopiert werden, einschließlich der Regeln, die möglicherweise irrelevant sind für die Webseite, für die der enger gefasste Geltungsbereich erstellt wurde. Dies kann daher zu &ldquo;aufgeblähten Regelwerken&rdquo; führen, falls im Globalen Geltungsbereich viele Regeln angelegt wurden.</p>",
-        "description": "English: ..."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
-        "message": "Automatisches Löschen unbenutzter temporärer Geltungsbereiche.",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
-        "message": "",
-        "description": "English:"
     },
     "settingsSubframeColor" : {
         "message": "Farbe blockierter Frames:",

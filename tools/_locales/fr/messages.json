@@ -263,45 +263,9 @@
         "message": "Sécurité renforcée",
         "description": "..."
     },
-    "settingsStrictBlockingPrompt": {
-        "message": "Activer le blocage strict",
-        "description": ""
-    },
-    "settingsStrictBlockingInfo": {
-        "message": "Introduit dans la <a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">version 0.3.6</a>, le <strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">Blocage strict</a></strong> signifie que même si vous allouez un nom d'hôte spécifique, une requête restera bloquée si le type d'objet en question (plugins, iframes, etc) est lui-même bloqué; en d'autres termes, le blocage d'éléments de colonnes prime sur l'autorisation d'éléments de lignes. Le choix vous est proposé de l'activer ou non, car cela peut se montrer trop restrictif aux yeux de certains utilisateurs. Si l'option est activée, la requête est autorisée à condition que les nom d'hôte ET le type de requête soient autorisés. Si l'option n'est pas cochée, le nom d'hôte alloué suffit à autoriser la requête.",
-        "description": "To help user understand the purpose of strict blocking"
-    },
-    "settingsAutoCreateScopePrompt1": {
-        "message": "Créer automatiquement des contextes de règles à portée",
-        "description": "English: Auto create temporary"
-    },
-    "settingsAutoCreateDomainScope": {
-        "message": "domaine",
-        "description": "English: domain-level"
-    },
-    "settingsAutoCreateSiteScope": {
-        "message": "site",
-        "description": "English: site-level"
-    },
-    "settingsAutoCreateScopePrompt2": {
-        "message": "temporaires",
-        "description": "English: scope"
-    },
-    "settingsAutoCreateScopeInfo": {
-        "message": "<p>Cette option active la création automatique de contextes de règles à portée non globale si aucune règle n'existe pour le site web que vous visitez. Ainsi, les règles que vous définissez pour ce site ne s'appliqueront pas universellement, mais uniquement au domaine/site précis (selon votre choix).</p><p>Si cela peut se révéler légèrement contraignant dans certains cas, c'est également un bon moyen de renforcer votre sécurité.</p><p>Par exemple, si vous désirez mettre en liste blanche TOUS les éléments d'un site web (www.exemple.com), employer une règle à portée domaine/site limiterait cette règle trop permissive uniquement aux pages web en provenance du domaine/site exemple.com, tandis que si c'était employé à portée globale (&ldquo;&#x2217;&rdquo;), elle s'appliquerait partout, ce qui pourrait réduire votre sécurité.</p>",
-        "description": "..."
-    },
     "settingsMatrixLessSecurityHeader" : {
         "message": "Sécurité réduite",
         "description": "..."
-    },
-    "settingsAutoWhitelistPrompt": {
-        "message": "Mise en liste blanche automatique du domaine de la page visitée",
-        "description": ""
-    },
-    "settingsAutoWhitelistHelp": {
-        "message": "<p>Certains utilisateurs n'aiment pas devoir constamment mettre en liste blanche le domaine de la page visitée. Cette option permet de mettre automatiquement en liste blanche tout le domaine d'une page lors de son premier chargement dans le navigateur. Cette procédure automatique ne se produira <b>que</b> si le domaine de la page visitée est actuellement sur liste grise (c'est-à-dire ni sur liste blanche, ni sur liste noire).</p><p>Bien que d'un point de vue sécurité, il n'est pas recommandé d'utiliser cette fonctionnalité, elle a été incluse suite à une forte demande (il m'a paru plus pertinent de leur donner cette possibilité que d'abandonner l'utilisation de mon extension).</p><p>Si vous activez cette option, je vous recommande d'au moins mettre sur la liste noire du contexte global les requêtes de type <b>frame</b> et d'activer le <b>blocage strict</b>.</p>",
-        "description": "To help user understand the purpose of auto-whitelist"
     },
     "settingsMatrixConvenienceHeader" : {
         "message": "Ergonomie",
@@ -326,22 +290,6 @@
     "settingsMatrixAutoReloadInfo" : {
         "message": "Lorsque vous avez modifié des permissions susceptibles d'affecter l'apparence et/ou le comportement d'une page Web, l'extension rechargera automatiquement une ou plusieurs pages Web concernées (selon votre choix) en fermant la matrice. Si l'option Aucune page est sélectionnée, vous devrez actualiser la page Web vous-même pour appliquer les modifications",
         "description": "..."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
-        "message": "Copier toutes les règles du contexte global vers les nouveaux contextes à portée non globale",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
-        "message": "<p>Chaque contexte est sandboxé, c'est-à-dire qu'elle ne partage pas ses règles avec les autres contextes, et cela vaut également pour le contexte global. Ainsi, un contexte restreint n'applique pas les règles du contexte global.</p> <p>Certaines personnes voient cela comme un obstacle, souhaitant que leurs règles du contexte global soient prises en compte dans des contextes restreints. Cette option permet d'atténuer ce &ldquo;défaut&rdquo; en forçant la copie de toutes les règles du contexte global dans un nouveau contexte restreint.</p> <p>Prenez conscience que <b>toutes</b> les règles du contexte global sont copiés, y compris des règles n'ayant pas de rapport avec le site Web pour lequel un nouveau contexte restreint a été créé. Cela pourrait conduire à un &ldquo;ballonnement de règles&rdquo; lorsqu'il a beaucoup de règles dans le contexte global.</p>",
-        "description": "English: ..."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
-        "message": "Effacer automatiquement les règles de contextes non globaux inutilisées",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
-        "message": "",
-        "description": "English:"
     },
     "settingsSubframeColor" : {
         "message": "Couleur pour les &lt;iframe&gt; bloquées :",

@@ -111,6 +111,7 @@ function updateMatrixSnapshot() {
 /******************************************************************************/
 
 // For display purpose, create four distinct groups of rows:
+// 0th: literal "1st-party" row
 // 1st: page domain's related
 // 2nd: whitelisted
 // 3rd: graylisted
@@ -147,36 +148,41 @@ function getGroupStats() {
         }
         row = rows[hostname];
         domain = row.domain;
-        // 1st-party always into group 0
-        if ( domain === pageDomain ) {
+        // literal "1st-party" row always into group 0
+        if ( hostname === '1st-party' ) {
             domainToGroupMap[domain] = 0;
             continue;
         }
-        color = row.temporary[anyTypeOffset];
-        groupIndex = domainToGroupMap[domain] || 2; // anything overrides 2
-        // group 1: whitelisted (does not override 0)
-        if ( color === DarkGreen ) {
+        // 1st-party hostnames always into group 1
+        if ( domain === pageDomain ) {
             domainToGroupMap[domain] = 1;
             continue;
         }
-        // group 3: blacklisted (does not override 0, 1)
+        color = row.temporary[anyTypeOffset];
+        groupIndex = domainToGroupMap[domain] || 3; // anything overrides 3
+        // group 2: whitelisted (does not override 0, 1)
+        if ( color === DarkGreen ) {
+            domainToGroupMap[domain] = 2;
+            continue;
+        }
+        // group 4: blacklisted (does not override 0, 1, 2)
         if ( color === DarkRed ) {
-            if ( groupIndex === 2 ) {
-                domainToGroupMap[domain] = 3;
+            if ( groupIndex === 3 ) {
+                domainToGroupMap[domain] = 4;
             }
             continue;
         }
 
-        // group 2: graylisted (does not override 0, 1, 3)
-        if ( groupIndex !== 2 ) {
+        // group 3: graylisted (does not override 0, 1, 2, 4)
+        if ( groupIndex !== 3 ) {
             continue;
         }
 
-        domainToGroupMap[domain] = 2;
+        domainToGroupMap[domain] = 3;
     }
 
     // Second pass: put each domain in a group
-    var groups = [ {}, {}, {}, {} ];
+    var groups = [ {}, {}, {}, {}, {} ];
     var group;
     for ( hostname in rows ) {
         if ( rows.hasOwnProperty(hostname) === false ) {
@@ -305,7 +311,7 @@ function updateMatrixBehavior() {
     var section, subdomainRows, j, subdomainRow;
     while ( i-- ) {
         section = sections.at(i);
-        subdomainRows = section.descendants('.l2:not(.g3)');
+        subdomainRows = section.descendants('.l2:not(.g4)');
         j = subdomainRows.length;
         while ( j-- ) {
             subdomainRow = subdomainRows.at(j);
@@ -338,11 +344,12 @@ function handleFilter(button, leaning) {
     // our parent cell knows who we are
     var cell = button.ancestors('div.matCell');
     var type = cell.prop('reqType');
-    var hostname = cell.prop('hostname');
+    var desHostname = cell.prop('hostname');
+    var srcHostname = desHostname !== '1st-party' ? matrixSnapshot.scope : '*';
     var request = {
-        what: getCellAction(hostname, type, leaning),
-        srcHostname: matrixSnapshot.scope,
-        desHostname: hostname,
+        what: getCellAction(desHostname, type, leaning),
+        srcHostname: srcHostname,
+        desHostname: desHostname,
         type: type
     };
     messaging.ask(request, updateMatrixSnapshot);
@@ -614,50 +621,20 @@ function hostnameCompare(a,b) {
 
 /******************************************************************************/
 
-function makeMatrixGroup0SectionDomain(domain) {
-    return makeMatrixRowDomain(domain)
-        .addClass('g0 l1');
-}
-
-function makeMatrixGroup0SectionSubomain(domain, subdomain) {
-    return makeMatrixRowSubdomain(domain, subdomain)
-        .addClass('g0 l2');
-}
-
-function makeMatrixGroup0SectionMetaDomain(domain) {
-    return makeMatrixMetaRowDomain(domain).addClass('g0 l1 meta');
+function makeMatrixGroup0SectionDomain() {
+    return makeMatrixRowDomain('1st-party').addClass('g0 l1');
 }
 
 function makeMatrixGroup0Section(hostnames) {
-    var domain = hostnames[0];
-    var domainDiv = createMatrixSection()
-        .toggleClass('collapsed', getCollapseState(domain))
-        .prop('domain', domain);
-    if ( hostnames.length > 1 ) {
-        makeMatrixGroup0SectionMetaDomain(domain)
-            .appendTo(domainDiv);
-    }
-    makeMatrixGroup0SectionDomain(domain)
-        .appendTo(domainDiv);
-    for ( var i = 1; i < hostnames.length; i++ ) {
-        makeMatrixGroup0SectionSubomain(domain, hostnames[i])
-            .appendTo(domainDiv);
-    }
+    var domainDiv = createMatrixSection().prop('domain', '1st-party');
+    makeMatrixGroup0SectionDomain().appendTo(domainDiv);
     return domainDiv;
 }
 
 function makeMatrixGroup0(group) {
-    var domains = Object.keys(group).sort(hostnameCompare);
-    if ( domains.length ) {
-        var groupDiv = createMatrixGroup().addClass('g0');
-        makeMatrixGroup0Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
-            .appendTo(groupDiv);
-        for ( var i = 1; i < domains.length; i++ ) {
-            makeMatrixGroup0Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
-                .appendTo(groupDiv);
-        }
-        groupDiv.appendTo(matrixList);
-    }
+    var groupDiv = createMatrixGroup().addClass('g0');
+    makeMatrixGroup0Section().appendTo(groupDiv);
+    groupDiv.appendTo(matrixList);
 }
 
 /******************************************************************************/
@@ -682,7 +659,8 @@ function makeMatrixGroup1Section(hostnames) {
         .toggleClass('collapsed', getCollapseState(domain))
         .prop('domain', domain);
     if ( hostnames.length > 1 ) {
-        makeMatrixGroup1SectionMetaDomain(domain).appendTo(domainDiv);
+        makeMatrixGroup1SectionMetaDomain(domain)
+            .appendTo(domainDiv);
     }
     makeMatrixGroup1SectionDomain(domain)
         .appendTo(domainDiv);
@@ -695,9 +673,8 @@ function makeMatrixGroup1Section(hostnames) {
 
 function makeMatrixGroup1(group) {
     var domains = Object.keys(group).sort(hostnameCompare);
-    if ( domains.length) {
-        var groupDiv = createMatrixGroup()
-            .addClass('g1');
+    if ( domains.length ) {
+        var groupDiv = createMatrixGroup().addClass('g1');
         makeMatrixGroup1Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
             .appendTo(groupDiv);
         for ( var i = 1; i < domains.length; i++ ) {
@@ -768,10 +745,18 @@ function makeMatrixGroup3SectionSubomain(domain, subdomain) {
         .addClass('g3 l2');
 }
 
+function makeMatrixGroup3SectionMetaDomain(domain) {
+    return makeMatrixMetaRowDomain(domain).addClass('g3 l1 meta');
+}
+
 function makeMatrixGroup3Section(hostnames) {
     var domain = hostnames[0];
     var domainDiv = createMatrixSection()
+        .toggleClass('collapsed', getCollapseState(domain))
         .prop('domain', domain);
+    if ( hostnames.length > 1 ) {
+        makeMatrixGroup3SectionMetaDomain(domain).appendTo(domainDiv);
+    }
     makeMatrixGroup3SectionDomain(domain)
         .appendTo(domainDiv);
     for ( var i = 1; i < hostnames.length; i++ ) {
@@ -783,20 +768,60 @@ function makeMatrixGroup3Section(hostnames) {
 
 function makeMatrixGroup3(group) {
     var domains = Object.keys(group).sort(hostnameCompare);
+    if ( domains.length) {
+        var groupDiv = createMatrixGroup()
+            .addClass('g3');
+        makeMatrixGroup3Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
+            .appendTo(groupDiv);
+        for ( var i = 1; i < domains.length; i++ ) {
+            makeMatrixGroup3Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
+                .appendTo(groupDiv);
+        }
+        groupDiv.appendTo(matrixList);
+    }
+}
+
+/******************************************************************************/
+
+function makeMatrixGroup4SectionDomain(domain) {
+    return makeMatrixRowDomain(domain)
+        .addClass('g4 l1');
+}
+
+function makeMatrixGroup4SectionSubomain(domain, subdomain) {
+    return makeMatrixRowSubdomain(domain, subdomain)
+        .addClass('g4 l2');
+}
+
+function makeMatrixGroup4Section(hostnames) {
+    var domain = hostnames[0];
+    var domainDiv = createMatrixSection()
+        .prop('domain', domain);
+    makeMatrixGroup4SectionDomain(domain)
+        .appendTo(domainDiv);
+    for ( var i = 1; i < hostnames.length; i++ ) {
+        makeMatrixGroup4SectionSubomain(domain, hostnames[i])
+            .appendTo(domainDiv);
+    }
+    return domainDiv;
+}
+
+function makeMatrixGroup4(group) {
+    var domains = Object.keys(group).sort(hostnameCompare);
     if ( domains.length === 0 ) {
         return;
     }
-    var groupDiv = createMatrixGroup().addClass('g3');
+    var groupDiv = createMatrixGroup().addClass('g4');
     createMatrixSection()
-        .addClass('g3Meta')
-        .toggleClass('g3Collapsed', !!getUserSetting('popupHideBlacklisted'))
+        .addClass('g4Meta')
+        .toggleClass('g4Collapsed', !!getUserSetting('popupHideBlacklisted'))
         .appendTo(groupDiv);
-    makeMatrixMetaRow(computeMatrixGroupMetaStats(group), 'g3')
+    makeMatrixMetaRow(computeMatrixGroupMetaStats(group), 'g4')
         .appendTo(groupDiv);
-    makeMatrixGroup3Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
+    makeMatrixGroup4Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
         .appendTo(groupDiv);
     for ( var i = 1; i < domains.length; i++ ) {
-        makeMatrixGroup3Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
+        makeMatrixGroup4Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
             .appendTo(groupDiv);
     }
     groupDiv.appendTo(matrixList);
@@ -823,6 +848,7 @@ var makeMenu = function() {
     makeMatrixGroup1(groupStats[1]);
     makeMatrixGroup2(groupStats[2]);
     makeMatrixGroup3(groupStats[3]);
+    makeMatrixGroup4(groupStats[4]);
     endMatrixUpdate();
 
     initScopeCell();
@@ -1120,10 +1146,10 @@ uDom.onLoad(function() {
     uDom('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
     uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
 
-    uDom('#matList').on('click', '.g3Meta', function() {
+    uDom('#matList').on('click', '.g4Meta', function() {
         var collapsed = uDom(this)
-            .toggleClass('g3Collapsed')
-            .hasClassName('g3Collapsed');
+            .toggleClass('g4Collapsed')
+            .hasClassName('g4Collapsed');
         setUserSetting('popupHideBlacklisted', collapsed);
     });
 });

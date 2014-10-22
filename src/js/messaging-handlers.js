@@ -118,8 +118,9 @@ var matrixSnapshot = function(details) {
     r.tSwitch = µm.tMatrix.evaluateSwitchZ(r.scope);
     r.pSwitch = µm.pMatrix.evaluateSwitchZ(r.scope);
 
-    // This one always exist
+    // These rows always exist
     r.rows['*'] = new RowSnapshot(r.scope, '*', '*');
+    r.rows['1st-party'] = new RowSnapshot('*', '1st-party', '1st-party');
     r.rowCount += 1;
 
     var µmuri = µm.URI;

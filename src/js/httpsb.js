@@ -26,6 +26,7 @@
 (function() {
     var µm = µMatrix;
     µm.pMatrix = new µm.Matrix();
+    µm.pMatrix.setSwitch('localhost', false);
     µm.pMatrix.setSwitch('chrome-extension-scheme', false);
     µm.pMatrix.setSwitch('chrome-scheme', false);
     µm.pMatrix.setSwitch(µm.behindTheSceneScope, false);
@@ -34,6 +35,8 @@
     µm.pMatrix.setCell('*', '*', 'css', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'image', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'frame', µm.Matrix.Red);
+    µm.pMatrix.setCell('*', '1st-party', '*', µm.Matrix.Green);
+    µm.pMatrix.setCell('*', '1st-party', 'frame', µm.Matrix.Green);
 
     µm.tMatrix = new µm.Matrix();
     µm.tMatrix.assign(µm.pMatrix);
@@ -88,15 +91,6 @@
     if ( this.pMatrix.whitelistCell(srcHostname, desHostname, type) ) {
         this.saveMatrix();
     }
-};
-
-µMatrix.autoWhitelist1stPartyTemporarily = function(pageURL) {
-    var srcDomain = this.URI.domainFromURI(pageURL);
-    if ( this.tMatrix.evaluateCellZXY(srcDomain, srcDomain, '*') !== this.Matrix.RedIndirect ) {
-        return false;
-    }
-    this.tMatrix.whitelistCell(srcDomain, srcDomain, '*');
-    return true;
 };
 
 /******************************************************************************/

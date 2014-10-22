@@ -45,7 +45,6 @@ return {
     manifest: chrome.runtime.getManifest(),
 
     userSettings: {
-        autoWhitelistPageDomain: false,
         clearBrowserCache: true,
         clearBrowserCacheAfter: 60,
         colorBlindFriendly: false,
@@ -67,7 +66,6 @@ return {
         spoofUserAgentEvery: 5,
         spoofUserAgentWith: getDefaultUserAgentStrings(),
         statsFilters: {},
-        strictBlocking: true,
         subframeColor: '#cc0000',
         subframeOpacity: 100
     },

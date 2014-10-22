@@ -340,7 +340,7 @@ body.tScopeNarrow #scopeCell {
 .matrix .matGroup.g0 .matSection:first-child {
     margin-top: 0;
     }
-.matrix .matGroup.g3 .matSection:first-child {
+.matrix .matGroup.g4 .matSection:first-child {
     margin-top: 0;
     }
 /* Collapsing of domains */
@@ -358,7 +358,7 @@ body.tScopeNarrow #scopeCell {
     }
 
 /* Collapsing of blacklisted */
-.matrix .g3Meta {
+.matrix .g4Meta {
     margin: 0;
     padding: 0;
     border: 0;
@@ -368,29 +368,29 @@ body.tScopeNarrow #scopeCell {
     opacity: 0.2;
     cursor: pointer;
     }
-.matrix .g3Meta:hover {
+.matrix .g4Meta:hover {
     opacity: 0.4;
     }
-.matrix .g3Meta.g3Collapsed {
+.matrix .g4Meta.g4Collapsed {
     background: url('/img/matrix-group-show.png') no-repeat center top,
                 url('/img/matrix-group-hline.png') repeat-x center top 3px;
     }
-.matrix .g3Meta.g3Collapsed ~ .matSection {
+.matrix .g4Meta.g4Collapsed ~ .matSection {
     display: none;
     }
-body.powerOff .matrix .g3Meta.g3Collapsed ~ .matSection {
+body.powerOff .matrix .g4Meta.g4Collapsed ~ .matSection {
     display: block;
     }
-.matrix .g3Meta ~ .matRow.ro {
+.matrix .g4Meta ~ .matRow.ro {
     display: none;
     }
-.matrix .g3Meta.g3Collapsed ~ .matRow.ro {
+.matrix .g4Meta.g4Collapsed ~ .matRow.ro {
     display: block;
     }
-body.powerOff .matrix .g3Meta.g3Collapsed ~ .matRow.ro {
+body.powerOff .matrix .g4Meta.g4Collapsed ~ .matRow.ro {
     display: none;
     }
-.matrix .matGroup .g3Meta + *,.matrix .matGroup .g3Meta + * + * {
+.matrix .matGroup .g4Meta + *,.matrix .matGroup .g4Meta + * + * {
     margin-top: 0;
     padding-top: 0;
     }

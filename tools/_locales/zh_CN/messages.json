@@ -263,45 +263,9 @@
         "message": "增强安全性设置",
         "description": "..."
     },
-    "settingsStrictBlockingPrompt": {
-        "message": "启用严格屏蔽",
-        "description": ""
-    },
-    "settingsStrictBlockingInfo": {
-        "message": "<p><strong><a href=\"https://github.com/gorhill/httpswitchboard/wiki/%22Strict-blocking%22-illustrated\">严格屏蔽</a></strong>，导入于<a href=\"https://github.com/gorhill/httpswitchboard/wiki/Change-log-0.0-to-0.5#036\">0.3.6版</a>，意味着即使您把一个站点名加入了白名单，被加入黑名单的请求类型（<i>插件</i>、<i>子文档</i>等等)仍会保持被黑名单的状态。对部分用户来说这可能有点太麻烦，于是有了这个开关选项。</p><p><strong>开启严格屏蔽</strong>：对一个白名单中的站点名，被添加到黑名单的请求类型（如果有的话）将被屏蔽（除非您，为白名单中的站点名，明确地把这些特殊的请求类型加入到白名单中。）</p><p><strong>关闭严格屏蔽</strong>：对一个白名单中的站点名，被添加到黑名单的请求类型（如果有的话）将被允许（除非您，为白名单中的站点名，明确地把这些特殊的请求类型加入到黑名单中。）</p>",
-        "description": "To help the user understand the purpose of strict blocking"
-    },
-    "settingsAutoCreateScopePrompt1": {
-        "message": "自动添加临时",
-        "description": "English: Auto create temporary"
-    },
-    "settingsAutoCreateDomainScope": {
-        "message": "域名级",
-        "description": "English: domain-level"
-    },
-    "settingsAutoCreateSiteScope": {
-        "message": "站点级",
-        "description": "English: site-level"
-    },
-    "settingsAutoCreateScopePrompt2": {
-        "message": "作用域。",
-        "description": "English: scope"
-    },
-    "settingsAutoCreateScopeInfo": {
-        "message": "<p>这个选项开启临时作用域的自动创建，如果不存在适用于您访问的网站的作用域。</p><p>使用域名或站点级作用域的规则有许多的好处，其中之一是规则的沙盒化，这是一个增强安全性的好习惯。</p><p>例如，如果您想添加一个站点的“全部”请求到白名单（如www.example.com），使用一个域名级的作用域会把这条极其宽容的规则限制到那个特殊域名（example.com）的网页上。而如果运用到全局作用域（“*”）上，这条极其宽容的规则将被运用到所有网站的所有页面上，也就是说把整个互联网添加到白名单中。</p>",
-        "description": "English: see relevant messages.json file"
-    },
     "settingsMatrixLessSecurityHeader" : {
         "message": "减弱安全性设置",
         "description": "..."
-    },
-    "settingsAutoWhitelistPrompt": {
-        "message": "自动添加页面域名至白名单。",
-        "description": ""
-    },
-    "settingsAutoWhitelistHelp": {
-        "message": "<p>有些用户不喜欢要一直把页面的域名添加到默认的白名单。这项功能开启页面上所有域名的临时白名单自动添加，只要这个页面是第一次加载到浏览器。临时白名单自动添加<b>只会</b>发生在页面的域名当前处在灰名单里的情况下。</p><p>虽然从安全性的角度来说，这不是一项被推荐的功能，但它还是因为广泛的需求而被加入————比起看到他们完全放弃一个屏蔽工具，我更倾向于给予用户这项功能。</p><p>如果您使用这项功能，我建议您至少把<b>子文档</b>类型的请求添加到黑名单中，并且开启<b>严格屏蔽</b>。</p>",
-        "description": "To help user understand the purpose of auto-whitelist"
     },
     "settingsMatrixConvenienceHeader" : {
         "message": "便利设置",
@@ -326,22 +290,6 @@
     "settingsMatrixAutoReloadInfo" : {
         "message": "当您对过滤矩阵作出任何会影响一个或多个页面的显示或行为的变更时，<i>µMatrix</i> 会在您关闭过滤矩阵的显示后，自动重载受影响的页面。",
         "description": "..."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopePrompt" : {
-        "message": "拷贝所有全局作用域中的规则到新创建的局部作用域中。",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixCopyGlobalRulesIntoNewScopeHelp" : {
-        "message": "<p>作用域是沙盒化相互隔离的，即它们不共享规则，这对全局作用域来说也是适用的：局部作用域无法看到全局作用域中的规则。</p> <p>有些用户把这视为一种阻碍，因为他们希望他们的全局作用规则能被局部作用域所看到。这个选项使这个“短处”能得以缓和，通过强制把所以全局作用规则拷贝到一个新创建的局部作用域中来实现。</p> <p>请特别注意：<b>所有</b>来自全局作用域的规则都会被拷贝，包括那些可能和新创建作用域对应网站无关的规则。当全局作用域中有非常多的规则时，这可能会导致“规则膨胀”。</p>",
-        "description": "English: ..."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt1" : {
-        "message": "自动删除未使用的临时作用域。",
-        "description": "English: Auto delete unused temporary scopes."
-    },
-    "settingsMatrixDeleteUnusedTemporaryScopesPrompt2" : {
-        "message": "",
-        "description": "English:"
     },
     "settingsSubframeColor" : {
         "message": "被屏蔽子文档：颜色",
