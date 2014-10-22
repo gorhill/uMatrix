@@ -86,16 +86,17 @@ var matrixSnapshot = function(details) {
             popupScopeLevel: µmuser.popupScopeLevel
         }
     };
-/*
-    // Allow to scope on behind-the-scene virtual tab
-    if ( tab.url.indexOf('chrome-extension://' + chrome.runtime.id + '/') === 0 ) {
-        targetTabId = µm.behindTheSceneTabId;
-        targetPageURL = µm.behindTheSceneURL;
-    } else {
-        targetTabId = tab.id;
-        targetPageURL = µm.pageUrlFromTabId(targetTabId);
+
+    // Allow examination of behind-the-scene requests
+    // TODO: Not portable
+    if ( details.tabURL ) {
+        if ( details.tabURL.indexOf('chrome-extension://' + chrome.runtime.id + '/') === 0 ) {
+            details.tabId = µm.behindTheSceneTabId;
+        } else if ( details.tabURL === µm.behindTheSceneURL ) {
+            details.tabId = µm.behindTheSceneTabId;
+        }
     }
-*/
+
     var pageStore = µm.pageStatsFromTabId(details.tabId);
     if ( !pageStore ) {
         return r;

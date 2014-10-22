@@ -1059,13 +1059,16 @@ var onMatrixSnapshotReady = function(response) {
 var queryMatrixSnapshot = function(callback) {
     var request = {
         what: 'matrixSnapshot',
-        tabId: targetTabId
+        tabId: targetTabId,
+        tabURL: matrixSnapshot.url
     };
     var onTabsReceived = function(tabs) {
         if ( tabs.length === 0 ) {
             return;
         }
-        request.tabId = targetTabId = tabs[0].id;
+        var tab = tabs[0];
+        request.tabId = targetTabId = tab.id;
+        request.tabURL = tab.url;
         messaging.ask(request, callback);
     };
     if ( targetTabId === undefined ) {
