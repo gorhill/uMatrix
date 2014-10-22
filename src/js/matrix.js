@@ -107,6 +107,21 @@ Matrix.getColumnHeaders = function() {
 
 /******************************************************************************/
 
+var toBroaderHostname = function(hostname) {
+    var pos = hostname.indexOf('.');
+    if ( pos === -1 ) {
+        if ( hostname === '*' ) {
+            return '';
+        }
+        return '*';
+    }
+    return hostname.slice(pos + 1);
+};
+
+Matrix.toBroaderHostname = toBroaderHostname;
+
+/******************************************************************************/
+
 Matrix.prototype.reset = function() {
     this.switchedOn = {};
     this.rules = {};
@@ -115,24 +130,47 @@ Matrix.prototype.reset = function() {
 
 /******************************************************************************/
 
-// Copy another matrix to self
+// Copy another matrix to self. Do this incrementally to minimize impact on
+// a live matrix.
 
 Matrix.prototype.assign = function(other) {
-    this.reset();
     var k;
+    // Remove rules not in other
+    for ( k in this.rules ) {
+        if ( this.rules.hasOwnProperty(k) === false ) {
+            continue;
+        }
+        if ( other.rules.hasOwnProperty(k) === false ) {
+            delete this.rules[k];
+        }
+    }
+    // Remove switches not in other
+    for ( k in this.switchedOn ) {
+        if ( this.switchedOn.hasOwnProperty(k) === false ) {
+            continue;
+        }
+        if ( other.switchedOn.hasOwnProperty(k) === false ) {
+            delete this.switchedOn[k];
+        }
+    }
+    // Add/change rules in other
     for ( k in other.rules ) {
         if ( other.rules.hasOwnProperty(k) === false ) {
             continue;
         }
         this.rules[k] = other.rules[k];
     }
+    // Add/change switches in other
     for ( k in other.switchedOn ) {
         if ( other.switchedOn.hasOwnProperty(k) === false ) {
             continue;
         }
         this.switchedOn[k] = other.switchedOn[k];
     }
+    return this;
 };
+
+// https://www.youtube.com/watch?v=e9RS4biqyAc
 
 /******************************************************************************/
 
@@ -251,16 +289,10 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
             }
         }
         // TODO: external rules? (for presets)
-        pos = s.indexOf('.');
-        if ( pos !== -1 ) {
-            s = s.slice(pos + 1);
-            continue;
+        s = toBroaderHostname(s);
+        if ( s === '' ) {
+            break;
         }
-        if ( s !== '*' ) {
-            s = '*';
-            continue;
-        }
-        break;
     }
     // Preset blacklisted hostnames are blacklisted in global scope
     if ( type === '*' && µm.ubiquitousBlacklist.test(desHostname) ) {
@@ -345,16 +377,10 @@ Matrix.prototype.extractZRules = function(srcHostname, desHostname, out) {
         if ( bitmap !== undefined ) {
             out[rule] = bitmap;
         }
-        pos = s.indexOf('.');
-        if ( pos !== -1 ) {
-            s = s.slice(pos + 1);
-            continue;
+        s = toBroaderHostname(s);
+        if ( s === '' ) {
+            break;
         }
-        if ( s !== '*' ) {
-            s = '*';
-            continue;
-        }
-        break;
     }
 };
 
@@ -394,16 +420,10 @@ Matrix.prototype.evaluateSwitchZ = function(srcHostname) {
         if ( b !== undefined ) {
             return b;
         }
-        pos = s.indexOf('.');
-        if ( pos !== -1 ) {
-            s = s.slice(pos + 1);
-            continue;
+        s = toBroaderHostname(s);
+        if ( s === '' ) {
+            break;
         }
-        if ( s !== '*' ) {
-            s = '*';
-            continue;
-        }
-        break;
     }
     return true;
 };
@@ -462,7 +482,8 @@ Matrix.prototype.toString = function() {
 
 /******************************************************************************/
 
-Matrix.prototype.fromString = function(text) {
+Matrix.prototype.fromString = function(text, append) {
+    var matrix = append ? this : new Matrix();
     var textEnd = text.length;
     var lineBeg = 0, lineEnd;
     var line, pos;
@@ -534,7 +555,7 @@ Matrix.prototype.fromString = function(text) {
                 continue;
             }
 
-            this.setSwitch(srcHostname, nameToSwitchMap[fieldVal]);
+            matrix.setSwitch(srcHostname, nameToSwitchMap[fieldVal]);
             continue;
         }
 
@@ -588,7 +609,11 @@ Matrix.prototype.fromString = function(text) {
             state = 2;
         }
 
-        this.setCell(srcHostname, desHostname, type, state);
+        matrix.setCell(srcHostname, desHostname, type, state);
+    }
+
+    if ( !append ) {
+        this.assign(matrix);
     }
 };
 
@@ -644,14 +669,9 @@ Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
                 });
             }
         }
-        if ( srcHostname === '*' ) {
+        srcHostname = toBroaderHostname(srcHostname);
+        if ( srcHostname === '' ) {
             break;
-        }
-        pos = srcHostname.indexOf('.');
-        if ( pos !== -1 ) {
-            srcHostname = srcHostname.slice(pos + 1);
-        } else {
-            srcHostname = '*';
         }
     }
     return out;
