@@ -28,6 +28,7 @@
 var LiquidDict = function() {
     this.dict = {};
     this.count = 0;
+    this.duplicateCount = 0;
     this.bucketCount = 0;
     this.frozenBucketCount = 0;
 
@@ -160,6 +161,7 @@ LiquidDict.prototype.add = function(word) {
         this.count += 1;
         return true;
     }
+    this.duplicateCount += 1;
     return false;
 };
 
@@ -181,6 +183,7 @@ LiquidDict.prototype.freeze = function() {
 LiquidDict.prototype.reset = function() {
     this.dict = {};
     this.count = 0;
+    this.duplicateCount = 0;
     this.bucketCount = 0;
     this.frozenBucketCount = 0;
 };

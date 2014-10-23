@@ -166,6 +166,18 @@ var isDescendantOf = function(descendant, ancestor) {
 
 /******************************************************************************/
 
+var nodeInNodeList = function(node, nodeList) {
+    var i = nodeList.length;
+    while ( i-- ) {
+        if ( nodeList[i] === node ) {
+            return true;
+        }
+    }
+    return false;
+};
+
+/******************************************************************************/
+
 var doesMatchSelector = function(node, selector) {
     if ( !node ) {
         return false;
@@ -599,8 +611,13 @@ DOMList.prototype.toggleClass = function(className, targetState) {
 
 var makeEventHandler = function(selector, callback) {
     return function(event) {
-        if ( doesMatchSelector(event.target, selector) ) {
-            callback.call(event.target, event);
+        var dispatcher = event.currentTarget;
+        if ( !dispatcher || typeof dispatcher.querySelectorAll !== 'function' ) {
+            return;
+        }
+        var receiver = event.target;
+        if ( nodeInNodeList(receiver, dispatcher.querySelectorAll(selector)) ) {
+            callback.call(receiver, event);
         }
     };
 };
@@ -609,14 +626,13 @@ DOMList.prototype.on = function(etype, selector, callback) {
     if ( typeof selector === 'function' ) {
         callback = selector;
         selector = undefined;
+    } else {
+        callback = makeEventHandler(selector, callback);
     }
+
     var i = this.nodes.length;
     while ( i-- ) {
-        if ( selector !== undefined ) {
-            this.nodes[i].addEventListener(etype, makeEventHandler(selector, callback), true);
-        } else {
-            this.nodes[i].addEventListener(etype, callback);
-        }
+        this.nodes[i].addEventListener(etype, callback, selector !== undefined);
     }
     return this;
 };

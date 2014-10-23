@@ -66,34 +66,12 @@ table td:first-child {
 <div>
     <p><button type="button" id="backupUserDataButton" data-i18n="aboutUserDataBackupButton"></button>
     <button type="button" id="restoreUserDataButton" data-i18n="aboutUserDataRestoreButton"></button>
+    <input id="restoreFilePicker" type="file" accept="text/plain" style="display:none;">
     <p style="margin-left: 2em;" data-i18n="aboutUserDataOr">
     <p><button type="button" id="resetUserDataButton" data-i18n="aboutUserDataResetButton"></button>
 </div>
 
-<h2 data-i18n="aboutExtensionDataHeader"></h2>
-<div>
-    <p class="para" data-i18n="aboutAssetsUpdatePrompt"></p>
-    <div id="assetList">
-        <!--
-            Let's define 'abc' as bit 0 to 2
-            Where bit can be '0' or '1'
-            Bit 0: list   => o=absent,    x=present
-            Bit 1: list   => o=clean,     x=dirty
-            Bit 2: update => o=idle,      x=updating
-            Therefore:
-                List visible: oox oxx xox
-                Etc.
-        -->
-        <table class="ooo">
-            <tr><th data-i18n="aboutAssetsUpdateColPath"><th data-i18n="aboutAssetsUpdateColStatus">
-            </table>
-        <p class="ooo" style="color:red" data-i18n="aboutAssetsUpdateGetListError"></p>
-        <p class="oxx"><button type="button" id="aboutAssetsUpdateButton" data-i18n="aboutAssetsUpdateButton"></button></p>
-        <p class="xxx"><button type="button" disabled data-i18n="aboutAssetsUpdatingButton"></button></p>
-    </div>
-</div>
-
-<script src="lib/jquery-2.min.js"></script>
+<script src="js/udom.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/dashboard-common.js"></script>
 <script src="js/messaging-client.js"></script>

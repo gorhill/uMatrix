@@ -138,8 +138,8 @@ var onMessage = function(request, port) {
 function defaultHandler(request, sender, callback) {
     // Async
     switch ( request.what ) {
-        case 'loadUbiquitousAllowRules':
-            return µm.loadUbiquitousWhitelists();
+        case 'getAssetContent':
+            return µm.assets.getLocal(request.url, callback);
 
         default:
             break;
@@ -165,8 +165,8 @@ function defaultHandler(request, sender, callback) {
             µm.utils.gotoURL(request);
             break;
 
-        case 'reloadPresetBlacklists':
-            µm.reloadPresetBlacklists(request.switches);
+        case 'reloadHostsFiles':
+            µm.reloadHostsFiles(request.switches);
             break;
 
         case 'userSettings':

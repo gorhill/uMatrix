@@ -1,7 +1,10 @@
 body {
     margin: 0;
     padding: 0 0.5em 5em 0.5em;
-    font: 15px httpsb,sans-serif;
+    font: 15px sans-serif;
+    }
+body > *:first-child {
+    margin-top: 0;
     }
 h2, h3 {
     margin: 1em 0;
@@ -24,7 +27,7 @@ a {
     text-decoration: none;
     }
 button {
-    padding: 0.4em;
+    padding: 0.3em 0.5em;
     }
 
 .para {
@@ -49,6 +52,7 @@ button {
 .whatisthis-expandable {
     margin: 0.5em 0 1em 1.25em;
     padding: 0.5em;
+    font-size: smaller;
     display: none;
     border: 1px dotted black;
     background-color: #F8F8F8;

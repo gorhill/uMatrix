@@ -883,7 +883,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     [ "blocking" ]
 );
 
-console.log('HTTP Switchboard> Beginning to intercept net requests at %s', (new Date()).toISOString());
+console.log('µMatrix > Beginning to intercept net requests at %s', (new Date()).toISOString());
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
     onBeforeSendHeadersHandler,

@@ -474,15 +474,46 @@ var onMessage = function(request, sender, callback) {
 /******************************************************************************/
 /******************************************************************************/
 
-// ubiquitous-rules.js
+// hosts-files.js
 
 (function() {
+
+var µm = µMatrix;
+
+/******************************************************************************/
+
+var getLists = function(callback) {
+    var r = {
+        available: null,
+        cache: null,
+        current: µm.liveHostsFiles,
+        blockedHostnameCount: µm.ubiquitousBlacklist.count,
+        autoUpdate: µm.userSettings.autoUpdate
+    };
+    var onMetadataReady = function(entries) {
+        r.cache = entries;
+        callback(r);
+    };
+    var onAvailableHostsFilesReady = function(lists) {
+        r.available = lists;
+        µm.assets.metadata(onMetadataReady);
+    };
+    µm.getAvailableHostsFiles(onAvailableHostsFilesReady);
+};
+
+/******************************************************************************/
 
 var onMessage = function(request, sender, callback) {
     var µm = µMatrix;
 
     // Async
     switch ( request.what ) {
+        case 'getLists':
+            return getLists(callback);
+
+        case 'purgeAllCaches':
+            return µm.assets.purgeAll(callback);
+
         default:
             break;
     }
@@ -491,6 +522,10 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
+        case 'purgeCache':
+            µm.assets.purge(request.path);
+            break;
+
         default:
             return µm.messaging.defaultHandler(request, sender, callback);
     }
@@ -498,7 +533,7 @@ var onMessage = function(request, sender, callback) {
     callback(response);
 };
 
-µMatrix.messaging.listen('ubiquitous-rules.js', onMessage);
+µMatrix.messaging.listen('hosts-files.js', onMessage);
 
 })();
 
@@ -600,12 +635,6 @@ var onMessage = function(request, sender, callback) {
 
     // Async
     switch ( request.what ) {
-        case 'getAssetUpdaterList':
-            return µm.assetUpdater.getList(callback);
-
-        case 'launchAssetUpdater':
-            return µm.assetUpdater.update(request.list, callback);
-
         case 'readUserSettings':
             return chrome.storage.local.get(µm.userSettings, callback);
 
@@ -617,10 +646,6 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
-        case 'loadUpdatableAssets':
-            response = µm.loadUpdatableAssets();
-            break;
-
         case 'getSomeStats':
             response = {
                 storageQuota: µm.storageQuota,

@@ -409,14 +409,6 @@
     },
 
 
-    "ubiquitousWhatIsThisHeader" : {
-        "message": "Was ist das?",
-        "description": "English: What is this?"
-    },
-    "ubiquitousWhatIsThisPrompt" : {
-        "message": "&ldquo;Omnipräsente Regeln&rdquo; sind Regeln, die überall gelten, d.h. in allen Geltungsbereichen.",
-        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which applies everywhere, i.e. in all scopes."
-    },
     "ubiquitousListsOfBlockedHostsPrompt1" : {
         "message": "Alle Listen blockierter Hostnamen werden als omnipräsente Regeln geladen, womit diese Hostnamen in allen Geltungsbereichen auf der Blacklist stehen.",
         "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."

@@ -409,14 +409,6 @@
     },
 
 
-    "ubiquitousWhatIsThisHeader" : {
-        "message": "这是什么？",
-        "description": "English: What is this?"
-    },
-    "ubiquitousWhatIsThisPrompt" : {
-        "message": "“普适规则”是应用到所有地方，即所有作用域，的规则。一条普适规则可以被任何针对同一元素的作用域规则所覆盖。",
-        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which apply everywhere, i.e. in all scopes. A ubiquitous rule can be overridden by any scoped rule for the same element."
-    },
     "ubiquitousListsOfBlockedHostsPrompt1" : {
         "message": "所有屏蔽站点的列表都作为普适规则被加载，所以这些站点将在所有作用域的黑名单中。",
         "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."

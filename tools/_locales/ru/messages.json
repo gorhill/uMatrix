@@ -409,14 +409,6 @@
     },
 
 
-    "ubiquitousWhatIsThisHeader" : {
-        "message": "Что это?",
-        "description": "English: What is this?"
-    },
-    "ubiquitousWhatIsThisPrompt" : {
-        "message": "&ldquo;Глобальные правила&rdquo; правила, применяемые везде, во всех областях.",
-        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which applies everywhere, i.e. in all scopes."
-    },
     "ubiquitousListsOfBlockedHostsPrompt1" : {
         "message": "Все списки заблокированных хостов загружаются, как глобальные правила, в связи с чем их владельцы находятся в черном списке для всех областей.",
         "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."

@@ -438,12 +438,12 @@ body.colorblind .t82 {
 body.colorblind .t1 {
     border-color: #333;
     color: white;
-    background-color: #555;
+    background-color: #666;
     }
 body.colorblind .t2 {
     border-color: #aaa;
     color: black;
-    background-color: #ddd;
+    background-color: #ccc;
     }
 body.colorblind .matCell.p81 {
     background-image: url('/img/permanent-black-small-cb.png');

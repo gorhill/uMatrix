@@ -2,55 +2,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>µMatrix — Ubiquitous rules</title>
+<title>HTTP Switchboard — Ubiquitous rules</title>
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
-<style>
-div > p:first-child {
-    margin-top: 0;
-    }
-div > p:last-child {
-    margin-bottom: 0;
-    }
-ul {
-    padding: 0;
-    list-style-type: none;
-    }
-ul > li {
-    margin: 0 0 0 1em;
-    }
-.dim {
-    color: #444;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="css/hosts-files.css">
 </head>
 
 <body>
 
-<h2 data-i18n="ubiquitousWhatIsThisHeader"></h2>
-<div>
-    <p data-i18n="ubiquitousWhatIsThisPrompt"></p>
+<p data-i18n="hostsFilesPrompt"></p>
+<ul id="options">
+    <li><input type="checkbox" id="autoUpdate"><label data-i18n="hostsFilesAutoUpdatePrompt" for="autoUpdate"></label>
+        <button class="custom reloadAll disabled" id="buttonUpdate" data-i18n="hostsFilesUpdateNow"></button>
+        <button id="buttonPurgeAll" class="custom disabled" data-i18n="hostsFilesPurgeAll"></button>
+    <li><p id="listsOfBlockedHostsPrompt"></p>
+</ul>
+<button id="buttonApply" class="custom reloadAll disabled" data-i18n="hostsFilesApplyChanges"></button>
+<ul id="lists">
+</ul>
+
+<div id="externalListsDiv">
+<p data-i18n="hostsFilesExternalListsHint" style="margin: 0 0 0.25em 0; font-size: 13px;"></p>
+<textarea id="externalHostsFiles" dir="ltr" spellcheck="false"></textarea>
+<p style="margin: 0.25em 0 0 0"><button id="externalListsParse" disabled="true" data-i18n="hostsFilesExternalListsParse"></button></p>
 </div>
 
-<h2 data-i18n="ubiquitousListsOfBlockedHostsHeader"></h2>
-<div>
-    <p data-i18n="ubiquitousListsOfBlockedHostsPrompt1"></p>
-    <p id="ubiquitousListsOfBlockedHostsPrompt2"></p>
-    <ul id="blacklistTemplate" style="display:none">
-        <li class="blacklistDetails"><input type="checkbox">&thinsp;<a href="" type="text/plain"></a>: 
-        <span class="dim" data-i18n="ubiquitousListsOfBlockedHostsPerListStats"></span>
-    </ul>
-    <ul id="blacklists" style="margin:0.5em 0 0 0;padding-left:1em;list-style-type:none">
-        <li style="margin-top:0.75em"><button id="blacklistsApply" disabled="true" data-i18n="ubiquitousApplyChanges"></button>
-    </ul>
-</div>
+<div id="busyOverlay"></div>
 
-<script src="lib/jquery-2.min.js"></script>
 <script src="js/udom.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/dashboard-common.js"></script>
 <script src="js/messaging-client.js"></script>
-<script src="js/ubiquitous-rules.js"></script>
+<script src="js/hosts-files.js"></script>
 
 </body>
 </html>
+

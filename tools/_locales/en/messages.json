@@ -24,7 +24,7 @@
         "description": "appears as tab name in dashboard."
     },
     "ubiquitousRulesPageName" : {
-        "message": "Ubiquitous rules",
+        "message": "Hosts files",
         "description": "appears as tab name in dashboard."
     },
     "aboutPageName": {
@@ -409,57 +409,53 @@
     },
 
 
-    "ubiquitousWhatIsThisHeader" : {
-        "message": "What is this?",
-        "description": "English: What is this?"
+    "hostsFilesPrompt" : {
+        "message": "All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+        "description": "English: All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope."
     },
-    "ubiquitousWhatIsThisPrompt" : {
-        "message": "&ldquo;Ubiquitous rules&rdquo; are rules which apply everywhere, i.e. in all scopes. A ubiquitous rule can be overridden by any scoped rule for the same element.",
-        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which apply everywhere, i.e. in all scopes. A ubiquitous rule can be overridden by any scoped rule for the same element."
+    "hostsFilesStats" : {
+        "message": "{{blockedHostnameCount}} distinct blocked hostnames from:",
+        "description": "English: {{blockedHostnameCount}} distinct blocked hostnames from:"
     },
-    "ubiquitousListsOfBlockedHostsPrompt1" : {
-        "message": "All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes.",
-        "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."
-    },
-    "ubiquitousListsOfBlockedHostsPrompt2" : {
-        "message": "{{ubiquitousBlacklistCount}} distinct blocked hostnames from:",
-        "description": "English: {{ubiquitousBlacklistCount}} distinct blocked hostnames from:"
-    },
-    "ubiquitousListsOfBlockedHostsPerListStats" : {
+    "hostsFilesPerFileStats" : {
         "message": "{{used}} used out of {{total}}",
         "description": "English: {{used}} used out of {{total}}"
     },
-    "ubiquitousListsOfBlockedHostsHeader" : {
-        "message": "Lists of blocked hosts",
-        "description": "English: Lists of blocked hosts"
-    },
-    "userUbiquitousBlacklistHeader" : {
-        "message": "Your block rules",
-        "description": "English: Your block rules"
-    },
-    "userUbiquitousWhitelistHeader" : {
-        "message": "Your allow rules",
-        "description": "English: Your allow rules"
-    },
-    "ubiquitousApplyChanges" : {
+    "hostsFilesApplyChanges" : {
         "message": "Apply changes",
         "description": "English: Apply changes"
     },
-    "ubiquitousFormatHint" : {
-        "message": "One rule per line. A rule can be a plain hostname, or an <a href='https://adblockplus.org/en/filters'>Adblock Plus-compatible filter</a>. Lines prefixed with &lsquo;#&rsquo; will be ignored.",
-        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible filter. Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    "hostsFilesAutoUpdatePrompt":{
+        "message":"Auto-update filter lists.",
+        "description":"English: Auto-update filter lists."
     },
-    "ubiquitousAllowFormatHint" : {
-        "message": "One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible exception filter (prefixed with &lsquo;@@&rsquo;). Lines prefixed with &lsquo;#&rsquo; will be ignored.",
-        "description": "English: One rule per line. A rule can be a plain hostname, or an Adblock Plus-compatible exception filter (prefixed with &lsquo;@@&rsquo;). Lines prefixed with &lsquo;#&rsquo; will be ignored."
+    "hostsFilesUpdateNow":{
+        "message":"Update now",
+        "description":"English: Update now"
     },
-    "ubiquitousImport" : {
-        "message": "Import and append",
-        "description": "English: Import and append"
+    "hostsFilesPurgeAll":{
+        "message":"Purge all caches",
+        "description":"English: Purge all caches"
     },
-    "ubiquitousExport" : {
-        "message": "Export",
-        "description": "English: Export"
+    "hostsFilesExternalListsHint":{
+        "message":"One URL per line. Lines prefixed with &lsquo;!&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+        "description":"English: One URL per line. Lines prefixed with &lsquo;!&rsquo; will be ignored. Invalid URLs will be silently ignored."
+    },
+    "hostsFilesExternalListsParse":{
+        "message":"Parse",
+        "description":"English: Parse"
+    },
+    "hostsFilesExternalListPurge":{
+        "message":"purge cache",
+        "description":"English: purge cache"
+    },
+    "hostsFilesExternalListNew":{
+        "message":"new version available",
+        "description":"English: new version available"
+    },
+    "hostsFilesExternalListObsolete":{
+        "message":"outdated",
+        "description":"English: outdated"
     },
 
 

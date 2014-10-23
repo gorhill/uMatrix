@@ -91,134 +91,181 @@
 
 /******************************************************************************/
 
-µMatrix.loadUbiquitousBlacklists = function() {
-    var µm = µMatrix;
-    var blacklists;
-    var blacklistLoadCount;
-    var obsoleteBlacklists = [];
+µMatrix.getAvailableHostsFiles = function(callback) {
+    var availableHostsFiles = {};
+    var redirections = {};
+    var µm = this;
 
-    var removeObsoleteBlacklistsHandler = function(store) {
-        if ( !store.remoteBlacklists ) {
-            return;
+    // selected lists
+    var onSelectedHostsFilesLoaded = function(store) {
+        var lists = store.liveHostsFiles;
+        var locations = Object.keys(lists);
+        var oldLocation, newLocation;
+        var availableEntry, storedEntry;
+
+        while ( oldLocation = locations.pop() ) {
+            newLocation = redirections[oldLocation] || oldLocation;
+            availableEntry = availableHostsFiles[newLocation];
+            if ( availableEntry === undefined ) {
+                continue;
+            }
+            storedEntry = lists[oldLocation];
+            availableEntry.off = storedEntry.off || false;
+            µm.assets.setHomeURL(newLocation, availableEntry.homeURL);
+            if ( storedEntry.entryCount !== undefined ) {
+                availableEntry.entryCount = storedEntry.entryCount;
+            }
+            if ( storedEntry.entryUsedCount !== undefined ) {
+                availableEntry.entryUsedCount = storedEntry.entryUsedCount;
+            }
+            // This may happen if the list name was pulled from the list content
+            if ( availableEntry.title === '' && storedEntry.title !== '' ) {
+                availableEntry.title = storedEntry.title;
+            }
         }
-        var location;
-        while ( location = obsoleteBlacklists.pop() ) {
-            delete store.remoteBlacklists[location];
-        }
-        chrome.storage.local.set(store);
+        callback(availableHostsFiles);
     };
 
-    var removeObsoleteBlacklists = function() {
-        if ( obsoleteBlacklists.length === 0 ) {
-            return;
+    // built-in lists
+    var onBuiltinHostsFilesLoaded = function(details) {
+        var location, locations;
+        try {
+            locations = JSON.parse(details.content);
+        } catch (e) {
+            locations = {};
         }
+        var hostsFileEntry;
+        for ( location in locations ) {
+            if ( locations.hasOwnProperty(location) === false ) {
+                continue;
+            }
+            hostsFileEntry = locations[location];
+            availableHostsFiles['assets/thirdparties/' + location] = hostsFileEntry;
+            if ( hostsFileEntry.old !== undefined ) {
+                redirections[hostsFileEntry.old] = location;
+                delete hostsFileEntry.old;
+            }
+        }
+
+        // Now get user's selection of lists
         chrome.storage.local.get(
-            { 'remoteBlacklists': µm.remoteBlacklists },
-            removeObsoleteBlacklistsHandler
+            { 'liveHostsFiles': availableHostsFiles },
+            onSelectedHostsFilesLoaded   
         );
     };
 
-    var mergeBlacklist = function(details) {
-        µm.mergeUbiquitousBlacklist(details);
-        blacklistLoadCount -= 1;
-        if ( blacklistLoadCount === 0 ) {
-            loadBlacklistsEnd();
+    // permanent hosts files
+    var location;
+    var lists = this.permanentHostsFiles;
+    for ( location in lists ) {
+        if ( lists.hasOwnProperty(location) === false ) {
+            continue;
         }
-    };
-
-    var loadBlacklistsEnd = function() {
-        µm.ubiquitousBlacklist.freeze();
-        removeObsoleteBlacklists();
-        µm.messaging.announce({ what: 'loadUbiquitousBlacklistCompleted' });
-    };
-
-    var loadBlacklistsStart = function(store) {
-        // rhill 2013-12-10: set all existing entries to `false`.
-        µm.ubiquitousBlacklist.reset();
-        blacklists = store.remoteBlacklists;
-        var blacklistLocations = Object.keys(store.remoteBlacklists);
-
-        blacklistLoadCount = blacklistLocations.length;
-        if ( blacklistLoadCount === 0 ) {
-            loadBlacklistsEnd();
-            return;
-        }
-
-        // Load each preset blacklist which is not disabled.
-        var location;
-        while ( location = blacklistLocations.pop() ) {
-            // If loaded list location is not part of default list locations,
-            // remove its entry from local storage.
-            if ( !µm.remoteBlacklists[location] ) {
-                obsoleteBlacklists.push(location);
-                blacklistLoadCount -= 1;
-                continue;
-            }
-            // https://github.com/gorhill/httpswitchboard/issues/218
-            // Transfer potentially existing list title into restored list data.
-            if ( store.remoteBlacklists[location].title !== µm.remoteBlacklists[location].title ) {
-                store.remoteBlacklists[location].title = µm.remoteBlacklists[location].title;
-            }
-            // Store details of this preset blacklist
-            µm.remoteBlacklists[location] = store.remoteBlacklists[location];
-            // rhill 2013-12-09:
-            // Ignore list if disabled
-            // https://github.com/gorhill/httpswitchboard/issues/78
-            if ( store.remoteBlacklists[location].off ) {
-                blacklistLoadCount -= 1;
-                continue;
-            }
-            µm.assets.get(location, mergeBlacklist);
-        }
-    };
-
-    var onListOfBlockListsLoaded = function(details) {
-        // Initialize built-in list of 3rd-party block lists.
-        var lists = JSON.parse(details.content);
-        for ( var location in lists ) {
-            if ( lists.hasOwnProperty(location) === false ) {
-                continue;
-            }
-            µm.remoteBlacklists['assets/thirdparties/' + location] = lists[location];
-        }
-        // Now get user's selection of list of block lists.
-        chrome.storage.local.get(
-            { 'remoteBlacklists': µm.remoteBlacklists },
-            loadBlacklistsStart
-        );
-    };
-
-    // Reset list of 3rd-party block lists.
-    for ( var location in this.remoteBlacklists ) {
-        if ( location.indexOf('assets/thirdparties/') === 0 ) {
-            delete this.remoteBlacklists[location];
-        }
+        availableHostsFiles[location] = lists[location];
     }
 
-    // Get new list of 3rd-party block lists.
-    this.assets.get('assets/umatrix/ubiquitous-block-lists.json', onListOfBlockListsLoaded);
+    // custom lists
+    var c;
+    var locations = this.userSettings.externalHostsFiles.split('\n');
+    for ( var i = 0; i < locations.length; i++ ) {
+        location = locations[i].trim();
+        c = location.charAt(0);
+        if ( location === '' || c === '!' || c === '#' ) {
+            continue;
+        }
+        // Coarse validation
+        if ( /[^0-9A-Za-z!*'();:@&=+$,\/?%#\[\]_.~-]/.test(location) ) {
+            continue;
+        }
+        availableHostsFiles[location] = {
+            title: '',
+            external: true
+        };
+    }
+
+    // get built-in block lists.
+    this.assets.get('assets/umatrix/hosts-files.json', onBuiltinHostsFilesLoaded);
 };
 
 /******************************************************************************/
 
-µMatrix.mergeUbiquitousBlacklist = function(details) {
-    // console.log('storage.js > mergeUbiquitousBlacklist from "%s": "%s..."', details.path, details.content.slice(0, 40));
+µMatrix.loadHostsFiles = function(callback) {
+    var µm = µMatrix;
+    var hostsFileLoadCount;
 
-    var rawText = details.content;
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
+
+    var loadHostsFilesEnd = function() {
+        µm.ubiquitousBlacklist.freeze();
+        chrome.storage.local.set({ 'liveHostsFiles': µm.liveHostsFiles });
+        µm.messaging.announce({ what: 'loadHostsFilesCompleted' });
+        callback();
+    };
+
+    var mergeHostsFile = function(details) {
+        µm.mergeHostsFile(details);
+        hostsFileLoadCount -= 1;
+        if ( hostsFileLoadCount === 0 ) {
+            loadHostsFilesEnd();
+        }
+    };
+
+    var loadHostsFilesStart = function(hostsFiles) {
+        µm.liveHostsFiles = hostsFiles;
+        µm.ubiquitousBlacklist.reset();
+        var locations = Object.keys(hostsFiles);
+        hostsFileLoadCount = locations.length;
+        if ( hostsFileLoadCount === 0 ) {
+            loadHostsFilesEnd();
+            return;
+        }
+
+        // Load all hosts file which are not disabled.
+        var location;
+        while ( location = locations.pop() ) {
+            if ( hostsFiles[location].off ) {
+                hostsFileLoadCount -= 1;
+                continue;
+            }
+            µm.assets.get(location, mergeHostsFile);
+        }
+    };
+
+    this.getAvailableHostsFiles(loadHostsFilesStart);
+};
+
+/******************************************************************************/
+
+µMatrix.mergeHostsFile = function(details) {
+    // console.log('storage.js > mergeHostsFile from "%s": "%s..."', details.path, details.content.slice(0, 40));
+
+    var usedCount = this.ubiquitousBlacklist.count;
+    var duplicateCount = this.ubiquitousBlacklist.duplicateCount;
+
+    this.mergeHostsFileContent(details.content);
+
+    usedCount = this.ubiquitousBlacklist.count - usedCount;
+    duplicateCount = this.ubiquitousBlacklist.duplicateCount - duplicateCount;
+
+    var hostsFilesMeta = this.liveHostsFiles[details.path];
+    hostsFilesMeta.entryCount = usedCount + duplicateCount;
+    hostsFilesMeta.entryUsedCount = usedCount;
+};
+
+/******************************************************************************/
+
+µMatrix.mergeHostsFileContent = function(rawText) {
+    // console.log('storage.js > mergeHostsFileContent from "%s": "%s..."', details.path, details.content.slice(0, 40));
+
     var rawEnd = rawText.length;
-
-    // rhill 2013-10-21: No need to prefix with '* ', the hostname is just what
-    // we need for preset blacklists. The prefix '* ' is ONLY needed when
-    // used as a filter in temporary blacklist.
-
     var ubiquitousBlacklist = this.ubiquitousBlacklist;
-    var thisListCount = 0;
-    var thisListUsedCount = 0;
     var reLocalhost = /(^|\s)(localhost\.localdomain|localhost|local|broadcasthost|0\.0\.0\.0|127\.0\.0\.1|::1|fe80::1%lo0)(?=\s|$)/g;
     var reAsciiSegment = /^[\x21-\x7e]+$/;
     var matches;
     var lineBeg = 0, lineEnd;
-    var line, c;
+    var line;
 
     while ( lineBeg < rawEnd ) {
         lineEnd = rawText.indexOf('\n', lineBeg);
@@ -235,20 +282,10 @@
         line = rawText.slice(lineBeg, lineEnd).trim();
         lineBeg = lineEnd + 1;
 
-        // Strip comments
-        c = line.charAt(0);
-        if ( c === '!' || c === '[' ) {
-            continue;
-        }
-
-        if ( c === '#' ) {
-            continue;
-        }
-
         // https://github.com/gorhill/httpswitchboard/issues/15
         // Ensure localhost et al. don't end up in the ubiquitous blacklist.
         line = line
-            .replace(/\s+#.*$/, '')
+            .replace(/#.*$/, '')
             .toLowerCase()
             .replace(reLocalhost, '')
             .trim();
@@ -273,16 +310,8 @@
             continue;
         }
 
-        thisListCount++;
-        if ( ubiquitousBlacklist.add(line) ) {
-            thisListUsedCount++;
-        }
+        ubiquitousBlacklist.add(line);
     }
-
-    // For convenience, store the number of entries for this
-    // blacklist, user might be happy to know this information.
-    this.remoteBlacklists[details.path].entryCount = thisListCount;
-    this.remoteBlacklists[details.path].entryUsedCount = thisListUsedCount;
 };
 
 /******************************************************************************/
@@ -290,26 +319,23 @@
 // `switches` contains the preset blacklists for which the switch must be
 // revisited.
 
-µMatrix.reloadPresetBlacklists = function(switches) {
-    var presetBlacklists = this.remoteBlacklists;
+µMatrix.reloadHostsFiles = function(switches) {
+    var liveHostsFiles = this.liveHostsFiles;
 
     // Toggle switches
     var i = switches.length;
     while ( i-- ) {
-        if ( !presetBlacklists[switches[i].location] ) {
+        if ( !liveHostsFiles[switches[i].location] ) {
             continue;
         }
-        presetBlacklists[switches[i].location].off = !!switches[i].off;
+        liveHostsFiles[switches[i].location].off = !!switches[i].off;
     }
 
     // Save switch states
     chrome.storage.local.set(
-        { 'remoteBlacklists': presetBlacklists },
-        this.getBytesInUse.bind(this)
+        { 'liveHostsFiles': liveHostsFiles },
+        this.loadHostsFiles.bind(this)
     );
-
-    // Now force reload
-    this.loadUbiquitousBlacklists();
 };
 
 /******************************************************************************/
@@ -333,7 +359,7 @@
 // Load updatable assets
 
 µMatrix.loadUpdatableAssets = function() {
-    this.loadUbiquitousBlacklists();
+    this.loadHostsFiles();
     this.loadPublicSuffixList();
 };
 
@@ -342,12 +368,9 @@
 // Load all
 
 µMatrix.load = function() {
-    // user
     this.loadUserSettings();
     this.loadMatrix();
-
-    // load updatable assets -- after updating them if needed
-    this.assetUpdater.update(null, this.loadUpdatableAssets.bind(this));
+    this.loadUpdatableAssets();
 
     this.getBytesInUse();
 };

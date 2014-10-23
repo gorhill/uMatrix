@@ -19,17 +19,11 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, $ */
+/* global chrome, uDom */
 
 /******************************************************************************/
 
-$(function() {
-
-/******************************************************************************/
-
-var updateList = {};
-var assetListSwitches = ['o', 'o', 'o'];
-var commitHistoryURLPrefix = 'https://github.com/gorhill/httpswitchboard/commits/master/';
+uDom.onLoad(function() {
 
 /******************************************************************************/
 
@@ -75,12 +69,7 @@ var backupUserDataToFile = function() {
 
 /******************************************************************************/
 
-var restoreUserDataFromFile = function() {
-    var input = $('<input />').attr({
-        type: 'file',
-        accept: 'text/plain'
-    });
-
+function restoreUserDataFromFile() {
     var restartCountdown = 4;
     var doCountdown = function() {
         restartCountdown -= 1;
@@ -151,23 +140,27 @@ var restoreUserDataFromFile = function() {
         }
     };
 
-    var filePickerOnChangeHandler = function() {
-        $(this).off('change', filePickerOnChangeHandler);
-        var file = this.files[0];
-        if ( !file ) {
-            return;
-        }
-        if ( file.type.indexOf('text') !== 0 ) {
-            return;
-        }
-        var fr = new FileReader();
-        fr.onload = fileReaderOnLoadHandler;
-        fr.readAsText(file);
-        input.off('change', filePickerOnChangeHandler);
-    };
+    var file = this.files[0];
+    if ( file === undefined || file.name === '' ) {
+        return;
+    }
+    if ( file.type.indexOf('text') !== 0 ) {
+        return;
+    }
+    var fr = new FileReader();
+    fr.onload = fileReaderOnLoadHandler;
+    fr.readAsText(file);
+}
 
-    input.on('change', filePickerOnChangeHandler);
-    input.trigger('click');
+/******************************************************************************/
+
+var startRestoreFilePicker = function() {
+    var input = document.getElementById('restoreFilePicker');
+    // Reset to empty string, this will ensure an change event is properly
+    // triggered if the user pick a file, even if it is the same as the last
+    // one picked.
+    input.value = '';
+    input.click();
 };
 
 /******************************************************************************/
@@ -181,106 +174,29 @@ var resetUserData = function() {
 
 /******************************************************************************/
 
-var setAssetListClassBit = function(bit, state) {
-    assetListSwitches[assetListSwitches.length-1-bit] = !state ? 'o' : 'x';
-    $('#assetList')
-        .removeClass()
-        .addClass(assetListSwitches.join(''));
-};
-
-/******************************************************************************/
-
-var renderAssetList = function(details) {
-    var dirty = false;
-    var paths = Object.keys(details.list).sort();
-    if ( paths.length > 0 ) {
-        $('#assetList .assetEntry').remove();
-        var assetTable = $('#assetList table');
-        var i = 0;
-        var path, status, html;
-        while ( path = paths[i++] ) {
-            status = details.list[path].status;
-            dirty = dirty || status !== 'Unchanged';
-            html = [];
-            html.push('<tr class="assetEntry ' + status.toLowerCase().replace(/ +/g, '-') + '">');
-            html.push('<td>');
-            html.push('<a href="' + commitHistoryURLPrefix + path + '">');
-            html.push(path.replace(/^(assets\/[^/]+\/)(.+)$/, '$1<b>$2</b>'));
-            html.push('</a>');
-            html.push('<td>');
-            html.push(chrome.i18n.getMessage('aboutAssetsUpdateStatus' + status));
-            assetTable.append(html.join(''));
-        }
-        $('#assetList a').attr('target', '_blank');
-        updateList = details.list;
-    }
-    setAssetListClassBit(0, paths.length !== 0);
-    setAssetListClassBit(1, dirty);
-    setAssetListClassBit(2, false);
-};
-
-/******************************************************************************/
-
-var updateAssets = function() {
-    setAssetListClassBit(2, true);
-    var onDone = function(details) {
-        if ( details.changedCount !== 0 ) {
-            messaging.tell({ what: 'loadUpdatableAssets' });
-        }
-    };
-    messaging.ask({ what: 'launchAssetUpdater', list: updateList }, onDone);
-};
-
-/******************************************************************************/
-
-var updateAssetsList = function() {
-    messaging.ask({ what: 'getAssetUpdaterList' }, renderAssetList);
-};
-
-/******************************************************************************/
-
-// Updating all assets could be done from elsewhere and if so the
-// list here needs to be updated.
-
-var onAnnounce = function(msg) {
-    switch ( msg.what ) {
-        case 'allLocalAssetsUpdated':
-            updateAssetsList();
-            break;
-
-        default:
-            break;
-    }
-};
-
 messaging.start('about.js');
-messaging.listen(onAnnounce);
 
 /******************************************************************************/
 
 (function() {
-    $('#aboutVersion').html(chrome.runtime.getManifest().version);
+    uDom('#aboutVersion').html(chrome.runtime.getManifest().version);
     var renderStats = function(details) {
         var template = chrome.i18n.getMessage('aboutStorageUsed');
         var percent = 0;
         if ( details.storageQuota ) {
             percent = (details.storageUsed / details.storageQuota * 100).toFixed(1);
         }
-        $('#aboutStorageUsed').html(template.replace('{{storageUsed}}', percent));
+        uDom('#aboutStorageUsed').html(template.replace('{{storageUsed}}', percent));
     };
     messaging.ask({ what: 'getSomeStats' }, renderStats);
 })();
 
 /******************************************************************************/
 
-$('#aboutAssetsUpdateButton').on('click', updateAssets);
-$('#backupUserDataButton').on('click', backupUserDataToFile);
-$('#restoreUserDataButton').on('click', restoreUserDataFromFile);
-$('#resetUserDataButton').on('click', resetUserData);
-
-/******************************************************************************/
-
-updateAssetsList();
+uDom('#backupUserDataButton').on('click', backupUserDataToFile);
+uDom('#restoreUserDataButton').on('click', startRestoreFilePicker);
+uDom('#restoreFilePicker').on('change', restoreUserDataFromFile);
+uDom('#resetUserDataButton').on('click', resetUserData);
 
 /******************************************************************************/
 

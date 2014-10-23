@@ -31,7 +31,7 @@
     µm.pMatrix.setSwitch('chrome-scheme', false);
     µm.pMatrix.setSwitch(µm.behindTheSceneScope, false);
     µm.pMatrix.setSwitch('opera-scheme', false);
-    µm.pMatrix.setCell('*', '*', '*', µm.Matrix.Green);
+    µm.pMatrix.setCell('*', '*', '*', µm.Matrix.Red);
     µm.pMatrix.setCell('*', '*', 'css', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'image', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'frame', µm.Matrix.Red);

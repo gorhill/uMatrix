@@ -409,14 +409,6 @@
     },
 
 
-    "ubiquitousWhatIsThisHeader" : {
-        "message": "De quoi s'agit-il ?",
-        "description": "English: What is this?"
-    },
-    "ubiquitousWhatIsThisPrompt" : {
-        "message": "Les &ldquo;règles à portée universelle&rdquo; sont des règles qui s'appliquent dans TOUS les contextes.",
-        "description": "English: &ldquo;Ubiquitous rules&rdquo; are rules which applies everywhere, i.e. in all scopes."
-    },
     "ubiquitousListsOfBlockedHostsPrompt1" : {
         "message": "Tous les hôtes des listes prédéfinies sont traités comme étant des règles universelles. Elles sont intégrées au sein de l'extension et peuvent être mises à jour dans l'onglet À propos.",
         "description": "English: All lists of blocked hosts are loaded as ubiquitous rules, hence these hosts are blacklisted in all scopes."

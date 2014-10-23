@@ -45,6 +45,7 @@ return {
     manifest: chrome.runtime.getManifest(),
 
     userSettings: {
+        autoUpdate: false,
         clearBrowserCache: true,
         clearBrowserCacheAfter: 60,
         colorBlindFriendly: false,
@@ -53,11 +54,12 @@ return {
         deleteUnusedSessionCookiesAfter: 60,
         deleteLocalStorage: false,
         displayTextSize: '13px',
+        externalHostsFiles: '',
         maxLoggedRequests: 50,
         popupCollapseDomains: false,
         popupCollapseSpecificDomains: {},
         popupHideBlacklisted: false,
-        popupScopeLevel: '*',
+        popupScopeLevel: 'domain',
         processBehindTheSceneRequests: false,
         processHyperlinkAuditing: true,
         processReferer: false,
@@ -74,13 +76,17 @@ return {
     updateAssetsEvery: 5 * 24 * 60 * 60 * 1000,
     projectServerRoot: 'https://raw.githubusercontent.com/gorhill/umatrix/master/',
 
-    // list of remote blacklist locations
-    remoteBlacklists: {
-        // uMatrix
-        'assets/umatrix/blacklist.txt': { title: 'uMatrix' },
-        
-        // 3rd-party lists now fetched dynamically
-        },
+    // permanent hosts files
+    permanentHostsFiles: {
+        // µMatrix
+        'assets/umatrix/blacklist.txt': {
+            title: 'µMatrix hosts file'
+        }
+    },
+
+    // list of live hosts files
+    liveHostsFiles: {
+    },
 
     // urls stats are kept on the back burner while waiting to be reactivated
     // in a tab or another.
@@ -99,10 +105,7 @@ return {
     tMatrix: null,
     pMatrix: null,
 
-    // Current entries from ubiquitous lists --
-    // just hostnames, '*/' is implied, this saves significantly on memory.
     ubiquitousBlacklist: null,
-    ubiquitousWhitelist: null,
 
     // various stats
     requestStats: new WebRequestStats(),
@@ -127,6 +130,8 @@ return {
     chromeExtensionURLPrefix: 'chrome-extension://',
     noopCSSURL: chrome.runtime.getURL('css/noop.css'),
     fontCSSURL: chrome.runtime.getURL('css/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf'),
+
+    noopFunc: function(){},
 
     // so that I don't have to care for last comma
     dummy: 0
