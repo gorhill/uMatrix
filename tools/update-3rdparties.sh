@@ -4,7 +4,7 @@
 
 TEMPFILE=/tmp/umatrix-asset
 
-echo "*** HTTP Switchboard: updating remote assets..."
+echo "*** µMatrix: updating remote assets..."
 
 THIRDPARTY_REMOTEURLS=(
     'http://mirror1.malwaredomains.com/files/immortal_domains.txt'
@@ -18,14 +18,14 @@ THIRDPARTY_REMOTEURLS=(
     )
 
 THIRDPARTY_LOCALURLS=(
-    'thirdparties/mirror1.malwaredomains.com/files/immortal_domains.txt'
-    'thirdparties/mirror1.malwaredomains.com/files/justdomains'
-    'thirdparties/pgl.yoyo.org/as/serverlist'
-    'thirdparties/www.malwaredomainlist.com/hostslist/hosts.txt'
-    'thirdparties/hosts-file.net/ad-servers'
-    'thirdparties/someonewhocares.org/hosts/hosts'
-    'thirdparties/winhelp2002.mvps.org/hosts.txt'
-    'thirdparties/publicsuffix.org/list/effective_tld_names.dat'
+    'assets/thirdparties/mirror1.malwaredomains.com/files/immortal_domains.txt'
+    'assets/thirdparties/mirror1.malwaredomains.com/files/justdomains'
+    'assets/thirdparties/pgl.yoyo.org/as/serverlist'
+    'assets/thirdparties/www.malwaredomainlist.com/hostslist/hosts.txt'
+    'assets/thirdparties/hosts-file.net/ad-servers'
+    'assets/thirdparties/someonewhocares.org/hosts/hosts'
+    'assets/thirdparties/winhelp2002.mvps.org/hosts.txt'
+    'assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat'
     )
 
 ENTRY_INDEX=0
