@@ -1,0 +1,30 @@
+{
+    "mirror1.malwaredomains.com/files/immortal_domains.txt": {
+        "title": "Long-lived malware domains",
+        "homeURL": "http://mirror1.malwaredomains.com/files/immortal_domains.txt"
+        },
+    "mirror1.malwaredomains.com/files/justdomains": {
+        "title": "Malware domains",
+        "homeURL": "http://mirror1.malwaredomains.com/files/justdomains"
+        },
+    "pgl.yoyo.org/as/serverlist": {
+        "title": "Peter Lowe’s Ad server list",
+        "homeURL": "http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext"
+        },
+    "www.malwaredomainlist.com/hostslist/hosts.txt": {
+        "title": "Malware Domain List",
+        "homeURL": "http://www.malwaredomainlist.com/hostslist/hosts.txt"
+        },
+    "hosts-file.net/ad-servers": {
+        "title": "hpHosts’s Ad and tracking servers",
+        "homeURL": "http://hosts-file.net/.%5Cad_servers.txt"
+        },
+    "someonewhocares.org/hosts/hosts": {
+        "title": "Dan Pollock’s hosts file",
+        "homeURL": "http://someonewhocares.org/hosts/hosts"
+        },
+    "winhelp2002.mvps.org/hosts.txt": {
+        "title": "MVPS HOSTS",
+        "homeURL": "http://winhelp2002.mvps.org/hosts.txt"
+        }
+}

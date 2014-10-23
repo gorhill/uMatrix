@@ -1,4 +1,4 @@
-04da95aa467f81a15dc9513a5b25bc16 assets/umatrix/ubiquitous-block-lists.json
+7cfcd2a79bd510bd9944fb2601fcd701 assets/umatrix/hosts-files.json
 188ce926323d816ae9d7d5ebbb567862 assets/umatrix/blacklist.txt
 5e2c9fbd8bccf21083a38080e84ec940 assets/thirdparties/mirror1.malwaredomains.com/files/immortal_domains.txt
 7f0443f3dcc9abfd47cfbc95ce824ddb assets/thirdparties/mirror1.malwaredomains.com/files/README.md
