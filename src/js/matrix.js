@@ -341,12 +341,12 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 
     var pos;
     var d = desHostname;
-    var firstPartDesDomain = extractFirstPartyDesDomain(srcHostname, desHostname);
+    var firstPartyDesDomain = extractFirstPartyDesDomain(srcHostname, desHostname);
 
     // Ancestor cells, up to 1st-party destination domain
-    if ( firstPartDesDomain !== '' ) {
+    if ( firstPartyDesDomain !== '' ) {
         for (;;) {
-            if ( d === firstPartDesDomain ) {
+            if ( d === firstPartyDesDomain ) {
                 break;
             }
             d = d.slice(d.indexOf('.') + 1);
@@ -643,7 +643,7 @@ Matrix.prototype.fromString = function(text, append) {
 
         fieldVal = fields[2];
 
-        if ( fieldVal !== null ) {
+        if ( fieldVal !== undefined ) {
             type = fieldVal;
             // Unknown type: reject
             if ( typeBitOffsets.hasOwnProperty(type) === false ) {
@@ -655,7 +655,7 @@ Matrix.prototype.fromString = function(text, append) {
 
         fieldVal = fields[3];
 
-        if ( fieldVal !== null ) {
+        if ( fieldVal !== undefined ) {
             // Unknown state: reject
             if ( nameToStateMap.hasOwnProperty(fieldVal) === false ) {
                 continue;
