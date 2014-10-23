@@ -130,17 +130,11 @@ var extractFirstPartyDesDomain = function(srcHostname, desHostname) {
     if ( srcHostname === '*' || desHostname === '*' || desHostname === '1st-party' ) {
         return '';
     }
-    var srcLength = srcHostname.length;
-    var desLength = desHostname.length;
-    var len = srcLength < desLength ? srcLength : desLength;
-    if ( srcHostname.slice(-len) !== desHostname.slice(-len) ) {
-        return '';
-    }
     var desDomain = µm.URI.domainFromHostname(desHostname);
     if ( desDomain === '' ) {
         return '';
     }
-    var pos = srcLength - desDomain.length;
+    var pos = srcHostname.length - desDomain.length;
     if ( pos < 0 || srcHostname.slice(pos) !== desDomain ) {
         return '';
     }
