@@ -1,6 +1,6 @@
 # µMatrix for Chromium
 
-[Under development: usable, but persistence schema not finalized, will certainly change]
+[Under development: usable, but not stable, many things broken because in the midst of general refactoring]
 
 Forked from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
