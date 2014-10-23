@@ -120,7 +120,7 @@ var matrixSnapshot = function(details) {
 
     // These rows always exist
     r.rows['*'] = new RowSnapshot(r.scope, '*', '*');
-    r.rows['1st-party'] = new RowSnapshot('*', '1st-party', '1st-party');
+    r.rows['1st-party'] = new RowSnapshot(r.scope, '1st-party', '1st-party');
     r.rowCount += 1;
 
     var µmuri = µm.URI;

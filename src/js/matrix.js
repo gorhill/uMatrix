@@ -364,12 +364,12 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 
         // 1st-party specific-type cell: it's a special row, it exists only in
         // global scope.
-        r = this.evaluateCellZ('*', '1st-party', type);
+        r = this.evaluateCellZ(srcHostname, '1st-party', type);
         if ( r === 1 ) { return Matrix.RedIndirect; }
         if ( r === 2 ) { return Matrix.GreenIndirect; }
         // Do not override narrower rule
         if ( rl !==  2 ) {
-            rl = this.evaluateCellZ('*', '1st-party', '*');
+            rl = this.evaluateCellZ(srcHostname, '1st-party', '*');
             if ( rl === 1 ) { return Matrix.RedIndirect; }
         }
     }

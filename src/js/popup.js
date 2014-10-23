@@ -345,10 +345,9 @@ function handleFilter(button, leaning) {
     var cell = button.ancestors('div.matCell');
     var type = cell.prop('reqType');
     var desHostname = cell.prop('hostname');
-    var srcHostname = desHostname !== '1st-party' ? matrixSnapshot.scope : '*';
     var request = {
         what: getCellAction(desHostname, type, leaning),
-        srcHostname: srcHostname,
+        srcHostname: matrixSnapshot.scope,
         desHostname: desHostname,
         type: type
     };
