@@ -632,6 +632,11 @@ function makeMatrixGroup0Section(hostnames) {
 }
 
 function makeMatrixGroup0(group) {
+    // Show literal "1st-party" row only if there is 
+    // at least one 1st-party hostname
+    if ( Object.keys(groupsSnapshot[1]).length === 0 ) {
+        return;
+    }
     var groupDiv = createMatrixGroup().addClass('g0');
     makeMatrixGroup0Section().appendTo(groupDiv);
     groupDiv.appendTo(matrixList);
