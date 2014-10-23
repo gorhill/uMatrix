@@ -17,7 +17,7 @@ Differences with HTTP Switchboard:
         - Rules in narrower scope(s) still exist and are enforced even if you have the global scope selected
 - Settings which no longer exist:
     - _"Enable strict blocking"_: This is the only available mode. Strict-blocking was added at some point during HTTPSB development, and at the time I kept "loose blocking" just to not upset the users who already got used to this way of working.
-    - _"Auto create temporary [domain | site]-level scope"_: Not needed anymore with the new literal `1st-party` row. Set rules on the `1st-party` row which will be inherited by whatever row is deemed first-party to the URL in the address bar.
+    - _"Auto create temporary [domain | site]-level scope"_: Not needed anymore with the new literal `1st-party` row. Set rules on the `1st-party` row n the global scope: these rules will be inherited by whatever row is deemed first-party to the URL in the address bar.
     - _"Copy all rules from global scope into newly created local scopes"_: Not needed anymore since all scopes virtually exist at all time.
     - _"Auto delete unused temporary scopes"_: Again, not needed anymore since all scopes virtually exist at all time.
 - Much needed [code refactoring](http://en.wikipedia.org/wiki/Code_refactoring) toward portability/efficiency
