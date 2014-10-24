@@ -41,16 +41,16 @@ function changeUserSettings(name, value) {
 
 /******************************************************************************/
 
-function onChangeValueHandler(elem, setting, min, max) {
+function onChangeValueHandler(uelem, setting, min, max) {
     var oldVal = cachedUserSettings[setting];
-    var newVal = Math.round(parseFloat(elem.val()));
+    var newVal = Math.round(parseFloat(uelem.val()));
     if ( typeof newVal !== 'number' ) {
         newVal = oldVal;
     } else {
         newVal = Math.max(newVal, min);
         newVal = Math.min(newVal, max);
     }
-    elem.val(newVal);
+    uelem.val(newVal);
     if ( newVal !== oldVal ) {
         changeUserSettings(setting, newVal);
     }
@@ -59,70 +59,70 @@ function onChangeValueHandler(elem, setting, min, max) {
 /******************************************************************************/
 
 function prepareToDie() {
-    onChangeValueHandler($('#delete-unused-session-cookies-after'), 'deleteUnusedSessionCookiesAfter', 15, 1440);
-    onChangeValueHandler($('#clear-browser-cache-after'), 'clearBrowserCacheAfter', 15, 1440);
-    onChangeValueHandler($('#spoof-user-agent-every'), 'spoofUserAgentEvery', 2, 999);
+    onChangeValueHandler(uDom('#delete-unused-session-cookies-after'), 'deleteUnusedSessionCookiesAfter', 15, 1440);
+    onChangeValueHandler(uDom('#clear-browser-cache-after'), 'clearBrowserCacheAfter', 15, 1440);
+    onChangeValueHandler(uDom('#spoof-user-agent-every'), 'spoofUserAgentEvery', 2, 999);
 }
 
 /******************************************************************************/
 
 var installEventHandlers = function() {
-    $('#delete-unused-session-cookies').on('change', function(){
-        changeUserSettings('deleteUnusedSessionCookies', $(this).is(':checked'));
+    uDom('#delete-unused-session-cookies').on('change', function(){
+        changeUserSettings('deleteUnusedSessionCookies', this.checked);
     });
-    $('#delete-unused-session-cookies-after').on('change', function(){
-        onChangeValueHandler($(this), 'deleteUnusedSessionCookiesAfter', 15, 1440);
+    uDom('#delete-unused-session-cookies-after').on('change', function(){
+        onChangeValueHandler(uDom(this), 'deleteUnusedSessionCookiesAfter', 15, 1440);
     });
-    $('#delete-blacklisted-cookies').on('change', function(){
-        changeUserSettings('deleteCookies', $(this).is(':checked'));
+    uDom('#delete-blacklisted-cookies').on('change', function(){
+        changeUserSettings('deleteCookies', this.checked);
     });
-    $('#delete-blacklisted-localstorage').on('change', function(){
-        changeUserSettings('deleteLocalStorage', $(this).is(':checked'));
+    uDom('#delete-blacklisted-localstorage').on('change', function(){
+        changeUserSettings('deleteLocalStorage', this.checked);
     });
-    $('#clear-browser-cache').on('change', function(){
-        changeUserSettings('clearBrowserCache', $(this).is(':checked'));
+    uDom('#clear-browser-cache').on('change', function(){
+        changeUserSettings('clearBrowserCache', this.checked);
     });
-    $('#clear-browser-cache-after').on('change', function(){
-        onChangeValueHandler($(this), 'clearBrowserCacheAfter', 15, 1440);
+    uDom('#clear-browser-cache-after').on('change', function(){
+        onChangeValueHandler(uDom(this), 'clearBrowserCacheAfter', 15, 1440);
     });
-    $('#process-referer').on('change', function(){
-        changeUserSettings('processReferer', $(this).is(':checked'));
+    uDom('#process-referer').on('change', function(){
+        changeUserSettings('processReferer', this.checked);
     });
-    $('#process-hyperlink-auditing').on('change', function(){
-        changeUserSettings('processHyperlinkAuditing', $(this).is(':checked'));
+    uDom('#process-hyperlink-auditing').on('change', function(){
+        changeUserSettings('processHyperlinkAuditing', this.checked);
     });
-    $('#spoof-user-agent').on('change', function(){
-        changeUserSettings('spoofUserAgent', $(this).is(':checked'));
+    uDom('#spoof-user-agent').on('change', function(){
+        changeUserSettings('spoofUserAgent', this.checked);
     });
-    $('#spoof-user-agent-every').on('change', function(){
-        onChangeValueHandler($(this), 'spoofUserAgentEvery', 2, 999);
+    uDom('#spoof-user-agent-every').on('change', function(){
+        onChangeValueHandler(uDom(this), 'spoofUserAgentEvery', 2, 999);
     });
-    $('#spoof-user-agent-with').on('change', function(){
-        changeUserSettings('spoofUserAgentWith', $(this).val());
+    uDom('#spoof-user-agent-with').on('change', function(){
+        changeUserSettings('spoofUserAgentWith', uDom(this).val());
     });
 
     // https://github.com/gorhill/httpswitchboard/issues/197
-    $(window).one('beforeunload', prepareToDie);
+    uDom(window).on('beforeunload', prepareToDie);
 };
 
 /******************************************************************************/
 
-$(function() {
+uDom.onLoad(function() {
     var onUserSettingsReceived = function(userSettings) {
         // Cache copy
         cachedUserSettings = userSettings;
 
-        $('#delete-unused-session-cookies').attr('checked', userSettings.deleteUnusedSessionCookies === true);
-        $('#delete-unused-session-cookies-after').val(userSettings.deleteUnusedSessionCookiesAfter);
-        $('#delete-blacklisted-cookies').attr('checked', userSettings.deleteCookies === true);
-        $('#delete-blacklisted-localstorage').attr('checked', userSettings.deleteLocalStorage);
-        $('#clear-browser-cache').attr('checked', userSettings.clearBrowserCache === true);
-        $('#clear-browser-cache-after').val(userSettings.clearBrowserCacheAfter);
-        $('#process-referer').attr('checked', userSettings.processReferer);
-        $('#process-hyperlink-auditing').attr('checked', userSettings.processHyperlinkAuditing);
-        $('#spoof-user-agent').attr('checked', userSettings.spoofUserAgent);
-        $('#spoof-user-agent-every').val(userSettings.spoofUserAgentEvery);
-        $('#spoof-user-agent-with').val(userSettings.spoofUserAgentWith);
+        uDom('#delete-unused-session-cookies').prop('checked', userSettings.deleteUnusedSessionCookies === true);
+        uDom('#delete-unused-session-cookies-after').val(userSettings.deleteUnusedSessionCookiesAfter);
+        uDom('#delete-blacklisted-cookies').prop('checked', userSettings.deleteCookies === true);
+        uDom('#delete-blacklisted-localstorage').prop('checked', userSettings.deleteLocalStorage);
+        uDom('#clear-browser-cache').prop('checked', userSettings.clearBrowserCache === true);
+        uDom('#clear-browser-cache-after').val(userSettings.clearBrowserCacheAfter);
+        uDom('#process-referer').prop('checked', userSettings.processReferer);
+        uDom('#process-hyperlink-auditing').prop('checked', userSettings.processHyperlinkAuditing);
+        uDom('#spoof-user-agent').prop('checked', userSettings.spoofUserAgent);
+        uDom('#spoof-user-agent-every').val(userSettings.spoofUserAgentEvery);
+        uDom('#spoof-user-agent-with').val(userSettings.spoofUserAgentWith);
 
         installEventHandlers();
     };
