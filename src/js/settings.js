@@ -40,21 +40,21 @@ transparent 76%,transparent\
 )';
 
 var updateSubframeDemo = function() {
-    var demo = $('#subframe-color-demo');
-    var color = $('#subframe-color').val();
+    var demo = uDom('#subframe-color-demo');
+    var color = uDom('#subframe-color').val();
     demo.css('border-color', color);
     var re = new RegExp('\{\{color\}\}', 'g');
     demo.css('background-image', subframeDemoBackgroundImage.replace(re, color));
-    demo.css('opacity', (parseInt($('#subframe-opacity').val(), 10) / 100).toFixed(1));
+    demo.css('opacity', (parseInt(uDom('#subframe-opacity').val(), 10) / 100).toFixed(1));
 };
 
 var onSubframeColorChanged = function() {
-    var color = $('#subframe-color').val();
+    var color = uDom('#subframe-color').val();
     if ( color === '' ) {
-        $('#subframe-color').val(color);
+        uDom('#subframe-color').val(color);
     }
     changeUserSettings('subframeColor', color);
-    var opacity = parseInt($('#subframe-opacity').val(), 10);
+    var opacity = parseInt(uDom('#subframe-opacity').val(), 10);
     if ( Number.isNaN(opacity) ) {
         opacity = 100;
     }
@@ -83,42 +83,42 @@ function prepareToDie() {
 var installEventHandlers = function() {
     // `data-range` allows to add/remove bool properties without 
     // changing code.
-    $('input[data-range="bool"]').on('change', function() {
+    uDom('input[data-range="bool"]').on('change', function() {
         changeUserSettings(this.id, this.checked);
     });
 
-    $('input[name="displayTextSize"]').on('change', function(){
-        changeUserSettings('displayTextSize', $(this).attr('value'));
+    uDom('input[name="displayTextSize"]').on('change', function(){
+        changeUserSettings('displayTextSize', this.value);
     });
-    $('#smart-auto-reload').on('change', function(){
+    uDom('#smart-auto-reload').on('change', function(){
         changeUserSettings('smartAutoReload', this.value);
     });
-    $('#subframe-color').on('change', function(){ onSubframeColorChanged(); });
-    $('#subframe-opacity').on('change', function(){ onSubframeColorChanged(); });
+    uDom('#subframe-color').on('change', function(){ onSubframeColorChanged(); });
+    uDom('#subframe-opacity').on('change', function(){ onSubframeColorChanged(); });
 
     // https://github.com/gorhill/httpswitchboard/issues/197
-    $(window).one('beforeunload', prepareToDie);
+    uDom(window).on('beforeunload', prepareToDie);
 };
 
 /******************************************************************************/
 
-$(function() {
+uDom.onLoad(function() {
     var onUserSettingsReceived = function(userSettings) {
         // Cache copy
         cachedUserSettings = userSettings;
 
         // `data-range` allows to add/remove bool properties without 
         // changing code.
-        $('input[data-range="bool"]').each(function() {
-            this.checked = userSettings[this.id] === true;
+        uDom('input[data-range="bool"]').toArray().forEach(function(elem) {
+            elem.checked = userSettings[elem.id] === true;
         });
 
-        $('input[name="displayTextSize"]').attr('checked', function(){
-            return $(this).attr('value') === userSettings.displayTextSize;
-            });
-        $('#smart-auto-reload').val(userSettings.smartAutoReload);
-        $('#subframe-color').val(userSettings.subframeColor);
-        $('#subframe-opacity').val(userSettings.subframeOpacity);
+        uDom('input[name="displayTextSize"]').toArray().forEach(function(elem) {
+            elem.checked = elem.value === userSettings.displayTextSize;
+        });
+        uDom('#smart-auto-reload').val(userSettings.smartAutoReload);
+        uDom('#subframe-color').val(userSettings.subframeColor);
+        uDom('#subframe-opacity').val(userSettings.subframeOpacity);
         updateSubframeDemo();
 
         installEventHandlers();
