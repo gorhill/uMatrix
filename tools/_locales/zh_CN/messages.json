@@ -483,143 +483,37 @@
         "message": "您的数据",
         "description": "English: Your data"
     },
-    "aboutUserDataBackupButton" : {
-        "message": "备份到文件...",
+    "aboutBackupButton" : {
+        "message": "Backup to file...",
         "description": "English: Backup all..."
     },
-    "aboutUserDataRestoreButton" : {
-        "message": "从文件恢复...",
+    "aboutBackupFilename" : {
+        "message": "all-my-umatrix-data.txt",
+        "description": "all-my-umatrix-data.txt"
+    },
+    "aboutRestoreButton" : {
+        "message": "Restore from file...",
         "description": "English: Restore all..."
     },
-    "aboutUserDataOr" : {
-        "message": "... 或者 ...",
-        "description": "English: ... or ..."
-    },
-    "aboutUserDataResetButton" : {
-        "message": "从头来过……",
-        "description": "English: Start from scratch..."
-    },
-    "aboutUserDataRestoreConfirm" : {
-        "message": "所有您的设置和规则将被覆盖，\n使用备份于{{time}}时的数据，\n随后µMatrix将会重启。\n\n是否要使用备份数据覆盖所有现存数据？",
+    "aboutRestoreConfirm" : {
+        "message": "All your settings will be overwritten using data backed up on {{time}}, and µMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
         "description": "Message asking user to confirm restore"
     },
-    "aboutExtensionDataHeader" : {
-        "message": "扩展数据",
-        "description": "English: Extension data"
+    "aboutRestoreError" : {
+        "message": "The data could not be read or is invalid",
+        "description": ""
     },
-    "aboutAssetsUpdatePrompt" : {
-        "message": "<i>µMatrix</i>使用的资源可以在这里进行升级，而不必等到扩展的下一个发行版。这些资源是拉取自<a href=\"https://github.com/gorhill/httpswitchboard\">本项目的Github代码托管库</a>。",
-        "description": "Short descriptive text of the update feature"
+    "aboutOr" : {
+        "message": "... or ...",
+        "description": "English: ... or ..."
     },
-    "aboutAssetsUpdateColPath" : {
-        "message": "路径",
-        "description": "Path column header"
+    "aboutResetButton" : {
+        "message": "Reset to default settings",
+        "description": "English: Reset to default settings"
     },
-    "aboutAssetsUpdateColStatus" : {
-        "message": "状态",
-        "description": "Status column header"
-    },
-    "aboutAssetsUpdateGetListError" : {
-        "message": "有一个错误发生。<b>raw2.github.com</b>的<b>XHR</b>是否被屏蔽？",
-        "description": "Successful outcome of clicking 'update' button"
-    },
-    "aboutAssetsUpdateStatusAdded" : {
-        "message": "将被添加",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusChanged" : {
-        "message": "有新版本",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusUnchanged" : {
-        "message": "已是最新",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusRemoved" : {
-        "message": "将被移除",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateButton" : {
-        "message": "马上更新",
-        "description": "Update button"
-    },
-    "aboutAssetsUpdatingButton" : {
-        "message": "正在更新...",
-        "description": "Updating..."
-    },
-
-
-    "setupPagePrompt" : {
-        "message": "<p><b>µMatrix</b>是高度可配置的：它可以被设置为“屏蔽所有”和“完全不屏蔽”间的任何状态。<p>安全性越高，网页破损的可能性也就越高，即不能如设想的一样渲染或运作。因此，更高的安全性也意味着需要更多来自用户的介入，来“修复”那些用户信任的网页。<p>这里您可以选择一个最适合您使用<b>µMatrix</b>计划的设定档。您只需把这当作一个起点，因为您之后仍可随意自行定制。",
-        "description": "Appears at the top of the setup page"
-    },
-    "setupBlockAllAllowExceptionally" : {
-        "message": "屏蔽所有 / 允许例外",
-        "description": "English: Block all / allow exceptionally"
-    },
-    "setupAllowAllBlockExceptionally" : {
-        "message": "允许所有 / 屏蔽例外",
-        "description": "English: Allow all / block exceptionally"
-    },
-    "setupAdBlocker" : {
-        "message": "类似Adblock Plus",
-        "description": "English: Ad blocker-like"
-    },
-    "setupNoScript" : {
-        "message": "类似NoScript",
-        "description": "English: NoScript-like"
-    },
-    "setupRequestPolicy" : {
-        "message": "类似RequestPolicy",
-        "description": "English: RequestPolicy-like"
-    },
-    "setupBlockNothingReportAll" : {
-        "message": "完全不屏蔽 / 报告所有",
-        "description": "English: Block nothing / report everything"
-    },
-    "setupSecurity" : {
-        "message": "安全性：",
-        "description": "English: Security:"
-    },
-    "setupBreakage" : {
-        "message": "不兼容性：",
-        "description": "English: Breakage:"
-    },
-    "setupVeryHigh" : {
-        "message": "非常高",
-        "description": "English: very high"
-    },
-    "setupHigh" : {
-        "message": "高",
-        "description": "English: high"
-    },
-    "setupMediumHigh" : {
-        "message": "中高",
-        "description": "English: medium high"
-    },
-    "setupMedium" : {
-        "message": "中等",
-        "description": "English: medium"
-    },
-    "setupMediumLow" : {
-        "message": "中低",
-        "description": "English: medium low"
-    },
-    "setupLow" : {
-        "message": "低",
-        "description": "English: low"
-    },
-    "setupVeryLow" : {
-        "message": "非常低",
-        "description": "English: very low"
-    },
-    "setupNone" : {
-        "message": "无",
-        "description": "English: none"
-    },
-    "setupRestoreConfirm" : {
-        "message": "所有您的设置和规则将被覆盖，\n然后µMatrix将会重启。\n\n是否要覆盖所有现存数据？",
-        "description": "English: All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?"
+    "aboutResetConfirm" : {
+        "message": "Caution! this will also remove all your custom settings. Are you sure you want to proceed?",
+        "description": "Message asking user to confirm reset"
     },
 
 

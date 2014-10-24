@@ -460,12 +460,12 @@
 
 
     "aboutChangelog" : {
-        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Change-log'>Change log</a>",
-        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Change-log'>Change log</a>"
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Change log</a>",
+        "description": "English: <a href='https://github.com/gorhill/uMatrix/releases'>Change log</a>"
     },
     "aboutStorageUsed" : {
-        "message": "Storage used: {{storageUsed}}%",
-        "description": "English: Storage used: {{storageUsed}}%"
+        "message": "Storage used: {{storageUsed}} bytes",
+        "description": "English: Storage used: {{storageUsed}} bytes"
     },
     "aboutDoc" : {
         "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki'>Documentation</a>",
@@ -476,154 +476,48 @@
         "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Permissions</a>"
     },
     "aboutCode" : {
-        "message": "<a href='https://github.com/gorhill/httpswitchboard'>Source code (GPLv3)</a>",
-        "description": "English: <a href='https://github.com/gorhill/httpswitchboard'>Source code (GPLv3)</a>"
+        "message": "<a href='https://github.com/gorhill/uMatrix'>Source code (GPLv3)</a>",
+        "description": "English: <a href='https://github.com/gorhill/uMatrix'>Source code (GPLv3)</a>"
     },
     "aboutCredits" : {
-        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>Credits</a>",
-        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Credits'>Credits</a>"
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Credits'>Credits</a>",
+        "description": "English: <a href='https://github.com/gorhill/uMatrix/wiki/Credits'>Credits</a>"
     },
     "aboutUserDataHeader" : {
         "message": "Your data",
         "description": "English: Your data"
     },
-    "aboutUserDataBackupButton" : {
+    "aboutBackupButton" : {
         "message": "Backup to file...",
         "description": "English: Backup all..."
     },
-    "aboutUserDataRestoreButton" : {
+    "aboutBackupFilename" : {
+        "message": "all-my-umatrix-data.txt",
+        "description": "all-my-umatrix-data.txt"
+    },
+    "aboutRestoreButton" : {
         "message": "Restore from file...",
         "description": "English: Restore all..."
     },
-    "aboutUserDataOr" : {
+    "aboutRestoreConfirm" : {
+        "message": "All your settings will be overwritten using data backed up on {{time}}, and µMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutRestoreError" : {
+        "message": "The data could not be read or is invalid",
+        "description": ""
+    },
+    "aboutOr" : {
         "message": "... or ...",
         "description": "English: ... or ..."
     },
-    "aboutUserDataResetButton" : {
-        "message": "Start from scratch...",
-        "description": "English: Start from scratch..."
+    "aboutResetButton" : {
+        "message": "Reset to default settings",
+        "description": "English: Reset to default settings"
     },
-    "aboutUserDataRestoreConfirm" : {
-        "message": "All your settings and rules will be overwritten\nusing data backed up on {{time}},\nand µMatrix will restart.\n\nOverwrite all existing data using backed up data?",
-        "description": "Message asking user to confirm restore"
-    },
-    "aboutExtensionDataHeader" : {
-        "message": "Extension data",
-        "description": "English: Extension data"
-    },
-    "aboutAssetsUpdatePrompt" : {
-        "message": "<i>µMatrix</i> assets can be updated here without having to wait for the next release of the extension. These assets are pulled from the <a href=\"https://github.com/gorhill/httpswitchboard\">project's Github repository</a>.",
-        "description": "Short descriptive text of the update feature"
-    },
-    "aboutAssetsUpdateColPath" : {
-        "message": "Path",
-        "description": "Path column header"
-    },
-    "aboutAssetsUpdateColStatus" : {
-        "message": "Status",
-        "description": "Status column header"
-    },
-    "aboutAssetsUpdateGetListError" : {
-        "message": "An error occurred. Is <b>XHR</b> blocked for <b>raw2.github.com</b>?",
-        "description": "Successful outcome of clicking 'update' button"
-    },
-    "aboutAssetsUpdateStatusAdded" : {
-        "message": "To add",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusChanged" : {
-        "message": "New version available",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusUnchanged" : {
-        "message": "Up to date",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusRemoved" : {
-        "message": "To remove",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateButton" : {
-        "message": "Update",
-        "description": "Update button"
-    },
-    "aboutAssetsUpdatingButton" : {
-        "message": "Updating...",
-        "description": "Updating..."
-    },
-
-
-    "setupPagePrompt" : {
-        "message": "<p><b>µMatrix</b> is highly configurable: it can be set anywhere between &ldquo;block everything&rdquo; and &ldquo;block nothing&rdquo;. <p>The higher the security, the more likely web pages will be &ldquo;broken&rdquo;, i.e. will not render and/or behave as intended. Thus, higher security also means more intervention required from the user in order to &ldquo;unbreak&rdquo; those web pages which a user trust. <p>Here you can pick a profile which best matches how you plan to use <b>µMatrix</b>. Consider these a starting point, as you can customize at will afterward.",
-        "description": "Appears at the top of the setup page"
-    },
-    "setupBlockAllAllowExceptionally" : {
-        "message": "Block all / allow exceptionally",
-        "description": "English: Block all / allow exceptionally"
-    },
-    "setupAllowAllBlockExceptionally" : {
-        "message": "Allow all / block exceptionally",
-        "description": "English: Allow all / block exceptionally"
-    },
-    "setupAdBlocker" : {
-        "message": "Ad blocker-like",
-        "description": "English: Ad blocker-like"
-    },
-    "setupNoScript" : {
-        "message": "NoScript-like",
-        "description": "English: NoScript-like"
-    },
-    "setupRequestPolicy" : {
-        "message": "RequestPolicy-like",
-        "description": "English: RequestPolicy-like"
-    },
-    "setupBlockNothingReportAll" : {
-        "message": "Block nothing / report everything",
-        "description": "English: Block nothing / report everything"
-    },
-    "setupSecurity" : {
-        "message": "Security:",
-        "description": "English: Security:"
-    },
-    "setupBreakage" : {
-        "message": "Breakage:",
-        "description": "English: Breakage:"
-    },
-    "setupVeryHigh" : {
-        "message": "very high",
-        "description": "English: very high"
-    },
-    "setupHigh" : {
-        "message": "high",
-        "description": "English: high"
-    },
-    "setupMediumHigh" : {
-        "message": "medium high",
-        "description": "English: medium high"
-    },
-    "setupMedium" : {
-        "message": "medium",
-        "description": "English: medium"
-    },
-    "setupMediumLow" : {
-        "message": "medium low",
-        "description": "English: medium low"
-    },
-    "setupLow" : {
-        "message": "low",
-        "description": "English: low"
-    },
-    "setupVeryLow" : {
-        "message": "very low",
-        "description": "English: very low"
-    },
-    "setupNone" : {
-        "message": "none",
-        "description": "English: none"
-    },
-    "setupRestoreConfirm" : {
-        "message": "All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?",
-        "description": "English: All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?"
+    "aboutResetConfirm" : {
+        "message": "Caution! this will also remove all your custom settings. Are you sure you want to proceed?",
+        "description": "Message asking user to confirm reset"
     },
 
 

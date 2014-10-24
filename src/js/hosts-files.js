@@ -162,23 +162,23 @@ var renderBlacklists = function() {
         hasCachedContent = false;
 
         // Visually split the filter lists in two groups: built-in and external
-        var html = [];
+        var htmlBuiltin = [];
+        var htmlExternal = [];
         var hostsPaths = Object.keys(details.available);
-        var hostsEntry;
-        for ( i = 0; i < hostsPaths.length; i++ ) {
-            hostsPath = hostsPaths[i];
-            hostsEntry = details.available[hostsPath];
-            if ( !hostsEntry.external ) {
-                html.push(htmlFromLeaf(hostsPath, hostsEntry));
-            }
-        }
-        for ( i = 0; i < hostsPaths.length; i++ ) {
+        var hostsPath, hostsEntry;
+        for ( var i = 0; i < hostsPaths.length; i++ ) {
             hostsPath = hostsPaths[i];
             hostsEntry = details.available[hostsPath];
             if ( hostsEntry.external ) {
-                html.push(htmlFromLeaf(hostsPath, hostsEntry));
+                htmlExternal.push(htmlFromLeaf(hostsPath, hostsEntry));
+            } else {
+                htmlBuiltin.push(htmlFromLeaf(hostsPath, hostsEntry));
             }
         }
+        if ( htmlExternal.length !== 0 ) {
+            htmlBuiltin.push('<li>&nbsp;');
+        }
+        var html = htmlBuiltin.concat(htmlExternal);
 
         uDom('#listsOfBlockedHostsPrompt').text(
             chrome.i18n.getMessage('hostsFilesStats')

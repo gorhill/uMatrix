@@ -24,8 +24,9 @@
 /******************************************************************************/
 
 µMatrix.getBytesInUse = function() {
+    var µm = this;
     var getBytesInUseHandler = function(bytesInUse) {
-        µMatrix.storageUsed = bytesInUse;
+        µm.storageUsed = bytesInUse;
     };
     chrome.storage.local.getBytesInUse(null, getBytesInUseHandler);
 };
@@ -33,14 +34,21 @@
 /******************************************************************************/
 
 µMatrix.saveUserSettings = function() {
-    chrome.storage.local.set(this.userSettings, function() {
-        µMatrix.getBytesInUse();
-    });
+    chrome.storage.local.set(
+        this.userSettings,
+        this.getBytesInUse.bind(this)
+    );
 };
 
 /******************************************************************************/
 
-µMatrix.loadUserSettings = function() {
+µMatrix.loadUserSettings = function(callback) {
+    var µm = this;
+
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
+
     var settingsLoaded = function(store) {
         // console.log('storage.js > loaded user settings');
 
@@ -51,19 +59,13 @@
         } else if ( store.smartAutoReload === false ) {
             store.smartAutoReload = 'none';
         }
-        // https://github.com/gorhill/httpswitchboard/issues/250
-        if ( typeof store.autoCreateSiteScope === 'boolean' ) {
-            store.autoCreateScope = store.autoCreateSiteScope ? 'site' : '';
-            delete store.autoCreateSiteScope;
-        }
-        // https://github.com/gorhill/httpswitchboard/issues/299
-        // No longer needed.
-        delete store.subframeFgColor;
 
-        µMatrix.userSettings = store;
+        µm.userSettings = store;
 
         // https://github.com/gorhill/httpswitchboard/issues/344
-        µMatrix.userAgentSpoofer.shuffle();
+        µm.userAgentSpoofer.shuffle();
+
+        callback(µm.userSettings);
     };
 
     chrome.storage.local.get(this.userSettings, settingsLoaded);
@@ -319,7 +321,7 @@
 // `switches` contains the preset blacklists for which the switch must be
 // revisited.
 
-µMatrix.reloadHostsFiles = function(switches) {
+µMatrix.reloadHostsFiles = function(switches, update) {
     var liveHostsFiles = this.liveHostsFiles;
 
     // Toggle switches
@@ -334,19 +336,22 @@
     // Save switch states
     chrome.storage.local.set(
         { 'liveHostsFiles': liveHostsFiles },
-        this.loadHostsFiles.bind(this)
+        this.loadUpdatableAssets.bind(this, update)
     );
 };
 
 /******************************************************************************/
 
-µMatrix.loadPublicSuffixList = function() {
+µMatrix.loadPublicSuffixList = function(callback) {
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
+
     var applyPublicSuffixList = function(details) {
-        // TODO: Not getting proper suffix list is a bit serious, I think
-        // the extension should be force-restarted if it occurs..
         if ( !details.error ) {
             publicSuffixList.parse(details.content, punycode.toASCII);
         }
+        callback();
     };
     this.assets.get(
         'assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat',
@@ -358,9 +363,14 @@
 
 // Load updatable assets
 
-µMatrix.loadUpdatableAssets = function() {
-    this.loadHostsFiles();
+µMatrix.loadUpdatableAssets = function(forceUpdate) {
+    this.assets.autoUpdate = forceUpdate === true;
+    this.assets.autoUpdateDelay = this.updateAssetsEvery;
+    if ( forceUpdate ) {
+        this.updater.restart();
+    }
     this.loadPublicSuffixList();
+    this.loadHostsFiles();
 };
 
 /******************************************************************************/
@@ -368,10 +378,20 @@
 // Load all
 
 µMatrix.load = function() {
-    this.loadUserSettings();
-    this.loadMatrix();
-    this.loadUpdatableAssets();
+    var µm = this;
 
+    // User settings are in memory
+    var onUserSettingsReady = function(settings) {
+        // Never auto-update at boot time
+        µm.loadUpdatableAssets(false);
+ 
+        // Setup auto-updater, earlier if auto-upate is enabled, later if not
+        if ( settings.autoUpdate ) {
+            µm.updater.restart(µm.firstUpdateAfter);
+        }
+    };
+
+    this.loadUserSettings(onUserSettingsReady);
+    this.loadMatrix();
     this.getBytesInUse();
 };
-

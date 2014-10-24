@@ -483,143 +483,37 @@
         "message": "Ваши настройки",
         "description": "English: Your data"
     },
-    "aboutUserDataBackupButton" : {
-        "message": "Сохранить в файл...",
+    "aboutBackupButton" : {
+        "message": "Backup to file...",
         "description": "English: Backup all..."
     },
-    "aboutUserDataRestoreButton" : {
-        "message": "Восстановить из файла...",
+    "aboutBackupFilename" : {
+        "message": "all-my-umatrix-data.txt",
+        "description": "all-my-umatrix-data.txt"
+    },
+    "aboutRestoreButton" : {
+        "message": "Restore from file...",
         "description": "English: Restore all..."
     },
-    "aboutUserDataOr" : {
-        "message": "... или ...",
-        "description": "English: ... or ..."
-    },
-    "aboutUserDataResetButton" : {
-        "message": "Запустить настройку с нуля...",
-        "description": "English: Start from scratch..."
-    },
-    "aboutUserDataRestoreConfirm" : {
-        "message": "Все ваши настройки и правила будет перезаписаны\nданными от {{time}},\nи µMatrix перезапустится.\n\nПерезаписать все существующие данные резервной копией?",
+    "aboutRestoreConfirm" : {
+        "message": "All your settings will be overwritten using data backed up on {{time}}, and µMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
         "description": "Message asking user to confirm restore"
     },
-    "aboutExtensionDataHeader" : {
-        "message": "Данные расширения",
-        "description": "English: Extension data"
+    "aboutRestoreError" : {
+        "message": "The data could not be read or is invalid",
+        "description": ""
     },
-    "aboutAssetsUpdatePrompt" : {
-        "message": "<i>µMatrix</i> подписки могут быть обновлены здесь вручную, если не хотите ждать новой версии расширения. Они загружаются из <a href=\"https://github.com/gorhill/httpswitchboard\">Github хранилища</a>.",
-        "description": "Short descriptive text of the update feature"
+    "aboutOr" : {
+        "message": "... or ...",
+        "description": "English: ... or ..."
     },
-    "aboutAssetsUpdateColPath" : {
-        "message": "Путь",
-        "description": "Path column header"
+    "aboutResetButton" : {
+        "message": "Reset to default settings",
+        "description": "English: Reset to default settings"
     },
-    "aboutAssetsUpdateColStatus" : {
-        "message": "Состояние",
-        "description": "Status column header"
-    },
-    "aboutAssetsUpdateGetListError" : {
-        "message": "Произошла ошибка. <b>XHR</b> заблокирован для <b>raw2.github.com</b>?",
-        "description": "Successful outcome of clicking 'update' button"
-    },
-    "aboutAssetsUpdateStatusAdded" : {
-        "message": "Добавить",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusChanged" : {
-        "message": "Доступно обновление",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusUnchanged" : {
-        "message": "Обновлений не найдено",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusRemoved" : {
-        "message": "Для удаления",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateButton" : {
-        "message": "Обновить",
-        "description": "Update button"
-    },
-    "aboutAssetsUpdatingButton" : {
-        "message": "Обновление...",
-        "description": "Updating..."
-    },
-
-
-    "setupPagePrompt" : {
-        "message": "<p><b>µMatrix</b> можно гибко настроить: в любом месте можно уставновить &ldquo;блокирование всего&rdquo; и &ldquo;ничего не блокировать&rdquo;. <p>Чем выше безопасность, тем больше вероятность &ldquo;поломки&rdquo; сайтов, это означает, что сайт будет загружаться не полностью или вести себя не так, как задумавал создатель. Поэтому скорее всего потребуется вмешательство пользователя, чтобы &ldquo;починить&rdquo; эти страницы, которым пользователь доверяет, разрешив в матрице данные необходимые для нормальной работы сайта. <p>Здесь вы можете выбрать готовый профиль, как будет работать <b>µMatrix</b>. Можно считать это начальной настройкой т.к. дальше их можно дополнять для конкретных сайтов отдельно.",
-        "description": "Appears at the top of the setup page"
-    },
-    "setupBlockAllAllowExceptionally" : {
-        "message": "Блокировать все / разрешать исключения",
-        "description": "English: Block all / allow exceptionally"
-    },
-    "setupAllowAllBlockExceptionally" : {
-        "message": "Разрешить все / блокировать исключения",
-        "description": "English: Allow all / block exceptionally"
-    },
-    "setupAdBlocker" : {
-        "message": "Как блокировщик рекламы",
-        "description": "English: Ad blocker-like"
-    },
-    "setupNoScript" : {
-        "message": "Как блокировщик скриптов",
-        "description": "English: NoScript-like"
-    },
-    "setupRequestPolicy" : {
-        "message": "Как политика запросов",
-        "description": "English: RequestPolicy-like"
-    },
-    "setupBlockNothingReportAll" : {
-        "message": "Ничего не блокировать / докладывать обо всем",
-        "description": "English: Block nothing / report everything"
-    },
-    "setupSecurity" : {
-        "message": "Безопасность:",
-        "description": "English: Security:"
-    },
-    "setupBreakage" : {
-        "message": "Вероятность неправильного отображения сайта::",
-        "description": "English: Breakage:"
-    },
-    "setupVeryHigh" : {
-        "message": "очень высокая",
-        "description": "English: very high"
-    },
-    "setupHigh" : {
-        "message": "высокая",
-        "description": "English: high"
-    },
-    "setupMediumHigh" : {
-        "message": "выше среднего",
-        "description": "English: medium high"
-    },
-    "setupMedium" : {
-        "message": "средняя",
-        "description": "English: medium"
-    },
-    "setupMediumLow" : {
-        "message": "ниже среднего",
-        "description": "English: medium low"
-    },
-    "setupLow" : {
-        "message": "низкая",
-        "description": "English: low"
-    },
-    "setupVeryLow" : {
-        "message": "очень низкая",
-        "description": "English: very low"
-    },
-    "setupNone" : {
-        "message": "ни влияет",
-        "description": "English: none"
-    },
-    "setupRestoreConfirm" : {
-        "message": "Все ваши правила и настройки будут перезаписаны\nи µMatrix перезапустится.\n\nПерезаписать существующие настройки?",
-        "description": "English: All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?"
+    "aboutResetConfirm" : {
+        "message": "Caution! this will also remove all your custom settings. Are you sure you want to proceed?",
+        "description": "Message asking user to confirm reset"
     },
 
 

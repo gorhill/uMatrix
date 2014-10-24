@@ -27,6 +27,13 @@ var µMatrix = (function() {
 
 /******************************************************************************/
 
+var oneSecond = 1000;
+var oneMinute = 60 * oneSecond;
+var oneHour = 60 * oneMinute;
+var oneDay = 24 * oneHour;
+
+/******************************************************************************/
+
 var defaultUserAgentStrings = [
     '# http://www.useragentstring.com/pages/Chrome/',
     'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36',
@@ -40,6 +47,7 @@ var getDefaultUserAgentStrings = function() {
     return defaultUserAgentStrings.join('\n');
 };
 
+/******************************************************************************/
 
 return {
     manifest: chrome.runtime.getManifest(),
@@ -73,7 +81,9 @@ return {
     },
 
     clearBrowserCacheCycle: 0,
-    updateAssetsEvery: 5 * 24 * 60 * 60 * 1000,
+    updateAssetsEvery: 11 * oneDay + 1 * oneHour + 1 * oneMinute + 1 * oneSecond,
+    firstUpdateAfter: 11 * oneMinute,
+    nextUpdateAfter: 11 * oneHour,
     projectServerRoot: 'https://raw.githubusercontent.com/gorhill/umatrix/master/',
 
     // permanent hosts files

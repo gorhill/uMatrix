@@ -288,7 +288,6 @@ var processRequest = function(µm, details) {
 
     // Block request?
     var block = µm.mustBlock(µm.scopeFromURL(pageURL), requestHostname, requestType);
-    var reason;
 
     // Record request.
     // https://github.com/gorhill/httpswitchboard/issues/342
@@ -296,7 +295,7 @@ var processRequest = function(µm, details) {
     // processing has already been performed, and that a synthetic URL has
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
-    pageStats.recordRequest(requestType, details.µmRequestURL || requestURL, block, false);
+    pageStats.recordRequest(requestType, details.µmRequestURL || requestURL, block);
 
     // whitelisted?
     if ( !block ) {
@@ -883,7 +882,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     [ "blocking" ]
 );
 
-console.log('µMatrix > Beginning to intercept net requests at %s', (new Date()).toISOString());
+//console.log('µMatrix > Beginning to intercept net requests at %s', (new Date()).toISOString());
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
     onBeforeSendHeadersHandler,

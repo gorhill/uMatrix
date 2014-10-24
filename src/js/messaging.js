@@ -166,7 +166,7 @@ function defaultHandler(request, sender, callback) {
             break;
 
         case 'reloadHostsFiles':
-            µm.reloadHostsFiles(request.switches);
+            µm.reloadHostsFiles(request.switches, request.update);
             break;
 
         case 'userSettings':

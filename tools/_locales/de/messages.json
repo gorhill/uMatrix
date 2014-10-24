@@ -483,143 +483,37 @@
         "message": "Deine Daten",
         "description": "English: Your data"
     },
-    "aboutUserDataBackupButton" : {
-        "message": "Backup in eine Datei...",
+    "aboutBackupButton" : {
+        "message": "Backup to file...",
         "description": "English: Backup all..."
     },
-    "aboutUserDataRestoreButton" : {
-        "message": "Aus einer Datei wiederherstellen...",
+    "aboutBackupFilename" : {
+        "message": "all-my-umatrix-data.txt",
+        "description": "all-my-umatrix-data.txt"
+    },
+    "aboutRestoreButton" : {
+        "message": "Restore from file...",
         "description": "English: Restore all..."
     },
-    "aboutUserDataOr" : {
-        "message": "... oder ...",
-        "description": "English: ... or ..."
-    },
-    "aboutUserDataResetButton" : {
-        "message": "Fange von ganz vorne an ...",
-        "description": "English: Start from scratch..."
-    },
-    "aboutUserDataRestoreConfirm" : {
-        "message": "Alle deine Einstellungen und Regeln werden überschrieben\nmit Daten gesichert am {{time}},\nund µMatrix wird neu starten.\n\nSollen alle existierenden Daten mit Backup-Daten überschrieben werden?",
+    "aboutRestoreConfirm" : {
+        "message": "All your settings will be overwritten using data backed up on {{time}}, and µMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
         "description": "Message asking user to confirm restore"
     },
-    "aboutExtensionDataHeader" : {
-        "message": "Externe Ressourcen dieser Erweiterung",
-        "description": "English: Extension data"
+    "aboutRestoreError" : {
+        "message": "The data could not be read or is invalid",
+        "description": ""
     },
-    "aboutAssetsUpdatePrompt" : {
-        "message": "Von <i>µMatrix</i> benutzte externe Ressourcen können hier upgedatet werden, ohne auf eine neue Version dieser Erweiterung warten zu müssen. Diese Ressourcen werden bezogen vom <a href=\"https://github.com/gorhill/httpswitchboard\">Github Repository dieses Projekts</a>.",
-        "description": "Short descriptive text of the update feature"
+    "aboutOr" : {
+        "message": "... or ...",
+        "description": "English: ... or ..."
     },
-    "aboutAssetsUpdateColPath" : {
-        "message": "Pfad",
-        "description": "Path column header"
+    "aboutResetButton" : {
+        "message": "Reset to default settings",
+        "description": "English: Reset to default settings"
     },
-    "aboutAssetsUpdateColStatus" : {
-        "message": "Status",
-        "description": "Status column header"
-    },
-    "aboutAssetsUpdateGetListError" : {
-        "message": "Ein Fehler ist aufgetreten. Ist <b>XHR</b> blockiert für <b>raw2.github.com</b>?",
-        "description": "Successful outcome of clicking 'update' button"
-    },
-    "aboutAssetsUpdateStatusAdded" : {
-        "message": "Hinzufügen",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusChanged" : {
-        "message": "Neue Version verfügbar",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusUnchanged" : {
-        "message": "Up-to-date",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateStatusRemoved" : {
-        "message": "Entfernen",
-        "description": "Displayed in the status column for each entry"
-    },
-    "aboutAssetsUpdateButton" : {
-        "message": "Update",
-        "description": "Update button"
-    },
-    "aboutAssetsUpdatingButton" : {
-        "message": "Updating...",
-        "description": "Updating..."
-    },
-
-
-    "setupPagePrompt" : {
-        "message": "<p><b>µMatrix</b> ist hochgradig konfigurierbar: Die Einstellungen können fast beliebig gesetzt werden zwischen den beiden Extremen &ldquo;alles blockieren&rdquo; und &ldquo;nichts blockieren&rdquo;. <p>Je höher die Sicherheit, desto höher die Wahrscheinlichkeit, dass Webseiten &ldquo;nicht funktionieren&rdquo;, d.h. sie werden nicht gerendert  und/oder verhalten sich nicht wie gewünscht. Daher bedeutet höhere Sicherheit auch mehr notwendige Interventionen durch den Benutzer, damit vertrauenswürdige Webseiten wieder &ldquo;funktionieren&rdquo;. <p>Hier kannst du ein Profil wählen, das am besten zu dem passt, wie du gedenkst, <b>µMatrix</b> zu benutzen. Bitte berücksichtige, dass diese Profile lediglich einen Startpunkt repräsentieren, den du später beliebig an deine Vorstellungen anpassen kannst .",
-        "description": "Appears at the top of the setup page"
-    },
-    "setupBlockAllAllowExceptionally" : {
-        "message": "Blockiere alles / erlaube ausnahmsweise",
-        "description": "English: Block all / allow exceptionally"
-    },
-    "setupAllowAllBlockExceptionally" : {
-        "message": "Erlaube alles / blockiere ausnahmsweise",
-        "description": "English: Allow all / block exceptionally"
-    },
-    "setupAdBlocker" : {
-        "message": "Benutzen als Werbeblocker",
-        "description": "English: Ad blocker-like"
-    },
-    "setupNoScript" : {
-        "message": "Verhalten wie NoScript",
-        "description": "English: NoScript-like"
-    },
-    "setupRequestPolicy" : {
-        "message": "Verhalten wie RequestPolicy",
-        "description": "English: RequestPolicy-like"
-    },
-    "setupBlockNothingReportAll" : {
-        "message": "Blockiere nichts / melde alles",
-        "description": "English: Block nothing / report everything"
-    },
-    "setupSecurity" : {
-        "message": "Sicherheit:",
-        "description": "English: Security:"
-    },
-    "setupBreakage" : {
-        "message": "Bruchgefahr:",
-        "description": "English: Breakage:"
-    },
-    "setupVeryHigh" : {
-        "message": "sehr hoch",
-        "description": "English: very high"
-    },
-    "setupHigh" : {
-        "message": "hoch",
-        "description": "English: high"
-    },
-    "setupMediumHigh" : {
-        "message": "mittel - hoch",
-        "description": "English: medium high"
-    },
-    "setupMedium" : {
-        "message": "mittel",
-        "description": "English: medium"
-    },
-    "setupMediumLow" : {
-        "message": "mittel - niedrig",
-        "description": "English: medium low"
-    },
-    "setupLow" : {
-        "message": "niedrig",
-        "description": "English: low"
-    },
-    "setupVeryLow" : {
-        "message": "sehr niedrig",
-        "description": "English: very low"
-    },
-    "setupNone" : {
-        "message": "gar nicht",
-        "description": "English: none"
-    },
-    "setupRestoreConfirm" : {
-        "message": "Alle deine Einstellungen und Regeln werden überschrieben\nund µMatrix wird neu starten.\n\nAlle existierenden Daten überschreiben?",
-        "description": "English: All your settings and rules will be overwritten\nand µMatrix will restart.\n\nOverwrite all existing data?"
+    "aboutResetConfirm" : {
+        "message": "Caution! this will also remove all your custom settings. Are you sure you want to proceed?",
+        "description": "Message asking user to confirm reset"
     },
 
 

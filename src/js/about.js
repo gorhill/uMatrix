@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, uDom */
+/* global chrome, messaging, uDom */
 
 /******************************************************************************/
 
@@ -28,115 +28,54 @@ uDom.onLoad(function() {
 /******************************************************************************/
 
 var backupUserDataToFile = function() {
-    var allUserData = {
-        timeStamp: Date.now(),
-        version: '',
-        userSettings: {},
-        scopes: '',
-        remoteBlacklists: {},
-        ubiquitousBlacklist: '',
-        ubiquitousWhitelist: ''
-    };
-
-    var userWhitelistReady = function(details) {
-        allUserData.ubiquitousWhitelist = details.content;
+    var userDataReady = function(userData) {
         chrome.downloads.download({
-            'url': 'data:text/plain,' + encodeURIComponent(JSON.stringify(allUserData)),
-            'filename': 'umatrix-alluserdata-backup.txt',
+            'url': 'data:text/plain,' + encodeURIComponent(JSON.stringify(userData)),
+            'filename': uDom('[data-i18n="aboutBackupFilename"]').text(),
             'saveAs': true
         });
     };
 
-    var userBlacklistReady = function(details) {
-        allUserData.ubiquitousBlacklist = details.content;
-        messaging.ask({ what: 'readUserUbiquitousAllowRules' }, userWhitelistReady);
-    };
-
-    var ruleDataReady = function(store) {
-        allUserData.version = store.version;
-        allUserData.scopes = store.scopes;
-        allUserData.remoteBlacklists = store.remoteBlacklists;
-        messaging.ask({ what: 'readUserUbiquitousBlockRules' }, userBlacklistReady);
-    };
-
-    var userSettingsReady = function(store) {
-        allUserData.userSettings = store;
-        chrome.storage.local.get(['version', 'scopes', 'remoteBlacklists'], ruleDataReady);
-    };
-
-    messaging.ask({ what: 'readUserSettings' }, userSettingsReady);
+    messaging.ask({ what: 'getAllUserData' }, userDataReady);
 };
 
 /******************************************************************************/
 
 function restoreUserDataFromFile() {
-    var restartCountdown = 4;
-    var doCountdown = function() {
-        restartCountdown -= 1;
-        if ( restartCountdown > 0 ) {
-            return;
-        }
-        chrome.runtime.reload();
-    };
-
-    var restoreBackup = function(data) {
-        chrome.storage.local.set(data.userSettings, doCountdown);
-        var store = {
-            'version': data.version,
-            'scopes': data.scopes
-        };
-        // This case may happen if data was backed up without the user having
-        // changed default selection of lists.
-        if ( data.remoteBlacklists !== undefined ) {
-            store.remoteBlacklists = data.remoteBlacklists;
-        }
-        chrome.storage.local.set(store, doCountdown);
-        messaging.ask({
-                what: 'writeUserUbiquitousBlockRules',
-                content: data.ubiquitousBlacklist
-            },
-            doCountdown
-        );
-        messaging.ask({
-                what: 'writeUserUbiquitousAllowRules',
-                content: data.ubiquitousWhitelist
-            },
-            doCountdown
-        );
-    };
-
     var validateBackup = function(s) {
-        var data;
+        var userData = null;
         try {
-            data = JSON.parse(s);
+            userData = JSON.parse(s);
         }
         catch (e) {
-            data = undefined;
+            userData = null;
         }
-        if ( typeof data !== 'object' ||
-             typeof data.timeStamp !== 'number' ||
-             typeof data.version !== 'string' ||
-             typeof data.userSettings !== 'object' ||
-             typeof data.scopes !== 'string' ||
-             typeof data.ubiquitousBlacklist !== 'string' ||
-             typeof data.ubiquitousWhitelist !== 'string' ) {
-            alert('File content is not valid backed up data.');
+        if ( userData === null ) {
+            return null;
         }
-        return data;
+        if ( typeof userData !== 'object' ||
+             typeof userData.version !== 'string' ||
+             typeof userData.when !== 'number' ||
+             typeof userData.settings !== 'object' ||
+             typeof userData.rules !== 'string' ||
+             typeof userData.hostsFiles !== 'object' ) {
+            return null;
+        }
+        return userData;
     };
 
     var fileReaderOnLoadHandler = function() {
-        var data = validateBackup(this.result);
-        if ( !data ) {
+        var userData = validateBackup(this.result);
+        if ( !userData ) {
+            window.alert(uDom('[data-i18n="aboutRestoreError"]').text());
             return;
         }
-        var time = new Date(data.timeStamp);
-        var msg = chrome.i18n
-            .getMessage('aboutUserDataRestoreConfirm')
+        var time = new Date(userData.when);
+        var msg = uDom('[data-i18n="aboutRestoreConfirm"]').text()
             .replace('{{time}}', time.toLocaleString());
         var proceed = window.confirm(msg);
         if ( proceed ) {
-            restoreBackup(data);
+            messaging.tell({ what: 'restoreAllUserData', userData: userData });
         }
     };
 
@@ -166,28 +105,25 @@ var startRestoreFilePicker = function() {
 /******************************************************************************/
 
 var resetUserData = function() {
-    messaging.tell({
-        what: 'gotoExtensionURL',
-        url: 'setup.html'
-    });
+    var proceed = window.confirm(uDom('[data-i18n="aboutResetConfirm"]').text());
+    if ( proceed ) {
+        messaging.tell({ what: 'resetAllUserData' });
+    }
 };
 
 /******************************************************************************/
 
-messaging.start('about.js');
-
-/******************************************************************************/
-
 (function() {
-    uDom('#aboutVersion').html(chrome.runtime.getManifest().version);
     var renderStats = function(details) {
-        var template = chrome.i18n.getMessage('aboutStorageUsed');
-        var percent = 0;
-        if ( details.storageQuota ) {
-            percent = (details.storageUsed / details.storageQuota * 100).toFixed(1);
+        uDom('#aboutVersion').html(details.version);
+        var template = uDom('[data-i18n="aboutStorageUsed"]').text();
+        var storageUsed = '?';
+        if ( typeof details.storageUsed === 'number' ) {
+            storageUsed = details.storageUsed.toLocaleString();
         }
-        uDom('#aboutStorageUsed').html(template.replace('{{storageUsed}}', percent));
+        uDom('#aboutStorageUsed').html(template.replace('{{storageUsed}}', storageUsed));
     };
+    messaging.start('about.js');
     messaging.ask({ what: 'getSomeStats' }, renderStats);
 })();
 

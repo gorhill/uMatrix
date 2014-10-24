@@ -5,49 +5,6 @@
 <title>µMatrix — About</title>
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
-<style>
-table th {
-    text-align: left;
-    }
-table td:first-child {
-    padding-right: 2em;
-    }
-#allLocalAssetsUpdated {
-    margin-left: 1em;
-    color: green;
-    }
-#assetList table tr.unchanged {
-    color: gray;
-    }
-#assetList table tr td:nth-of-type(2) {
-    font-weight: bold;
-    white-space: nowrap;
-    }
-#assetList table tr.unchanged td:nth-of-type(2) {
-    font-weight: normal;
-    }
-
-#assetList.ooo > table {
-    display: none;
-    }
-#assetList.oox > table,
-#assetList.oxx > table,
-#assetList.xxx > table {
-    display: block;
-    }
-#assetList > p {
-    display: none;
-    }
-#assetList.ooo > p.ooo {
-    display: block;
-    }
-#assetList.oxx > p.oxx {
-    display: block;
-    }
-#assetList.xxx > p.xxx {
-    display: block;
-    }
-</style>
 </head>
 
 <body>
@@ -64,12 +21,19 @@ table td:first-child {
 
 <h2 data-i18n="aboutUserDataHeader"></h2>
 <div>
-    <p><button type="button" id="backupUserDataButton" data-i18n="aboutUserDataBackupButton"></button>
-    <button type="button" id="restoreUserDataButton" data-i18n="aboutUserDataRestoreButton"></button>
+    <p><button type="button" id="backupUserDataButton" data-i18n="aboutBackupButton"></button>
+    <button type="button" id="restoreUserDataButton" data-i18n="aboutRestoreButton"></button>
     <input id="restoreFilePicker" type="file" accept="text/plain" style="display:none;">
-    <p style="margin-left: 2em;" data-i18n="aboutUserDataOr">
-    <p><button type="button" id="resetUserDataButton" data-i18n="aboutUserDataResetButton"></button>
+    <p style="margin-left: 2em;" data-i18n="aboutOr">
+    <p><button type="button" id="resetUserDataButton" data-i18n="aboutResetButton"></button>
 </div>
+
+<span style="display: none;" data-i18n="aboutStorageUsed"></span>
+<span style="display: none;" data-i18n="aboutBackupFilename"></span>
+<span style="display: none;" data-i18n="aboutRestoreConfirm"></span>
+<span style="display: none;" data-i18n="aboutRestoreError"></span>
+<span style="display: none;" data-i18n="aboutResetConfirm"></span>
+
 
 <script src="js/udom.js"></script>
 <script src="js/i18n.js"></script>

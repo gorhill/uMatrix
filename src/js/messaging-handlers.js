@@ -630,14 +630,45 @@ var onMessage = function(request, sender, callback) {
 
 (function() {
 
-var onMessage = function(request, sender, callback) {
-    var µm = µMatrix;
+var µm = µMatrix;
 
+/******************************************************************************/
+
+var restoreUserData = function(userData) {
+    var countdown = 3;
+    var onCountdown = function() {
+        countdown -= 1;
+        if ( countdown === 0 ) {
+            µm.XAL.restart();
+        }
+    };
+
+    var onAllRemoved = function() {
+        // Be sure to adjust `countdown` if adding/removing anything below
+        µm.XAL.keyvalSetMany(userData.settings, onCountdown);
+        µm.XAL.keyvalSetOne('userMatrix', userData.rules, onCountdown);
+        µm.XAL.keyvalSetOne('liveHostsFiles', userData.hostsFiles, onCountdown);
+    };
+
+    // If we are going to restore all, might as well wipe out clean local
+    // storage
+    µm.XAL.keyvalRemoveAll(onAllRemoved);
+};
+
+/******************************************************************************/
+
+var resetUserData = function() {
+    var onAllRemoved = function() {
+        µm.XAL.restart();
+    };
+    µm.XAL.keyvalRemoveAll(onAllRemoved);
+};
+
+/******************************************************************************/
+
+var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
-        case 'readUserSettings':
-            return chrome.storage.local.get(µm.userSettings, callback);
-
         default:
             break;
     }
@@ -646,11 +677,31 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
+        case 'getAllUserData':
+            response = {
+                app: 'µMatrix',
+                version: µm.manifest.version,
+                when: Date.now(),
+                settings: µm.userSettings,
+                rules: µm.pMatrix.toString(),
+                hostsFiles: µm.liveHostsFiles
+            };
+            break;
+
         case 'getSomeStats':
             response = {
+                version: µm.manifest.version,
                 storageQuota: µm.storageQuota,
                 storageUsed: µm.storageUsed
             };
+            break;
+
+        case 'restoreAllUserData':
+            restoreUserData(request.userData);
+            break;
+
+        case 'resetAllUserData':
+            resetUserData();
             break;
 
         default:
@@ -661,6 +712,8 @@ var onMessage = function(request, sender, callback) {
 };
 
 µMatrix.messaging.listen('about.js', onMessage);
+
+/******************************************************************************/
 
 })();
 

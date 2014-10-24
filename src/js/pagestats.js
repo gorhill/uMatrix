@@ -20,6 +20,7 @@
 */
 
 /* global chrome, µMatrix */
+/* jshint bitwise: false */
 
 /*******************************************************************************
 
@@ -156,7 +157,6 @@ var LogEntry = function() {
     this.type = '';
     this.when = 0;
     this.block = false;
-    this.reason = '';
 };
 
 var logEntryJunkyard = [];
@@ -300,7 +300,7 @@ PageRequestStats.prototype.typeFromRequestKey = typeFromRequestKey;
 
 /******************************************************************************/
 
-PageRequestStats.prototype.createEntryIfNotExists = function(url, type, block) {
+PageRequestStats.prototype.createEntryIfNotExists = function(url, type) {
     var reqKey = makeRequestKey(url, type);
     if ( this.requests[reqKey] ) {
         return false;
@@ -347,7 +347,7 @@ PageRequestStats.prototype.resizeLogBuffer = function(size) {
 
 /******************************************************************************/
 
-PageRequestStats.prototype.logRequest = function(url, type, block, reason) {
+PageRequestStats.prototype.logRequest = function(url, type, block) {
     var buffer = this.ringBuffer;
     var len = buffer.length;
     if ( !len ) {
@@ -362,7 +362,6 @@ PageRequestStats.prototype.logRequest = function(url, type, block, reason) {
     logEntry.type = type;
     logEntry.when = Date.now();
     logEntry.block = block;
-    logEntry.reason = reason;
     this.ringBufferPointer = ((pointer + 1) % len) | 0;
 };
 
@@ -495,10 +494,7 @@ PageStore.prototype.dispose = function() {
 
 /******************************************************************************/
 
-// rhill 2014-03-11: If `block` !== false, then block.toString() may return
-// user legible information about the reason for the block.
-
-PageStore.prototype.recordRequest = function(type, url, block, reason) {
+PageStore.prototype.recordRequest = function(type, url, block) {
     // TODO: this makes no sense, I forgot why I put this here.
     if ( !this ) {
         // console.error('HTTP Switchboard> PageStore.recordRequest(): no pageStats');
@@ -523,7 +519,7 @@ PageStore.prototype.recordRequest = function(type, url, block, reason) {
         this.perLoadAllowedRequestCount++;
     }
 
-    this.requests.logRequest(url, type, block, reason);
+    this.requests.logRequest(url, type, block);
 
     if ( !this.requests.createEntryIfNotExists(url, type, block) ) {
         return;
@@ -544,7 +540,7 @@ PageStore.prototype.recordRequest = function(type, url, block, reason) {
     // rhill 2014-03-12: disregard blocking operations which do not originate
     // from matrix evaluation, or else this can cause a useless reload of the
     // page if something important was blocked through ABP filtering.
-    if ( block !== false && reason === undefined ) {
+    if ( block !== false ) {
         this.state[type + '|' + hostname] = true;
     }
 

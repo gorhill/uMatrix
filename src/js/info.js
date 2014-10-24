@@ -231,12 +231,8 @@ function renderRequestRow(row, request) {
         a.css('display', 'none');
     }
 
-    // reason of why block, if available
-    $(cells[3]).text('\u00a0');
-    $(cells[3]).removeAttr('data-tip');
-
     // request URL
-    $(cells[4]).text(request.url);
+    $(cells[3]).text(request.url);
 }
 
 /*----------------------------------------------------------------------------*/
