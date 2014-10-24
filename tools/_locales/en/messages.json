@@ -468,8 +468,8 @@
         "description": "English: Storage used: {{storageUsed}} bytes"
     },
     "aboutDoc" : {
-        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki'>Documentation</a>",
-        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki'>Documentation</a>"
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Documentation</a>",
+        "description": "English: <a href='https://github.com/gorhill/uMatrix/wiki'>Documentation</a>"
     },
     "aboutPermissions" : {
         "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Permissions</a>",
@@ -516,7 +516,7 @@
         "description": "English: Reset to default settings"
     },
     "aboutResetConfirm" : {
-        "message": "Caution! this will also remove all your custom settings. Are you sure you want to proceed?",
+        "message": "Caution! this will remove all your custom settings. Are you sure you want to proceed?",
         "description": "Message asking user to confirm reset"
     },
 

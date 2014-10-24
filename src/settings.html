@@ -44,8 +44,10 @@ ul > li {
 
 <h2 data-i18n="settingsMatrixDisplayHeader"></h2>
 <ul style="list-style:none">
-    <li><span data-i18n="settingsMatrixDisplayTextSizePrompt"></span>&ensp;<input type="radio" name="displayTextSize" value="13px"><span data-i18n="settingsMatrixDisplayTextSizeNormal"></span>&ensp;<input type="radio" name="displayTextSize" value="16px"><span data-i18n="settingsMatrixDisplayTextSizeLarge"></span>
-    <li style="margin-top:0.5em;"><input id="colorBlindFriendly" type="checkbox" data-range="bool"><span data-i18n="settingsMatrixDisplayColorBlind"></span>
+    <li style="margin-top:0.5em;"><input id="colorBlindFriendly" type="checkbox" data-range="bool"><label data-i18n="settingsMatrixDisplayColorBlind" for="colorBlindFriendly"></label>
+    <li style="margin-top:0.5em;"><span data-i18n="settingsMatrixDisplayTextSizePrompt"></span>
+    <input type="radio" name="displayTextSize" id="displayTextSizeNormal" value="13px"><label data-i18n="settingsMatrixDisplayTextSizeNormal" for="displayTextSizeNormal"></label>
+    <input type="radio" name="displayTextSize" id="displayTextSizeLarge" value="16px"><label data-i18n="settingsMatrixDisplayTextSizeLarge" for="displayTextSizeLarge"></label>
     <li style="margin-top:0.5em;">
         <span data-i18n="settingsSubframeColor"></span> <input id="subframe-color" type="color" value="#c00">
         &ensp;<span data-i18n="settingsSubframeOpacity"></span> <input id="subframe-opacity" type="range" min="0" max="100" value="100">

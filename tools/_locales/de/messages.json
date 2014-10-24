@@ -464,8 +464,8 @@
         "description": "English: Storage used: {{storageUsed}}%"
     },
     "aboutDoc" : {
-        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki'>Dokumentation/Wiki</a>",
-        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki'>Documentation</a>"
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Dokumentation</a>",
+        "description": "English: <a href='https://github.com/gorhill/uMatrix/wiki'>Documentation</a>"
     },
     "aboutPermissions" : {
         "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Berechtigungen</a>",
