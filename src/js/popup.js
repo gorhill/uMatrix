@@ -315,7 +315,7 @@ function updateMatrixBehavior() {
         j = subdomainRows.length;
         while ( j-- ) {
             subdomainRow = subdomainRows.at(j);
-            subdomainRow.toggleClass('collapsible', subdomainRow.descendants('.gd,.rd').length === 0);
+            subdomainRow.toggleClass('collapsible', subdomainRow.descendants('.t81,.t82').length === 0);
         }
         section.toggleClass('collapsible', subdomainRows.filter('.collapsible').length > 0);
     }
