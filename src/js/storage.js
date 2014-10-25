@@ -219,10 +219,6 @@
         µm.ubiquitousBlacklist.reset();
         var locations = Object.keys(hostsFiles);
         hostsFileLoadCount = locations.length;
-        if ( hostsFileLoadCount === 0 ) {
-            loadHostsFilesEnd();
-            return;
-        }
 
         // Load all hosts file which are not disabled.
         var location;
@@ -232,6 +228,12 @@
                 continue;
             }
             µm.assets.get(location, mergeHostsFile);
+        }
+
+        // https://github.com/gorhill/uMatrix/issues/2
+        if ( hostsFileLoadCount === 0 ) {
+            loadHostsFilesEnd();
+            return;
         }
     };
 
