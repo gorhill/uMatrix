@@ -71,7 +71,7 @@
     }
     var ext = path.slice(pos) + '.';
     if ( '.css.eot.ttf.otf.svg.woff.woff2.'.indexOf(ext) !== -1 ) {
-        return 'stylesheet';
+        return 'css';
     }
     if ( '.ico.png.gif.jpg.jpeg.'.indexOf(ext) !== -1 ) {
         return 'image';
