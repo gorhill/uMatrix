@@ -1,6 +1,6 @@
 # µMatrix for Chromium
 
-[Under development: usable]
+[Under development: [usable](https://github.com/gorhill/uMatrix/releases)]
 
 Forked from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
