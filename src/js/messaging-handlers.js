@@ -170,11 +170,9 @@ var matrixSnapshot = function(details) {
         row.counts[typeIndex] += 1;
         row.counts[anyIndex] += 1;
 
-        if ( reqDomain !== reqHostname ) {
-            row = r.rows[reqDomain];
-            row.totals[typeIndex] += 1;
-            row.totals[anyIndex] += 1;
-        }
+        row = r.rows[reqDomain];
+        row.totals[typeIndex] += 1;
+        row.totals[anyIndex] += 1;
 
         row = r.rows['*'];
         row.totals[typeIndex] += 1;
