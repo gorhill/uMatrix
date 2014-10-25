@@ -548,7 +548,7 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
     font-size: 1.1em;
     left: 20%;
     bottom: -20%;
-    visibility: hidden;
+    display: none;
     color: black;
     background-color: white;
     opacity: 0.25;
@@ -562,7 +562,7 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
     content: '\f107';
     }
 .matSection.collapsible .matRow.l1 .matCell:nth-of-type(1):hover #domainOnly {
-    visibility: visible;
+    display: block;
     }
 #matHead #domainOnly .fa:before {
     content: '\f106';
@@ -571,7 +571,7 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
     content: '\f107';
     }
 #matHead.collapsible .matRow .matCell:nth-of-type(1):hover #domainOnly {
-    visibility: visible;
+    display: block;
     }
 #domainOnly:hover {
     opacity: 1;
