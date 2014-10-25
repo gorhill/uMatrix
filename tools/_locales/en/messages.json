@@ -426,8 +426,8 @@
         "description": "English: Apply changes"
     },
     "hostsFilesAutoUpdatePrompt":{
-        "message":"Auto-update filter lists.",
-        "description":"English: Auto-update filter lists."
+        "message":"Auto-update hosts files.",
+        "description":"English: Auto-update hosts files."
     },
     "hostsFilesUpdateNow":{
         "message":"Update now",
