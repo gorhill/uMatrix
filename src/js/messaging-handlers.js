@@ -601,8 +601,7 @@ var onMessage = function(request, sender, callback) {
                 hyperlinkAuditingFoiledCounter: µm.hyperlinkAuditingFoiledCounter,
                 cookieRemovedCounter: µm.cookieRemovedCounter,
                 localStorageRemovedCounter: µm.localStorageRemovedCounter,
-                browserCacheClearedCounter: µm.browserCacheClearedCounter,
-                abpBlockCount: µm.abpBlockCount
+                browserCacheClearedCounter: µm.browserCacheClearedCounter
             };
             break;
 

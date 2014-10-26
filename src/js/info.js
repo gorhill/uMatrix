@@ -315,7 +315,7 @@ function changeFilterHandler() {
 
 function syncWithFilters() {
     var blocked = ['blocked','allowed'];
-    var type = ['main_frame','cookie','stylesheet','image','object','script','xmlhttprequest','sub_frame','other'];
+    var type = ['doc','cookie','css','image','plugin','script','xhr','frame','other'];
     var i = blocked.length;
     var j;
     var display, selector;
