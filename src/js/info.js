@@ -68,16 +68,7 @@ function renderNumber(value) {
     if ( isNaN(value) ) {
         return '0';
     }
-    // TODO: localization
-    if ( +value > 1000 ) {
-        value = value.toString();
-        var i = value.length - 3;
-        while ( i > 0 ) {
-            value = value.slice(0, i) + ',' + value.slice(i);
-            i -= 3;
-        }
-    }
-    return value;
+    return value.toLocaleString();
 }
 
 /******************************************************************************/
@@ -110,13 +101,20 @@ var renderLocalized = function(id, map) {
 
 function renderPageUrls() {
     var onResponseReceived = function(r) {
-        var select = $('#selectPageUrls');
-
-        // One of the permanent entry will serve as a template
-        var optionTemplate = $('#selectPageUrlTemplate', select);
+        var i, n;
+        var select = uDom('#selectPageUrls');
 
         // Remove whatever was put there in a previous call
-        $(optionTemplate).nextAll().remove();
+        uDom('#selectPageUrls > option').remove();
+        var builtinOptions = uDom('#selectPageUrlsTemplate > option');
+        var n = builtinOptions.length;
+        for ( i = 0; i < n; i++ ) {
+            option = builtinOptions.at(i).clone();
+            if ( option.val() === targetUrl ) {
+                option.attr('selected', true);
+            }
+            select.append(option);
+        }
 
         var pageURLs = r.pageURLs.sort();
         var pageURL, option;
@@ -126,16 +124,18 @@ function renderPageUrls() {
             if ( pageURL === r.behindTheSceneURL ) {
                 continue;
             }
-            option = optionTemplate.clone();
-            option.attr('id', '');
-            option.attr('value', pageURL);
+            option = uDom('<option>');
+            option.val(pageURL);
             option.text(pageURL);
+            if ( pageURL === targetUrl ) {
+                option.attr('selected', true);
+            }
             select.append(option);
         }
         // Deselect whatever is currently selected
-        $('option:selected', select).prop('selected', false);
+        //uDom('#selectPageUrls > option:selected').prop('selected', false);
         // Select whatever needs to be selected
-        $('option[value="'+targetUrl+'"]', select).prop('selected', true);
+        //uDom('#selectPageUrls > option[value="'+targetUrl+'"]').prop('selected', true);
     };
     messaging.ask({ what: 'getPageURLs' }, onResponseReceived);
 }

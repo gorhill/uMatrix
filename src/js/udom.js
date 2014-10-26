@@ -112,8 +112,8 @@ var addListToList = function(list, other) {
 var addSelectorToList = function(list, selector, context) {
     var p = context || document;
     var r = p.querySelectorAll(selector);
-    var i = r.length;
-    while ( i-- ) {
+    var n = r.length;
+    for ( var i = 0; i < n; i++ ) {
         list.nodes.push(r[i]);
     }
     return list;
