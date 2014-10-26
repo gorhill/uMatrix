@@ -54,7 +54,7 @@ function updateRequestData(callback) {
             .sort(function(a,b){return b.when-a.when;})
             .slice(0, maxRequests);
         callback(requests);
-    }
+    };
     var request = {
         what: 'getRequestLogs',
         pageURL: targetUrl !== 'all' ? targetUrl : null
@@ -107,7 +107,7 @@ function renderPageUrls() {
         // Remove whatever was put there in a previous call
         uDom('#selectPageUrls > option').remove();
         var builtinOptions = uDom('#selectPageUrlsTemplate > option');
-        var n = builtinOptions.length;
+        n = builtinOptions.length;
         for ( i = 0; i < n; i++ ) {
             option = builtinOptions.at(i).clone();
             if ( option.val() === targetUrl ) {
@@ -118,7 +118,8 @@ function renderPageUrls() {
 
         var pageURLs = r.pageURLs.sort();
         var pageURL, option;
-        for ( var i = 0; i < pageURLs.length; i++ ) {
+        n = pageURLs.length;
+        for ( i = 0; i < n; i++ ) {
             pageURL = pageURLs[i];
             // Behind-the-scene entry is always present, no need to recreate it
             if ( pageURL === r.behindTheSceneURL ) {
@@ -158,8 +159,6 @@ function renderStats() {
         renderLocalized('statsPageCookiesRemoved', { count: renderNumber(r.cookieRemovedCounter) });
         renderLocalized('statsPageLocalStoragesCleared', { count: renderNumber(r.localStorageRemovedCounter) });
         renderLocalized('statsPageBrowserCacheCleared', { count: renderNumber(r.browserCacheClearedCounter) });
-
-        var blockedAllCount = r.globalNetStats.blocked.all;
 
         renderNumbers({
             '#blockedAllCount': requestStats.blocked.all,
@@ -265,7 +264,7 @@ var renderRequests = function() {
         syncWithFilters();
     };
     updateRequestData(onResponseReceived);
-}
+};
 
 /******************************************************************************/
 
