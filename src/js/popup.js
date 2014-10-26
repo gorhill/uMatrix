@@ -134,54 +134,100 @@ function getGroupStats() {
     var columnOffsets = matrixSnapshot.headers;
     var anyTypeOffset = columnOffsets['*'];
     var hostname, domain;
-    var row, color, groupIndex;
+    var row, color, count, groupIndex;
     var domainToGroupMap = {};
 
-    // First pass: put each domain in a group
+    // These have hard-coded position which cannot be overriden
+    domainToGroupMap['1st-party'] = 0;
+    domainToGroupMap[pageDomain] = 1;
+
+    // 1st pass: domain wins if it has an explicit rule or a count
     for ( hostname in rows ) {
         if ( rows.hasOwnProperty(hostname) === false ) {
             continue;
         }
-        // '*' is for header, ignore since header is always at the top
-        if ( hostname === '*' ) {
+        if ( hostname === '*' || hostname === '1st-party' ) {
             continue;
         }
-        row = rows[hostname];
-        domain = row.domain;
-        // literal "1st-party" row always into group 0
-        if ( hostname === '1st-party' ) {
-            domainToGroupMap[domain] = 0;
+        domain = rows[hostname].domain;
+        if ( domain === pageDomain || hostname !== domain ) {
             continue;
         }
-        // 1st-party hostnames always into group 1
-        if ( domain === pageDomain ) {
-            domainToGroupMap[domain] = 1;
-            continue;
-        }
+        row = rows[domain];
         color = row.temporary[anyTypeOffset];
-        groupIndex = domainToGroupMap[domain] || 3; // anything overrides 3
-        // group 2: whitelisted (does not override 0, 1)
         if ( color === DarkGreen ) {
             domainToGroupMap[domain] = 2;
             continue;
         }
-        // group 4: blacklisted (does not override 0, 1, 2)
         if ( color === DarkRed ) {
-            if ( groupIndex === 3 ) {
-                domainToGroupMap[domain] = 4;
-            }
+            domainToGroupMap[domain] = 4;
             continue;
         }
-
-        // group 3: graylisted (does not override 0, 1, 2, 4)
-        if ( groupIndex !== 3 ) {
+        count = row.counts[anyTypeOffset];
+        if ( count !== 0 ) {
+            domainToGroupMap[domain] = 3;
             continue;
         }
-
+    }
+    // 2nd pass: green wins
+    for ( hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) {
+            continue;
+        }
+        row = rows[hostname];
+        domain = row.domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) {
+            continue;
+        }
+        color = row.temporary[anyTypeOffset];
+        if ( color === DarkGreen ) {
+            domainToGroupMap[domain] = 2;
+        }
+    }
+    // 3rd pass: gray with count wins
+    for ( hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) {
+            continue;
+        }
+        row = rows[hostname];
+        domain = row.domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) {
+            continue;
+        }
+        color = row.temporary[anyTypeOffset];
+        count = row.counts[anyTypeOffset];
+        if ( color !== DarkRed && count !== 0 ) {
+            domainToGroupMap[domain] = 3;
+        }
+    }
+    // 4th pass: red wins whatever is left
+    for ( hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) {
+            continue;
+        }
+        row = rows[hostname];
+        domain = row.domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) {
+            continue;
+        }
+        color = row.temporary[anyTypeOffset];
+        if ( color === DarkRed ) {
+            domainToGroupMap[domain] = 4;
+        }
+    }
+    // 5th pass: gray wins whatever is left
+    for ( hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) {
+            continue;
+        }
+        domain = rows[hostname].domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) {
+            continue;
+        }
         domainToGroupMap[domain] = 3;
     }
 
-    // Second pass: put each domain in a group
+    // Last pass: put each domain in a group
     var groups = [ {}, {}, {}, {}, {} ];
     var group;
     for ( hostname in rows ) {
@@ -191,8 +237,7 @@ function getGroupStats() {
         if ( hostname === '*' ) {
             continue;
         }
-        row = rows[hostname];
-        domain = row.domain;
+        domain = rows[hostname].domain;
         groupIndex = domainToGroupMap[domain];
         group = groups[groupIndex];
         if ( group.hasOwnProperty(domain) === false ) {
@@ -624,13 +669,13 @@ function makeMatrixGroup0SectionDomain() {
     return makeMatrixRowDomain('1st-party').addClass('g0 l1');
 }
 
-function makeMatrixGroup0Section(hostnames) {
+function makeMatrixGroup0Section() {
     var domainDiv = createMatrixSection().prop('domain', '1st-party');
     makeMatrixGroup0SectionDomain().appendTo(domainDiv);
     return domainDiv;
 }
 
-function makeMatrixGroup0(group) {
+function makeMatrixGroup0() {
     // Show literal "1st-party" row only if there is 
     // at least one 1st-party hostname
     if ( Object.keys(groupsSnapshot[1]).length === 0 ) {
