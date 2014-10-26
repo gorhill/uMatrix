@@ -116,18 +116,6 @@ chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigateCallback);
 
 /******************************************************************************/
 
-// Initialize internal state with maybe already existing tabs
-
-chrome.tabs.query({ url: '<all_urls>' }, function(tabs) {
-    var i = tabs.length;
-    // console.debug('HTTP Switchboard > preparing to bind %d tabs', i);
-    while ( i-- ) {
-        µMatrix.bindTabToPageStats(tabs[i].id, tabs[i].url);
-    }
-});
-
-/******************************************************************************/
-
 // Browser data jobs
 
 (function() {
@@ -175,7 +163,24 @@ chrome.tabs.query({ url: '<all_urls>' }, function(tabs) {
 
 // Load everything
 
-µMatrix.load();
-µMatrix.webRequest.start();
+(function() {
+    var µm = µMatrix;
+
+    // This needs to be done when the PSL is loaded
+    var bindTabs = function(tabs) {
+        var i = tabs.length;
+        // console.debug('start.js > binding %d tabs', i);
+        while ( i-- ) {
+            µm.bindTabToPageStats(tabs[i].id, tabs[i].url);
+        }
+        µm.webRequest.start();
+    };
+
+    var queryTabs = function() {
+        chrome.tabs.query({ url: '<all_urls>' }, bindTabs);
+    };
+
+    µm.load(queryTabs);
+})();
 
 /******************************************************************************/

@@ -362,13 +362,18 @@
 
 // Load updatable assets
 
-µMatrix.loadUpdatableAssets = function(forceUpdate) {
+µMatrix.loadUpdatableAssets = function(forceUpdate, callback) {
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
+
     this.assets.autoUpdate = forceUpdate === true;
     this.assets.autoUpdateDelay = this.updateAssetsEvery;
     if ( forceUpdate ) {
         this.updater.restart();
     }
-    this.loadPublicSuffixList();
+
+    this.loadPublicSuffixList(callback);
     this.loadHostsFiles();
 };
 
@@ -376,13 +381,17 @@
 
 // Load all
 
-µMatrix.load = function() {
+µMatrix.load = function(callback) {
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
+
     var µm = this;
 
     // User settings are in memory
     var onUserSettingsReady = function(settings) {
         // Never auto-update at boot time
-        µm.loadUpdatableAssets(false);
+        µm.loadUpdatableAssets(false, callback);
  
         // Setup auto-updater, earlier if auto-upate is enabled, later if not
         if ( settings.autoUpdate ) {
