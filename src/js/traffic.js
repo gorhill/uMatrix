@@ -174,17 +174,19 @@ var onBeforeChromeExtensionRequestHandler = function(details) {
         return;
     }
 
+    var µm = µMatrix;
+
     // Is the target page still blacklisted?
     var pageURL = decodeURIComponent(matches[1]);
     var hostname = decodeURIComponent(matches[2]);
-    if ( µMatrix.mustBlock(µMatrix.scopeFromURL(pageURL), hostname, '*') ) {
+    if ( µm.mustBlock(µm.scopeFromURL(pageURL), hostname, '*') ) {
         return;
     }
 
     µMatrix.asyncJobs.add(
         'gotoURL-' + details.tabId,
         { tabId: details.tabId, url: pageURL },
-        µMatrix.utils.gotoURL,
+        µm.utils.gotoURL,
         200,
         false
     );
@@ -287,7 +289,7 @@ var processRequest = function(µm, details) {
     }
 
     // Block request?
-    var block = µm.mustBlock(µm.scopeFromURL(pageURL), requestHostname, requestType);
+    var block = µm.mustBlock(pageStats.pageHostname, requestHostname, requestType);
 
     // Record request.
     // https://github.com/gorhill/httpswitchboard/issues/342
@@ -466,13 +468,13 @@ var onBeforeSendHeadersHandler = function(details) {
 
     var changed = false;
 
-    if ( µm.mustBlock(µm.scopeFromURL(pageURL), reqHostname, 'cookie') ) {
+    if ( µm.mustBlock(pageStats.pageHostname, reqHostname, 'cookie') ) {
         changed = foilCookieHeaders(µm, details) || changed;
     }
 
     // TODO: use cookie cell to determine whether the referrer info must be
     // foiled.
-    if ( µm.userSettings.processReferer && µm.mustBlock(this.scopeFromURL(pageURL), reqHostname, '*') ) {
+    if ( µm.userSettings.processReferer && µm.mustBlock(pageStats.pageHostname, reqHostname, '*') ) {
         changed = foilRefererHeaders(µm, reqHostname, details) || changed;
     }
 
@@ -711,7 +713,7 @@ var onMainDocHeadersReceived = function(details) {
     }
 
     // Evaluate
-    if ( µm.mustAllow(µm.scopeFromURL(µm.pageUrlFromPageStats(pageStats)), requestHostname, 'script') ) {
+    if ( µm.mustAllow(pageStats.pageHostname, requestHostname, 'script') ) {
         // https://github.com/gorhill/httpswitchboard/issues/181
         pageStats.pageScriptBlocked = false;
         return;
@@ -760,7 +762,7 @@ var onSubDocHeadersReceived = function(details) {
     }
 
     // Evaluate
-    if ( µm.mustAllow(µm.scopeFromURL(µm.pageUrlFromPageStats(pageStats)), µm.hostnameFromURL(details.url), 'script') ) {
+    if ( µm.mustAllow(pageStats.pageHostname, µm.hostnameFromURL(details.url), 'script') ) {
         return;
     }
 
