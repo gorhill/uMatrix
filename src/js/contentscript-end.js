@@ -166,6 +166,7 @@ messaging.ask({
 var localStorageHandler = function(mustRemove) {
     if ( mustRemove ) {
         window.localStorage.clear();
+        window.sessionStorage.clear();
         // console.debug('HTTP Switchboard > found and removed non-empty localStorage');
     }
 };
@@ -175,7 +176,9 @@ var localStorageHandler = function(mustRemove) {
 // to site data is disabled.
 // https://github.com/gorhill/httpswitchboard/issues/215
 try {
-    if ( window.localStorage && window.localStorage.length ) {
+    var hasLocalStorage = window.localStorage && window.localStorage.length;
+    var hasSessionStorage = window.sessionStorage && window.sessionStorage.length;
+    if ( hasLocalStorage || hasSessionStorage ) {
         messaging.ask({
                 what: 'contentScriptHasLocalStorage',
                 url: window.location.href
