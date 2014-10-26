@@ -355,10 +355,7 @@
         }
         callback();
     };
-    this.assets.get(
-        'assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat',
-        applyPublicSuffixList
-    );
+    this.assets.get(this.pslPath, applyPublicSuffixList);
 };
 
 /******************************************************************************/

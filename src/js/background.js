@@ -85,6 +85,7 @@ return {
     firstUpdateAfter: 11 * oneMinute,
     nextUpdateAfter: 11 * oneHour,
     projectServerRoot: 'https://raw.githubusercontent.com/gorhill/umatrix/master/',
+    pslPath: 'assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat',
 
     // permanent hosts files
     permanentHostsFiles: {
