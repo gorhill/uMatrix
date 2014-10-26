@@ -486,6 +486,9 @@ Matrix.prototype.evaluateSwitchZ = function(srcHostname) {
 
 /******************************************************************************/
 
+// TODO: In all likelyhood, will have to optmize here, i.e. keeping an
+// up-to-date collection of src hostnames with reference count etc.
+
 Matrix.prototype.extractAllSourceHostnames = function() {
     var srcHostnames = {};
     var rules = this.rules;
