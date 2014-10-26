@@ -133,8 +133,12 @@ return asyncJobManager;
 // Update visual of extension icon.
 // A time out is used to coalesce adjacent requests to update badge.
 
-µMatrix.updateBadge = function(pageUrl) {
-    var updateBadgeCallback = function(pageUrl) {
+µMatrix.updateBadgeAsync = (function(){
+    var µm = µMatrix;
+
+    // Cache callback definition, it was a bad idea to define this one inside 
+    // updateBadgeAsync
+    var updateBadge = function(pageUrl) {
         var µm = µMatrix;
         if ( pageUrl === µm.behindTheSceneURL ) {
             return;
@@ -143,17 +147,27 @@ return asyncJobManager;
         if ( !tabId ) {
             return;
         }
-        var pageStats = µm.pageStatsFromTabId(tabId);
-        if ( pageStats ) {
-            pageStats.updateBadge(tabId);
-        } else {
-            chrome.browserAction.setIcon({ tabId: tabId, path: 'img/browsericons/icon19.png' });
-            chrome.browserAction.setBadgeText({ tabId: tabId, text: '?' });
+        var pageStore = µm.pageStatsFromTabId(tabId);
+        if ( pageStore ) {
+            pageStore.updateBadge(tabId);
+            return;
         }
+        µm.XAL.setIcon(
+            tabId,
+            { '19': 'img/browsericons/icon19.png' },
+            '?'
+        );
     };
 
-    this.asyncJobs.add('updateBadge ' + pageUrl, pageUrl, updateBadgeCallback, 250);
-};
+    var updateBadgeAsync = function(pageUrl) {
+        if ( typeof pageUrl !== 'string' || pageUrl === '' ) {
+            return;
+        }
+        µm.asyncJobs.add('updateBadge-' + pageUrl, pageUrl, updateBadge, 250);
+    };
+
+    return updateBadgeAsync;
+})();
 
 /******************************************************************************/
 

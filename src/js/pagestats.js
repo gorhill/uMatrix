@@ -504,7 +504,7 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     // rhill 2013-10-26: This needs to be called even if the request is
     // already logged, since the request stats are cached for a while after
     // the page is no longer visible in a browser tab.
-    µm.updateBadge(this.pageUrl);
+    µm.updateBadgeAsync(this.pageUrl);
 
     // Count blocked/allowed requests
     this.requestStats.record(type, block);
@@ -571,9 +571,11 @@ PageStore.prototype.updateBadge = function(tabId) {
     } else {
         iconPath = 'img/browsericons/icon19.png';
     }
-    chrome.browserAction.setIcon({ tabId: tabId, path: iconPath });
-    chrome.browserAction.setBadgeText({ tabId: tabId, text: µm.formatCount(this.distinctRequestCount) });
-    chrome.browserAction.setBadgeBackgroundColor({ tabId: tabId, color: '#000' });
+    µm.XAL.setIcon(
+        tabId,
+        iconPath,
+        µm.formatCount(this.distinctRequestCount)
+    );
 };
 
 /******************************************************************************/
