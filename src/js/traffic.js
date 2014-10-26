@@ -854,72 +854,75 @@ var requestTypeNormalizer = {
 
 /******************************************************************************/
 
-chrome.webRequest.onBeforeRequest.addListener(
-    //function(details) {
-    //    quickProfiler.start('onBeforeRequest');
-    //    var r = onBeforeRequestHandler(details);
-    //    quickProfiler.stop();
-    //    return r;
-    //},
-    onBeforeRequestHandler,
-    {
-        "urls": [
-            "http://*/*",
-            "https://*/*",
-            "chrome-extension://*/*"
-        ],
-        "types": [
-            "main_frame",
-            "sub_frame",
-            'stylesheet',
-            "script",
-            "image",
-            "object",
-            "xmlhttprequest",
-            "other"
-        ]
-    },
-    [ "blocking" ]
-);
+var start = function() {
+    chrome.webRequest.onBeforeRequest.addListener(
+        //function(details) {
+        //    quickProfiler.start('onBeforeRequest');
+        //    var r = onBeforeRequestHandler(details);
+        //    quickProfiler.stop();
+        //    return r;
+        //},
+        onBeforeRequestHandler,
+        {
+            "urls": [
+                "http://*/*",
+                "https://*/*",
+                "chrome-extension://*/*"
+            ],
+            "types": [
+                "main_frame",
+                "sub_frame",
+                'stylesheet',
+                "script",
+                "image",
+                "object",
+                "xmlhttprequest",
+                "other"
+            ]
+        },
+        [ "blocking" ]
+    );
 
-//console.log('µMatrix > Beginning to intercept net requests at %s', (new Date()).toISOString());
+    //console.log('µMatrix > Beginning to intercept net requests at %s', (new Date()).toISOString());
 
-chrome.webRequest.onBeforeSendHeaders.addListener(
-    onBeforeSendHeadersHandler,
-    {
-        'urls': [
-            "http://*/*",
-            "https://*/*"
-        ]
-    },
-    ['blocking', 'requestHeaders']
-);
+    chrome.webRequest.onBeforeSendHeaders.addListener(
+        onBeforeSendHeadersHandler,
+        {
+            'urls': [
+                "http://*/*",
+                "https://*/*"
+            ]
+        },
+        ['blocking', 'requestHeaders']
+    );
 
-chrome.webRequest.onHeadersReceived.addListener(
-    onHeadersReceived,
-    {
-        'urls': [
-            "http://*/*",
-            "https://*/*"
-        ]
-    },
-    ['blocking', 'responseHeaders']
-);
+    chrome.webRequest.onHeadersReceived.addListener(
+        onHeadersReceived,
+        {
+            'urls': [
+                "http://*/*",
+                "https://*/*"
+            ]
+        },
+        ['blocking', 'responseHeaders']
+    );
 
-chrome.webRequest.onErrorOccurred.addListener(
-    onErrorOccurredHandler,
-    {
-        'urls': [
-            "http://*/*",
-            "https://*/*"
-        ]
-    }
-);
+    chrome.webRequest.onErrorOccurred.addListener(
+        onErrorOccurredHandler,
+        {
+            'urls': [
+                "http://*/*",
+                "https://*/*"
+            ]
+        }
+    );
+};
 
 /******************************************************************************/
 
 return {
-    blockedRootFramePrefix: 'data:text/html;base64,' + btoa(rootFrameReplacement).slice(0, 80)
+    blockedRootFramePrefix: 'data:text/html;base64,' + btoa(rootFrameReplacement).slice(0, 80),
+    start: start
 };
 
 /******************************************************************************/

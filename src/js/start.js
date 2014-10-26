@@ -23,6 +23,16 @@
 
 /******************************************************************************/
 
+// rhill 2013-11-24: bind behind-the-scene virtual tab/url manually, since the
+// normal way forbid binding behind the scene tab.
+// https://github.com/gorhill/httpswitchboard/issues/67
+
+µMatrix.createPageStats(µMatrix.behindTheSceneURL);
+µMatrix.pageUrlToTabId[µMatrix.behindTheSceneURL] = µMatrix.behindTheSceneTabId;
+µMatrix.tabIdToPageUrl[µMatrix.behindTheSceneTabId] = µMatrix.behindTheSceneURL;
+
+/******************************************************************************/
+
 µMatrix.turnOn();
 
 /******************************************************************************/
@@ -106,22 +116,6 @@ chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigateCallback);
 
 /******************************************************************************/
 
-// Load everything
-
-µMatrix.load();
-
-/******************************************************************************/
-
-// rhill 2013-11-24: bind behind-the-scene virtual tab/url manually, since the
-// normal way forbid binding behind the scene tab.
-// https://github.com/gorhill/httpswitchboard/issues/67
-
-µMatrix.createPageStats(µMatrix.behindTheSceneURL);
-µMatrix.pageUrlToTabId[µMatrix.behindTheSceneURL] = µMatrix.behindTheSceneTabId;
-µMatrix.tabIdToPageUrl[µMatrix.behindTheSceneTabId] = µMatrix.behindTheSceneURL;
-
-/******************************************************************************/
-
 // Initialize internal state with maybe already existing tabs
 
 chrome.tabs.query({ url: '<all_urls>' }, function(tabs) {
@@ -176,5 +170,12 @@ chrome.tabs.query({ url: '<all_urls>' }, function(tabs) {
 
     µm.asyncJobs.add('autoUpdateAssets', null, jobCallback, µm.updateAssetsEvery, true);
 })();
+
+/******************************************************************************/
+
+// Load everything
+
+µMatrix.load();
+µMatrix.webRequest.start();
 
 /******************************************************************************/

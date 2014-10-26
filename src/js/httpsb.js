@@ -73,7 +73,7 @@
     if ( '.css.eot.ttf.otf.svg.woff.woff2.'.indexOf(ext) !== -1 ) {
         return 'css';
     }
-    if ( '.ico.png.gif.jpg.jpeg.'.indexOf(ext) !== -1 ) {
+    if ( '.ico.png.gif.jpg.jpeg.bmp.'.indexOf(ext) !== -1 ) {
         return 'image';
     }
     return type;
