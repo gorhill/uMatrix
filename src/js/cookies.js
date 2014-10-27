@@ -69,6 +69,7 @@ CookieEntry.prototype.set = function(cookie) {
 
 CookieEntry.prototype.unset = function() {
     this.hostname = '';
+    this.domain = '';
     this.path = '';
     this.name = '';
     this.value = '';
