@@ -162,6 +162,7 @@ var LogEntry = function() {
 var logEntryJunkyard = [];
 
 LogEntry.prototype.dispose = function() {
+    this.url = this.type = '';
     // Let's not grab and hold onto too much memory..
     if ( logEntryJunkyard.length < 200 ) {
         logEntryJunkyard.push(this);
@@ -226,8 +227,8 @@ PageRequestStats.prototype.dispose = function() {
             continue;
         }
         stringPacker.forget(reqKey.slice(3));
-        delete requests[reqKey];
     }
+    this.requests = {};
     var i = this.ringBuffer.length;
     var logEntry;
     while ( i-- ) {
