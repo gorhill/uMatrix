@@ -435,21 +435,9 @@ var pageStoreFactory = function(pageUrl) {
 /******************************************************************************/
 
 function PageStore(pageUrl) {
-    this.pageUrl = '';
-    this.pageHostname = '';
-    this.pageDomain = '';
-    this.pageScriptBlocked = false;
-    this.thirdpartyScript = false;
-    this.requests = µm.PageRequestStats.factory();
-    this.domains = {};
-    this.state = {};
     this.visible = false;
     this.requestStats = new WebRequestStats();
-    this.distinctRequestCount = 0;
-    this.perLoadAllowedRequestCount = 0;
-    this.perLoadBlockedRequestCount = 0;
     this.off = false;
-    this.abpBlockCount = 0;
     this.init(pageUrl);
 }
 
@@ -458,17 +446,17 @@ function PageStore(pageUrl) {
 PageStore.prototype.init = function(pageUrl) {
     this.pageUrl = pageUrl;
     this.pageHostname = µm.URI.hostnameFromURI(pageUrl);
-    this.pageDomain = µm.URI.domainFromHostname(this.pageHostname) || this.pageHostname;
+    this.pageDomain =  µm.URI.domainFromHostname(this.pageHostname) || this.pageHostname;
     this.pageScriptBlocked = false;
     this.thirdpartyScript = false;
     this.requests = µm.PageRequestStats.factory();
     this.domains = {};
+    this.allHostnamesString = ' ';
     this.state = {};
     this.requestStats.reset();
     this.distinctRequestCount = 0;
     this.perLoadAllowedRequestCount = 0;
     this.perLoadBlockedRequestCount = 0;
-    this.abpBlockCount = 0;
     return this;
 };
 
@@ -485,6 +473,7 @@ PageStore.prototype.dispose = function() {
     this.pageHostname = '';
     this.pageDomain = '';
     this.domains = {};
+    this.allHostnamesString = ' ';
     this.state = {};
 
     if ( pageStoreJunkyard.length < 8 ) {
@@ -545,7 +534,10 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     }
 
     this.distinctRequestCount++;
-    this.domains[hostname] = true;
+    if ( this.domains.hasOwnProperty(hostname) === false ) {
+        this.domains[hostname] = true;
+        this.allHostnamesString += hostname + ' ';
+    }
 
     µm.urlStatsChanged(this.pageUrl);
     // console.debug("HTTP Switchboard> PageStore.recordRequest(): %o: %s @ %s", this, type, url);

@@ -19,6 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global µMatrix */
+
 // rhill 2013-12-14: the whole cookie management has been rewritten so as
 // to avoid having to call chrome API whenever a single cookie changes, and
 // to record cookie for a web page *only* when its value changes.
@@ -34,6 +36,8 @@
 µMatrix.cookieHunter = (function() {
 
 /******************************************************************************/
+
+var µm = µMatrix;
 
 var recordPageCookiesQueue = {};
 var removePageCookiesQueue = {};
@@ -51,21 +55,24 @@ CookieEntry.prototype.set = function(cookie) {
     this.secure = cookie.secure;
     this.session = cookie.session;
     this.anySubdomain = cookie.domain.charAt(0) === '.';
-    this.domain = this.anySubdomain ? cookie.domain.slice(1) : cookie.domain;
+    this.hostname = this.anySubdomain ? cookie.domain.slice(1) : cookie.domain;
+    this.domain = µm.URI.domainFromHostname(this.hostname) || this.hostname;
     this.path = cookie.path;
     this.name = cookie.name;
     this.value = cookie.value;
     this.tstamp = Date.now();
+    this.usedOn = {};
     return this;
 };
 
 // Release anything which may consume too much memory
 
 CookieEntry.prototype.unset = function() {
-    this.domain = '';
+    this.hostname = '';
     this.path = '';
     this.name = '';
     this.value = '';
+    this.usedOn = {};
     return this;
 };
 
@@ -134,7 +141,7 @@ var cookieKeyFromCookie = function(cookie) {
 };
 
 var cookieKeyFromCookieURL = function(url, type, name) {
-    var µmuri = µMatrix.URI.set(url);
+    var µmuri = µm.URI.set(url);
     var cb = cookieKeyBuilder;
     cb[0] = µmuri.scheme;
     cb[2] = µmuri.hostname;
@@ -156,21 +163,21 @@ var cookieURLFromCookieEntry = function(entry) {
     if ( !entry ) {
         return '';
     }
-    return (entry.secure ? 'https://' : 'http://') + entry.domain + entry.path;
+    return (entry.secure ? 'https://' : 'http://') + entry.hostname + entry.path;
 };
 
 /******************************************************************************/
 
-var cookieMatchDomains = function(cookieKey, domains) {
+var cookieMatchDomains = function(cookieKey, allHostnamesString) {
     var cookieEntry = cookieDict[cookieKey];
     if ( !cookieEntry ) {
         return false;
     }
-    if ( domains.indexOf(' ' + cookieEntry.domain + ' ') < 0 ) {
+    if ( allHostnamesString.indexOf(' ' + cookieEntry.hostname + ' ') < 0 ) {
         if ( !cookieEntry.anySubdomain ) {
             return false;
         }
-        if ( domains.indexOf('.' + cookieEntry.domain + ' ') < 0 ) {
+        if ( allHostnamesString.indexOf('.' + cookieEntry.hostname + ' ') < 0 ) {
             return false;
         }
     }
@@ -189,9 +196,9 @@ var recordPageCookiesAsync = function(pageStats) {
     if ( !pageStats ) {
         return;
     }
-    var pageURL = µMatrix.pageUrlFromPageStats(pageStats);
+    var pageURL = µm.pageUrlFromPageStats(pageStats);
     recordPageCookiesQueue[pageURL] = pageStats;
-    µMatrix.asyncJobs.add(
+    µm.asyncJobs.add(
         'cookieHunterPageRecord',
         null,
         processPageRecordQueue,
@@ -211,11 +218,9 @@ var cookieLogEntryBuilder = [
     '}'
 ];
 
-var recordPageCookie = function(pageStats, cookieKey) {
-    var µm = µMatrix;
+var recordPageCookie = function(pageStore, cookieKey) {
     var cookieEntry = cookieDict[cookieKey];
-    var pageURL = pageStats.pageUrl;
-    var block = µm.mustBlock(µm.scopeFromURL(pageURL), cookieEntry.domain, 'cookie');
+    var block = µm.mustBlock(pageStore.pageHostname, cookieEntry.hostname, 'cookie');
 
     cookieLogEntryBuilder[0] = cookieURLFromCookieEntry(cookieEntry);
     cookieLogEntryBuilder[2] = cookieEntry.session ? 'session' : 'persistent';
@@ -224,11 +229,13 @@ var recordPageCookie = function(pageStats, cookieKey) {
     // rhill 2013-11-20:
     // https://github.com/gorhill/httpswitchboard/issues/60
     // Need to URL-encode cookie name
-    pageStats.recordRequest(
+    pageStore.recordRequest(
         'cookie',
         cookieLogEntryBuilder.join(''),
         block
     );
+
+    cookieEntry.usedOn[pageStore.pageHostname] = true;
 
     // rhill 2013-11-21:
     // https://github.com/gorhill/httpswitchboard/issues/65
@@ -255,9 +262,9 @@ var removePageCookiesAsync = function(pageStats) {
     if ( !pageStats ) {
         return;
     }
-    var pageURL = µMatrix.pageUrlFromPageStats(pageStats);
+    var pageURL = µm.pageUrlFromPageStats(pageStats);
     removePageCookiesQueue[pageURL] = pageStats;
-    µMatrix.asyncJobs.add(
+    µm.asyncJobs.add(
         'cookieHunterPageRemove',
         null,
         processPageRemoveQueue,
@@ -284,12 +291,12 @@ var chromeCookieRemove = function(url, name) {
         }
         var cookieKey = cookieKeyFromCookieURL(details.url, 'session', details.name);
         if ( removeCookieFromDict(cookieKey) ) {
-            µMatrix.cookieRemovedCounter += 1;
+            µm.cookieRemovedCounter += 1;
             return;
         }
         cookieKey = cookieKeyFromCookieURL(details.url, 'persistent', details.name);
         if ( removeCookieFromDict(cookieKey) ) {
-            µMatrix.cookieRemovedCounter += 1;
+            µm.cookieRemovedCounter += 1;
         }
     };
 
@@ -325,7 +332,7 @@ var processPageRemoveQueue = function() {
 // Effectively remove cookies.
 
 var processRemoveQueue = function() {
-    var userSettings = µMatrix.userSettings;
+    var userSettings = µm.userSettings;
     var deleteCookies = userSettings.deleteCookies;
 
     // Session cookies which timestamp is *after* tstampObsolete will
@@ -335,7 +342,9 @@ var processRemoveQueue = function() {
         Date.now() - userSettings.deleteUnusedSessionCookiesAfter * 60 * 1000 :
         0;
 
+    var srcHostnames;
     var cookieEntry;
+
     for ( var cookieKey in removeCookieQueue ) {
         if ( removeCookieQueue.hasOwnProperty(cookieKey) === false ) {
             continue;
@@ -348,7 +357,7 @@ var processRemoveQueue = function() {
         // investigate how (A session cookie has same name as a
         // persistent cookie?)
         if ( !cookieEntry ) {
-            console.error('HTTP Switchboard> cookies.js/processRemoveQueue(): no cookieEntry for "%s"', cookieKey);
+            // console.error('cookies.js > processRemoveQueue(): no cookieEntry for "%s"', cookieKey);
             continue;
         }
         
@@ -357,10 +366,15 @@ var processRemoveQueue = function() {
             continue;
         }
 
+        // Query scopes only if we are going to use them
+        if ( srcHostnames === undefined ) {
+            srcHostnames = µm.tMatrix.extractAllSourceHostnames();
+        }
+
         // Ensure cookie is not allowed on ALL current web pages: It can
         // happen that a cookie is blacklisted on one web page while
         // being whitelisted on another (because of per-page permissions).
-        if ( canRemoveCookie(cookieKey) === false ) {
+        if ( canRemoveCookie(cookieKey, srcHostnames) === false ) {
             // Exception: session cookie may have to be removed even though
             // they are seen as being whitelisted.
             if ( cookieEntry.session === false || cookieEntry.tstamp > tstampObsolete ) {
@@ -373,7 +387,7 @@ var processRemoveQueue = function() {
             continue;
         }
 
-        console.debug('µMatrix> cookies.js/processRemoveQueue(): removing "%s" (age=%s min)', cookieKey, ((Date.now() - cookieEntry.tstamp) / 60000).toFixed(1));
+        // console.debug('cookies.js > processRemoveQueue(): removing "%s" (age=%s min)', cookieKey, ((Date.now() - cookieEntry.tstamp) / 60000).toFixed(1));
         chromeCookieRemove(url, cookieEntry.name);
     }
 };
@@ -399,12 +413,11 @@ var processClean = function() {
 /******************************************************************************/
 
 var findAndRecordPageCookies = function(pageStats) {
-    var domains = ' ' + Object.keys(pageStats.domains).join(' ') + ' ';
     for ( var cookieKey in cookieDict ) {
         if ( !cookieDict.hasOwnProperty(cookieKey) ) {
             continue;
         }
-        if ( !cookieMatchDomains(cookieKey, domains) ) {
+        if ( cookieMatchDomains(cookieKey, pageStats.allHostnamesString) === false ) {
             continue;
         }
         recordPageCookie(pageStats, cookieKey);
@@ -414,12 +427,11 @@ var findAndRecordPageCookies = function(pageStats) {
 /******************************************************************************/
 
 var findAndRemovePageCookies = function(pageStats) {
-    var domains = ' ' + Object.keys(pageStats.domains).join(' ') + ' ';
     for ( var cookieKey in cookieDict ) {
-        if ( !cookieDict.hasOwnProperty(cookieKey, domains) ) {
+        if ( !cookieDict.hasOwnProperty(cookieKey) ) {
             continue;
         }
-        if ( !cookieMatchDomains(cookieKey, domains) ) {
+        if ( !cookieMatchDomains(cookieKey, pageStats.allHostnamesString) ) {
             continue;
         }
         removeCookieAsync(cookieKey);
@@ -428,69 +440,44 @@ var findAndRemovePageCookies = function(pageStats) {
 
 /******************************************************************************/
 
-// Check all scopes to ensure none of them fulfill the following
-// conditions:
-// - The hostname of the target cookie matches the hostname of the scope
-// - The target cookie is allowed in the scope
-// Check all pages to ensure none of them fulfill both following
-// conditions:
-// - refers to the target cookie
-// - the target cookie is is allowed
-// If one of the above set of conditions is fulfilled at least once,
-// the cookie can NOT be removed.
-// TODO: cache the joining of hostnames into a single string for search
-// purpose. 
-
-var canRemoveCookie = function(cookieKey) {
-    var entry = cookieDict[cookieKey];
-    if ( !entry ) {
+var canRemoveCookie = function(cookieKey, srcHostnames) {
+    var cookieEntry = cookieDict[cookieKey];
+    if ( !cookieEntry ) {
         return false;
     }
-    var µm = µMatrix;
-    var cookieHostname = entry.domain;
-    var cookieDomain = µm.URI.domainFromHostname(cookieHostname);
-
-    // rhill 2014-01-11: Do not delete cookies which are whitelisted
-    // in at least one scope. Limitation: this can be done only
-    // for cookies which domain matches domain of scope. This is
-    // because a scope with whitelist *|* would cause all cookies to not
-    // be removable.
-    // https://github.com/gorhill/httpswitchboard/issues/126
-    var srcHostnames = µm.tMatrix.extractAllSourceHostnames();
-    var i = srcHostnames.length;
+    var cookieHostname = cookieEntry.hostname;
     var srcHostname;
-    while ( i-- ) {
-        // Cookie related to scope domain?
-        srcHostname = µm.URI.domainFromHostname(srcHostnames[i]);
-        if ( srcHostname === '' || srcHostname !== cookieDomain ) {
+
+    for ( srcHostname in cookieEntry.usedOn ) {
+        if ( cookieEntry.usedOn.hasOwnProperty(srcHostname) === false ) {
             continue;
         }
-        if ( µm.mustBlock(srcHostname, cookieHostname, 'cookie') === false ) {
-            // console.log('cookies.js/canRemoveCookie()> can NOT remove "%s" because of scope "%s"', cookieKey, scopeKey);
+        if ( µm.mustAllow(srcHostname, cookieHostname, 'cookie') ) {
             return false;
         }
     }
-
-    // If we reach this point, we will check whether the cookie is actually
-    // in use for a currently opened web page. This is necessary to
-    // prevent the deletion of 3rd-party cookies which might be whitelisted
-    // for a currently opened web page.
-    var pageStats = µm.pageStats;
-    for ( var pageURL in pageStats ) {
-        if ( pageStats.hasOwnProperty(pageURL) === false ) {
-            continue;
+    // Maybe there is a scope in which the cookie is 1st-party-allowed.
+    // For example, if I am logged in into `github.com`, I do not want to be 
+    // logged out just because I did not yet open a `github.com` page after 
+    // re-starting the browser.
+    srcHostname = cookieHostname;
+    var pos;
+    for (;;) {
+        if ( srcHostnames.hasOwnProperty(srcHostname) ) {
+            if ( µm.mustAllow(srcHostname, cookieHostname, 'cookie') ) {
+                return false;
+            }
         }
-        if ( !cookieMatchDomains(cookieKey, ' ' + Object.keys(pageStats[pageURL].domains).join(' ') + ' ') ) {
-            continue;
+        if ( srcHostname === cookieEntry.domain ) {
+            break;
         }
-        if ( µm.mustAllow(µm.scopeFromURL(pageURL), cookieHostname, 'cookie') ) {
-            // console.log('cookies.js/canRemoveCookie()> can NOT remove "%s" because of scope "%s"', cookieKey, scopeKey);
-            return false;
+        pos = srcHostname.indexOf('.');
+        if ( pos === -1 ) {
+            break;
         }
+        srcHostname = srcHostname.slice(pos + 1);
     }
-
-   // console.log('cookies.js/canRemoveCookie()> can remove "%s"', cookieKey);
-   return true;
+    return true;
 };
 
 /******************************************************************************/
@@ -520,17 +507,17 @@ var onChromeCookieChanged = function(changeInfo) {
 
     // Go through all pages and update if needed, as one cookie can be used
     // by many web pages, so they need to be recorded for all these pages.
-    var allPageStats = µMatrix.pageStats;
-    var pageStats;
-    for ( var pageURL in allPageStats ) {
-        if ( !allPageStats.hasOwnProperty(pageURL) ) {
+    var pageStores = µm.pageStats;
+    var pageStore;
+    for ( var pageURL in pageStores ) {
+        if ( pageStores.hasOwnProperty(pageURL) === false ) {
             continue;
         }
-        pageStats = allPageStats[pageURL];
-        if ( !cookieMatchDomains(cookieKey, ' ' + Object.keys(pageStats.domains).join(' ') + ' ') ) {
+        pageStore = pageStores[pageURL];
+        if ( !cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
             continue;
         }
-        recordPageCookie(pageStats, cookieKey);
+        recordPageCookie(pageStore, cookieKey);
     }
 };
 
@@ -539,8 +526,8 @@ var onChromeCookieChanged = function(changeInfo) {
 chrome.cookies.getAll({}, addCookiesToDict);
 chrome.cookies.onChanged.addListener(onChromeCookieChanged);
 
-// µMatrix.asyncJobs.add('cookieHunterRemove', null, processRemoveQueue, 2 * 60 * 1000, true);
-// µMatrix.asyncJobs.add('cookieHunterClean', null, processClean, 10 * 60 * 1000, true);
+µm.asyncJobs.add('cookieHunterRemove', null, processRemoveQueue, 2 * 60 * 1000, true);
+µm.asyncJobs.add('cookieHunterClean', null, processClean, 10 * 60 * 1000, true);
 
 /******************************************************************************/
 

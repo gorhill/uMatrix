@@ -498,7 +498,24 @@ Matrix.prototype.extractAllSourceHostnames = function() {
         }
         srcHostnames[rule.slice(0, rule.indexOf(' '))] = true;
     }
-    return Object.keys(srcHostnames);
+    return srcHostnames;
+};
+
+/******************************************************************************/
+
+// TODO: In all likelyhood, will have to optmize here, i.e. keeping an
+// up-to-date collection of src hostnames with reference count etc.
+
+Matrix.prototype.extractAllDestinationHostnames = function() {
+    var desHostnames = {};
+    var rules = this.rules;
+    for ( var rule in rules ) {
+        if ( rules.hasOwnProperty(rule) === false ) {
+            continue;
+        }
+        desHostnames[this.desHostnameFromRule(rule)] = true;
+    }
+    return desHostnames;
 };
 
 /******************************************************************************/
