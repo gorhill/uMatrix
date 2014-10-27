@@ -18,6 +18,7 @@ body {
     margin: 0;
     border: 0;
     padding: 0;
+    position: absolute;
     top: 0;
     width: 100vw;
     height: 50px;
@@ -26,8 +27,7 @@ body {
 #dashboard-nav-widgets {
     margin: 0;
     border-bottom: 1px solid #ccc;
-    padding: 4px 0;
-    box-sizing: border-box;
+    padding: 4px 0 0 0;
     white-space: nowrap;
     background-color: white;
     }
@@ -41,7 +41,9 @@ body {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     padding: 4px;
-    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    top: 1px;
     color: black;
     background-color: #eee;
     font: inherit;
