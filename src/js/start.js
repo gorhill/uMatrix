@@ -29,9 +29,13 @@
 // normal way forbid binding behind the scene tab.
 // https://github.com/gorhill/httpswitchboard/issues/67
 
-µMatrix.createPageStats(µMatrix.behindTheSceneURL);
-µMatrix.pageUrlToTabId[µMatrix.behindTheSceneURL] = µMatrix.behindTheSceneTabId;
-µMatrix.tabIdToPageUrl[µMatrix.behindTheSceneTabId] = µMatrix.behindTheSceneURL;
+(function() {
+    var µm = µMatrix;
+    var pageStore = µm.createPageStore(µm.behindTheSceneURL);
+    µm.pageUrlToTabId[µm.behindTheSceneURL] = µm.behindTheSceneTabId;
+    µm.tabIdToPageUrl[µm.behindTheSceneTabId] = µm.behindTheSceneURL;
+    pageStore.boundCount += 1;
+})();
 
 /******************************************************************************/
 

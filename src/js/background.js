@@ -101,7 +101,7 @@ return {
 
     // urls stats are kept on the back burner while waiting to be reactivated
     // in a tab or another.
-    pageStats: {},
+    pageStats: {}, // TODO: rename
 
     // A map of redirects, to allow reverse lookup of redirects from landing
     // page, so that redirection can be reported to the user.

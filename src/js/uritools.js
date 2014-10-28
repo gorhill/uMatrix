@@ -227,7 +227,7 @@ URI.assemble = function(bits) {
 
 URI.schemeFromURI = function(uri) {
     var matches = reSchemeFromURI.exec(uri);
-    if ( !matches ) {
+    if ( matches === null ) {
         return '';
     }
     return matches[0].slice(0, -1).toLowerCase();

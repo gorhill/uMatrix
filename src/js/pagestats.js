@@ -269,18 +269,18 @@ var makeRequestKey = function(uri, reqType) {
     }
     var key  = typeToCode[reqType] || 'z';
     return key +
-           String.fromCharCode(hint >>> 16, hint & 0xFFFF) +
+           String.fromCharCode(hint >>> 22, hint >>> 12 & 0x3FF, hint & 0xFFF) +
            stringPacker.pack(µmuri.hostnameFromURI(uri));
 };
 
 /******************************************************************************/
 
 var rememberRequestKey = function(reqKey) {
-    stringPacker.remember(reqKey.slice(3));
+    stringPacker.remember(reqKey.slice(4));
 };
 
 var forgetRequestKey = function(reqKey) {
-    stringPacker.forget(reqKey.slice(3));
+    stringPacker.forget(reqKey.slice(4));
 };
 
 /******************************************************************************/
@@ -288,7 +288,7 @@ var forgetRequestKey = function(reqKey) {
 // Exported
 
 var hostnameFromRequestKey = function(reqKey) {
-    return stringPacker.unpack(reqKey.slice(3));
+    return stringPacker.unpack(reqKey.slice(4));
 };
 
 PageRequestStats.prototype.hostnameFromRequestKey = hostnameFromRequestKey;
@@ -436,7 +436,6 @@ var pageStoreFactory = function(pageUrl) {
 /******************************************************************************/
 
 function PageStore(pageUrl) {
-    this.visible = false;
     this.requestStats = new WebRequestStats();
     this.off = false;
     this.init(pageUrl);
@@ -458,6 +457,8 @@ PageStore.prototype.init = function(pageUrl) {
     this.distinctRequestCount = 0;
     this.perLoadAllowedRequestCount = 0;
     this.perLoadBlockedRequestCount = 0;
+    this.boundCount = 0;
+    this.obsoleteAfter = 0;
     return this;
 };
 
@@ -465,18 +466,12 @@ PageStore.prototype.init = function(pageUrl) {
 
 PageStore.prototype.dispose = function() {
     this.requests.dispose();
-
-    // rhill 2013-11-07: Even though at init time these are reset, I still
-    // need to release the memory taken by these, which can amount to
-    // sizeable enough chunks (especially requests, through the request URL
-    // used as a key).
     this.pageUrl = '';
     this.pageHostname = '';
     this.pageDomain = '';
     this.domains = {};
     this.allHostnamesString = ' ';
     this.state = {};
-
     if ( pageStoreJunkyard.length < 8 ) {
         pageStoreJunkyard.push(this);
     }
@@ -487,7 +482,7 @@ PageStore.prototype.dispose = function() {
 PageStore.prototype.recordRequest = function(type, url, block) {
     // TODO: this makes no sense, I forgot why I put this here.
     if ( !this ) {
-        // console.error('HTTP Switchboard> PageStore.recordRequest(): no pageStats');
+        // console.error('pagestats.js > PageStore.recordRequest(): no pageStats');
         return;
     }
 
@@ -541,7 +536,7 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     }
 
     µm.urlStatsChanged(this.pageUrl);
-    // console.debug("HTTP Switchboard> PageStore.recordRequest(): %o: %s @ %s", this, type, url);
+    // console.debug("pagestats.js > PageStore.recordRequest(): %o: %s @ %s", this, type, url);
 };
 
 /******************************************************************************/
