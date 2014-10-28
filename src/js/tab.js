@@ -138,7 +138,7 @@
         var pageStore = this.pageStats[pageURL];
         pageStore.boundCount -= 1;
         if ( pageStore.boundCount === 0 ) {
-            pageStore.obsoleteAfter = Date.now() + (5 * 60 * 60 * 1000);
+            pageStore.obsoleteAfter = Date.now() + (5 * 60 * 1000);
         }
     }
     delete this.tabIdToPageUrl[tabId];
