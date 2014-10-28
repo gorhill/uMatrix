@@ -422,7 +422,7 @@
         'gcPageStats',
         null,
         gcPageStats,
-        5 * 60 * 1000,
+        (2.5 * 60 * 1000) | 0,
         true
     );
 })();

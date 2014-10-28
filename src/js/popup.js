@@ -71,11 +71,13 @@ var matrixHeaderPrettyNames = {
 messaging.start('popup.js');
 
 var onMessage = function(msg) {
-    if ( msg.what === 'urlStatsChanged' ) {
-        if ( matrixSnapshot.url === msg.pageURL ) {
-            makeMenu();
-        }
+    if ( msg.what !== 'urlStatsChanged' ) {
+        return;
     }
+    if ( matrixSnapshot.url !== msg.pageURL ) {
+        return;
+    }
+    queryMatrixSnapshot(makeMenu);
 };
 
 messaging.listen(onMessage);
@@ -99,8 +101,7 @@ function setUserSetting(setting, value) {
 /******************************************************************************/
 
 function updateMatrixSnapshot() {
-    var snapshotReady = function(response) {
-        matrixSnapshot = response;
+    var snapshotReady = function() {
         updateMatrixColors();
         updateMatrixBehavior();
         updateMatrixButtons();
@@ -1109,10 +1110,6 @@ function dropDownMenuHide() {
 // Because chrome.tabs.query() is async
 
 var onMatrixSnapshotReady = function(response) {
-    matrixSnapshot = response;
-
-    targetTabId = response.tabId;
-
     // Now that tabId and pageURL are set, we can build our menu
     initMenuEnvironment();
     makeMenu();
@@ -1137,6 +1134,10 @@ var queryMatrixSnapshot = function(callback) {
         tabId: targetTabId,
         tabURL: matrixSnapshot.url
     };
+    var snapshotReceived = function(response) {
+        matrixSnapshot = response;
+        callback();
+    };
     var onTabsReceived = function(tabs) {
         if ( tabs.length === 0 ) {
             return;
@@ -1144,12 +1145,12 @@ var queryMatrixSnapshot = function(callback) {
         var tab = tabs[0];
         request.tabId = targetTabId = tab.id;
         request.tabURL = tab.url;
-        messaging.ask(request, callback);
+        messaging.ask(request, snapshotReceived);
     };
     if ( targetTabId === undefined ) {
         chrome.tabs.query({ active: true, currentWindow: true }, onTabsReceived);
     } else {
-        messaging.ask(request, callback);
+        messaging.ask(request, snapshotReceived);
     }
 };
 
