@@ -95,6 +95,10 @@
         "message": "Reload the page.",
         "description": "Tool tip for the reload button"
     },
+    "matrixBlacklistedHostnames" : {
+        "message": "{{count}} blacklisted hostname(s)",
+        "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
+    },
 
 
     "statsPageTitle" : {

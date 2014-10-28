@@ -63,6 +63,8 @@ var matrixHeaderPrettyNames = {
     'other': ''
 };
 
+var blacklistedHostnamesLabel = '';
+
 /******************************************************************************/
 /******************************************************************************/
 
@@ -615,7 +617,7 @@ function makeMatrixMetaRow(totals) {
     var cells = matrixRow.descendants('.matCell');
     var contents = cells.at(0).addClass('t81').contents();
     contents.nodeAt(0).textContent = ' ';
-    contents.nodeAt(1).textContent = '\u202A' + totals[typeOffsets['*']] + ' blacklisted hostname(s)';
+    contents.nodeAt(1).textContent = blacklistedHostnamesLabel.replace('{{count}}', totals[typeOffsets['*']]);
     renderMatrixMetaCellType(cells.at(1), totals[typeOffsets.cookie]);
     renderMatrixMetaCellType(cells.at(2), totals[typeOffsets.css]);
     renderMatrixMetaCellType(cells.at(3), totals[typeOffsets.image]);
@@ -630,18 +632,34 @@ function makeMatrixMetaRow(totals) {
 /******************************************************************************/
 
 function computeMatrixGroupMetaStats(group) {
-    var types = Object.keys(matrixSnapshot.headers);
-    var i = types.length, j;
+    var headers = matrixSnapshot.headers;
+    var i = Object.keys(headers).length
     var totals = new Array(i);
-    var domains = Object.keys(group);
     while ( i-- ) {
         totals[i] = 0;
-        j = domains.length;
-        while ( j-- ) {
-            totals[i] += matrixSnapshot.rows[domains[j]].totals[i];
-        }
     }
-    // TODO: column 0 is supposed to be count of blacklisted hostnames
+    var rows = matrixSnapshot.rows, row;
+    for ( var hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) {
+            continue;
+        }
+        row = rows[hostname];
+        if ( group.hasOwnProperty(row.domain) === false ) {
+            continue;
+        }
+        if ( row.counts[headers['*']] === 0 ) {
+            continue;
+        }
+        totals[0] += 1;
+        totals[1] += row.counts[headers.cookie];
+        totals[2] += row.counts[headers.css];
+        totals[3] += row.counts[headers.image];
+        totals[4] += row.counts[headers.plugin];
+        totals[5] += row.counts[headers.script];
+        totals[6] += row.counts[headers.xhr];
+        totals[7] += row.counts[headers.frame];
+        totals[8] += row.counts[headers.other];
+    }
     return totals;
 }
 
@@ -924,6 +942,8 @@ function initMenuEnvironment() {
         cell.text(text);
         prettyNames[key] = text;
     }
+
+    blacklistedHostnamesLabel = '\u202A' + uDom('[data-i18n="matrixBlacklistedHostnames"]').text();
 }
 
 /******************************************************************************/
