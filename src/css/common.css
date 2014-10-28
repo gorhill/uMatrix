@@ -49,7 +49,7 @@
     cursor: pointer;
     }
 *[data-tip]:hover:after {
-    background-color: white;
+    background-color: #fffffa;
     border: 1px solid gray;
     border-radius: 3px;
     box-shadow: 1px 1px 3px gray;
