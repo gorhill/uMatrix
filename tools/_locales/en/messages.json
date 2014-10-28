@@ -1,35 +1,35 @@
 {
     "extName": {
         "message": "µMatrix",
-        "description": "extension name."
+        "description": ""
     },
     "extShortDesc": {
         "message": "Point & click to forbid/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
-        "description": "this will be in the chrome web store: must be 132 characters or less"
+        "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "settingsPageName": {
         "message": "Settings",
-        "description": "appears as tab name in dashboard."
+        "description": "a tab in dashboard"
     },
     "privacyPageName": {
         "message": "Privacy",
-        "description": "appears as tab name in dashboard."
+        "description": "a tab in dashboard"
     },
     "statsPageName": {
         "message": "Statistics",
-        "description": "appears as tab name in dashboard."
+        "description": "a tab in dashboard"
     },
     "userRulesPageName": {
         "message": "Your rules",
-        "description": "appears as tab name in dashboard."
+        "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName" : {
         "message": "Hosts files",
-        "description": "appears as tab name in dashboard."
+        "description": "a tab in dashboard"
     },
     "aboutPageName": {
         "message": "About",
-        "description": "appears as tab name in dashboard."
+        "description": "a tab in dashboard"
     },
 
 
@@ -41,79 +41,39 @@
         "message": "cookie",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "cookiePrettyNamePlural": {
-        "message": "cookies",
-        "description": "..."
-    },
-    "stylesheetPrettyName": {
+    "cssPrettyName": {
         "message": "css",
         "description": "HAS TO FIT IN MATRIX HEADER!"
-    },
-    "stylesheetPrettyNamePlural": {
-        "message": "css",
-        "description": "..."
     },
     "imagePrettyName": {
         "message": "image",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "imagePrettyNamePlural": {
-        "message": "images",
-        "description": "..."
-    },
-    "objectPrettyName": {
+    "pluginPrettyName": {
         "message": "plugin",
         "description": "HAS TO FIT IN MATRIX HEADER!"
-    },
-    "objectPrettyNamePlural": {
-        "message": "plugins",
-        "description": "..."
     },
     "scriptPrettyName": {
         "message": "script",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "scriptPrettyNamePlural": {
-        "message": "scripts",
-        "description": "..."
-    },
-    "xmlhttprequestPrettyName": {
+    "xhrPrettyName": {
         "message": "XHR",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "xmlhttprequestPrettyNamePlural": {
-        "message": "XHR",
-        "description": "..."
-    },
-    "sub_framePrettyName": {
+    "framePrettyName": {
         "message": "frame",
         "description": "HAS TO FIT IN MATRIX HEADER!"
-    },
-    "sub_framePrettyNamePlural": {
-        "message": "frames",
-        "description": "..."
     },
     "otherPrettyName": {
         "message": "other",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "otherPrettyNamePlural": {
-        "message": "others",
-        "description": "..."
-    },
 
 
-    "matrixPresetAbsentPrompt" : {
-        "message": "No preset recipe matches this page",
-        "description": "..."
-    },
-    "matrixPresetPresentPrompt" : {
-        "message": "Click on a preset recipe to import its rules",
-        "description": "..."
-    },
     "matrixNoNetTrafficPrompt" : {
         "message": "No net traffic seen for this tab so far.",
-        "description": "..."
+        "description": ""
     },
     "matrixMtxButtonTip" : {
         "message": "Disable/enable matrix filtering \u000a for this scope. \u000aRequests blocked through \u000a matrix filtering on this page: {{count}}.",
@@ -135,91 +95,79 @@
         "message": "Reload the page.",
         "description": "Tool tip for the reload button"
     },
-    "matrixPresetMoreReadTip" : {
-        "message": "Export a recipe: Temporary rules \u000a of current scope will be encoded \u000a as a recipe",
-        "description": "English: Export a recipe: Temporary rules \u000a of current scope will be encoded \u000a as a recipe"
-    },
-    "matrixPresetMoreWriteTip" : {
-        "message": "Import a recipe: Temporary rules \u000a will be created into current scope",
-        "description": "English: Import a recipe: Temporary rules \u000a will be created into current scope"
-    },
-    "matrixPresetMoreRecipeTip" : {
-        "message": "Users can exchange recipes here to help each other. Usual warnings about untrusted sources apply.",
-        "description": "English: Users can exchange recipes here to help each other. Usual warnings about untrusted sources apply."
-    },
 
 
     "statsPageTitle" : {
         "message": "µMatrix &ndash; Statistics",
-        "description": "header for the whole stats page"
+        "description": ""
     },
     "statsPageGenericStats" : {
         "message": "Generic statistics",
-        "description": "English: Generic statistics"
+        "description": ""
     },
     "statsPageCookieHeadersFoiled" : {
         "message": "<a href='https://en.wikipedia.org/wiki/HTTP_cookie'>HTTP cookie</a> headers foiled: {{count}}",
-        "description": "English: HTTP cookie headers foiled: {{count}}"
+        "description": ""
     },
     "statsPageRefererHeadersFoiled" : {
         "message": "<a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> headers foiled: {{count}}",
-        "description": "English: HTTP referer headers foiled: {{count}}"
+        "description": ""
     },
     "statsPageHyperlinkAuditingFoiled" : {
         "message": "<a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>Hyperlink auditing</a> attempts foiled: {{count}}",
-        "description": "English: Hyperlink auditing attempts foiled: {{count}}"
+        "description": ""
     },
     "statsPageCookiesRemoved" : {
         "message": "Local cookies removed: {{count}}",
-        "description": "Local cookies removed: {{count}}"
+        "description": ""
     },
     "statsPageLocalStoragesCleared" : {
         "message": "<a href='http://diveintohtml5.info/storage.html'>Local storages</a> emptied: {{count}}",
-        "description": "Local storages emptied: {{count}}"
+        "description": ""
     },
     "statsPageBrowserCacheCleared" : {
         "message": "Browser caches cleared: {{count}}",
-        "description": "Browser caches cleared: {{count}}"
+        "description": ""
     },
     "statsPageDetailedStats" : {
         "message": "Detailed statistics",
-        "description": "English: Detailed statistics"
+        "description": ""
     },
     "statsPageDetailedAllPages" : {
         "message": "All",
-        "description": "English: All"
+        "description": ""
     },
     "statsPageDetailedBehindTheScenePage" : {
         "message": "Chromium: Behind the scene",
-        "description": "English: Chromium: Behind the scene"
+        "description": ""
     },
     "statsPageOverview" : {
         "message": "Overview",
-        "description": "English: Overview"
+        "description": ""
     },
     "statsPageRequests" : {
         "message": "Requests",
-        "description": "in detailed stats section, header for the type of request"
+        "description": "header for the stat type column"
     },
     "statsPageAllowed" : {
         "message": "Allowed",
-        "description": "capitalized"
+        "description": "header for the allowed requests column"
     },
     "statsPageBlocked" : {
         "message": "Blocked",
-        "description": "capitalized"
+        "description": "header for the blocked requests column"
     },
     "statsPageDetailed" : {
         "message": "Request log",
-        "description": "English: Request log"
+        "description": ""
     },
     "statsPageLogSizePrompt1" : {
         "message": "Remember the last",
-        "description": "English: Remember the last"
+        "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2" : {
         "message": "HTTP requests <b>per page</b>.",
-        "description": "English: HTTP requests <b>per page</b>."
+        "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp" : {
         "message": "<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).</p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.</p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.</p><p>Enter &ldquo;<code>0</code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>µMatrix</i>).</p>",
@@ -227,45 +175,33 @@
     },
     "statsPageRefresh" : {
         "message": "Refresh",
-        "description": "text for refresh button"
+        "description": ""
     },
 
 
     "settingsPageTitle" : {
         "message": "µMatrix &ndash; Settings",
-        "description": "header for the whole Settings page"
-    },
-    "settingsMatrixHeader" : {
-        "message": "Matrix",
-        "description": "header of Matrix settings section"
+        "description": ""
     },
     "settingsMatrixDisplayHeader" : {
         "message": "Appearance",
-        "description": "English: Appearance"
+        "description": ""
     },
     "settingsMatrixDisplayTextSizePrompt" : {
         "message": "Text size:",
-        "description": "..."
+        "description": ""
     },
     "settingsMatrixDisplayTextSizeNormal" : {
         "message": "Normal",
-        "description": "..."
+        "description": ""
     },
     "settingsMatrixDisplayTextSizeLarge" : {
         "message": "Large",
-        "description": "..."
+        "description": ""
     },
     "settingsMatrixDisplayColorBlind" : {
         "message": "Color-blind friendly",
-        "description": "English: Color-blind friendly"
-    },
-    "settingsMatrixMoreSecurityHeader" : {
-        "message": "More security",
-        "description": "..."
-    },
-    "settingsMatrixLessSecurityHeader" : {
-        "message": "Less security",
-        "description": "..."
+        "description": ""
     },
     "settingsMatrixConvenienceHeader" : {
         "message": "Convenience",
@@ -273,7 +209,7 @@
     },
     "settingsMatrixAutoReloadPrompt" : {
         "message": "When the matrix is closed, smart reload these tabs:",
-        "description": "..."
+        "description": ""
     },
     "settingsMatrixAutoReloadNone" : {
         "message": "None",
@@ -289,7 +225,7 @@
     },
     "settingsMatrixAutoReloadInfo" : {
         "message": "Whenever you make changes in the matrix which can affect the display and/or behavior of one or more pages, <i>µMatrix</i> will reload affected pages automatically when you close the matrix.",
-        "description": "..."
+        "description": ""
     },
     "settingsSubframeColor" : {
         "message": "Blocked frames:&ensp;Color",
@@ -301,203 +237,203 @@
     },
 
 
-    "privacyHeader" : {
-        "message": "Privacy",
-        "description": "header of Privacy section"
+    "privacyPageTitle" : {
+        "message": "µMatrix &ndash; Privacy",
+        "description": ""
     },
     "privacyDeleteBlockedCookiesPrompt" : {
         "message": "Delete blocked cookies.",
-        "description": "..."
+        "description": ""
     },
     "privacyDeleteBlockedCookiesHelp" : {
         "message": "<p>Blacklisted cookies are not prevented by <i>µMatrix</i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.</p><p>Once these blacklisted cookies have been accounted for by <i>µMatrix</i>, they can be removed from your browser if you wish so.</p><p><b>Important note:</b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>µMatrix</i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.</p>",
-        "description": "..."
+        "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1" : {
         "message": "Delete non-blocked session cookies ",
-        "description": "English: Delete non-blocked session cookies"
+        "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt2" : {
         "message": " minutes after the last time they have been used.",
-        "description": "English: minutes after the last time they have been used."
+        "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp" : {
         "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;</p><p>Except that this <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>might not be happening</a> when using a Chromium-based browser. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.</p>",
-        "description": "..."
+        "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt" : {
         "message": "Delete <a href='https://en.wikipedia.org/wiki/Web_storage'>local storage</a> content set by blocked hostnames",
-        "description": "..."
+        "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp" : {
         "message": "TODO",
-        "description": "..."
+        "description": ""
     },
     "privacyClearCachePrompt1" : {
         "message": "Clear browser cache every",
-        "description": "English: Clear browser cache every"
+        "description": "First part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCachePrompt2" : {
         "message": "minutes.",
-        "description": "English: minutes."
+        "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp" : {
         "message": "<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.</p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]</sup> on the <a href='https://en.wikipedia.org/wiki/Web_cache'>browser cache</a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.</p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.</p><p>Check this option to have <i>µMatrix</i> do it for you, at the interval you wish.</p><p style='font-size:smaller'>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a><br>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
-        "description": "..."
+        "description": ""
     },
     "privacyProcessRefererPrompt" : {
         "message": "Remove third-party <a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> information from requests to non-whitelisted hostnames.",
-        "description": "..."
+        "description": ""
     },
     "privacyProcessRefererHelp" : {
         "message": "<p>From Wikipedia: &ldquo;HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.</b>&rdquo;</p><p>If this setting is checked, <i>µMatrix</i> will remove the HTTP referer information if <b>both</b> of the following conditions are true:<ul style='padding-left:1em;list-style-type:disc;'><li>The domain name of the HTTP referer does not match the domain name of the URL of the request (that is, the referer is third-party to the web page);<li>The hostname of the request is not whitelisted.</ul></p>",
-        "description": "..."
+        "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt" : {
         "message": "Block all <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>hyperlink auditing</a> attempts.",
-        "description": "..."
+        "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp" : {
         "message": "<p>Hyperlink auditing is a mechanism which allow a party, <b>any party</b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.</p>",
-        "description": "..."
+        "description": ""
     },
     "privacySpoofUserAgentPrompt1" : {
         "message": "Spoof <a href='https://en.wikipedia.org/wiki/User_agent'>User-Agent</a> string by randomly picking a new one below every",
-        "description": "Spoof <a href='https://en.wikipedia.org/wiki/User_agent'>User-Agent</a> string by randomly picking a new one below every"
+        "description": "First part of UA-spoofing prompt"
     },
     "privacySpoofUserAgentPrompt2" : {
         "message": "minutes.",
-        "description": "minutes."
+        "description": "Second part"
     },
     "privacySpoofUserAgentHelp" : {
         "message": "<a href='https://www.eff.org/deeplinks/2010/01/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation</i></a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem</b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF.</p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.</p>",
-        "description": "..."
+        "description": ""
     },
     "privacyBehindTheSceneHeader" : {
         "message": "Chromium: behind-the-scene requests",
-        "description": "header of Chromium: behind-the-scene requests section"
+        "description": ""
     },
     "privacyProcessBehindTheSceneHelp" : {
         "message": "<p>According to <a href='https://www.google.com/intl/en/chrome/browser/privacy/whitepaper.html'>Google Chrome Privacy Whitepaper</a>, <i>Chromium</i> might send HTTP requests to <i>Google</i> without the user expressly visiting a web page. Let's call these special requests <strong>behind-the-scene</strong> requests. Also, other installed browser extensions can send <strong>behind-the-scene</strong> HTTP requests.</p><p><i>µMatrix</i> lets you intercept and treat these requests like any other request: they can be processed in order to allow/block them as per your whitelist/blacklist.</p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https://github.com/gorhill/httpswitchboard/wiki/Behind-the-scene-requests'>Behind-the-scene requests</a>.</p><div class='warn'><p><span style='color:red; font-weight:bold'>Beware!</span> Blocking <strong>behind-the-scene</strong> net requests is potentially causing <a href='https://github.com/gorhill/httpswitchboard/issues/27'>an issue</a> when the user wants to install an extension from the Chrome store (including maybe preventing extensions from being updated), hence the ability to disable the feature here. Blocking can also cause other installed extensions to not work properly (those querying for remote data).</p><p>Even if this feature is not enabled, <strong>behind-the-scene</strong> requests are still logged by <i>µMatrix</i>. You can inspect these requests on the <a href='dashboard.html#statistics'>Statistics</a> page.</p>",
-        "description": "..."
-    },
-    "privacyDoneButton" : {
-        "message": "Done",
-        "description": "Close the Privacy page"
+        "description": ""
     },
 
 
     "userRulesApplyChanges": {
         "message": "Apply changes",
-        "description": "English: Apply changes"
+        "description": ""
     },
     "userRulesImport": {
         "message": "Import from file...",
-        "description": "English: Import from file..."
+        "description": ""
     },
     "userRulesExport": {
         "message": "Export to file...",
-        "description": "English: Export to file..."
+        "description": ""
     },
     "userRulesFormatHint": {
         "message": "See this page for rule syntax.",
-        "description": "English: See this page for rule syntax."
+        "description": ""
     },
     "userRulesDefaultFileName": {
-        "message": "your-umatrix-rules.txt",
-        "description": "English: See this page for rule syntax."
+        "message": "my-umatrix-rules.txt",
+        "description": "default file name to use"
     },
 
 
     "hostsFilesPrompt" : {
         "message": "All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
-        "description": "English: All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope."
+        "description": ""
     },
     "hostsFilesStats" : {
         "message": "{{blockedHostnameCount}} distinct blocked hostnames from:",
-        "description": "English: {{blockedHostnameCount}} distinct blocked hostnames from:"
+        "description": ""
     },
     "hostsFilesPerFileStats" : {
         "message": "{{used}} used out of {{total}}",
-        "description": "English: {{used}} used out of {{total}}"
+        "description": ""
     },
     "hostsFilesApplyChanges" : {
         "message": "Apply changes",
-        "description": "English: Apply changes"
+        "description": ""
     },
     "hostsFilesAutoUpdatePrompt":{
         "message":"Auto-update hosts files.",
-        "description":"English: Auto-update hosts files."
+        "description":""
     },
     "hostsFilesUpdateNow":{
         "message":"Update now",
-        "description":"English: Update now"
+        "description":""
     },
     "hostsFilesPurgeAll":{
         "message":"Purge all caches",
-        "description":"English: Purge all caches"
+        "description":""
     },
     "hostsFilesExternalListsHint":{
         "message":"One URL per line. Lines prefixed with &lsquo;!&rsquo; will be ignored. Invalid URLs will be silently ignored.",
-        "description":"English: One URL per line. Lines prefixed with &lsquo;!&rsquo; will be ignored. Invalid URLs will be silently ignored."
+        "description":""
     },
     "hostsFilesExternalListsParse":{
         "message":"Parse",
-        "description":"English: Parse"
+        "description":""
     },
     "hostsFilesExternalListPurge":{
         "message":"purge cache",
-        "description":"English: purge cache"
+        "description":""
     },
     "hostsFilesExternalListNew":{
         "message":"new version available",
-        "description":"English: new version available"
+        "description":""
     },
     "hostsFilesExternalListObsolete":{
         "message":"outdated",
-        "description":"English: outdated"
+        "description":""
     },
 
 
     "aboutChangelog" : {
         "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Change log</a>",
-        "description": "English: <a href='https://github.com/gorhill/uMatrix/releases'>Change log</a>"
+        "description": ""
     },
     "aboutStorageUsed" : {
         "message": "Storage used: {{storageUsed}} bytes",
-        "description": "English: Storage used: {{storageUsed}} bytes"
+        "description": ""
     },
     "aboutDoc" : {
         "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Documentation</a>",
-        "description": "English: <a href='https://github.com/gorhill/uMatrix/wiki'>Documentation</a>"
+        "description": ""
     },
     "aboutPermissions" : {
         "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Permissions</a>",
-        "description": "English: <a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Permissions</a>"
+        "description": ""
     },
     "aboutCode" : {
-        "message": "<a href='https://github.com/gorhill/uMatrix'>Source code (GPLv3)</a>",
-        "description": "English: <a href='https://github.com/gorhill/uMatrix'>Source code (GPLv3)</a>"
+        "message": "Source code (GPLv3)",
+        "description": ""
     },
-    "aboutCredits" : {
-        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Credits'>Credits</a>",
-        "description": "English: <a href='https://github.com/gorhill/uMatrix/wiki/Credits'>Credits</a>"
+    "aboutIssues" : {
+        "message": "Bugs and issues",
+        "description": ""
+    },
+    "aboutContributors":{
+        "message":"Contributors",
+        "description":"English: Contributors"
     },
     "aboutUserDataHeader" : {
         "message": "Your data",
-        "description": "English: Your data"
+        "description": ""
     },
     "aboutBackupButton" : {
         "message": "Backup to file...",
-        "description": "English: Backup all..."
+        "description": ""
     },
     "aboutBackupFilename" : {
-        "message": "all-my-umatrix-data.txt",
-        "description": "all-my-umatrix-data.txt"
+        "message": "my-umatrix-backup.txt",
+        "description": "default filename to use"
     },
     "aboutRestoreButton" : {
         "message": "Restore from file...",
-        "description": "English: Restore all..."
+        "description": ""
     },
     "aboutRestoreConfirm" : {
         "message": "All your settings will be overwritten using data backed up on {{time}}, and µMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
@@ -523,29 +459,24 @@
 
     "commandRevertAll" : {
         "message": "Remove all temporary changes",
-        "description": "English: Remove all temporary changes"
+        "description": ""
     },
     "commandWhitelistPageDomain" : {
         "message": "Temporarily whitelist page domain",
-        "description": "English: Temporarily whitelist page domain"
+        "description": ""
     },
     "commandWhitelistAll" : {
         "message": "Temporarily whitelist all",
-        "description": "English: Temporarily whitelist all"
+        "description": ""
     },
     "commandOpenDashboard" : {
         "message": "Open dashboard",
-        "description": "English: Open dashboard"
+        "description": ""
     },
 
 
     "errorCantConnectTo":{
         "message":"Network error: Unable to connect to {{url}}",
-        "description":"English: Network error: unable to connect to {{url}}"
-    },
-
-    "dummy": {
-        "message": "This entry must be the last one",
-        "description": "so we dont need to deal with comma for last entry"
+        "description":""
     }
 }
