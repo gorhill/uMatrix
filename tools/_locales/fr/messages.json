@@ -72,25 +72,19 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Cliquez pour activer\/désactiver \
- les filtres matriciels pour le contexte actuel. \
-Nombre de requêtes bloquées via \
- les filtres matriciels : {{count}}",
+    "message":"Cliquez pour activer\/désactiver les filtres matriciels pour le contexte actuel.\\nNombre de requêtes bloquées via les filtres matriciels : {{count}}",
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
-    "message":"Conserver définitivement les changements \
- du contexte actuel",
+    "message":"Conserver définitivement les changements du contexte actuel",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Annuler les changements temporaires \
- du contexte actuel",
+    "message":"Annuler les changements temporaires du contexte actuel",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Annuler la totalité des changements \
- temporaires de tous les contextes",
+    "message":"Annuler la totalité des changements temporaires de tous les contextes",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{

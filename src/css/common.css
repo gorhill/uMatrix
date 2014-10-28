@@ -49,25 +49,26 @@
     cursor: pointer;
     }
 *[data-tip]:hover:after {
-    position: absolute;
-    content: attr(data-tip);
-    padding: 4px 6px;
-    font: 11px sans-serif;
-    line-height: 140%;
-    text-align: left;
-    color: black;
     background-color: white;
-    top: 110%;
-    white-space: pre;
-    z-index: 20;
     border: 1px solid gray;
     border-radius: 3px;
     box-shadow: 1px 1px 3px gray;
+    color: black;
+    content: attr(data-tip);
+    font: 12px sans-serif;
+    line-height: 140%;
+    min-width: 40vw;
+    padding: 4px 6px;
+    position: absolute;
+    text-align: start;
+    top: 110%;
+    white-space: pre-line;
+    z-index: 20;
     }
 .tip-anchor-left[data-tip]:hover:after {
-    left: 0;
+    left: -5vw;
     }
 .tip-anchor-right[data-tip]:hover:after {
-    right: 0;
+    right: -5vw;
     }
 

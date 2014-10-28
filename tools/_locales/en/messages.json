@@ -76,19 +76,19 @@
         "description": ""
     },
     "matrixMtxButtonTip" : {
-        "message": "Disable/enable matrix filtering \u000a for this scope. \u000aRequests blocked through \u000a matrix filtering on this page: {{count}}.",
+        "message": "Disable/enable matrix filtering for this scope.\nRequests blocked through matrix filtering on this page: {{count}}.",
         "description": "Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
     },
     "matrixPersistButtonTip" : {
-        "message": "Save all temporary changes \u000a for this scope.",
+        "message": "Save all temporary changes for this scope.",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip" : {
-        "message": "Remove temporary changes \u000a for this scope.",
+        "message": "Remove temporary changes for this scope.",
         "description": "Tool tip for the revert local permission button"
     },
     "matrixRevertButtonAllTip" : {
-        "message": "Remove all temporary \u000a changes.",
+        "message": "Remove all temporary changes.",
         "description": "Tool tip for the revert all permissions button"
     },
     "matrixReloadButton" : {
