@@ -30,12 +30,6 @@ messaging.start('info.js');
 var targetUrl = 'all';
 var maxRequests = 500;
 var cachedUserSettings = {};
-var tableFriendlyTypeNames = {
-   'main_frame': 'page',
-   'stylesheet': 'css',
-   'sub_frame': 'frame',
-   'xmlhttprequest': 'xhr'
-};
 
 /******************************************************************************/
 
@@ -162,24 +156,24 @@ function renderStats() {
 
         renderNumbers({
             '#blockedAllCount': requestStats.blocked.all,
-            '#blockedMainFrameCount': blockedStats.main_frame,
+            '#blockedMainFrameCount': blockedStats.doc,
             '#blockedCookieCount': blockedStats.cookie,
-            '#blockedStylesheetCount': blockedStats.stylesheet,
+            '#blockedStylesheetCount': blockedStats.css,
             '#blockedImageCount': blockedStats.image,
-            '#blockedObjectCount': blockedStats.object,
+            '#blockedObjectCount': blockedStats.plugin,
             '#blockedScriptCount': blockedStats.script,
-            '#blockedXHRCount': blockedStats.xmlhttprequest,
-            '#blockedSubFrameCount': blockedStats.sub_frame,
+            '#blockedXHRCount': blockedStats.xhr,
+            '#blockedSubFrameCount': blockedStats.frame,
             '#blockedOtherCount': blockedStats.other,
             '#allowedAllCount': allowedStats.all,
-            '#allowedMainFrameCount': allowedStats.main_frame,
+            '#allowedMainFrameCount': allowedStats.doc,
             '#allowedCookieCount': allowedStats.cookie,
-            '#allowedStylesheetCount': allowedStats.stylesheet,
+            '#allowedStylesheetCount': allowedStats.css,
             '#allowedImageCount': allowedStats.image,
-            '#allowedObjectCount': allowedStats.object,
+            '#allowedObjectCount': allowedStats.plugin,
             '#allowedScriptCount': allowedStats.script,
-            '#allowedXHRCount': allowedStats.xmlhttprequest,
-            '#allowedSubFrameCount': allowedStats.sub_frame,
+            '#allowedXHRCount': allowedStats.xhr,
+            '#allowedSubFrameCount': allowedStats.frame,
             '#allowedOtherCount': allowedStats.other
         });
 
@@ -216,8 +210,7 @@ function renderRequestRow(row, request) {
     $(cells[0]).text(when.toLocaleTimeString());
 
     // request type
-    var text = tableFriendlyTypeNames[request.type] || request.type;
-    $(cells[1]).text(text);
+    $(cells[1]).text(request.type);
 
     // Well I got back full control since not using Tempo.js, I can now
     // generate smarter hyperlinks, that is, not hyperlinking fake

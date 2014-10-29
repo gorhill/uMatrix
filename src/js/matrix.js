@@ -58,14 +58,15 @@ Matrix.GrayIndirect  = Matrix.Gray | Matrix.Indirect;
 
 var typeBitOffsets = {
          '*':  0,
-    'cookie':  2,
-       'css':  4,
-     'image':  6,
-    'plugin':  8,
-    'script': 10,
-       'xhr': 12,
-     'frame': 14,
-     'other': 16
+       'doc':  2,
+    'cookie':  4,
+       'css':  6,
+     'image':  8,
+    'plugin': 10,
+    'script': 12,
+       'xhr': 14,
+     'frame': 16,
+     'other': 18
 };
 
 var stateToNameMap = {

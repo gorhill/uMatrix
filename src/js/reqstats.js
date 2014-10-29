@@ -23,13 +23,13 @@
 
 _WebRequestStats.prototype.reset = function() {
     this.all = 
-    this.main_frame =
-    this.sub_frame =
+    this.doc =
+    this.frame =
     this.script =
-    this.stylesheet =
+    this.css =
     this.image =
-    this.object =
-    this.xmlhttprequest =
+    this.plugin =
+    this.xhr =
     this.other =
     this.cookie = 0;
 };

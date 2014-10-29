@@ -177,7 +177,7 @@ var onBeforeChromeExtensionRequestHandler = function(details) {
     // Is the target page still blacklisted?
     var pageURL = decodeURIComponent(matches[1]);
     var hostname = decodeURIComponent(matches[2]);
-    if ( µm.mustBlock(µm.scopeFromURL(pageURL), hostname, '*') ) {
+    if ( µm.mustBlock(µm.scopeFromURL(pageURL), hostname, 'doc') ) {
         return;
     }
 
@@ -216,7 +216,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     var requestHostname = uri.hostname;
     var pageStats = µm.pageStatsFromTabId(tabId);
     var pageURL = µm.pageUrlFromPageStats(pageStats);
-    var block = µm.evaluateURL(pageURL, requestHostname, '*') === µm.Matrix.RedDirect;
+    var block = µm.mustBlock(pageStats.pageHostname, requestHostname, 'doc');
 
     // console.debug('onBeforeRequestHandler()> block=%s "%s": %o', block, details.url, details);
 

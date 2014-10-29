@@ -23,13 +23,13 @@
 
 function _WebRequestStats() {
     this.all =
-    this.main_frame =
-    this.stylesheet =
-    this.sub_frame =
+    this.doc =
+    this.css =
+    this.frame =
     this.script =
     this.image =
-    this.object =
-    this.xmlhttprequest =
+    this.plugin =
+    this.xhr =
     this.other =
     this.cookie = 0;
 }

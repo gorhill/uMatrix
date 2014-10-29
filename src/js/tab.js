@@ -249,9 +249,9 @@
     // https://github.com/gorhill/httpswitchboard/issues/141
     if ( !mustReload ) {
         var reloadNewlyBlockedTypes = {
-            'main_frame': true,
+            'doc': true,
             'script' : true,
-            'sub_frame': true
+            'frame': true
         };
         var blockRuleType;
         for ( blockRule in newState ) {

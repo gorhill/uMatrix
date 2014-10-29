@@ -633,8 +633,9 @@ function makeMatrixMetaRow(totals) {
 
 function computeMatrixGroupMetaStats(group) {
     var headers = matrixSnapshot.headers;
-    var i = Object.keys(headers).length
-    var totals = new Array(i);
+    var n = Object.keys(headers).length
+    var totals = new Array(n);
+    var i = n;
     while ( i-- ) {
         totals[i] = 0;
     }
@@ -651,14 +652,9 @@ function computeMatrixGroupMetaStats(group) {
             continue;
         }
         totals[0] += 1;
-        totals[1] += row.counts[headers.cookie];
-        totals[2] += row.counts[headers.css];
-        totals[3] += row.counts[headers.image];
-        totals[4] += row.counts[headers.plugin];
-        totals[5] += row.counts[headers.script];
-        totals[6] += row.counts[headers.xhr];
-        totals[7] += row.counts[headers.frame];
-        totals[8] += row.counts[headers.other];
+        for ( i = 1; i < n; i++ ) {
+            totals[i] += row.counts[i];
+        }
     }
     return totals;
 }
