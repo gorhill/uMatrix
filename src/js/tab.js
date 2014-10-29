@@ -392,7 +392,7 @@
                 continue;
             }
             µm.cookieHunter.removePageCookies(pageStore);
-            µm.pageStats[pageURL].dispose();
+            pageStore.dispose();
             delete µm.pageStats[pageURL];
         }
 
