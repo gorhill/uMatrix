@@ -35,6 +35,7 @@
 var rootFrameReplacement = [
     '<!DOCTYPE html><html id="uMatrix">',
     '<head>',
+    '<meta charset="utf-8" />',
     '<style>',
     '@font-face {',
     'font-family:httpsb;',
@@ -86,11 +87,7 @@ var rootFrameReplacement = [
     '</head>',
     '<body>',
     '<div id="p">',
-    '<div id="t"><b>{{hostname}}</b> blocked by HTTP Switchboard</div>',
-    '<div>',
-    'hpHosts: <a href="http://hosts-file.net/?s={{hostname}}" target="_blank">{{hostname}}</a><br>',
-    'WOT: <a href="https://www.mywot.com/en/scorecard/{{hostname}}" target="_blank">{{hostname}}</a>',
-    '</div>',
+    '<div id="t"><b>{{hostname}}</b> blocked by µMatrix</div>',
     '</div>',
     '</body>',
     '</html>'
@@ -100,6 +97,7 @@ var subFrameReplacement = [
     '<!DOCTYPE html>',
     '<html>',
     '<head>',
+    '<meta charset="utf-8" />',
     '<style>',
     '@font-face{',
     'font-family:httpsb;',
@@ -149,7 +147,7 @@ var subFrameReplacement = [
     '</style>',
     '<title>Blocked by µMatrix</title>',
     '</head>',
-    '<body title="&ldquo;{{hostname}}&rdquo; frame\nblocked by HTTP Switchboard">',
+    '<body title="&ldquo;{{hostname}}&rdquo; frame\nblocked by µMatrix">',
     '<div id="bg"><div><a href="{{frameSrc}}" target="_blank">{{hostname}}</a></div></div>',
     '</body>',
     '</html>'
