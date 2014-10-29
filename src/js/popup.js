@@ -626,6 +626,7 @@ function makeMatrixMetaRow(totals) {
     var matrixRow = createMatrixRow().at(0).addClass('ro');
     var cells = matrixRow.descendants('.matCell');
     var contents = cells.at(0).addClass('t81').contents();
+    cells.at(0).prop('reqType', '*').prop('hostname', '');
     contents.nodeAt(0).textContent = ' ';
     contents.nodeAt(1).textContent = blacklistedHostnamesLabel.replace('{{count}}', totals[typeOffsets['*']]);
     renderMatrixMetaCellType(cells.at(1), totals[typeOffsets.cookie]);
