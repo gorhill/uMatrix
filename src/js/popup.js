@@ -393,6 +393,11 @@ function handleFilter(button, leaning) {
     var cell = button.ancestors('div.matCell');
     var type = cell.prop('reqType');
     var desHostname = cell.prop('hostname');
+    // https://github.com/gorhill/uMatrix/issues/24
+    // No hostname can happen -- like with blacklist meta row
+    if ( desHostname === '' ) {
+        return;
+    }
     var request = {
         what: getCellAction(desHostname, type, leaning),
         srcHostname: matrixSnapshot.scope,
@@ -605,7 +610,12 @@ function makeMatrixMetaRowDomain(domain) {
 /******************************************************************************/
 
 function renderMatrixMetaCellType(cell, count) {
-    cell.addClass('t1');
+    // https://github.com/gorhill/uMatrix/issues/24
+    // Don't forget to reset cell properties
+    cell.addClass('t1')
+        .prop('reqType', '')
+        .prop('hostname', '')
+        .prop('count', count);
     if ( count ) {
         cell.text(count);
     }
