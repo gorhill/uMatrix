@@ -618,6 +618,8 @@ function renderMatrixMetaCellType(cell, count) {
         .prop('count', count);
     if ( count ) {
         cell.text(count);
+    } else {
+        cell.text('\u00A0');
     }
 }
 
