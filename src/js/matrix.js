@@ -108,12 +108,35 @@ Matrix.getColumnHeaders = function() {
 
 /******************************************************************************/
 
+// For performance purpose, as simple tests as possible
+var reHostnameVeryCoarse = /[g-z_-]/;
+var reIPv4VeryCoarse = /\.\d+$/;
+
+// http://tools.ietf.org/html/rfc5952
+// 4.3: "MUST be represented in lowercase"
+// Also: http://en.wikipedia.org/wiki/IPv6_address#Literal_IPv6_addresses_in_network_resource_identifiers
+
+var isIPAddress = function(hostname) {
+    if ( reHostnameVeryCoarse.test(hostname) ) {
+        return false;
+    }
+    if ( reIPv4VeryCoarse.test(hostname) ) {
+        return true;
+    }
+    return hostname.charAt(0) === '[';
+};
+
+/******************************************************************************/
+
 var toBroaderHostname = function(hostname) {
+    if ( hostname === '*' ) {
+        return '';
+    }
+    if ( isIPAddress(hostname) ) {
+        return '*';
+    }
     var pos = hostname.indexOf('.');
     if ( pos === -1 ) {
-        if ( hostname === '*' ) {
-            return '';
-        }
         return '*';
     }
     return hostname.slice(pos + 1);
@@ -340,7 +363,6 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     var rl = this.evaluateCellZ(srcHostname, desHostname, '*');
     if ( rl === 1 ) { return Matrix.RedIndirect; }
 
-    var pos;
     var d = desHostname;
     var firstPartyDesDomain = extractFirstPartyDesDomain(srcHostname, desHostname);
 
@@ -377,11 +399,10 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 
     // Keep going, up to root
     for (;;) {
-        pos = d.indexOf('.');
-        if ( pos === -1 ) {
+        d = toBroaderHostname(d);
+        if ( d === '*' ) {
             break;
         }
-        d = d.slice(pos + 1);
 
         // specific-hostname specific-type cell
         r = this.evaluateCellZ(srcHostname, d, type);
