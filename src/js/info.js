@@ -73,14 +73,14 @@ function renderNumbers(set) {
     var key;
     while ( i-- ) {
         key = keys[i];
-        $(key).text(renderNumber(set[key]));
+        uDom(key).text(renderNumber(set[key]));
     }
 }
 
 /******************************************************************************/
 
 var renderLocalized = function(id, map) {
-    var el = $('#' + id);
+    var uElem = uDom('#' + id);
     var msg = chrome.i18n.getMessage(id);
     for ( var k in map ) {
         if ( map.hasOwnProperty(k) === false ) {
@@ -88,7 +88,7 @@ var renderLocalized = function(id, map) {
         }
         msg = msg.replace('{{' + k + '}}', map[k]);
     }
-    el.html(msg);
+    uElem.html(msg);
 };
 
 /******************************************************************************/
@@ -178,7 +178,7 @@ function renderStats() {
         });
 
         // because some i18n messages may contain links
-        $('a').attr('target', '_blank');
+        uDom('a').attr('target', '_blank');
     };
 
     messaging.ask({
@@ -192,30 +192,28 @@ function renderStats() {
 /******************************************************************************/
 
 function renderRequestRow(row, request) {
-    var jqRow = $(row);
-    row = jqRow[0];
-    jqRow.attr('id', '');
-    jqRow.css('display', '');
-    jqRow.removeClass();
+    row.attr('id', '');
+    row.css('display', '');
+    row.removeClass();
     if ( request.block !== false ) {
-        jqRow.addClass('blocked-true');
+        row.addClass('blocked-true');
     } else {
-        jqRow.addClass('blocked-false');
+        row.addClass('blocked-false');
     }
-    jqRow.addClass('type-' + request.type);
-    var cells = row.cells;
+    row.addClass('type-' + request.type);
+    var cells = row.descendants('td');
 
     // when
     var when = new Date(request.when);
-    $(cells[0]).text(when.toLocaleTimeString());
+    cells.at(0).text(when.toLocaleTimeString());
 
     // request type
-    $(cells[1]).text(request.type);
+    cells.at(1).text(request.type);
 
     // Well I got back full control since not using Tempo.js, I can now
     // generate smarter hyperlinks, that is, not hyperlinking fake
     // request URLs, which are recognizable with their curly braces inside.
-    var a = $('a', cells[2]);
+    var a = cells.at(2).descendants('a');
     if ( request.url.search('{') < 0 ) {
         a.attr('href', request.url);
         a.css('display', '');
@@ -224,27 +222,27 @@ function renderRequestRow(row, request) {
     }
 
     // request URL
-    $(cells[3]).text(request.url);
+    cells.at(3).text(request.url);
 }
 
 /*----------------------------------------------------------------------------*/
 
 var renderRequests = function() {
     var onResponseReceived = function(requests) {
-        var table = $('#requestsTable');
+        var table = uDom('#requestsTable');
         var i, row;
-        var rowTemplate = table.find('#requestRowTemplate').first();
+        var rowTemplate = table.descendants('#requestRowTemplate').first();
 
         // Reuse whatever rows is already in there.
-        var rows = table.find('tr:not(.ro)').toArray();
+        var rows = table.descendants('tr:not(.ro)');
         var n = Math.min(requests.length, rows.length);
         for ( i = 0; i < n; i++ ) {
-            renderRequestRow(rows[i], requests[i]);
+            renderRequestRow(rows.at(i), requests[i]);
         }
 
         // Hide extra rows
-        $(rows.slice(0, i)).removeClass('unused');
-        $(rows.slice(i)).addClass('unused');
+        rows.subset(0, i).removeClass('unused');
+        rows.subset(i).addClass('unused');
 
         // Create new rows to receive what is left
         n = requests.length;
@@ -293,8 +291,8 @@ function changeFilterHandler() {
     // Initialize request filters as per user settings:
     // https://github.com/gorhill/httpswitchboard/issues/49
     var statsFilters = cachedUserSettings.statsFilters;
-    $('input[id^="show-"][type="checkbox"]').each(function() {
-        var input = $(this);
+    uDom('input[id^="show-"][type="checkbox"]').toArray().forEach(function() {
+        var input = uDom(this);
         statsFilters[input.attr('id')] = !!input.prop('checked');
     });
     changeUserSettings('statsFilters', statsFilters);
@@ -315,10 +313,10 @@ function syncWithFilters() {
     while ( i-- ) {
         j = type.length;
         while ( j-- ) {
-            display = $('#show-' + blocked[i]).prop('checked') &&
-                      $('#show-' + type[j]).prop('checked') ? '' : 'none';
+            display = uDom('#show-' + blocked[i]).prop('checked') &&
+                      uDom('#show-' + type[j]).prop('checked') ? '' : 'none';
             selector = '.blocked-' + (blocked[i] === 'blocked') + '.type-' + type[j];
-            $(selector).css('display', display);
+            uDom(selector).css('display', display);
         }
     }
 }
@@ -348,35 +346,34 @@ function targetUrlChangeHandler() {
 /******************************************************************************/
 
 function prepareToDie() {
-    changeValueHandler($('#max-logged-requests'), 'maxLoggedRequests', 0, 999);
-    $('input,button,select').off();
+    changeValueHandler(uDom('#max-logged-requests'), 'maxLoggedRequests', 0, 999);
 }
 
 /******************************************************************************/
 
 var installEventHandlers = function() {
-    $('#refresh-requests').on('click', renderRequests);
-    $('input[id^="show-"][type="checkbox"]').on('change', changeFilterHandler);
-    $('#selectPageUrls').on('change', targetUrlChangeHandler);
-    $('#max-logged-requests').on('change', function(){ changeValueHandler($(this), 'maxLoggedRequests', 0, 999); });
+    uDom('#refresh-requests').on('click', renderRequests);
+    uDom('input[id^="show-"][type="checkbox"]').on('change', changeFilterHandler);
+    uDom('#selectPageUrls').on('change', targetUrlChangeHandler);
+    uDom('#max-logged-requests').on('change', function(){ changeValueHandler(uDom(this), 'maxLoggedRequests', 0, 999); });
 
     // https://github.com/gorhill/httpswitchboard/issues/197
-    $(window).one('beforeunload', prepareToDie);
+    window.addEventListener('beforeunload', prepareToDie);
 };
 
 /******************************************************************************/
 
-$(function(){
+uDom.onLoad(function(){
     // Initialize request filters as per user settings:
     // https://github.com/gorhill/httpswitchboard/issues/49
     var onResponseReceived = function(userSettings) {
         // cache a copy
         cachedUserSettings = userSettings;
         // init ui as per user settings
-        $('#max-logged-requests').val(userSettings.maxLoggedRequests);
+        uDom('#max-logged-requests').val(userSettings.maxLoggedRequests);
         var statsFilters = userSettings.statsFilters;
-        $('input[id^="show-"][type="checkbox"]').each(function() {
-            var input = $(this);
+        uDom('input[id^="show-"][type="checkbox"]').toArray().forEach(function() {
+            var input = uDom(this);
             var filter = statsFilters[input.attr('id')];
             input.prop('checked', filter === undefined || filter === true);
         });

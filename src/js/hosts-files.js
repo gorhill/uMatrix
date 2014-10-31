@@ -304,12 +304,12 @@ var reloadAll = function(update) {
     var path;
     while ( i-- ) {
         path = lis
-            .subset(i)
+            .subset(i, 1)
             .descendants('a')
             .attr('href');
         switches.push({
             location: path,
-            off: lis.subset(i).descendants('input').prop('checked') === false
+            off: lis.subset(i, 1).descendants('input').prop('checked') === false
         });
     }
     messaging.tell({

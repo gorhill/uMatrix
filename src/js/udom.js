@@ -230,7 +230,7 @@ DOMList.prototype.toArray = function() {
 
 DOMList.prototype.subset = function(i, l) {
     var r = new DOMList();
-    var n = l !== undefined ? l : 1;
+    var n = l !== undefined ? l : this.nodes.length;
     var j = Math.min(i + n, this.nodes.length);
     if ( i < j ) {
         r.nodes = this.nodes.slice(i, j);
@@ -241,7 +241,7 @@ DOMList.prototype.subset = function(i, l) {
 /******************************************************************************/
 
 DOMList.prototype.first = function() {
-    return this.subset(0);
+    return this.subset(0, 1);
 };
 
 /******************************************************************************/
@@ -446,6 +446,28 @@ DOMList.prototype.insertAfter = function(selector, context) {
     var n = c.nodes.length;
     for ( var i = 0; i < n; i++ ) {
         p.appendChild(c.nodes[i]);
+    }
+    return this;
+};
+
+/******************************************************************************/
+
+DOMList.prototype.insertBefore = function(selector, context) {
+    if ( this.nodes.length === 0 ) {
+        return this;
+    }
+    var referenceNodes = DOMListFactory(selector, context);
+    if ( referenceNodes.nodes.length === 0 ) {
+        return this;
+    }
+    var referenceNode = referenceNodes.nodes[0];
+    var parentNode = referenceNode.parentNode;
+    if ( !parentNode ) {
+        return this;
+    }
+    var n = this.nodes.length;
+    for ( var i = 0; i < n; i++ ) {
+        parentNode.insertBefore(this.nodes[i], referenceNode);
     }
     return this;
 };

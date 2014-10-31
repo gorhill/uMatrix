@@ -79,6 +79,7 @@ div > p:last-child {
     }
 #diff .right li:hover {
     background-color: #ffc;
+    color: #000;
     }
 #diff .right li.notLeft {
     color: #000;
