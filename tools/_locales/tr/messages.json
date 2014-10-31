@@ -20,7 +20,7 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"Kurallarınız",
+    "message":"My rules",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -112,7 +112,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hiperbağlaç denetleme<\/a> girişimi önlendi: {{count}}",
+    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hiperbağlaç denetim<\/a> girişimi önlendi: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -168,7 +168,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>µMatrix<\/i>).<\/p>",
+    "message":"<p>Bir web sayfası tarafından en son yapılan işlenmemiş HTTP isteklerinin ayrıntılarını denetleyebilirsiniz (aşağıya bakın).<\/p><p>Bu en çok ileri düzey kullanıcıların bir web sayfasının tam olarak ne yaptığını incelemerinde kullanışlı olur. Fakat bu HTTP istek günlüklüklerinin tutulması bellek kullanımı arttırır ve bu teknik bilgiye ihtiyacınız yoksa bellek boşa kullanılmış olur.<\/p><p>Bundan dolayı en fazla günlüğü tutulacak HTTP istek sayısını bu alandan ayarlayabilirsiniz.<\/p><p>&ldquo;<code>0<\/code>&rdquo; girerek ayrıntılı günlük tutulmasını kapatabilirsiniz (ve netice olarak <i>µMatrix'in<\/i> bellek kullanımını düşürürsünüz).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -220,7 +220,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Matristen bir veya daha fazla sayfanın görünümünü ve\/veya davranışını etkileyebilecek değişiklikler yaptığınızda, <i>µMatrix<\/i> matris kapatıldığında etkilenen sayfaları yeniden yükleyecektir.",
+    "message":"Matristen bir veya daha fazla sayfanın görünümünü ve\/veya davranışını etkileyebilecek değişiklikler yapıldığında, <i>µMatrix<\/i> matris kapatıldığında etkilenen sayfaları yeniden yükleyecektir.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -240,7 +240,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>µMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>µMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>µMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p>Kara listelenmiş çerezlerin tarayıcınıza girmesi <i>µMatrix<\/i> tarafından önlenmez. Ancak tarayıcınızdan çıkışları önlenir, önemli olan da budur. Çerezlerin tarayıcınıza girişi önlenmeyerek sitenin çerez kullanımı hakkında bilgi sahibi olma fırsatını elde edersiniz ve üstelik dilerseniz içeriklerini de denetleyebilirsiniz.<\/p><p>Bu engellenmiş çerezler bir kere <i>µMatrix<\/i> tarafından raporlandıktan sonra eğer isterseniz tabi tarayıcınızdan kaldırılabilir.<\/p><p><b>Önemli not:<\/b> Eklentiler normal işleyişleri sırasında web isteği yapabilir. Bu istekler tarayıcınızda çerez oluşumuna neden olur. Bu seçenek işaretli ve çerezin geldiği alan adı beyaz listede değilse, bu çerez <i>µMatrix<\/i> tarafından tarayıcınızdan kaldırılacaktır. Bu yüzden eklentilerin iletişim kurduğu alan ad(lar)ının beyaz listede bulunduğundan emin olunuz.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -252,11 +252,11 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Bir oturum çerezi ... tarayıcı oturumu sonlandığında silinir. Oturum çerezi geçici hafızada depolanır ve tarayıcı kapandıktan sonra muhafaza edilmez.&rdquo;<\/p><p>Chromium tabanlı bir tarayıcı kullanırken <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>bu durum gerçekleşmiyor olabilir.<\/a> Ayrıca, bazılarımız için, oturum çerezlerini temizlenmek için tarayıcının kapatılması yeteri kadar erken olmayabilir.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Bir oturum çerezi ... tarayıcı oturumu sonlandığında silinir. Oturum çerezi geçici bellekte depolanır ve tarayıcı kapandıktan sonra muhafaza edilmez.&rdquo;<\/p><p>Chromium tabanlı bir tarayıcı kullanırken <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>bu durum gerçekleşmeyebilir.<\/a> Ayrıca, bazılarımız için, oturum çerezlerini temizlenmek için tarayıcının kapatılması yeteri kadar erken olmayabilir.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Engellenmiş alan adları tarafından ayarlanmış <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Yerel depolama<\/a> içeriğini sil",
+    "message":"Engellenmiş alan adları tarafından oluşturulmuş <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Yerel depolama<\/a> içeriğini sil",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -272,7 +272,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>µMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Bazı web siteleri sizi izlemekte çok kararlıdır, izlenmemek için aldığınız her ne önlem varsa bunları aşmak için hoş olmayan hileli yöntemler kullanıcaklardır.<\/p><p>Bu hilelerden bazıları <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tarayıcı önbelleği<\/a> <sup style='font-size:smaller'>[1, 2]<\/sup>'ye dayalıdır, kullanıcı düzenli olarak tarayıcısının geçmişini temizlemediği için içerik çok uzun süre tarayıcıda kalır.<\/p><p>Tarayıcı önbelleğini düzenli olarak temizlemek biraz zahmetlidir (temizlendiğinde farkına muhtemelen varmazsınız) ve faydası ise kötü izleyicilerin gizliliğinizi ihlal etmesinin önüne geçmiş olursunuz.<\/p><p>Bu seçeneği işaretleyerek belirli aralıklarla bu işlemi sizin yerinize <i>µMatrix<\/i> yapabilir.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Tarayıcı Önbelleği ile Web İzlemesini Önlemek&rdquo;<\/a><br>[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Çerezsiz çerezler&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -280,15 +280,15 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>From Wikipedia: &ldquo;HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b>&rdquo;<\/p><p>If this setting is checked, <i>µMatrix<\/i> will remove the HTTP referer information if <b>both<\/b> of the following conditions are true:<ul style='padding-left:1em;list-style-type:disc;'><li>The domain name of the HTTP referer does not match the domain name of the URL of the request (that is, the referer is third-party to the web page);<li>The hostname of the request is not whitelisted.<\/ul><\/p>",
+    "message":"<p>Wikipedia'dan: &ldquo;HTTP referer bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü referer bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b>&rdquo;<\/p><p>Bu ayar işaretliyse, <i>µMatrix<\/i> takip eden şartların <b>her ikisinin<\/b> doğru olması durumunda HTTP referer bilgisini kaldıracaktır: <ul style='padding-left:1em;list-style-type:disc;'><li>HTTP referer alan adı isteğin URL alan adıyla eşleşmiyorsa (referer web sayfasına göre üçüncü partidir)<li>İsteğin alan adı beyaz listede değilse<\/ul><\/p>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Tüm <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hiperbağ denetim<\/a> girişimlerini engelle.",
+    "message":"Tüm <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hiperbağlaç denetim<\/a> girişimlerini engelle.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hiperbağ denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü partinin o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
+    "message":"<p>Hiperbağlaç denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü partinin o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -300,7 +300,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation'a<\/i> göre<\/a>: &ldquo;[...] tarayıcınız web sitesine kullandığınız işletim sistemini ve kulladığınız tarayıcıyı bilgisini içeren &lsquo;Kullanıcı Aracı&rsquo; başlığı gönderir. Bu bilgi Internet kullanıcılarının birbirlerinden ayırt edilmesine yardımcı olabilir. [...] <b>Kullanıcı Aracı dizisi gerçek bir gizlilik problemi olur<\/b>.&rdquo;<p>Bu seçenek EFF tarafından dile getirilen gizlilik sorununu çözmenizi sağlar. <\/p><p>Kendi kullanıcı aracı dizisi listelerinizi sağlayabilirsiniz. Satır başına bir dizi. Boş satırlar ve &lsquo;#&rsquo; işareti ile başlayan satırlar yok sayılacaktır.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation'a<\/i> göre<\/a>: &ldquo;[...] tarayıcınız web sitesine kullandığınız işletim sistemini ve tarayıcıyı bilgisini içeren &lsquo;Kullanıcı Aracı&rsquo; başlığı gönderir. Bu bilgi Internet kullanıcılarının birbirlerinden ayırt edilmesine yardımcı olabilir. [...] <b>Kullanıcı Aracı dizisi gerçek bir gizlilik problemine yol açar<\/b>.&rdquo;<p>Bu seçenek EFF tarafından dile getirilen gizlilik sorununu çözmenizi sağlar. <\/p><p>Kendi kullanıcı aracı dizisi listelerinizi sağlayabilirsiniz. Satır başına bir dizi. Boş satırlar ve &lsquo;#&rsquo; işareti ile başlayan satırlar yok sayılacaktır.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
@@ -308,12 +308,28 @@
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p><a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Gizlilik Raporuna<\/a> göre, <i>Chromium<\/i> kullanıcı bir web sayfası ziyaret etmese bile <i>Google'a<\/i> HTTP istekleri gönderebilir. Bu özel istekleri <strong>perde arkası<\/strong> istekler olarak adlandıralım. Ayrıca, diğer kurulu tarayıcı eklentileri de <strong>perde arkası<\/strong> HTTP istekleri gönderebilir.<\/p><p><i>µMatrix<\/i> bu istekleri keserek diğer istekler gibi davranmanıza izin verir: Bunları beyaz ve kara listelerinize göre işleyerek izin verebilir veya engelleyebilirsiniz.<\/p><p>Bu sayfayı görüntülerken kullanıma başlamak için eklenti simgesine tıklayın. Bakınız: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Perde arkası istekleri<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Dikkat!<\/span> <strong>perde arkası<\/strong> ağ isteklerini engellemek kullanıcının Chrome mağazasından eklenti yüklerken <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>bir sorunla<\/a> karşılaşmasına yol açabilir (eklenti güncelleştirmelerini de engelleyebilir). Ayrıca engelleme kurulu eklentilerin de düzgün çalışmamasına yol açabilir (uzaktan veri sorgulayanlar için).<\/p><p>Bu özellik etkin olmasa bile, <strong>perde arkası<\/strong> isteklerinin günlüğü <i>µMatrix<\/i> tarafından hâla tutulmaktadır. Bu istekleri <a href='dashboard.html#statistics'>İstatistikler<\/a> sayfasından inceleyebilirsiniz.<\/p>",
+    "message":"<p><a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Gizlilik Raporuna<\/a> göre, <i>Chromium<\/i> kullanıcı bir web sayfası ziyaret etmese bile <i>Google'a<\/i> HTTP istekleri gönderebilir. Bu özel istekleri <strong>perde arkası<\/strong> istekler olarak adlandıralım. Ayrıca, diğer kurulu tarayıcı eklentileri de <strong>perde arkası<\/strong> HTTP istekleri gönderebilir.<\/p><p><i>µMatrix<\/i> bu istekleri keserek diğer istekler gibi davranmanıza izin verir: Bunları beyaz ve kara listelerinize göre işleyerek izin verebilir veya engelleyebilirsiniz.<\/p><p>Bu sayfayı görüntülerken kullanıma başlamak için eklenti simgesine tıklayın. Bakınız: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Perde arkası istekleri<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Dikkat!<\/span> <strong>perde arkası<\/strong> ağ isteklerini engellemek kullanıcının Chrome mağazasından eklenti yüklerken <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>bir sorunla<\/a> karşılaşmasına yol açabilir (eklenti güncelleştirmelerini de engelleyebilir). Ayrıca bu engelleme kurulu eklentilerin de düzgün çalışmamasına yol açabilir (uzaktan veri sorgulayanlar için).<\/p><p>Bu özellik etkin olmasa bile, <strong>perde arkası<\/strong> isteklerinin günlüğü <i>µMatrix<\/i> tarafından hâla tutulmaktadır. Bu istekleri <a href='dashboard.html#statistics'>İstatistikler<\/a> sayfasından inceleyebilirsiniz.<\/p>",
     "description":""
   },
-  "userRulesApplyChanges":{
-    "message":"Değişiklikleri uygula",
-    "description":""
+  "userRulesRevert":{
+    "message":"Revert",
+    "description":"Will remove all temporary rules"
+  },
+  "userRulesCommit":{
+    "message":"Commit",
+    "description":"Will save all temporary rules"
+  },
+  "userRulesEdit":{
+    "message":"Edit",
+    "description":"Will enable manual-edit mode (textarea)"
+  },
+  "userRulesEditSave":{
+    "message":"Save",
+    "description":"Will save manually-edited content and exit manual-edit mode"
+  },
+  "userRulesEditDicard":{
+    "message":"Discard",
+    "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
     "message":"Dosyadan içe aktar...",
@@ -368,7 +384,7 @@
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"önbellek temizle",
+    "message":"önbelleği temizle",
     "description":""
   },
   "hostsFilesExternalListNew":{
@@ -384,7 +400,7 @@
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Kullanılan depolama: {{storageUsed}} bytes",
+    "message":"Kullanılan depolama: {{storageUsed}} bayt",
     "description":""
   },
   "aboutDoc":{
@@ -404,7 +420,7 @@
     "description":""
   },
   "aboutContributors":{
-    "message":"Katılımcılar",
+    "message":"Katkıda bulunanlar",
     "description":"English: Contributors"
   },
   "aboutUserDataHeader":{
@@ -456,11 +472,11 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Paneli aç",
+    "message":"Kontrol paneli aç",
     "description":""
   },
   "errorCantConnectTo":{
-    "message":"Ağ hatası: Bağlantı kurulamıyor {{url}}",
+    "message":"Ağ hatası: {{url}} sitesine bağlanılamıyor",
     "description":""
   }
 }

@@ -20,7 +20,7 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"Vos règles",
+    "message":"My rules",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -60,7 +60,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"Frame",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
@@ -68,11 +68,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"Aucune activité réseau n'a été observée pour cet onglet jusqu'à présent.",
+    "message":"Aucune activité réseau n'a été pour l'instant observée sur cet onglet.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Cliquez pour activer\/désactiver les filtres matriciels pour le contexte actuel.\\nNombre de requêtes bloquées via les filtres matriciels : {{count}}",
+    "message":"Cliquez pour activer\/désactiver les filtres matriciels pour le contexte actuel. Nombre de requêtes bloquées via les filtres matriciels : {{count}}",
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
@@ -80,11 +80,11 @@
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Annuler les changements temporaires du contexte actuel",
+    "message":"Annuler les changements temporaires (contexte actuel)",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Annuler la totalité des changements temporaires de tous les contextes",
+    "message":"Annuler les changements temporaires (tous les contextes)",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
@@ -168,7 +168,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Cette option vous permet de saisir le nombre de plus récentes requêtes HTTP à journaliser pour une inspection ultérieure.<\/p><p>Ceci est particulièrement utile pour les utilisateurs expérimentés qui veulent déterminer de ce que fait précisément une page Web. Mais le processus de journalisation nécessite de la mémoire vive, et si vous ne vous souciez guère de ces informations, la mémoire utilisée dans ce but est gaspillée.<\/p><p>Pour désactiver cette fonctionnalité et ainsi réduire l'empreinte mémoire de <i>µMatrix<\/i>, saisissez &ldquo;<code>0<\/code>&rdquo;.<\/p>",
+    "message":"<p>Cette option vous permet de saisir le nombre de plus récentes requêtes HTTP à journaliser pour une inspection ultérieure.<\/p><p>Ceci est particulièrement utile pour les utilisateurs expérimentés qui veulent déterminer ce que fait précisément une page Web. Mais le processus de journalisation nécessite de la mémoire vive, et si vous ne vous souciez guère de ces informations, la mémoire utilisée dans ce but est gaspillée.<\/p><p>Pour désactiver cette fonctionnalité et ainsi réduire l'empreinte mémoire de <i>µMatrix<\/i>, saisissez &ldquo;<code>0<\/code>&rdquo;.<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -220,11 +220,11 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Lorsque vous avez modifié des permissions susceptibles d'affecter l'apparence et\/ou le comportement d'une page Web, <i>µMatrix<\/i> rechargera automatiquement une ou plusieurs pages Web concernées (selon votre choix) en fermant la matrice. Si l'option Aucune page est sélectionnée, vous devrez actualiser la page Web vous-même pour appliquer les modifications.",
+    "message":"Lorsque vous avez modifié des permissions susceptibles d'affecter l'apparence et\/ou le comportement d'une page Web, <i>µMatrix<\/i> rechargera automatiquement une ou plusieurs page(s) Web concernée(s) (selon votre choix) en fermant la matrice. Si l'option Aucune page est sélectionnée, vous devrez actualiser la page Web vous-même pour appliquer les modifications.",
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Couleur pour les <iframe> bloquées :",
+    "message":"Couleur pour les <i>frames<\/i> bloquées :",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
@@ -311,9 +311,25 @@
     "message":"<p>D'après ce <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>document de la confidentialité de Google Chrome<\/a>, <i>Chromium<\/i> est susceptible envoyer des requêtes HTTP à <i>Google<\/i> sans que vous n'ayez visité une page Web. De même, tout autre navigateur Web est susceptible d'émettre secrètement des requêtes HTTP, souvent nécessaires à leur bon fonctionnement. Enfin, des extensions de navigateur peuvent avoir à effectuer de telles requêtes HTTP pour opérer correctement.<\/p><p>Qualifions ces requêtes particulières de <strong>requêtes en coulisses<\/strong>.<\/p><p><i>µMatrix<\/i> vous permet d'intercepter et de traiter ces requêtes comme toutes les autres, et peuvent donc être autorisées ou bloquées selon vos réglages.<\/p><p>Depuis cette page, cliquez sur l'icône de l'extension pour afficher la matrice et remarquez l'icône à droite de chromium-behind-the-scene. Si elle est de couleur rouge, les requêtes en coulisses ne sont pas gérées, et si elle est bleue, elles sont traitées. Si vous choisissez d'activer cette fonctionnalité en cliquant sur cette icone, pensez à définir convenablement les règles du contexte des requêtes en coulisse ! Pour plus d'informations, veuillez prendre connaissance de cet article (en Anglais) : <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>ATTENTION !<\/span> Utilisateurs de Chrome\/Chromium : Bloquer certaines requêtes HTTP en coulisses entraîne un problème lorsque l'utilisateur souhaite ajouter une extension depuis le Chrome Web Store (en plus de potentiellement les empêcher de se mettre à jour), vous avez donc la possibilité de désactiver cette option ici. Le blocage de certaines requêtes en coulisses peut occasionner des dysfonctionnements sur autres extensions installées (celles requérant l'utilisation de données distantes).<\/p><p>Utilisateurs d'Opera : Si vous activez la gestion des requêtes en coulisses, veuillez mettre en liste blanche dans le contexte des requêtes en coulisses les requêtes de type Autres afin de ne pas entraver la génération des miniatures d'Accès Rapide. Si vous souhaitez utiliser la fonction Découvrir de votre navigateur, ajoutez ceci dans votre liste personnelle de règles à autoriser : api.recsys.opera.com . Le blocage de certaines requêtes en coulisses peut occasionner des dysfonctionnements sur autres extensions installées (celles requérant l'utilisation de données distantes).<\/p><p>Sachez que même si vous désactivez cette fonctionnalité, les <strong>requêtes en coulisses<\/strong> sont toujours journalisées par <i>µMatrix<\/i>, pour que vous puissez quand même les inspecter (depuis la page Statistiques).<\/p>",
     "description":""
   },
-  "userRulesApplyChanges":{
-    "message":"Appliquer les modifications",
-    "description":""
+  "userRulesRevert":{
+    "message":"Revert",
+    "description":"Will remove all temporary rules"
+  },
+  "userRulesCommit":{
+    "message":"Commit",
+    "description":"Will save all temporary rules"
+  },
+  "userRulesEdit":{
+    "message":"Edit",
+    "description":"Will enable manual-edit mode (textarea)"
+  },
+  "userRulesEditSave":{
+    "message":"Save",
+    "description":"Will save manually-edited content and exit manual-edit mode"
+  },
+  "userRulesEditDicard":{
+    "message":"Discard",
+    "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
     "message":"Importer à partir du fichier",
@@ -332,7 +348,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"Tous les noms de domaine énumérés dans un des fichiers ci-dessous sont utilisés pour bloquer des noms de domaine dans le contexte global.",
+    "message":"Tout nom de domaine énuméré dans un des fichiers choisis ci-dessous est bloqué dans le contexte global (*).",
     "description":""
   },
   "hostsFilesStats":{
@@ -448,7 +464,7 @@
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Mettre en liste blanche temporairement le domaine de la page visitée",
+    "message":"Mettre temporairement en liste blanche le domaine de la page visitée",
     "description":""
   },
   "commandWhitelistAll":{
