@@ -787,7 +787,7 @@ var onSubDocHeadersReceived = function(details) {
 
     details.responseHeaders.push({
         'name': 'Content-Security-Policy',
-        'value': 'sandbox allow-forms allow-same-origin allow-popups'
+        'value': 'sandbox allow-forms allow-same-origin allow-popups allow-top-navigation'
     });
 
     return { responseHeaders: details.responseHeaders };
