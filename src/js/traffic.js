@@ -768,18 +768,26 @@ var onSubDocHeadersReceived = function(details) {
     // directive.
 
     // For inline javascript within iframes, we need to sandbox.
+
     // https://github.com/gorhill/httpswitchboard/issues/73
     // Now because sandbox cancels all permissions, this means
     // not just javascript is disabled. To avoid negative side
     // effects, I allow some other permissions, but...
+
+    // https://github.com/gorhill/uMatrix/issues/27
+    // Need to add `allow-popups` to prevent completely breaking links on
+    // some sites old style sites.
+
     // TODO: Reuse CSP `sandbox` directive if it's already in the
     // headers (strip out `allow-scripts` if present),
     // and find out if the `sandbox` in the header interfere with a
     // `sandbox` attribute which might be present on the iframe.
+
     // console.debug('onSubDocHeadersReceived()> FRAME CSP "%s": %o, scope="%s"', details.url, details, pageURL);
+
     details.responseHeaders.push({
         'name': 'Content-Security-Policy',
-        'value': 'sandbox allow-forms allow-same-origin'
+        'value': 'sandbox allow-forms allow-same-origin allow-popups'
     });
 
     return { responseHeaders: details.responseHeaders };
