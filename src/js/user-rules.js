@@ -27,40 +27,69 @@
 
 /******************************************************************************/
 
-var cachedUserRules = '';
-
-/******************************************************************************/
-
 messaging.start('user-rules.js');
 
 /******************************************************************************/
 
-// This is to give a visual hint that the content of user blacklist has changed.
+var processUserRules = function(response) {
+    var rules, rule, i;
+    var permanentList = [];
+    var temporaryList = [];
+    var allRules = {};
+    var permanentRules = {};
+    var temporaryRules = {};
+    var onLeft, onRight;
 
-function userRulesChanged() {
-    uDom('#userRulesApply').prop(
-        'disabled',
-        uDom('#userRules').val().trim() === cachedUserRules
-    );
-}
+    rules = response.permanentRules.split(/\n+/);
+    i = rules.length;
+    while ( i-- ) {
+        rule = rules[i].trim();
+        permanentRules[rule] = allRules[rule] = true;
+    }
+    rules = response.temporaryRules.split(/\n+/);
+    i = rules.length;
+    while ( i-- ) {
+        rule = rules[i].trim();
+        temporaryRules[rule] = allRules[rule] = true;
+    }
+    rules = Object.keys(allRules).sort();
+    for ( i = 0; i < rules.length; i++ ) {
+        rule = rules[i];
+        onLeft = permanentRules.hasOwnProperty(rule);
+        onRight = temporaryRules.hasOwnProperty(rule);
+        if ( onLeft && onRight ) {
+            permanentList.push('<li>', rule);
+            temporaryList.push('<li>', rule);
+        } else if ( onLeft ) {
+            permanentList.push('<li>', rule);
+            temporaryList.push('<li class="notRight toRemove">', rule);
+        } else {
+            permanentList.push('<li>&nbsp;');
+            temporaryList.push('<li class="notLeft">', rule);
+        }
+    }
 
-/******************************************************************************/
+    // TODO: build incrementally.
 
-function renderUserRules() {
-    var rulesRead = function(response) {
-        cachedUserRules = response;
-        uDom('#userRules').val(response);
-    };
-    messaging.ask({ what: 'getUserRules' }, rulesRead);
-}
+    uDom('#diff > .left > ul > li').remove();
+    uDom('#diff > .left > ul').html(permanentList.join(''));
+    uDom('#diff > .right > ul > li').remove();
+    uDom('#diff > .right > ul').html(temporaryList.join(''));
+    uDom('#diff').toggleClass('dirty', response.temporaryRules !== response.permanentRules);
+};
 
 /******************************************************************************/
 
 function handleImportFilePicker() {
     var fileReaderOnLoadHandler = function() {
-        var textarea = uDom('#userRules');
-        textarea.val([textarea.val(), this.result].join('\n').trim());
-        userRulesChanged();
+        if ( typeof this.result !== 'string' || this.result === '' ) {
+            return;
+        }
+        var request = {
+            'what': 'setUserRules',
+            'temporaryRules': rulesFromHTML('#diff .right li') + '\n' + this.result
+        };
+        messaging.ask(request, processUserRules);
     };
     var file = this.files[0];
     if ( file === undefined || file.name === '' ) {
@@ -89,38 +118,104 @@ var startImportFilePicker = function() {
 
 function exportUserRulesToFile() {
     chrome.downloads.download({
-        'url': 'data:text/plain,' + encodeURIComponent(uDom('#userRules').val()),
-        'filename': chrome.i18n.getMessage('userRulesDefaultFileName'),
+        'url': 'data:text/plain,' + encodeURIComponent(rulesFromHTML('#diff .left li')),
+        'filename': uDom('[data-i18n="userRulesDefaultFileName"]').text(),
         'saveAs': true
     });
 }
 
 /******************************************************************************/
 
-function userRulesApplyHandler() {
-    var rules = uDom('#userRules').val();
-    var rulesWritten = function(response) {
-        cachedUserRules = rules;
-        userRulesChanged();
-    };
+var rulesFromHTML = function(selector) {
+    var rules = [];
+    var lis = uDom(selector);
+    var li;
+    for ( var i = 0; i < lis.length; i++ ) {
+        li = lis.at(i);
+        if ( li.hasClassName('toRemove') ) {
+            rules.push('');
+        } else {
+            rules.push(li.text());
+        }
+    }
+    return rules.join('\n');
+};
+
+/******************************************************************************/
+
+var revertHandler = function() {
     var request = {
-        what: 'setUserRules',
-        rules: rules
+        'what': 'setUserRules',
+        'temporaryRules': rulesFromHTML('#diff .left li')
     };
-    messaging.ask(request, rulesWritten);
-}
+    messaging.ask(request, processUserRules);
+};
+
+/******************************************************************************/
+
+var commitHandler = function() {
+    var request = {
+        'what': 'setUserRules',
+        'permanentRules': rulesFromHTML('#diff .right li')
+    };
+    messaging.ask(request, processUserRules);
+};
+
+/******************************************************************************/
+
+var editStartHandler = function(ev) {
+    uDom('#diff .right textarea').val(rulesFromHTML('#diff .right li'));
+    var parent = uDom(this).ancestors('#diff');
+    parent.toggleClass('edit', true);
+};
+
+/******************************************************************************/
+
+var editStopHandler = function(ev) {
+    var parent = uDom(this).ancestors('#diff');
+    parent.toggleClass('edit', false);
+    var request = {
+        'what': 'setUserRules',
+        'temporaryRules': uDom('#diff .right textarea').val()
+    };
+    messaging.ask(request, processUserRules);
+};
+
+/******************************************************************************/
+
+var editCancelHandler = function(ev) {
+    var parent = uDom(this).ancestors('#diff');
+    parent.toggleClass('edit', false);
+};
+
+/******************************************************************************/
+
+var temporaryRulesToggler = function(ev) {
+    var li = uDom(this);
+    li.toggleClass('toRemove');
+    var request = {
+        'what': 'setUserRules',
+        'temporaryRules': rulesFromHTML('#diff .right li')
+    };
+    messaging.ask(request, processUserRules);
+};
 
 /******************************************************************************/
 
 uDom.onLoad(function() {
     // Handle user interaction
-    uDom('#importUserRulesFromFile').on('click', startImportFilePicker);
+    uDom('#importButton').on('click', startImportFilePicker);
     uDom('#importFilePicker').on('change', handleImportFilePicker);
-    uDom('#exportUserRulesToFile').on('click', exportUserRulesToFile);
-    uDom('#userRules').on('input', userRulesChanged);
-    uDom('#userRulesApply').on('click', userRulesApplyHandler);
+    uDom('#exportButton').on('click', exportUserRulesToFile);
 
-    renderUserRules();
+    uDom('#revertButton').on('click', revertHandler)
+    uDom('#commitButton').on('click', commitHandler)
+    uDom('#editEnterButton').on('click', editStartHandler)
+    uDom('#editStopButton').on('click', editStopHandler)
+    uDom('#editCancelButton').on('click', editCancelHandler)
+    uDom('#diff > .right > ul').on('click', 'li', temporaryRulesToggler)
+
+    messaging.ask({ what: 'getUserRules' }, processUserRules);
 });
 
 /******************************************************************************/

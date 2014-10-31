@@ -374,14 +374,6 @@ var onMessage = function(request, sender, callback) {
             break;
 
 
-        case 'retrieveDomainCosmeticSelectors':
-            response = µMatrix.abpHideFilters.retrieveDomainSelectors(request);
-            break;
-
-        case 'retrieveGenericCosmeticSelectors':
-            response = µMatrix.abpHideFilters.retrieveGenericSelectors(request);
-            break;
-
         default:
             return µMatrix.messaging.defaultHandler(request, sender, callback);
     }
@@ -449,13 +441,24 @@ var onMessage = function(request, sender, callback) {
 
     switch ( request.what ) {
         case 'getUserRules':
-            response = µm.pMatrix.toString();
+            response = {
+                temporaryRules: µm.tMatrix.toString(),
+                permanentRules: µm.pMatrix.toString()
+            }
             break;
 
         case 'setUserRules':
-            µm.pMatrix.fromString(request.rules);
-            µm.tMatrix.assign(µm.pMatrix);
-            µm.saveMatrix();
+            if ( typeof request.temporaryRules === 'string' ) {
+                µm.tMatrix.fromString(request.temporaryRules);
+            }
+            if ( typeof request.permanentRules === 'string' ) {
+                µm.pMatrix.fromString(request.permanentRules);
+                µm.saveMatrix();
+            }
+            response = {
+                temporaryRules: µm.tMatrix.toString(),
+                permanentRules: µm.pMatrix.toString()
+            };
             break;
 
         default:

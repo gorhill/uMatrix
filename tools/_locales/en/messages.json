@@ -20,7 +20,7 @@
         "description": "a tab in dashboard"
     },
     "userRulesPageName": {
-        "message": "Your rules",
+        "message": "My rules",
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName" : {
@@ -323,9 +323,25 @@
     },
 
 
-    "userRulesApplyChanges": {
-        "message": "Apply changes",
-        "description": ""
+    "userRulesRevert": {
+        "message": "Revert",
+        "description": "Will remove all temporary rules"
+    },
+    "userRulesCommit": {
+        "message": "Commit",
+        "description": "Will save all temporary rules"
+    },
+    "userRulesEdit": {
+        "message": "Edit",
+        "description": "Will enable manual-edit mode (textarea)"
+    },
+    "userRulesEditSave": {
+        "message": "Save",
+        "description": "Will save manually-edited content and exit manual-edit mode"
+    },
+    "userRulesEditDicard": {
+        "message": "Discard",
+        "description": "Will discard manually-edited content and exit manual-edit mode"
     },
     "userRulesImport": {
         "message": "Import from file...",

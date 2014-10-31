@@ -10,14 +10,32 @@
 
 <body>
 
-<div>
-    <p data-i18n="userRulesFormatHint">
-    <p><button id="userRulesApply" disabled="true" data-i18n="userRulesApplyChanges"></button>
-    <p><textarea id="userRules" dir="auto" spellcheck="false"></textarea>
-    <p><button id="importUserRulesFromFile" data-i18n="userRulesImport"></button> &emsp; 
-       <button id="exportUserRulesToFile" data-i18n="userRulesExport"></button>
-       <input id="importFilePicker" type="file" accept="text/plain" style="display:none;">
-</div>
+<!-- <p data-i18n="userRulesFormatHint"></p> -->
+<div id="diff">
+    <div class="pane left">
+        <div>
+            <h2>Permanent rules</h2>
+            <button type="button" id="revertButton"><span data-i18n="userRulesRevert"></span>&thinsp;<span class="fa">&#xf061;</span></button>
+            </div>
+        <ul></ul>
+        </div>
+    <div class="pane right">
+        <div>
+            <h2>Temporary rules</h2>
+            <button type="button" id="commitButton"><span class="fa">&#xf060;</span>&thinsp;<span data-i18n="userRulesCommit"></span></button>
+            <button type="button" id="editEnterButton" data-i18n="userRulesEdit"></button>
+            <button type="button" id="editStopButton" data-i18n="userRulesEditSave"></button>
+            <button type="button" id="editCancelButton" data-i18n="userRulesEditDicard"></button>
+            <button type="button" id="importButton" data-i18n="userRulesImport"></button>
+            <button type="button" id="exportButton" data-i18n="userRulesExport"></button>
+            </div>
+        <textarea spellcheck="false"></textarea>
+        <ul></ul>
+        </div>
+    </div>
+
+<input class="hidden" id="importFilePicker" type="file" accept="text/plain">
+<span class="hidden" data-i18n="userRulesDefaultFileName"></span>
 
 <script src="js/udom.js"></script>
 <script src="js/i18n.js"></script>

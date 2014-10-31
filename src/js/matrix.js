@@ -678,7 +678,7 @@ Matrix.prototype.fromString = function(text, append) {
         //      type = `*`
         //      state = `allow`
 
-       // Lines with invalid syntax silently ignored
+        // Lines with invalid syntax silently ignored
 
         srcHostname = punycode.toASCII(fields[0]);
         desHostname = punycode.toASCII(fields[1]);
