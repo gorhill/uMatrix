@@ -946,7 +946,7 @@ function initMenuEnvironment() {
     var cell, key, text;
     while ( i-- ) {
         key = keys[i];
-        cell = uDom('#matHead .matCell[data-filter-type="'+ key +'"]');
+        cell = uDom('#matHead .matCell[data-req-type="'+ key +'"]');
         text = chrome.i18n.getMessage(key + 'PrettyName');
         cell.text(text);
         prettyNames[key] = text;
