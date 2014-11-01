@@ -7,6 +7,10 @@
         "message": "Point & click to forbid/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
+    "dashboardPageName": {
+        "message": "µMatrix — Dashboard",
+        "description": ""
+    },
     "settingsPageName": {
         "message": "Settings",
         "description": "a tab in dashboard"
@@ -323,6 +327,14 @@
     },
 
 
+    "userRulesPermanentHeader": {
+        "message": "Permanent rules",
+        "description": ""
+    },
+    "userRulesTemporaryHeader": {
+        "message": "Temporary rules",
+        "description": ""
+    },
     "userRulesRevert": {
         "message": "Revert",
         "description": "Will remove all temporary rules"
