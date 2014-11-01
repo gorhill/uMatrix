@@ -58,6 +58,16 @@ function updateRequestData(callback) {
 
 /******************************************************************************/
 
+function clearRequestData() {
+    var request = {
+        what: 'clearRequestLogs',
+        pageURL: targetUrl !== 'all' ? targetUrl : null
+    };
+    messaging.tell(request);
+}
+
+/******************************************************************************/
+
 function renderNumber(value) {
     if ( isNaN(value) ) {
         return '0';
@@ -225,36 +235,48 @@ function renderRequestRow(row, request) {
     cells.at(3).text(request.url);
 }
 
-/*----------------------------------------------------------------------------*/
+/******************************************************************************/
 
-var renderRequests = function() {
-    var onResponseReceived = function(requests) {
-        var table = uDom('#requestsTable');
-        var i, row;
-        var rowTemplate = table.descendants('#requestRowTemplate').first();
+var renderRequests = function(requests) {
+    var table = uDom('#requestsTable');
+    var i, row;
+    var rowTemplate = table.descendants('#requestRowTemplate').first();
 
-        // Reuse whatever rows is already in there.
-        var rows = table.descendants('tr:not(.ro)');
-        var n = Math.min(requests.length, rows.length);
-        for ( i = 0; i < n; i++ ) {
-            renderRequestRow(rows.at(i), requests[i]);
-        }
+    // Reuse whatever rows is already in there.
+    var rows = table.descendants('tr:not(.ro)');
+    var n = Math.min(requests.length, rows.length);
+    for ( i = 0; i < n; i++ ) {
+        renderRequestRow(rows.at(i), requests[i]);
+    }
 
-        // Hide extra rows
-        rows.subset(0, i).removeClass('unused');
-        rows.subset(i).addClass('unused');
+    // Unhide reused rows
+    rows.subset(0, n).removeClass('unused');
 
-        // Create new rows to receive what is left
-        n = requests.length;
-        for ( ; i < n; i++ ) {
-            row = rowTemplate.clone();
-            renderRequestRow(row, requests[i]);
-            row.insertBefore(rowTemplate);
-        }
+    // Hide extra rows
+    rows.subset(n).addClass('unused');
 
-        syncWithFilters();
-    };
-    updateRequestData(onResponseReceived);
+    // Create new rows to receive what is left
+    n = requests.length;
+    for ( ; i < n; i++ ) {
+        row = rowTemplate.clone();
+        renderRequestRow(row, requests[i]);
+        row.insertBefore(rowTemplate);
+    }
+
+    syncWithFilters();
+};
+
+/******************************************************************************/
+
+var updateRequests = function() {
+    updateRequestData(renderRequests);
+};
+
+/******************************************************************************/
+
+var clearRequests = function() {
+    clearRequestData();
+    renderRequests([]);
 };
 
 /******************************************************************************/
@@ -341,7 +363,7 @@ function renderTransientData(internal) {
 function targetUrlChangeHandler() {
     targetUrl = this[this.selectedIndex].value;
     renderStats();
-    renderRequests();
+    updateRequests();
 }
 
 /******************************************************************************/
@@ -353,7 +375,8 @@ function prepareToDie() {
 /******************************************************************************/
 
 var installEventHandlers = function() {
-    uDom('#refresh-requests').on('click', renderRequests);
+    uDom('#refreshRequests').on('click', updateRequests);
+    uDom('#clearRequests').on('click', clearRequests);
     uDom('input[id^="show-"][type="checkbox"]').on('change', changeFilterHandler);
     uDom('#selectPageUrls').on('change', targetUrlChangeHandler);
     uDom('#max-logged-requests').on('change', function(){ changeValueHandler(uDom(this), 'maxLoggedRequests', 0, 999); });
@@ -384,7 +407,7 @@ uDom.onLoad(function(){
     messaging.ask({ what: 'getUserSettings' }, onResponseReceived);
 
     renderTransientData(true);
-    renderRequests();
+    updateRequests();
 });
 
 /******************************************************************************/

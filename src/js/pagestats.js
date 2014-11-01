@@ -348,6 +348,24 @@ PageRequestStats.prototype.resizeLogBuffer = function(size) {
 
 /******************************************************************************/
 
+PageRequestStats.prototype.clearLogBuffer = function() {
+    var buffer = this.ringBuffer;
+    if ( buffer === null ) {
+        return;
+    }
+    var logEntry;
+    var i = buffer.length;
+    while ( i-- ) {
+        if ( logEntry = buffer[i] ) {
+            logEntry.dispose();
+            buffer[i] = null;
+        }
+    }
+    this.ringBufferPointer = 0;
+};
+
+/******************************************************************************/
+
 PageRequestStats.prototype.logRequest = function(url, type, block) {
     var buffer = this.ringBuffer;
     var len = buffer.length;

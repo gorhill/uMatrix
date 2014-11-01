@@ -545,7 +545,10 @@ var onMessage = function(request, sender, callback) {
 
 (function() {
 
+/******************************************************************************/
+
 // map(pageURL) => array of request log entries
+
 var getRequestLog = function(pageURL) {
     var requestLogs = {};
     var pageStores = µMatrix.pageStats;
@@ -573,6 +576,22 @@ var getRequestLog = function(pageURL) {
 
     return requestLogs;
 };
+
+/******************************************************************************/
+
+var clearRequestLog = function(pageURL) {
+    var pageStores = µMatrix.pageStats;
+    var pageURLs = pageURL ? [pageURL] : Object.keys(pageStores);
+    var pageStore;
+
+    for ( var i = 0; i < pageURLs.length; i++ ) {
+        if ( pageStore = pageStores[pageURLs[i]] ) {
+            pageStore.requests.clearLogBuffer();
+        }
+    }
+};
+
+/******************************************************************************/
 
 var onMessage = function(request, sender, callback) {
     var µm = µMatrix;
@@ -610,6 +629,10 @@ var onMessage = function(request, sender, callback) {
 
         case 'getRequestLogs':
             response = getRequestLog(request.pageURL);
+            break;
+
+        case 'clearRequestLogs':
+            clearRequestLog(request.pageURL);
             break;
 
         default:
