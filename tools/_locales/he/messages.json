@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"כוון & לחץ על מנת לחסום\/להרשות כל סוג של בקשות שיצאו מהדפדפן שלך. השתמש בזה על מנת לחסום סקריפטים, מסגרות, פרסומות, פייסבוק, וכו'.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "settingsPageName":{
@@ -20,11 +20,11 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"החוקים שלי",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"קבצי hosts",
+    "message":"קבצי Hosts",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -36,7 +36,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"עוגייה",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -44,15 +44,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"תמונה",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"פלאגין",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"סקריפט",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -60,7 +60,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"מסגרת",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
@@ -68,23 +68,23 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"לא נצפו פעולות רשת בטאב זה עד לעכשיו.",
+    "message":"לא נצפו פעולות רשת בלשונית זו עד לעכשיו.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.\nRequests blocked through matrix filtering on this page: {{count}}.",
+    "message":"כבה\/אפשר מטריצת פילטור עבור טווח זה.\nמספר הבקשות שנחסמו ע\"י מטריצת הפילטור בעמוד זה: {{count}}.",
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"שמור את כל השינויים הזמניים עבור טווח זה.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Remove temporary changes for this scope.",
+    "message":"מחק שינויים זמניים עבור טווח זה.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Remove all temporary changes.",
+    "message":"מחק את כל השינויים הזמניים.",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
@@ -104,11 +104,11 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"תקורות <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> שסוכלו: {{count}}",
+    "message":"כותרות <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> שסוכלו: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"תקורות <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> שסוכלו: {{count}}",
+    "message":"כותרות <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> שסוכלו: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -168,7 +168,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>µMatrix<\/i>).<\/p>",
+    "message":"<p>אתה יכול לבדוק את הפרטים של רוב בקשות HTTP הגולמיות האחרונות אשר יצאו מדף אינטרנט (ראה להלן).<\/p><p>זה שימושי בעיקר למשתמשים מתקדמים שרוצים לחקור בדיוק מה דף האינטרנט עשה. אבל רישום בקשות ה HTTP הללו דורש זיכרון, ואם לא אכפת לך מהמידע הטכני הזה, אז הזיכרון מתבזבז.<\/p><p>לכן קיימת אפשרות זו המאפשרת לך להתאים את המספר המרבי של בקשות ה HTTP הכי האחרונות שמיועדות להירשם לבדיקה נוספת.<\/p><p>הזן &ldquo;<code>0<\/code>&rdquo; כדי לכבות את הרישום המפורט (וכתוצאה מכך להפחית את השימוש בזיכרון של <i>µMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -176,7 +176,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Settings",
+    "message":"µMatrix &ndash; הגדרות",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -196,7 +196,7 @@
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"ידידותי לעיוורי צבעים",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"frames חסומים:&ensp;צבע",
+    "message":"מסגרות חסומות:&ensp;צבע",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
@@ -232,7 +232,7 @@
     "description":"English: Opacity"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Privacy",
+    "message":"µMatrix &ndash; פרטיות",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -244,11 +244,11 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"מחק עוגיות סשן לא חסומות ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" דקות אחרי הפעם האחרונה שהן היו בשימוש.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -256,95 +256,95 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+    "message":"מחק <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>איחסונים לוקאליים<\/a> שנרשמו על ידי דומיינים חסומים",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
+    "message":"לעשות",
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"מחק את הזיכרון מטמון כל",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"דקות.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>µMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>יש אתרי אינטרנט שממש רוצים לעקוב אחרייך, כל כך שהם ישתמשו בטריקים לא כל כך יפים על מנת לעקוף את כל הדברים שאתה עושה כדי לא להיות במעקב.<\/p><p>כמה מהטריקים האלה מתבססים<sup style='font-size:smaller'>[1, 2]<\/sup> על <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>הזיכרון מטמון של הדפדפן<\/a>, אשר תוכנו לרוב נמצא הרבה זמן על המחשב מכיוון שלעיתים רחוקות משתמשים ישקיעו מזמנם לנקות באופן קבוע את הזיכרון מטמון של הדפדפן שלהם.<\/p><p>יש אי נעימות קלה לנקות את הזיכרון מטמון של הדפדפן באופן קבוע (רוב הסיכויים שלא תשים לב כשזה קורה), והתועלת היא במניעה של העוקבים המגעילים האלה מחדירה לפרטיות שלך.<\/p><p>אפשר אפשרות זו בשביל ש <i>µMatrix<\/i> יעשה את זה בשבילך, כל כמה זמן שתרצה.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;מניעה מעקב אינטרנטי על ידי שימוש בזיכרון מטמון של הדפדפן&rdquo;<\/a><br>[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;עוגיות חסרי העוגיות&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Remove third-party <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> information from requests to non-whitelisted hostnames.",
+    "message":"הסר את המידע על <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> צד שלישי מהבקשות לדומיינים שאינם ברשימה הלבנה.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>From Wikipedia: &ldquo;HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b>&rdquo;<\/p><p>If this setting is checked, <i>µMatrix<\/i> will remove the HTTP referer information if <b>both<\/b> of the following conditions are true:<ul style='padding-left:1em;list-style-type:disc;'><li>The domain name of the HTTP referer does not match the domain name of the URL of the request (that is, the referer is third-party to the web page);<li>The hostname of the request is not whitelisted.<\/ul><\/p>",
+    "message":"<p>מתוך ויקיפדיה: &ldquo;HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לחלל את הפרטיות, כמה דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע על המפנה.<\/b>&rdquo;<\/p><p>אם אפשרות זו מאופשרת, <i>µMatrix<\/i> ימחק את המידע של ה HTTP referer אם <b>שני<\/b> התנאים הבאים נכונים:<ul style='padding-left:1em;list-style-type:disc;'><li>שם הדומיין של ה HTTP referer לא תואם לדומיין של כתובת האינטרנט של הבקשה (כלומר, המפנה הוא צד שלישי לאתר האינטרנט);<li>הדומיין של הבקשה לא נמצא ברשימה הלבנה.<\/ul><\/p>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Block all <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+    "message":"חסום את כל הניסיונות ל <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hyperlink auditing<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+    "message":"<p>Hyperlink auditing זהו מנגנון אשר מאפשר לצד, <b>כל צד<\/b>, להיות מודע על איזה קישור בדיוק המשתמש לחץ בדף אינטרנט ספציפי. במהות שלו זוהי תכונת מעקב: היא מאפשרת לדף אינטרנט, או לכל אתר צד שלישי לדף אינטרנט זה, להיות מודע לגבי איזה קישור לחצת באיזה דף של האתר שלהם. המטרה היחידה היא לעקוב אחר פעילות הגלישה שלך.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+    "message":"החלף את הערך של <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>מזהה המשתמש<\/a> על ידי בחירה באקראי במזהה חדש מהרשימה למטה כל",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"דקות.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>לפי ה <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] הדפדפן שלך שולח כותרת של &lsquo;מזהה משתמש&rsquo; לאתר שאומר בדיוק באיזו מערכת הפעלה ודפדפן אתה משתמש. מידע זה יכול לעזור להבדיל בין משתמש אינטרנט אחד לשני בגלל שוני הגרסאות, לפעמים מהותי, מאדם לאדם. [...] <b> תוכן מזהה המשתמש הופך לבעיית פרטיות אמיתית<\/b>.&rdquo;<p>אפשרות זו מאפשרת לך להתייחס לבעיית הפרטיות שהועלתה על ידי ה EFF.<\/p><p>אתה יכול להכניס רשימה משלך של מזהי משתמשים. מזהה משתמש אחד בכל שורה. שורות ריקות ושורות עם קידומת &lsquo;#&rsquo; לא יפורשו.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: behind-the-scene requests",
+    "message":"כרומיום: בקשות מאחורי הקלעים",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>According to <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>Chromium<\/i> might send HTTP requests to <i>Google<\/i> without the user expressly visiting a web page. Let's call these special requests <strong>behind-the-scene<\/strong> requests. Also, other installed browser extensions can send <strong>behind-the-scene<\/strong> HTTP requests.<\/p><p><i>µMatrix<\/i> lets you intercept and treat these requests like any other request: they can be processed in order to allow\/block them as per your whitelist\/blacklist.<\/p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Beware!<\/span> Blocking <strong>behind-the-scene<\/strong> net requests is potentially causing <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>an issue<\/a> when the user wants to install an extension from the Chrome store (including maybe preventing extensions from being updated), hence the ability to disable the feature here. Blocking can also cause other installed extensions to not work properly (those querying for remote data).<\/p><p>Even if this feature is not enabled, <strong>behind-the-scene<\/strong> requests are still logged by <i>µMatrix<\/i>. You can inspect these requests on the <a href='dashboard.html#statistics'>Statistics<\/a> page.<\/p>",
+    "message":"<p>על פי <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>כרומיום<\/i> עשוי לשלוח בקשות HTTP ל <i>Google<\/i> מבלי שהמשתמש במפורש ביקר בדף אינטרנט. בואו נקרא לבקשות המיוחדות האלה בקשות <strong>מאחורי הקלעים<\/strong>. כמו כן, הרחבות דפדפן מותקנות אחרות יכולות לשלוח <strong>מאחורי הקלעים<\/strong> בקשות HTTP. <\/p><p><i>µMatrix<\/i> מאפשר לך ליירט ולטפל בבקשות אלה כמו כל בקשה אחרת: הן יכוליות להיות מעובדות על מנת לאפשר\/לחסום אותן בהתאם לרשימה הלבנה\/הרשימה השחורה שלך.<\/p><p>לחץ על אייקון התוסף בעת הצפייה בדף זה כדי להתחיל. קריאת נחוצה:<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>בקשות מאחורי הקלעים.<\/a><\/p><div class='warn'><p><span style='color:red; font-weight:bold'>היזהר!<\/span> חסימה של בקשות <strong>מאחורי הקלעים<\/strong> יכולה פטונציאלית לגרום ל <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>בעיה<\/a> כשהמשתמש רוצה להתקין תוסף מחנות האינטרנט של Google Chrome (ואפילו אולי לחסום מתוספים להתעדכן), ולכן יש את היכולת להשבית את היכולת הזאת מכאן. החסימה יכולה גם לגרום לתוספים אחרים שכבר מותקנים לא לעבוד כמו שצריך (אלה שמבקשים עבור נתונים מרוחקים).<\/p><p>אפילו אם תכונה זו אינה מאופשרת, <strong>מאחורי הקלעים<\/strong> בקשות עדיין נרשמות על ידי <i>µMatrix<\/i>. אתה יכול לבדוק את הבקשות האלה בעמוד <a href='dashboard.html#statistics'>הסטטיסטיקות.<\/a><\/p>",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"החזר למצב הקודם",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"שמור",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"ערוך",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"שמור",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"בטל",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"ייבא מקובץ...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"ייצא לקובץ...",
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"ראה דף זה עבור הסינטקס (התחביר) של החוקים.",
     "description":""
   },
   "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
+    "message":"חוקי-המטריצה-שלי.txt",
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
@@ -352,15 +352,15 @@
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} distinct blocked hostnames from:",
+    "message":"{{blockedHostnameCount}} דומיינים שונים חסומים מ:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"{{used}} בשימוש מתוך {{total}}",
     "description":""
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"החל שינויים",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
@@ -368,47 +368,47 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"עדכן כעת",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"נקה את כל זיכרוני המטמון",
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"One URL per line. Lines prefixed with &lsquo;!&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+    "message":"כתובת אחת בכל שורה. שורות עם קידומת &lsquo;!&rsquo; לא יפורשו. כתובות לא חוקיות לא יפורשו ולא תהיה התראה לכך.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"פרסר",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"נקה זיכרון מטמון",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"גרסה חדשה זמינה",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"לא עדכני",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>רשימת שינויים<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"אחסון בשימוש: {{storageUsed}} בתים",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>דוקומנטציה<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>הרשאות<\/a>",
     "description":""
   },
   "aboutCode":{
@@ -416,15 +416,15 @@
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"באגים ובעיות",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"תורמים",
     "description":"English: Contributors"
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"המידע שלך",
     "description":""
   },
   "aboutBackupButton":{

@@ -20,11 +20,11 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Kurallarım",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Alanlar dosyaları",
+    "message":"Alan dosyaları",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -312,23 +312,23 @@
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Geri al",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"İşle",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Düzenle",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Kaydet",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"İptal et",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
@@ -348,7 +348,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"Alanlar dosyasındaki tüm alan adları genel kapsamda kara listeye yüklenir.",
+    "message":"Alan dosyasındaki tüm alan adları genel kapsamda kara listeye yüklenir.",
     "description":""
   },
   "hostsFilesStats":{
@@ -364,7 +364,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Alanlar dosyalarını otomatik olarak güncelle.",
+    "message":"Alan dosyalarını otomatik olarak güncelle.",
     "description":""
   },
   "hostsFilesUpdateNow":{
