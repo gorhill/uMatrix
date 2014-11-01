@@ -7,6 +7,10 @@
     "message":"Tarayıcı tarafından yapılan istek sınıfları işaret edip tıklanarak yasaklanabilir veya izin verilebilir.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
+  "dashboardPageName":{
+    "message":"µMatrix — Kontrol Paneli",
+    "description":""
+  },
   "settingsPageName":{
     "message":"Ayarlar",
     "description":"a tab in dashboard"
@@ -309,6 +313,14 @@
   },
   "privacyProcessBehindTheSceneHelp":{
     "message":"<p><a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Gizlilik Raporuna<\/a> göre, <i>Chromium<\/i> kullanıcı bir web sayfası ziyaret etmese bile <i>Google'a<\/i> HTTP istekleri gönderebilir. Bu özel istekleri <strong>perde arkası<\/strong> istekler olarak adlandıralım. Ayrıca, diğer kurulu tarayıcı eklentileri de <strong>perde arkası<\/strong> HTTP istekleri gönderebilir.<\/p><p><i>µMatrix<\/i> bu istekleri keserek diğer istekler gibi davranmanıza izin verir: Bunları beyaz ve kara listelerinize göre işleyerek izin verebilir veya engelleyebilirsiniz.<\/p><p>Bu sayfayı görüntülerken kullanıma başlamak için eklenti simgesine tıklayın. Bakınız: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Perde arkası istekleri<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Dikkat!<\/span> <strong>perde arkası<\/strong> ağ isteklerini engellemek kullanıcının Chrome mağazasından eklenti yüklerken <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>bir sorunla<\/a> karşılaşmasına yol açabilir (eklenti güncelleştirmelerini de engelleyebilir). Ayrıca bu engelleme kurulu eklentilerin de düzgün çalışmamasına yol açabilir (uzaktan veri sorgulayanlar için).<\/p><p>Bu özellik etkin olmasa bile, <strong>perde arkası<\/strong> isteklerinin günlüğü <i>µMatrix<\/i> tarafından hâla tutulmaktadır. Bu istekleri <a href='dashboard.html#statistics'>İstatistikler<\/a> sayfasından inceleyebilirsiniz.<\/p>",
+    "description":""
+  },
+  "userRulesPermanentHeader":{
+    "message":"Kalıcı kurallar",
+    "description":""
+  },
+  "userRulesTemporaryHeader":{
+    "message":"Geçici kurallar",
     "description":""
   },
   "userRulesRevert":{

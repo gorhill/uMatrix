@@ -7,6 +7,10 @@
     "message":"כוון & לחץ על מנת לחסום\/להרשות כל סוג של בקשות שיצאו מהדפדפן שלך. השתמש בזה על מנת לחסום סקריפטים, מסגרות, פרסומות, פייסבוק, וכו'.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
+  "dashboardPageName":{
+    "message":"µMatrix — פאנל הקונפיגורציות",
+    "description":""
+  },
   "settingsPageName":{
     "message":"הגדרות",
     "description":"a tab in dashboard"
@@ -104,11 +108,11 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"כותרות <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> שסוכלו: {{count}}",
+    "message":"כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> שסוכלו: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"כותרות <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> שסוכלו: {{count}}",
+    "message":"כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> שסוכלו: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -120,7 +124,7 @@
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>אחסונים לוקליים<\/a> רוקנו: {{count}}",
+    "message":"ריקונים של <a href='http:\/\/diveintohtml5.info\/storage.html'>אחסונים לוקליים<\/a>: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
@@ -148,11 +152,11 @@
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"מאופשרים",
+    "message":"מאופשרות",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"חסומים",
+    "message":"חסומות",
     "description":"header for the blocked requests column"
   },
   "statsPageDetailed":{
@@ -208,15 +212,15 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"עמוד ריק",
+    "message":"ללא",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"עמוד נוכחי",
+    "message":"נוכחי",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"כל העמודים",
+    "message":"כולם",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -240,7 +244,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>µMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>µMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>µMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p>עוגיות ברשימה השחורה לא נמנעות על ידי <i>µMatrix<\/i> מלהיכנס לדפדפן שלך. אולם הן כן מנועות מלצאת מהדפדפן שלך, וזה מה שחשוב באמת. לא לחסום עוגיות לפני שהן נכנסות לדפדפן שלך נותן לך את ההזדמנות להיות מודע לכך שאתר ניסה להשתמש בעוגיות, ויתר על כן כדי לבדוק את תוכנם, אם תרצה.<\/p><p>כאשר <i>µMatrix<\/i> נתקל בעוגייה שברשימה השחורה, הן יכולות להיות מוסרות מהדפדפן שלך אם תרצה בכך.<\/p><p><b>הערה חשובה:<\/b> תוספות יכולות לבצע בקשות רשת במהלך פעולתן הרגילה. בקשות אלה יכולות לגרום לכך שעוגיות יווצרו בדפדפן. אם הדומיין שממנה העוגייה הגיעה לא ברשימה הלבנה, העוגייה תמחק מהדפדפן על ידי <i>µMatrix<\/i> אם אפשרות זו מאופשרת. אז תהיה בטוח לגבי זה שהדומיין(ים) אשר איתם התוסף יכול לתקשר נמצא(ים) ברשימה הלבנה.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -252,7 +256,7 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> when using a Chromium-based browser. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;עוגיית סשן ... נמחקת כאשר אתה מסיים הסשן של הדפדפן. עוגיית הסשן מאוכסנת בזיכרון זמני ולא נשמרת לאחר שהדפדפן נסגר.&rdquo;<\/p><p>אלא שהדבר <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>יכול לא לקרות<\/a> כשמשתמשים בדפדפן המבוסס כרומיום. כמו כן, לחלק, הפעולה של לסגור את הדפדפן על מנת שעוגיות הסשן יימחקו יכולה להיות  פעולה מספיק מוקדמת.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -300,7 +304,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>לפי ה <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] הדפדפן שלך שולח כותרת של &lsquo;מזהה משתמש&rsquo; לאתר שאומר בדיוק באיזו מערכת הפעלה ודפדפן אתה משתמש. מידע זה יכול לעזור להבדיל בין משתמש אינטרנט אחד לשני בגלל שוני הגרסאות, לפעמים מהותי, מאדם לאדם. [...] <b> תוכן מזהה המשתמש הופך לבעיית פרטיות אמיתית<\/b>.&rdquo;<p>אפשרות זו מאפשרת לך להתייחס לבעיית הפרטיות שהועלתה על ידי ה EFF.<\/p><p>אתה יכול להכניס רשימה משלך של מזהי משתמשים. מזהה משתמש אחד בכל שורה. שורות ריקות ושורות עם קידומת &lsquo;#&rsquo; לא יפורשו.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>לפי ה <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] הדפדפן שלך שולח כותרת (header) של &lsquo;מזהה משתמש&rsquo; לאתר שאומר בדיוק באיזו מערכת הפעלה ודפדפן אתה משתמש. מידע זה יכול לעזור להבדיל בין משתמש אינטרנט אחד לשני בגלל שוני הגרסאות, שלפעמים מהותי, מאדם לאדם. [...] <b> התוכן של מזהה המשתמש הופך לבעיית פרטיות אמיתית<\/b>.&rdquo;<p>אפשרות זו מאפשרת לך להתייחס לבעיית הפרטיות שהועלתה על ידי ה EFF.<\/p><p>אתה יכול להכניס רשימה משלך של מזהי משתמשים. מזהה משתמש אחד בכל שורה. שורות ריקות ושורות עם קידומת &lsquo;#&rsquo; לא יפורשו.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
@@ -311,12 +315,20 @@
     "message":"<p>על פי <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>כרומיום<\/i> עשוי לשלוח בקשות HTTP ל <i>Google<\/i> מבלי שהמשתמש במפורש ביקר בדף אינטרנט. בואו נקרא לבקשות המיוחדות האלה בקשות <strong>מאחורי הקלעים<\/strong>. כמו כן, הרחבות דפדפן מותקנות אחרות יכולות לשלוח <strong>מאחורי הקלעים<\/strong> בקשות HTTP. <\/p><p><i>µMatrix<\/i> מאפשר לך ליירט ולטפל בבקשות אלה כמו כל בקשה אחרת: הן יכוליות להיות מעובדות על מנת לאפשר\/לחסום אותן בהתאם לרשימה הלבנה\/הרשימה השחורה שלך.<\/p><p>לחץ על אייקון התוסף בעת הצפייה בדף זה כדי להתחיל. קריאת נחוצה:<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>בקשות מאחורי הקלעים.<\/a><\/p><div class='warn'><p><span style='color:red; font-weight:bold'>היזהר!<\/span> חסימה של בקשות <strong>מאחורי הקלעים<\/strong> יכולה פטונציאלית לגרום ל <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>בעיה<\/a> כשהמשתמש רוצה להתקין תוסף מחנות האינטרנט של Google Chrome (ואפילו אולי לחסום מתוספים להתעדכן), ולכן יש את היכולת להשבית את היכולת הזאת מכאן. החסימה יכולה גם לגרום לתוספים אחרים שכבר מותקנים לא לעבוד כמו שצריך (אלה שמבקשים עבור נתונים מרוחקים).<\/p><p>אפילו אם תכונה זו אינה מאופשרת, <strong>מאחורי הקלעים<\/strong> בקשות עדיין נרשמות על ידי <i>µMatrix<\/i>. אתה יכול לבדוק את הבקשות האלה בעמוד <a href='dashboard.html#statistics'>הסטטיסטיקות.<\/a><\/p>",
     "description":""
   },
+  "userRulesPermanentHeader":{
+    "message":"חוקים קבועים",
+    "description":""
+  },
+  "userRulesTemporaryHeader":{
+    "message":"חוקים זמניים",
+    "description":""
+  },
   "userRulesRevert":{
     "message":"החזר למצב הקודם",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"שמור",
+    "message":"החל",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{

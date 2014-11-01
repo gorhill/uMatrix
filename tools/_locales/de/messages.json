@@ -7,6 +7,10 @@
     "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
+  "dashboardPageName":{
+    "message":"µMatrix — Dashboard",
+    "description":""
+  },
   "settingsPageName":{
     "message":"Einstellungen",
     "description":"a tab in dashboard"
@@ -309,6 +313,14 @@
   },
   "privacyProcessBehindTheSceneHelp":{
     "message":"<p>According to <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>Chromium<\/i> might send HTTP requests to <i>Google<\/i> without the user expressly visiting a web page. Let's call these special requests <strong>behind-the-scene<\/strong> requests. Also, other installed browser extensions can send <strong>behind-the-scene<\/strong> HTTP requests.<\/p><p><i>µMatrix<\/i> lets you intercept and treat these requests like any other request: they can be processed in order to allow\/block them as per your whitelist\/blacklist.<\/p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Beware!<\/span> Blocking <strong>behind-the-scene<\/strong> net requests is potentially causing <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>an issue<\/a> when the user wants to install an extension from the Chrome store (including maybe preventing extensions from being updated), hence the ability to disable the feature here. Blocking can also cause other installed extensions to not work properly (those querying for remote data).<\/p><p>Even if this feature is not enabled, <strong>behind-the-scene<\/strong> requests are still logged by <i>µMatrix<\/i>. You can inspect these requests on the <a href='dashboard.html#statistics'>Statistics<\/a> page.<\/p>",
+    "description":""
+  },
+  "userRulesPermanentHeader":{
+    "message":"Permanent rules",
+    "description":""
+  },
+  "userRulesTemporaryHeader":{
+    "message":"Temporary rules",
     "description":""
   },
   "userRulesRevert":{
