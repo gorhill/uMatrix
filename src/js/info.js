@@ -260,6 +260,7 @@ var renderRequests = function() {
 /******************************************************************************/
 
 function changeUserSettings(name, value) {
+    cachedUserSettings[name] = value;
     messaging.tell({
         what: 'userSettings',
         name: name,
