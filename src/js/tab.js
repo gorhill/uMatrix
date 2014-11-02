@@ -102,11 +102,10 @@
         return this.pageStats[pageURL];
     }
 
-    var pageStore;
-
     // https://github.com/gorhill/uMatrix/issues/37
     // Just rebind: the URL changed, but the document itself is the same.
     // Example: Google Maps, Github
+    var pageStore;
     if ( context === 'pageUpdated' && this.pageStats.hasOwnProperty(previousPageURL) ) {
         pageStore = this.pageStats[previousPageURL];
         pageStore.pageUrl = pageURL;
@@ -129,6 +128,9 @@
         return pageStore;
     }
 
+    // https://github.com/gorhill/uMatrix/issues/37
+    this.updateBadgeAsync(pageURL);
+
     this.unbindTabFromPageStats(tabId);
 
     // rhill 2014-02-08: Do not create an entry if no page store
@@ -137,9 +139,6 @@
     if ( !pageStore ) {
         return null;
     }
-
-    // https://github.com/gorhill/uMatrix/issues/37
-    this.updateBadgeAsync(pageURL);
 
     this.pageUrlToTabId[pageURL] = tabId;
     this.tabIdToPageUrl[tabId] = pageURL;
