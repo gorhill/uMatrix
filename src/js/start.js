@@ -69,7 +69,7 @@ function onTabUpdated(tabId, changeInfo, tab) {
     // This takes care of rebinding the tab to the proper page store
     // when the user navigate back in his history.
     if ( changeInfo.url ) {
-        µMatrix.bindTabToPageStats(tabId, tab.url);
+        µMatrix.bindTabToPageStats(tabId, tab.url, 'pageUpdated');
     }
 
     // rhill 2013-12-23: Compute state after whole page is loaded. This is

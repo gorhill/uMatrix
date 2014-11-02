@@ -84,7 +84,7 @@
 
 // Create an entry for the tab if it doesn't exist
 
-µMatrix.bindTabToPageStats = function(tabId, pageURL) {
+µMatrix.bindTabToPageStats = function(tabId, pageURL, context) {
     // https://github.com/gorhill/httpswitchboard/issues/303
     // Don't rebind pages blocked by µMatrix.
     var blockedRootFramePrefix = this.webRequest.blockedRootFramePrefix;
@@ -96,11 +96,29 @@
     // Normalize to a page-URL.
     pageURL = this.normalizePageURL(pageURL);
 
-    if ( this.tabIdToPageUrl[tabId] === pageURL ) {
+    // The page URL, if any, currently associated with the tab
+    var previousPageURL = this.tabIdToPageUrl[tabId];
+    if ( previousPageURL === pageURL ) {
         return this.pageStats[pageURL];
     }
 
-    var pageStore = this.createPageStore(pageURL);
+    var pageStore;
+
+    // https://github.com/gorhill/uMatrix/issues/37
+    // Just rebind: the URL changed, but the document itself is the same.
+    // Example: Google Maps, Github
+    if ( context === 'pageUpdated' && this.pageStats.hasOwnProperty(previousPageURL) ) {
+        pageStore = this.pageStats[previousPageURL];
+        pageStore.pageUrl = pageURL;
+        delete this.pageStats[previousPageURL];
+        this.pageStats[pageURL] = pageStore;
+        delete this.pageUrlToTabId[previousPageURL];
+        this.pageUrlToTabId[pageURL] = tabId;
+        this.tabIdToPageUrl[tabId] = pageURL;
+        return pageStore;
+    }
+
+    pageStore = this.createPageStore(pageURL, context);
 
     // console.debug('tab.js > bindTabToPageStats(): dispatching traffic in tab id %d to page store "%s"', tabId, pageUrl);
 
