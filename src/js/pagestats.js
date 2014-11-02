@@ -568,20 +568,18 @@ PageStore.prototype.recordRequest = function(type, url, block) {
 PageStore.prototype.updateBadge = function(tabId) {
     // Icon
     var iconPath;
+    var badgeStr = '';
     var total = this.perLoadAllowedRequestCount + this.perLoadBlockedRequestCount;
     if ( total ) {
         var squareSize = 19;
         var greenSize = squareSize * Math.sqrt(this.perLoadAllowedRequestCount / total);
         greenSize = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
         iconPath = 'img/browsericons/icon19-' + greenSize + '.png';
+        badgeStr = µm.formatCount(this.distinctRequestCount);
     } else {
         iconPath = 'img/browsericons/icon19.png';
     }
-    µm.XAL.setIcon(
-        tabId,
-        iconPath,
-        µm.formatCount(this.distinctRequestCount)
-    );
+    µm.XAL.setIcon(tabId, iconPath, badgeStr);
 };
 
 /******************************************************************************/
