@@ -120,6 +120,9 @@
         return null;
     }
 
+    // https://github.com/gorhill/uMatrix/issues/37
+    this.updateBadgeAsync(pageURL);
+
     this.pageUrlToTabId[pageURL] = tabId;
     this.tabIdToPageUrl[tabId] = pageURL;
     pageStore.boundCount += 1;
