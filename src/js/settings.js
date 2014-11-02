@@ -19,6 +19,9 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global messaging, uDom */
+/* jshint multistr: true */
+
 /******************************************************************************/
 
 (function() {

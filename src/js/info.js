@@ -19,6 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global messaging, uDom */
+
 /******************************************************************************/
 
 (function() {

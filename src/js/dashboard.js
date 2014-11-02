@@ -19,6 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global uDom */
+
 /******************************************************************************/
 
 (function() {
@@ -30,13 +32,13 @@ var loadDashboardPanel = function(hash) {
     uDom('.tabButton').forEach(function(button){
         button.toggleClass('selected', button.attr('data-dashboard-panel-url') === url);
     });
-}
+};
 
 /******************************************************************************/
 
 var onTabClickHandler = function() {
     loadDashboardPanel(window.location.hash);
-}
+};
 
 /******************************************************************************/
 

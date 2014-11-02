@@ -444,7 +444,7 @@ var onMessage = function(request, sender, callback) {
             response = {
                 temporaryRules: µm.tMatrix.toString(),
                 permanentRules: µm.pMatrix.toString()
-            }
+            };
             break;
 
         case 'setUserRules':

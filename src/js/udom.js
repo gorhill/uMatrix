@@ -229,9 +229,11 @@ DOMList.prototype.toArray = function() {
 /******************************************************************************/
 
 DOMList.prototype.forEach = function(fn) {
-    for ( var i = 0; i < this.nodes.length; i++ ) {
+    var n = this.nodes.length;
+    for ( var i = 0; i < n; i++ ) {
         fn(this.at(i), i);
     }
+    return this;
 };
 
 /******************************************************************************/
