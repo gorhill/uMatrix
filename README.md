@@ -16,7 +16,7 @@ Forked from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
 **So this means do not file issues to report broken sites when the sites are broken because µMatrix does its job as expected.** I will close any such issue without further comment.
 
-I expect there will be community driven efforts for users to help each others. If µMatrix had a home, I would probably set up a forum, but I do not plan for such thing, I really just want to code, not manage web sites. If you need help with a site, you can try [Wilders Security](http://www.wilderssecurity.com/threads/umatrix-the-http-switchboard-successor.369601/), where you are likely to receive help if needed, whether by me or other users.
+I expect there will be community driven efforts for users to help each others. If µMatrix had a home, I would probably set up a forum, but I do not plan for such thing, I really just want to code, not manage web sites. If you need help to un-break a site when using µMatrix, you can try [Wilders Security](http://www.wilderssecurity.com/threads/umatrix-the-http-switchboard-successor.369601/), where you are likely to receive help if needed, whether by me or other users.
 
 µMatrix can be set to work in allow-all/block-exceptionally mode with a single click on the `all` cell in the global scope `*`, if you prefer to work this way. This will of course break less sites, but than you would lose all the benefit which comes with block-all/allow-exceptionally mode.
 
