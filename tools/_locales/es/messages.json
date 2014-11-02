@@ -48,7 +48,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"imagen",
+    "message":"image",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -108,11 +108,11 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"Encabezados de <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> frustrados: {{count}}",
+    "message":"Encabezados de <a href='https:\/\/es.wikipedia.org\/wiki\/Cookie_%28inform%C3%A1tica%29'>HTTP cookie<\/a> frustrados: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"Encabezados de <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> frustrados: {{count}}",
+    "message":"Encabezados de <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> frustrados: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -276,11 +276,11 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Algunos sitios web están tan enfocados en rastrearle, que usarán ciertos trucos bastantes sucios para burlar cualquier medida que se tome para evitar ser rastreado.<\/p><p>Unos cuantos de estos trucos se basan<sup style='font-size:smaller'>[1, 2]<\/sup> en la <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>caché del navegador<\/a>, cuyo contenido como norma es perdurable, ya que raramente los usuarios se toman el trabajo de limpiarlo de forma regular.<\/p><p>Limpiar la caché de manera regular es bastante fácil (probablemente ni siquiera lo perciba cuando ocurra), con el beneficio de impedir a estos molestos rastreadores invadir su privacidad.<\/p><p>Active esta opción para que <i>µMatrix<\/i> lo haga por usted, en el intervalo deseado.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Algunos sitios web están tan enfocados en rastrearle, que usarán ciertos trucos bastantes sucios para burlar cualquier medida que se tome para evitar ser rastreado.<\/p><p>Unos cuantos de estos trucos se basan<sup style='font-size:smaller'>[1, 2]<\/sup> en la <a href='https:\/\/es.wikipedia.org\/wiki\/Cach%C3%A9_web'>caché del navegador<\/a>, cuyo contenido como norma es perdurable, ya que raramente los usuarios se toman el trabajo de limpiarlo de forma regular.<\/p><p>Limpiar la caché de manera regular es bastante fácil (probablemente ni siquiera lo perciba cuando ocurra), con el beneficio de impedir a estos molestos rastreadores invadir su privacidad.<\/p><p>Active esta opción para que <i>µMatrix<\/i> lo haga por usted, en el intervalo deseado.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Eliminar información de los <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> de terceros de las peticiones a nombres de dominios no permitidos.",
+    "message":"Eliminar información de los <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> de terceros de las peticiones a nombres de dominios no permitidos.",
     "description":""
   },
   "privacyProcessRefererHelp":{
@@ -296,7 +296,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Falsificar cadena <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a>, escogiendo una de estas al azar cada",
+    "message":"Falsificar cadena <a href='https:\/\/es.wikipedia.org\/wiki\/Agente_de_usuario'>User-Agent<\/a>, escogiendo una de estas al azar cada",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -304,7 +304,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Según la <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] su navegador envía un encabezado &lsquo;User Agent&rsquo;  al sitio web, estableciendo de manera precisa que combinación de sistema operativo y navegador está usando. Esto puede ayudar a diferenciar los usuarios en Internet, pues esta información varía a menudo considerablemente de un usuario a otro. [...] <b>la cadena User Agent se convierte en un verdadero problema de privacidad<\/b>.&rdquo;<p>Esta opción le permite resolver este problema puesto de relieve por la EFF.<\/p><p>Usted puede suministrar su propia lista de cadenas <i>user agent,\/i>. Una cadena por línea. Las líneas en blanco o con prefijo &lsquo;#&rsquo; serán ignoradas.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Según la <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] su navegador envía un encabezado &lsquo;User Agent&rsquo;  al sitio web, estableciendo de manera precisa que combinación de sistema operativo y navegador está usando. Esto puede ayudar a diferenciar los usuarios en Internet, pues esta información varía a menudo considerablemente de un usuario a otro. [...] <b>la cadena User Agent se convierte en un verdadero problema de privacidad<\/b>.&rdquo;<p>Esta opción le permite resolver este problema puesto de relieve por la EFF.<\/p><p>Usted puede suministrar su propia lista de cadenas <i>user agent<\/i>. Una cadena por línea. Las líneas en blanco o con prefijo &lsquo;#&rsquo; serán ignoradas.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{

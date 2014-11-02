@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Indicar & clicar para proibir\/permitir qualquer classe de pedidos feitos pelo navegados. Use para bloquear scripts, iframes, anúncios, facebook, etc.",
+    "message":"Apontar & Clicar para proibir\/permitir qualquer classe de pedidos feitos pelo navegados. Use para bloquear scripts, iframes, anúncios, facebook, etc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -12,7 +12,7 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Configurações",
+    "message":"Preferências",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Arquivos hosts",
+    "message":"Arquivos de hosts",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Desabilitar\/Habilitar filtragem pela matrix para este escopo.\nPedidos bloqueados através da filtragem pela matrix nesta página: {{count}}.",
+    "message":"Desativar\/Ativar filtragem pela matrix para este escopo.\nPedidos bloqueados através da filtragem pela matrix nesta página: {{count}}.",
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
@@ -96,7 +96,7 @@
     "description":"Tool tip for the reload button"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} hostname(s) da lista negra",
+    "message":"{{count}} hostname(s) na lista negra",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "statsPageTitle":{
@@ -124,7 +124,7 @@
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Armazenagem local<\/a> esvaziados: {{count}}",
+    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Armazenamento local<\/a> esvaziados: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
@@ -132,11 +132,11 @@
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Estatísticas Detalhadas",
+    "message":"Estatísticas detalhadas",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"Tudo",
+    "message":"Todos",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -144,11 +144,11 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Síntese",
+    "message":"Visão Geral",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Pedidos",
+    "message":"Solicitações",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
@@ -200,7 +200,7 @@
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Cor amigável para cegos",
+    "message":"Cor amigável para daltonismo",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -208,7 +208,7 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Quando a matrix é fechada, recarregue inteligentemente as abas:",
+    "message":"Quando a matrix é fechada, recarregue inteligentemente essas abas:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
@@ -240,7 +240,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Apagar cookies bloqueados.",
+    "message":"Apagar os cookies bloqueados.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -260,7 +260,7 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Apagar <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>armazenagem local<\/a> conteúdo definido por hostnames bloqueadas",
+    "message":"Apagar <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>armazenamento local<\/a> conteúdo definido por hostnames bloqueadas",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -356,11 +356,11 @@
     "description":""
   },
   "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
+    "message":"minhas-regras-umatrix.txt",
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"Todos os hostnames no arquivo de hosts estão carregados como hostanames na lista negra no escopo global.",
+    "message":"Todos os hostnames no arquivo de hosts estão carregados como hostnames na lista negra no escopo global.",
     "description":""
   },
   "hostsFilesStats":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-Atualizar os arquivos hosts.",
+    "message":"Auto-atualizar os arquivos hosts.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -412,7 +412,7 @@
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Armazenagem usada: {{storageUsed}} bytes",
+    "message":"Armazenamento usado: {{storageUsed}} bytes",
     "description":""
   },
   "aboutDoc":{
@@ -424,7 +424,7 @@
     "description":""
   },
   "aboutCode":{
-    "message":"Código Fonte (GPLv3)",
+    "message":"Source code (GPLv3)",
     "description":""
   },
   "aboutIssues":{
@@ -444,7 +444,7 @@
     "description":""
   },
   "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
+    "message":"meu-backup-umatrix.txt",
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
@@ -468,7 +468,7 @@
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Alerta! isso irá remover todas as suas configurações personalizadas. Você está certo que deseja continuar?",
+    "message":"Aviso! isso irá remover todas as suas configurações personalizadas. Você está certo que deseja continuar?",
     "description":"Message asking user to confirm reset"
   },
   "commandRevertAll":{
@@ -476,7 +476,7 @@
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Adicionar à lista branca temporariamente o domínio",
+    "message":"Adicionar o domínio à lista branca temporariamente",
     "description":""
   },
   "commandWhitelistAll":{
@@ -488,7 +488,7 @@
     "description":""
   },
   "errorCantConnectTo":{
-    "message":"Erro na rede: Inábil a conectar à {{url}}",
+    "message":"Erro na rede: Não foi possível conectar ao {{url}}",
     "description":""
   }
 }
