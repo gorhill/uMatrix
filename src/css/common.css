@@ -43,6 +43,13 @@
     display: inline-block;
     }
 
+html {
+    direction: ltr;
+    }
+html.rtl {
+    direction: rtl;
+    }
+
 /* http://stackoverflow.com/questions/2011142/how-to-change-the-style-of-title-attribute-inside-the-anchor-tag?answertab=votes */
 *[data-tip] {
     position: relative;

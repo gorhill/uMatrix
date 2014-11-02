@@ -23,6 +23,16 @@
 // jQuery must be present at this point.
 
 window.addEventListener('load', function() {
+    // http://en.wikipedia.org/wiki/Right-to-left
+    var rtlLanguages = {
+        'ar': true,
+        'fa': true,
+        'he': true
+    };
+    if ( rtlLanguages[navigator.language] ) {
+        uDom('html').addClass('rtl');
+    }
+
     var nodeList = document.querySelectorAll('[data-i18n]');
     var i = nodeList.length;
     var node;
