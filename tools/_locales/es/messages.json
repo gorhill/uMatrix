@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Señalar y hacer clic para prohibir\/permitir cualquier tipo de peticiones hechas por el navegador. Úselo para bloquear <i>scripts<\/i>, <i>iframes<\/i>, anuncios, facebook, etc.",
+    "message":"Prohíbe\/permite cualquier petición del navegador. Bloquea scripts, iframes, anuncios, facebook, etc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -172,7 +172,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Se pueden inspeccionar los detalles de las peticiones HTTP directas más recientes hechas por una página web (ver debajo).<\/p><p>Esto es útil sobre todo para usuarios avanzados que deseen investigar que, exactamente, ha estado haciendo una página. Pero el registro de estas peticiones HTTP requiere memoria, la cual puede terminar siendo malgastada si dicha información técnica no es de su interés.<\/p><p>Por ello este campo le permite ajustar el número máximo de peticiones HTTP recientes que se van a registrar para una inspección ulterior.<\/p><p>Introduzca &ldquo;<code>0<\/code>&rdquo; para desactivar el registro detallado (con el consecuente ahorro de memoria de <i>µMatrix<\/i>).<\/p>",
+    "message":"<p>Permite inspeccionar los detalles de las peticiones HTTP directas más recientes hechas por una página web (ver debajo).<\/p><p>Útil sobre todo para usuarios avanzados que deseen investigar qué, exactamente, ha estado haciendo una página. Sin embargo, registrar tales peticiones HTTP requiere memoria, que puede terminar siendo malgastada si dicha información técnica no es de su interés.<\/p><p>Por ello este campo le permite ajustar el número máximo de peticiones HTTP recientes que se van a registrar para una inspección ulterior.<\/p><p>Introduzca &ldquo;<code>0<\/code>&rdquo; para desactivar el registro detallado (con el consecuente ahorro de memoria de <i>µMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
