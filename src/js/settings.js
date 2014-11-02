@@ -109,12 +109,12 @@ uDom.onLoad(function() {
 
         // `data-range` allows to add/remove bool properties without 
         // changing code.
-        uDom('input[data-range="bool"]').toArray().forEach(function(elem) {
-            elem.checked = userSettings[elem.id] === true;
+        uDom('input[data-range="bool"]').forEach(function(elem) {
+            elem.prop('checked', userSettings[elem.attr('id')] === true);
         });
 
-        uDom('input[name="displayTextSize"]').toArray().forEach(function(elem) {
-            elem.checked = elem.value === userSettings.displayTextSize;
+        uDom('input[name="displayTextSize"]').forEach(function(elem) {
+            elem.prop('checked', elem.val() === userSettings.displayTextSize);
         });
         uDom('#smart-auto-reload').val(userSettings.smartAutoReload);
         uDom('#subframe-color').val(userSettings.subframeColor);

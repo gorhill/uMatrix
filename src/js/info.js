@@ -314,8 +314,7 @@ function changeFilterHandler() {
     // Initialize request filters as per user settings:
     // https://github.com/gorhill/httpswitchboard/issues/49
     var statsFilters = cachedUserSettings.statsFilters;
-    uDom('input[id^="show-"][type="checkbox"]').toArray().forEach(function(elem) {
-        var input = uDom(elem);
+    uDom('input[id^="show-"][type="checkbox"]').forEach(function(input) {
         statsFilters[input.attr('id')] = !!input.prop('checked');
     });
     changeUserSettings('statsFilters', statsFilters);
@@ -396,8 +395,7 @@ uDom.onLoad(function(){
         // init ui as per user settings
         uDom('#max-logged-requests').val(userSettings.maxLoggedRequests);
         var statsFilters = userSettings.statsFilters;
-        uDom('input[id^="show-"][type="checkbox"]').toArray().forEach(function(elem) {
-            var input = uDom(elem);
+        uDom('input[id^="show-"][type="checkbox"]').forEach(function(input) {
             var filter = statsFilters[input.attr('id')];
             input.prop('checked', filter === undefined || filter === true);
         });

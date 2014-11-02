@@ -228,6 +228,14 @@ DOMList.prototype.toArray = function() {
 
 /******************************************************************************/
 
+DOMList.prototype.forEach = function(fn) {
+    for ( var i = 0; i < this.nodes.length; i++ ) {
+        fn(this.at(i), i);
+    }
+};
+
+/******************************************************************************/
+
 DOMList.prototype.subset = function(i, l) {
     var r = new DOMList();
     var n = l !== undefined ? l : this.nodes.length;
@@ -351,16 +359,6 @@ DOMList.prototype.contents = function() {
         }
     }
     return r;
-};
-
-/******************************************************************************/
-
-DOMList.prototype.forEach = function(callback) {
-    var n = this.nodes.length;
-    for ( var i = 0; i < n; i++ ) {
-        callback.bind(this.nodes[i]).call();
-    }
-    return this;
 };
 
 /******************************************************************************/
