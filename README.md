@@ -12,7 +12,7 @@ Forked from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
 #### Regarding broken sites
 
-µMatrix do not guarantee sites will work fine: it is for advanced users who can figure how to unbreak sites, because essentially µMatrix is a firewall which works in block-all/allow-exceptionally mode out of the box: it not unexpected sites will break.
+µMatrix do not guarantee sites will work fine: it is for advanced users who can figure how to un-break sites, because essentially µMatrix is a firewall which works in block-all/allow-exceptionally mode out of the box: it not unexpected sites will break.
 
 **So this means do not file issues to report broken sites when the sites are broken because µMatrix does its job as expected.** I will close any such issue without further comment.
 
