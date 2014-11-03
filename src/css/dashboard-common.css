@@ -20,8 +20,13 @@ h3 {
     font-size: 16px;
     }
 h2 + * {
-    margin: 0 0 0 1em;
     padding: 0;
+    }
+html.ltr h2 + * {
+    margin: 0 0 0 1em;
+    }
+html.rtl h2 + * {
+    margin: 0 1em 0 0;
     }
 a {
     text-decoration: none;

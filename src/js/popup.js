@@ -63,6 +63,7 @@ var matrixHeaderPrettyNames = {
     'other': ''
 };
 
+var firstPartyLabel = '';
 var blacklistedHostnamesLabel = '';
 
 /******************************************************************************/
@@ -534,7 +535,7 @@ function renderMatrixCellDomain(cell, domain) {
         .prop('hostname', domain)
         .addClass(getCellClass(domain, '*'))
         .contents();
-    contents.nodeAt(0).textContent = '\u202A' + punycode.toUnicode(domain);
+    contents.nodeAt(0).textContent = punycode.toUnicode(domain);
     contents.nodeAt(1).textContent = ' ';
 }
 
@@ -543,7 +544,7 @@ function renderMatrixCellSubdomain(cell, domain, subomain) {
         .prop('hostname', subomain)
         .addClass(getCellClass(subomain, '*'))
         .contents();
-    contents.nodeAt(0).textContent = '\u202A' + punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
+    contents.nodeAt(0).textContent = punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
     contents.nodeAt(1).textContent = punycode.toUnicode(domain);
 }
 
@@ -552,7 +553,7 @@ function renderMatrixMetaCellDomain(cell, domain) {
         .prop('hostname', domain)
         .addClass(getCellClass(domain, '*'))
         .contents();
-    contents.nodeAt(0).textContent = '\u202A\u2217.' + punycode.toUnicode(domain);
+    contents.nodeAt(0).textContent = '\u2217.' + punycode.toUnicode(domain);
     contents.nodeAt(1).textContent = ' ';
 }
 
@@ -694,7 +695,7 @@ function hostnameCompare(a,b) {
 /******************************************************************************/
 
 function makeMatrixGroup0SectionDomain() {
-    return makeMatrixRowDomain('1st-party').addClass('g0 l1');
+    return makeMatrixRowDomain(firstPartyLabel).addClass('g0 l1');
 }
 
 function makeMatrixGroup0Section() {
@@ -952,7 +953,8 @@ function initMenuEnvironment() {
         prettyNames[key] = text;
     }
 
-    blacklistedHostnamesLabel = '\u202A' + uDom('[data-i18n="matrixBlacklistedHostnames"]').text();
+    firstPartyLabel = uDom('[data-i18n="matrix1stPartyLabel"]').text();
+    blacklistedHostnamesLabel = uDom('[data-i18n="matrixBlacklistedHostnames"]').text();
 }
 
 /******************************************************************************/

@@ -15,15 +15,16 @@ select {
     white-space: nowrap;
     }
 #requests-log {
-    margin: 0;
-    border: 1px inset #eee;
-    padding: 0;
-    font: 11px monospace;
     background-color: white;
+    border: 1px inset #eee;
+    direction: ltr;
+    font: 11px monospace;
+    margin: 0;
     overflow: scroll;
+    padding: 0;
     width: calc(100% - 1.5em);
     }
-#requests-log table {
+#requestsTable {
     border-collapse: collapse;
     }
 #requests-log tr {

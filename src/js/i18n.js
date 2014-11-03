@@ -29,9 +29,8 @@ window.addEventListener('load', function() {
         'fa': true,
         'he': true
     };
-    if ( rtlLanguages[navigator.language] ) {
-        uDom('html').addClass('rtl');
-    }
+    uDom('html').toggleClass('rtl', rtlLanguages.hasOwnProperty(navigator.language));
+    uDom('html').toggleClass('ltr', rtlLanguages.hasOwnProperty(navigator.language) === false);
 
     var nodeList = document.querySelectorAll('[data-i18n]');
     var i = nodeList.length;

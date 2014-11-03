@@ -26,6 +26,42 @@ div > p:last-child {
 #diff > div > div > span {
     float: left;
     }
+html.ltr #revertButton:after {
+    content: '\2009\f061';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    vertical-align: baseline;
+    display: inline-block;
+    }
+html.rtl #revertButton:after {
+    content: '\2009\f060';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    vertical-align: baseline;
+    display: inline-block;
+    }
+html.ltr #commitButton:before {
+    content: '\f060\2009';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    vertical-align: baseline;
+    display: inline-block;
+    }
+html.rtl #commitButton:before {
+    content: '\f061\2009';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    vertical-align: baseline;
+    display: inline-block;
+    }
 #revertButton,
 #commitButton,
 #diff.edit #editEnterButton {
@@ -68,7 +104,9 @@ div > p:last-child {
     }
 #diff li {
     background-color: white;
+    direction: ltr;
     padding: 2px 0;
+    text-align: left;
     white-space: nowrap;
     }
 #diff li:nth-of-type(2n+0) {
@@ -95,7 +133,7 @@ div > p:last-child {
     background-color: #f8f8ff;
     border: 0;
     border-top: 1px solid #eee;
-    visibility: hidden;
+    direction: ltr;
     font: 12px monospace;
     line-height: calc(140% + 4px);
     height: 100%;
@@ -106,6 +144,7 @@ div > p:last-child {
     padding: 1em 0 0 0;
     position: absolute;
     resize: none;
+    visibility: hidden;
     white-space: nowrap;
     width: 100%;
     }

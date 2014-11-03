@@ -24,7 +24,7 @@ ul > li {
     color: #888;
     }
 #spoof-user-agent-with {
-    margin-left: 1.25em;
+    direction: ltr;
     display: block;
     font-size: 11px;
     width: 50em;
@@ -32,6 +32,12 @@ ul > li {
     white-space: pre;
     word-wrap: normal;
     overflow-x: scroll;
+    }
+html.ltr #spoof-user-agent-with {
+    margin-left: 1.25em;
+    }
+html.rtl #spoof-user-agent-with {
+    margin-right: 1.25em;
     }
 </style>
 </head>
@@ -86,7 +92,7 @@ ul > li {
         <input id="spoof-user-agent" type="checkbox"><label data-i18n="privacySpoofUserAgentPrompt1" for="spoof-user-agent"></label> <input id="spoof-user-agent-every" type="text" value="5" size="3"> <span data-i18n="privacySpoofUserAgentPrompt2"></span>
         <button class="whatisthis"></button>
         <div class="whatisthis-expandable para" data-i18n="privacySpoofUserAgentHelp"></div>
-        <textarea id="spoof-user-agent-with"></textarea>
+        <textarea id="spoof-user-agent-with" spellcheck="false"></textarea>
 </ul>
 
 <h2 data-i18n="privacyBehindTheSceneHeader"></h2>

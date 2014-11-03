@@ -38,10 +38,12 @@ body {
     position: absolute;
     top: 0;
     }
-.toolbar.alignLeft {
+html.ltr .toolbar.alignLeft,
+html.rtl .toolbar.alignRight {
     left: 0;
     }
-.toolbar.alignRight {
+html.ltr .toolbar.alignRight,
+html.rtl .toolbar.alignLeft {
     right: 0;
     }
 
@@ -316,8 +318,7 @@ body.tScopeNarrow #scopeCell {
 
 .matrix .matRow > .matCell:first-child {
     width: 16em;
-    text-align: start;
-    direction: rtl;
+    text-align: right;
     }
 .matrix .matRow.l2 > .matCell:first-child {
     margin-left: 1px;

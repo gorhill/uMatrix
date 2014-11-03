@@ -72,10 +72,11 @@ html.rtl {
     white-space: pre-line;
     z-index: 20;
     }
-.tip-anchor-left[data-tip]:hover:after {
+html.ltr .tip-anchor-left[data-tip]:hover:after,
+html.rtl .tip-anchor-right[data-tip]:hover:after {
     left: -5vw;
     }
-.tip-anchor-right[data-tip]:hover:after {
+html.ltr .tip-anchor-right[data-tip]:hover:after,
+html.rtl .tip-anchor-left[data-tip]:hover:after {
     right: -5vw;
     }
-
