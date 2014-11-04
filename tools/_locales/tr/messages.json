@@ -95,6 +95,10 @@
     "message":"Sayfayı yeniden yükle.",
     "description":"Tool tip for the reload button"
   },
+  "matrix1stPartyLabel":{
+    "message":"1. taraf",
+    "description":"1st-party"
+  },
   "matrixBlacklistedHostnames":{
     "message":"{{count}} kara listelenmiş alan",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
@@ -280,11 +284,11 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Beyaz listede bulunmayan alan adlarına yapılan isteklerdeki üçüncü parti <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> bilgisini kaldır.",
+    "message":"Beyaz listede bulunmayan alan adlarına yapılan isteklerdeki üçüncü tarafa <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> bilgisini kaldır.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Wikipedia'dan: &ldquo;HTTP referer bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü referer bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b>&rdquo;<\/p><p>Bu ayar işaretliyse, <i>µMatrix<\/i> takip eden şartların <b>her ikisinin<\/b> doğru olması durumunda HTTP referer bilgisini kaldıracaktır: <ul style='padding-left:1em;list-style-type:disc;'><li>HTTP referer alan adı isteğin URL alan adıyla eşleşmiyorsa (referer web sayfasına göre üçüncü partidir)<li>İsteğin alan adı beyaz listede değilse<\/ul><\/p>",
+    "message":"<p>Wikipedia'dan: &ldquo;HTTP referer bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü referer bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b>&rdquo;<\/p><p>Bu ayar işaretliyse, <i>µMatrix<\/i> takip eden şartların <b>her ikisinin<\/b> doğru olması durumunda HTTP referer bilgisini kaldıracaktır: <ul style='padding-left:1em;list-style-type:disc;'><li>HTTP referer alan adı isteğin URL alan adıyla eşleşmiyorsa (referer web sayfasına göre üçüncü taraftır)<li>İsteğin alan adı beyaz listede değilse<\/ul><\/p>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -292,7 +296,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hiperbağlaç denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü partinin o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
+    "message":"<p>Hiperbağlaç denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü tarafın o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -434,6 +438,18 @@
   "aboutContributors":{
     "message":"Katkıda bulunanlar",
     "description":"English: Contributors"
+  },
+  "aboutCodeContributors":{
+    "message":"Kod:",
+    "description":""
+  },
+  "aboutIssueContributors":{
+    "message":"Sorunlar:",
+    "description":""
+  },
+  "aboutTranslationContributors":{
+    "message":"Çeviriler:",
+    "description":""
   },
   "aboutUserDataHeader":{
     "message":"Verileriniz",

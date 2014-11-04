@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"Dashboard",
+    "message":"µMatrix — Dashboard",
     "description":""
   },
   "settingsPageName":{
@@ -94,6 +94,10 @@
   "matrixReloadButton":{
     "message":"Seite neu laden.",
     "description":"Tool tip for the reload button"
+  },
+  "matrix1stPartyLabel":{
+    "message":"Erstanbieter",
+    "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
     "message":"{{count}} Hostnamen auf der Blacklist",
@@ -212,7 +216,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"Keine",
+    "message":"keine",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
@@ -220,7 +224,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"Alle",
+    "message":"alle",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -228,7 +232,7 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blockierter Frames:&ensp;Farbe",
+    "message":"Blockierte Frames:&ensp;Farbe",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
@@ -434,6 +438,18 @@
   "aboutContributors":{
     "message":"Mitwirkende",
     "description":"English: Contributors"
+  },
+  "aboutCodeContributors":{
+    "message":"Code:",
+    "description":""
+  },
+  "aboutIssueContributors":{
+    "message":"Probleme:",
+    "description":""
+  },
+  "aboutTranslationContributors":{
+    "message":"Übersetzungen:",
+    "description":""
   },
   "aboutUserDataHeader":{
     "message":"Deine Daten",

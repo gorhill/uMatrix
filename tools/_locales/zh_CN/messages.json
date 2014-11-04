@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"轻松点击即可阻止\/允许您的浏览器所做的任何类型的请求，可用以屏蔽脚本、浮动框架、广告等等。",
+    "message":"轻松点击即可阻止\/允许您的浏览器发出的任何类型的请求，可用以屏蔽脚本、子文档、广告和社交网站追踪等。",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -44,7 +44,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"样式表",
+    "message":"样式",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
@@ -95,6 +95,10 @@
     "message":"重新载入页面。",
     "description":"Tool tip for the reload button"
   },
+  "matrix1stPartyLabel":{
+    "message":"1st-party",
+    "description":"1st-party"
+  },
   "matrixBlacklistedHostnames":{
     "message":"{{count}}个黑名单站点",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
@@ -108,15 +112,15 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"已阻止的<a href='http:\/\/zh.wikipedia.org\/wiki\/Cookie'>HTTP cookie<\/a>请求头部：{{count}}",
+    "message":"已阻止的<a href='http:\/\/zh.wikipedia.org\/wiki\/Cookie'>HTTP cookie<\/a>请求头：{{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"已阻止的<a href='http:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP来源地址<\/a>请求头部：{{count}}",
+    "message":"已阻止的<a href='http:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP来源地址<\/a>请求头：{{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"已阻止的<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审计<\/a>试图：{{count}}",
+    "message":"已阻止的<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审计<\/a>尝试：{{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -204,7 +208,7 @@
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"舒适",
+    "message":"便利",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
@@ -348,7 +352,7 @@
     "description":""
   },
   "userRulesExport":{
-    "message":"导出成文件",
+    "message":"导出为文件",
     "description":""
   },
   "userRulesFormatHint":{
@@ -412,7 +416,7 @@
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"已用的存储空间：{{storageUsed}} bytes",
+    "message":"已用存储空间：{{storageUsed}} bytes",
     "description":""
   },
   "aboutDoc":{
@@ -420,7 +424,7 @@
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>许可<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>权限<\/a>",
     "description":""
   },
   "aboutCode":{
@@ -435,12 +439,24 @@
     "message":"贡献者",
     "description":"English: Contributors"
   },
+  "aboutCodeContributors":{
+    "message":"Code:",
+    "description":""
+  },
+  "aboutIssueContributors":{
+    "message":"Issues:",
+    "description":""
+  },
+  "aboutTranslationContributors":{
+    "message":"Translations:",
+    "description":""
+  },
   "aboutUserDataHeader":{
     "message":"您的数据",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"备份成文件",
+    "message":"备份为文件",
     "description":""
   },
   "aboutBackupFilename":{

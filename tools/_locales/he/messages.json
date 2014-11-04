@@ -95,6 +95,10 @@
     "message":"טען מחדש את העמוד.",
     "description":"Tool tip for the reload button"
   },
+  "matrix1stPartyLabel":{
+    "message":"צד ראשון",
+    "description":"1st-party"
+  },
   "matrixBlacklistedHostnames":{
     "message":"{{count}} דומיין(ים) חסום(ים)",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
@@ -434,6 +438,18 @@
   "aboutContributors":{
     "message":"תורמים",
     "description":"English: Contributors"
+  },
+  "aboutCodeContributors":{
+    "message":"קוד:",
+    "description":""
+  },
+  "aboutIssueContributors":{
+    "message":"בעיות:",
+    "description":""
+  },
+  "aboutTranslationContributors":{
+    "message":"תרגומים:",
+    "description":""
   },
   "aboutUserDataHeader":{
     "message":"המידע שלך",

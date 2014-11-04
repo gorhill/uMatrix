@@ -95,6 +95,10 @@
     "message":"Reload the page.",
     "description":"Tool tip for the reload button"
   },
+  "matrix1stPartyLabel":{
+    "message":"1st-party",
+    "description":"1st-party"
+  },
   "matrixBlacklistedHostnames":{
     "message":"{{count}} blacklisted hostname(s)",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
@@ -434,6 +438,18 @@
   "aboutContributors":{
     "message":"Contributors",
     "description":"English: Contributors"
+  },
+  "aboutCodeContributors":{
+    "message":"Code:",
+    "description":""
+  },
+  "aboutIssueContributors":{
+    "message":"Issues:",
+    "description":""
+  },
+  "aboutTranslationContributors":{
+    "message":"Translations:",
+    "description":""
   },
   "aboutUserDataHeader":{
     "message":"Your data",
