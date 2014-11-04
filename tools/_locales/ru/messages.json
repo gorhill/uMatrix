@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Dashboard",
+    "message":"µMatrix — Панель",
     "description":""
   },
   "settingsPageName":{
@@ -32,7 +32,7 @@
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"О программе",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
@@ -72,7 +72,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Сетевой трафик для данной папки до сих пор не замечен.",
     "description":""
   },
   "matrixMtxButtonTip":{
@@ -80,15 +80,15 @@
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Сохранить все временные изменения в этой области.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Remove temporary changes for this scope.",
+    "message":"Удалить временные изменения для этой области.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Remove all temporary changes.",
+    "message":"Удалить все временные изменения.",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
@@ -96,19 +96,19 @@
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"Первичный",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}} хостов в черном списке",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Statistics",
+    "message":"µMatrix &ndash; Статистика",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Общая статистика",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -120,19 +120,19 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> attempts foiled: {{count}}",
+    "message":"Попыток <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудита гиперссылок<\/a> пресечено: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"Локальных куков удалено: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Локальных хранилищ<\/a> очищено: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"Очищено кэшей браузера: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
@@ -144,7 +144,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: Behind the scene",
+    "message":"Chromium: За сценой",
     "description":""
   },
   "statsPageOverview":{
@@ -168,11 +168,11 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Запомнить последнее",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"HTTP запросов <b>на страницу<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -184,7 +184,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Settings",
+    "message":"µMatrix &ndash; Настройки",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -208,15 +208,15 @@
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"Удобство",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Когда матрица закрыта, быстро обновить эти вкладки:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"(Пусто)",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
@@ -232,7 +232,7 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Блокированные фреймы:&ensp;Цвет",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
@@ -240,7 +240,7 @@
     "description":"English: Opacity"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Privacy",
+    "message":"µMatrix &ndash; Безопасность",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -252,7 +252,7 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"Удалить куки незаблокированной сессии ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
@@ -292,7 +292,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Block all <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+    "message":"Блокировать все попытки <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудита гиперссылок<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
@@ -300,7 +300,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+    "message":"Подделать строку <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> путем случайного выбора каждые",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -312,7 +312,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: behind-the-scene requests",
+    "message":"Chromium: позасценарные запросы",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -332,7 +332,7 @@
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"Совершить",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
@@ -356,7 +356,7 @@
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Смотри эту страницу для правил синтаксиса.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -368,11 +368,11 @@
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} distinct blocked hostnames from:",
+    "message":"{{blockedHostnameCount}} различных блокированных хостов из:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"{{used}} использовано из {{total}}",
     "description":""
   },
   "hostsFilesApplyChanges":{
@@ -380,7 +380,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Автообновление файлов хостов.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -388,51 +388,51 @@
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"Очистить все кэши",
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+    "message":"Один URL на каждую строку. Строки, начинающиеся символом &lsquo;#&rsquo; будут пропущены. URLы с опечатками или ошибками будут так же пропущены без уведомлений об ошибке.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Разбор",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"очистить кэш",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"доступна новая версия",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"устаревший",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Лог изменений<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"Хранилище использует: {{storageUsed}} байт",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документация<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Разрешения<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Исходный код (GPLv3)",
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"Замечания и пожелания",
     "description":""
   },
   "aboutContributors":{
@@ -452,7 +452,7 @@
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"Ваши данные",
     "description":""
   },
   "aboutBackupButton":{
@@ -472,7 +472,7 @@
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"The data could not be read or is invalid",
+    "message":"Данные не могут быть прочитаны или ошибочны",
     "description":""
   },
   "aboutOr":{
@@ -496,15 +496,15 @@
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Temporarily whitelist all",
+    "message":"Временно добавить все в белый список",
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Открыть панель",
     "description":""
   },
   "errorCantConnectTo":{
-    "message":"Network error: Unable to connect to {{url}}",
+    "message":"Ошибка сети: Нет возможности связаться с {{url}}",
     "description":""
   }
 }

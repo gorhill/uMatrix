@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Apontar & Clicar para proibir\/permitir qualquer classe de pedidos feitos pelo navegados. Use para bloquear scripts, iframes, anúncios, facebook, etc.",
+    "message":"Apontar & Clicar para proibir\/permitir qualquer classe de pedidos feitos pelo navegadores. Use para bloquear scripts, iframes, anúncios, facebook, etc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
