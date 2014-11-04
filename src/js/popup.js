@@ -535,7 +535,9 @@ function renderMatrixCellDomain(cell, domain) {
         .prop('hostname', domain)
         .addClass(getCellClass(domain, '*'))
         .contents();
-    contents.nodeAt(0).textContent = punycode.toUnicode(domain);
+    contents.nodeAt(0).textContent = domain === '1st-party' ?
+        firstPartyLabel :
+        punycode.toUnicode(domain);
     contents.nodeAt(1).textContent = ' ';
 }
 
@@ -695,7 +697,7 @@ function hostnameCompare(a,b) {
 /******************************************************************************/
 
 function makeMatrixGroup0SectionDomain() {
-    return makeMatrixRowDomain(firstPartyLabel).addClass('g0 l1');
+    return makeMatrixRowDomain('1st-party').addClass('g0 l1');
 }
 
 function makeMatrixGroup0Section() {
