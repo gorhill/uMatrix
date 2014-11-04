@@ -96,7 +96,7 @@
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1-parte",
+    "message":"1° Nível",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{

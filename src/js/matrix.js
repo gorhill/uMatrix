@@ -378,7 +378,7 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
             r = this.evaluateCellZ(srcHostname, d, type);
             if ( r === 1 ) { return Matrix.RedIndirect; }
             if ( r === 2 ) { return Matrix.GreenIndirect; }
-            // Do not override narrower rule
+            // Do not override a narrower rule
             if ( rl !==  2 ) {
                 rl = this.evaluateCellZ(srcHostname, d, '*');
                 if ( rl === 1 ) { return Matrix.RedIndirect; }

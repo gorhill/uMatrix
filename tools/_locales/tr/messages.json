@@ -392,7 +392,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"Satır başına tek URL. &lsquo;!&rsquo; işareti ile başlayan satırlar yok sayılacaktır. Geçersiz URL'ler sessizcene yok sayılacaktır.",
+    "message":"Satır başına tek URL. &lsquo;#&rsquo; işareti ile başlayan satırlar yok sayılacaktır. Geçersiz URL'ler sessizcene yok sayılacaktır.",
     "description":""
   },
   "hostsFilesExternalListsParse":{

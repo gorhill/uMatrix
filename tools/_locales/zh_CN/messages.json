@@ -96,7 +96,7 @@
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"第一方",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
@@ -440,15 +440,15 @@
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"代码：",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"问题：",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"翻译：",
     "description":""
   },
   "aboutUserDataHeader":{

@@ -12,23 +12,23 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Настройки",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Безопасность",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Статистика",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Мои правила",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Файлы хостов",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -36,11 +36,11 @@
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"все",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"куки",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,15 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"изображение",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"плагин",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"скрипт",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,11 +64,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"фрейм",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"другое",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -92,7 +92,7 @@
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Перезагрузить страницу.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -136,11 +136,11 @@
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Детальная статистика",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Все",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -148,23 +148,23 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Общие сведения",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Запросы",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Разрешено",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Блокировано",
     "description":"header for the blocked requests column"
   },
   "statsPageDetailed":{
-    "message":"Request log",
+    "message":"Лог запросов",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -180,7 +180,7 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Обновить",
     "description":""
   },
   "settingsPageTitle":{
@@ -188,19 +188,19 @@
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Внешний вид",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Размер текста:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Нормальный",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Большой",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
@@ -220,11 +220,11 @@
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"Текущий",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Все",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -236,7 +236,7 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Непрозрачность",
     "description":"English: Opacity"
   },
   "privacyPageTitle":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Delete blocked cookies.",
+    "message":"Удалить заблокированные куки.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -256,7 +256,7 @@
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" минут после последнего использования.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -268,15 +268,15 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
+    "message":"СДЕЛАТЬ",
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Очищать кэш браузера каждые",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"минут.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -304,7 +304,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"минут.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -320,15 +320,15 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Постоянные правила",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Временные правила",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Сброс",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
@@ -336,23 +336,23 @@
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Изменить",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Сохранить",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Отклонить",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Импорт из файла...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Экспорт в файл...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Применить изменения",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
@@ -384,7 +384,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Обновить сейчас",
     "description":""
   },
   "hostsFilesPurgeAll":{
@@ -436,19 +436,19 @@
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Имена разработчиков",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Код:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"Вопросы:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"﻿Переводы:",
     "description":""
   },
   "aboutUserDataHeader":{
@@ -456,7 +456,7 @@
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Резервировать в файл...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -464,7 +464,7 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Восстановить из файла...",
     "description":""
   },
   "aboutRestoreConfirm":{
@@ -476,19 +476,19 @@
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... или ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"Сброс до настроек по умолчанию",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Caution! this will remove all your custom settings. Are you sure you want to proceed?",
+    "message":"Внимание! Это сбросит все ваши ручные настройки. Вы уверены?",
     "description":"Message asking user to confirm reset"
   },
   "commandRevertAll":{
-    "message":"Remove all temporary changes",
+    "message":"Удалить все временные изменения",
     "description":""
   },
   "commandWhitelistPageDomain":{
