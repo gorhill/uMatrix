@@ -6,7 +6,7 @@ You may contribute with translation work on Crowdin: [µMatrix on Crowdin](https
 
 Forked from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
-HTTPSB's documentation is still relevant, except for [µMatrix's differences with HTTPSB](https://github.com/gorhill/uMatrix/wiki/Changes-from-HTTP-Switchboard) with HTTP Switchboard.
+[HTTPSB's documentation](https://github.com/gorhill/httpswitchboard/wiki) is still relevant, except for [µMatrix's differences with HTTPSB](https://github.com/gorhill/uMatrix/wiki/Changes-from-HTTP-Switchboard) with HTTP Switchboard.
 
 ## Warnings
 
