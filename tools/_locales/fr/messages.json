@@ -392,7 +392,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"Une URL par ligne. Les lignes commençant par &lsquo;!&rsquo; seront ignorées. Une URL invalide sera automatiquement ignorée.",
+    "message":"Une URL par ligne. Les lignes commençant par &lsquo;#&rsquo; seront ignorées. Une URL invalide sera automatiquement ignorée.",
     "description":""
   },
   "hostsFilesExternalListsParse":{

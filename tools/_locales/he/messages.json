@@ -392,7 +392,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"כתובת אחת בכל שורה. שורות עם קידומת &lsquo;!&rsquo; לא יפורשו. כתובות לא חוקיות לא יפורשו ולא תהיה התראה לכך.",
+    "message":"כתובת אחת בכל שורה. שורות עם קידומת &lsquo;#&rsquo; לא יפורשו. כתובות לא חוקיות לא יפורשו ולא תהיה התראה לכך.",
     "description":""
   },
   "hostsFilesExternalListsParse":{

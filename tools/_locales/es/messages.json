@@ -392,7 +392,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"Una URL por línea. Las línes con prefijo &lsquo;!&rsquo; serán ignoradas. Las URL inválidas serán ignoradas de manera silenciosa.",
+    "message":"Una URL por línea. Las línes con prefijo &lsquo;#&rsquo; serán ignoradas. Las URL inválidas serán ignoradas de manera silenciosa.",
     "description":""
   },
   "hostsFilesExternalListsParse":{

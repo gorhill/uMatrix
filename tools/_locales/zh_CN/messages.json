@@ -392,7 +392,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"每行一条URL。以&lsquo;!&rsquo;开头的行将被忽略。无效的URL将被忽略。",
+    "message":"每行一条URL。以&lsquo;#&rsquo;开头的行将被忽略。无效的URL将被忽略。",
     "description":""
   },
   "hostsFilesExternalListsParse":{
