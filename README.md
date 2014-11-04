@@ -2,7 +2,7 @@
 
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
-[Under development: [usable](https://github.com/gorhill/uMatrix/releases)]
+Under development: [usable](https://github.com/gorhill/uMatrix/releases)
 
 You may contribute with translation work on Crowdin: [µMatrix on Crowdin](https://crowdin.com/project/umatrix).
 
