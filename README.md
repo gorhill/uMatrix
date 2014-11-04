@@ -1,12 +1,14 @@
 # µMatrix for Chromium
 
+Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
+
 [Under development: [usable](https://github.com/gorhill/uMatrix/releases)]
 
 You may contribute with translation work on Crowdin: [µMatrix on Crowdin](https://crowdin.com/project/umatrix).
 
-Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
-
 [HTTP Switchboard's documentation](https://github.com/gorhill/httpswitchboard/wiki) is still relevant, except for [µMatrix's differences with HTTP Switchboard](https://github.com/gorhill/uMatrix/wiki/Changes-from-HTTP-Switchboard).
+
+You may contribute with documentation: [µMatrix's wiki](https://github.com/gorhill/uMatrix/wiki).
 
 ## Warnings
 
