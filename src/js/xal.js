@@ -87,7 +87,12 @@ exports.keyvalRemoveAll = function(callback) {
 /******************************************************************************/
 
 exports.restart = function() {
-    chrome.runtime.reload();
+    // https://github.com/gorhill/uMatrix/issues/40
+    // I don't know if that helps workaround whatever Chromium bug causes
+    // the browser to crash.
+    chrome.runtime.sendMessage({ what: 'restart' }, function() {
+        chrome.runtime.reload();
+    });
 };
 
 /******************************************************************************/
