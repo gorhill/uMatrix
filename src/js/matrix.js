@@ -573,7 +573,7 @@ Matrix.prototype.toString = function() {
             continue;
         }
         val = this.switchedOn[srcHostname] ? 'on' : 'off';
-        out.push('switch: ' + srcHostname + ' ' + val);
+        out.push('matrix: ' + srcHostname + ' ' + val);
     }
     return out.sort().join('\n');
 };
@@ -640,6 +640,9 @@ Matrix.prototype.fromString = function(text, append) {
         //      state = [`on`, `off`]
 
         pos = fieldVal.indexOf('switch:');
+        if ( pos === -1 ) {
+            pos = fieldVal.indexOf('matrix:');
+        }
         if ( pos !== -1 ) {
             srcHostname = punycode.toASCII(fields[1]);
 
@@ -743,7 +746,7 @@ Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
         otherVal = other.evaluateSwitch(srcHostname);
         if ( thisVal !== otherVal ) {
             out.push({
-                'what': 'switch',
+                'what': 'matrix',
                 'src': srcHostname
             });
         }
@@ -783,7 +786,7 @@ Matrix.prototype.applyDiff = function(diff, from) {
     var action, val;
     while ( i-- ) {
         action = diff[i];
-        if ( action.what === 'switch' ) {
+        if ( action.what === 'matrix' ) {
             val = from.evaluateSwitch(action.src);
             changed = this.setSwitch(action.src, val) || changed;
             continue;
