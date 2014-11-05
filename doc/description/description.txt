@@ -1,4 +1,4 @@
-µMatrix, a clever matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+µMatrix: A matrix-based firewall, with many privacy-enhancing tools. For advanced users.
 
 µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
 
