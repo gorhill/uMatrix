@@ -50,7 +50,7 @@ Either way, you still benefit from the preset blacklists so that at least you ge
 
 Your choice.
 
-Randomly assembled documentation: https://github.com/gorhill/httpswitchboard/wiki
+Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
@@ -62,7 +62,7 @@ For any question/issue you might have, use the "Send Feedback" button on the rig
 
 BUGS, ISSUES, SUGEGSTIONS:
 
-https://github.com/gorhill/httpswitchboard/issues
+https://github.com/gorhill/uMatrix/issues
 
 You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
 
@@ -88,6 +88,6 @@ This extension is also useful if you wish to speed up your browsing, by globally
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/umatrix (GPLv3)
+SOURCE CODE: https://github.com/gorhill/uMatrix (GPLv3)
 
-CHANGE LOG: https://github.com/gorhill/umatrix/releases
+CHANGE LOG: https://github.com/gorhill/uMatrix/releases
