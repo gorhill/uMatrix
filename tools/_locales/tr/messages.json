@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Tarayıcı tarafından yapılan istek sınıfları işaret edip tıklanarak yasaklanabilir veya izin verilebilir.",
+    "message":"İşaret edip tıklayarak tarayıcının yaptığı herhangi bir istek sınıfını yasaklayabilir veya istek sınıfına izin verebilirsiniz.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{

@@ -112,7 +112,7 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/pt.wikipedia.org\/wiki\/Cookie_HTTP'>Cookie HTTP<\/a> headers foiled: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
