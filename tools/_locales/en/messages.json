@@ -169,6 +169,46 @@
         "message": "Blocked",
         "description": "header for the blocked requests column"
     },
+    "statsPageAll" : {
+        "message": "All:",
+        "description": ""
+    },
+    "statsPagePages" : {
+        "message": "Pages:",
+        "description": ""
+    },
+    "statsPageCookies" : {
+        "message": "Cookies:",
+        "description": ""
+    },
+    "statsPageCSS" : {
+        "message": "CSS:",
+        "description": ""
+    },
+    "statsPageImages" : {
+        "message": "Images:",
+        "description": ""
+    },
+    "statsPagePlugins" : {
+        "message": "Plugins:",
+        "description": ""
+    },
+    "statsPageScripts" : {
+        "message": "Scripts:",
+        "description": ""
+    },
+    "statsPageXHR" : {
+        "message": "XHRs:",
+        "description": ""
+    },
+    "statsPageFrames" : {
+        "message": "Frames:",
+        "description": ""
+    },
+    "statsPageOthers" : {
+        "message": "Others:",
+        "description": ""
+    },
     "statsPageDetailed" : {
         "message": "Request log",
         "description": ""
