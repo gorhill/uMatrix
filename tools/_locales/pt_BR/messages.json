@@ -163,6 +163,46 @@
     "message":"Bloqueados",
     "description":"header for the blocked requests column"
   },
+  "statsPageAll":{
+    "message":"Tudo",
+    "description":""
+  },
+  "statsPagePages":{
+    "message":"Páginas",
+    "description":""
+  },
+  "statsPageCookies":{
+    "message":"Cookies",
+    "description":""
+  },
+  "statsPageCSS":{
+    "message":"CSS",
+    "description":""
+  },
+  "statsPageImages":{
+    "message":"Imagens",
+    "description":""
+  },
+  "statsPagePlugins":{
+    "message":"Plugins",
+    "description":""
+  },
+  "statsPageScripts":{
+    "message":"Scripts",
+    "description":""
+  },
+  "statsPageXHRs":{
+    "message":"XHRs",
+    "description":""
+  },
+  "statsPageFrames":{
+    "message":"Frames",
+    "description":""
+  },
+  "statsPageOthers":{
+    "message":"Outros",
+    "description":""
+  },
   "statsPageDetailed":{
     "message":"Registro de pedidos",
     "description":""

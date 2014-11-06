@@ -1,34 +1,34 @@
-µMatrix, a clever matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+µMatrix: Un cortafuegos matricial ajustable mediante clics, con varias herramientas para mejorar su privacidad. Para usuarios avanzados.
 
-µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
+µMatrix le proporciona control total sobre su navegador, permitiendo decidir que conexiones se establecen, que tipo de datos se descargan y que códigos se van a ejecutar. Nadie más decide por usted: Usted escoge. Usted está en control total de su privacidad.
 
-Out of the box, µMatrix works in relax block-all/allow-exceptionally mode, meaning web sites which require 3rd-party scripts are likely to be "broken". With two clicks, µMatrix can be set to work in allow-all/block-exceptionally mode, which generally will not break web sites. See https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
+Por defecto, µMatrix funciona en modo relajado "bloquear todo/permitir excepcionalmente". Esto significa que los sitios que requieren <i>scripts</i> de terceros, posiblemente se muestren con problemas. Con solo dos clics, µMatrix se puede configurar para funcionar en modo "permitir todo/bloquear excepcionalmente", lo que hará que usualmente los sitios web se muestren sin problema. Para más detalles sobre el tema consulte https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views (en inglés).
 
-Regarding the myth that "Chromium-based browsers can't reliably block javascript", see: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Summary: Yes, javascript can be blocked reliably in Chromium.
+En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear <i>JavaScript</i> de manera adecuada, vea: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers (en inglés). En resumen: Si, <i>JavaScript</i> puede ser bloqueado de forma segura en Chromium.
 
-* See ALL the remote connections, failed or attempted, depending on whether they were blocked or allowed (you decide).
+* Examine todas las conexiones remotas, fallidas o intentadas, según fueron bloqueadas o permitidas (usted decide).
 
-* A single-click to whitelist/blacklist one or multiple classes of requests according to the destination and type of data (a blocked request will NEVER leave your browser).
+* Con un solo clic añada a su lista de permitidos o a su lista negra, uno o varios tipos de peticiones, según el destino y el tipo de datos (una petición bloqueada NUNCA saldrá del navegador).
 
 * Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
 
 * You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
 
-* Ease of use: µMatrix lets you easily whitelist/blacklist net requests which originate from within a web page according to a point-and-click matrix:
+* Facilidad de uso: µMatrix le permite agregar fácilmente las peticiones de red que se originen desde una página web a una lista de permitidos/lista negra, mediante clics en la matriz:
 
-- domain names (left column)
-  * from very specific
-  * to very generic
+- nombres de dominio (columna izquierda)
+  * desde muy específico
+  * a muy genérico
 
-- type of requests (top row)
+- tipos de peticiones (fila superior)
   * cookies
-  * CSS-related resources (stylesheets and web fonts)
-  * images
+  * recursos CSS  (hojas de estilo y fuentes web)
+  * imágenes
   * plugins
   * scripts
-  * XHR (requests made by scripts)
+  * XHR (peticiones hechas por los scripts)
   * frames
-  * others
+  * otras
 
 You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
 
@@ -50,7 +50,7 @@ Either way, you still benefit from the preset blacklists so that at least you ge
 
 Your choice.
 
-Randomly assembled documentation: https://github.com/gorhill/httpswitchboard/wiki
+Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
@@ -62,11 +62,11 @@ For any question/issue you might have, use the "Send Feedback" button on the rig
 
 BUGS, ISSUES, SUGEGSTIONS:
 
-https://github.com/gorhill/httpswitchboard/issues
+https://github.com/gorhill/uMatrix/issues
 
 You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
 
-Ease of use is the primary goal. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+Facilidad de uso es el objetivo primario. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
 
 This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
 
@@ -84,10 +84,10 @@ Green square = effectively whitelisted, i.e. requests are allowed to reach their
 
 The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
 
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+Esta extensión también es útil si desea aumentar la velocidad de navegación, por ejemplo, bloqueando de manera global todas las peticiones de imágenes.
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/umatrix (GPLv3)
+CÓDIGO FUENTE: https://github.com/gorhill/uMatrix (GPLv3)
 
-CHANGE LOG: https://github.com/gorhill/umatrix/releases
+REGISTRO DE CAMBIOS: https://github.com/gorhill/uMatrix/releases

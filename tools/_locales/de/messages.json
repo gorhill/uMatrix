@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Kontrolliere alle Anfragen deines Browsers durch einfaches Point & Click. Blockiere damit Skripte, IFrames, Werbung, Facebook usw.",
+    "message":"Kontrolliere alle Anfragen deines Browsers durch einfaches Point&Click. Blockiere damit Skripte, IFrames, Werbung, Facebook usw.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -162,6 +162,46 @@
   "statsPageBlocked":{
     "message":"Blockiert",
     "description":"header for the blocked requests column"
+  },
+  "statsPageAll":{
+    "message":"Alle",
+    "description":""
+  },
+  "statsPagePages":{
+    "message":"Seiten",
+    "description":""
+  },
+  "statsPageCookies":{
+    "message":"Cookies",
+    "description":""
+  },
+  "statsPageCSS":{
+    "message":"CSS",
+    "description":""
+  },
+  "statsPageImages":{
+    "message":"Bilder",
+    "description":""
+  },
+  "statsPagePlugins":{
+    "message":"Plugins",
+    "description":""
+  },
+  "statsPageScripts":{
+    "message":"Skripte",
+    "description":""
+  },
+  "statsPageXHRs":{
+    "message":"XHRs",
+    "description":""
+  },
+  "statsPageFrames":{
+    "message":"Frames",
+    "description":""
+  },
+  "statsPageOthers":{
+    "message":"Andere",
+    "description":""
   },
   "statsPageDetailed":{
     "message":"Anfragenverlauf",

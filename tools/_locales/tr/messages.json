@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"İşaret edip tıklayarak tarayıcının yaptığı herhangi bir istek sınıfını yasaklayabilir veya istek sınıfına izin verebilirsiniz.",
+    "message":"İşaret et ve tıkla ile tarayıcınız tarafından yapılan herhangi bir istek sınıfını yasaklayabilir veya izin verebilirsiniz.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -162,6 +162,46 @@
   "statsPageBlocked":{
     "message":"Engellenmiş",
     "description":"header for the blocked requests column"
+  },
+  "statsPageAll":{
+    "message":"Tümü",
+    "description":""
+  },
+  "statsPagePages":{
+    "message":"Sayfalar",
+    "description":""
+  },
+  "statsPageCookies":{
+    "message":"Çerezler",
+    "description":""
+  },
+  "statsPageCSS":{
+    "message":"CSS",
+    "description":""
+  },
+  "statsPageImages":{
+    "message":"Resimler",
+    "description":""
+  },
+  "statsPagePlugins":{
+    "message":"Eklentiler",
+    "description":""
+  },
+  "statsPageScripts":{
+    "message":"Betikler",
+    "description":""
+  },
+  "statsPageXHRs":{
+    "message":"XHR'ler",
+    "description":""
+  },
+  "statsPageFrames":{
+    "message":"Çerçeveler",
+    "description":""
+  },
+  "statsPageOthers":{
+    "message":"Diğerleri",
+    "description":""
   },
   "statsPageDetailed":{
     "message":"İstek günlüğü",

@@ -163,6 +163,46 @@
     "message":"חסומות",
     "description":"header for the blocked requests column"
   },
+  "statsPageAll":{
+    "message":"כולן",
+    "description":""
+  },
+  "statsPagePages":{
+    "message":"דפים",
+    "description":""
+  },
+  "statsPageCookies":{
+    "message":"עוגיות",
+    "description":""
+  },
+  "statsPageCSS":{
+    "message":"CSS",
+    "description":""
+  },
+  "statsPageImages":{
+    "message":"תמונות",
+    "description":""
+  },
+  "statsPagePlugins":{
+    "message":"פלאגינים",
+    "description":""
+  },
+  "statsPageScripts":{
+    "message":"סקריפטים",
+    "description":""
+  },
+  "statsPageXHRs":{
+    "message":"XHRs",
+    "description":""
+  },
+  "statsPageFrames":{
+    "message":"מסגרות",
+    "description":""
+  },
+  "statsPageOthers":{
+    "message":"אחרות",
+    "description":""
+  },
   "statsPageDetailed":{
     "message":"מתעד הבקשות",
     "description":""
@@ -292,7 +332,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"חסום את כל הניסיונות ל <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hyperlink auditing<\/a>.",
+    "message":"חסום את כל הניסיונות ל <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
@@ -316,7 +356,7 @@
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>על פי <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>כרומיום<\/i> עשוי לשלוח בקשות HTTP ל <i>Google<\/i> מבלי שהמשתמש במפורש ביקר בדף אינטרנט. בואו נקרא לבקשות המיוחדות האלה בקשות <strong>מאחורי הקלעים<\/strong>. כמו כן, הרחבות דפדפן מותקנות אחרות יכולות לשלוח <strong>מאחורי הקלעים<\/strong> בקשות HTTP. <\/p><p><i>µMatrix<\/i> מאפשר לך ליירט ולטפל בבקשות אלה כמו כל בקשה אחרת: הן יכוליות להיות מעובדות על מנת לאפשר\/לחסום אותן בהתאם לרשימה הלבנה\/הרשימה השחורה שלך.<\/p><p>לחץ על אייקון התוסף בעת הצפייה בדף זה כדי להתחיל. קריאת נחוצה:<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>בקשות מאחורי הקלעים.<\/a><\/p><div class='warn'><p><span style='color:red; font-weight:bold'>היזהר!<\/span> חסימה של בקשות <strong>מאחורי הקלעים<\/strong> יכולה פטונציאלית לגרום ל <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>בעיה<\/a> כשהמשתמש רוצה להתקין תוסף מחנות האינטרנט של Google Chrome (ואפילו אולי לחסום מתוספים להתעדכן), ולכן יש את היכולת להשבית את היכולת הזאת מכאן. החסימה יכולה גם לגרום לתוספים אחרים שכבר מותקנים לא לעבוד כמו שצריך (אלה שמבקשים עבור נתונים מרוחקים).<\/p><p>אפילו אם תכונה זו אינה מאופשרת, <strong>מאחורי הקלעים<\/strong> בקשות עדיין נרשמות על ידי <i>µMatrix<\/i>. אתה יכול לבדוק את הבקשות האלה בעמוד <a href='dashboard.html#statistics'>הסטטיסטיקות.<\/a><\/p>",
+    "message":"<p>על פי <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>כרומיום<\/i> עשוי לשלוח בקשות HTTP ל <i>Google<\/i> מבלי שהמשתמש במפורש ביקר בדף אינטרנט. בואו נקרא לבקשות המיוחדות האלה בקשות <strong>מאחורי הקלעים<\/strong>. כמו כן, הרחבות דפדפן מותקנות אחרות יכולות לשלוח <strong>מאחורי הקלעים<\/strong> בקשות HTTP. <\/p><p><i>µMatrix<\/i> מאפשר לך ליירט ולטפל בבקשות אלה כמו כל בקשה אחרת: הן יכולות להיות מעובדות על מנת לאפשר\/לחסום אותן בהתאם לרשימה הלבנה\/השחורה שלך.<\/p><p>לחץ על אייקון התוסף בעת הצפייה בדף זה כדי להתחיל. קריאה נחוצה:<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>בקשות מאחורי הקלעים.<\/a><\/p><div class='warn'><p><span style='color:red; font-weight:bold'>היזהר!<\/span> חסימה של בקשות <strong>מאחורי הקלעים<\/strong> יכולה פטונציאלית לגרום ל <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>בעיה<\/a> כשהמשתמש רוצה להתקין תוסף מחנות האינטרנט של Google Chrome (ואפילו אולי לחסום מתוספים להתעדכן), ולכן יש את היכולת להשבית את היכולת הזאת מכאן. החסימה יכולה גם לגרום לתוספים אחרים שכבר מותקנים לא לעבוד כמו שצריך (אלה שמבקשים עבור נתונים מרוחקים).<\/p><p>אפילו אם תכונה זו אינה מאופשרת, <strong>מאחורי הקלעים<\/strong> בקשות עדיין נרשמות על ידי <i>µMatrix<\/i>. אתה יכול לבדוק את הבקשות האלה בעמוד <a href='dashboard.html#statistics'>הסטטיסטיקות.<\/a><\/p>",
     "description":""
   },
   "userRulesPermanentHeader":{
@@ -428,7 +468,7 @@
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"קוד מקור (GPLv3)",
     "description":""
   },
   "aboutIssues":{

@@ -1,93 +1,93 @@
-µMatrix, a clever matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+µMatrix: Eine Matrix-basierte Firewall, einfach per Mausklick zu bedienen - und mit vielen Extras, um deine Privatsphäre zu schützen. Für fortgeschrittene Benutzer.
 
-µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
+µMatrix gibt dir volle Kontrolle darüber, womit sich dein Browser verbindet, welche Art von Daten erlaubt sind und was ausgeführt werden darf. Du lässt niemand anderen für dich entscheiden: Du entscheidest. Du hast die volle Kontrolle über deine Privatsphäre.
 
-Out of the box, µMatrix works in relax block-all/allow-exceptionally mode, meaning web sites which require 3rd-party scripts are likely to be "broken". With two clicks, µMatrix can be set to work in allow-all/block-exceptionally mode, which generally will not break web sites. See https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
+Voreingestellt arbeitet µMatrix in einem gelockerten "blockiere alles/erlaube ausnahmsweise"-Modus, was dazu führt, dass viele Webseiten, die Skripte von Drittseiten benötigen, "kaputt" sein werden. Mit zwei Klicks kannst du aber dafür sorgen, dass µMatrix in einem "erlaube alles/blockiere ausnahmsweise"-Modus arbeitet, der normalerweise Webseiten nicht kaputt macht. Details dazu auf https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
 
-Regarding the myth that "Chromium-based browsers can't reliably block javascript", see: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Summary: Yes, javascript can be blocked reliably in Chromium.
+Die Behauptung: "Chromium-basierte Browser können nicht zuverlässig Javascript blockieren" ist ein reiner Mythos, siehe dazu: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Kurz: Doch, Javascript kann sehr wohl zuverlässig in Chromium blockiert werden.
 
-* See ALL the remote connections, failed or attempted, depending on whether they were blocked or allowed (you decide).
+* Sehe ALLE Verbindungen, ob fehlgeschlagen oder erfolgreich, je nachdem ob du sie blockiert oder erlaubt hast (deine Entscheidung).
 
-* A single-click to whitelist/blacklist one or multiple classes of requests according to the destination and type of data (a blocked request will NEVER leave your browser).
+* Erlaube/blockiere mit einem Klick eine oder mehrere Arten von Verbindungsanfragen deines Browsers je nach Ziel und Datentyp (eine blockierte Anfrage wird NIE deinen Browser verlassen).
 
-* Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
+* Effizientes Blacklisting: Cookies werden deinen Browser nicht verlassen, Javascript wird nicht ausgeführt, Plugins werden nicht starten, Tracking-Pixel werden nicht herunter geladen, usw.
 
-* You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
+* Du musst dich nicht ausschließlich auf irgendeine externe Blacklist (vermutlich mit vielen fehlenden Einträgen) verlassen, die nur unvollständig blockiert: Du selbst hast die volle Kontrolle.
 
-* Ease of use: µMatrix lets you easily whitelist/blacklist net requests which originate from within a web page according to a point-and-click matrix:
+* Bedienungsfreundlich: µMatrix erlaubt es dir auf einfache Art, Netzanfragen einer Webseite in einer klickbaren Matrix zu erlauben (whitelist)/blockieren (blacklist):
 
-- domain names (left column)
-  * from very specific
-  * to very generic
+- Domain-Namen (linke Spalte)
+    * sehr spezifische
+    * aber auch sehr allgemeine
 
-- type of requests (top row)
-  * cookies
-  * CSS-related resources (stylesheets and web fonts)
-  * images
-  * plugins
-  * scripts
-  * XHR (requests made by scripts)
-  * frames
-  * others
+- Arten von Anfragen (obere Zeile)
+    * Cookies
+    * CSS-spezifische Ressourcen (Stylesheets und Web-Fonts)
+    * Bilder
+    * Plugins
+    * Skripte
+    * XHR (Netzanfragen durch Skripte)
+    * Frames
+    * Andere
 
-You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
+Du kannst eine einzelne Zelle erlauben/blockieren, eine ganze Zeile, eine Gruppe von Zeilen, eine ganze Spalte, oder sogar die komplette Matrix mit gerade mal einem Klick.
 
-µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
+Das Filtermodul von µMatrix arbeitet nach einer logischen Rangordnung, um zu beurteilen, was blockiert/erlaubt werden soll, je nachdem, welche Zellen blockiert/erlaubt sind. Zum Beispiel erlaubt dir dies, eine komplette Seite zu erlauben, ohne dass du wiederholt neue Daten separat erlauben musst.
 
-All rules are scoped. For example, you can block `facebook.com` and `facebook.net` everywhere except when visiting a page on `www.facebook.com`. This way Facebook won't be able to build a profile of your browsing habits.
+Alle Regeln beziehen sich auf einen bestimmten Geltungsbereich. Zum Beispiel kannst du `facebook.com` und `facebook.net` überall blockieren, außer wenn du eine Seite auf `www.facebook.com` besuchst. Dadurch wird Facebook nicht in der Lage sein, eine Profil deiner Surfgewohnheiten anzulegen.
 
-The goal of this extension is to make the allowing or blocking of web sites, wholly or partly, as straightforward as possible, so as to encourage users to care about their privacy.
+Das Zeil dieser Erweiterung ist es, das Erlauben oder Blockieren von Webseiten - in Gänze oder teilweise - so einfach wie möglich zu machen und dadurch die Benutzer zu ermuntern, auf ihre Privatsphäre zu achten.
 
-The extension comes with 3rd-party hosts files totaling over 58,000 distinct hostnames (lists can be selectively disabled/enabled according to your choice).
+Die Erweiterung beinhaltet mehrere externe Hosts-Dateien mit über 58.000 verschiedenen Hostnamen (die Listen können einzeln nach deiner Wahl deaktiviert/aktiviert werden).
 
-Ultimately, you can choose however you browse the net:
+Letztlich kannst du selbst entscheiden, wie du mit dieser Erweiterung im Internet surfst:
 
-* Blacklist all by default, and whitelist as needed (default mode).
+* Blockiere standardmäßig alles und erlaube nur, was nötig ist (Standardmodus).
 
-* Whitelist all by default, and blacklist as needed.
+* Erlaube standardmäßig alles und blockiere nur, was nötig ist.
 
-Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
+Wie immer du entscheidest: Du profitierst auf jeden Fall von den mitgelieferten Hosts-Dateien (Blacklists), die dir einen grundlegenden Schutz vor Trackern, Webseiten mit Schadsoftware, usw. geben. Es sei denn, du deaktivierst alle diese Blacklists.
 
-Your choice.
+Deine Entscheidung.
 
-Randomly assembled documentation: https://github.com/gorhill/httpswitchboard/wiki
+Noch unvollständige Dokumentation: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
 FEEDBACK:
 
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+Bei allen Fragen und Problemen bitte auf "Feedback geben" klicken, um mir die Gelegenheit zu einer Antwort zu geben. Ich kann auf Bewertungen nicht direkt antworten, aber ich werde dir sehr gern direkt im Feedback-Bereich Antwort geben.
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+FEHLER, PROBLEME, VORSCHLÄGE:
 
-https://github.com/gorhill/httpswitchboard/issues
+https://github.com/gorhill/uMatrix/issues
 
-You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
+Du bist sehr willkommen, deine Ansichten zu offenen Problemen, Vorschlägen und Argumenten zu präsentieren, um mir bei der Entscheidung zu helfen, wie ich diese Erweiterung noch besser machen kann.
 
-Ease of use is the primary goal. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+Leichte Bedienbarkeit ist das vorrangige Ziel. Ich habe Benutzer erlebt, die bei der Firefox-Erweiterung NoScript aufgegeben haben, weil es ihnen zu viele Steine in den Weg legte. Anstatt diese Benutzer wegen ihrer verbesserungswürdigen Sicherheitsgewohnheiten zu kritisieren, kritisiere ich stattdessen die Entwickler. Dieses Projekt ist ein zaghafter Versuch, die Gründe anzugehen, die dazu führen, dass Benutzer bezüglich grundlegender Sicherheitsmaßnahmen aufgeben.
 
-This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
+Diese Erweiterung ist auch nützlich, um zu verstehen, was eine Webseite in deinem Browser macht, oft ohne dein Wissen. Du bist voll in der Lage zu sehen und darüber zu entscheiden, mit wem eine Webseite kommuniziert, und diese Kommunikation auf bestimmte Klassen von Objekten zu beschränken.
 
-The number which appear in the extension icon correspond to the total number of distinct requests attempted (successfully or not depending on whether these were allowed or blocked) by the web page.
+Die Zahl, die im Symbol der Erweiterung auftaucht, entspricht der Gesamtzahl der einzelnen versuchten Anfragen der Webseite (ob erfolgreich oder nicht, ist abhängig davon, ob du sie erlaubt oder verboten hast).
 
-Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
+Klicke einfach auf den entsprechenden Eintrag in der Matrix, um eine Komponente auf die Whitelist, Blacklist oder Greylist zu setzen. Greylist bedeutet, dass der Geblockt- oder Erlaubt-Status geerbt wird von einer anderen Zelle in der Matrix mit einer höheren Rangordnung.
 
-Red square = effectively blacklisted, i.e. requests are prevented from reaching their intended destination:
-* Dark red square: the domain name and/or type of request is specifically blacklisted.
-* Faded red square: the blacklist status is inherited because the entry is graylisted.
+Rotes Quadrat = effektiv blockiert (auf der Blacklist), d.h. Anfragen werden daran gehindert, ihr beabsichtigtes Ziel zu erreichen:
+* Dunkelrotes Quadrat: der Domain-Name und/oder die Art der Anfrage ist ausdrücklich blockiert (auf der Blacklist).
+* Hellrotes Quadrat: der Blacklist-Status ist geerbt, weil der Eintrag auf der Greylist ist.
 
-Green square = effectively whitelisted, i.e. requests are allowed to reach their intended destination:
-* Dark green square: the domain name and/or type of request is specifically whitelisted.
-* Faded green square: the whitelist status is inherited because the entry is graylisted.
+Grünes Quadrat = effektiv erlaubt (auf der Whitelist), d.h. den Anfragen wird erlaubt, ihr beabsichtigtes Ziel zu erreichen:
+* Dunkelgrünes Quadrat: der Domain-Name und/oder die Art der Anfrage ist ausdrücklich erlaubt (auf der Whitelist).
+* Hellgrünes Quadrat: der Whitelist-Status ist geerbt, weil der Eintrag auf der Greylist ist.
 
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
+Die Zelle ganz links oben, die "Alle" Zelle repräsentiert die vorgegebene globale Einstellung, die es dir erlaubt zu entscheiden, ob alles zu erlauben oder alles zu blockieren das Standardverhalten sein soll. Einige bevorzugen es, alles zu erlauben und nur ausnahmsweise zu blockieren. Meine persönliche Präferenz ist natürlich das Gegenteil: alles blockieren und ausnahmsweise erlauben.
 
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+Diese Erweiterung ist auch nützlich, um das Surfen zu beschleunigen, indem z.B. global alle Anfragen für Bilder blockiert werden können.
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/umatrix (GPLv3)
+QUELLCODE: https://github.com/gorhill/uMatrix (GPLv3)
 
-CHANGE LOG: https://github.com/gorhill/umatrix/releases
+ÄNDERUNGSPROTOKOLL: https://github.com/gorhill/uMatrix/releases
