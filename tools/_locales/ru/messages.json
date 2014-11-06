@@ -164,15 +164,15 @@
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Все",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Страницы",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Куки",
     "description":""
   },
   "statsPageCSS":{
@@ -180,15 +180,15 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Изображения",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Расширения",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Скрипты",
     "description":""
   },
   "statsPageXHRs":{
@@ -196,11 +196,11 @@
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Фреймы",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Другое",
     "description":""
   },
   "statsPageDetailed":{
@@ -532,7 +532,7 @@
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Temporarily whitelist page domain",
+    "message":"Домены, находящиеся временно в белом списке",
     "description":""
   },
   "commandWhitelistAll":{
