@@ -219,7 +219,10 @@ var nodesAddedHandler = function(nodeList, summary) {
     var i = 0;
     var node, src, text;
     while ( node = nodeList.item(i++) ) {
-        if ( !node.tagName ) {
+        if ( node.nodeType !== 1 ) {
+            continue;
+        }
+        if ( typeof node.tagName !== 'string' ) {
             continue;
         }
 
@@ -273,6 +276,10 @@ var nodesAddedHandler = function(nodeList, summary) {
 /******************************************************************************/
 
 var nodeListsAddedHandler = function(nodeLists) {
+    var i = nodeLists.length;
+    if ( i === 0 ) {
+        return;
+    }
     var summary = {
         what: 'contentScriptSummary',
         locationURL: window.location.href,
@@ -280,7 +287,6 @@ var nodeListsAddedHandler = function(nodeLists) {
         pluginSources: {}, // to avoid duplicates
         mustReport: false
     };
-    var i = nodeLists.length;
     while ( i-- ) {
         nodesAddedHandler(nodeLists[i], summary);
     }
@@ -330,28 +336,42 @@ if ( /^https?:\/\/./.test(window.location.href) === false ) {
 
 // Observe changes in the DOM
 
-var mutationObservedHandler = function(mutations) {
-    var i = mutations.length;
-    var nodeLists = [], nodeList;
-    while ( i-- ) {
-        nodeList = mutations[i].addedNodes;
-        if ( nodeList && nodeList.length ) {
-            nodeLists.push(nodeList);
+// Added node lists will be cumulated here before being processed
+var addedNodeLists = [];
+var addedNodeListsTimer = null;
+
+var treeMutationObservedHandler = function() {
+    nodeListsAddedHandler(addedNodeLists);
+    addedNodeListsTimer = null;
+    addedNodeLists = [];
+};
+
+// https://github.com/gorhill/uBlock/issues/205
+// Do not handle added node directly from within mutation observer.
+var treeMutationObservedHandlerAsync = function(mutations) {
+    var iMutation = mutations.length;
+    var nodeList;
+    while ( iMutation-- ) {
+        nodeList = mutations[iMutation].addedNodes;
+        if ( nodeList.length !== 0 ) {
+            addedNodeLists.push(nodeList);
         }
     }
-    if ( nodeLists.length ) {
-        nodeListsAddedHandler(nodeLists);
+    // I arbitrarily chose 250 ms for now:
+    // I have to compromise between the overhead of processing too few 
+    // nodes too often and the delay of many nodes less often. There is nothing
+    // time critical here.
+    if ( addedNodeListsTimer === null ) {
+        addedNodeListsTimer = setTimeout(treeMutationObservedHandler, 250);
     }
 };
 
 // This fixes http://acid3.acidtests.org/
 if ( document.body ) {
     // https://github.com/gorhill/httpswitchboard/issues/176
-    var observer = new MutationObserver(mutationObservedHandler);
-    observer.observe(document.body, {
-        attributes: false,
+    var treeObserver = new MutationObserver(treeMutationObservedHandlerAsync);
+    treeObserver.observe(document.body, {
         childList: true,
-        characterData: false,
         subtree: true
     });
 }
