@@ -52,14 +52,8 @@
     // Post-change
     switch ( name ) {
     
-    // Need to visit each pageStats object to resize ring buffer
     case 'maxLoggedRequests':
-        var pageStats = this.pageStats;
-        for ( var pageUrl in pageStats ) {
-            if ( pageStats.hasOwnProperty(pageUrl) ) {
-                pageStats[pageUrl].requests.resizeLogBuffer(value);
-            }
-        }
+        this.resizeLogBuffers(value);
         break;
 
     // https://github.com/gorhill/httpswitchboard/issues/344

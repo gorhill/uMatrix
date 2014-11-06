@@ -385,6 +385,17 @@
 
 /******************************************************************************/
 
+µMatrix.resizeLogBuffers = function(size) {
+    var pageStores = this.pageStats;
+    for ( var pageURL in pageStores ) {
+        if ( pageStores.hasOwnProperty(pageURL) ) {
+            pageStores[pageURL].requests.resizeLogBuffer(size);
+        }
+    }
+};
+
+/******************************************************************************/
+
 µMatrix.forceReload = function(pageURL) {
     var tabId = this.tabIdFromPageUrl(pageURL);
     if ( tabId ) {
