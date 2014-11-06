@@ -8,6 +8,7 @@ div > p:last-child {
     border: 0;
     margin: 0;
     padding: 0;
+    white-space: nowrap;
 }
 #diff > div {
     border: 0;
