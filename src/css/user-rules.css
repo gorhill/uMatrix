@@ -10,7 +10,7 @@ div > p:last-child {
     padding: 0;
     white-space: nowrap;
 }
-#diff > div {
+#diff > .pane {
     border: 0;
     box-sizing: box-border;
     display: inline-block;
@@ -18,13 +18,14 @@ div > p:last-child {
     margin: 0;
     padding: 0;
     position: relative;
+    white-space: normal;
     width: calc(50% - 2px);
     }
-#diff > div > div {
+#diff > .pane > div {
     padding: 0 0 1em 0;
     text-align: center;
     }
-#diff > div > div > span {
+#diff > .pane > div > span {
     float: left;
     }
 html.ltr #revertButton:after {
