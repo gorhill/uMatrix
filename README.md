@@ -2,7 +2,7 @@
 
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
-Install [manually](https://github.com/gorhill/uMatrix/blob/master/doc/INSTALL.md) the [latest release](https://github.com/gorhill/uMatrix/releases), or from [Opera store](https://addons.opera.com/en-gb/extensions/details/umatrix/), [Chrome store](https://chrome.google.com/webstore/detail/µmatrix/ogfcmafjalglgifnmanfmnieipoejdcf).
+Install [manually](https://github.com/gorhill/uMatrix/blob/master/doc/INSTALL.md) the [latest release](https://github.com/gorhill/uMatrix/releases), or from [Opera store](https://addons.opera.com/en-gb/extensions/details/umatrix/) (currently awaiting approval), [Chrome store](https://chrome.google.com/webstore/detail/µmatrix/ogfcmafjalglgifnmanfmnieipoejdcf).
 
 You may contribute with translation work on Crowdin: [µMatrix on Crowdin](https://crowdin.com/project/umatrix).
 
