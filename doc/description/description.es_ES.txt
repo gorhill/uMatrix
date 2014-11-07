@@ -1,23 +1,23 @@
 µMatrix: Un cortafuegos matricial ajustable mediante clics, con varias herramientas para mejorar su privacidad. Para usuarios avanzados.
 
-µMatrix le proporciona control total sobre su navegador, permitiendo decidir que conexiones se establecen, que tipo de datos se descargan y que códigos se van a ejecutar. Nadie más decide por usted: Usted escoge. Usted está en control total de su privacidad.
+µMatrix le proporciona control total sobre su navegador, permitiendo decidir que conexiones se establecen, que tipo de datos se descargan y que códigos se ejecutan. Nadie más decide por usted: Usted escoge. Usted está en control total de su privacidad.
 
-Por defecto, µMatrix funciona en modo relajado "bloquear todo/permitir excepcionalmente". Esto significa que los sitios que requieren <i>scripts</i> de terceros, posiblemente se muestren con problemas. Con solo dos clics, µMatrix se puede configurar para funcionar en modo "permitir todo/bloquear excepcionalmente", lo que hará que usualmente los sitios web se muestren sin problema. Para más detalles sobre el tema consulte https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views (en inglés).
+Por defecto, µMatrix funciona en modo relajado "bloquear todo/permitir excepcionalmente". Esto significa que los sitios que requieren <i>scripts</i> de terceros, posiblemente se muestren con problemas. Con solo dos clics, puede configurar µMatrix para funcionar en modo "permitir todo/bloquear excepcionalmente", lo que hará que usualmente los sitios web se muestren sin problema. Para más detalles sobre el tema consulte https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views (en inglés).
 
-En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear <i>JavaScript</i> de manera adecuada, vea: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers (en inglés). En resumen: Si, <i>JavaScript</i> puede ser bloqueado de forma segura en Chromium.
+En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear JavaScript de manera adecuada, vea: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers (en inglés). En resumen: Si, JavaScript puede ser bloqueado de forma segura en Chromium.
 
 * Examine todas las conexiones remotas, fallidas o intentadas, según fueron bloqueadas o permitidas (usted decide).
 
 * Con un solo clic añada a su lista de permitidos o a su lista negra, uno o varios tipos de peticiones, según el destino y el tipo de datos (una petición bloqueada NUNCA saldrá del navegador).
 
-* Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
+* Filtrado eficiente: las <i>cookies</i> no saldrán de su navegador, JavaScript no se ejecutará, las extensiones no funcionarán, no se descargarán píxeles de rastreo, etc.
 
-* You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
+* No tiene que depender de una sola lista de filtros (probablemente con muchas omisiones) fuera de la cual nada pueda ser bloqueado:  usted controla todo.
 
 * Facilidad de uso: µMatrix le permite agregar fácilmente las peticiones de red que se originen desde una página web a una lista de permitidos/lista negra, mediante clics en la matriz:
 
 - nombres de dominio (columna izquierda)
-  * desde muy específico
+  * de muy específico
   * a muy genérico
 
 - tipos de peticiones (fila superior)
@@ -30,61 +30,61 @@ En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear 
   * frames
   * otras
 
-You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
+Puede agregar a la lista negra/lista de permitidos una única celda, una fila completa, un grupo de filas, una columna o toda la matriz, todo con solo un clic.
 
-µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
+El motor de filtrado de µMatrix usa lógica de precedencia para evaluar que bloquea o permite, en dependencia de las celdas en lista de permitidos o lista negra. Por ejemplo, puede agregar toda una página a la lista de permitidos con un clic, sin que sea necesario agregar nuevos elementos que puedan aparecer luego en dicha página uno a uno.
 
-All rules are scoped. For example, you can block `facebook.com` and `facebook.net` everywhere except when visiting a page on `www.facebook.com`. This way Facebook won't be able to build a profile of your browsing habits.
+Todas las reglas se definen para un ámbito. Puede, por ejemplo, bloquear elementos de `facebook.com` y `facebook.net` dondequiera, excepto cuando esté navegando en una página en el sitio`www.facebook.com`. De esta forma, Facebook se verá imposibilitado de crear o reunir un perfil sobre sus hábitos de navegación web.
 
-The goal of this extension is to make the allowing or blocking of web sites, wholly or partly, as straightforward as possible, so as to encourage users to care about their privacy.
+El objetivo de esta extensión es hacer todo el proceso de permitir o bloquear sitios web tan simple como sea posible, de manera tal que los usuarios  se sientan alentados a preocuparse por su privacidad.
 
-The extension comes with 3rd-party hosts files totaling over 58,000 distinct hostnames (lists can be selectively disabled/enabled according to your choice).
+La extensión hace uso de ficheros <i>hosts</i> mantenidos por terceros, con más de 58 000 nombres de dominios diferentes (las listas pueden ser habilitadas/deshabilitadas según su deseo).
 
-Ultimately, you can choose however you browse the net:
+Al final, usted decide de que manera navegar por la red:
 
-* Blacklist all by default, and whitelist as needed (default mode).
+* Poner todo en lista negra por defecto, añadiendo a la lista de permitidos según sea necesario (modo por defecto).
 
-* Whitelist all by default, and blacklist as needed.
+* Poner todo en la lista de permitidos y agregar a la lista negra según sea necesario.
 
-Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
+En cualquier modo, siempre se beneficiará de los filtros ya configurados, que le brindarán una protección básica contra rastreadores, sitios de <i>malware</i>, etc. O puede también deshabilitar todos los filtros pre-configurados.
 
-Your choice.
+Usted elige.
 
-Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
-
-=====
-
-FEEDBACK:
-
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+Documentación miscelánea reunida: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+COMENTARIOS:
+
+Para una una pronta respuesta sobre preguntas o problemas que puedan surgir, use el botón "Enviar comentarios" a la derecha. No me es posible responder directamente a los comentarios y revisiones en foros, pero estaré más que feliz de darle una respuesta directa en la sección de Comentarios.
+
+=====
+
+ERRORES, PROBLEMAS, SUGERENCIAS:
 
 https://github.com/gorhill/uMatrix/issues
 
-You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
+Es bienvenido a contribuir con sus puntos de vista, sugerencias y argumentos a favor o en contra sobre cualquier tema abierto, que me ayuden a decidir que se necesita para hacer esta extensión mejor.
 
-Facilidad de uso es el objetivo primario. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+La facilidad de uso es el objetivo primario. He visto a usuarios desistir en el uso de la extensión NoScript para Firefox porque, según ellos, interfiere demasiado. Así que en vez de culpar a los usuarios acerca de sus pobres hábitos en temas relativos a su privacidad, he preferido culpar a los programadores, intentando resolver mediante este proyecto los problemas que hacen que los usuarios cesen de preocuparse sobre aspectos básicos de su seguridad.
 
-This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
+Esta extensión también es útil para entender que hace una página web abierta por el navegador, muchas veces sin su conocimiento. Usted será totalmente capaz de decidir con quien se comunica una página web, y restringir dicha comunicación a determinados tipos de objetos dentro de la página.
 
-The number which appear in the extension icon correspond to the total number of distinct requests attempted (successfully or not depending on whether these were allowed or blocked) by the web page.
+El número que aparece en el ícono de la extensión se corresponde con el número total de peticiones diferentes hechas por la página web (ya sea que tuvieron éxito o no, de acuerdo a si fueron bloqueadas o permitidas).
 
-Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
+Simplemente haga clic en el lugar apropiado de la matriz para bloquear, permitir o heredar un componente. Heredar significa que el componente será bloqueado o permitido de acuerdo a la regla que se herede de otro elemento de la matriz con mayor precedencia.
 
-Red square = effectively blacklisted, i.e. requests are prevented from reaching their intended destination:
-* Dark red square: the domain name and/or type of request is specifically blacklisted.
-* Faded red square: the blacklist status is inherited because the entry is graylisted.
+Cuadro rojo = elemento bloqueado, por ejemplo, las peticiones son impedidas de alcanzar su destino:
+* Cuadro rojo fuerte: el dominio y/o el tipo de petición han sido bloqueados específicamente.
+* Cuadro rojo pálido: el bloqueo ocurre por herencia.
 
-Green square = effectively whitelisted, i.e. requests are allowed to reach their intended destination:
-* Dark green square: the domain name and/or type of request is specifically whitelisted.
-* Faded green square: the whitelist status is inherited because the entry is graylisted.
+Cuadro verde = elemento permitido, por ejemplo, a las peticiones se les permite alcanzar su destino:
+* Cuadro verde fuerte: el dominio y/o el tipo de petición han sido permitidos específicamente.
+* Cuadro verde pálido: elemento permitido por herencia.
 
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
+La celda superior izquierda en la matriz (celda "todo"), representa la configuración global por defecto, permitiendo escoger entre los modos bloquear todo o permitir todo. Algunos prefieren permitir todo y bloquear ciertos elementos como excepción. Mi preferencia personal es por supuesto lo contrario, bloquear todo y permitir ciertas excepciones.
 
-Esta extensión también es útil si desea aumentar la velocidad de navegación, por ejemplo, bloqueando de manera global todas las peticiones de imágenes.
+Esta extensión también puede ser útil si desea aumentar la velocidad de navegación, por ejemplo, bloqueando de manera global todas las peticiones de imágenes.
 
 =====
 
