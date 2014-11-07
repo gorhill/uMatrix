@@ -324,7 +324,7 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Remover informações <a href='http:\/\/pt.wikipedia.org\/wiki\/HTTP_referrer'>HTTP referer<\/a> de terceiros para nomes de domínios que não estão na lista branca.",
+    "message":"Remover pedidos informações de terceiros via <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> para nomes de host não-lista branca.",
     "description":""
   },
   "privacyProcessRefererHelp":{
