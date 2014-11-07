@@ -296,7 +296,7 @@ function toggleCollapseState(elem) {
 
 function toggleMainCollapseState(uelem) {
     var matHead = uelem.ancestors('#matHead.collapsible').toggleClass('collapsed');
-    var collapsed = matHead.hasClassName('collapsed');
+    var collapsed = matHead.hasClass('collapsed');
     uDom('#matList .matSection.collapsible').toggleClass('collapsed', collapsed);
     setUserSetting('popupCollapseDomains', collapsed);
 
@@ -318,7 +318,7 @@ function toggleSpecificCollapseState(uelem) {
     // from main collapse switch.
     var section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed');
     var domain = section.prop('domain');
-    var collapsed = section.hasClassName('collapsed');
+    var collapsed = section.hasClass('collapsed');
     var mainCollapseState = getUserSetting('popupCollapseDomains');
     var specificCollapseStates = getUserSetting('popupCollapseSpecificDomains') || {};
     if ( collapsed !== mainCollapseState ) {
@@ -1232,7 +1232,7 @@ uDom.onLoad(function() {
     uDom('#matList').on('click', '.g4Meta', function() {
         var collapsed = uDom(this)
             .toggleClass('g4Collapsed')
-            .hasClassName('g4Collapsed');
+            .hasClass('g4Collapsed');
         setUserSetting('popupHideBlacklisted', collapsed);
     });
 });

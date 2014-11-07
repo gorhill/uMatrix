@@ -570,8 +570,11 @@ DOMList.prototype.text = function(text) {
 /******************************************************************************/
 
 var toggleClass = function(node, className, targetState) {
-    var re = new RegExp('(^| )' + className + '( |$)');
-    var currentState = re.test(node.className);
+    var tokenList = node.classList;
+    if ( tokenList instanceof DOMTokenList === false ) {
+        return;
+    }
+    var currentState = tokenList.contains(className);
     var newState = targetState;
     if ( newState === undefined ) {
         newState = !currentState;
@@ -579,24 +582,20 @@ var toggleClass = function(node, className, targetState) {
     if ( newState === currentState ) {
         return;
     }
-    var newClassName = node.className;
-    if ( newState ) {
-        newClassName += ' ' + className;
-    } else {
-        newClassName = newClassName.replace(re, ' ');
-    }
-    node.className = newClassName.trim();
+    tokenList.toggle(className, newState)
 };
 
 /******************************************************************************/
 
-DOMList.prototype.hasClassName = function(className) {
+DOMList.prototype.hasClass = function(className) {
     if ( !this.nodes.length ) {
         return false;
     }
-    var re = new RegExp('(^| )' + className + '( |$)');
-    return re.test(this.nodes[0].className);
+    var tokenList = this.nodes[0].classList;
+    return tokenList instanceof DOMTokenList &&
+           tokenList.contains(className);
 };
+DOMList.prototype.hasClassName = DOMList.prototype.hasClass;
 
 DOMList.prototype.addClass = function(className) {
     return this.toggleClass(className, true);
@@ -616,14 +615,27 @@ DOMList.prototype.removeClass = function(className) {
 /******************************************************************************/
 
 DOMList.prototype.toggleClass = function(className, targetState) {
-    var classNames = className.split(/\s+/);
+    if ( className.indexOf(' ') !== -1 ) {
+        return this.toggleClasses(className, true);
+    }
+    var i = this.nodes.length;
+    while ( i-- ) {
+        toggleClass(this.nodes[i], className, targetState);
+    }
+    return this;
+};
+
+/******************************************************************************/
+
+DOMList.prototype.toggleClasses = function(classNames, targetState) {
+    var tokens = classNames.split(/\s+/);
     var i = this.nodes.length;
     var node, j;
     while ( i-- ) {
         node = this.nodes[i];
-        j = classNames.length;
+        j = tokens.length;
         while ( j-- ) {
-            toggleClass(node, classNames[j], targetState);
+            toggleClass(node, tokens[j], targetState);
         }
     }
     return this;
