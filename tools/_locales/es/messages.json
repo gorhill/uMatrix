@@ -96,7 +96,7 @@
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"del dominio",
+    "message":"del dominio (1st-party)",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{

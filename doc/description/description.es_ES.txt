@@ -2,7 +2,7 @@
 
 µMatrix le proporciona control total sobre su navegador, permitiendo decidir que conexiones se establecen, que tipo de datos se descargan y que códigos se ejecutan. Nadie más decide por usted: Usted escoge. Usted está en control total de su privacidad.
 
-Por defecto, µMatrix funciona en modo relajado "bloquear todo/permitir excepcionalmente". Esto significa que los sitios que requieren <i>scripts</i> de terceros, posiblemente se muestren con problemas. Con solo dos clics, puede configurar µMatrix para funcionar en modo "permitir todo/bloquear excepcionalmente", lo que hará que usualmente los sitios web se muestren sin problema. Para más detalles sobre el tema consulte https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views (en inglés).
+Por defecto, µMatrix funciona en modo relajado "bloquear todo/permitir excepcionalmente". Esto significa que los sitios que requieren scripts de terceros, posiblemente se muestren con problemas. Con solo dos clics, puede configurar µMatrix para funcionar en modo "permitir todo/bloquear excepcionalmente", lo que hará que usualmente los sitios web se muestren sin problema. Para más detalles sobre el tema consulte https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views (en inglés).
 
 En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear JavaScript de manera adecuada, vea: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers (en inglés). En resumen: Si, JavaScript puede ser bloqueado de forma segura en Chromium.
 
@@ -10,7 +10,7 @@ En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear 
 
 * Con un solo clic añada a su lista de permitidos o a su lista negra, uno o varios tipos de peticiones, según el destino y el tipo de datos (una petición bloqueada NUNCA saldrá del navegador).
 
-* Filtrado eficiente: las <i>cookies</i> no saldrán de su navegador, JavaScript no se ejecutará, las extensiones no funcionarán, no se descargarán píxeles de rastreo, etc.
+* Filtrado eficiente: las cookies no saldrán de su navegador, JavaScript no se ejecutará, las extensiones no funcionarán, no se descargarán píxeles de rastreo, etc.
 
 * No tiene que depender de una sola lista de filtros (probablemente con muchas omisiones) fuera de la cual nada pueda ser bloqueado:  usted controla todo.
 
@@ -38,7 +38,7 @@ Todas las reglas se definen para un ámbito. Puede, por ejemplo, bloquear elemen
 
 El objetivo de esta extensión es hacer todo el proceso de permitir o bloquear sitios web tan simple como sea posible, de manera tal que los usuarios  se sientan alentados a preocuparse por su privacidad.
 
-La extensión hace uso de ficheros <i>hosts</i> mantenidos por terceros, con más de 58 000 nombres de dominios diferentes (las listas pueden ser habilitadas/deshabilitadas según su deseo).
+La extensión hace uso de ficheros hosts mantenidos por terceros, con más de 58 000 nombres de dominios diferentes (las listas pueden ser habilitadas/deshabilitadas según su deseo).
 
 Al final, usted decide de que manera navegar por la red:
 
@@ -46,7 +46,7 @@ Al final, usted decide de que manera navegar por la red:
 
 * Poner todo en la lista de permitidos y agregar a la lista negra según sea necesario.
 
-En cualquier modo, siempre se beneficiará de los filtros ya configurados, que le brindarán una protección básica contra rastreadores, sitios de <i>malware</i>, etc. O puede también deshabilitar todos los filtros pre-configurados.
+En cualquier modo, siempre se beneficiará de los filtros ya configurados, que le brindarán una protección básica contra rastreadores, sitios de malware, etc. O puede también deshabilitar todos los filtros pre-configurados.
 
 Usted elige.
 
@@ -54,9 +54,9 @@ Documentación miscelánea reunida: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-COMENTARIOS:
+OPINIONES:
 
-Para una una pronta respuesta sobre preguntas o problemas que puedan surgir, use el botón "Enviar comentarios" a la derecha. No me es posible responder directamente a los comentarios y revisiones en foros, pero estaré más que feliz de darle una respuesta directa en la sección de Comentarios.
+Para una una pronta respuesta sobre preguntas o problemas que puedan surgir, use la sección de "OPINIONES", a la derecha. No me es posible responder directamente a los comentarios y revisiones en foros, pero estaré más que feliz de darle una respuesta directa en la sección de Opiniones.
 
 =====
 

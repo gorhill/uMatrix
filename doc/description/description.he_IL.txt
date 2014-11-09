@@ -28,7 +28,7 @@
   * סקריפטים
   * XHR (בקשות הנעשות על ידי סקריפטים)
   * מסגרות
-  * אחרים
+  * אחרות
 
 אתה יכול להכניס לרשימה השחורה/הלבנה תא בודד, שורה שלמה, אוסף של שורות, עמודה שלמה, או את כל המטריצה בלחיצה אחת בלבד.
 
@@ -36,17 +36,17 @@
 
 כח החוקים מטווחים (מתוחמים). לדוגמה, אתה יכולה לחסום את `facebook.com` ואת `facebook.net` בכל מקום חוץ מכאשר אתה מבקר בדף ב `www.facebook.com`. בדרך זו פייסבוק לא יוכל לבנות פרופיל של הרגלי הגלישה שלך.
 
-The goal of this extension is to make the allowing or blocking of web sites, wholly or partly, as straightforward as possible, so as to encourage users to care about their privacy.
+המטרה של תוסף זה היא להפוך את האיפשור או החסימה של אתרי אינטרנט, במלואם או בחלקם, פשוט ככל האפשר, על מנת לעודד את המשתמשים לדאוג לפרטיות שלהם.
 
-The extension comes with 3rd-party hosts files totaling over 58,000 distinct hostnames (lists can be selectively disabled/enabled according to your choice).
+התוסך מגיע עם קבצי Hosts צד שלישי שמהווים יותר מ 58,000 דומיינים שונים (רשימות יכולות להיות מבוטלות/מאופשרות באופן סלקטיבי בהתאם לבחירה שלך).
 
-Ultimately, you can choose however you browse the net:
+בסופו של דבר, אתה יכול לבחור בכל צורה שתרצה איך אתה גולש ברשת:
 
-* Blacklist all by default, and whitelist as needed (default mode).
+* חסום הכל בברירת מחדל, ואפשר לפי הצורך (מצב ברירת מחדל).
 
-* Whitelist all by default, and blacklist as needed.
+* אפשר הכל בברירת מחדל, וחסום לפי הצורך.
 
-Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
+כך או כך, אתה עדיין מרוויח מהרשימות השחורות הקיימות מראש, כך שלפחות אתה מקבל הגנה בסיסית מאלה שמנסים לעקוב אחרייך, אתרים זדוניים, וכו'. או שאתה יכול לכבות את כל הרשימות הקיימות מראש.
 
 בחירה שלך.
 
@@ -56,7 +56,7 @@ Either way, you still benefit from the preset blacklists so that at least you ge
 
 פידבק:
 
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+לכל שאלה/בעיה שיש לך, השתמש בכפתור "שלח משוב" בצד שמאל, על מנת שאהיה מסוגל לענות בקלות. אני לא יכול לענות ישירות לביקורות, אבל אני יותר מאשמח לענות לך ישירות במשוב.
 
 =====
 
@@ -66,25 +66,25 @@ https://github.com/gorhill/uMatrix/issues
 
 בחירה שלך.
 
-Ease of use is the primary goal. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+קלות השימוש היא המטרה העיקרית. ראיתי משתמשים שמוותרים על התוסף NoScript ל FireFox משום שהוא מפריע להם יותר מדי בזמן השימוש, אז במקום להאשים את המשתמשים האלה בהרגלי אבטחה דלים, אני מעדיף להאשים את המפתחים והפרויקט הזה בא לנסות לטפל בבעיות שגורמות לחלק מהמשתמשים לוותר על אבטחה בסיסית.
 
-This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
+תוסף זה גם שימושי כדי להבין מה דף האינטרנט בדפדפן שלך עושה, לעתים קרובות ללא ידיעתך. יש לך יכולת מלאה לראות ולהחליט עם מי דף אינטרנט מתקשר, ולהגביל את התקשורות הללו לסוגים ספציפיים של אובייקטים בתוך דף האינטרנט.
 
-The number which appear in the extension icon correspond to the total number of distinct requests attempted (successfully or not depending on whether these were allowed or blocked) by the web page.
+המספר שמופיע לאייקון של התוסף מתייחס למספר הכולל של בקשות שונות שנוסו (בהצלחה או לא, תלוי אם אלה הורשו או היו חסומות) על ידי דף האינטרנט.
 
-Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
+פשוט לחץ על המקום המתאים במטריצה על מנת להלבין-, להשחיר- או להאפיר מרכיב. האפרה משמעותה שסטאטוס החסימה או האיפשור יעבור בירושה מתא אחר עם עדיפות גבוהה יותר במטריצה.
 
-Red square = effectively blacklisted, i.e. requests are prevented from reaching their intended destination:
-* Dark red square: the domain name and/or type of request is specifically blacklisted.
-* Faded red square: the blacklist status is inherited because the entry is graylisted.
+ריבוע אדום = חסומים ביעילות, לדוגמא. בקשות מנועות מלהגיע אל היעד שלהן:
+* ריבוע אדום כהה: הדומיין ו/או סוג הבקשה חסומה מפורשות.
+ריבוע אדום דהוי: מצב החסימה עובר בירושה, כי התא מאופר.
 
-Green square = effectively whitelisted, i.e. requests are allowed to reach their intended destination:
-* Dark green square: the domain name and/or type of request is specifically whitelisted.
-* Faded green square: the whitelist status is inherited because the entry is graylisted.
+ריבוע ירוק = מאופשרים ביעילות, לדוגמא. בקשות מאופשרות להגיע אל היעד שלהן:
+* ריבוע ירוק כהה: הדומיין ו/או סוג הבקשה מאופשרת מפורשות.
+ריבוע ירוק דהוי: מצב האיפשור עובר בירושה, כי התא מאופר.
 
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
+התא הימני העליון במטריצה, תא ה-"הכל", מייצג את הטווח הגלובלי הדיפולטיבי, אשר נותן לך לבחור האם אפשור או חסימה של הכל יהיה ברירת המחדל. חלק מעדיפים לאפשר הכל תןך חסימה של יוצאים מן הכלל. ההעדפה האישית שלי כמובן הפוכה, חסימה של הכל ואפשור יוצאים מן הכלל.
 
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+תוסף זה גם שימושי אם אתה רוצה להאיץ את הגלישה שלך, על ידי חסימה גלובלית של כל הבקשות לתמונות כדוגמא.
 
 =====
 
