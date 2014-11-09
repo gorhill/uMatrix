@@ -986,9 +986,9 @@ function getClassFromScope() {
         return 'tScopeGlobal';
     }
     if ( matrixSnapshot.scope === matrixSnapshot.domain ) {
-        return 'tScopeNarrow';
+        return 'tScopeDomain';
     }
-    return 'tScopeNarrow';
+    return 'tScopeSite';
 }
 
 function initScopeCell() {
@@ -1009,7 +1009,7 @@ function initScopeCell() {
 
 function updateScopeCell() {
     uDom('body')
-        .removeClass('tScopeGlobal tScopeNarrow')
+        .removeClass('tScopeGlobal tScopeDomain tScopeSite')
         .addClass(getClassFromScope());
     uDom('#scopeCell').text(matrixSnapshot.scope.replace('*', '\u2217'));
 }

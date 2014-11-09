@@ -73,11 +73,14 @@ body .toolbar button.fa {
     font: 1.75em 'FontAwesome';
     min-width: 1.1em;
     }
-body.tScopeGlobal .toolbar button.scopeRel:not(.disabled) {
+body.tScopeGlobal .scopeRel:not(.disabled) {
     color: #000;
     }
-body.tScopeNarrow .toolbar button.scopeRel:not(.disabled) {
+body.tScopeDomain .scopeRel:not(.disabled) {
     color: #24c;
+    }
+body.tScopeSite .scopeRel:not(.disabled) {
+    color: #48c;
     }
 
 
@@ -277,8 +280,11 @@ body #scopeCell + .dropdown-menu {
 body.tScopeGlobal #scopeCell {
     background-color: #000;
     }
-body.tScopeNarrow #scopeCell {
+body.tScopeDomain #scopeCell {
     background-color: #24c;
+    }
+body.tScopeSite #scopeCell {
+    background-color: #48c;
     }
 
 
