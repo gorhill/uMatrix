@@ -60,7 +60,7 @@ For any question/issue you might have, use the "Send Feedback" button on the rig
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+BUGS, ISSUES, SUGGESTIONS:
 
 https://github.com/gorhill/uMatrix/issues
 
