@@ -206,12 +206,6 @@ var doesMatchSelector = function(node, selector) {
 
 /******************************************************************************/
 
-DOMList.prototype.length = function() {
-    return this.nodes.length;
-};
-
-/******************************************************************************/
-
 DOMList.prototype.nodeAt = function(i) {
     return this.nodes[i];
 };
