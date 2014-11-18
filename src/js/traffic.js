@@ -728,11 +728,9 @@ var onMainDocHeadersReceived = function(details) {
 
     // https://github.com/gorhill/httpswitchboard/issues/181
     if ( csp !== '' ) {
-        // If javascript not allowed, say so through a `Content-Security-Policy` directive.
-        // console.debug('onMainDocHeadersReceived()> PAGE CSP "%s": %o', details.url, details);
         headers.push({
             'name': 'Content-Security-Policy',
-            'value': csp
+            'value': csp.trim()
         });
         return { responseHeaders: headers };
     }
