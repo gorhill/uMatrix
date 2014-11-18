@@ -81,7 +81,7 @@ var nameToStateMap = {
     'inherit': 3
 };
 
-var nameToSwitchMap = {
+var nameToSwitchStateMap = {
      'true': true,
     'false': false,
        'on': false,  // backward compatibility
@@ -242,9 +242,7 @@ Matrix.prototype.setSwitch = function(switchName, srcHostname, newState) {
         return false;
     }
     var bits = this.switches[srcHostname] || 0;
-    bits &= ~(3 << bitOffset);
-    bits |= newState ? 1 << bitOffset : 3 << bitOffset;
-    this.switches[srcHostname] = bits;
+    this.switches[srcHostname] = (bits & ~(3 << bitOffset)) | ((newState ? 1 : 2) << bitOffset);
     return true;
 };
 
@@ -497,16 +495,15 @@ Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
     if ( state === newState ) {
         return true;
     }
-    bits |= newState ? 1 << bitOffset : 3 << bitOffset;
-    this.switches[srcHostname] = bits;
+    this.switches[srcHostname] = bits | ((newState ? 1 : 2) << bitOffset);
     return true;
 };
 
 /******************************************************************************/
 
-// 0 = default state, which meaning depends on the switch
+// 0 = inherit from broader scope, up to default state
 // 1 = non-default state
-// 3 = forced default state (to override a broader non-default state)
+// 2 = forced default state (to override a broader non-default state)
 
 Matrix.prototype.evaluateSwitch = function(switchName, srcHostname) {
     var bits = this.switches[srcHostname] || 0;
@@ -517,15 +514,10 @@ Matrix.prototype.evaluateSwitch = function(switchName, srcHostname) {
     if ( bitOffset === undefined ) {
         return false;
     }
-    bits = bits >> bitOffset & 3;
-    return bits === 1;
+    return ((bits >> bitOffset) & 3) === 1;
 };
 
 /******************************************************************************/
-
-// 0 = default state, which meaning depends on the switch
-// 1 = non-default state
-// 3 = forced default state (to override a broader non-default state)
 
 Matrix.prototype.evaluateSwitchZ = function(switchName, srcHostname) {
     var bitOffset = switchBitOffsets[switchName];
@@ -690,16 +682,10 @@ Matrix.prototype.fromString = function(text, append) {
         // Switch on/off
 
         // `switch:` srcHostname state
-        //      state = [`on`, `off`]
+        //      state = [`true`, `false`]
         switchName = '';
-        pos = fieldVal.indexOf('switch:');
-        if ( pos !== -1 ) {
+        if ( fieldVal === 'switch:' || fieldVal === 'matrix:' ) {
             fieldVal = 'matrix-off:';
-        } else {
-            pos = fieldVal.indexOf('matrix:');
-            if ( pos !== -1 ) {
-                fieldVal = 'matrix-off:';
-            }
         }
         pos = fieldVal.indexOf(':');
         if ( pos !== -1 ) {
@@ -714,16 +700,15 @@ Matrix.prototype.fromString = function(text, append) {
                 continue;
             }
             // Unknown state: reject
-            if ( nameToSwitchMap.hasOwnProperty(fieldVal) === false ) {
+            if ( nameToSwitchStateMap.hasOwnProperty(fieldVal) === false ) {
                 continue;
             }
 
-            matrix.setSwitch(switchName, srcHostname, nameToSwitchMap[fieldVal]);
+            matrix.setSwitch(switchName, srcHostname, nameToSwitchStateMap[fieldVal]);
             continue;
         }
 
         // Unknown directive
-
         pos = fieldVal.indexOf(':');
         if ( pos !== -1 ) {
             continue;
