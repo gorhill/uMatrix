@@ -82,8 +82,16 @@ var nameToStateMap = {
 };
 
 var nameToSwitchMap = {
-      'on': true,
-      'off': false
+     'true': true,
+    'false': false,
+       'on': false,  // backward compatibility
+      'off': true    // backward compatibility
+};
+
+var switchBitOffsets = {
+      'matrix-off': 0,
+      'https-only': 2,
+    'ua-spoof-off': 4
 };
 
 /******************************************************************************/
@@ -171,7 +179,7 @@ var extractFirstPartyDesDomain = function(srcHostname, desHostname) {
 /******************************************************************************/
 
 Matrix.prototype.reset = function() {
-    this.switchedOn = {};
+    this.switches = {};
     this.rules = {};
     this.rootValue = Matrix.GreenIndirect;
 };
@@ -193,12 +201,12 @@ Matrix.prototype.assign = function(other) {
         }
     }
     // Remove switches not in other
-    for ( k in this.switchedOn ) {
-        if ( this.switchedOn.hasOwnProperty(k) === false ) {
+    for ( k in this.switches ) {
+        if ( this.switches.hasOwnProperty(k) === false ) {
             continue;
         }
-        if ( other.switchedOn.hasOwnProperty(k) === false ) {
-            delete this.switchedOn[k];
+        if ( other.switches.hasOwnProperty(k) === false ) {
+            delete this.switches[k];
         }
     }
     // Add/change rules in other
@@ -209,11 +217,11 @@ Matrix.prototype.assign = function(other) {
         this.rules[k] = other.rules[k];
     }
     // Add/change switches in other
-    for ( k in other.switchedOn ) {
-        if ( other.switchedOn.hasOwnProperty(k) === false ) {
+    for ( k in other.switches ) {
+        if ( other.switches.hasOwnProperty(k) === false ) {
             continue;
         }
-        this.switchedOn[k] = other.switchedOn[k];
+        this.switches[k] = other.switches[k];
     }
     return this;
 };
@@ -224,19 +232,20 @@ Matrix.prototype.assign = function(other) {
 
 // If value is undefined, the switch is removed
 
-Matrix.prototype.setSwitch = function(srcHostname, state) {
-    if ( state !== undefined ) {
-        if ( this.switchedOn.hasOwnProperty(srcHostname) === false || this.switchedOn[srcHostname] !== state ) {
-            this.switchedOn[srcHostname] = state;
-            return true;
-        }
-    } else {
-        if ( this.switchedOn.hasOwnProperty(srcHostname) ) {
-            delete this.switchedOn[srcHostname];
-            return true;
-        }
+Matrix.prototype.setSwitch = function(switchName, srcHostname, newState) {
+    var bitOffset = switchBitOffsets[switchName];
+    if ( bitOffset === undefined ) {
+        return false;
     }
-    return false;
+    var state = this.evaluateSwitch(switchName, srcHostname);
+    if ( newState === state ) {
+        return false;
+    }
+    var bits = this.switches[srcHostname] || 0;
+    bits &= ~(3 << bitOffset);
+    bits |= newState ? 1 << bitOffset : 3 << bitOffset;
+    this.switches[srcHostname] = bits;
+    return true;
 };
 
 /******************************************************************************/
@@ -350,7 +359,7 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
 
 Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     // Matrix filtering switch
-    if ( this.evaluateSwitchZ(srcHostname) !== true ) {
+    if ( this.evaluateSwitchZ('matrix-off', srcHostname) ) {
         return Matrix.GreenIndirect;
     }
 
@@ -465,45 +474,80 @@ Matrix.prototype.desHostnameFromRule = function(rule) {
 
 /******************************************************************************/
 
-Matrix.prototype.toggleSwitch = function(srcHostname, newState) {
-    if ( newState === undefined ) {
-        newState = !this.evaluateSwitchZ(srcHostname);
-    }
-    delete this.switchedOn[srcHostname];
-    var oldState = this.evaluateSwitchZ(srcHostname);
-    if ( newState === oldState ) {
+Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
+    var bitOffset = switchBitOffsets[switchName];
+    if ( bitOffset === undefined ) {
         return false;
     }
-    this.switchedOn[srcHostname] = newState;
-    return true;
-};
-
-/******************************************************************************/
-
-Matrix.prototype.evaluateSwitch = function(srcHostname) {
-    var b = this.switchedOn[srcHostname];
-    if ( b !== undefined ) {
-        return b;
+    var state = this.evaluateSwitchZ(switchName, srcHostname);
+    if ( newState === state ) {
+        return false;
     }
+    if ( newState === undefined ) {
+        newState = !state;
+    }
+    var bits = this.switches[srcHostname] || 0;
+    bits &= ~(3 << bitOffset);
+    if ( bits === 0 ) {
+        delete this.switches[srcHostname];
+    } else {
+        this.switches[srcHostname] = bits;
+    }
+    state = this.evaluateSwitchZ(switchName, srcHostname);
+    if ( state === newState ) {
+        return true;
+    }
+    bits |= newState ? 1 << bitOffset : 3 << bitOffset;
+    this.switches[srcHostname] = bits;
     return true;
 };
 
 /******************************************************************************/
 
-Matrix.prototype.evaluateSwitchZ = function(srcHostname) {
-    var b;
+// 0 = default state, which meaning depends on the switch
+// 1 = non-default state
+// 3 = forced default state (to override a broader non-default state)
+
+Matrix.prototype.evaluateSwitch = function(switchName, srcHostname) {
+    var bits = this.switches[srcHostname] || 0;
+    if ( bits === 0 ) {
+        return false;
+    }
+    var bitOffset = switchBitOffsets[switchName];
+    if ( bitOffset === undefined ) {
+        return false;
+    }
+    bits = bits >> bitOffset & 3;
+    return bits === 1;
+};
+
+/******************************************************************************/
+
+// 0 = default state, which meaning depends on the switch
+// 1 = non-default state
+// 3 = forced default state (to override a broader non-default state)
+
+Matrix.prototype.evaluateSwitchZ = function(switchName, srcHostname) {
+    var bitOffset = switchBitOffsets[switchName];
+    if ( bitOffset === undefined ) {
+        return false;
+    }
+    var bits;
     var s = srcHostname;
     for (;;) {
-        b = this.switchedOn[s];
-        if ( b !== undefined ) {
-            return b;
+        bits = this.switches[s] || 0;
+        if ( bits !== 0 ) {
+            bits = bits >> bitOffset & 3;
+            if ( bits !== 0 ) {
+                return bits === 1;
+            }
         }
         s = toBroaderHostname(s);
         if ( s === '' ) {
             break;
         }
     }
-    return true;
+    return false;
 };
 
 /******************************************************************************/
@@ -544,7 +588,7 @@ Matrix.prototype.extractAllDestinationHostnames = function() {
 
 Matrix.prototype.toString = function() {
     var out = [];
-    var rule, type, val;
+    var rule, type, switchName, val;
     var srcHostname, desHostname;
     for ( rule in this.rules ) {
         if ( this.rules.hasOwnProperty(rule) === false ) {
@@ -568,12 +612,20 @@ Matrix.prototype.toString = function() {
             );
         }
     }
-    for ( srcHostname in this.switchedOn ) {
-        if ( this.switchedOn.hasOwnProperty(srcHostname) === false ) {
+    for ( srcHostname in this.switches ) {
+        if ( this.switches.hasOwnProperty(srcHostname) === false ) {
             continue;
         }
-        val = this.switchedOn[srcHostname] ? 'on' : 'off';
-        out.push('matrix: ' + srcHostname + ' ' + val);
+        for ( switchName in switchBitOffsets ) {
+            if ( switchBitOffsets.hasOwnProperty(switchName) === false ) {
+                continue;
+            }
+            val = this.evaluateSwitch(switchName, srcHostname);
+            if ( val === false ) {
+                continue;
+            }
+            out.push(switchName + ': ' + srcHostname + ' ' + val);
+        }
     }
     return out.sort().join('\n');
 };
@@ -586,6 +638,7 @@ Matrix.prototype.fromString = function(text, append) {
     var lineBeg = 0, lineEnd;
     var line, pos;
     var fields, fieldVal;
+    var switchName;
     var srcHostname = '';
     var desHostname = '';
     var type, state;
@@ -611,7 +664,7 @@ Matrix.prototype.fromString = function(text, append) {
 
         fields = line.split(/\s+/);
 
-        // Less than 2 fields make no sense
+        // Less than 2 fields makes no sense
         if ( fields.length < 2 ) {
             continue;
         }
@@ -638,12 +691,21 @@ Matrix.prototype.fromString = function(text, append) {
 
         // `switch:` srcHostname state
         //      state = [`on`, `off`]
-
+        switchName = '';
         pos = fieldVal.indexOf('switch:');
-        if ( pos === -1 ) {
-            pos = fieldVal.indexOf('matrix:');
-        }
         if ( pos !== -1 ) {
+            fieldVal = 'matrix-off:';
+        } else {
+            pos = fieldVal.indexOf('matrix:');
+            if ( pos !== -1 ) {
+                fieldVal = 'matrix-off:';
+            }
+        }
+        pos = fieldVal.indexOf(':');
+        if ( pos !== -1 ) {
+            switchName = fieldVal.slice(0, pos);
+        }
+        if ( switchBitOffsets.hasOwnProperty(switchName) ) {
             srcHostname = punycode.toASCII(fields[1]);
 
             // No state field: reject
@@ -656,7 +718,7 @@ Matrix.prototype.fromString = function(text, append) {
                 continue;
             }
 
-            matrix.setSwitch(srcHostname, nameToSwitchMap[fieldVal]);
+            matrix.setSwitch(switchName, srcHostname, nameToSwitchMap[fieldVal]);
             continue;
         }
 
@@ -723,7 +785,7 @@ Matrix.prototype.fromString = function(text, append) {
 Matrix.prototype.toSelfie = function() {
     return {
         magicId: magicId,
-        switchedOn: this.switchedOn,
+        switches: this.switches,
         rules: this.rules
     };
 };
@@ -731,7 +793,7 @@ Matrix.prototype.toSelfie = function() {
 /******************************************************************************/
 
 Matrix.prototype.fromSelfie = function(selfie) {
-    this.switchedOn = selfie.switchedOn;
+    this.switches = selfie.switches;
     this.rules = selfie.rules;
 };
 
@@ -740,15 +802,20 @@ Matrix.prototype.fromSelfie = function(selfie) {
 Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
     var out = [];
     var desHostname, type;
-    var i, thisVal, otherVal;
+    var switchName, i, thisVal, otherVal;
     for (;;) {
-        thisVal = this.evaluateSwitch(srcHostname);
-        otherVal = other.evaluateSwitch(srcHostname);
-        if ( thisVal !== otherVal ) {
-            out.push({
-                'what': 'matrix',
-                'src': srcHostname
-            });
+        for ( switchName in switchBitOffsets ) {
+            if ( switchBitOffsets.hasOwnProperty(switchName) === false ) {
+                continue;
+            }
+            thisVal = this.evaluateSwitch(switchName, srcHostname);
+            otherVal = other.evaluateSwitch(switchName, srcHostname);
+            if ( thisVal !== otherVal ) {
+                out.push({
+                    'what': switchName,
+                    'src': srcHostname
+                });
+            }
         }
         i = desHostnames.length;
         while ( i-- ) {
@@ -786,14 +853,14 @@ Matrix.prototype.applyDiff = function(diff, from) {
     var action, val;
     while ( i-- ) {
         action = diff[i];
-        if ( action.what === 'matrix' ) {
-            val = from.evaluateSwitch(action.src);
-            changed = this.setSwitch(action.src, val) || changed;
-            continue;
-        }
         if ( action.what === 'rule' ) {
             val = from.evaluateCell(action.src, action.des, action.type);
             changed = this.setCell(action.src, action.des, action.type, val) || changed;
+            continue;
+        }
+        if ( switchBitOffsets.hasOwnProperty(action.what) ) {
+            val = from.evaluateSwitch(action.what, action.src);
+            changed = this.setSwitch(action.what, action.src, val) || changed;
             continue;
         }
     }

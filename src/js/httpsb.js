@@ -26,11 +26,11 @@
 (function() {
     var µm = µMatrix;
     µm.pMatrix = new µm.Matrix();
-    µm.pMatrix.setSwitch('localhost', false);
-    µm.pMatrix.setSwitch('chrome-extension-scheme', false);
-    µm.pMatrix.setSwitch('chrome-scheme', false);
-    µm.pMatrix.setSwitch(µm.behindTheSceneScope, false);
-    µm.pMatrix.setSwitch('opera-scheme', false);
+    µm.pMatrix.setSwitch('matrix-off', 'localhost', true);
+    µm.pMatrix.setSwitch('matrix-off', 'chrome-extension-scheme', true);
+    µm.pMatrix.setSwitch('matrix-off', 'chrome-scheme', true);
+    µm.pMatrix.setSwitch('matrix-off', µm.behindTheSceneScope, true);
+    µm.pMatrix.setSwitch('matrix-off', 'opera-scheme', true);
     µm.pMatrix.setCell('*', '*', '*', µm.Matrix.Red);
     µm.pMatrix.setCell('*', '*', 'doc', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'css', µm.Matrix.Green);
@@ -175,23 +175,6 @@
 
 µMatrix.mustAllow = function(srcHostname, desHostname, type) {
     return this.mustBlock(srcHostname, desHostname, type) === false;
-};
-
-/******************************************************************************/
-
-µMatrix.getTemporaryMtxFiltering = function(srcHostname) {
-    return this.tMatrix.evaluateSwitchZ(srcHostname);
-};
-
-µMatrix.getPermanentMtxFiltering = function(srcHostname) {
-    return this.pMatrix.evaluateSwitchZ(srcHostname);
-};
-
-µMatrix.toggleTemporaryMtxFiltering = function(srcHostname, state) {
-    if ( state === undefined ) {
-        state = !this.getTemporaryMtxFiltering(srcHostname);
-    }
-    return this.tMatrix.toggleSwitch(srcHostname, state);
 };
 
 /******************************************************************************/

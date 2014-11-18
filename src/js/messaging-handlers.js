@@ -115,8 +115,8 @@ var matrixSnapshot = function(details) {
         r.scope = r.domain;
     }
 
-    r.tSwitch = µm.tMatrix.evaluateSwitchZ(r.scope);
-    r.pSwitch = µm.pMatrix.evaluateSwitchZ(r.scope);
+    r.tSwitch = µm.tMatrix.evaluateSwitchZ('matrix-off', r.scope);
+    r.pSwitch = µm.pMatrix.evaluateSwitchZ('matrix-off', r.scope);
 
     // These rows always exist
     r.rows['*'] = new RowSnapshot(r.scope, '*', '*');
@@ -209,7 +209,11 @@ var onMessage = function(request, sender, callback) {
             break;
 
         case 'toggleMatrixSwitch':
-            µm.tMatrix.toggleSwitch(request.srcHostname);
+            µm.tMatrix.setSwitchZ(
+                'matrix-off',
+                request.srcHostname,
+                !µm.tMatrix.evaluateSwitchZ('matrix-off', request.srcHostname)
+            );
             break;
 
         case 'blacklistMatrixCell':

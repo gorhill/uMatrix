@@ -1020,10 +1020,10 @@ function updateMtxbutton() {
     var masterSwitch = matrixSnapshot.tSwitch;
     var count = matrixSnapshot.blockedCount;
     var button = uDom('#buttonMtxFiltering');
-    button.toggleClass('disabled', !masterSwitch);
+    button.toggleClass('disabled', masterSwitch);
     button.descendants('span.badge').text(count.toLocaleString());
     button.attr('data-tip', button.attr('data-tip').replace('{{count}}', count));
-    uDom('body').toggleClass('powerOff', !masterSwitch);
+    uDom('body').toggleClass('powerOff', masterSwitch);
 }
 
 function toggleMtxFiltering() {
