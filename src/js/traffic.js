@@ -173,11 +173,11 @@ var onBeforeChromeExtensionRequestHandler = function(details) {
     }
 
     var µm = µMatrix;
-
-    // Is the target page still blacklisted?
     var pageURL = decodeURIComponent(matches[1]);
-    var hostname = decodeURIComponent(matches[2]);
-    if ( µm.mustBlock(µm.scopeFromURL(pageURL), hostname, 'doc') ) {
+    var pageHostname = decodeURIComponent(matches[2]);
+
+    // Blacklisted as per matrix?
+    if ( µm.mustBlock(µm.scopeFromURL(pageURL), pageHostname, 'doc') ) {
         return;
     }
 
@@ -208,15 +208,16 @@ var onBeforeRootFrameRequestHandler = function(details) {
     }
 
     var uri = µm.URI.set(details.url);
-    if ( uri.scheme !== 'http' && uri.scheme !== 'https' ) {
+    if ( uri.scheme.indexOf('http') === -1 ) {
         return;
     }
 
     var requestURL = uri.normalizedURI();
     var requestHostname = uri.hostname;
-    var pageStats = µm.pageStatsFromTabId(tabId);
-    var pageURL = µm.pageUrlFromPageStats(pageStats);
-    var block = µm.mustBlock(pageStats.pageHostname, requestHostname, 'doc');
+    var pageStore = µm.pageStatsFromTabId(tabId);
+
+    // Disallow request as per matrix?
+    var block = µm.mustBlock(pageStore.pageHostname, requestHostname, 'doc');
 
     // console.debug('onBeforeRequestHandler()> block=%s "%s": %o', block, details.url, details);
 
@@ -225,7 +226,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
         // rhill 2013-11-07: Senseless to do this for behind-the-scene requests.
         // rhill 2013-12-03: Do this here only for root frames.
         if ( tabId !== µm.behindTheSceneTabId ) {
-            µm.cookieHunter.recordPageCookies(pageStats);
+            µm.cookieHunter.recordPageCookies(pageStore);
         }
         return;
     }
@@ -236,7 +237,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     // requests, in order to ensure any potential redirects is reported
     // in proper chronological order.
     // https://github.com/gorhill/httpswitchboard/issues/112
-    pageStats.recordRequest('doc', requestURL, block);
+    pageStore.recordRequest('doc', requestURL, block);
 
     // If it's a blacklisted frame, redirect to frame.html
     // rhill 2013-11-05: The root frame contains a link to noop.css, this
@@ -261,33 +262,31 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
 var processRequest = function(µm, details) {
     var µmuri = µm.URI;
-    var requestType = requestTypeNormalizer[details.type];
     var requestURL = µmuri.set(details.url).normalizedURI();
     var requestHostname = µmuri.hostname;
-    var requestPath = µmuri.path;
-
-    // Re-classify orphan HTTP requests as behind-the-scene requests. There is
-    // not much else which can be done, because there are URLs
-    // which cannot be handled by HTTP Switchboard, i.e. `opera://startpage`,
-    // as this would lead to complications with no obvious solution, like how
-    // to scope on unknown scheme? Etc.
-    // https://github.com/gorhill/httpswitchboard/issues/191
-    // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var pageStats = µm.pageStatsFromTabId(details.tabId);
-    if ( !pageStats ) {
-        pageStats = µm.pageStatsFromTabId(µm.behindTheSceneTabId);
-    }
-    var pageURL = µm.pageUrlFromPageStats(pageStats);
 
     // rhill 2013-12-15:
     // Try to transpose generic `other` category into something more
     // meaningful.
+    var requestType = requestTypeNormalizer[details.type];
     if ( requestType === 'other' ) {
-        requestType = µm.transposeType(requestType, requestPath);
+        requestType = µm.transposeType(requestType, µmuri.path);
     }
 
-    // Block request?
-    var block = µm.mustBlock(pageStats.pageHostname, requestHostname, requestType);
+    // Re-classify orphan HTTP requests as behind-the-scene requests. There is
+    // not much else which can be done, because there are URLs
+    // which cannot be handled by µMatrix, i.e. `opera://startpage`,
+    // as this would lead to complications with no obvious solution, like how
+    // to scope on unknown scheme? Etc.
+    // https://github.com/gorhill/httpswitchboard/issues/191
+    // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
+    var pageStore = µm.pageStatsFromTabId(details.tabId);
+    if ( !pageStore ) {
+        pageStore = µm.pageStatsFromTabId(µm.behindTheSceneTabId);
+    }
+
+    // Disallow request as per temporary matrix?
+    var block = µm.mustBlock(pageStore.pageHostname, requestHostname, requestType);
 
     // Record request.
     // https://github.com/gorhill/httpswitchboard/issues/342
@@ -295,7 +294,7 @@ var processRequest = function(µm, details) {
     // processing has already been performed, and that a synthetic URL has
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
-    pageStats.recordRequest(requestType, details.µmRequestURL || requestURL, block);
+    pageStore.recordRequest(requestType, details.µmRequestURL || requestURL, block);
 
     // whitelisted?
     if ( !block ) {
@@ -455,28 +454,29 @@ var onBeforeSendHeadersHandler = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
     var tabId = details.tabId;
-    var pageStats = µm.pageStatsFromTabId(tabId);
-    if ( !pageStats ) {
+    var pageStore = µm.pageStatsFromTabId(tabId);
+    if ( !pageStore ) {
         tabId = µm.behindTheSceneTabId;
-        pageStats = µm.pageStatsFromTabId(tabId);
+        pageStore = µm.pageStatsFromTabId(tabId);
     }
 
-    var pageURL = µm.pageUrlFromPageStats(pageStats);
     var reqHostname = µm.hostnameFromURL(requestURL);
-
     var changed = false;
 
-    if ( µm.mustBlock(pageStats.pageHostname, reqHostname, 'cookie') ) {
+    if ( µm.mustBlock(pageStore.pageHostname, reqHostname, 'cookie') ) {
         changed = foilCookieHeaders(µm, details) || changed;
     }
 
     // TODO: use cookie cell to determine whether the referrer info must be
     // foiled.
-    if ( µm.userSettings.processReferer && µm.mustBlock(pageStats.pageHostname, reqHostname, '*') ) {
+    if ( µm.userSettings.processReferer && µm.mustBlock(pageStore.pageHostname, reqHostname, '*') ) {
         changed = foilRefererHeaders(µm, reqHostname, details) || changed;
     }
 
-    if ( µm.userSettings.spoofUserAgent ) {
+    // TODO: move the master ua-spoofing switch into the matrix.
+    var mustSpoof = µm.userSettings.spoofUserAgent &&
+                    µm.tMatrix.evaluateSwitchZ('ua-spoof-off', pageStore.pageHostname) === false;
+    if ( mustSpoof ) {
         changed = foilUserAgent(µm, details) || changed;
         // https://github.com/gorhill/httpswitchboard/issues/252
         // To avoid potential mismatch between the user agent from HTTP headers
@@ -617,7 +617,7 @@ var onHeadersReceived = function(details) {
     // console.debug('onHeadersReceived()> "%s": %o', details.url, details);
 
     // Ignore schemes other than 'http...'
-    if ( details.url.indexOf('http') !== 0 ) {
+    if ( details.url.slice(0, 4) !== 'http' ) {
         return;
     }
 
@@ -710,25 +710,32 @@ var onMainDocHeadersReceived = function(details) {
         }
     }
 
-    // Evaluate
-    if ( µm.mustAllow(pageStats.pageHostname, requestHostname, 'script') ) {
-        // https://github.com/gorhill/httpswitchboard/issues/181
-        pageStats.pageScriptBlocked = false;
-        return;
+    // Maybe modify inbound headers
+    var csp = '';
+
+    // Enforce strict HTTPS?
+    if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', pageStats.pageHostname) ) {
+        csp += "default-src https: 'unsafe-inline' 'unsafe-eval'";
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181
-    pageStats.pageScriptBlocked = true;
+    pageStats.pageScriptBlocked = µm.mustBlock(pageStats.pageHostname, requestHostname, 'script');
+    if ( pageStats.pageScriptBlocked ) {
+        // If javascript not allowed, say so through a `Content-Security-Policy` directive.
+        // console.debug('onMainDocHeadersReceived()> PAGE CSP "%s": %o', details.url, details);
+        csp += " script-src 'none'";
+    }
 
-    // If javascript not allowed, say so through a `Content-Security-Policy`
-    // directive.
-    // console.debug('onMainDocHeadersReceived()> PAGE CSP "%s": %o', details.url, details);
-    headers.push({
-        'name': 'Content-Security-Policy',
-        'value': "script-src 'none'"
-    });
-
-    return { responseHeaders: headers };
+    // https://github.com/gorhill/httpswitchboard/issues/181
+    if ( csp !== '' ) {
+        // If javascript not allowed, say so through a `Content-Security-Policy` directive.
+        // console.debug('onMainDocHeadersReceived()> PAGE CSP "%s": %o', details.url, details);
+        headers.push({
+            'name': 'Content-Security-Policy',
+            'value': csp
+        });
+        return { responseHeaders: headers };
+    }
 };
 
 /******************************************************************************/

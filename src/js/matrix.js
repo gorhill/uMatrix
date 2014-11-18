@@ -90,7 +90,7 @@ var nameToSwitchStateMap = {
 
 var switchBitOffsets = {
       'matrix-off': 0,
-      'https-only': 2,
+    'https-strict': 2,
     'ua-spoof-off': 4
 };
 
