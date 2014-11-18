@@ -619,7 +619,7 @@ Matrix.prototype.toString = function() {
             out.push(switchName + ': ' + srcHostname + ' ' + val);
         }
     }
-    return out.sort().join('\n');
+    return out.join('\n');
 };
 
 /******************************************************************************/

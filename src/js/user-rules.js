@@ -31,6 +31,19 @@ messaging.start('user-rules.js');
 
 /******************************************************************************/
 
+// Switches before, rules after
+
+var directiveSort = function(a, b) {
+    var aIsSwitch = a.indexOf(':') !== -1;
+    var bIsSwitch = b.indexOf(':') !== -1;
+    if ( aIsSwitch === bIsSwitch ) {
+        return a.localeCompare(b);
+    }
+    return aIsSwitch ? -1 : 1;
+};
+
+/******************************************************************************/
+
 var processUserRules = function(response) {
     var rules, rule, i;
     var permanentList = [];
@@ -52,7 +65,7 @@ var processUserRules = function(response) {
         rule = rules[i].trim();
         temporaryRules[rule] = allRules[rule] = true;
     }
-    rules = Object.keys(allRules).sort();
+    rules = Object.keys(allRules).sort(directiveSort);
     for ( i = 0; i < rules.length; i++ ) {
         rule = rules[i];
         onLeft = permanentRules.hasOwnProperty(rule);
