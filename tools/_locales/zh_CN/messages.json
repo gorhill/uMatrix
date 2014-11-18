@@ -164,43 +164,43 @@
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"全部",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"页面",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Cookie",
     "description":""
   },
   "statsPageCSS":{
-    "message":"CSS",
+    "message":"样式",
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"图像",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"插件",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"脚本",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"框架",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"其它",
     "description":""
   },
   "statsPageDetailed":{

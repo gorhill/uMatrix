@@ -324,7 +324,7 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Beyaz listede bulunmayan alan adlarına yapılan isteklerdeki üçüncü tarafa <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> bilgisini kaldır.",
+    "message":"Beyaz listede bulunmayan alan adlarına yapılan isteklerden üçüncü taraf <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> bilgisini kaldır.",
     "description":""
   },
   "privacyProcessRefererHelp":{

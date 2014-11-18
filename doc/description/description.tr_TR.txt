@@ -2,7 +2,7 @@
 
 µMatrix tarayıcınızın nereye bağlanabileceği, ne tür veri indirebileceği ve yürütebileceği konusunda tam denetimi size verir. Kimse sizin yerinize karar vermez: Siz seçersiniz. Gizliliğinizin tam denetimi sizdedir.
 
-µMatrix tümünü engelle/istisnalara izin ver modunda çalışır, bunun anlamı 3. taraf betiklere ihtiyaç duyan web sitelerinin muhtemelen "bozuk" olabileceğidir. µMatrix İki tıklama ile genelde siteleri bozmayacak tümüne izin ver/istisnaları engelle moduna ayarlanabilir. Bu konu hakkında daha ayrıntılı bilgi almak için https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views bağlantısına bakın.
+µMatrix tümünü engelle/istisnalara izin ver modunda çalışır, bunun anlamı 3. taraf betiklere ihtiyaç duyan web sitelerinin muhtemelen "bozuk" olabileceğidir. İki tıklama ile µMatrix genelde siteleri bozmayacak tümüne izin ver/istisnaları engelle moduna ayarlanabilir. Bu konu hakkında daha ayrıntılı bilgi almak için https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views bağlantısına bakın.
 
 "Chromium-tabanlı tarayıcılarda güvenilir biçimde JavaScript'ler engellenemez" efsanesiyle ilgili olarak, bakınız: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Sonuç: Evet, JavaScript güvenilir biçimde Chromium'da engellenebilir.
 
