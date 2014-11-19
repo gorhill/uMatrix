@@ -474,9 +474,7 @@ var onBeforeSendHeadersHandler = function(details) {
     }
 
     // TODO: move the master ua-spoofing switch into the matrix.
-    var mustSpoof = µm.userSettings.spoofUserAgent &&
-                    µm.tMatrix.evaluateSwitchZ('ua-spoof-off', pageStore.pageHostname) === false;
-    if ( mustSpoof ) {
+    if ( µm.tMatrix.evaluateSwitchZ('ua-spoof', pageStore.pageHostname) ) {
         changed = foilUserAgent(µm, details) || changed;
         // https://github.com/gorhill/httpswitchboard/issues/252
         // To avoid potential mismatch between the user agent from HTTP headers
@@ -715,7 +713,7 @@ var onMainDocHeadersReceived = function(details) {
 
     // Enforce strict HTTPS?
     if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', pageStats.pageHostname) ) {
-        csp += "default-src https: 'unsafe-inline' 'unsafe-eval'";
+        csp += "default-src https: data: 'unsafe-inline' 'unsafe-eval'";
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181

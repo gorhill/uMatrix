@@ -205,7 +205,11 @@ var injectNavigatorSpoofer = function(spoofedUserAgent) {
     }
 };
 
-messaging.ask({ what: 'getUserAgentReplaceStr' }, injectNavigatorSpoofer);
+var requestDetails = {
+    what: 'getUserAgentReplaceStr',
+    hostname: window.location.hostname
+};
+messaging.ask(requestDetails, injectNavigatorSpoofer);
 
 /******************************************************************************/
 /******************************************************************************/

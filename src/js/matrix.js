@@ -81,17 +81,22 @@ var nameToStateMap = {
     'inherit': 3
 };
 
-var nameToSwitchStateMap = {
-     'true': true,
-    'false': false,
-       'on': false,  // backward compatibility
-      'off': true    // backward compatibility
-};
-
 var switchBitOffsets = {
       'matrix-off': 0,
     'https-strict': 2,
-    'ua-spoof-off': 4
+        'ua-spoof': 4
+};
+
+var switchStateToNameMap = {
+    '1': 'true',
+    '2': 'false'
+};
+
+var nameToSwitchStateMap = {
+     'true': 1,
+    'false': 2,
+       'on': 2,  // backward compatibility
+      'off': 1   // backward compatibility
 };
 
 /******************************************************************************/
@@ -112,6 +117,25 @@ var columnHeaders = (function() {
 
 Matrix.getColumnHeaders = function() {
     return columnHeaders;
+};
+
+/******************************************************************************/
+
+var switchNames = (function() {
+    var out = {};
+    for ( var switchName in switchBitOffsets ) {
+        if ( switchBitOffsets.hasOwnProperty(switchName) === false ) {
+            continue;
+        }
+        out[switchName] = true;
+    }
+    return out;
+})();
+
+/******************************************************************************/
+
+Matrix.getSwitchNames = function() {
+    return switchNames;
 };
 
 /******************************************************************************/
@@ -232,17 +256,22 @@ Matrix.prototype.assign = function(other) {
 
 // If value is undefined, the switch is removed
 
-Matrix.prototype.setSwitch = function(switchName, srcHostname, newState) {
+Matrix.prototype.setSwitch = function(switchName, srcHostname, newVal) {
     var bitOffset = switchBitOffsets[switchName];
     if ( bitOffset === undefined ) {
         return false;
     }
-    var state = this.evaluateSwitch(switchName, srcHostname);
-    if ( newState === state ) {
+    if ( newVal === this.evaluateSwitch(switchName, srcHostname) ) {
         return false;
     }
     var bits = this.switches[srcHostname] || 0;
-    this.switches[srcHostname] = (bits & ~(3 << bitOffset)) | ((newState ? 1 : 2) << bitOffset);
+    bits &= ~(3 << bitOffset);
+    bits |= newVal << bitOffset;
+    if ( bits === 0 ) {
+        delete this.switches[srcHostname];
+    } else {
+        this.switches[srcHostname] = bits;
+    }
     return true;
 };
 
@@ -508,13 +537,13 @@ Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
 Matrix.prototype.evaluateSwitch = function(switchName, srcHostname) {
     var bits = this.switches[srcHostname] || 0;
     if ( bits === 0 ) {
-        return false;
+        return 0;
     }
     var bitOffset = switchBitOffsets[switchName];
     if ( bitOffset === undefined ) {
-        return false;
+        return 0;
     }
-    return ((bits >> bitOffset) & 3) === 1;
+    return (bits >> bitOffset) & 3;
 };
 
 /******************************************************************************/
@@ -613,10 +642,10 @@ Matrix.prototype.toString = function() {
                 continue;
             }
             val = this.evaluateSwitch(switchName, srcHostname);
-            if ( val === false ) {
+            if ( val === 0 ) {
                 continue;
             }
-            out.push(switchName + ': ' + srcHostname + ' ' + val);
+            out.push(switchName + ': ' + srcHostname + ' ' + switchStateToNameMap[val]);
         }
     }
     return out.join('\n');

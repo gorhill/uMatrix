@@ -1016,19 +1016,31 @@ function updateScopeCell() {
 
 /******************************************************************************/
 
-function updateMtxbutton() {
-    var masterSwitch = matrixSnapshot.tSwitch;
+function updateMatrixSwitches() {
+    var switches = matrixSnapshot.tSwitches;
+    for ( var switchName in switches ) {
+        if ( switches.hasOwnProperty(switchName) === false ) {
+            continue;
+        }
+        uDom('#mtxSwitch_' + switchName).toggleClass('switchTrue', switches[switchName]);
+        
+    }
     var count = matrixSnapshot.blockedCount;
-    var button = uDom('#buttonMtxFiltering');
-    button.toggleClass('disabled', masterSwitch);
+    var button = uDom('#mtxSwitch_matrix-off');
     button.descendants('span.badge').text(count.toLocaleString());
     button.attr('data-tip', button.attr('data-tip').replace('{{count}}', count));
-    uDom('body').toggleClass('powerOff', masterSwitch);
+    uDom('body').toggleClass('powerOff', switches['matrix-off']);
 }
 
-function toggleMtxFiltering() {
+function toggleMatrixSwitch() {
+    var pos = this.id.indexOf('_');
+    if ( pos === -1 ) {
+        return;
+    }
+    var switchName = this.id.slice(pos + 1);
     var request = {
         what: 'toggleMatrixSwitch',
+        switchName: switchName,
         srcHostname: matrixSnapshot.scope
     };
     messaging.ask(request, updateMatrixSnapshot);
@@ -1078,7 +1090,7 @@ function revertMatrix() {
 
 function updateMatrixButtons() {
     updateScopeCell();
-    updateMtxbutton();
+    updateMatrixSwitches();
     updatePersistButton();
 }
 
@@ -1217,7 +1229,7 @@ uDom.onLoad(function() {
     uDom('#scopeKeyGlobal').on('click', selectGlobalScope);
     uDom('#scopeKeyDomain').on('click', selectDomainScope);
     uDom('#scopeKeySite').on('click', selectSiteScope);
-    uDom('#buttonMtxFiltering').on('click', toggleMtxFiltering);
+    uDom('[id^="mtxSwitch_"]').on('click', toggleMatrixSwitch);
     uDom('#buttonPersist').on('click', persistMatrix);
     uDom('#buttonRevertScope').on('click', revertMatrix);
 

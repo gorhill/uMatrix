@@ -26,11 +26,11 @@
 (function() {
     var µm = µMatrix;
     µm.pMatrix = new µm.Matrix();
-    µm.pMatrix.setSwitch('matrix-off', 'localhost', true);
-    µm.pMatrix.setSwitch('matrix-off', 'chrome-extension-scheme', true);
-    µm.pMatrix.setSwitch('matrix-off', 'chrome-scheme', true);
-    µm.pMatrix.setSwitch('matrix-off', µm.behindTheSceneScope, true);
-    µm.pMatrix.setSwitch('matrix-off', 'opera-scheme', true);
+    µm.pMatrix.setSwitch('matrix-off', 'localhost', 1);
+    µm.pMatrix.setSwitch('matrix-off', 'chrome-extension-scheme', 1);
+    µm.pMatrix.setSwitch('matrix-off', 'chrome-scheme', 1);
+    µm.pMatrix.setSwitch('matrix-off', µm.behindTheSceneScope, 1);
+    µm.pMatrix.setSwitch('matrix-off', 'opera-scheme', 1);
     µm.pMatrix.setCell('*', '*', '*', µm.Matrix.Red);
     µm.pMatrix.setCell('*', '*', 'doc', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'css', µm.Matrix.Green);

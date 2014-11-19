@@ -72,8 +72,8 @@ var matrixSnapshot = function(details) {
         blockedCount: 0,
         scope: '*',
         headers: µm.Matrix.getColumnHeaders(),
-        tSwitch: false,
-        pSwitch: false,
+        tSwitches: {},
+        pSwitches: {},
         rows: {},
         rowCount: 0,
         diff: [],
@@ -115,8 +115,14 @@ var matrixSnapshot = function(details) {
         r.scope = r.domain;
     }
 
-    r.tSwitch = µm.tMatrix.evaluateSwitchZ('matrix-off', r.scope);
-    r.pSwitch = µm.pMatrix.evaluateSwitchZ('matrix-off', r.scope);
+    var switchNames = µm.Matrix.getSwitchNames();
+    for ( var switchName in switchNames ) {
+        if ( switchNames.hasOwnProperty(switchName) === false ) {
+            continue;
+        }
+        r.tSwitches[switchName] = µm.tMatrix.evaluateSwitchZ(switchName, r.scope);
+        r.pSwitches[switchName] = µm.pMatrix.evaluateSwitchZ(switchName, r.scope);
+    }
 
     // These rows always exist
     r.rows['*'] = new RowSnapshot(r.scope, '*', '*');
@@ -210,9 +216,9 @@ var onMessage = function(request, sender, callback) {
 
         case 'toggleMatrixSwitch':
             µm.tMatrix.setSwitchZ(
-                'matrix-off',
+                request.switchName,
                 request.srcHostname,
-                !µm.tMatrix.evaluateSwitchZ('matrix-off', request.srcHostname)
+                µm.tMatrix.evaluateSwitchZ(request.switchName, request.srcHostname) === false
             );
             break;
 
@@ -272,6 +278,10 @@ var onMessage = function(request, sender, callback) {
 
 (function() {
 
+var µm = µMatrix;
+
+/******************************************************************************/
+
 var contentScriptSummaryHandler = function(details, sender) {
     // TODO: Investigate "Error in response to tabs.executeScript: TypeError:
     // Cannot read property 'locationURL' of null" (2013-11-12). When can this
@@ -279,7 +289,6 @@ var contentScriptSummaryHandler = function(details, sender) {
     if ( !details || !details.locationURL ) {
         return;
     }
-    var µm = µMatrix;
     var pageURL = µm.pageUrlFromTabId(sender.tab.id);
     var pageStats = µm.pageStatsFromPageUrl(pageURL);
     var µmuri = µm.URI.set(details.locationURL);
@@ -327,8 +336,9 @@ var contentScriptSummaryHandler = function(details, sender) {
     µm.onPageLoadCompleted(pageURL);
 };
 
+/******************************************************************************/
+
 var contentScriptLocalStorageHandler = function(pageURL) {
-    var µm = µMatrix;
     var µmuri = µm.URI.set(pageURL);
     var response = µm.mustBlock(µm.scopeFromURL(pageURL), µmuri.hostname, 'cookie');
     µm.recordFromPageUrl(
@@ -343,6 +353,8 @@ var contentScriptLocalStorageHandler = function(pageURL) {
     }
     return response;
 };
+
+/******************************************************************************/
 
 var onMessage = function(request, sender, callback) {
     // Async
@@ -365,21 +377,22 @@ var onMessage = function(request, sender, callback) {
 
         case 'checkScriptBlacklisted':
             response = {
-                scriptBlacklisted: µMatrix.mustBlock(
-                    µMatrix.scopeFromURL(request.url),
-                    µMatrix.hostnameFromURL(request.url),
+                scriptBlacklisted: µm.mustBlock(
+                    µm.scopeFromURL(request.url),
+                    µm.hostnameFromURL(request.url),
                     'script'
-                    )
-                };
+                )
+            };
             break;
 
         case 'getUserAgentReplaceStr':
-            response = µMatrix.userSettings.spoofUserAgent ? µMatrix.userAgentReplaceStr : undefined;
+            response = µm.tMatrix.evaluateSwitchZ('ua-spoof', request.hostname) ?
+                µm.userAgentReplaceStr : 
+                undefined;
             break;
 
-
         default:
-            return µMatrix.messaging.defaultHandler(request, sender, callback);
+            return µm.messaging.defaultHandler(request, sender, callback);
     }
 
     callback(response);
@@ -387,6 +400,8 @@ var onMessage = function(request, sender, callback) {
 
 µMatrix.messaging.listen('contentscript-start.js', onMessage);
 µMatrix.messaging.listen('contentscript-end.js', onMessage);
+
+/******************************************************************************/
 
 })();
 

@@ -66,9 +66,6 @@ body .toolbar button:hover {
 body .toolbar button.disabled {
     color: #ccc;
     }
-body .toolbar button.switch.disabled {
-    color: #a00;
-    }
 body .toolbar button.fa {
     font: 1.75em 'FontAwesome';
     min-width: 1.1em;
@@ -82,18 +79,38 @@ body.tScopeDomain .scopeRel:not(.disabled) {
 body.tScopeSite .scopeRel:not(.disabled) {
     color: #48c;
     }
+#mtxSwitch_matrix-off.switchTrue {
+    color: #a00;
+    }
 
+#mtxSwitches > li  {
+    color: #888;
+    }
+#mtxSwitches > li.switchTrue {
+    color: #000;
+    }
+#mtxSwitches > li > span:before  {
+    content: '\f204';
+    font: 120% FontAwesome;
+    padding-right: 0.5em;
+    }
+#mtxSwitches > li.switchTrue > span:before {
+    color: #000;
+    content: '\f205';
+    font: 120% FontAwesome;
+    padding-right: 0.5em;
+    }
 
 
 .dropdown-menu {
     margin: 0;
     border: 0;
+    display: none;
+    font-size: 110%;
     padding: 3px 0 0 0;
     position: absolute;
-    z-index: 50;
-    font-size: 110%;
-    display: none;
     white-space: normal;
+    z-index: 50;
     }
 .dropdown-menu > ul {
     margin: 0;
@@ -105,26 +122,24 @@ body.tScopeSite .scopeRel:not(.disabled) {
     list-style-type: none;
     }
 .dropdown-menu > ul > li.dropdown-menu-entry {
-    margin: 0;
     border: 0;
-    padding: 4px 0.5em;
     color: black;
     cursor: pointer;
+    margin: 0;
+    padding: 4px 0.5em;
+    white-space: nowrap;
     }
 .dropdown-menu > ul > li.dropdown-menu-entry:hover {
     background: #eee;
     }
 .dropdown-menu > ul > li.dropdown-menu-entry-divider {
-    margin: 0.5em 0;
     border-top: 1px solid #ccc;
+    margin: 0.5em 0;
     }
 .dropdown-menu > ul > li.dropdown-menu-entry > .fa {
-    margin-right: 0.5em;
-    font-size: 110%;
     color: #aaa;
-    }
-.dropdown-menu {
-    display: none;
+    font-size: 110%;
+    margin-right: 0.5em;
     }
 .dropdown-menu.show {
     display: block;
