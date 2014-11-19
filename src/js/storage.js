@@ -83,7 +83,10 @@
 
 /******************************************************************************/
 
-µMatrix.loadMatrix = function() {
+µMatrix.loadMatrix = function(callback) {
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
     var µm = this;
     var onLoaded = function(bin) {
         if ( bin.hasOwnProperty('userMatrix') ) {
@@ -95,6 +98,7 @@
             µm.pMatrix.setCell('*', '*', 'doc', µm.Matrix.Green);
             µm.saveMatrix();
             µm.tMatrix.assign(µm.pMatrix);
+            callback();
         }
     };
     this.XAL.keyvalGetOne('userMatrix', onLoaded);
@@ -396,9 +400,28 @@
     }
 
     var µm = this;
+    var settingsReady = false;
+    var matrixReady = false;
 
-    // User settings are in memory
-    var onUserSettingsReady = function(settings) {
+    // TODO: to remove when everybody (and their backup file) has their
+    // ua-spoof setting converted into a matrix switch.
+    var onSettingsAndMatrixReady = function() {
+        if ( !settingsReady || !matrixReady ) {
+            return;
+        }
+        if ( µm.userSettings.hasOwnProperty('spoofUserAgent') === false ) {
+            return;
+        }
+        if ( µm.userSettings.spoofUserAgent ) {
+            µm.tMatrix.setSwitch('ua-spoof', '*', 1);
+            µm.pMatrix.setSwitch('ua-spoof', '*', 1);
+            µm.saveMatrix();
+        }
+        delete µm.userSettings.spoofUserAgent;
+        µm.saveUserSettings();
+    };
+
+    var onSettingsReady = function(settings) {
         // Never auto-update at boot time
         µm.loadUpdatableAssets(false, callback);
  
@@ -406,9 +429,16 @@
         if ( settings.autoUpdate ) {
             µm.updater.restart(µm.firstUpdateAfter);
         }
+        settingsReady = true;
+        onSettingsAndMatrixReady();
     };
 
-    this.loadUserSettings(onUserSettingsReady);
-    this.loadMatrix();
+    var onMatrixReady = function() {
+        matrixReady = true;
+        onSettingsAndMatrixReady();
+    };
+
+    this.loadUserSettings(onSettingsReady);
+    this.loadMatrix(onMatrixReady);
     this.getBytesInUse();
 };

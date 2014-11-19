@@ -19,6 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global messaging, uDom */
+
 /******************************************************************************/
 
 (function() {
@@ -27,7 +29,7 @@
 
 messaging.start('privacy.js');
 
-var cachedUserSettings = {};
+var cachedPrivacySettings = {};
 
 /******************************************************************************/
 
@@ -41,8 +43,18 @@ function changeUserSettings(name, value) {
 
 /******************************************************************************/
 
+function changeMatrixSwitch(name, state) {
+    messaging.tell({
+        what: 'setMatrixSwitch',
+        switchName: name,
+        state: state
+    });
+}
+
+/******************************************************************************/
+
 function onChangeValueHandler(uelem, setting, min, max) {
-    var oldVal = cachedUserSettings[setting];
+    var oldVal = cachedPrivacySettings.userSettings[setting];
     var newVal = Math.round(parseFloat(uelem.val()));
     if ( typeof newVal !== 'number' ) {
         newVal = oldVal;
@@ -67,32 +79,25 @@ function prepareToDie() {
 /******************************************************************************/
 
 var installEventHandlers = function() {
-    uDom('#delete-unused-session-cookies').on('change', function(){
-        changeUserSettings('deleteUnusedSessionCookies', this.checked);
+    uDom('[data-setting-bool]').on('change', function(){
+        var settingName = this.getAttribute('data-setting-bool');
+        if ( typeof settingName === 'string' && settingName !== '' ) {
+            changeUserSettings(settingName, this.checked);
+        }
     });
+
+    uDom('[data-matrix-switch]').on('change', function(){
+        var switchName = this.getAttribute('data-matrix-switch');
+        if ( typeof switchName === 'string' && switchName !== '' ) {
+            changeMatrixSwitch(switchName, this.checked);
+        }
+    });
+
     uDom('#delete-unused-session-cookies-after').on('change', function(){
         onChangeValueHandler(uDom(this), 'deleteUnusedSessionCookiesAfter', 15, 1440);
     });
-    uDom('#delete-blacklisted-cookies').on('change', function(){
-        changeUserSettings('deleteCookies', this.checked);
-    });
-    uDom('#delete-blacklisted-localstorage').on('change', function(){
-        changeUserSettings('deleteLocalStorage', this.checked);
-    });
-    uDom('#clear-browser-cache').on('change', function(){
-        changeUserSettings('clearBrowserCache', this.checked);
-    });
     uDom('#clear-browser-cache-after').on('change', function(){
         onChangeValueHandler(uDom(this), 'clearBrowserCacheAfter', 15, 1440);
-    });
-    uDom('#process-referer').on('change', function(){
-        changeUserSettings('processReferer', this.checked);
-    });
-    uDom('#process-hyperlink-auditing').on('change', function(){
-        changeUserSettings('processHyperlinkAuditing', this.checked);
-    });
-    uDom('#spoof-user-agent').on('change', function(){
-        changeUserSettings('spoofUserAgent', this.checked);
     });
     uDom('#spoof-user-agent-every').on('change', function(){
         onChangeValueHandler(uDom(this), 'spoofUserAgentEvery', 2, 999);
@@ -108,25 +113,35 @@ var installEventHandlers = function() {
 /******************************************************************************/
 
 uDom.onLoad(function() {
-    var onUserSettingsReceived = function(userSettings) {
+    var onSettingsReceived = function(privacySettings) {
         // Cache copy
-        cachedUserSettings = userSettings;
+        cachedPrivacySettings = privacySettings;
 
-        uDom('#delete-unused-session-cookies').prop('checked', userSettings.deleteUnusedSessionCookies === true);
+        var userSettings = privacySettings.userSettings;
+        var matrixSwitches = privacySettings.matrixSwitches;
+
+        uDom('[data-setting-bool]').forEach(function(elem){
+            var settingName = elem.attr('data-setting-bool');
+            if ( typeof settingName === 'string' && settingName !== '' ) {
+                elem.prop('checked', userSettings[settingName] === true);
+            }
+        });
+
+        uDom('[data-matrix-switch]').forEach(function(elem){
+            var switchName = elem.attr('data-matrix-switch');
+            if ( typeof switchName === 'string' && switchName !== '' ) {
+                elem.prop('checked', matrixSwitches[switchName] === true);
+            }
+        });
+
         uDom('#delete-unused-session-cookies-after').val(userSettings.deleteUnusedSessionCookiesAfter);
-        uDom('#delete-blacklisted-cookies').prop('checked', userSettings.deleteCookies === true);
-        uDom('#delete-blacklisted-localstorage').prop('checked', userSettings.deleteLocalStorage);
-        uDom('#clear-browser-cache').prop('checked', userSettings.clearBrowserCache === true);
         uDom('#clear-browser-cache-after').val(userSettings.clearBrowserCacheAfter);
-        uDom('#process-referer').prop('checked', userSettings.processReferer);
-        uDom('#process-hyperlink-auditing').prop('checked', userSettings.processHyperlinkAuditing);
-        uDom('#spoof-user-agent').prop('checked', userSettings.spoofUserAgent);
         uDom('#spoof-user-agent-every').val(userSettings.spoofUserAgentEvery);
         uDom('#spoof-user-agent-with').val(userSettings.spoofUserAgentWith);
 
         installEventHandlers();
     };
-    messaging.ask({ what: 'getUserSettings' }, onUserSettingsReceived);
+    messaging.ask({ what: 'getPrivacySettings' }, onSettingsReceived);
 });
 
 /******************************************************************************/

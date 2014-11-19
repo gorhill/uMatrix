@@ -439,6 +439,54 @@ var onMessage = function(request, sender, callback) {
 /******************************************************************************/
 /******************************************************************************/
 
+// privacy.js
+
+(function() {
+
+var onMessage = function(request, sender, callback) {
+    var µm = µMatrix;
+
+    // Async
+    switch ( request.what ) {
+        default:
+            break;
+    }
+
+    // Sync
+    var response;
+
+    switch ( request.what ) {
+        case 'getPrivacySettings':
+            response = {
+                userSettings: µm.userSettings,
+                matrixSwitches: {
+                    'https-strict': µm.pMatrix.evaluateSwitch('https-strict', '*') === 1,
+                    'ua-spoof': µm.pMatrix.evaluateSwitch('ua-spoof', '*') === 1,
+                }
+            };
+            break;
+
+        case 'setMatrixSwitch':
+            µm.tMatrix.setSwitch(request.switchName, '*', request.state);
+            if ( µm.pMatrix.setSwitch(request.switchName, '*', request.state) ) {
+                µm.saveMatrix();
+            }
+            break;
+
+        default:
+            return µm.messaging.defaultHandler(request, sender, callback);
+    }
+
+    callback(response);
+};
+
+µMatrix.messaging.listen('privacy.js', onMessage);
+
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
 // user-rules.js
 
 (function() {
