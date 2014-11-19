@@ -103,6 +103,14 @@
     "message":"{{count}} nom(s) de domaine bloqué(s)",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
+  "matrixSwitchNoMixedContent":{
+    "message":"Strict HTTPS",
+    "description":""
+  },
+  "matrixSwitchUASpoof":{
+    "message":"User agent spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Statistiques",
     "description":""
@@ -329,6 +337,14 @@
   },
   "privacyProcessRefererHelp":{
     "message":"<p>D'après Wikipédia : &ldquo;Un référant est une information transmise à un serveur HTTP lorsqu'un visiteur suit un lien pour accéder à l'une de ses ressources, lui indiquant l'URL de la page où se situe ce lien qu'il a suivi [...] <b>Les référants peuvent poser des problèmes d'atteinte à la vie privée, puisque le webmestre peut connaître les pages que ses visiteurs ont consulté avant d'accéder aux siennes.<\/b>&rdquo;<\/p><p>Si ce paramètre est coché, <i>µMatrix<\/i> supprimera le référant HTTP lorsque les <b>deux<\/b> conditions suivantes sont vérifiées :<ul style='padding-left:1em;list-style-type:disc;'><li>Le nom de domaine du référant HTTP ne correspond pas à l'URL de la requête (c'est-à-dire que vous venez d'un site Web différent de celui que vous vous apprêtez à consulter);<li>Le nom d'hôte de la requête n'est pas sur liste blanche.<\/ul><\/p>",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"Strict HTTPS: forbid mixed content.",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{

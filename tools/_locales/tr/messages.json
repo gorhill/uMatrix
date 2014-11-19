@@ -103,6 +103,14 @@
     "message":"{{count}} kara listelenmiş alan",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
+  "matrixSwitchNoMixedContent":{
+    "message":"Strict HTTPS",
+    "description":""
+  },
+  "matrixSwitchUASpoof":{
+    "message":"User agent spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; İstatistikleri",
     "description":""
@@ -329,6 +337,14 @@
   },
   "privacyProcessRefererHelp":{
     "message":"<p>Wikipedia'dan: &ldquo;HTTP referer bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü referer bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b>&rdquo;<\/p><p>Bu ayar işaretliyse, <i>µMatrix<\/i> takip eden şartların <b>her ikisinin<\/b> doğru olması durumunda HTTP referer bilgisini kaldıracaktır: <ul style='padding-left:1em;list-style-type:disc;'><li>HTTP referer alan adı isteğin URL alan adıyla eşleşmiyorsa (referer web sayfasına göre üçüncü taraftır)<li>İsteğin alan adı beyaz listede değilse<\/ul><\/p>",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"Strict HTTPS: forbid mixed content.",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{

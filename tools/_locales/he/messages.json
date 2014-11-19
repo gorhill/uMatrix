@@ -103,6 +103,14 @@
     "message":"{{count}} דומיין(ים) חסום(ים)",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
+  "matrixSwitchNoMixedContent":{
+    "message":"Strict HTTPS",
+    "description":""
+  },
+  "matrixSwitchUASpoof":{
+    "message":"User agent spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; סטטיסטיקות",
     "description":""
@@ -329,6 +337,14 @@
   },
   "privacyProcessRefererHelp":{
     "message":"<p>מתוך ויקיפדיה: &ldquo;HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לחלל את הפרטיות, כמה דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע על המפנה.<\/b>&rdquo;<\/p><p>אם אפשרות זו מאופשרת, <i>µMatrix<\/i> ימחק את המידע של ה HTTP referer אם <b>שני<\/b> התנאים הבאים נכונים:<ul style='padding-left:1em;list-style-type:disc;'><li>שם הדומיין של ה HTTP referer לא תואם לדומיין של כתובת האינטרנט של הבקשה (כלומר, המפנה הוא צד שלישי לאתר האינטרנט);<li>הדומיין של הבקשה לא נמצא ברשימה הלבנה.<\/ul><\/p>",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"Strict HTTPS: forbid mixed content.",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{

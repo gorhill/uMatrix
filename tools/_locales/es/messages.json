@@ -103,6 +103,14 @@
     "message":"{{count}} nombre(s) de <i>host<\/i> en la lista negra",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
+  "matrixSwitchNoMixedContent":{
+    "message":"Strict HTTPS",
+    "description":""
+  },
+  "matrixSwitchUASpoof":{
+    "message":"User agent spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Estadísticas",
     "description":""
@@ -329,6 +337,14 @@
   },
   "privacyProcessRefererHelp":{
     "message":"<p>Según Wikipedia: &ldquo;Un HTTP referer... identifica la dirección de la página web (es decir, la URI o IRI) que creó el vínculo con el recurso que está siendo solicitado. ... <b>Ya que esta información desata preocupaciones en cuanto a la privacidad, algunos navegadores permiten al usuario deshabilitar el envío de este campo.<\/b>&rdquo;<\/p><p>Si se selecciona esta opción, <i>µMatrix<\/i> eliminará la información del HTTP referer si <b>ambas<\/b> de estas condiciones son verdaderas:<ul style='padding-left:1em;list-style-type:disc;'><li>El nombre de dominio del HTTP referer no concuerda con el nombre de dominio de la URL pedida (o sea, el creador del vínculo es un tercero respecto a la página web);<li>El nombre de <i>host<\/i> de la petición no está en la lista de permitidos.<\/ul><\/p>",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"Strict HTTPS: forbid mixed content.",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{

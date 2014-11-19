@@ -103,6 +103,14 @@
     "message":"{{count}}个黑名单站点",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
+  "matrixSwitchNoMixedContent":{
+    "message":"Strict HTTPS",
+    "description":""
+  },
+  "matrixSwitchUASpoof":{
+    "message":"User agent spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; 统计",
     "description":""
@@ -329,6 +337,14 @@
   },
   "privacyProcessRefererHelp":{
     "message":"<p>来自维基百科：&ldquo;HTTP来源地址（referer，或HTTP referer），是HTTP表头的一个字段，用来表示从哪儿链接到目前的网页，采用的格式是URL……<b>许多网站都会把引用地址纪录起来以便追踪用户的动态，大部分的分析软件都会处理这个信息。但是引用地址信息可能会有隐私权的问题，部份网页浏览器允许用户设置不要提交这个信息，有些代理服务器和防火墙也会把引用地址信息过滤掉，以避免让外部知道非公开的网站地址。<\/b>&rdquo;<\/p><p>这个设置如果被勾选，当以下的条件<b>同时<\/b>为真，<i>µMatrix<\/i>将会移除HTTP来源地址信息：<ul style='padding-left:1em;list-style-type:disc;'><li>HTTP来源地址的域名与被请求的URL的域名不相匹配（即是说，来源地址对于网页而言是第三方）；<li>被请求的站点不在白名单中。<\/ul><\/p>\n",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"Strict HTTPS: forbid mixed content.",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{

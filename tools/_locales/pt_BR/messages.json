@@ -103,6 +103,14 @@
     "message":"{{count}} hostname(s) na lista negra",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
+  "matrixSwitchNoMixedContent":{
+    "message":"Strict HTTPS",
+    "description":""
+  },
+  "matrixSwitchUASpoof":{
+    "message":"User agent spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Estatísticas",
     "description":""
@@ -329,6 +337,14 @@
   },
   "privacyProcessRefererHelp":{
     "message":"<p>From Wikipedia: &ldquo;Referer HTTP é um campo de cabeçalho HTTP que identifica o endereço da página que ligado ao recurso que está sendo solicitado. ... <b>Porque a informação referer pode violar a privacidade, alguns navegadores da Web permitem que o usuário desativar o envio de informações referer.<\/b>&rdquo;<\/p><p>Se essa configuração for selecionada, <i>µMatrix<\/i> irá remover as informações HTTP referer se <b>ambos <\/b> das seguintes condições forem verdadeiras:<ul style='padding-left:1em;list-style-type:disc;'><li>O nome de domínio do referer HTTP não corresponde ao nome de domínio do URL do pedido (ou seja, o referer é de terceiros para a página da web);<li>O nome do host do pedido não está na lista branca.<\/ul><\/p>",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"Strict HTTPS: forbid mixed content.",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{

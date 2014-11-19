@@ -103,6 +103,14 @@
     "message":"{{count}} blacklisted hostname(s)",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
+  "matrixSwitchNoMixedContent":{
+    "message":"Strict HTTPS",
+    "description":""
+  },
+  "matrixSwitchUASpoof":{
+    "message":"User agent spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Statistics",
     "description":""
@@ -329,6 +337,14 @@
   },
   "privacyProcessRefererHelp":{
     "message":"<p>From Wikipedia: &ldquo;HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b>&rdquo;<\/p><p>If this setting is checked, <i>µMatrix<\/i> will remove the HTTP referer information if <b>both<\/b> of the following conditions are true:<ul style='padding-left:1em;list-style-type:disc;'><li>The domain name of the HTTP referer does not match the domain name of the URL of the request (that is, the referer is third-party to the web page);<li>The hostname of the request is not whitelisted.<\/ul><\/p>",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"Strict HTTPS: forbid mixed content.",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
