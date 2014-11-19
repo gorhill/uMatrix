@@ -83,22 +83,39 @@ body.tScopeSite .scopeRel:not(.disabled) {
     color: #a00;
     }
 
+html.ltr #buttonMtxSwitches + .dropdown-menu {
+    left: -80%;
+    }
+html.rtl #buttonMtxSwitches + .dropdown-menu {
+    right: -80%;
+    }
 #mtxSwitches > li  {
     color: #888;
     }
 #mtxSwitches > li.switchTrue {
     color: #000;
     }
-#mtxSwitches > li > span:before  {
+html.ltr #mtxSwitches > li > span:before  {
     content: '\f204';
     font: 120% FontAwesome;
     padding-right: 0.5em;
     }
-#mtxSwitches > li.switchTrue > span:before {
+html.ltr #mtxSwitches > li.switchTrue > span:before {
     color: #000;
     content: '\f205';
     font: 120% FontAwesome;
     padding-right: 0.5em;
+    }
+html.rtl #mtxSwitches > li > span:after  {
+    content: '\f204';
+    font: 120% FontAwesome;
+    padding-left: 0.5em;
+    }
+html.rtl #mtxSwitches > li.switchTrue > span:after {
+    color: #000;
+    content: '\f205';
+    font: 120% FontAwesome;
+    padding-left: 0.5em;
     }
 
 
