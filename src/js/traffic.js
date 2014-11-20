@@ -467,13 +467,10 @@ var onBeforeSendHeadersHandler = function(details) {
         changed = foilCookieHeaders(µm, details) || changed;
     }
 
-    // TODO: use cookie cell to determine whether the referrer info must be
-    // foiled.
-    if ( µm.userSettings.processReferer && µm.mustBlock(pageStore.pageHostname, reqHostname, '*') ) {
+    if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', pageStore.pageHostname) ) {
         changed = foilRefererHeaders(µm, reqHostname, details) || changed;
     }
 
-    // TODO: move the master ua-spoofing switch into the matrix.
     if ( µm.tMatrix.evaluateSwitchZ('ua-spoof', pageStore.pageHostname) ) {
         changed = foilUserAgent(µm, details) || changed;
         // https://github.com/gorhill/httpswitchboard/issues/252
@@ -559,29 +556,29 @@ var foilCookieHeaders = function(µm, details) {
 
 var foilRefererHeaders = function(µm, toHostname, details) {
     var headers = details.requestHeaders;
-    var header;
-    var fromDomain, toDomain;
-    var i = headers.length;
+    var i = headers.length, header;
     while ( i-- ) {
         header = headers[i];
-        if ( header.name.toLowerCase() !== 'referer' ) {
-            continue;
+        if ( header.name.toLowerCase() === 'referer' ) {
+            break;
         }
-        fromDomain = µm.URI.domainFromURI(header.value);
-        if ( !toDomain ) {
-            toDomain = µm.URI.domainFromHostname(toHostname);
-        }
-        if ( toDomain === fromDomain ) {
-            continue;
-        }
-        // console.debug('foilRefererHeaders()> foiled referer "%s" for "%s"', fromDomain, toDomain);
-        // https://github.com/gorhill/httpswitchboard/issues/222#issuecomment-44828402
-        // Splicing instead of blanking: not sure how much it helps
-        headers.splice(i, 1);
-        µm.refererHeaderFoiledCounter++;
-        return true;
     }
-    return false;
+    if ( i === -1 ) {
+        return false;
+    }
+    var µmuri = µm.URI;
+    var fromDomain = µmuri.domainFromURI(header.value);
+    var toDomain = µmuri.domainFromHostname(toHostname);
+    if ( toDomain === fromDomain ) {
+        return false;
+    }
+    //console.debug('foilRefererHeaders()> foiled referer for "%s"', details.url);
+    //console.debug('\treferrer "%s"', header.value);
+    // https://github.com/gorhill/httpswitchboard/issues/222#issuecomment-44828402
+    header.value = µmuri.schemeFromURI(details.url) + '://' + toHostname + '/';
+    //console.debug('\treplaced with "%s"', header.value);
+    µm.refererHeaderFoiledCounter++;
+    return true;
 };
 
 /******************************************************************************/

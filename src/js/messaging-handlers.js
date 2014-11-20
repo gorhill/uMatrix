@@ -462,6 +462,7 @@ var onMessage = function(request, sender, callback) {
                 matrixSwitches: {
                     'https-strict': µm.pMatrix.evaluateSwitch('https-strict', '*') === 1,
                     'ua-spoof': µm.pMatrix.evaluateSwitch('ua-spoof', '*') === 1,
+                    'referrer-spoof': µm.pMatrix.evaluateSwitch('referrer-spoof', '*') === 1
                 }
             };
             break;

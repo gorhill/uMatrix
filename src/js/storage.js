@@ -404,19 +404,26 @@
     var matrixReady = false;
 
     // TODO: to remove when everybody (and their backup file) has their
-    // ua-spoof setting converted into a matrix switch.
+    // ua-spoof/referrer-spoof setting converted into a matrix switch.
     var onSettingsAndMatrixReady = function() {
         if ( !settingsReady || !matrixReady ) {
             return;
         }
-        if ( µm.userSettings.hasOwnProperty('spoofUserAgent') === false ) {
-            return;
-        }
+        var saveMatrix = false;
         if ( µm.userSettings.spoofUserAgent ) {
             µm.tMatrix.setSwitch('ua-spoof', '*', 1);
             µm.pMatrix.setSwitch('ua-spoof', '*', 1);
+            saveMatrix = true;
+        }
+        if ( µm.userSettings.processReferer ) {
+            µm.tMatrix.setSwitch('referrer-spoof', '*', 1);
+            µm.pMatrix.setSwitch('referrer-spoof', '*', 1);
+            saveMatrix = true;
+        }
+        if ( saveMatrix ) {
             µm.saveMatrix();
         }
+        delete µm.userSettings.processReferer;
         delete µm.userSettings.spoofUserAgent;
         µm.saveUserSettings();
     };

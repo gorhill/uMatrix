@@ -82,9 +82,10 @@ var nameToStateMap = {
 };
 
 var switchBitOffsets = {
-      'matrix-off': 0,
-    'https-strict': 2,
-        'ua-spoof': 4
+        'matrix-off': 0,
+      'https-strict': 2,
+          'ua-spoof': 4,
+    'referrer-spoof': 6
 };
 
 var switchStateToNameMap = {
