@@ -111,6 +111,10 @@
     "message":"User agent spoofing",
     "description":""
   },
+  "matrixSwitchReferrerSpoof":{
+    "message":"Referrer spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; 统计",
     "description":""

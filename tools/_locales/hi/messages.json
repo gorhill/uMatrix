@@ -111,6 +111,10 @@
     "message":"User agent spoofing",
     "description":""
   },
+  "matrixSwitchReferrerSpoof":{
+    "message":"Referrer spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Statistics",
     "description":""
@@ -332,7 +336,7 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Remove third-party <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> information from requests to non-whitelisted hostnames.",
+    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
     "description":""
   },
   "privacyProcessRefererHelp":{

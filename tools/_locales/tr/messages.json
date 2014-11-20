@@ -104,11 +104,15 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Katı HTTPS",
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Kullanıcı aracı aldatma",
+    "description":""
+  },
+  "matrixSwitchReferrerSpoof":{
+    "message":"Başvuran aldatma",
     "description":""
   },
   "statsPageTitle":{
@@ -124,7 +128,7 @@
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> başlığı önlendi: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP başvuran<\/a> başlığı önlendi: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -332,19 +336,19 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Beyaz listede bulunmayan alan adlarına yapılan isteklerden üçüncü taraf <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> bilgisini kaldır.",
+    "message":"Üçüncü taraf isteklerin <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP başvuran<\/a> bilgisini aldat.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Wikipedia'dan: &ldquo;HTTP referer bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü referer bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b>&rdquo;<\/p><p>Bu ayar işaretliyse, <i>µMatrix<\/i> takip eden şartların <b>her ikisinin<\/b> doğru olması durumunda HTTP referer bilgisini kaldıracaktır: <ul style='padding-left:1em;list-style-type:disc;'><li>HTTP referer alan adı isteğin URL alan adıyla eşleşmiyorsa (referer web sayfasına göre üçüncü taraftır)<li>İsteğin alan adı beyaz listede değilse<\/ul><\/p>",
+    "message":"<p>Wikipedia'dan: &ldquo;HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b>&rdquo;<\/p><p>Bu ayar işaretliyse, <i>µMatrix<\/i> takip eden şartların <b>her ikisinin<\/b> doğru olması durumunda HTTP başvuran bilgisini kaldıracaktır: <ul style='padding-left:1em;list-style-type:disc;'><li>HTTP başvuran alan adı, isteğin URL alan adıyla eşleşmiyorsa (başvuran web sayfasına göre üçüncü taraftır)<li>İsteğin alan adı beyaz listede değilse<\/ul><\/p>",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Katı HTTPS: Karışık içeriği yasakla.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Geliştiriciler Ağ'ından<\/a>:<\/p><blockquote>HTTPS sayfası sıradan bir içerik barındırıyorsa, düz metin HTTP, o bağlantı yalnızca kısmen şifrelenmiştir: şifrelenmemiş içerik, koklayıcı erişimine açık ve araya giren saldırıları tarafından değiştirilebilir durumdadır, bu nedenle artık bağlantı güvence altında değildir. Bu davranışı sergileyen web sayfasına, karışık içerikli sayfa denir.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -356,7 +360,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>Tarayıcı bilgisini<\/a> aldatmak için aşağıdaki dizilerden birini rastgele seçerek her",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>Kullanıcı Aracı<\/a> bilgisini aldatmak için aşağıdaki dizelerden birini rastgele seçerek her",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -364,7 +368,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation'a<\/i> göre<\/a>: &ldquo;[...] tarayıcınız web sitesine kullandığınız işletim sistemini ve tarayıcıyı bilgisini içeren &lsquo;Kullanıcı Aracı&rsquo; başlığı gönderir. Bu bilgi Internet kullanıcılarının birbirlerinden ayırt edilmesine yardımcı olabilir. [...] <b>Kullanıcı Aracı dizisi gerçek bir gizlilik problemine yol açar<\/b>.&rdquo;<p>Bu seçenek EFF tarafından dile getirilen gizlilik sorununu çözmenizi sağlar. <\/p><p>Kendi kullanıcı aracı dizisi listelerinizi sağlayabilirsiniz. Satır başına bir dizi. Boş satırlar ve &lsquo;#&rsquo; işareti ile başlayan satırlar yok sayılacaktır.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation'a<\/i> göre<\/a>: &ldquo;[...] tarayıcınız web sitesine kullandığınız işletim sistemini ve tarayıcıyı bilgisini içeren &lsquo;Kullanıcı Aracı&rsquo; başlığı gönderir. Bu bilgi Internet kullanıcılarının birbirlerinden ayırt edilmesine yardımcı olabilir. [...] <b>Kullanıcı Aracı dizesi gerçek bir gizlilik problemine yol açar<\/b>.&rdquo;<p>Bu seçenek EFF tarafından dile getirilen gizlilik sorununu çözmenizi sağlar. <\/p><p>Kendi kullanıcı aracı dizesi listelerinizi sağlayabilirsiniz. Satır başına bir dize. Boş satırlar ve &lsquo;#&rsquo; işareti ile başlayan satırlar yok sayılacaktır.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{

@@ -104,11 +104,15 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"HTTPS Estrito",
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Ocultação do User agent",
+    "description":""
+  },
+  "matrixSwitchReferrerSpoof":{
+    "message":"Referrer spoofing",
     "description":""
   },
   "statsPageTitle":{
@@ -340,7 +344,7 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"HTTPS Estrito: proibir conteúdo misto.",
     "description":""
   },
   "privacyNoMixedContentHelp":{

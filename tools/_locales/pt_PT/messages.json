@@ -12,19 +12,19 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Configurações",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Privacidade",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Estatísticas",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"As Minhas Regras",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -32,11 +32,11 @@
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Sobre",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"tudo",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
@@ -48,11 +48,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"imagem",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"plug-in",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -68,7 +68,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"outro",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -111,6 +111,10 @@
     "message":"User agent spoofing",
     "description":""
   },
+  "matrixSwitchReferrerSpoof":{
+    "message":"Referrer spoofing",
+    "description":""
+  },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Statistics",
     "description":""
@@ -148,7 +152,7 @@
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Tudo",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -156,27 +160,27 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Sinopse",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Pedidos",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Permitido",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Bloqueado",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Tudo",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Páginas",
     "description":""
   },
   "statsPageCookies":{
@@ -188,11 +192,11 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Imagens",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Plug-ins",
     "description":""
   },
   "statsPageScripts":{
@@ -320,11 +324,11 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Limpar a cache do navegador a cada",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"minutos.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -332,7 +336,7 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Remove third-party <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> information from requests to non-whitelisted hostnames.",
+    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
     "description":""
   },
   "privacyProcessRefererHelp":{
@@ -360,7 +364,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"minutos.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -376,15 +380,15 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Regras permanentes",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Regras temporárias",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Reverter",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
@@ -392,23 +396,23 @@
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Editar",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Guardar",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Ignorar",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Importar do ficheiro ...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Exportar para ficheiro ...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -432,7 +436,7 @@
     "description":""
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Aplicar alterações",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
@@ -440,7 +444,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Atualizar agora",
     "description":""
   },
   "hostsFilesPurgeAll":{
@@ -452,7 +456,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Analisar",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -460,11 +464,11 @@
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"disponível nova versão",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"desatualizado",
     "description":""
   },
   "aboutChangelog":{
@@ -492,15 +496,15 @@
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Colaboradores",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Código:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"Problemas:",
     "description":""
   },
   "aboutTranslationContributors":{

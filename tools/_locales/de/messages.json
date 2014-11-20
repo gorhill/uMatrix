@@ -104,11 +104,15 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Nur HTTPS",
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"User-Agent verschleiern",
+    "description":""
+  },
+  "matrixSwitchReferrerSpoof":{
+    "message":"Referrer-Spoofing",
     "description":""
   },
   "statsPageTitle":{
@@ -332,7 +336,7 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Entferne den <a href='https:\/\/de.wikipedia.org\/wiki\/Referrer'>HTTP Referrer<\/a> für Drittseiten, wenn der Hostname nicht auf der Whitelist steht.",
+    "message":"Verschleiere den <a href='https:\/\/de.wikipedia.org\/wiki\/Referrer'>HTTP Referrer<\/a>, wenn das Ziel eine Drittseite ist.",
     "description":""
   },
   "privacyProcessRefererHelp":{
@@ -340,11 +344,11 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Nur HTTPS: verbiete gemischte Inhalte.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>Übersetzt von <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Wenn [eine] HTTPS-Seite normale Klartext-HTTP-Inhalte enthält, ist die Verbindung nur teilweise verschlüsselt: der unverschlüsselte Inhalt ist zugänglich für Schnüffler und kann durch man-in-the-middle-Attacken modifiziert werden; die Verbindung ist daher nicht mehr sicher. Wenn eine Webseite ein solches Verhalten aufweist, nennt man dies eine Seite mit gemischten Inhalten. <\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
