@@ -350,7 +350,7 @@
         "description": ""
     },
     "privacyProcessRefererHelp" : {
-        "message": "<p>From Wikipedia: &ldquo;HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.</b>&rdquo;</p><p>If this setting is checked, <i>µMatrix</i> will remove the HTTP referer information if <b>both</b> of the following conditions are true:<ul style='padding-left:1em;list-style-type:disc;'><li>The domain name of the HTTP referer does not match the domain name of the URL of the request (that is, the referer is third-party to the web page);<li>The hostname of the request is not whitelisted.</ul></p>",
+        "message": "<p>From Wikipedia:</p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.</b></blockquote><p>If this setting is checked, <i>µMatrix</i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
         "description": ""
     },
     "privacyNoMixedContentPrompt" : {
