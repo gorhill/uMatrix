@@ -151,10 +151,10 @@ var navigatorSpoofer = " \
             return; \
         } \
         var realNavigator = navigator; \
-        var SpoofedNavigator = function(ua) { \
+        var SpoofedNavigator = function() { \
             this.navigator = navigator; \
         }; \
-        var spoofedNavigator = new SpoofedNavigator(spoofedUserAgent); \
+        var spoofedNavigator = new SpoofedNavigator(); \
         var makeFunction = function(n, k) { \
             n[k] = function() { \
                 return this.navigator[k].apply(this.navigator, arguments); }; \
@@ -170,7 +170,9 @@ var navigatorSpoofer = " \
         var pos = spoofedUserAgent.indexOf('/'); \
         spoofedNavigator.appName = pos < 0 ? '' : spoofedUserAgent.slice(0, pos); \
         spoofedNavigator.appVersion = pos < 0 ? spoofedUserAgent : spoofedUserAgent.slice(pos + 1); \
-        navigator = window.navigator = spoofedNavigator; \
+        /* console.log('umatrix 1: spoofedNavigator.userAgent = %s', spoofedNavigator.userAgent); */ \
+        window.navigator = navigator = spoofedNavigator; \
+        /* console.log('umatrix 2: navigator.userAgent = %s', navigator.userAgent); */ \
     } catch (e) { \
     } \
 })();";
@@ -203,6 +205,10 @@ var injectNavigatorSpoofer = function(spoofedUserAgent) {
     }
     catch (e) {
     }
+
+    // The port will never be used again at this point, disconnecting allows
+    // to browser to flush this script from memory.
+    messaging.stop();
 };
 
 var requestDetails = {
@@ -210,14 +216,6 @@ var requestDetails = {
     hostname: window.location.hostname
 };
 messaging.ask(requestDetails, injectNavigatorSpoofer);
-
-/******************************************************************************/
-/******************************************************************************/
-
-// The port will never be used again at this point, disconnecting allows
-// to browser to flush this script from memory.
-
-messaging.stop();
 
 /******************************************************************************/
 /******************************************************************************/
