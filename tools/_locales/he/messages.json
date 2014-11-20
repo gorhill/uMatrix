@@ -112,7 +112,7 @@
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"זיוף מפנה",
     "description":""
   },
   "statsPageTitle":{
@@ -336,11 +336,11 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"הסר את המידע על <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> צד שלישי מהבקשות לדומיינים שאינם ברשימה הלבנה.",
+    "message":"זייף את ה <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> של בקשות צד שלישי.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>מתוך ויקיפדיה: &ldquo;HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לחלל את הפרטיות, כמה דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע על המפנה.<\/b>&rdquo;<\/p><p>אם אפשרות זו מאופשרת, <i>µMatrix<\/i> ימחק את המידע של ה HTTP referer אם <b>שני<\/b> התנאים הבאים נכונים:<ul style='padding-left:1em;list-style-type:disc;'><li>שם הדומיין של ה HTTP referer לא תואם לדומיין של כתובת האינטרנט של הבקשה (כלומר, המפנה הוא צד שלישי לאתר האינטרנט);<li>הדומיין של הבקשה לא נמצא ברשימה הלבנה.<\/ul><\/p>",
+    "message":"<p>מתוך ויקיפדיה:<\/p><blockquote>HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לפגוע בפרטיות, מספר דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע של המפנה.<\/b><\/blockquote><p>אם אפשרות זו מאופשרת, <i>µMatrix<\/i> יזייף את המידע של ה HTTP referer אם שם הדומיין של ה HTTP referrer הוא צד שלישי לשם הדומיין של בקשת הרשת.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{

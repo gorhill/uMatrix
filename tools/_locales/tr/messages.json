@@ -340,7 +340,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Wikipedia'dan: &ldquo;HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b>&rdquo;<\/p><p>Bu ayar işaretliyse, <i>µMatrix<\/i> takip eden şartların <b>her ikisinin<\/b> doğru olması durumunda HTTP başvuran bilgisini kaldıracaktır: <ul style='padding-left:1em;list-style-type:disc;'><li>HTTP başvuran alan adı, isteğin URL alan adıyla eşleşmiyorsa (başvuran web sayfasına göre üçüncü taraftır)<li>İsteğin alan adı beyaz listede değilse<\/ul><\/p>",
+    "message":"<p>Wikipedia'dan:<\/p><blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote><p>Bu ayar işaretliyse, <i>µMatrix<\/i> HTTP başvuran bilgisinin alan adı istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{

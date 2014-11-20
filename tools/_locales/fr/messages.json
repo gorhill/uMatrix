@@ -108,11 +108,11 @@
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"Modification de l'Identification du navigateur",
+    "message":"Modifier l'Identification du navigateur",
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Modification du Référant HTTP",
+    "message":"Modifier le Référant HTTP",
     "description":""
   },
   "statsPageTitle":{
@@ -340,11 +340,11 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>D'après Wikipédia : &ldquo;Un référant est une information transmise à un serveur HTTP lorsqu'un visiteur suit un lien pour accéder à l'une de ses ressources, lui indiquant l'URL de la page où se situe ce lien qu'il a suivi [...] <b>Les référants peuvent poser des problèmes d'atteinte à la vie privée, puisque le webmestre peut connaître les pages que ses visiteurs ont consulté avant d'accéder aux siennes.<\/b>&rdquo;<\/p><p>Si ce paramètre est coché, <i>µMatrix<\/i> supprimera le référant HTTP lorsque les <b>deux<\/b> conditions suivantes sont vérifiées :<ul style='padding-left:1em;list-style-type:disc;'><li>Le nom de domaine du référant HTTP ne correspond pas à l'URL de la requête (c'est-à-dire que vous venez d'un site Web différent de celui que vous vous apprêtez à consulter);<li>Le nom d'hôte de la requête n'est pas sur liste blanche.<\/ul><\/p>",
+    "message":"<p>D'après Wikipédia :<\/p> <blockquote>Un référant HTTP est un champ dans l'entête HTTP, qui indique l'adresse de la page Web depuis laquelle on se connecte vers la ressource demandée[...] <b>Puisque les informations comprises dans un référant peuvent compromettre la vie privée, certains navigateurs Web permettent aux utilisateurs de désactiver l'envoi de ces données.<\/b><\/blockquote><p>Si ce paramètre est coché, <i>µMatrix<\/i> supprimera le référant HTTP si le nom de domaine du référant HTTP est différent du nom de domaine de la requête réseau (autrement dit, si vous venez d'un site différent de celui que vous visitez)<\/p>",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Trafic HTTPS uniquement : Interdire du contenu mixte",
+    "message":"Interdire du contenu mixte - Trafic HTTPS uniquement",
     "description":""
   },
   "privacyNoMixedContentHelp":{
