@@ -146,33 +146,18 @@ var messaging = (function(name){
 var navigatorSpoofer = " \
 ;(function() { \
     try { \
+        /* https://github.com/gorhill/uMatrix/issues/61#issuecomment-63814351 */ \
+        var navigator = window.navigator; \
         var spoofedUserAgent = {{ua-json}}; \
         if ( spoofedUserAgent === navigator.userAgent ) { \
             return; \
         } \
-        var realNavigator = navigator; \
-        var SpoofedNavigator = function() { \
-            this.navigator = navigator; \
-        }; \
-        var spoofedNavigator = new SpoofedNavigator(); \
-        var makeFunction = function(n, k) { \
-            n[k] = function() { \
-                return this.navigator[k].apply(this.navigator, arguments); }; \
-        }; \
-        for ( var k in realNavigator ) { \
-            if ( typeof realNavigator[k] === 'function' ) { \
-                makeFunction(spoofedNavigator, k); \
-            } else { \
-                spoofedNavigator[k] = realNavigator[k]; \
-            } \
-        } \
-        spoofedNavigator.userAgent = spoofedUserAgent; \
         var pos = spoofedUserAgent.indexOf('/'); \
-        spoofedNavigator.appName = pos < 0 ? '' : spoofedUserAgent.slice(0, pos); \
-        spoofedNavigator.appVersion = pos < 0 ? spoofedUserAgent : spoofedUserAgent.slice(pos + 1); \
-        /* console.log('umatrix 1: spoofedNavigator.userAgent = %s', spoofedNavigator.userAgent); */ \
-        window.navigator = navigator = spoofedNavigator; \
-        /* console.log('umatrix 2: navigator.userAgent = %s', navigator.userAgent); */ \
+        var appName = pos === -1 ? '' : spoofedUserAgent.slice(0, pos); \
+        var appVersion = pos === -1 ? spoofedUserAgent : spoofedUserAgent.slice(pos + 1); \
+        Object.defineProperty(navigator, 'userAgent', { get: function(){ return spoofedUserAgent; } }); \
+        Object.defineProperty(navigator, 'appName', { get: function(){ return appName; } }); \
+        Object.defineProperty(navigator, 'appVersion', { get: function(){ return appVersion; } }); \
     } catch (e) { \
     } \
 })();";
