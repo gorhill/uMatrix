@@ -144,22 +144,22 @@ var messaging = (function(name){
 //   https://github.com/gorhill/httpswitchboard/issues/252
 
 var navigatorSpoofer = " \
-;(function() { \
-    try { \
-        /* https://github.com/gorhill/uMatrix/issues/61#issuecomment-63814351 */ \
-        var navigator = window.navigator; \
-        var spoofedUserAgent = {{ua-json}}; \
-        if ( spoofedUserAgent === navigator.userAgent ) { \
-            return; \
-        } \
-        var pos = spoofedUserAgent.indexOf('/'); \
-        var appName = pos === -1 ? '' : spoofedUserAgent.slice(0, pos); \
-        var appVersion = pos === -1 ? spoofedUserAgent : spoofedUserAgent.slice(pos + 1); \
-        Object.defineProperty(navigator, 'userAgent', { get: function(){ return spoofedUserAgent; } }); \
-        Object.defineProperty(navigator, 'appName', { get: function(){ return appName; } }); \
-        Object.defineProperty(navigator, 'appVersion', { get: function(){ return appVersion; } }); \
-    } catch (e) { \
-    } \
+;(function() { \n \
+    try { \n \
+        /* https://github.com/gorhill/uMatrix/issues/61#issuecomment-63814351 */ \n \
+        var navigator = window.navigator; \n \
+        var spoofedUserAgent = {{ua-json}}; \n \
+        if ( spoofedUserAgent === navigator.userAgent ) { \n \
+            return; \n \
+        } \n \
+        var pos = spoofedUserAgent.indexOf('/'); \n \
+        var appName = pos === -1 ? '' : spoofedUserAgent.slice(0, pos); \n \
+        var appVersion = pos === -1 ? spoofedUserAgent : spoofedUserAgent.slice(pos + 1); \n \
+        Object.defineProperty(navigator, 'userAgent', { get: function(){ return spoofedUserAgent; } }); \n \
+        Object.defineProperty(navigator, 'appName', { get: function(){ return appName; } }); \n \
+        Object.defineProperty(navigator, 'appVersion', { get: function(){ return appVersion; } }); \n \
+    } catch (e) { \n \
+    } \n \
 })();";
 
 /******************************************************************************/
