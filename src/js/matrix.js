@@ -359,6 +359,12 @@ Matrix.prototype.evaluateCell = function(srcHostname, desHostname, type) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
+    // https://github.com/gorhill/uMatrix/issues/65
+    // Hardcoded `doc` rule
+    if ( srcHostname === '*' && desHostname === '*' && type === 'doc' ) {
+        return 2;
+    }
+
     var bitOffset = typeBitOffsets[type];
     var s = srcHostname;
     var v;
