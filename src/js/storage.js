@@ -91,12 +91,6 @@
     var onLoaded = function(bin) {
         if ( bin.hasOwnProperty('userMatrix') ) {
             µm.pMatrix.fromString(bin.userMatrix);
-            // Bring back the `doc` type, should not have removed it, it is
-            // quite useful.
-            // TODO: remove this before offical release, as everybody
-            // should have it in their rules at this point.
-            µm.pMatrix.setCell('*', '*', 'doc', µm.Matrix.Green);
-            µm.saveMatrix();
             µm.tMatrix.assign(µm.pMatrix);
             callback();
         }

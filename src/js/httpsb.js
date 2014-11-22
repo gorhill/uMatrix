@@ -32,7 +32,6 @@
     µm.pMatrix.setSwitch('matrix-off', µm.behindTheSceneScope, 1);
     µm.pMatrix.setSwitch('matrix-off', 'opera-scheme', 1);
     µm.pMatrix.setCell('*', '*', '*', µm.Matrix.Red);
-    µm.pMatrix.setCell('*', '*', 'doc', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'css', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'image', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'frame', µm.Matrix.Red);
