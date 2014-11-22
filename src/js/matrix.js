@@ -376,12 +376,15 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
             break;
         }
     }
+    // srcHostname is '*' at this point
+
     // Preset blacklisted hostnames are blacklisted in global scope
     if ( type === '*' && µm.ubiquitousBlacklist.test(desHostname) ) {
         return 1;
     }
+
     // https://github.com/gorhill/uMatrix/issues/65
-    // Hardcoded `doc` rule
+    // Hardcoded global `doc` rule
     if ( type === 'doc' && desHostname === '*' ) {
         return 2;
     }
