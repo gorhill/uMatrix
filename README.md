@@ -14,7 +14,7 @@ You may contribute with documentation: [µMatrix's wiki](https://github.com/gorh
 
 #### Do not remove the `doc` rule!
 
-This rule is key for µMatrix working well. This rule did exists in HTTP Switchboard, however it was hidden from view. With µMatrix I decided to just give more control. So you could delete the rule `* * doc allow`, but this will render µMatrix much more difficult to use. I advise you do not delete it from your ruleset. 
+This rule is key for µMatrix to work smoothly. This rule did exists in HTTP Switchboard, however it was hidden from view. With µMatrix I decided to just give more control. So you could delete the rule `* * doc allow`, but this will render µMatrix much more difficult to use. I advise you do not delete it from your ruleset.
 
 #### Regarding broken sites
 
