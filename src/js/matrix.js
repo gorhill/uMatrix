@@ -359,12 +359,6 @@ Matrix.prototype.evaluateCell = function(srcHostname, desHostname, type) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
-    // https://github.com/gorhill/uMatrix/issues/65
-    // Hardcoded `doc` rule
-    if ( srcHostname === '*' && desHostname === '*' && type === 'doc' ) {
-        return 2;
-    }
-
     var bitOffset = typeBitOffsets[type];
     var s = srcHostname;
     var v;
@@ -385,6 +379,11 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
     // Preset blacklisted hostnames are blacklisted in global scope
     if ( type === '*' && µm.ubiquitousBlacklist.test(desHostname) ) {
         return 1;
+    }
+    // https://github.com/gorhill/uMatrix/issues/65
+    // Hardcoded `doc` rule
+    if ( type === 'doc' && desHostname === '*' ) {
+        return 2;
     }
     return 0;
 };
