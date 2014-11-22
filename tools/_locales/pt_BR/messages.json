@@ -112,7 +112,7 @@
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Ocultar Referrer",
     "description":""
   },
   "statsPageTitle":{
@@ -348,7 +348,7 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>A partir de <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Se [uma] página HTTPS inclui conteúdo recuperado através de regular, HTTP texto puro, então a conexão é criptografada apenas parcialmente: o conteúdo não criptografado é acessível a sniffers e pode ser modificado por hackers intermediários, e, portanto, a conexão não é mais segura. Quando uma página da Web exibe este comportamento, ele é chamado de uma página de conteúdo misto.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>De acordo com <a href='https:\/\/www.google.com\/intl\/pt-BR\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>Chromium<\/i> pode enviar pedidos  HTTP para <i>Google<\/i> sem que o usuário esteja expressamente visitando uma página de web. Vamos chamar esses pedidos especiais de pedidos <strong>por trás da cena<\/strong>. Também, outras extensões instaladas no navegados podem enviar pedidos HTTP <strong>por trás da cena<\/strong>.<\/p><p><i>µMatrix<\/i> deixa você interceptar e cuidar desse pedidos como qualquer outro pedido: eles podem ser processados em ordem de permitir\/bloquear eles com sua lista branca\/negra.<\/p><p>Clique no ícone da extensão enquanto vendo esta página ao iniciar. Leitura requerida: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Pedidos por trás da cena<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Cuidado!<\/span> Bloqueando pedidos de rede <strong>por trás da cena<\/strong> é pontencialmente causador <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>de um problema<\/a> quando o usuário quiser instalar uma extensão da loja do Chrome (incluindo as atualizações de outras extensões), portanto, a capacidade de desativar o recurso aqui. O bloqueio também pode causar outras extensões instaladas não funcionem corretamente (aqueles consulta de dados remoto).<\/p><p>Mesmo que este recurso não está habilitado, os pedidos <strong>por trás da cena<\/strong> ainda são registradas pelo <i>µMatrix<\/i>. Você pode inspecionar estes pedidos na <a href='dashboard.html#statistics'>Página de <\/a>estatísticas.<\/p>",
+    "message":"<p>De acordo com <a href='https:\/\/www.google.com\/intl\/pt-BR\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>Chromium<\/i> pode enviar pedidos  HTTP para <i>Google<\/i> sem que o usuário esteja expressamente visitando uma página de web. Vamos chamar esses pedidos especiais de pedidos <strong>por trás da cena<\/strong>. Também, outras extensões instaladas no navegados podem enviar pedidos HTTP <strong>por trás da cena<\/strong>.<\/p><p><i>µMatrix<\/i> deixa você interceptar e cuidar desse pedidos como qualquer outro pedido: eles podem ser processados em ordem de permitir\/bloquear eles com sua lista branca\/negra.<\/p><p>Clique no ícone da extensão enquanto vendo esta página ao iniciar. Leitura requerida: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Pedidos por trás da cena<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Cuidado!<\/span> Bloqueando pedidos de rede <strong>por trás da cena<\/strong> é pontencialmente causador <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>de um problema<\/a> quando o usuário quiser instalar uma extensão da loja do Chrome (incluindo as atualizações de outras extensões), portanto, a capacidade de desativar o recurso aqui. O bloqueio também pode causar outras extensões instaladas não funcionem corretamente (aqueles consulta de dados remoto).<\/p><p>Mesmo que este recurso não está habilitado, os pedidos <strong>por trás da cena<\/strong> ainda são registradas pelo <i>µMatrix<\/i>. Você pode inspecionar estes pedidos nas <a href='dashboard.html#statistics'> estatísticas<\/a> da página.<\/p>",
     "description":""
   },
   "userRulesPermanentHeader":{

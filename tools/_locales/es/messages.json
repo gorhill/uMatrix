@@ -96,7 +96,7 @@
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"del dominio (1st-party)",
+    "message":"dominio actual",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
@@ -108,11 +108,11 @@
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Falsificar cadena User-Agent",
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Falsificar Referer",
     "description":""
   },
   "statsPageTitle":{
@@ -336,7 +336,7 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Eliminar información de los <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> de terceros de las peticiones a nombres de dominios no permitidos.",
+    "message":"Falsificar información de los <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> de terceros de las peticiones a nombres de dominios no permitidos.",
     "description":""
   },
   "privacyProcessRefererHelp":{
@@ -348,7 +348,7 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>Según <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Si [una] página HTTPS incluye contenido que se obtiene a través de HTTP regular, entonces la conexión está solo parcialmente encriptada: el contenido no encriptado puede ser leído mediante sniffers y modificado por ataques tipo \"man-in-the-middle\", lo que hace que la conexión ya no sea segura. Una página web que exhiba este comportamiento, se considera una página de contenido mixto.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -360,7 +360,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Falsificar cadena <a href='https:\/\/es.wikipedia.org\/wiki\/Agente_de_usuario'>User-Agent<\/a>, escogiendo una de estas al azar cada",
+    "message":"Falsificar cadena <a href='https:\/\/es.wikipedia.org\/wiki\/Agente_de_usuario'>User-Agent<\/a>, escogiendo una de éstas al azar cada",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
