@@ -12,10 +12,6 @@ You may contribute with documentation: [µMatrix's wiki](https://github.com/gorh
 
 ## Warnings
 
-#### Do not remove the `doc` rule!
-
-This rule is key for µMatrix to work smoothly. This rule did exists in HTTP Switchboard, however it was hidden from view. With µMatrix I decided to just give more control. So you could delete the rule `* * doc allow`, but this will render µMatrix much more difficult to use. I advise you do not delete it from your ruleset.
-
 #### Regarding broken sites
 
 µMatrix does not guarantee that sites will work fine: it is for advanced users who can figure how to un-break sites, because essentially µMatrix is a firewall which works in block-all/allow-exceptionally mode out of the box: it is not unexpected that sites will break.
