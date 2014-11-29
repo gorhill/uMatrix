@@ -202,7 +202,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     if ( tabId < 0 ) {
         tabId = µm.behindTheSceneTabId;
     }
-    // It's a root frame, bind to a new page stats store
+    // It's a root frame, bind to a new page store
     else {
         µm.bindTabToPageStats(tabId, details.url);
     }
@@ -255,20 +255,53 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
 /******************************************************************************/
 
-// Process a request.
-//
-// This can be called from the context of onBeforeSendRequest() or
-// onBeforeSendHeaders().
+// Intercept and filter web requests according to white and black lists.
 
-var processRequest = function(µm, details) {
-    var µmuri = µm.URI;
-    var requestURL = µmuri.set(details.url).normalizedURI();
+var onBeforeRequestHandler = function(details) {
+    var µm = µMatrix;
+    var µmuri = µm.URI.set(details.url);
+    var requestScheme = µmuri.scheme;
+
+    // rhill 2014-02-17: Ignore 'filesystem:': this can happen when listening
+    // to 'chrome-extension://'.
+    if ( requestScheme === 'filesystem' ) {
+        return;
+    }
+
+    // console.debug('onBeforeRequestHandler()> "%s": %o', details.url, details);
+
+    var requestType = requestTypeNormalizer[details.type];
+
+    // https://github.com/gorhill/httpswitchboard/issues/303
+    // Wherever the main doc comes from, create a receiver page URL: synthetize
+    // one if needed.
+    if ( requestType === 'doc' && details.parentFrameId < 0 ) {
+        return onBeforeRootFrameRequestHandler(details);
+    }
+
+    var requestURL = details.url;
+
+    // Is it µMatrix's noop css file?
+    if ( requestType === 'css' && requestURL.slice(0, µm.noopCSSURL.length) === µm.noopCSSURL ) {
+        return onBeforeChromeExtensionRequestHandler(details);
+    }
+
+    // Ignore non-http schemes
+    if ( requestScheme.indexOf('http') !== 0 ) {
+        return;
+    }
+
+    // Do not block myself from updating assets
+    // https://github.com/gorhill/httpswitchboard/issues/202
+    if ( requestType === 'xhr' && requestURL.slice(0, µm.projectServerRoot.length) === µm.projectServerRoot ) {
+        return;
+    }
+
     var requestHostname = µmuri.hostname;
 
     // rhill 2013-12-15:
     // Try to transpose generic `other` category into something more
     // meaningful.
-    var requestType = requestTypeNormalizer[details.type];
     if ( requestType === 'other' ) {
         requestType = µm.transposeType(requestType, µmuri.path);
     }
@@ -294,7 +327,7 @@ var processRequest = function(µm, details) {
     // processing has already been performed, and that a synthetic URL has
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
-    pageStore.recordRequest(requestType, details.µmRequestURL || requestURL, block);
+    pageStore.recordRequest(requestType, requestURL, block);
 
     // whitelisted?
     if ( !block ) {
@@ -323,64 +356,6 @@ var processRequest = function(µm, details) {
 
 /******************************************************************************/
 
-// Intercept and filter web requests according to white and black lists.
-
-var onBeforeRequestHandler = function(details) {
-    var µm = µMatrix;
-    var µmuri = µm.URI;
-    var requestURL = details.url;
-    var requestScheme = µmuri.schemeFromURI(requestURL);
-
-    // rhill 2014-02-17: Ignore 'filesystem:': this can happen when listening
-    // to 'chrome-extension://'.
-    if ( requestScheme === 'filesystem' ) {
-        return;
-    }
-
-    // console.debug('onBeforeRequestHandler()> "%s": %o', details.url, details);
-
-    var requestType = requestTypeNormalizer[details.type];
-    
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // Wherever the main doc comes from, create a receiver page URL: synthetize
-    // one if needed.
-    if ( requestType === 'doc' && details.parentFrameId < 0 ) {
-        return onBeforeRootFrameRequestHandler(details);
-    }
-
-    // Is it µMatrix's noop css file?
-    if ( requestType === 'css' && requestURL.slice(0, µm.noopCSSURL.length) === µm.noopCSSURL ) {
-        return onBeforeChromeExtensionRequestHandler(details);
-    }
-
-    // Ignore non-http schemes
-    if ( requestScheme.indexOf('http') !== 0 ) {
-        return;
-    }
-
-    // Do not block myself from updating assets
-    // https://github.com/gorhill/httpswitchboard/issues/202
-    if ( requestType === 'xhr' && requestURL.slice(0, µm.projectServerRoot.length) === µm.projectServerRoot ) {
-        return;
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/342
-    // If the request cannot be bound to a specific tab, delay request
-    // handling to onBeforeSendHeaders(), maybe there the referrer
-    // information will allow us to properly bind the request to the tab
-    // from which it originates.
-    // Important: since it is not possible to redirect requests at
-    // onBeforeSendHeaders() point, we can't delay when the request type is
-    // `sub_frame`.
-    if ( requestType !== 'frame' && details.tabId < 0 ) {
-        return;
-    }
-
-    return processRequest(µm, details);
-};
-
-/******************************************************************************/
-
 // This is where tabless requests are processed, as here there may be a chance
 // we can bind a request to a specific tab, as headers may contain useful
 // information to accomplish this.
@@ -390,61 +365,8 @@ var onBeforeRequestHandler = function(details) {
 var onBeforeSendHeadersHandler = function(details) {
 
     var µm = µMatrix;
-    var requestURL = details.url;
 
     // console.debug('onBeforeSendHeadersHandler()> "%s": %o', details.url, details);
-
-    // Do not block myself from updating assets
-    // https://github.com/gorhill/httpswitchboard/issues/202
-    var requestType = requestTypeNormalizer[details.type];
-    if ( requestType === 'xhr' && requestURL.slice(0, µm.projectServerRoot.length) === µm.projectServerRoot ) {
-        return;
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/342
-    // Is this hyperlink auditing?
-    // If yes, create a synthetic URL for reporting hyperlink auditing
-    // record requests. This way the user is better informed of what went
-    // on.
-    var linkAuditor = hyperlinkAuditorFromHeaders(details.requestHeaders);
-    if ( linkAuditor ) {
-        details.µmRequestURL = requestURL + '{Ping-To:' + linkAuditor + '}';
-    }
-
-    // If we are dealing with a behind-the-scene request, make a last attempt
-    // to bind the request to a specific tab by using the referrer or the
-    // `Ping-From` header if any of these exists.
-    var r;
-    if ( details.tabId < 0 ) {
-        details.tabId = tabIdFromHeaders(µm, details.requestHeaders) || -1;
-        // Do not process `main_frame`/`sub_frame` requests, these were handled
-        // unconditionally at onBeforeRequest() time (because of potential
-        // need to redirect).
-        if ( requestType !== 'doc' && requestType !== 'frame' ) {
-            r = processRequest(µm, details);
-        }
-    }
-
-    // If the request was not cancelled above, check whether hyperlink auditing
-    // is globally forbidden.
-    if ( !r ) {
-        if ( linkAuditor && µm.userSettings.processHyperlinkAuditing ) {
-            r = { 'cancel': true };
-        }
-    }
-
-    // Block request?
-    if ( r ) {
-        // Count number of hyperlink auditing foiled, even attempts blocked
-        // through the matrix.
-        if ( linkAuditor ) {
-            µm.hyperlinkAuditingFoiledCounter += 1;
-        }
-        return r;
-    }
-
-    // If we reach this point, request is not blocked, so what is left to do
-    // is to sanitize headers.
 
     // Re-classify orphan HTTP requests as behind-the-scene requests. There is
     // not much else which can be done, because there are URLs
@@ -459,6 +381,28 @@ var onBeforeSendHeadersHandler = function(details) {
         tabId = µm.behindTheSceneTabId;
         pageStore = µm.pageStatsFromTabId(tabId);
     }
+
+    // https://github.com/gorhill/httpswitchboard/issues/342
+    // Is this hyperlink auditing?
+    // If yes, create a synthetic URL for reporting hyperlink auditing
+    // in request log. This way the user is better informed of what went
+    // on.
+    var requestURL = details.url;
+    var requestType = requestTypeNormalizer[details.type];
+    if ( requestType === 'other' ) {
+        var linkAuditor = hyperlinkAuditorFromHeaders(details.requestHeaders);
+        if ( linkAuditor ) {
+            var block = µm.userSettings.processHyperlinkAuditing;
+            pageStore.recordRequest('other', requestURL + '{Ping-To:' + linkAuditor + '}', block);
+            if ( block ) {
+                µm.hyperlinkAuditingFoiledCounter += 1;
+                return { 'cancel': true };
+            }
+        }
+    }
+
+    // If we reach this point, request is not blocked, so what is left to do
+    // is to sanitize headers.
 
     var reqHostname = µm.hostnameFromURL(requestURL);
     var changed = false;
@@ -710,7 +654,7 @@ var onMainDocHeadersReceived = function(details) {
 
     // Enforce strict HTTPS?
     if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', pageStats.pageHostname) ) {
-        csp += "default-src https: data: 'unsafe-inline' 'unsafe-eval'";
+        csp += "default-src https: data: chrome-search: 'unsafe-inline' 'unsafe-eval'";
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181
