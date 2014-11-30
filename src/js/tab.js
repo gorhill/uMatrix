@@ -96,25 +96,29 @@
     // Normalize to a page-URL.
     pageURL = this.normalizePageURL(pageURL);
 
-    // The page URL, if any, currently associated with the tab
-    var previousPageURL = this.tabIdToPageUrl[tabId];
-    if ( previousPageURL === pageURL ) {
-        return this.pageStats[pageURL];
-    }
+    // The previous page URL, if any, associated with the tab
+    if ( this.tabIdToPageUrl.hasOwnProperty(tabId) ) {
+        var previousPageURL = this.tabIdToPageUrl[tabId];
+        if ( previousPageURL === pageURL ) {
+            return this.pageStats[pageURL];
+        }
 
-    // https://github.com/gorhill/uMatrix/issues/37
-    // Just rebind: the URL changed, but the document itself is the same.
-    // Example: Google Maps, Github
-    var pageStore;
-    if ( context === 'pageUpdated' && this.pageStats.hasOwnProperty(previousPageURL) ) {
-        pageStore = this.pageStats[previousPageURL];
-        pageStore.pageUrl = pageURL;
-        delete this.pageStats[previousPageURL];
-        this.pageStats[pageURL] = pageStore;
-        delete this.pageUrlToTabId[previousPageURL];
-        this.pageUrlToTabId[pageURL] = tabId;
-        this.tabIdToPageUrl[tabId] = pageURL;
-        return pageStore;
+        // https://github.com/gorhill/uMatrix/issues/37
+        // Just rebind whenever possible: the URL changed, but the document maybe is the same.
+        // Example: Google Maps, Github
+
+        // https://github.com/gorhill/uMatrix/issues/72
+        // Need to double-check that the new scope is same as old scope
+        var pageStore = this.pageStats[previousPageURL];
+        if ( context === 'pageUpdated' && pageStore.pageHostname === this.hostnameFromURL(pageURL) ) {
+            pageStore.pageUrl = pageURL;
+            delete this.pageStats[previousPageURL];
+            this.pageStats[pageURL] = pageStore;
+            delete this.pageUrlToTabId[previousPageURL];
+            this.pageUrlToTabId[pageURL] = tabId;
+            this.tabIdToPageUrl[tabId] = pageURL;
+            return pageStore;
+        }
     }
 
     pageStore = this.createPageStore(pageURL, context);
