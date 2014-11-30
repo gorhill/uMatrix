@@ -92,6 +92,8 @@
         return null;
     }
 
+    var pageStore;
+
     // https://github.com/gorhill/httpswitchboard/issues/303
     // Normalize to a page-URL.
     pageURL = this.normalizePageURL(pageURL);
@@ -99,6 +101,8 @@
     // The previous page URL, if any, associated with the tab
     if ( this.tabIdToPageUrl.hasOwnProperty(tabId) ) {
         var previousPageURL = this.tabIdToPageUrl[tabId];
+
+        // No change, do not rebind
         if ( previousPageURL === pageURL ) {
             return this.pageStats[pageURL];
         }
@@ -109,15 +113,17 @@
 
         // https://github.com/gorhill/uMatrix/issues/72
         // Need to double-check that the new scope is same as old scope
-        var pageStore = this.pageStats[previousPageURL];
-        if ( context === 'pageUpdated' && pageStore.pageHostname === this.hostnameFromURL(pageURL) ) {
-            pageStore.pageUrl = pageURL;
-            delete this.pageStats[previousPageURL];
-            this.pageStats[pageURL] = pageStore;
-            delete this.pageUrlToTabId[previousPageURL];
-            this.pageUrlToTabId[pageURL] = tabId;
-            this.tabIdToPageUrl[tabId] = pageURL;
-            return pageStore;
+        if ( context === 'pageUpdated' ) {
+            pageStore = this.pageStats[previousPageURL];
+            if ( pageStore.pageHostname === this.hostnameFromURL(pageURL) ) {
+                pageStore.pageUrl = pageURL;
+                delete this.pageStats[previousPageURL];
+                this.pageStats[pageURL] = pageStore;
+                delete this.pageUrlToTabId[previousPageURL];
+                this.pageUrlToTabId[pageURL] = tabId;
+                this.tabIdToPageUrl[tabId] = pageURL;
+                return pageStore;
+            }
         }
     }
 
