@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Lösche den Inhalt des <a href='http:\/\/de.wikipedia.org\/wiki\/Web_Storage'>Local Storage<\/a> von blockierten Hostnamen\"",
+    "message":"Lösche den Inhalt des <a href='http:\/\/de.wikipedia.org\/wiki\/Web_Storage'>Local Storage<\/a> von blockierten Hostnamen",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -340,7 +340,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Aus Wikipedia: &ldquo;Ein Referrer ist die Internetadresse der Webseite, von der der Benutzer durch Anklicken eines Links zu der aktuellen Seite gekommen ist. ... <b>(Die Übertragung eines Referrers zu verhindern) ...ist unter anderem aus Datenschutzerwägungen interessant, da andernfalls die Möglichkeit besteht, die Referrer mit den Nutzer-IP-Adressen in Verbindung zu bringen.<\/b>&rdquo;<\/p><p>Wenn dieser Schalter aktiviert ist, wird <i>µMatrix<\/i> den HTTP Referrer entfernen, wenn <b>beide<\/b> folgenden Bedingungen erfüllt sind:<ul style='padding-left:1em;list-style-type:disc;'><li>Der Domänenname des HTTP Referrer stimmt nicht mit dem Domänenname der anfragenden URL überein (das heißt, der Referrer stammt von einer Drittseite);<li>Der anfragende Hostname ist nicht auf der Whitelist.<\/ul><\/p>",
+    "message":"<p>Aus Wikipedia:<\/p><blockquote>Ein Referrer ist die Internetadresse der Webseite, von der der Benutzer durch Anklicken eines Links zu der aktuellen Seite gekommen ist. ... <b>(Die Übertragung eines Referrers zu verhindern) ...ist unter anderem aus Datenschutzerwägungen interessant, da andernfalls die Möglichkeit besteht, die Referrer mit den Nutzer-IP-Adressen in Verbindung zu bringen.<\/b><\/blockquote><p>Wenn dieser Schalter aktiviert ist, wird <i>µMatrix<\/i> den HTTP Referrer verschleiern bzw. manipulieren, wenn der Domänenname des HTTP Referrer nicht mit dem Domänenname der anfragenden URL überein stimmt (das heißt, der Referrer stammt von einer Drittseite).",
     "description":""
   },
   "privacyNoMixedContentPrompt":{

@@ -1,36 +1,36 @@
-µMatrix: A point-and-click matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+uMatrix: un firewall a matrice del tipo punta e clicca, con molte funzionalità a salvaguardia della privacy. Per utenti avanzati.
 
-µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
+uMatrix permette il pieno controllo delle connessioni del browser, del tipo di dati che può scaricare e di cosa può eseguire. Nessun'altro decide per te: Tu scegli. Solo tu hai il controllo completo della tua privacy.
 
-Out of the box, µMatrix works in relax block-all/allow-exceptionally mode, meaning web sites which require 3rd-party scripts are likely to be "broken". With two clicks, µMatrix can be set to work in allow-all/block-exceptionally mode, which generally will not break web sites. See https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
+In configurazione standard, uMatrix funziona in modalità blocca-tutto/permetti-eccezionalmente, vale a dire che i siti che richiedono script di terze parti, facilmente risulteranno incompleti o con errori. Con solo un paio di click, uMatrix può essere configurato in modalità permetti-tutto/blocca-eccezionalmente, che generalmente non causa problemi nel caricamento dei siti. Vedere https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views per ulteriori dettagli.
 
-Regarding the myth that "Chromium-based browsers can't reliably block javascript", see: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Summary: Yes, javascript can be blocked reliably in Chromium.
+Riguardo il mito che i browser basati su Chromium non possano bloccare efficacemente javascript, vedere: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. In sostanza: Si, javascript può essere efficacemente bloccato in Chromium.
 
-* See ALL the remote connections, failed or attempted, depending on whether they were blocked or allowed (you decide).
+*Vedi TUTTE le connessioni remote, se fallite o tentate, dipendendo se siano bloccate o permesse (tu decidi).
 
-* A single-click to whitelist/blacklist one or multiple classes of requests according to the destination and type of data (a blocked request will NEVER leave your browser).
+* Un singolo click per permettere/bloccare una o più categorie di richieste, in funzione della destinazione e del tipo di dati (una richiesta bloccata non lascerà MAI il tuo browser).
 
-* Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
+* Controllo efficiente: i cookies non lasceranno il tuo browser, javascript non verrà eseguito, i plug-in non verranno attivati, pixel di tracking non saranno scaricati, ecc.
 
-* You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
+* Tu non devi unicamente affidarti ad una singola lista nera (presumibilmente con molte voci mancanti) al di fuori della quale niente altro può essere bloccato: Tu hai il pieno controllo.
 
-* Ease of use: µMatrix lets you easily whitelist/blacklist net requests which originate from within a web page according to a point-and-click matrix:
+* Semplicità d'uso: uMatrix consente di permettere/bloccare le richieste originate da una pagina web secondo uno schema a matrice, punta e clicca:
 
-- domain names (left column)
-  * from very specific
-  * to very generic
+- nome del dominio (colonna di sinistra)
+  * dal molto specifico
+  * al molto generico
 
-- type of requests (top row)
+- tipo di richiesta (riga in alto)
   * cookies
-  * CSS-related resources (stylesheets and web fonts)
-  * images
+  * risorse tipo CSS (stili e caratteri)
+  * immagini
   * plugins
   * scripts
-  * XHR (requests made by scripts)
-  * frames
-  * others
+  * XHR (richieste fatte dagli script)
+  * riquadri
+  * altro
 
-You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
+Tu puoi permettere/bloccare una singola cella, una intera riga, un gruppo di righe, una intera colonna o l'intera matrice, con solo un click.
 
 µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
 

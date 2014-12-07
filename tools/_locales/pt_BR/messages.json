@@ -220,11 +220,11 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Lembrar do último",
+    "message":"Lembrar dos últimos",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"Pedidos HTTP<b>por página<\/b>.",
+    "message":"pedidos HTTP <b>por página<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: solicitações de por trás das cenas",
+    "message":"Chromium: pedidos por trás das cenas",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{

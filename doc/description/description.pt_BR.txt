@@ -74,13 +74,13 @@ O número que aparece no ícone da extensão corresponde ao número total de ped
 
 Simples clique para apropriar uma entrada na matrix nas cores branca-,preta- ou cinza de um componente. Cinza significa que o status de permitido ou bloqueado irá ser herdado de uma outra célula de maior precedência na matrix.
 
-Quadrado vermelho = efetivamente na lista negra, i.e. pedidos são prevenidos de alcançar o destino pretendido:
+Quadrado vermelho = efetivamente na lista negra, exemplo: pedidos são prevenidos de alcançar o destino pretendido:
 * Quadrado vermelho escuro: o nome do domínio e/ou tipo de pedido está especificamente na lista negra.
 * Quadrado vermelho claro: o status de lista negra é herdada porque a entrada é cinza.
 
 Quadrado verde = efetivamente na lista branca, i.e. os pedidos são permitidos de alcançar o destino pretendido:
 * Quadrado verde escuro: o nome do domínio e/ou tipos de pedido são especificamente da lista branca.
-* Quadrado verde claro: o status da lista branca é herdade por causa de uma entrada cinza.
+* Quadrado verde claro: o status da lista branca é herdada por causa de uma entrada cinza.
 
 A célula superior esquerda na matrix, a célula "tudo/todos", representa a configuração padrão global, que permite que você escolha entre permitir ou bloquear tudo como comportamento padrão. Alguns preferem permitir tudo e bloquear excepcionalmente. Minha preferência pessoa é claro que é o oposto, bloquear tudo e permitir excepcionalmente.
 
