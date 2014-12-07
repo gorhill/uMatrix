@@ -34,7 +34,7 @@
 /******************************************************************************/
 
 µMatrix.saveUserSettings = function() {
-    chrome.storage.local.set(
+    this.XAL.keyvalSetMany(
         this.userSettings,
         this.getBytesInUse.bind(this)
     );
@@ -420,6 +420,8 @@
         delete µm.userSettings.processReferer;
         delete µm.userSettings.spoofUserAgent;
         µm.saveUserSettings();
+        µm.XAL.keyvalRemoveOne('processReferer');
+        µm.XAL.keyvalRemoveOne('spoofUserAgent');
     };
 
     var onSettingsReady = function(settings) {

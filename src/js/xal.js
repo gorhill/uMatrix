@@ -80,6 +80,12 @@ exports.keyvalSetMany = function(dict, callback) {
 
 /******************************************************************************/
 
+exports.keyvalRemoveOne = function(key, callback) {
+    chrome.storage.local.remove(key, callback || noopFunc);
+};
+
+/******************************************************************************/
+
 exports.keyvalRemoveAll = function(callback) {
     chrome.storage.local.clear(callback || noopFunc);
 };
