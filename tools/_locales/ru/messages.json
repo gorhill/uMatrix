@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"Интерактивный блокировщик любых типов запросов браузера. Управляет запретом скриптов, окон IFRAME, плагинов, рекламы и т. д.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -24,15 +24,15 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"Мои правила",
+    "message":"Правила",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Файлы хостов",
+    "message":"Сайты",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"О программе",
+    "message":"О расширении",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
@@ -40,7 +40,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"куки",
+    "message":"cookie",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,15 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"изображение",
+    "message":"image",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"плагин",
+    "message":"plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"скрипт",
+    "message":"script",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,55 +64,55 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"фрейм",
+    "message":"frame",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"другое",
+    "message":"other",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"Сетевой трафик для данной папки до сих пор не замечен.",
+    "message":"Нет сетевой активности.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.\nRequests blocked through matrix filtering on this page: {{count}}.",
+    "message":"Вкл\/выкл правил области\nОтклонённые запросы: {{count}}",
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
-    "message":"Сохранить все временные изменения в этой области.",
+    "message":"Утвердить новые правила области",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Удалить временные изменения для этой области.",
+    "message":"Отменить новые правила области",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Удалить все временные изменения.",
+    "message":"Отменить все новые правила",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
-    "message":"Перезагрузить страницу.",
+    "message":"Обновить текущую страницу",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"Первичный",
+    "message":"текущий сайт",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} хостов в черном списке",
+    "message":"запрещённые сайты: {{count}}",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Только HTTPS",
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Подмена user agent",
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Подмена referrer",
     "description":""
   },
   "statsPageTitle":{
@@ -124,31 +124,31 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"Обработано заголовков <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a>: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers foiled: {{count}}",
+    "message":"Обработано заголовков <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a>: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Попыток <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудита гиперссылок<\/a> пресечено: {{count}}",
+    "message":"Обработано попыток <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>проверки гиперссылок<\/a>: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Локальных куков удалено: {{count}}",
+    "message":"Удалено файлов cookie: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Локальных хранилищ<\/a> очищено: {{count}}",
+    "message":"Удалено <a href='http:\/\/diveintohtml5.info\/storage.html'>локальных хранилищ<\/a>: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Очищено кэшей браузера: {{count}}",
+    "message":"Кэш браузера очищен {{count}} раз(а)",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Детальная статистика",
+    "message":"Подробная статистика",
     "description":""
   },
   "statsPageDetailedAllPages":{
@@ -156,7 +156,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: За сценой",
+    "message":"Chromium: скрытые запросы",
     "description":""
   },
   "statsPageOverview":{
@@ -168,23 +168,23 @@
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Разрешено",
+    "message":"Принято",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Блокировано",
+    "message":"Отклонено",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"Все",
+    "message":"Всего",
     "description":""
   },
   "statsPagePages":{
-    "message":"Страницы",
+    "message":"Веб-страницы",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Куки",
+    "message":"Файлы cookie",
     "description":""
   },
   "statsPageCSS":{
@@ -196,7 +196,7 @@
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Расширения",
+    "message":"Плагины",
     "description":""
   },
   "statsPageScripts":{
@@ -204,7 +204,7 @@
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR",
     "description":""
   },
   "statsPageFrames":{
@@ -212,23 +212,23 @@
     "description":""
   },
   "statsPageOthers":{
-    "message":"Другое",
+    "message":"Прочее",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Лог запросов",
+    "message":"Список запросов",
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Запомнить последнее",
+    "message":"Выводить",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP запросов <b>на страницу<\/b>.",
+    "message":"записей <b>на страницу<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>µMatrix<\/i>).<\/p>",
+    "message":"<p>Можно узнать подробности последних HTTP-запросов сделанных веб-страницей (смотри ниже).<\/p><p>Продвинутые пользователи имеют возможность изучить действия веб-страниц. Однако, ведение списка запросов увеличивает количество потребляемой памяти. Если техническая информация не востребована, то эту возможность следует отключить.<\/p><p>В этом поле указывается количество последних запросов для дальнейшего изучения.<\/p><p>Значение &ldquo;<code>0<\/code>&rdquo; отключает ведение списка запросов и, как следствие, уменьшает количество потребляемой памяти.<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -240,23 +240,23 @@
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Внешний вид",
+    "message":"Оформление",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Размер текста:",
+    "message":"Размер шрифта:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Нормальный",
+    "message":"Средний",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Большой",
+    "message":"Крупный",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Контрастная цветовая схема",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -264,31 +264,31 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Когда матрица закрыта, быстро обновить эти вкладки:",
+    "message":"Обновлять вкладки после закрытия панели:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"(Пусто)",
+    "message":"ни одной",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Текущий",
+    "message":"текущую",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"Все",
+    "message":"все",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>µMatrix<\/i> will reload affected pages automatically when you close the matrix.",
+    "message":"Если внесённые изменения влияют на отображение и\/или поведение одной или более веб-страниц, то автоматически обновить их после закрытия панели.",
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Блокированные фреймы:&ensp;Цвет",
+    "message":"Запрещённые фреймы:&ensp;Цвет",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Непрозрачность",
+    "message":"Затенение",
     "description":"English: Opacity"
   },
   "privacyPageTitle":{
@@ -296,31 +296,31 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Удалить заблокированные куки.",
+    "message":"Удалять запрещённые файлы cookie.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>µMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>µMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>µMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p>Все файлы cookie сохраняются в браузере. Но запрещённые файлы cookie никогда не покидают его, вот что действительно важно. Сохранение файлов cookie даёт возможность узнать о том, что сайт пытался их использовать и в дальнейшем это позволяет исследовать их содержимое.<\/p><p>Запрещённые файлы cookie могут быть удалены сразу при обнаружении.<\/p><p><b>Важное замечание:<\/b> некоторые расширения посылают веб-запросы. Результатом этих запросов может стать сохранение файлов cookie. Если эта опция включена и сайт, который использует файлы cookie, запрещён, то файлы cookie с этого сайта будут удалены. Следует убедиться, что все сайты, к которым обращается расширение, разрешены.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Удалить куки незаблокированной сессии ",
+    "message":"Удалять сеансовые файлы cookie через",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" минут после последнего использования.",
+    "message":"минут после последнего использования.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> when using a Chromium-based browser. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Сеансовые файлы cookie [...] удаляются по окончании сеанса браузера. Сеансовые файлы cookie находятся во временной памяти и не сохраняются после закрытия браузера.&rdquo;<\/p><p>Однако, при использовании браузера основанного на Chromium этого <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>может не произойти<\/a>. К тому же, удаление сеансовых файлов cookie может потребоваться и до закрытия браузера.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+    "message":"Удалять содержимое <a href='https:\/\/ru.wikipedia.org\/wiki\/Web_storage'>локального хранилища<\/a> заблокированных сайтов.",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"СДЕЛАТЬ",
+    "message":"Список заданий",
     "description":""
   },
   "privacyClearCachePrompt1":{
@@ -332,35 +332,35 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>µMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые предпринятые меры по защите от отслеживания.<\/p><p>Часть из них использует<sup style='font-size:smaller'>[1, 2]<\/sup> <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэш браузера<\/a>, содержимое которого зачастую неизменно по причине того, что пользователи очищают его нерегулярно.<\/p><p>Регулярная очистка кэша браузера нейтрализует усилия подобных сайтов и скорее всего вы не будете обращать на неё внимание.<\/p><p>Включение этой опции заставит <i>µMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+    "message":"Подменять строку <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> в запросах к сторонним источникам.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>From Wikipedia:<\/p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote><p>If this setting is checked, <i>µMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+    "message":"<p>Материал из Википедии:<\/p><blockquote>HTTP referer — это запись заголовка HTTP содержащая адрес текущей веб-страницы. [...] <b>Так как эта информация может нарушать секретность, некоторые браузеры позволяют запрещать её передачу.<\/b><\/blockquote><p>При включении этой опции <i>µMatrix<\/i> будет подменять HTTP referrer, если сайт, указанный в HTTP referrer, является сторонним по отношению к сайту запрашиваемого ресурса.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Только HTTPS: запрещать смешанное содержимое.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>Материал из <a href='https:\/\/developer.mozilla.org\/ru-RU\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Если страница, переданная по HTTPS, содержит контент, передаваемый по обычному, открытому HTTP, соединение считается частично зашифрованным: то, что передаётся по HTTP, можно перехватить и изменить, вследствие чего соединение уже не считается защищённым. Такие страницы называются <em>страницами со смешанным содержимым<\/em>.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Блокировать все попытки <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудита гиперссылок<\/a>.",
+    "message":"Отключение отсылки запросов для <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>проверки гиперссылок<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+    "message":"<p>Проверка гиперссылок - это механизм, позволяющий <b>любой стороне<\/b> собирать информацию о том, какую ссылку выбрал пользователь на определённой веб-странице. Единственное назначение - отслеживание ваших действий.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Подделать строку <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> путем случайного выбора каждые",
+    "message":"Менять строку <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a> каждые",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -368,15 +368,15 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
+    "message":"Согласно <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] браузер посылает веб-сайту заголовок &lsquo;User Agent&rsquo;, в котором содержится точная информация об операционной системе и веб-браузере. Эта информация позволяет отличать пользователей друг от друга потому, что их версии различаются, часто существенно, от пользователя к пользователю. [...] <b>Строка User Agent становится настоящей проблемой<\/b>.&rdquo;<p>Включение этой опции подменяет строку user agent на случайно выбранную строку из списка через заданный интервал времени.<\/p><p>Вы можете составить собственный список user agent. Одна запись на строку. Пустые строки и начинающиеся с &lsquo;#&rsquo; будут проигнорированы.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: позасценарные запросы",
+    "message":"Chromium: скрытые запросы",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>According to <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>Chromium<\/i> might send HTTP requests to <i>Google<\/i> without the user expressly visiting a web page. Let's call these special requests <strong>behind-the-scene<\/strong> requests. Also, other installed browser extensions can send <strong>behind-the-scene<\/strong> HTTP requests.<\/p><p><i>µMatrix<\/i> lets you intercept and treat these requests like any other request: they can be processed in order to allow\/block them as per your whitelist\/blacklist.<\/p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Beware!<\/span> Blocking <strong>behind-the-scene<\/strong> net requests is potentially causing <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>an issue<\/a> when the user wants to install an extension from the Chrome store (including maybe preventing extensions from being updated), hence the ability to disable the feature here. Blocking can also cause other installed extensions to not work properly (those querying for remote data).<\/p><p>Even if this feature is not enabled, <strong>behind-the-scene<\/strong> requests are still logged by <i>µMatrix<\/i>. You can inspect these requests on the <a href='dashboard.html#statistics'>Statistics<\/a> page.<\/p>",
+    "message":"<p>Согласно документу <a href='https:\/\/www.google.com\/intl\/ru\/chrome\/browser\/privacy\/whitepaper.html'>&lsquo;Политика конфиденциальности Google Chrome&rsquo;<\/a>, <i>Chromium<\/i> может самостоятельно отсылать запросы HTTP в <i>Google<\/i> без явного открытия веб-страниц пользователем. Обозначим эти запросы как <strong>скрытые<\/strong>. Установленные расширение тоже могут посылать <strong>скрытые<\/strong> запросы HTTP.<\/p><p><i>µMatrix<\/i> позволяет перехватывать и обрабатывать такие запросы как и любые другие: их можно принимать или отклонять в соответствии с правилами.<\/p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Внимание!<\/span> Запрет <strong>скрытых<\/strong> сетевых запросов может привести к <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>ошибке<\/a> при установке и обновлении расширений из Интернет-магазина Chrome, hence the ability to disable the feature here. Установленные расширения могут перестать правильно работать (those querying for remote data).<\/p><p>Даже если эта функция не включена, <strong>скрытые<\/strong> запросы всё равно записываются. Вы можете увидеть эти запросы на странице <a href='dashboard.html#statistics'>статистики<\/a>.<\/p>",
     "description":""
   },
   "userRulesPermanentHeader":{
@@ -388,11 +388,11 @@
     "description":""
   },
   "userRulesRevert":{
-    "message":"Сброс",
+    "message":"Вернуть",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Совершить",
+    "message":"Утвердить",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
@@ -412,7 +412,7 @@
     "description":""
   },
   "userRulesExport":{
-    "message":"Экспорт в файл...",
+    "message":"Сохранить как...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -424,15 +424,15 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+    "message":"Каждый список содержит перечень запрещённых сайтов глобальной области.",
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} различных блокированных хостов из:",
+    "message":"{{blockedHostnameCount}} записей запрещённых сайтов, в том числе:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} использовано из {{total}}",
+    "message":"{{used}} из {{total}}",
     "description":""
   },
   "hostsFilesApplyChanges":{
@@ -440,7 +440,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Автообновление файлов хостов.",
+    "message":"Автообновление списков сайтов.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -452,7 +452,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"Один URL на каждую строку. Строки, начинающиеся символом &lsquo;#&rsquo; будут пропущены. URLы с опечатками или ошибками будут так же пропущены без уведомлений об ошибке.",
+    "message":"Один URL на строку. Битые ссылки и комментарии будут пропущены. Комментарии начинаются с &lsquo;#&rsquo;.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
@@ -464,15 +464,15 @@
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"доступна новая версия",
+    "message":"доступно обновление",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"устаревший",
+    "message":"устарел",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Лог изменений<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Список изменений<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
@@ -480,7 +480,7 @@
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документация<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Вики<\/a>",
     "description":""
   },
   "aboutPermissions":{
@@ -496,7 +496,7 @@
     "description":""
   },
   "aboutContributors":{
-    "message":"Имена разработчиков",
+    "message":"Участники",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
@@ -504,11 +504,11 @@
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Вопросы:",
+    "message":"Проблемы:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"﻿Переводы:",
+    "message":"Локализация:",
     "description":""
   },
   "aboutUserDataHeader":{
@@ -516,7 +516,7 @@
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Резервировать в файл...",
+    "message":"Сохранить как...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -524,11 +524,11 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Восстановить из файла...",
+    "message":"Загрузить из файла...",
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"All your settings will be overwritten using data backed up on {{time}}, and µMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+    "message":"Возврат настроек к состоянию на {{time}}.\n\nВы согласны?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -540,7 +540,7 @@
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Сброс до настроек по умолчанию",
+    "message":"Сброс настроек",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
@@ -548,15 +548,15 @@
     "description":"Message asking user to confirm reset"
   },
   "commandRevertAll":{
-    "message":"Удалить все временные изменения",
+    "message":"Отменить все изменения",
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Домены, находящиеся временно в белом списке",
+    "message":"Временно разрешить сайт страницы",
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Временно добавить все в белый список",
+    "message":"Временно разрешить всё",
     "description":""
   },
   "commandOpenDashboard":{
@@ -564,7 +564,7 @@
     "description":""
   },
   "errorCantConnectTo":{
-    "message":"Ошибка сети: Нет возможности связаться с {{url}}",
+    "message":"Ошибка сети: невозможно связаться с {{url}}",
     "description":""
   }
 }

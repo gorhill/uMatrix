@@ -32,35 +32,35 @@ Riguardo il mito che i browser basati su Chromium non possano bloccare efficacem
 
 Tu puoi permettere/bloccare una singola cella, una intera riga, un gruppo di righe, una intera colonna o l'intera matrice, con solo un click.
 
-µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
+Il sistema di filtri di uMatrix utilizza una logica di priorità per valutare cosa viene bloccato/permesso, secondo le celle che sono in black o white list. Per esempio, questo permette di mettere in white list una pagina intera con un click, senza alcun bisogno di consentire qualunque nuovo elemento che appare sulla pagina.
 
-All rules are scoped. For example, you can block `facebook.com` and `facebook.net` everywhere except when visiting a page on `www.facebook.com`. This way Facebook won't be able to build a profile of your browsing habits.
+Tutte le regole hanno un loro specifico campo di applicazione. Per esempio, si può bloccare 'facebook.com' e 'facebook.net' ovunque eccetto quando si visita una pagina su 'www.facebook.com'. in questo modo Facebook non è in grado di costruire un profilo delle abitudini di navigazione.
 
-The goal of this extension is to make the allowing or blocking of web sites, wholly or partly, as straightforward as possible, so as to encourage users to care about their privacy.
+Lo scopo di questa estensione è rendere il più immediato possibile il blocco o meno, parziale o totale di siti web, incoraggiando gli utenti a tutelare la propria privacy.
 
-The extension comes with 3rd-party hosts files totaling over 58,000 distinct hostnames (lists can be selectively disabled/enabled according to your choice).
+L'estensione contiene host file di terze parti, per un totale di oltre 58.000 distinti hostname (le liste possono essere disabilitate/abilitate secondo le proprie preferenze).
 
-Ultimately, you can choose however you browse the net:
+In conclusione, ognuno può decidere come navigare su Internet:
 
-* Blacklist all by default, and whitelist as needed (default mode).
+*Mettere tutto in blacklist e consentire elementi secondo necessità (modalità di default).
 
-* Whitelist all by default, and blacklist as needed.
+*Consentire tutto di default e bloccare elementi secondo necessità.
 
-Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
+In entrambe le modalità, rimane il beneficio della protezione delle blacklist standard, che forniscono una difesa di base nei confronti di tracker, siti di malware, ecc. Oppure si possono disabilitare tutte queste blacklist standard.
 
-Your choice.
+La scelta è tua.
 
-Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
-
-=====
-
-FEEDBACK:
-
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+Documentazione disponibile: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+Feedback:
+
+Per qualunque dubbio o domanda, usare il pulsante sulla destra "Invia Feedback". Risponderò prontamente. Non posso rispondere direttamente ai pareri, ma sarò lieto di rispondere direttamente nella sezione dei feedback.
+
+=====
+
+Bachi, problemi, consigli:
 
 https://github.com/gorhill/uMatrix/issues
 

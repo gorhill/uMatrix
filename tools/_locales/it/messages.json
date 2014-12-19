@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"Punta & clicca per bloccare\/consentire qualunque categoria di richieste fatte dal browser. Usa questa funzione per bloccare script, frames, pubblicità, facebook, ecc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"File di Host",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -72,19 +72,19 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Nessun traffico visto per questa tab, per ora.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.\nRequests blocked through matrix filtering on this page: {{count}}.",
+    "message":"Disabilita\/abilita filtro a matrice per questa pagina.\nRichieste bloccate dal filtro a matrice in questa pagina: {{count}}.",
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Salva tutti i cambiamenti temporanei per questa pagina.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Remove temporary changes for this scope.",
+    "message":"Rimuovi i cambiamenti temporanei per questa pagina.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
