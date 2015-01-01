@@ -8,39 +8,39 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Dashboard",
+    "message":"µMatrix — Översiktspanel",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Inställningar",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Integritet",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Statistik",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Mina regler",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Host filer",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Om",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"alla",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"kakor",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,7 +48,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"bild",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -56,7 +56,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"skript",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -68,11 +68,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"annat",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Ingen nättrafik har upptäckts för den här fliken hittills.",
     "description":""
   },
   "matrixMtxButtonTip":{
@@ -88,11 +88,11 @@
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Remove all temporary changes.",
+    "message":"Ta bort alla tillfälliga ändringar.",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Uppdatera sidan.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -148,11 +148,11 @@
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Detaljerad statistik",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Alla",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -160,31 +160,31 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Översikt",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Förfrågningar",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Tillåtna",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Blockerade",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Alla",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Sidor",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Kakor",
     "description":""
   },
   "statsPageCSS":{
@@ -192,11 +192,11 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Bilder",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Pluginer",
     "description":""
   },
   "statsPageScripts":{
@@ -328,7 +328,7 @@
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"minuter.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -364,7 +364,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"minuter.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -380,15 +380,15 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Permanenta regler",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Tillfälliga regler",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Återställ",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
@@ -396,23 +396,23 @@
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Redigera",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Spara",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Förkasta",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Importera från fil...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Exportera till fil...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -444,7 +444,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Uppdatera nu",
     "description":""
   },
   "hostsFilesPurgeAll":{
@@ -464,11 +464,11 @@
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"Ny version tillgänglig",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"föråldrad",
     "description":""
   },
   "aboutChangelog":{
@@ -496,11 +496,11 @@
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Bidragsgivare",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Kod:",
     "description":""
   },
   "aboutIssueContributors":{
@@ -508,7 +508,7 @@
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Översättningar:",
     "description":""
   },
   "aboutUserDataHeader":{
@@ -524,7 +524,7 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Återställ från fil...",
     "description":""
   },
   "aboutRestoreConfirm":{

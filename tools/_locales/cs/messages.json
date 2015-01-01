@@ -4,27 +4,27 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"Umožňuje cíleně povolovat\/blokovat spojení z vašeho prohlížeče pouhým kliknutím. Můžete jím blokovat skripty, reklamy, Facebook, …",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Dashboard",
+    "message":"µMatrix – Ovládací panel",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Nastavení",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Soukromí",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Statistiky",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Moje pravidla",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -32,11 +32,11 @@
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"O rozšíření",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"vše",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
@@ -44,11 +44,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"css",
+    "message":"styly",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"obr.",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -56,7 +56,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"skript",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,15 +64,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"rámce",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"jiné",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Na této záložce zatím nedošlo k žádné síťové komunikaci.",
     "description":""
   },
   "matrixMtxButtonTip":{
@@ -80,19 +80,19 @@
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Uložit dočasné změny v tomto kontextu.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Remove temporary changes for this scope.",
+    "message":"Zrušit dočasné změny v tomto kontextu.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Remove all temporary changes.",
+    "message":"Zrušit všechny dočasné změny.",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Obnovit stránku.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -100,27 +100,27 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}} blokovaných domén",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Striktní HTTPS",
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Podvrhovat identifikaci prohlížeče",
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Podvrhovat adresy odkazujících stránek",
     "description":""
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Statistics",
+    "message":"µMatrix – Statistiky",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Obecné statistiky",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -136,7 +136,7 @@
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"Počet smazaných cookies: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
@@ -148,39 +148,39 @@
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Podrobné statistiky",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Všechny stránky",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: Behind the scene",
+    "message":"Chromium: Pod pokličkou",
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Přehled",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Spojení",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Povoleno",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Blokováno",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Všechna",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Stránky",
     "description":""
   },
   "statsPageCookies":{
@@ -188,43 +188,43 @@
     "description":""
   },
   "statsPageCSS":{
-    "message":"CSS",
+    "message":"Styly",
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Obrázky",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Pluginy",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Skripty",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Rámce",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Ostatní",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Request log",
+    "message":"Záznam spojení",
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Pamatovat posledních",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"HTTP spojení <b>na stránku<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -232,31 +232,31 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Obnovit",
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Settings",
+    "message":"µMatrix – Nastavení",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Vzhled",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Velikost písma:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Normální",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Velká",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Styl pro barvoslepé",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -264,19 +264,19 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Obnovit tyto stránky, jakmile je zavřena matice:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"Žádné",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"Aktuální",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Všechny",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -284,19 +284,19 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Blokované rámce:&ensp;Barva",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Neprůhlednost",
     "description":"English: Opacity"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Privacy",
+    "message":"µMatrix – Soukromí",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Delete blocked cookies.",
+    "message":"Mazat zablokované cookies.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -304,11 +304,11 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"Mazat neblokované cookies ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" minut po posledním použití.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -324,11 +324,11 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Mazat vyrovnávací paměť prohlížeče každých",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"minut.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -344,7 +344,7 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Striktní HTTPS: zakázat smíšený obsah.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -380,39 +380,39 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Permanentní pravidla",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Dočasná pravidla",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Vrátit",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"Potvrdit",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Upravit",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Uložit",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Zrušit",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Načíst ze souboru…",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Uložit do souboru…",
     "description":""
   },
   "userRulesFormatHint":{
@@ -420,7 +420,7 @@
     "description":""
   },
   "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
+    "message":"moje-pravidla-umatrix.txt",
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
@@ -432,11 +432,11 @@
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"Použito {{used}} z {{total}}",
     "description":""
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Uložit změny",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
@@ -444,11 +444,11 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Aktualizovat nyní",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"Vyčistit všechny cache",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -456,19 +456,19 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Načíst",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"vyčistit cache",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"nová verze k dispozici",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"zastaralé",
     "description":""
   },
   "aboutChangelog":{
@@ -476,7 +476,7 @@
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"Použité místo: {{storageUsed}} bajtů",
     "description":""
   },
   "aboutDoc":{
@@ -488,43 +488,43 @@
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Zdrojový kód (GPLv3)",
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"Chyby a problémy",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Přispěvatelé",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Zdrojový kód:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"Problémy:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Překlady:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"Vaše data",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Zálohovat do souboru…",
     "description":""
   },
   "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
+    "message":"moje-zaloha-umatrix.txt",
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Obnovit ze zálohy…",
     "description":""
   },
   "aboutRestoreConfirm":{
@@ -532,15 +532,15 @@
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"The data could not be read or is invalid",
+    "message":"Data nemohla být načtena nebo jsou neplatná",
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"nebo",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"Vrátit do původního stavu",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
@@ -560,7 +560,7 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Otevřít panel",
     "description":""
   },
   "errorCantConnectTo":{
