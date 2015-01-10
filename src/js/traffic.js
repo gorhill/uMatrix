@@ -654,7 +654,7 @@ var onMainDocHeadersReceived = function(details) {
 
     // Enforce strict HTTPS?
     if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', pageStats.pageHostname) ) {
-        csp += "default-src chrome-search: data: https: wss: 'unsafe-eval' 'unsafe-inline'";
+        csp += "default-src chrome-search: data: https: wss: 'unsafe-eval' 'unsafe-inline';";
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181
