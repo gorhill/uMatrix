@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Punta & clicca per bloccare\/consentire qualunque categoria di richieste fatte dal browser. Usa questa funzione per bloccare script, frames, pubblicità, facebook, ecc.",
+    "message":"Punta & clicca per bloccare\/consentire qualunque categoria di richieste fatte dal browser.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
