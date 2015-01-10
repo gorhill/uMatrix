@@ -128,7 +128,7 @@
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"Обработано заголовков <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a>: {{count}}",
+    "message":"Обработано заголовков <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a>: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -444,11 +444,11 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Обновить сейчас",
+    "message":"Обновить",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Очистить все кэши",
+    "message":"Удалить обновления",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -460,11 +460,11 @@
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"очистить кэш",
+    "message":"удалить обновление",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"доступно обновление",
+    "message":"обновить",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
@@ -476,11 +476,11 @@
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Хранилище использует: {{storageUsed}} байт",
+    "message":"Локальное хранилище: {{storageUsed}} байт",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Вики<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документация<\/a>",
     "description":""
   },
   "aboutPermissions":{
@@ -492,7 +492,7 @@
     "description":""
   },
   "aboutIssues":{
-    "message":"Замечания и пожелания",
+    "message":"Ошибки и предложения",
     "description":""
   },
   "aboutContributors":{
@@ -500,15 +500,15 @@
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Код:",
+    "message":"Программисты:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Проблемы:",
+    "message":"Предложения:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Локализация:",
+    "message":"﻿Перевод:",
     "description":""
   },
   "aboutUserDataHeader":{
