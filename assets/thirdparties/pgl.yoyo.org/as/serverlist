@@ -2,8 +2,8 @@
 #
 # For more information about this list, see: http://pgl.yoyo.org/adservers/
 # ----
-# last updated:   Fri, 10 Oct 2014 20:56:38 GMT
-# entries:        2466
+# last updated:   Tue, 06 Jan 2015 08:08:11 GMT
+# entries:        2457
 # format:         hosts (hosts -- in hosts file format)
 # credits:        Peter Lowe - pgl@yoyo.org - http://pgl.yoyo.org/
 # this URL:       http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext
@@ -216,7 +216,6 @@
 127.0.0.1 adcentriconline.com
 127.0.0.1 adcept.net
 127.0.0.1 adclick.com
-127.0.0.1 adclient.rottentomatoes.com
 127.0.0.1 adclient.uimserv.net
 127.0.0.1 adclient1.tucows.com
 127.0.0.1 adcloud.net
@@ -496,7 +495,6 @@
 127.0.0.1 ads.guardian.co.uk
 127.0.0.1 ads.guardianunlimited.co.uk
 127.0.0.1 ads.guru3d.com
-127.0.0.1 ads.h1351109.stratoserver.net
 127.0.0.1 ads.hardwaresecrets.com
 127.0.0.1 ads.harpers.org
 127.0.0.1 ads.hbv.de
@@ -672,14 +670,12 @@
 127.0.0.1 ads.ultimate-guitar.com
 127.0.0.1 ads.uncrate.com
 127.0.0.1 ads.undertone.com
-127.0.0.1 ads.unixathome.org
 127.0.0.1 ads.uploading.com
 127.0.0.1 ads.usatoday.com
 127.0.0.1 ads.v3.com
 127.0.0.1 ads.verticalresponse.com
 127.0.0.1 ads.vgchartz.com
 127.0.0.1 ads.videosz.com
-127.0.0.1 ads.viewx.co.uk
 127.0.0.1 ads.virtual-nights.com
 127.0.0.1 ads.virtualcountries.com
 127.0.0.1 ads.vnumedia.com
@@ -884,7 +880,6 @@
 127.0.0.1 adv.webmd.com
 127.0.0.1 adv.wp.pl
 127.0.0.1 adv.yo.cz
-127.0.0.1 adv08.edintorni.net
 127.0.0.1 advariant.com
 127.0.0.1 adventory.com
 127.0.0.1 advert.bayarea.com
@@ -915,7 +910,6 @@
 127.0.0.1 adviva.com
 127.0.0.1 adviva.net
 127.0.0.1 advnt.com
-127.0.0.1 advprotraffic.com
 127.0.0.1 adwareremovergold.com
 127.0.0.1 adwhirl.com
 127.0.0.1 adwitserver.com
@@ -1012,7 +1006,6 @@
 127.0.0.1 audit.median.hu
 127.0.0.1 audit.webinform.hu
 127.0.0.1 auto-bannertausch.de
-127.0.0.1 autohits.dk
 127.0.0.1 avenuea.com
 127.0.0.1 avpa.javalobby.org
 127.0.0.1 avres.net
@@ -1095,7 +1088,6 @@
 127.0.0.1 banners.directnic.com
 127.0.0.1 banners.easydns.com
 127.0.0.1 banners.ebay.com
-127.0.0.1 banners.expressindia.com
 127.0.0.1 banners.freett.com
 127.0.0.1 banners.friendfinder.com
 127.0.0.1 banners.getiton.com
@@ -1106,7 +1098,6 @@
 127.0.0.1 banners.passion.com
 127.0.0.1 banners.resultonline.com
 127.0.0.1 banners.sexsearch.com
-127.0.0.1 banners.sugeridos.com
 127.0.0.1 banners.sys-con.com
 127.0.0.1 banners.thomsonlocal.com
 127.0.0.1 banners.videosz.com
@@ -1260,7 +1251,6 @@
 127.0.0.1 clickthrucash.com
 127.0.0.1 clickthruserver.com
 127.0.0.1 clickthrutraffic.com
-127.0.0.1 clicktorrent.info
 127.0.0.1 clicktrace.info
 127.0.0.1 clicktrack.ziyu.net
 127.0.0.1 clicktracks.com
@@ -1374,7 +1364,6 @@
 127.0.0.1 dmtracking.alibaba.com
 127.0.0.1 dmtracking2.alibaba.com
 127.0.0.1 dnads.directnic.com
-127.0.0.1 doclix.com
 127.0.0.1 domaining.in
 127.0.0.1 domainsponsor.com
 127.0.0.1 domainsteam.de
@@ -1540,6 +1529,7 @@
 127.0.0.1 herbalaffiliateprogram.com
 127.0.0.1 hexusads.fluent.ltd.uk
 127.0.0.1 heyos.com
+127.0.0.1 hgads.com
 127.0.0.1 hidden.gogoceleb.com
 127.0.0.1 hightrafficads.com
 127.0.0.1 histats.com
@@ -1592,7 +1582,6 @@
 127.0.0.1 ifa.tube8live.com
 127.0.0.1 ilbanner.com
 127.0.0.1 ilead.itrack.it
-127.0.0.1 iliillliO00OO0.321.cn
 127.0.0.1 ilovecheating.com
 127.0.0.1 image.ugo.com
 127.0.0.1 imageads.canoe.ca
@@ -1620,6 +1609,7 @@
 127.0.0.1 infolinks.com
 127.0.0.1 information.com
 127.0.0.1 infra-ad.com
+127.0.0.1 initgroup.com
 127.0.0.1 inringtone.com
 127.0.0.1 insightexpress.com
 127.0.0.1 insightexpressai.com
@@ -1740,6 +1730,7 @@
 127.0.0.1 media1first.com
 127.0.0.1 media6degrees.com
 127.0.0.1 mediaarea.eu
+127.0.0.1 mediacharger.com
 127.0.0.1 mediadvertising.ro
 127.0.0.1 mediageneral.com
 127.0.0.1 mediamayhemcorp.com
@@ -1751,6 +1742,7 @@
 127.0.0.1 mediax.angloinfo.com
 127.0.0.1 mediaz.angloinfo.com
 127.0.0.1 medleyads.com
+127.0.0.1 megacash.de
 127.0.0.1 megago.com
 127.0.0.1 megastats.com
 127.0.0.1 megawerbung.de
@@ -1857,7 +1849,6 @@
 127.0.0.1 oewabox.at
 127.0.0.1 offerforge.com
 127.0.0.1 offermatica.com
-127.0.0.1 oinadserver.com
 127.0.0.1 olivebrandresponse.com
 127.0.0.1 omniture.com
 127.0.0.1 onclickads.com
@@ -2023,6 +2014,7 @@
 127.0.0.1 ranking-street.de
 127.0.0.1 rankingchart.de
 127.0.0.1 rankingscout.com
+127.0.0.1 rankingscout.org
 127.0.0.1 rankyou.com
 127.0.0.1 rapidcounter.com
 127.0.0.1 rate.ru
@@ -2283,7 +2275,6 @@
 127.0.0.1 tpnads.com
 127.0.0.1 track.adform.net
 127.0.0.1 track.anchorfree.com
-127.0.0.1 track.collegehumor.com
 127.0.0.1 track.gawker.com
 127.0.0.1 trackalyzer.com
 127.0.0.1 tracker.icerocket.com
