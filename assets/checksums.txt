@@ -1,4 +1,4 @@
-7cfcd2a79bd510bd9944fb2601fcd701 assets/umatrix/hosts-files.json
+e5f6f289cfa2d3dc7e425547720af8a5 assets/umatrix/hosts-files.json
 188ce926323d816ae9d7d5ebbb567862 assets/umatrix/blacklist.txt
 99991f0394fd09dc2acf510b0fda2409 assets/thirdparties/mirror1.malwaredomains.com/files/immortal_domains.txt
 7f0443f3dcc9abfd47cfbc95ce824ddb assets/thirdparties/mirror1.malwaredomains.com/files/README.md
