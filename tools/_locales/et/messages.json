@@ -8,39 +8,39 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Dashboard",
+    "message":"µMatrix — Esilehekülg",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Seaded",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Privaatsus",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Statistika",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Minu reeglid",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Host-failid",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Teave",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"kõik",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"küpsis",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,15 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"pilt",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"pistikprogramm",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"skript",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,67 +64,67 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"raam",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"teised",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Selle kaardi kohta pole veel netiliiklust näha.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.\nRequests blocked through matrix filtering on this page: {{count}}.",
+    "message":"Selle määratluse puhul keela\/luba maatriksiline filtreerimine.\nMaatriksilise filtreerimise blokeeritud ühendused selles portaalis: {{count}}.",
     "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Salvesta ajutiselt kõik selle määratluse muudatused.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Remove temporary changes for this scope.",
+    "message":"Eemalda selle määratluse ajutised muudatused.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixRevertButtonAllTip":{
-    "message":"Remove all temporary changes.",
+    "message":"Eemalda kõik ajutised muudatused.",
     "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Värskenda lehekülge.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"1. osapool",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}} hosti nimi(e) mustas nimekirjas",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Range HTTPS",
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Kasutajaagendi ninanips",
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Viitaja narritamine",
     "description":""
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Statistics",
+    "message":"µMatrix &ndash; statistika",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Üldstatistika",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/et.wikipedia.org\/wiki\/HTTP-k%C3%BCpsis'>HTTP-küpsise<\/a> tõrjutud päismik: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{

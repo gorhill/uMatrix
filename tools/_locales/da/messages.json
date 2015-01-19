@@ -12,31 +12,31 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Indstillinger",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Privatliv",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Statistik",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Mine regler",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Hosts fil",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Om",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"alle",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
@@ -48,7 +48,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"billede",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -64,11 +64,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"ramme",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"andre",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{

@@ -104,15 +104,15 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"严格HTTPS策略",
     "description":""
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"伪装User agent",
     "description":""
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"伪装Referrer",
     "description":""
   },
   "statsPageTitle":{
@@ -344,11 +344,11 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"严格HTTPS模式：禁止混合内容。",
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>来自 <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla开发者网络<\/a>:<\/p><blockquote>当用户访问使用HTTPS的页面时，他们与web服务器之间的连接是使用SSL加密的，从而保护连接不受嗅探器和中间人攻击。如果HTTPS页面包括定期检索内容，明文HTTP，然后连接只是部分加密：非加密的内容是可以被嗅探器入侵的并且是可以被中间人攻击者修改的,因此连接不再受保护。当一个网页出现这种情况,它被称为混合内容页面。<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
