@@ -464,7 +464,7 @@ vAPI.tabs.registerListeners = function() {
                 }
                 var URI = browser.currentURI;
                 if ( URI.schemeIs('chrome') && URI.host === location.host ) {
-                    vAPI.tabs._remove(tab, win);
+                    vAPI.tabs._remove(tab, getTabBrowser(win));
                 }
             }
         }
