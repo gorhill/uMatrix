@@ -269,14 +269,7 @@ var windowWatcher = {
             return;
         }
 
-        if ( tabBrowser.deck ) {
-            // Fennec
-            tabContainer = tabBrowser.deck;
-            tabContainer.addEventListener(
-                'DOMTitleChanged',
-                tabWatcher.onFennecLocationChange
-            );
-        } else if ( tabBrowser.tabContainer ) {
+        if ( tabBrowser.tabContainer ) {
             // desktop Firefox
             tabContainer = tabBrowser.tabContainer;
             tabBrowser.addTabsProgressListener(tabWatcher);
@@ -353,28 +346,6 @@ var tabWatcher = {
             url: location.asciiSpec
         });
     },
-
-    onFennecLocationChange: function({target: doc}) {
-        // Fennec "equivalent" to onLocationChange
-        // note that DOMTitleChanged is selected as it fires very early
-        // (before DOMContentLoaded), and it does fire even if there is no title
-
-        var win = doc.defaultView;
-        if ( win !== win.top ) {
-            return;
-        }
-
-        var loc = win.location;
-        /*if ( loc.protocol === 'http' || loc.protocol === 'https' ) {
-            return;
-        }*/
-
-        vAPI.tabs.onNavigation({
-            frameId: 0,
-            tabId: getOwnerWindow(win).BrowserApp.getTabForWindow(win).id,
-            url: Services.io.newURI(loc.href, null, null).asciiSpec
-        });
-    }
 };
 
 /******************************************************************************/
@@ -446,14 +417,7 @@ vAPI.tabs.registerListeners = function() {
                 continue;
             }
 
-            if ( tabBrowser.deck ) {
-                // Fennec
-                tabContainer = tabBrowser.deck;
-                tabContainer.removeEventListener(
-                    'DOMTitleChanged',
-                    tabWatcher.onFennecLocationChange
-                );
-            } else if ( tabBrowser.tabContainer ) {
+            if ( tabBrowser.tabContainer ) {
                 tabContainer = tabBrowser.tabContainer;
                 tabBrowser.removeTabsProgressListener(tabWatcher);
             }
@@ -579,7 +543,7 @@ vAPI.tabs.get = function(tabId, callback) {
         }
     }
 
-    // For internal use
+    // for internal use
     if ( typeof callback !== 'function' ) {
         return tab;
     }
@@ -595,14 +559,12 @@ vAPI.tabs.get = function(tabId, callback) {
 
     var browser = getBrowserForTab(tab);
     var tabBrowser = getTabBrowser(win);
-    var tabIndex, tabTitle;
-    if ( vAPI.fennec ) {
-        tabIndex = tabBrowser.tabs.indexOf(tab);
-        tabTitle = browser.contentTitle;
-    } else {
-        tabIndex = tabBrowser.browsers.indexOf(browser);
-        tabTitle = tab.label;
-    }
+    var tabIndex = vAPI.fennec
+        ? tabBrowser.tabs.indexOf(tab)
+        : tabBrowser.browsers.indexOf(browser);
+    var tabTitle = vAPI.fennec
+        ? browser.contentTitle
+        : tab.label;
 
     callback({
         id: tabId,
@@ -1033,7 +995,6 @@ var httpObserver = {
     classDescription: 'net-channel-event-sinks for ' + location.host,
     classID: Components.ID('{dc8d6319-5f6e-4438-999e-53722db99e84}'),
     contractID: '@' + location.host + '/net-channel-event-sinks;1',
-    REQDATAKEY: location.host + 'reqdata',
     ABORT: Components.results.NS_BINDING_ABORTED,
     ACCEPT: Components.results.NS_SUCCEEDED,
     // Request types: https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy#Constants
@@ -1052,7 +1013,14 @@ var httpObserver = {
         12: 'object',
         14: 'font'
     },
-    lastRequest: [{}, {}],
+    lastRequest: {
+        url: null,
+        type: null,
+        tabId: null,
+        frameId: null,
+        parentFrameId: null,
+        openerURL: null
+    },
 
     get componentRegistrar() {
         return Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
@@ -1157,13 +1125,13 @@ var httpObserver = {
             return true;
         }
 
-        /*if ( result.redirectUrl ) {
+        if ( result.redirectUrl ) {
             channel.redirectionLimit = 1;
             channel.redirectTo(
                 Services.io.newURI(result.redirectUrl, null, null)
             );
             return true;
-        }*/
+        }
 
         return false;
     },
@@ -1172,6 +1140,9 @@ var httpObserver = {
         if ( !(channel instanceof Ci.nsIHttpChannel) ) {
             return;
         }
+        
+        var reqDataKey = location.host + 'reqdata';
+        
 
         var URI = channel.URI;
         var channelData, result;
@@ -1189,7 +1160,7 @@ var httpObserver = {
                     frameId,
                     parentFrameId
                 ]*/
-                channelData = channel.getProperty(this.REQDATAKEY);
+                channelData = channel.getProperty(reqDataKey);
             } catch (ex) {
                 return;
             }
@@ -1231,36 +1202,13 @@ var httpObserver = {
 
         // http-on-opening-request
 
-        var lastRequest = this.lastRequest[0];
-
-        if ( lastRequest.url !== URI.spec ) {
-            if ( this.lastRequest[1].url === URI.spec ) {
-                lastRequest = this.lastRequest[1];
-            } else {
-                lastRequest.url = null;
-            }
-        }
+        var lastRequest = this.lastRequest;
 
         if ( lastRequest.url === null ) {
-            lastRequest.type = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
-            result = this.handleRequest(channel, URI, {
+            this.handleRequest(channel, URI, {
                 tabId: vAPI.noTabId,
-                type: lastRequest.type
+                type: channel.loadInfo && channel.loadInfo.contentPolicyType || 1
             });
-
-            if ( result === true ) {
-                return;
-            }
-
-            if ( channel instanceof Ci.nsIWritablePropertyBag === false ) {
-                return;
-            }
-
-            // Carry data for behind-the-scene redirects
-            channel.setProperty(
-                this.REQDATAKEY,
-                [lastRequest.type, vAPI.noTabId, null, 0, -1]
-            );
             return;
         }
 
@@ -1294,28 +1242,31 @@ var httpObserver = {
                 return;
             }
         }
+        
+        if ( lastRequest.type === this.MAIN_FRAME && lastRequest.frameId === 0 ) {
+            vAPI.tabs.onNavigation({
+				frameId: 0,
+				tabId: lastRequest.tabId,
+				url: URI.asciiSpec
+			});
+        }
 
         if ( this.handleRequest(channel, URI, lastRequest) ) {
             return;
         }
 
-        /*if ( vAPI.fennec && lastRequest.type === this.MAIN_FRAME ) {
-            vAPI.tabs.onNavigation({
-                frameId: 0,
-                tabId: lastRequest.tabId,
-                url: URI.asciiSpec
-            });
-        }*/
-
         // If request is not handled we may use the data in on-modify-request
         if ( channel instanceof Ci.nsIWritablePropertyBag ) {
-            channel.setProperty(this.REQDATAKEY, [
-                lastRequest.type,
-                lastRequest.tabId,
-                sourceTabId,
-                lastRequest.frameId,
-                lastRequest.parentFrameId
-            ]);
+            channel.setProperty(
+                reqDataKey,
+                [
+                    lastRequest.type,
+                    lastRequest.tabId,
+                    sourceTabId,
+                    lastRequest.frameId,
+                    lastRequest.parentFrameId
+                ]
+            );
         }
     },
 
@@ -1325,6 +1276,12 @@ var httpObserver = {
 
         // If error thrown, the redirect will fail
         try {
+            // skip internal redirects?
+            /*if ( flags & 4 ) {
+                console.log('internal redirect skipped');
+                return;
+            }*/
+
             var URI = newChannel.URI;
 
             if ( !URI.schemeIs('http') && !URI.schemeIs('https') ) {
@@ -1335,7 +1292,10 @@ var httpObserver = {
                 return;
             }
 
-            var channelData = oldChannel.getProperty(this.REQDATAKEY);
+            // TODO: what if a behind-the-scene request is being redirected?
+            // This data is present only for tabbed requests, so if this throws,
+            // the redirection won't be evaluated and canceled (if necessary)
+            var channelData = oldChannel.getProperty(location.host + 'reqdata');
 
             if ( this.handlePopup(URI, channelData[1], channelData[2]) ) {
                 result = this.ABORT;
@@ -1356,7 +1316,7 @@ var httpObserver = {
 
             // Carry the data on in case of multiple redirects
             if ( newChannel instanceof Ci.nsIWritablePropertyBag ) {
-                newChannel.setProperty(this.REQDATAKEY, channelData);
+                newChannel.setProperty(location.host + 'reqdata', channelData);
             }
         } catch (ex) {
             // console.error(ex);
@@ -1382,15 +1342,12 @@ vAPI.net.registerListeners = function() {
     var shouldLoadListener = function(e) {
         var details = e.data;
         var lastRequest = httpObserver.lastRequest;
-        lastRequest[1] = lastRequest[0];
-        lastRequest[0] = {
-            url: details.url,
-            type: details.type,
-            tabId: vAPI.tabs.getTabId(e.target),
-            frameId: details.frameId,
-            parentFrameId: details.parentFrameId,
-            openerURL: details.openerURL
-        };
+        lastRequest.url = details.url;
+        lastRequest.type = details.type;
+        lastRequest.tabId = vAPI.tabs.getTabId(e.target);
+        lastRequest.frameId = details.frameId;
+        lastRequest.parentFrameId = details.parentFrameId;
+        lastRequest.openerURL = details.openerURL;
     };
 
     vAPI.messaging.globalMessageManager.addMessageListener(
@@ -1761,7 +1718,7 @@ vAPI.contextMenu.create = function(details, callback) {
 
         if ( gContextMenu.inFrame ) {
             details.tagName = 'iframe';
-            // Probably won't work with e10s
+            // Probably won't work with e01s
             details.frameUrl = gContextMenu.focusedWindow.location.href;
         } else if ( gContextMenu.onImage ) {
             details.tagName = 'img';
