@@ -364,10 +364,15 @@ var tabWatcher = {
             return;
         }
 
+        var loc = win.location;
+        /*if ( loc.protocol === 'http' || loc.protocol === 'https' ) {
+            return;
+        }*/
+
         vAPI.tabs.onNavigation({
             frameId: 0,
-            tabId: getOwnerWindow(win).getTabForWindow(win).id,
-            url: Services.io.newURI(win.location.href, null, null).asciiSpec
+            tabId: getOwnerWindow(win).BrowserApp.getTabForWindow(win).id,
+            url: Services.io.newURI(loc.href, null, null).asciiSpec
         });
     }
 };
@@ -482,7 +487,7 @@ vAPI.tabs.getTabId = function(target) {
 
         for ( var win of this.getWindows() ) {
             var tab = win.BrowserApp.getTabForBrowser(target);
-            if ( tab && tab.id ) {
+            if ( tab && tab.id !== undefined ) {
                 return tab.id;
             }
         }
@@ -1028,6 +1033,7 @@ var httpObserver = {
     classDescription: 'net-channel-event-sinks for ' + location.host,
     classID: Components.ID('{dc8d6319-5f6e-4438-999e-53722db99e84}'),
     contractID: '@' + location.host + '/net-channel-event-sinks;1',
+    REQDATAKEY: location.host + 'reqdata',
     ABORT: Components.results.NS_BINDING_ABORTED,
     ACCEPT: Components.results.NS_SUCCEEDED,
     // Request types: https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy#Constants
@@ -1190,7 +1196,7 @@ var httpObserver = {
                     frameId,
                     parentFrameId
                 ]*/
-                channelData = channel.getProperty(location.host + 'reqdata');
+                channelData = channel.getProperty(this.REQDATAKEY);
             } catch (ex) {
                 return;
             }
@@ -1277,10 +1283,18 @@ var httpObserver = {
             return;
         }
 
+        /*if ( vAPI.fennec && lastRequest.type === this.MAIN_FRAME ) {
+            vAPI.tabs.onNavigation({
+                frameId: 0,
+                tabId: lastRequest.tabId,
+                url: URI.asciiSpec
+            });
+        }*/
+
         // If request is not handled we may use the data in on-modify-request
         if ( channel instanceof Ci.nsIWritablePropertyBag ) {
             channel.setProperty(
-                location.host + 'reqdata',
+                this.REQDATAKEY,
                 [
                     lastRequest.type,
                     lastRequest.tabId,
@@ -1740,7 +1754,7 @@ vAPI.contextMenu.create = function(details, callback) {
 
         if ( gContextMenu.inFrame ) {
             details.tagName = 'iframe';
-            // Probably won't work with e01s
+            // Probably won't work with e10s
             details.frameUrl = gContextMenu.focusedWindow.location.href;
         } else if ( gContextMenu.onImage ) {
             details.tagName = 'img';
