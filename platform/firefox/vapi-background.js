@@ -1416,7 +1416,7 @@ vAPI.toolbarButton.init = function() {
     } else {
         this.CUIEvents = {};
 
-        this.CUIEvents.onCustomizeEnd = function() {
+        var updateBadge = function() {
             var wId = vAPI.toolbarButton.id;
             var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
 
@@ -1437,8 +1437,11 @@ vAPI.toolbarButton.init = function() {
             }
 
             // Anonymous elements need some time to be reachable
-            setTimeout(this.updateBadgeStyle, 250);
+            setTimeout(this.updateBadgeStyle, 50);
         }.bind(this.CUIEvents);
+
+        this.CUIEvents.onCustomizeEnd = updateBadge;
+        this.CUIEvents.onWidgetUnderflow = updateBadge;
 
         this.CUIEvents.updateBadgeStyle = function() {
             var css = [
@@ -1466,7 +1469,7 @@ vAPI.toolbarButton.init = function() {
 
         this.onCreated = function(button) {
             button.setAttribute('badge', '');
-            setTimeout(this.CUIEvents.onCustomizeEnd, 250);
+            setTimeout(this.CUIEvents.onCustomizeEnd, 50);
         };
 
         CustomizableUI.addListener(this.CUIEvents);
