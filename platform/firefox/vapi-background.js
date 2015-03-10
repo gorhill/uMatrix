@@ -1090,9 +1090,9 @@ var httpObserver = {
         }
 
         var result = vAPI.tabs.onPopup({
-            tabId: tabId,
-            sourceTabId: sourceTabId,
-            url: URI.asciiSpec
+            targetTabId: tabId,
+            openerTabId: sourceTabId,
+            targetURL: URI.asciiSpec
         });
 
         return result === true;
@@ -1403,7 +1403,7 @@ if (vAPI.fennec) {
             }
         }
         return label;
-    }
+    };
 
     vAPI.toolbarButton.init = function() {
         // Only actually expecting one window under Fennec (note, not tabs, windows)
@@ -1412,7 +1412,7 @@ if (vAPI.fennec) {
         }
 
         cleanupTasks.push(this.cleanUp);
-    }
+    };
 
     vAPI.toolbarButton.addToWindow = function(win, label) {
         var id = win.NativeWindow.menu.add({
@@ -1420,13 +1420,7 @@ if (vAPI.fennec) {
             callback: this.onClick
         });
         this.menuItemIds.set(win, id);
-    }
-
-    vAPI.toolbarButton.cleanUp = function() {
-        for (var win of vAPI.tabs.getWindows()) {
-            vAPI.toolbarButton.removeFromWindow(win);
-        }
-    }
+    };
 
     vAPI.toolbarButton.removeFromWindow = function(win) {
         var id = this.menuItemIds.get(win);
@@ -1434,251 +1428,231 @@ if (vAPI.fennec) {
             win.NativeWindow.menu.remove(id);
             this.menuItemIds.delete(win);
         }
-    }
+    };
 
-    vAPI.toolbarButton.updateState = function (win, tabId) {
+    vAPI.toolbarButton.updateState = function(win, tabId) {
         var id = this.menuItemIds.get(win);
         if (!id) {
             return;
         }
         win.NativeWindow.menu.update(id, { name: this.getMenuItemLabel(tabId) });
-    }
+    };
 
     vAPI.toolbarButton.onClick = function() {
         var win = Services.wm.getMostRecentWindow('navigator:browser');
         var curTabId = vAPI.tabs.getTabId(getTabBrowser(win).selectedTab);
-        vAPI.tabs.open({ url: vAPI.getURL("popup.html?tabId=" + curTabId), index: -1, select: true });
-    }
+        vAPI.tabs.open({ url: "popup.html?tabId=" + curTabId, index: -1, select: true });
+    };
 } else {
-    // Toolbar button UI
+// Toolbar button UI
+vAPI.toolbarButton.init = function() {
+    var CustomizableUI;
+    try {
+        CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
+    } catch (ex) {
+        return;
+    }
 
-    /******************************************************************************/
+    this.defaultArea = CustomizableUI.AREA_NAVBAR;
+    this.styleURI = [
+        '#' + this.id + ' {',
+            'list-style-image: url(',
+                vAPI.getURL('img/browsericons/icon16-off.svg'),
+            ');',
+        '}',
+        '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
+            'width: 160px;',
+            'height: 290px;',
+            'overflow: hidden !important;',
+        '}'
+    ];
 
-    vAPI.toolbarButton.init = function() {
-        var CustomizableUI;
-        try {
-            CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
-        } catch (ex) {
-            return;
-        }
+    var platformVersion = Services.appinfo.platformVersion;
 
-        this.defaultArea = CustomizableUI.AREA_NAVBAR;
-        this.styleURI = [
-            '#' + this.id + ' {',
-                'list-style-image: url(',
-                    vAPI.getURL('img/browsericons/icon16-off.svg'),
-                ');',
-            '}',
-            '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
-                'width: 160px;',
-                'height: 290px;',
-                'overflow: hidden !important;',
+    if ( Services.vc.compare(platformVersion, '36.0') < 0 ) {
+        this.styleURI.push(
+            '#' + this.id + '[badge]:not([badge=""])::after {',
+                'position: absolute;',
+                'margin-left: -16px;',
+                'margin-top: 3px;',
+                'padding: 1px 2px;',
+                'font-size: 9px;',
+                'font-weight: bold;',
+                'color: #fff;',
+                'background: #666;',
+                'content: attr(badge);',
             '}'
-        ];
+        );
+     } else {
+        this.CUIEvents = {};
 
-        var platformVersion = Services.appinfo.platformVersion;
+        var updateBadge = function() {
+            var wId = vAPI.toolbarButton.id;
+            var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
 
-        if ( Services.vc.compare(platformVersion, '36.0') < 0 ) {
-            this.styleURI.push(
-                '#' + this.id + '[badge]:not([badge=""])::after {',
-                    'position: absolute;',
-                    'margin-left: -16px;',
-                    'margin-top: 3px;',
-                    'padding: 1px 2px;',
-                    'font-size: 9px;',
-                    'font-weight: bold;',
-                    'color: #fff;',
-                    'background: #666;',
-                    'content: attr(badge);',
-                '}'
-            );
-        } else {
-            this.CUIEvents = {};
-
-            this.CUIEvents.onCustomizeEnd = function() {
-                var wId = vAPI.toolbarButton.id;
-                var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
-
-                for ( var win of vAPI.tabs.getWindows() ) {
-                    var button = win.document.getElementById(wId);
-                    if ( buttonInPanel ) {
-                        button.classList.remove('badged-button');
-                        continue;
-                    }
-                    if ( button === null ) {
-                        continue;
-                    }
-                    button.classList.add('badged-button');
-                }
-
+            for ( var win of vAPI.tabs.getWindows() ) {
+                var button = win.document.getElementById(wId);
                 if ( buttonInPanel ) {
+                    button.classList.remove('badged-button');
+                    continue;
+                }
+                if ( button === null ) {
+                    continue;
+                }
+                button.classList.add('badged-button');
+            }
+
+            if ( buttonInPanel ) {
+                return;
+            }
+
+            // Anonymous elements need some time to be reachable
+            setTimeout(this.updateBadgeStyle, 50);
+        }.bind(this.CUIEvents);
+
+        this.CUIEvents.onCustomizeEnd = updateBadge;
+        this.CUIEvents.onWidgetUnderflow = updateBadge;
+
+        this.CUIEvents.updateBadgeStyle = function() {
+            var css = [
+                'background: #666',
+                'color: #fff'
+            ].join(';');
+
+            for ( var win of vAPI.tabs.getWindows() ) {
+                var button = win.document.getElementById(vAPI.toolbarButton.id);
+                if ( button === null ) {
+                    continue;
+                }
+                var badge = button.ownerDocument.getAnonymousElementByAttribute(
+                    button,
+                    'class',
+                    'toolbarbutton-badge'
+                );
+                if ( !badge ) {
                     return;
                 }
 
-                // Anonymous elements need some time to be reachable
-                setTimeout(this.updateBadgeStyle, 250);
-            }.bind(this.CUIEvents);
-
-            this.CUIEvents.updateBadgeStyle = function() {
-                var css = [
-                    'background: #666',
-                    'color: #fff'
-                ].join(';');
-
-                for ( var win of vAPI.tabs.getWindows() ) {
-                    var button = win.document.getElementById(vAPI.toolbarButton.id);
-                    if ( button === null ) {
-                        continue;
-                    }
-                    var badge = button.ownerDocument.getAnonymousElementByAttribute(
-                        button,
-                        'class',
-                        'toolbarbutton-badge'
-                    );
-                    if ( !badge ) {
-                        return;
-                    }
-
-                    badge.style.cssText = css;
-                }
-            };
-
-            this.onCreated = function(button) {
-                button.setAttribute('badge', '');
-                setTimeout(this.CUIEvents.onCustomizeEnd, 250);
-            };
-
-            CustomizableUI.addListener(this.CUIEvents);
-        }
-
-        this.styleURI = Services.io.newURI(
-            'data:text/css,' + encodeURIComponent(this.styleURI.join('')),
-            null,
-            null
-        );
-
-        this.closePopup = function({target}) {
-            CustomizableUI.hidePanelForNode(
-                target.ownerDocument.getElementById(vAPI.toolbarButton.viewId)
-            );
+                badge.style.cssText = css;
+            }
         };
 
-        CustomizableUI.createWidget(this);
-        vAPI.messaging.globalMessageManager.addMessageListener(
+        this.onCreated = function(button) {
+            button.setAttribute('badge', '');
+            setTimeout(this.CUIEvents.onCustomizeEnd, 50);
+        };
+
+        CustomizableUI.addListener(this.CUIEvents);
+    }
+
+    this.styleURI = Services.io.newURI(
+        'data:text/css,' + encodeURIComponent(this.styleURI.join('')),
+        null,
+        null
+    );
+
+    this.closePopup = function({target}) {
+        CustomizableUI.hidePanelForNode(
+            target.ownerDocument.getElementById(vAPI.toolbarButton.viewId)
+        );
+    };
+
+    CustomizableUI.createWidget(this);
+    vAPI.messaging.globalMessageManager.addMessageListener(
+        location.host + ':closePopup',
+        this.closePopup
+    );
+
+    cleanupTasks.push(function() {
+        if ( this.CUIEvents ) {
+            CustomizableUI.removeListener(this.CUIEvents);
+        }
+
+        CustomizableUI.destroyWidget(this.id);
+        vAPI.messaging.globalMessageManager.removeMessageListener(
             location.host + ':closePopup',
             this.closePopup
         );
 
-        cleanupTasks.push(function() {
-            if ( this.CUIEvents ) {
-                CustomizableUI.removeListener(this.CUIEvents);
-            }
+        for ( var win of vAPI.tabs.getWindows() ) {
+            var panel = win.document.getElementById(this.viewId);
+            panel.parentNode.removeChild(panel);
+            win.QueryInterface(Ci.nsIInterfaceRequestor)
+                .getInterface(Ci.nsIDOMWindowUtils)
+                .removeSheet(this.styleURI, 1);
+        }
+    }.bind(this));
+};
 
-            CustomizableUI.destroyWidget(this.id);
-            vAPI.messaging.globalMessageManager.removeMessageListener(
-                location.host + ':closePopup',
-                this.closePopup
-            );
 
-            for ( var win of vAPI.tabs.getWindows() ) {
-                var panel = win.document.getElementById(this.viewId);
-                panel.parentNode.removeChild(panel);
-                win.QueryInterface(Ci.nsIInterfaceRequestor)
-                    .getInterface(Ci.nsIDOMWindowUtils)
-                    .removeSheet(this.styleURI, 1);
-            }
-        }.bind(this));
-    };
+/******************************************************************************/
 
-    /******************************************************************************/
+vAPI.toolbarButton.onBeforeCreated = function(doc) {
+    var panel = doc.createElement('panelview');
+    panel.setAttribute('id', this.viewId);
 
-    vAPI.toolbarButton.onBeforeCreated = function(doc) {
-        var panel = doc.createElement('panelview');
-        panel.setAttribute('id', this.viewId);
+    var iframe = doc.createElement('iframe');
+    iframe.setAttribute('type', 'content');
 
-        var iframe = doc.createElement('iframe');
-        iframe.setAttribute('type', 'content');
+    doc.getElementById('PanelUI-multiView')
+        .appendChild(panel)
+        .appendChild(iframe);
 
-        doc.getElementById('PanelUI-multiView')
-            .appendChild(panel)
-            .appendChild(iframe);
-
-        var updateTimer = null;
-        var delayedResize = function() {
+    var updateTimer = null;
+    var delayedResize = function() {
         if ( updateTimer ) {
-                return;
-            }
-
-            updateTimer = setTimeout(resizePopup, 10);
-        };
-        var resizePopup = function() {
-            updateTimer = null;
-            var body = iframe.contentDocument.body;
-            panel.parentNode.style.maxWidth = 'none';
-            // https://github.com/gorhill/uBlock/issues/730
-            // Voodoo programming: this recipe works
-            panel.style.height = iframe.style.height = body.clientHeight.toString() + 'px';
-            panel.style.width = iframe.style.width = body.clientWidth.toString() + 'px';
-        if ( iframe.clientHeight !== body.clientHeight || iframe.clientWidth !== body.clientWidth ) {
-                delayedResize();
-            }
-        };
-        var onPopupReady = function() {
-            var win = this.contentWindow;
-
-        if ( !win || win.location.host !== location.host ) {
-                return;
-            }
-
-            new win.MutationObserver(delayedResize).observe(win.document.body, {
-                attributes: true,
-                characterData: true,
-                subtree: true
-            });
-
-            delayedResize();
-        };
-
-        iframe.addEventListener('load', onPopupReady, true);
-
-        doc.defaultView.QueryInterface(Ci.nsIInterfaceRequestor)
-            .getInterface(Ci.nsIDOMWindowUtils)
-            .loadSheet(this.styleURI, 1);
-    };
-
-    /******************************************************************************/
-
-    vAPI.toolbarButton.onViewShowing = function({target}) {
-        target.firstChild.setAttribute('src', vAPI.getURL('popup.html'));
-    };
-
-    /******************************************************************************/
-
-    vAPI.toolbarButton.onViewHiding = function({target}) {
-        target.parentNode.style.maxWidth = '';
-        target.firstChild.setAttribute('src', 'about:blank');
-    };
-
-    vAPI.toolbarButton.updateState = function(win, tabId) {
-        var button = win.document.getElementById(this.id);
-
-        if ( !button ) {
             return;
         }
 
-        var icon = this.tabs[tabId];
-        button.setAttribute('badge', icon && icon.badge || '');
-
-        if ( !icon || !icon.img ) {
-            icon = '';
+        updateTimer = setTimeout(resizePopup, 10);
+    };
+    var resizePopup = function() {
+        updateTimer = null;
+        var body = iframe.contentDocument.body;
+        panel.parentNode.style.maxWidth = 'none';
+        // https://github.com/gorhill/uBlock/issues/730
+        // Voodoo programming: this recipe works
+        panel.style.height = iframe.style.height = body.clientHeight.toString() + 'px';
+        panel.style.width = iframe.style.width = body.clientWidth.toString() + 'px';
+        if ( iframe.clientHeight !== body.clientHeight || iframe.clientWidth !== body.clientWidth ) {
+            delayedResize();
         }
-        else {
-            icon = 'url(' + vAPI.getURL('img/browsericons/icon16.svg') + ')';
+    };
+    var onPopupReady = function() {
+        var win = this.contentWindow;
+
+        if ( !win || win.location.host !== location.host ) {
+            return;
         }
 
-        button.style.listStyleImage = icon;
-    }
-}
+        new win.MutationObserver(delayedResize).observe(win.document.body, {
+            attributes: true,
+            characterData: true,
+            subtree: true
+        });
+
+        delayedResize();
+    };
+
+    iframe.addEventListener('load', onPopupReady, true);
+
+    doc.defaultView.QueryInterface(Ci.nsIInterfaceRequestor)
+        .getInterface(Ci.nsIDOMWindowUtils)
+        .loadSheet(this.styleURI, 1);
+};
+
+/******************************************************************************/
+
+vAPI.toolbarButton.onViewShowing = function({target}) {
+    target.firstChild.setAttribute('src', vAPI.getURL('popup.html'));
+};
+
+/******************************************************************************/
+
+vAPI.toolbarButton.onViewHiding = function({target}) {
+    target.parentNode.style.maxWidth = '';
+    target.firstChild.setAttribute('src', 'about:blank');
+};
 
 /******************************************************************************/
 
@@ -1875,6 +1849,40 @@ vAPI.punycodeURL = function(url) {
 };
 
 /******************************************************************************/
+
+vAPI.optionsObserver = {
+    register: function () {
+        var obs = Components.classes['@mozilla.org/observer-service;1'].getService(Components.interfaces.nsIObserverService);
+        obs.addObserver(this, "addon-options-displayed", false);
+        
+        cleanupTasks.push(this.unregister.bind(this));
+    },
+
+    observe: function (aSubject, aTopic, aData) {
+        if (aTopic === "addon-options-displayed" && aData === "{2b10c1c8-a11f-4bad-fe9c-1c11e82cac42}") {
+            var doc = aSubject;
+            this.setupOptionsButton(doc, "showDashboardButton", "dashboard.html");
+            this.setupOptionsButton(doc, "showNetworkLogButton", "devtools.html");
+        }
+    },
+    setupOptionsButton: function (doc, id, page) {
+        var button = doc.getElementById(id);
+        button.addEventListener("command", function () {
+            vAPI.tabs.open({ url: page, index: -1 });
+        });
+        button.label = vAPI.i18n(id);
+    },
+
+    unregister: function () {
+        var obs = Components.classes['@mozilla.org/observer-service;1'].getService(Components.interfaces.nsIObserverService);
+        obs.removeObserver(this, "addon-options-displayed");
+    },
+};
+
+vAPI.optionsObserver.register();
+
+/******************************************************************************/
+
 
 // clean up when the extension is disabled
 
