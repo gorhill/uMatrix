@@ -269,17 +269,20 @@ var windowWatcher = {
             return;
         }
 
-        if ( tabBrowser.tabContainer ) {
+        if ( tabBrowser.deck ) {
+            // Fennec
+            tabContainer = tabBrowser.deck;
+        } else if ( tabBrowser.tabContainer ) {
             // desktop Firefox
             tabContainer = tabBrowser.tabContainer;
             tabBrowser.addTabsProgressListener(tabWatcher);
+            vAPI.contextMenu.register(this.document);
         } else {
             return;
         }
 
         tabContainer.addEventListener('TabClose', tabWatcher.onTabClose);
         tabContainer.addEventListener('TabSelect', tabWatcher.onTabSelect);
-        vAPI.contextMenu.register(this.document);
 
         // when new window is opened TabSelect doesn't run on the selected tab?
     },
@@ -417,7 +420,10 @@ vAPI.tabs.registerListeners = function() {
                 continue;
             }
 
-            if ( tabBrowser.tabContainer ) {
+            if ( tabBrowser.deck ) {
+                // Fennec
+                tabContainer = tabBrowser.deck;
+            } else if ( tabBrowser.tabContainer ) {
                 tabContainer = tabBrowser.tabContainer;
                 tabBrowser.removeTabsProgressListener(tabWatcher);
             }
@@ -543,7 +549,7 @@ vAPI.tabs.get = function(tabId, callback) {
         }
     }
 
-    // for internal use
+    // For internal use
     if ( typeof callback !== 'function' ) {
         return tab;
     }
@@ -559,12 +565,14 @@ vAPI.tabs.get = function(tabId, callback) {
 
     var browser = getBrowserForTab(tab);
     var tabBrowser = getTabBrowser(win);
-    var tabIndex = vAPI.fennec
-        ? tabBrowser.tabs.indexOf(tab)
-        : tabBrowser.browsers.indexOf(browser);
-    var tabTitle = vAPI.fennec
-        ? browser.contentTitle
-        : tab.label;
+    var tabIndex, tabTitle;
+    if ( vAPI.fennec ) {
+        tabIndex = tabBrowser.tabs.indexOf(tab);
+        tabTitle = browser.contentTitle;
+    } else {
+        tabIndex = tabBrowser.browsers.indexOf(browser);
+        tabTitle = tab.label;
+    }
 
     callback({
         id: tabId,
@@ -735,6 +743,24 @@ vAPI.tabs.reload = function(tabId) {
 
 /******************************************************************************/
 
+vAPI.tabs.select = function(tabId) {
+    var tab = this.get(tabId);
+
+    if ( !tab ) {
+        return;
+    }
+
+    var tabBrowser = getTabBrowser(getOwnerWindow(tab));
+
+    if (vAPI.fennec) {
+        tabBrowser.selectTab(tab);
+    } else {
+        tabBrowser.selectedTab = tab;
+    }
+};
+
+/******************************************************************************/
+
 vAPI.tabs.injectScript = function(tabId, details, callback) {
     var tab = this.get(tabId);
 
@@ -747,7 +773,7 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
     }
 
     details.file = vAPI.getURL(details.file);
-    tab.linkedBrowser.messageManager.sendAsyncMessage(
+    getBrowserForTab(tab).messageManager.sendAsyncMessage(
         location.host + ':broadcast',
         JSON.stringify({
             broadcast: true,
@@ -785,23 +811,7 @@ vAPI.setIcon = function(tabId, iconStatus, badge) {
         return;
     }
 
-    var button = win.document.getElementById(tb.id);
-
-    if ( !button ) {
-        return;
-    }
-
-    var icon = tb.tabs[tabId];
-    button.setAttribute('badge', icon && icon.badge || '');
-
-    if ( !icon || !icon.img ) {
-        icon = '';
-    }
-    else {
-        icon = 'url(' + vAPI.getURL('img/browsericons/icon16.svg') + ')';
-    }
-
-    button.style.listStyleImage = icon;
+    tb.updateState(win, tabId);
 };
 
 /******************************************************************************/
@@ -990,6 +1000,7 @@ var httpObserver = {
     classDescription: 'net-channel-event-sinks for ' + location.host,
     classID: Components.ID('{dc8d6319-5f6e-4438-999e-53722db99e84}'),
     contractID: '@' + location.host + '/net-channel-event-sinks;1',
+    REQDATAKEY: location.host + 'reqdata',
     ABORT: Components.results.NS_BINDING_ABORTED,
     ACCEPT: Components.results.NS_SUCCEEDED,
     // Request types: https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy#Constants
@@ -1008,14 +1019,7 @@ var httpObserver = {
         12: 'object',
         14: 'font'
     },
-    lastRequest: {
-        url: null,
-        type: null,
-        tabId: null,
-        frameId: null,
-        parentFrameId: null,
-        openerURL: null
-    },
+    lastRequest: [{}, {}],
 
     get componentRegistrar() {
         return Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
@@ -1086,9 +1090,9 @@ var httpObserver = {
         }
 
         var result = vAPI.tabs.onPopup({
-            targetTabId: tabId,
-            openerTabId: sourceTabId,
-            targetURL: URI.asciiSpec
+            tabId: tabId,
+            sourceTabId: sourceTabId,
+            url: URI.asciiSpec
         });
 
         return result === true;
@@ -1120,13 +1124,13 @@ var httpObserver = {
             return true;
         }
 
-        if ( result.redirectUrl ) {
+        /*if ( result.redirectUrl ) {
             channel.redirectionLimit = 1;
             channel.redirectTo(
                 Services.io.newURI(result.redirectUrl, null, null)
             );
             return true;
-        }
+        }*/
 
         return false;
     },
@@ -1136,9 +1140,6 @@ var httpObserver = {
             return;
         }
         
-        var reqDataKey = location.host + 'reqdata';
-        
-
         var URI = channel.URI;
         var channelData, result;
 
@@ -1148,14 +1149,7 @@ var httpObserver = {
             }
 
             try {
-                /*[
-                    type,
-                    tabId,
-                    sourceTabId - given if it was a popup,
-                    frameId,
-                    parentFrameId
-                ]*/
-                channelData = channel.getProperty(reqDataKey);
+                channelData = channel.getProperty(this.REQDATAKEY);
             } catch (ex) {
                 return;
             }
@@ -1164,7 +1158,7 @@ var httpObserver = {
                 return;
             }
 
-            if ( (1 << channelData[0] & this.VALID_CSP_TARGETS) === 0 ) {
+            if ( (1 << channelData[4] & this.VALID_CSP_TARGETS) === 0 ) {
                 return;
             }
 
@@ -1178,9 +1172,9 @@ var httpObserver = {
 
             result = vAPI.net.onHeadersReceived.callback({
                 hostname: URI.asciiHost,
-                parentFrameId: channelData[4],
+                parentFrameId: channelData[1],
                 responseHeaders: result ? [{name: topic, value: result}] : [],
-                tabId: channelData[1],
+                tabId: channelData[3],
                 url: URI.asciiSpec
             });
 
@@ -1197,13 +1191,36 @@ var httpObserver = {
 
         // http-on-opening-request
 
-        var lastRequest = this.lastRequest;
+        var lastRequest = this.lastRequest[0];
+
+        if ( lastRequest.url !== URI.spec ) {
+            if ( this.lastRequest[1].url === URI.spec ) {
+                lastRequest = this.lastRequest[1];
+            } else {
+                lastRequest.url = null;
+            }
+        }
 
         if ( lastRequest.url === null ) {
-            this.handleRequest(channel, URI, {
+            lastRequest.type = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
+            result = this.handleRequest(channel, URI, {
                 tabId: vAPI.noTabId,
-                type: channel.loadInfo && channel.loadInfo.contentPolicyType || 1
+                type: lastRequest.type
             });
+
+            if ( result === true ) {
+                return;
+            }
+
+            if ( channel instanceof Ci.nsIWritablePropertyBag === false ) {
+                return;
+            }
+
+            // Carry data for behind-the-scene redirects
+            channel.setProperty(
+                this.REQDATAKEY,
+                [lastRequest.type, vAPI.noTabId, null, 0, -1]
+            );
             return;
         }
 
@@ -1211,57 +1228,27 @@ var httpObserver = {
         // the URL will be the same, so it could fall into an infinite loop
         lastRequest.url = null;
 
-        var sourceTabId = null;
-
-        // Popup candidate (only for main_frame type)
-        if ( lastRequest.openerURL ) {
-            for ( var tab of vAPI.tabs.getAll() ) {
-                var tabURI = tab.linkedBrowser.currentURI;
-
-                // Probably isn't the best method to identify the source tab
-                if ( tabURI.spec !== lastRequest.openerURL ) {
-                    continue;
-                }
-
-                sourceTabId = vAPI.tabs.getTabId(tab);
-
-                if ( sourceTabId !== lastRequest.tabId ) {
-                    break;
-                }
-
-                sourceTabId = null;
-            }
-
-            if ( this.handlePopup(channel.URI, lastRequest.tabId, sourceTabId) ) {
-                channel.cancel(this.ABORT);
-                return;
-            }
-        }
-        
-        if ( lastRequest.type === this.MAIN_FRAME && lastRequest.frameId === 0 ) {
-            vAPI.tabs.onNavigation({
-				frameId: 0,
-				tabId: lastRequest.tabId,
-				url: URI.asciiSpec
-			});
-        }
-
         if ( this.handleRequest(channel, URI, lastRequest) ) {
             return;
         }
 
+        if ( vAPI.fennec && lastRequest.type === this.MAIN_FRAME && lastRequest.frameId === 0 ) {
+            vAPI.tabs.onNavigation({
+                frameId: 0,
+                tabId: lastRequest.tabId,
+                url: URI.asciiSpec
+            });
+        }
+
         // If request is not handled we may use the data in on-modify-request
         if ( channel instanceof Ci.nsIWritablePropertyBag ) {
-            channel.setProperty(
-                reqDataKey,
-                [
-                    lastRequest.type,
-                    lastRequest.tabId,
-                    sourceTabId,
-                    lastRequest.frameId,
-                    lastRequest.parentFrameId
-                ]
-            );
+            channel.setProperty(this.REQDATAKEY, [
+                lastRequest.frameId,
+                lastRequest.parentFrameId,
+                lastRequest.sourceTabId,
+                lastRequest.tabId,
+                lastRequest.type
+            ]);
         }
     },
 
@@ -1271,12 +1258,6 @@ var httpObserver = {
 
         // If error thrown, the redirect will fail
         try {
-            // skip internal redirects?
-            /*if ( flags & 4 ) {
-                console.log('internal redirect skipped');
-                return;
-            }*/
-
             var URI = newChannel.URI;
 
             if ( !URI.schemeIs('http') && !URI.schemeIs('https') ) {
@@ -1287,21 +1268,18 @@ var httpObserver = {
                 return;
             }
 
-            // TODO: what if a behind-the-scene request is being redirected?
-            // This data is present only for tabbed requests, so if this throws,
-            // the redirection won't be evaluated and canceled (if necessary)
-            var channelData = oldChannel.getProperty(location.host + 'reqdata');
+            var channelData = oldChannel.getProperty(this.REQDATAKEY);
 
-            if ( this.handlePopup(URI, channelData[1], channelData[2]) ) {
+            if ( this.handlePopup(URI, channelData[3], channelData[2]) ) {
                 result = this.ABORT;
                 return;
             }
 
             var details = {
-                type: channelData[0],
-                tabId: channelData[1],
-                frameId: channelData[3],
-                parentFrameId: channelData[4]
+                frameId: channelData[0],
+                parentFrameId: channelData[1],
+                tabId: channelData[3],
+                type: channelData[4]
             };
 
             if ( this.handleRequest(newChannel, URI, details) ) {
@@ -1311,7 +1289,7 @@ var httpObserver = {
 
             // Carry the data on in case of multiple redirects
             if ( newChannel instanceof Ci.nsIWritablePropertyBag ) {
-                newChannel.setProperty(location.host + 'reqdata', channelData);
+                newChannel.setProperty(this.REQDATAKEY, channelData);
             }
         } catch (ex) {
             // console.error(ex);
@@ -1336,13 +1314,46 @@ vAPI.net.registerListeners = function() {
     var shouldLoadListenerMessageName = location.host + ':shouldLoad';
     var shouldLoadListener = function(e) {
         var details = e.data;
+        var tabId = vAPI.tabs.getTabId(e.target);
+        var sourceTabId = null;
+
+        // Popup candidate
+        if ( details.openerURL ) {
+            for ( var tab of vAPI.tabs.getAll() ) {
+                var URI = tab.linkedBrowser.currentURI;
+
+                // Probably isn't the best method to identify the source tab
+                if ( URI.spec !== details.openerURL ) {
+                    continue;
+                }
+
+                sourceTabId = vAPI.tabs.getTabId(tab);
+
+                if ( sourceTabId === tabId ) {
+                    sourceTabId = null;
+                    continue;
+                }
+
+                URI = Services.io.newURI(details.url, null, null);
+
+                if ( httpObserver.handlePopup(URI, tabId, sourceTabId) ) {
+                    return;
+                }
+
+                break;
+            }
+        }
+
         var lastRequest = httpObserver.lastRequest;
-        lastRequest.url = details.url;
-        lastRequest.type = details.type;
-        lastRequest.tabId = vAPI.tabs.getTabId(e.target);
-        lastRequest.frameId = details.frameId;
-        lastRequest.parentFrameId = details.parentFrameId;
-        lastRequest.openerURL = details.openerURL;
+        lastRequest[1] = lastRequest[0];
+        lastRequest[0] = {
+            frameId: details.frameId,
+            parentFrameId: details.parentFrameId,
+            sourceTabId: sourceTabId,
+            tabId: tabId,
+            type: details.type,
+            url: details.url
+        };
     };
 
     vAPI.messaging.globalMessageManager.addMessageListener(
@@ -1373,215 +1384,301 @@ vAPI.toolbarButton = {
     tabs: {/*tabId: {badge: 0, img: boolean}*/}
 };
 
-/******************************************************************************/
+if (vAPI.fennec) {
+    // Menu UI
+    vAPI.toolbarButton.menuItemIds = new WeakMap();
 
-vAPI.toolbarButton.init = function() {
-    var CustomizableUI;
-    try {
-        CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
-    } catch (ex) {
-        return;
+    vAPI.toolbarButton.getMenuItemLabel = function(tabId) {
+        var label = this.label;
+        if (tabId !== undefined) {
+            var tabDetails = this.tabs[tabId];
+            if (tabDetails) {
+                if (tabDetails.img) {
+                    if (tabDetails.badge) {
+                        label = label + " (" + tabDetails.badge + ")";
+                    }
+                } else {
+                    label = label + " (" + vAPI.i18n("fennecMenuItemBlockingOff") + ")";
+                }
+            }
+        }
+        return label;
     }
 
-    this.defaultArea = CustomizableUI.AREA_NAVBAR;
-    this.styleURI = [
-        '#' + this.id + ' {',
-            'list-style-image: url(',
-                vAPI.getURL('img/browsericons/icon16-off.svg'),
-            ');',
-        '}',
-        '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
-            'width: 160px;',
-            'height: 290px;',
-            'overflow: hidden !important;',
-        '}'
-    ];
+    vAPI.toolbarButton.init = function() {
+        // Only actually expecting one window under Fennec (note, not tabs, windows)
+        for (var win of vAPI.tabs.getWindows()) {
+            this.addToWindow(win, this.getMenuItemLabel());
+        }
 
-    var platformVersion = Services.appinfo.platformVersion;
+        cleanupTasks.push(this.cleanUp);
+    }
 
-    if ( Services.vc.compare(platformVersion, '36.0') < 0 ) {
-        this.styleURI.push(
-            '#' + this.id + '[badge]:not([badge=""])::after {',
-                'position: absolute;',
-                'margin-left: -16px;',
-                'margin-top: 3px;',
-                'padding: 1px 2px;',
-                'font-size: 9px;',
-                'font-weight: bold;',
-                'color: #fff;',
-                'background: #666;',
-                'content: attr(badge);',
+    vAPI.toolbarButton.addToWindow = function(win, label) {
+        var id = win.NativeWindow.menu.add({
+            name: label,
+            callback: this.onClick
+        });
+        this.menuItemIds.set(win, id);
+    }
+
+    vAPI.toolbarButton.cleanUp = function() {
+        for (var win of vAPI.tabs.getWindows()) {
+            vAPI.toolbarButton.removeFromWindow(win);
+        }
+    }
+
+    vAPI.toolbarButton.removeFromWindow = function(win) {
+        var id = this.menuItemIds.get(win);
+        if (id) {
+            win.NativeWindow.menu.remove(id);
+            this.menuItemIds.delete(win);
+        }
+    }
+
+    vAPI.toolbarButton.updateState = function (win, tabId) {
+        var id = this.menuItemIds.get(win);
+        if (!id) {
+            return;
+        }
+        win.NativeWindow.menu.update(id, { name: this.getMenuItemLabel(tabId) });
+    }
+
+    vAPI.toolbarButton.onClick = function() {
+        var win = Services.wm.getMostRecentWindow('navigator:browser');
+        var curTabId = vAPI.tabs.getTabId(getTabBrowser(win).selectedTab);
+        vAPI.tabs.open({ url: vAPI.getURL("popup.html?tabId=" + curTabId), index: -1, select: true });
+    }
+} else {
+    // Toolbar button UI
+
+    /******************************************************************************/
+
+    vAPI.toolbarButton.init = function() {
+        var CustomizableUI;
+        try {
+            CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
+        } catch (ex) {
+            return;
+        }
+
+        this.defaultArea = CustomizableUI.AREA_NAVBAR;
+        this.styleURI = [
+            '#' + this.id + ' {',
+                'list-style-image: url(',
+                    vAPI.getURL('img/browsericons/icon16-off.svg'),
+                ');',
+            '}',
+            '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
+                'width: 160px;',
+                'height: 290px;',
+                'overflow: hidden !important;',
             '}'
-        );
-    } else {
-        this.CUIEvents = {};
+        ];
 
-        var updateBadge = function() {
-            var wId = vAPI.toolbarButton.id;
-            var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
+        var platformVersion = Services.appinfo.platformVersion;
 
-            for ( var win of vAPI.tabs.getWindows() ) {
-                var button = win.document.getElementById(wId);
+        if ( Services.vc.compare(platformVersion, '36.0') < 0 ) {
+            this.styleURI.push(
+                '#' + this.id + '[badge]:not([badge=""])::after {',
+                    'position: absolute;',
+                    'margin-left: -16px;',
+                    'margin-top: 3px;',
+                    'padding: 1px 2px;',
+                    'font-size: 9px;',
+                    'font-weight: bold;',
+                    'color: #fff;',
+                    'background: #666;',
+                    'content: attr(badge);',
+                '}'
+            );
+        } else {
+            this.CUIEvents = {};
+
+            this.CUIEvents.onCustomizeEnd = function() {
+                var wId = vAPI.toolbarButton.id;
+                var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
+
+                for ( var win of vAPI.tabs.getWindows() ) {
+                    var button = win.document.getElementById(wId);
+                    if ( buttonInPanel ) {
+                        button.classList.remove('badged-button');
+                        continue;
+                    }
+                    if ( button === null ) {
+                        continue;
+                    }
+                    button.classList.add('badged-button');
+                }
+
                 if ( buttonInPanel ) {
-                    button.classList.remove('badged-button');
-                    continue;
-                }
-                if ( button === null ) {
-                    continue;
-                }
-                button.classList.add('badged-button');
-            }
-
-            if ( buttonInPanel ) {
-                return;
-            }
-
-            // Anonymous elements need some time to be reachable
-            setTimeout(this.updateBadgeStyle, 50);
-        }.bind(this.CUIEvents);
-
-        this.CUIEvents.onCustomizeEnd = updateBadge;
-        this.CUIEvents.onWidgetUnderflow = updateBadge;
-
-        this.CUIEvents.updateBadgeStyle = function() {
-            var css = [
-                'background: #666',
-                'color: #fff'
-            ].join(';');
-
-            for ( var win of vAPI.tabs.getWindows() ) {
-                var button = win.document.getElementById(vAPI.toolbarButton.id);
-                if ( button === null ) {
-                    continue;
-                }
-                var badge = button.ownerDocument.getAnonymousElementByAttribute(
-                    button,
-                    'class',
-                    'toolbarbutton-badge'
-                );
-                if ( !badge ) {
                     return;
                 }
 
-                badge.style.cssText = css;
-            }
-        };
+                // Anonymous elements need some time to be reachable
+                setTimeout(this.updateBadgeStyle, 250);
+            }.bind(this.CUIEvents);
 
-        this.onCreated = function(button) {
-            button.setAttribute('badge', '');
-            setTimeout(this.CUIEvents.onCustomizeEnd, 50);
-        };
+            this.CUIEvents.updateBadgeStyle = function() {
+                var css = [
+                    'background: #666',
+                    'color: #fff'
+                ].join(';');
 
-        CustomizableUI.addListener(this.CUIEvents);
-    }
+                for ( var win of vAPI.tabs.getWindows() ) {
+                    var button = win.document.getElementById(vAPI.toolbarButton.id);
+                    if ( button === null ) {
+                        continue;
+                    }
+                    var badge = button.ownerDocument.getAnonymousElementByAttribute(
+                        button,
+                        'class',
+                        'toolbarbutton-badge'
+                    );
+                    if ( !badge ) {
+                        return;
+                    }
 
-    this.styleURI = Services.io.newURI(
-        'data:text/css,' + encodeURIComponent(this.styleURI.join('')),
-        null,
-        null
-    );
+                    badge.style.cssText = css;
+                }
+            };
 
-    this.closePopup = function({target}) {
-        CustomizableUI.hidePanelForNode(
-            target.ownerDocument.getElementById(vAPI.toolbarButton.viewId)
-        );
-    };
+            this.onCreated = function(button) {
+                button.setAttribute('badge', '');
+                setTimeout(this.CUIEvents.onCustomizeEnd, 250);
+            };
 
-    CustomizableUI.createWidget(this);
-    vAPI.messaging.globalMessageManager.addMessageListener(
-        location.host + ':closePopup',
-        this.closePopup
-    );
-
-    cleanupTasks.push(function() {
-        if ( this.CUIEvents ) {
-            CustomizableUI.removeListener(this.CUIEvents);
+            CustomizableUI.addListener(this.CUIEvents);
         }
 
-        CustomizableUI.destroyWidget(this.id);
-        vAPI.messaging.globalMessageManager.removeMessageListener(
+        this.styleURI = Services.io.newURI(
+            'data:text/css,' + encodeURIComponent(this.styleURI.join('')),
+            null,
+            null
+        );
+
+        this.closePopup = function({target}) {
+            CustomizableUI.hidePanelForNode(
+                target.ownerDocument.getElementById(vAPI.toolbarButton.viewId)
+            );
+        };
+
+        CustomizableUI.createWidget(this);
+        vAPI.messaging.globalMessageManager.addMessageListener(
             location.host + ':closePopup',
             this.closePopup
         );
 
-        for ( var win of vAPI.tabs.getWindows() ) {
-            var panel = win.document.getElementById(this.viewId);
-            panel.parentNode.removeChild(panel);
-            win.QueryInterface(Ci.nsIInterfaceRequestor)
-                .getInterface(Ci.nsIDOMWindowUtils)
-                .removeSheet(this.styleURI, 1);
-        }
-    }.bind(this));
-};
+        cleanupTasks.push(function() {
+            if ( this.CUIEvents ) {
+                CustomizableUI.removeListener(this.CUIEvents);
+            }
 
-/******************************************************************************/
+            CustomizableUI.destroyWidget(this.id);
+            vAPI.messaging.globalMessageManager.removeMessageListener(
+                location.host + ':closePopup',
+                this.closePopup
+            );
 
-vAPI.toolbarButton.onBeforeCreated = function(doc) {
-    var panel = doc.createElement('panelview');
-    panel.setAttribute('id', this.viewId);
+            for ( var win of vAPI.tabs.getWindows() ) {
+                var panel = win.document.getElementById(this.viewId);
+                panel.parentNode.removeChild(panel);
+                win.QueryInterface(Ci.nsIInterfaceRequestor)
+                    .getInterface(Ci.nsIDOMWindowUtils)
+                    .removeSheet(this.styleURI, 1);
+            }
+        }.bind(this));
+    };
 
-    var iframe = doc.createElement('iframe');
-    iframe.setAttribute('type', 'content');
+    /******************************************************************************/
 
-    doc.getElementById('PanelUI-multiView')
-        .appendChild(panel)
-        .appendChild(iframe);
+    vAPI.toolbarButton.onBeforeCreated = function(doc) {
+        var panel = doc.createElement('panelview');
+        panel.setAttribute('id', this.viewId);
 
-    var updateTimer = null;
-    var delayedResize = function() {
+        var iframe = doc.createElement('iframe');
+        iframe.setAttribute('type', 'content');
+
+        doc.getElementById('PanelUI-multiView')
+            .appendChild(panel)
+            .appendChild(iframe);
+
+        var updateTimer = null;
+        var delayedResize = function() {
         if ( updateTimer ) {
-            return;
-        }
+                return;
+            }
 
-        updateTimer = setTimeout(resizePopup, 10);
-    };
-    var resizePopup = function() {
-        updateTimer = null;
-        var body = iframe.contentDocument.body;
-        panel.parentNode.style.maxWidth = 'none';
-        // https://github.com/gorhill/uBlock/issues/730
-        // Voodoo programming: this recipe works
-        panel.style.height = iframe.style.height = body.clientHeight.toString() + 'px';
-        panel.style.width = iframe.style.width = body.clientWidth.toString() + 'px';
+            updateTimer = setTimeout(resizePopup, 10);
+        };
+        var resizePopup = function() {
+            updateTimer = null;
+            var body = iframe.contentDocument.body;
+            panel.parentNode.style.maxWidth = 'none';
+            // https://github.com/gorhill/uBlock/issues/730
+            // Voodoo programming: this recipe works
+            panel.style.height = iframe.style.height = body.clientHeight.toString() + 'px';
+            panel.style.width = iframe.style.width = body.clientWidth.toString() + 'px';
         if ( iframe.clientHeight !== body.clientHeight || iframe.clientWidth !== body.clientWidth ) {
-            delayedResize();
-        }
-    };
-    var onPopupReady = function() {
-        var win = this.contentWindow;
+                delayedResize();
+            }
+        };
+        var onPopupReady = function() {
+            var win = this.contentWindow;
 
         if ( !win || win.location.host !== location.host ) {
+                return;
+            }
+
+            new win.MutationObserver(delayedResize).observe(win.document.body, {
+                attributes: true,
+                characterData: true,
+                subtree: true
+            });
+
+            delayedResize();
+        };
+
+        iframe.addEventListener('load', onPopupReady, true);
+
+        doc.defaultView.QueryInterface(Ci.nsIInterfaceRequestor)
+            .getInterface(Ci.nsIDOMWindowUtils)
+            .loadSheet(this.styleURI, 1);
+    };
+
+    /******************************************************************************/
+
+    vAPI.toolbarButton.onViewShowing = function({target}) {
+        target.firstChild.setAttribute('src', vAPI.getURL('popup.html'));
+    };
+
+    /******************************************************************************/
+
+    vAPI.toolbarButton.onViewHiding = function({target}) {
+        target.parentNode.style.maxWidth = '';
+        target.firstChild.setAttribute('src', 'about:blank');
+    };
+
+    vAPI.toolbarButton.updateState = function(win, tabId) {
+        var button = win.document.getElementById(this.id);
+
+        if ( !button ) {
             return;
         }
 
-        new win.MutationObserver(delayedResize).observe(win.document.body, {
-            attributes: true,
-            characterData: true,
-            subtree: true
-        });
+        var icon = this.tabs[tabId];
+        button.setAttribute('badge', icon && icon.badge || '');
 
-        delayedResize();
-    };
+        if ( !icon || !icon.img ) {
+            icon = '';
+        }
+        else {
+            icon = 'url(' + vAPI.getURL('img/browsericons/icon16.svg') + ')';
+        }
 
-    iframe.addEventListener('load', onPopupReady, true);
-
-    doc.defaultView.QueryInterface(Ci.nsIInterfaceRequestor)
-        .getInterface(Ci.nsIDOMWindowUtils)
-        .loadSheet(this.styleURI, 1);
-};
-
-/******************************************************************************/
-
-vAPI.toolbarButton.onViewShowing = function({target}) {
-    target.firstChild.setAttribute('src', vAPI.getURL('popup.html'));
-};
-
-/******************************************************************************/
-
-vAPI.toolbarButton.onViewHiding = function({target}) {
-    target.parentNode.style.maxWidth = '';
-    target.firstChild.setAttribute('src', 'about:blank');
-};
+        button.style.listStyleImage = icon;
+    }
+}
 
 /******************************************************************************/
 
@@ -1716,7 +1813,7 @@ vAPI.contextMenu.create = function(details, callback) {
 
         if ( gContextMenu.inFrame ) {
             details.tagName = 'iframe';
-            // Probably won't work with e01s
+            // Probably won't work with e10s
             details.frameUrl = gContextMenu.focusedWindow.location.href;
         } else if ( gContextMenu.onImage ) {
             details.tagName = 'img';
