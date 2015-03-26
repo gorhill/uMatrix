@@ -295,7 +295,6 @@ var windowWatcher = {
         if ( tabBrowser.deck ) {
             // Fennec
             tabContainer = tabBrowser.deck;
-            tabContainer.addEventListener('DOMTitleChanged', tabWatcher.onFennecLocationChange);
         } else if ( tabBrowser.tabContainer ) {
             // desktop Firefox
             tabContainer = tabBrowser.tabContainer;
@@ -376,23 +375,6 @@ var tabWatcher = {
             url: location.asciiSpec
         });
     },
-
-    onFennecLocationChange: function({target: doc}) {
-        // Fennec "equivalent" to onLocationChange
-        // note that DOMTitleChanged is selected as it fires very early
-        // (before DOMContentLoaded), and it does fire even if there is no title
-        var win = doc.defaultView;
-        if ( win !== win.top ) {
-            return;
-        }
-
-        vAPI.tabs.onNavigation({
-            frameId: 0,
-            tabId: vAPI.tabs.getTabId(getOwnerWindow(win).BrowserApp.getTabForWindow(win)),
-            url: Services.io.newURI(win.location.href, null, null).asciiSpec
-        });
-    }
-
 };
 
 /******************************************************************************/
@@ -470,7 +452,6 @@ vAPI.tabs.registerListeners = function() {
             if ( tabBrowser.deck ) {
                 // Fennec
                 tabContainer = tabBrowser.deck;
-                tabContainer.removeEventListener('DOMTitleChanged', tabWatcher.onFennecLocationChange);
             } else if ( tabBrowser.tabContainer ) {
                 tabContainer = tabBrowser.tabContainer;
                 tabBrowser.removeTabsProgressListener(tabWatcher);
@@ -1515,7 +1496,7 @@ vAPI.toolbarButton.init = function() {
         );
     } else {
         this.CUIEvents = {};
-        this.CUIEvents.updateBadge = function() {
+        var updateBadge = function() {
             var wId = vAPI.toolbarButton.id;
             var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
 
@@ -1537,9 +1518,9 @@ vAPI.toolbarButton.init = function() {
 
             // Anonymous elements need some time to be reachable
             setTimeout(this.updateBadgeStyle, 250);
-        };
-        this.CUIEvents.onCustomizeEnd = this.CUIEvents.updateBadge;
-        this.CUIEvents.onWidgetUnderflow = this.CUIEvents.updateBadge;
+        }.bind(this.CUIEvents);
+        this.CUIEvents.onCustomizeEnd = updateBadge;
+        this.CUIEvents.onWidgetUnderflow = updateBadge;
 
         this.CUIEvents.updateBadgeStyle = function() {
             var css = [
@@ -1567,7 +1548,7 @@ vAPI.toolbarButton.init = function() {
 
         this.onCreated = function(button) {
             button.setAttribute('badge', '');
-            setTimeout(this.CUIEvents.updateBadge, 250);
+            setTimeout(updateBadge, 250);
         };
 
         CustomizableUI.addListener(this.CUIEvents);
