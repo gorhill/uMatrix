@@ -298,7 +298,6 @@ var windowWatcher = {
         } else if ( tabBrowser.tabContainer ) {
             // desktop Firefox
             tabContainer = tabBrowser.tabContainer;
-            tabBrowser.addTabsProgressListener(tabWatcher);
             vAPI.contextMenu.register(this.document);
         } else {
             return;
@@ -320,8 +319,6 @@ var windowWatcher = {
 /******************************************************************************/
 
 var tabWatcher = {
-    SAME_DOCUMENT: Ci.nsIWebProgressListener.LOCATION_CHANGE_SAME_DOCUMENT,
-
     onTabClose: function({target}) {
         // target is tab in Firefox, browser in Fennec
         var tabId = vAPI.tabs.getTabId(target);
@@ -348,32 +345,6 @@ var tabWatcher = {
                 url: URI.asciiSpec
             });
         }
-    },
-
-    onLocationChange: function(browser, webProgress, request, location, flags) {
-        if ( !webProgress.isTopLevel ) {
-            return;
-        }
-
-        var tabId = vAPI.tabs.getTabId(browser);
-
-        // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
-        if ( flags & this.SAME_DOCUMENT ) {
-            vAPI.tabs.onUpdated(tabId, {url: location.asciiSpec}, {
-                frameId: 0,
-                tabId: tabId,
-                url: browser.currentURI.asciiSpec
-            });
-            return;
-        }
-
-        // https://github.com/gorhill/uBlock/issues/105
-        // Allow any kind of pages
-        vAPI.tabs.onNavigation({
-            frameId: 0,
-            tabId: tabId,
-            url: location.asciiSpec
-        });
     },
 };
 
@@ -426,7 +397,6 @@ vAPI.tabs = {};
 /******************************************************************************/
 
 vAPI.tabs.registerListeners = function() {
-    // onNavigation and onUpdated handled with tabWatcher.onLocationChange
     // onClosed - handled in tabWatcher.onTabClose
     // onPopup - handled in httpObserver.handlePopup
 
@@ -686,24 +656,6 @@ vAPI.tabs.open = function(details) {
 
     if ( details.index !== undefined ) {
         tabBrowser.moveTabTo(tab, details.index);
-    }
-};
-
-/******************************************************************************/
-
-// Replace the URL of a tab. Noop if the tab does not exist.
-
-vAPI.tabs.replace = function(tabId, url) {
-    var targetURL = url;
-
-    // extension pages
-    if ( /^[\w-]{2,}:/.test(targetURL) !== true ) {
-        targetURL = vAPI.getURL(targetURL);
-    }
-
-    var tab = this.getTabsForIds(tabId);
-    if ( tab ) {
-        getBrowserForTab(tab).loadURI(targetURL);
     }
 };
 
@@ -1137,13 +1089,18 @@ var httpObserver = {
             return true;
         }
 
-        /*if ( result.redirectUrl ) {
-            channel.redirectionLimit = 1;
+        if ( result.redirectUrl ) {
+            if ( type === 'main_frame' ) {
+                channel.cancel(this.ABORT);
+                vAPI.tabs.open({ tabId: details.tabId, url: result.redirectUrl });
+                return true;
+            }
+            /*channel.redirectionLimit = 1;
             channel.redirectTo(
                 Services.io.newURI(result.redirectUrl, null, null)
             );
-            return true;
-        }*/
+            return true;*/
+        }
 
         return false;
     },
@@ -1243,14 +1200,6 @@ var httpObserver = {
 
         if ( this.handleRequest(channel, URI, lastRequest) ) {
             return;
-        }
-
-        if ( vAPI.fennec && lastRequest.type === this.MAIN_FRAME ) {
-            vAPI.tabs.onNavigation({
-                frameId: 0,
-                tabId: lastRequest.tabId,
-                url: URI.asciiSpec
-            });
         }
 
         // If request is not handled we may use the data in on-modify-request
@@ -1367,14 +1316,43 @@ vAPI.net.registerListeners = function() {
             type: details.type,
             url: details.url
         };
-        if ( details.attrSrc !== undefined ) {
-            lastRequest[0].attrSrc = details.attrSrc;
-        }
     };
 
     vAPI.messaging.globalMessageManager.addMessageListener(
         shouldLoadListenerMessageName,
         shouldLoadListener
+    );
+
+    var locationChangedListenerMessageName = location.host + ':locationChanged';
+    var locationChangedListener = function(e) {
+        var details = e.data;
+        var browser = e.target;
+        var tabId = vAPI.tabs.getTabId(browser);
+        
+        //console.debug("nsIWebProgressListener: onLocationChange: " + details.url + " (" + details.flags + ")");        
+
+        // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
+        if ( details.flags & Ci.nsIWebProgressListener.LOCATION_CHANGE_SAME_DOCUMENT ) {
+            vAPI.tabs.onUpdated(tabId, {url: details.url}, {
+                frameId: 0,
+                tabId: tabId,
+                url: browser.currentURI.asciiSpec
+            });
+            return;
+        }
+
+        // https://github.com/gorhill/uBlock/issues/105
+        // Allow any kind of pages
+        vAPI.tabs.onNavigation({
+            frameId: 0,
+            tabId: tabId,
+            url: details.url,
+        });
+    }
+
+    vAPI.messaging.globalMessageManager.addMessageListener(
+        locationChangedListenerMessageName,
+        locationChangedListener
     );
 
     httpObserver.register();
@@ -1383,6 +1361,11 @@ vAPI.net.registerListeners = function() {
         vAPI.messaging.globalMessageManager.removeMessageListener(
             shouldLoadListenerMessageName,
             shouldLoadListener
+        );
+
+        vAPI.messaging.globalMessageManager.removeMessageListener(
+            locationChangedListenerMessageName,
+            locationChangedListener
         );
 
         httpObserver.unregister();
