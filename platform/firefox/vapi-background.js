@@ -334,7 +334,7 @@ var tabWatcher = {
 
 /******************************************************************************/
 
-vAPI.isNoTabId = function(tabId) {
+vAPI.isBehindTheSceneTabId = function(tabId) {
     return tabId.toString() === '-1';
 };
 
