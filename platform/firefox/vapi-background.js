@@ -1313,9 +1313,6 @@ vAPI.net.registerListeners = function() {
             type: details.type,
             url: details.url
         };
-        if ( details.attrSrc !== undefined ) {
-            lastRequest[0].attrSrc = details.attrSrc;
-        }
     };
 
     vAPI.messaging.globalMessageManager.addMessageListener(
