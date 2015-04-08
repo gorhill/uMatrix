@@ -1920,6 +1920,7 @@ vAPI.onLoadAllCompleted = function() {
 
         var tabId = this.tabs.getTabId(tab);
         var browser = getBrowserForTab(tab);
+        µb.tabContextManager.commit(tabId, browser.currentURI.asciiSpec);
         µb.bindTabToPageStats(tabId, browser.currentURI.asciiSpec);
         browser.messageManager.sendAsyncMessage(
             location.host + '-load-completed'
