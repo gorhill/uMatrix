@@ -1,4 +1,4 @@
-# µMatrix for Chromium
+## µMatrix for Chromium [<img src="https://travis-ci.org/gorhill/uMatrix.svg?branch=master" height="12">](https://travis-ci.org/gorhill/uMatrix)
 
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
