@@ -150,7 +150,7 @@ function defaultHandler(request, sender, callback) {
 
     switch ( request.what ) {
         case 'forceReloadTab':
-            µm.forceReload(request.pageURL);
+            µm.forceReload(request.tabId);
             break;
 
         case 'getUserSettings':

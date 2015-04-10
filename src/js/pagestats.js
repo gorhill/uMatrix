@@ -20,7 +20,7 @@
 */
 
 /* global chrome, µMatrix */
-/* jshint bitwise: false */
+/* jshint bitwise: false, boss: true */
 
 /*******************************************************************************
 
@@ -498,17 +498,6 @@ PageStore.prototype.dispose = function() {
 /******************************************************************************/
 
 PageStore.prototype.recordRequest = function(type, url, block) {
-    // TODO: this makes no sense, I forgot why I put this here.
-    if ( !this ) {
-        // console.error('pagestats.js > PageStore.recordRequest(): no pageStats');
-        return;
-    }
-
-    // rhill 2013-10-26: This needs to be called even if the request is
-    // already logged, since the request stats are cached for a while after
-    // the page is no longer visible in a browser tab.
-    µm.updateBadgeAsync(this.pageUrl);
-
     // Count blocked/allowed requests
     this.requestStats.record(type, block);
 

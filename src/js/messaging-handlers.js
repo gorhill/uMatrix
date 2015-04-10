@@ -20,6 +20,7 @@
 */
 
 /* global chrome, µMatrix */
+/* jshint boss: true */
 
 /******************************************************************************/
 /******************************************************************************/
@@ -282,14 +283,14 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
-var contentScriptSummaryHandler = function(details, sender) {
+var contentScriptSummaryHandler = function(tabId, details) {
     // TODO: Investigate "Error in response to tabs.executeScript: TypeError:
     // Cannot read property 'locationURL' of null" (2013-11-12). When can this
     // happens? 
     if ( !details || !details.locationURL ) {
         return;
     }
-    var pageURL = µm.pageUrlFromTabId(sender.tab.id);
+    var pageURL = µm.pageUrlFromTabId(tabId);
     var pageStats = µm.pageStatsFromPageUrl(pageURL);
     var µmuri = µm.URI.set(details.locationURL);
     var frameURL = µmuri.normalizedURI();
@@ -363,16 +364,20 @@ var onMessage = function(request, sender, callback) {
             break;
     }
 
+    var tabId = sender.tab.id;
+
     // Sync
     var response;
 
     switch ( request.what ) {
         case 'contentScriptHasLocalStorage':
             response = contentScriptLocalStorageHandler(request.url);
+            µm.updateBadgeAsync(tabId);
             break;
 
         case 'contentScriptSummary':
-            contentScriptSummaryHandler(request, sender);
+            contentScriptSummaryHandler(tabId, request);
+            µm.updateBadgeAsync(tabId);
             break;
 
         case 'checkScriptBlacklisted':

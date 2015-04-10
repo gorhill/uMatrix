@@ -139,7 +139,7 @@
     }
 
     // https://github.com/gorhill/uMatrix/issues/37
-    this.updateBadgeAsync(pageURL);
+    this.updateBadgeAsync(tabId);
 
     this.unbindTabFromPageStats(tabId);
 
@@ -183,6 +183,7 @@
     var pageStats = this.pageStatsFromTabId(tabId);
     if ( pageStats ) {
         pageStats.recordRequest(type, url, blocked);
+        this.updateBadgeAsync(tabId);
     }
 };
 
@@ -357,16 +358,6 @@
 
 /******************************************************************************/
 
-µMatrix.tabIdFromPageUrl = function(pageURL) {
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // Normalize to a page-URL.
-    return this.pageUrlToTabId[this.normalizePageURL(pageURL)];
-};
-
-µMatrix.tabIdFromPageStats = function(pageStats) {
-    return this.tabIdFromPageUrl(pageStats.pageUrl);
-};
-
 µMatrix.pageUrlFromTabId = function(tabId) {
     return this.tabIdToPageUrl[tabId];
 };
@@ -406,11 +397,8 @@
 
 /******************************************************************************/
 
-µMatrix.forceReload = function(pageURL) {
-    var tabId = this.tabIdFromPageUrl(pageURL);
-    if ( tabId ) {
-        chrome.tabs.reload(tabId, { bypassCache: true });
-    }
+µMatrix.forceReload = function(tabId) {
+    chrome.tabs.reload(tabId, { bypassCache: true });
 };
 
 /******************************************************************************/

@@ -138,15 +138,8 @@ return asyncJobManager;
 
     // Cache callback definition, it was a bad idea to define this one inside 
     // updateBadgeAsync
-    var updateBadge = function(pageUrl) {
+    var updateBadge = function(tabId) {
         var µm = µMatrix;
-        if ( pageUrl === µm.behindTheSceneURL ) {
-            return;
-        }
-        var tabId = µm.tabIdFromPageUrl(pageUrl);
-        if ( !tabId ) {
-            return;
-        }
         var pageStore = µm.pageStatsFromTabId(tabId);
         if ( pageStore ) {
             pageStore.updateBadge(tabId);
@@ -159,11 +152,11 @@ return asyncJobManager;
         );
     };
 
-    var updateBadgeAsync = function(pageUrl) {
-        if ( typeof pageUrl !== 'string' || pageUrl === '' ) {
+    var updateBadgeAsync = function(tabId) {
+        if ( typeof tabId !== 'number' || tabId <= 0 ) {
             return;
         }
-        µm.asyncJobs.add('updateBadge-' + pageUrl, pageUrl, updateBadge, 250);
+        µm.asyncJobs.add('updateBadge-' + tabId, tabId, updateBadge, 250);
     };
 
     return updateBadgeAsync;

@@ -649,7 +649,7 @@ function makeMatrixMetaRow(totals) {
 
 function computeMatrixGroupMetaStats(group) {
     var headers = matrixSnapshot.headers;
-    var n = Object.keys(headers).length
+    var n = Object.keys(headers).length;
     var totals = new Array(n);
     var i = n;
     while ( i-- ) {
@@ -1108,7 +1108,7 @@ function revertAll() {
 function buttonReloadHandler() {
     messaging.tell({
         what: 'forceReloadTab',
-        pageURL: matrixSnapshot.url
+        tabId: targetTabId
     });
 }
 

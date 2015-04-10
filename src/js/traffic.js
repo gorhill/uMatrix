@@ -20,6 +20,7 @@
 */
 
 /* global chrome, µMatrix */
+/* jshint boss: true */
 
 /******************************************************************************/
 
@@ -239,6 +240,8 @@ var onBeforeRootFrameRequestHandler = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/112
     pageStore.recordRequest('doc', requestURL, block);
 
+    µm.updateBadgeAsync(tabId);
+
     // If it's a blacklisted frame, redirect to frame.html
     // rhill 2013-11-05: The root frame contains a link to noop.css, this
     // allows to later check whether the root frame has been unblocked by the
@@ -313,7 +316,8 @@ var onBeforeRequestHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var pageStore = µm.pageStatsFromTabId(details.tabId);
+    var tabId = details.tabId;
+    var pageStore = µm.pageStatsFromTabId(tabId);
     if ( !pageStore ) {
         pageStore = µm.pageStatsFromTabId(µm.behindTheSceneTabId);
     }
@@ -328,6 +332,8 @@ var onBeforeRequestHandler = function(details) {
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
     pageStore.recordRequest(requestType, requestURL, block);
+
+    µm.updateBadgeAsync(tabId);
 
     // whitelisted?
     if ( !block ) {
@@ -394,6 +400,7 @@ var onBeforeSendHeadersHandler = function(details) {
         if ( linkAuditor ) {
             var block = µm.userSettings.processHyperlinkAuditing;
             pageStore.recordRequest('other', requestURL + '{Ping-To:' + linkAuditor + '}', block);
+            µm.updateBadgeAsync(tabId);
             if ( block ) {
                 µm.hyperlinkAuditingFoiledCounter += 1;
                 return { 'cancel': true };
@@ -457,23 +464,6 @@ var hyperlinkAuditorFromHeaders = function(headers) {
         }
     }
     return;
-};
-
-/******************************************************************************/
-
-var tabIdFromHeaders = function(µm, headers) {
-    var header;
-    var i = headers.length;
-    while ( i-- ) {
-        header = headers[i];
-        if ( header.name.toLowerCase() === 'referer' ) {
-            return µm.tabIdFromPageUrl(header.value);
-        }
-        if ( header.name.toLowerCase() === 'ping-from' ) {
-            return µm.tabIdFromPageUrl(header.value);
-        }
-    }
-    return -1;
 };
 
 /******************************************************************************/
@@ -647,6 +637,7 @@ var onMainDocHeadersReceived = function(details) {
         while ( destinationURL = mainFrameStack.pop() ) {
             pageStats.recordRequest('doc', destinationURL, false);
         }
+        µm.updateBadgeAsync(tabId);
     }
 
     // Maybe modify inbound headers
@@ -775,6 +766,7 @@ var onErrorOccurredHandler = function(details) {
     while ( destinationURL = mainFrameStack.pop() ) {
         pageStats.recordRequest('doc', destinationURL, false);
     }
+    µm.updateBadgeAsync(details.tabId);
 };
 
 /******************************************************************************/
