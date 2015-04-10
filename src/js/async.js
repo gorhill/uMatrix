@@ -156,7 +156,7 @@ return asyncJobManager;
         if ( typeof tabId !== 'number' || tabId <= 0 ) {
             return;
         }
-        µm.asyncJobs.add('updateBadge-' + tabId, tabId, updateBadge, 250);
+        µm.asyncJobs.add('updateBadge-' + tabId, tabId, updateBadge, 500);
     };
 
     return updateBadgeAsync;
