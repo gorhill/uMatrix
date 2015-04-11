@@ -19,15 +19,17 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, messaging, uDom */
+/* global vAPI, uDom */
 
 /******************************************************************************/
 
 (function() {
 
+'use strict';
+
 /******************************************************************************/
 
-messaging.start('asset-viewer.js');
+var messager = vAPI.messaging.channel('asset-viewer.js');
 
 /******************************************************************************/
 
@@ -43,7 +45,7 @@ if ( !matches || matches.length !== 2 ) {
     return;
 }
 
-messaging.ask({ what : 'getAssetContent', url: matches[1] }, onAssetContentReceived);
+messager.send({ what : 'getAssetContent', url: matches[1] }, onAssetContentReceived);
 
 /******************************************************************************/
 

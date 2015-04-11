@@ -22,10 +22,406 @@
 /* global chrome, µMatrix */
 
 /******************************************************************************/
+/******************************************************************************/
+
+(function() {
+
+'use strict';
+
+/******************************************************************************/
+
+var µm = µMatrix;
+
+// https://github.com/gorhill/httpswitchboard/issues/303
+// Some kind of trick going on here:
+//   Any scheme other than 'http' and 'https' is remapped into a fake
+//   URL which trick the rest of µMatrix into being able to process an
+//   otherwise unmanageable scheme. µMatrix needs web page to have a proper
+//   hostname to work properly, so just like the 'chromium-behind-the-scene'
+//   fake domain name, we map unknown schemes into a fake '{scheme}-scheme'
+//   hostname. This way, for a specific scheme you can create scope with
+//   rules which will apply only to that scheme.
+
+/******************************************************************************/
+/******************************************************************************/
+
+µm.normalizePageURL = function(tabId, pageURL) {
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+        return 'http://behind-the-scene/';
+    }
+    var uri = this.URI.set(pageURL);
+    var scheme = uri.scheme;
+    if ( scheme === 'https' || scheme === 'http' ) {
+        return uri.normalizedURI();
+    }
+
+    var url = 'http://' + scheme + '-scheme/';
+
+    if ( uri.hostname !== '' ) {
+        url += uri.hostname + '/';
+    }
+
+    return url;
+};
+
+/******************************************************************************/
+/******************************************************************************
+
+To keep track from which context *exactly* network requests are made. This is
+often tricky for various reasons, and the challenge is not specific to one
+browser.
+
+The time at which a URL is assigned to a tab and the time when a network
+request for a root document is made must be assumed to be unrelated: it's all
+asynchronous. There is no guaranteed order in which the two events are fired.
+
+Also, other "anomalies" can occur:
+
+- a network request for a root document is fired without the corresponding
+tab being really assigned a new URL
+<https://github.com/chrisaljoudi/uBlock/issues/516>
+
+- a network request for a secondary resource is labeled with a tab id for
+which no root document was pulled for that tab.
+<https://github.com/chrisaljoudi/uBlock/issues/1001>
+
+- a network request for a secondary resource is made without the root
+document to which it belongs being formally bound yet to the proper tab id,
+causing a bad scope to be used for filtering purpose.
+<https://github.com/chrisaljoudi/uBlock/issues/1205>
+<https://github.com/chrisaljoudi/uBlock/issues/1140>
+
+So the solution here is to keep a lightweight data structure which only
+purpose is to keep track as accurately as possible of which root document
+belongs to which tab. That's the only purpose, and because of this, there are
+no restrictions for when the URL of a root document can be associated to a tab.
+
+Before, the PageStore object was trying to deal with this, but it had to
+enforce some restrictions so as to not descend into one of the above issues, or
+other issues. The PageStore object can only be associated with a tab for which
+a definitive navigation event occurred, because it collects information about
+what occurred in the tab (for example, the number of requests blocked for a
+page).
+
+The TabContext objects do not suffer this restriction, and as a result they
+offer the most reliable picture of which root document URL is really associated
+to which tab. Moreover, the TabObject can undo an association from a root
+document, and automatically re-associate with the next most recent. This takes
+care of <https://github.com/chrisaljoudi/uBlock/issues/516>.
+
+The PageStore object no longer cache the various information about which
+root document it is currently bound. When it needs to find out, it will always
+defer to the TabContext object, which will provide the real answer. This takes
+case of <https://github.com/chrisaljoudi/uBlock/issues/1205>. In effect, the
+master switch and dynamic filtering rules can be evaluated now properly even
+in the absence of a PageStore object, this was not the case before.
+
+Also, the TabContext object will try its best to find a good candidate root
+document URL for when none exists. This takes care of 
+<https://github.com/chrisaljoudi/uBlock/issues/1001>.
+
+The TabContext manager is self-contained, and it takes care to properly
+housekeep itself.
+
+*/
+
+µm.tabContextManager = (function() {
+    var tabContexts = Object.create(null);
+
+    // https://github.com/chrisaljoudi/uBlock/issues/1001
+    // This is to be used as last-resort fallback in case a tab is found to not
+    // be bound while network requests are fired for the tab.
+    var mostRecentRootDocURL = '';
+    var mostRecentRootDocURLTimestamp = 0;
+
+    var gcPeriod = 10 * 60 * 1000;
+
+    var TabContext = function(tabId) {
+        this.tabId = tabId;
+        this.stack = [];
+        this.rawURL =
+        this.normalURL =
+        this.rootHostname =
+        this.rootDomain = '';
+        this.timer = null;
+        this.onTabCallback = null;
+        this.onTimerCallback = null;
+
+        tabContexts[tabId] = this;
+    };
+
+    TabContext.prototype.destroy = function() {
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        if ( this.timer !== null ) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+        delete tabContexts[this.tabId];
+    };
+
+    TabContext.prototype.onTab = function(tab) {
+        if ( tab ) {
+            this.timer = setTimeout(this.onTimerCallback, gcPeriod);
+        } else {
+            this.destroy();
+        }
+    };
+
+    TabContext.prototype.onTimer = function() {
+        this.timer = null;
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        vAPI.tabs.get(this.tabId, this.onTabCallback);
+    };
+
+    // This takes care of orphanized tab contexts. Can't be started for all
+    // contexts, as the behind-the-scene context is permanent -- so we do not
+    // want to slush it.
+    TabContext.prototype.autodestroy = function() {
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        this.onTabCallback = this.onTab.bind(this);
+        this.onTimerCallback = this.onTimer.bind(this);
+        this.timer = setTimeout(this.onTimerCallback, gcPeriod);
+    };
+
+    // Update just force all properties to be updated to match the most current
+    // root URL.
+    TabContext.prototype.update = function() {
+        if ( this.stack.length === 0 ) {
+            this.rawURL = this.normalURL = this.rootHostname = this.rootDomain = '';
+        } else {
+            this.rawURL = this.stack[this.stack.length - 1];
+            this.normalURL = µm.normalizePageURL(this.tabId, this.rawURL);
+            this.rootHostname = µm.URI.hostnameFromURI(this.normalURL);
+            this.rootDomain = µm.URI.domainFromHostname(this.rootHostname);
+        }
+    };
+
+    // Called whenever a candidate root URL is spotted for the tab.
+    TabContext.prototype.push = function(url) {
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        this.stack.push(url);
+        this.update();
+    };
+
+    // Called when a former push is a false positive:
+    //   https://github.com/chrisaljoudi/uBlock/issues/516
+    TabContext.prototype.unpush = function(url) {
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        // We are not going to unpush if there is no other candidate, the
+        // point of unpush is to make space for a better candidate.
+        if ( this.stack.length === 1 ) {
+            return;
+        }
+        var pos = this.stack.indexOf(url);
+        if ( pos === -1 ) {
+            return;
+        }
+        this.stack.splice(pos, 1);
+        if ( this.stack.length === 0 ) {
+            this.destroy();
+            return;
+        }
+        if ( pos !== this.stack.length ) {
+            return;
+        }
+        this.update();
+    };
+
+    // This tells that the url is definitely the one to be associated with the
+    // tab, there is no longer any ambiguity about which root URL is really
+    // sitting in which tab.
+    TabContext.prototype.commit = function(url) {
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        this.stack = [url];
+        this.update();
+    };
+
+    // These are to be used for the API of the tab context manager.
+
+    var push = function(tabId, url) {
+        var entry = tabContexts[tabId];
+        if ( entry === undefined ) {
+            entry = new TabContext(tabId);
+            entry.autodestroy();
+        }
+        entry.push(url);
+        mostRecentRootDocURL = url;
+        mostRecentRootDocURLTimestamp = Date.now();
+        return entry;
+    };
+
+    // Find a tab context for a specific tab. If none is found, attempt to
+    // fix this. When all fail, the behind-the-scene context is returned.
+    var lookup = function(tabId, url) {
+        var entry;
+        if ( url !== undefined ) {
+            entry = push(tabId, url);
+        } else {
+            entry = tabContexts[tabId];
+        }
+        if ( entry !== undefined ) {
+            return entry;
+        }
+        // https://github.com/chrisaljoudi/uBlock/issues/1025
+        // Google Hangout popup opens without a root frame. So for now we will
+        // just discard that best-guess root frame if it is too far in the
+        // future, at which point it ceases to be a "best guess".
+        if ( mostRecentRootDocURL !== '' && mostRecentRootDocURLTimestamp + 500 < Date.now() ) {
+            mostRecentRootDocURL = '';
+        }
+        // https://github.com/chrisaljoudi/uBlock/issues/1001
+        // Not a behind-the-scene request, yet no page store found for the
+        // tab id: we will thus bind the last-seen root document to the
+        // unbound tab. It's a guess, but better than ending up filtering
+        // nothing at all.
+        if ( mostRecentRootDocURL !== '' ) {
+            return push(tabId, mostRecentRootDocURL);
+        }
+        // If all else fail at finding a page store, re-categorize the
+        // request as behind-the-scene. At least this ensures that ultimately
+        // the user can still inspect/filter those net requests which were
+        // about to fall through the cracks.
+        // Example: Chromium + case #12 at
+        //          http://raymondhill.net/ublock/popup.html
+        return tabContexts[vAPI.noTabId];
+    };
+
+    var commit = function(tabId, url) {
+        var entry = tabContexts[tabId];
+        if ( entry === undefined ) {
+            entry = push(tabId, url);
+        } else {
+            entry.commit(url);
+        }
+        return entry;
+    };
+
+    var unpush = function(tabId, url) {
+        var entry = tabContexts[tabId];
+        if ( entry !== undefined ) {
+            entry.unpush(url);
+        }
+    };
+
+    var exists = function(tabId) {
+        return tabContexts[tabId] !== undefined;
+    };
+
+    // Behind-the-scene tab context
+    (function() {
+        var entry = new TabContext(vAPI.noTabId);
+        entry.stack.push('');
+        entry.rawURL = '';
+        entry.normalURL = µm.normalizePageURL(entry.tabId);
+        entry.rootHostname = µm.URI.hostnameFromURI(entry.normalURL);
+        entry.rootDomain = µm.URI.domainFromHostname(entry.rootHostname);
+    })();
+
+    // Context object, typically to be used to feed filtering engines.
+    var Context = function(tabId) {
+        var tabContext = lookup(tabId);
+        this.rootHostname = tabContext.rootHostname;
+        this.rootDomain = tabContext.rootDomain;
+        this.pageHostname = 
+        this.pageDomain =
+        this.requestURL =
+        this.requestHostname =
+        this.requestDomain = '';
+    };
+
+    var createContext = function(tabId) {
+        return new Context(tabId);
+    };
+
+    return {
+        push: push,
+        unpush: unpush,
+        commit: commit,
+        lookup: lookup,
+        exists: exists,
+        createContext: createContext
+    };
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
+// When the DOM content of root frame is loaded, this means the tab
+// content has changed.
+
+vAPI.tabs.onNavigation = function(details) {
+    if ( details.frameId !== 0 ) {
+        return;
+    }
+    var tabContext = µm.tabContextManager.commit(details.tabId, details.url);
+    var pageStore = µm.bindTabToPageStats(details.tabId, 'afterNavigate');
+
+};
+
+/******************************************************************************/
+
+// It may happen the URL in the tab changes, while the page's document
+// stays the same (for instance, Google Maps). Without this listener,
+// the extension icon won't be properly refreshed.
+
+vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
+    if ( !tab.url || tab.url === '' ) {
+        return;
+    }
+
+    if ( changeInfo.url ) {
+        µm.tabContextManager.commit(tabId, changeInfo.url);
+        µm.bindTabToPageStats(tabId, 'tabUpdated');
+    }
+
+    // rhill 2013-12-23: Compute state after whole page is loaded. This is
+    // better than building a state snapshot dynamically when requests are
+    // recorded, because here we are not afflicted by the browser cache
+    // mechanism.
+
+    // rhill 2014-03-05: Use tab id instead of page URL: this allows a
+    // blocked page using µMatrix internal data URI-based page to be properly
+    // unblocked when user un-blacklist the hostname.
+    // https://github.com/gorhill/httpswitchboard/issues/198
+    if ( changeInfo.status === 'complete' ) {
+        var pageStats = µm.pageStatsFromTabId(tabId);
+        if ( pageStats ) {
+            pageStats.state = µm.computeTabState(tabId);
+        }
+    }
+};
+
+/******************************************************************************/
+
+vAPI.tabs.onClosed = function(tabId) {
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+        return;
+    }
+    µm.unbindTabFromPageStats(tabId);
+};
+
+/******************************************************************************/
+
+vAPI.tabs.registerListeners();
+
+/******************************************************************************/
+/******************************************************************************/
 
 // Create a new page url stats store (if not already present)
 
-µMatrix.createPageStore = function(pageURL) {
+µm.createPageStore = function(pageURL) {
     // https://github.com/gorhill/httpswitchboard/issues/303
     // At this point, the URL has been page-URL-normalized
 
@@ -57,46 +453,31 @@
 
 /******************************************************************************/
 
-// https://github.com/gorhill/httpswitchboard/issues/303
-// Some kind of trick going on here:
-//   Any scheme other than 'http' and 'https' is remapped into a fake
-//   URL which trick the rest of µMatrix into being able to process an
-//   otherwise unmanageable scheme. µMatrix needs web pages to have a proper
-//   hostname to work properly, so just like the 'chromium-behind-the-scene'
-//   fake domain name, we map unknown schemes into a fake '{scheme}-scheme'
-//   hostname. This way, for a specific scheme you can create scope with
-//   rules which will apply only to that scheme.
-
-µMatrix.normalizePageURL = function(pageURL) {
-    var uri = this.URI.set(pageURL);
-    if ( uri.scheme === 'https' || uri.scheme === 'http' ) {
-        return uri.normalizedURI();
-    }
-    // If it is a scheme-based page URL, it is important it is crafted as a
-    // normalized URL just like above.
-    if ( uri.scheme !== '' ) {
-        return 'http://' + uri.scheme + '-scheme/';
-    }
-    return '';
-};
-
-/******************************************************************************/
-
 // Create an entry for the tab if it doesn't exist
 
-µMatrix.bindTabToPageStats = function(tabId, pageURL, context) {
+µm.bindTabToPageStats = function(tabId, context) {
+    if ( vAPI.isBehindTheSceneTabId(tabId) === false ) {
+        this.updateBadgeAsync(tabId);
+    }
+
+    // Do not create a page store for URLs which are of no interests
+    if ( µm.tabContextManager.exists(tabId) === false ) {
+        this.unbindTabFromPageStats(tabId);
+        return null;
+    }
+
+    var tabContext = µm.tabContextManager.lookup(tabId);
+    var rawURL = tabContext.rawURL;
+
     // https://github.com/gorhill/httpswitchboard/issues/303
     // Don't rebind pages blocked by µMatrix.
     var blockedRootFramePrefix = this.webRequest.blockedRootFramePrefix;
-    if ( pageURL.slice(0, blockedRootFramePrefix.length) === blockedRootFramePrefix ) {
+    if ( rawURL.lastIndexOf(blockedRootFramePrefix, 0) === 0 ) {
         return null;
     }
 
     var pageStore;
-
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // Normalize to a page-URL.
-    pageURL = this.normalizePageURL(pageURL);
+    var pageURL = tabContext.normalURL;
 
     // The previous page URL, if any, associated with the tab
     if ( this.tabIdToPageUrl.hasOwnProperty(tabId) ) {
@@ -159,7 +540,7 @@
 
 /******************************************************************************/
 
-µMatrix.unbindTabFromPageStats = function(tabId) {
+µm.unbindTabFromPageStats = function(tabId) {
     if ( this.tabIdToPageUrl.hasOwnProperty(tabId) === false ) {
         return;
     }
@@ -179,7 +560,7 @@
 
 // Log a request
 
-µMatrix.recordFromTabId = function(tabId, type, url, blocked) {
+µm.recordFromTabId = function(tabId, type, url, blocked) {
     var pageStats = this.pageStatsFromTabId(tabId);
     if ( pageStats ) {
         pageStats.recordRequest(type, url, blocked);
@@ -187,7 +568,7 @@
     }
 };
 
-µMatrix.recordFromPageUrl = function(pageUrl, type, url, blocked, reason) {
+µm.recordFromPageUrl = function(pageUrl, type, url, blocked, reason) {
     var pageStats = this.pageStatsFromPageUrl(pageUrl);
     if ( pageStats ) {
         pageStats.recordRequest(type, url, blocked, reason);
@@ -196,7 +577,7 @@
 
 /******************************************************************************/
 
-µMatrix.onPageLoadCompleted = function(pageURL) {
+µm.onPageLoadCompleted = function(pageURL) {
     var pageStats = this.pageStatsFromPageUrl(pageURL);
     if ( !pageStats ) {
         return;
@@ -210,9 +591,9 @@
 
 /******************************************************************************/
 
-// Reload content of a tabs.
+// Reload content of one or more tabs.
 
-µMatrix.smartReloadTabs = function(which, tabId) {
+µm.smartReloadTabs = function(which, tabId) {
     if ( which === 'none' ) {
         return;
     }
@@ -224,7 +605,6 @@
 
     // which === 'all'
     var reloadTabs = function(chromeTabs) {
-        var µm = µMatrix;
         var tabId;
         var i = chromeTabs.length;
         while ( i-- ) {
@@ -236,7 +616,7 @@
     };
 
     var getTabs = function() {
-        chrome.tabs.query({ status: 'complete' }, reloadTabs);
+        vAPI.tabs.getAll(reloadTabs);
     };
 
     this.asyncJobs.add('smartReloadTabs', null, getTabs, 500);
@@ -246,7 +626,7 @@
 
 // Reload content of a tab
 
-µMatrix.smartReloadTab = function(tabId) {
+µm.smartReloadTab = function(tabId) {
     var pageStats = this.pageStatsFromTabId(tabId);
     if ( !pageStats ) {
         //console.error('HTTP Switchboard> µMatrix.smartReloadTab(): page stats for tab id %d not found', tabId);
@@ -304,7 +684,7 @@
     // console.log('old state: %o\nnew state: %o', oldState, newState);
     
     if ( mustReload ) {
-        chrome.tabs.reload(tabId);
+        vAPI.tabs.reload(tabId);
     }
     // pageStats.state = newState;
 };
@@ -317,13 +697,13 @@
 //      `chrome-devtools://devtools/devtools.html`
 //      etc.
 
-µMatrix.tabExists = function(tabId) {
+µm.tabExists = function(tabId) {
     return !!this.pageUrlFromTabId(tabId);
 };
 
 /******************************************************************************/
 
-µMatrix.computeTabState = function(tabId) {
+µm.computeTabState = function(tabId) {
     var pageStats = this.pageStatsFromTabId(tabId);
     if ( !pageStats ) {
         //console.error('tab.js > µMatrix.computeTabState(): page stats for tab id %d not found', tabId);
@@ -358,18 +738,18 @@
 
 /******************************************************************************/
 
-µMatrix.pageUrlFromTabId = function(tabId) {
+µm.pageUrlFromTabId = function(tabId) {
     return this.tabIdToPageUrl[tabId];
 };
 
-µMatrix.pageUrlFromPageStats = function(pageStats) {
+µm.pageUrlFromPageStats = function(pageStats) {
     if ( pageStats ) {
         return pageStats.pageUrl;
     }
     return undefined;
 };
 
-µMatrix.pageStatsFromTabId = function(tabId) {
+µm.pageStatsFromTabId = function(tabId) {
     var pageUrl = this.tabIdToPageUrl[tabId];
     if ( pageUrl ) {
         return this.pageStats[pageUrl];
@@ -377,7 +757,7 @@
     return undefined;
 };
 
-µMatrix.pageStatsFromPageUrl = function(pageURL) {
+µm.pageStatsFromPageUrl = function(pageURL) {
     if ( pageURL ) {
         return this.pageStats[this.normalizePageURL(pageURL)];
     }
@@ -386,7 +766,7 @@
 
 /******************************************************************************/
 
-µMatrix.resizeLogBuffers = function(size) {
+µm.resizeLogBuffers = function(size) {
     var pageStores = this.pageStats;
     for ( var pageURL in pageStores ) {
         if ( pageStores.hasOwnProperty(pageURL) ) {
@@ -397,15 +777,14 @@
 
 /******************************************************************************/
 
-µMatrix.forceReload = function(tabId) {
-    chrome.tabs.reload(tabId, { bypassCache: true });
+µm.forceReload = function(tabId) {
+    vAPI.tabs.reload(tabId, { bypassCache: true });
 };
 
 /******************************************************************************/
 
 // Garbage collect stale url stats entries
 (function() {
-    var µm = µMatrix;
     var gcPageStats = function() {
         var pageStore;
         var now = Date.now();
@@ -447,11 +826,15 @@
 
     // Time somewhat arbitrary: If a web page has not been in a tab
     // for some time minutes, flush its stats.
-    µMatrix.asyncJobs.add(
+    µm.asyncJobs.add(
         'gcPageStats',
         null,
         gcPageStats,
         (2.5 * 60 * 1000) | 0,
         true
     );
+})();
+
+/******************************************************************************/
+
 })();

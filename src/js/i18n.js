@@ -37,7 +37,7 @@ window.addEventListener('load', function() {
     var node;
     while ( i-- ) {
         node = nodeList[i];
-        node.innerHTML = chrome.i18n.getMessage(node.getAttribute('data-i18n'));
+        node.innerHTML = vAPI.i18n(node.getAttribute('data-i18n'));
     }
     // copy text of <h1> if any to document title
     node = document.querySelector('h1');
@@ -49,6 +49,6 @@ window.addEventListener('load', function() {
     i = nodeList.length;
     while ( i-- ) {
         node = nodeList[i];
-        node.setAttribute('data-tip', chrome.i18n.getMessage(node.getAttribute('data-i18n-tip')));
+        node.setAttribute('data-tip', vAPI.i18n(node.getAttribute('data-i18n-tip')));
     }
 });

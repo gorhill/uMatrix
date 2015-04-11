@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µBlock - a browser extension to block requests.
-    Copyright (C) 2014 The µBlock authors
+    µMatrix - a browser extension to block requests.
+    Copyright (C) 2014 The uBlock authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uBlock
 */
 
-/* global self, µBlock */
+/* global self, µMatrix */
 
 // For background page
 
@@ -45,6 +45,34 @@ var noopFunc = function(){};
 vAPI.app = {
     name: manifest.name,
     version: manifest.version
+};
+
+/******************************************************************************/
+
+vAPI.app.start = function() {
+    // rhill 2013-12-07:
+    // Relinquish control over javascript execution to the user.
+    //   https://github.com/gorhill/httpswitchboard/issues/74
+    chrome.contentSettings.javascript.clear({});
+};
+
+/******************************************************************************/
+
+vAPI.app.stop = function() {
+    chrome.contentSettings.javascript.clear({});
+
+    // rhill 2013-12-07:
+    // Tell Chromium to allow all javascript: µMatrix will control whether
+    // javascript execute through `Content-Policy-Directive` and webRequest.
+    //   https://github.com/gorhill/httpswitchboard/issues/74
+    chrome.contentSettings.javascript.set({
+        primaryPattern: 'https://*/*',
+        setting: 'allow'
+    });
+    chrome.contentSettings.javascript.set({
+        primaryPattern: 'http://*/*',
+        setting: 'allow'
+    });
 };
 
 /******************************************************************************/
@@ -114,7 +142,8 @@ vAPI.tabs.registerListeners = function() {
         if ( popup !== undefined ) {
             return;
         }
-        return popupCandidates[details.tabId] = new PopupCandidate(details);
+        popup = popupCandidates[details.tabId] = new PopupCandidate(details);
+        return popup;
     };
 
     var popupCandidateTest = function(details) {
@@ -190,10 +219,11 @@ vAPI.tabs.registerListeners = function() {
     if ( typeof this.onClosed === 'function' ) {
         chrome.tabs.onRemoved.addListener(this.onClosed);
     }
-
 };
 
 /******************************************************************************/
+
+// tabId: null, // active tab
 
 vAPI.tabs.get = function(tabId, callback) {
     var onTabReady = function(tab) {
@@ -219,6 +249,12 @@ vAPI.tabs.get = function(tabId, callback) {
         callback(tabs[0]);
     };
     chrome.tabs.query({ active: true, currentWindow: true }, onTabReceived);
+};
+
+/******************************************************************************/
+
+vAPI.tabs.getAll = function(callback) {
+    chrome.tabs.query({ url: '<all_urls>' }, callback);
 };
 
 /******************************************************************************/
@@ -356,6 +392,9 @@ vAPI.tabs.reload = function(tabId /*, flags*/) {
     if ( typeof tabId === 'string' ) {
         tabId = parseInt(tabId, 10);
     }
+    if ( isNaN(tabId) ) {
+        return;
+    }
     chrome.tabs.reload(tabId);
 };
 
@@ -387,8 +426,11 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
 // Since we may be called asynchronously, the tab id may not exist
 // anymore, so this ensures it does still exist.
 
-vAPI.setIcon = function(tabId, iconStatus, badge) {
+vAPI.setIcon = function(tabId, iconId, badge) {
     tabId = parseInt(tabId, 10);
+    if ( isNaN(tabId) || tabId <= 0 ) {
+        return;
+    }
     var onIconReady = function() {
         if ( vAPI.lastError() ) {
             return;
@@ -397,14 +439,16 @@ vAPI.setIcon = function(tabId, iconStatus, badge) {
         if ( badge !== '' ) {
             chrome.browserAction.setBadgeBackgroundColor({
                 tabId: tabId,
-                color: '#666'
+                color: '#000'
             });
         }
     };
 
-    var iconPaths = iconStatus === 'on' ?
-        { '19': 'img/browsericons/icon19.png',     '38': 'img/browsericons/icon38.png' } :
-        { '19': 'img/browsericons/icon19-off.png', '38': 'img/browsericons/icon38-off.png' };
+    var iconSelector = typeof iconId === 'number' ? iconId : 'off';
+    var iconPaths = {
+        '19': 'img/browsericons/icon19-' + iconSelector + '.png'/* ,
+        '38': 'img/browsericons/icon38-' + iconSelector + '.png' */
+    };
 
     chrome.browserAction.setIcon({ tabId: tabId, path: iconPaths }, onIconReady);
 };
@@ -449,7 +493,7 @@ vAPI.messaging.onPortMessage = function(request, port) {
         return;
     }
 
-    console.error('µBlock> messaging > unknown request: %o', request);
+    console.error('µMatrix> messaging > unknown request: %o', request);
 
     // Unhandled:
     // Need to callback anyways in case caller expected an answer, or
@@ -568,21 +612,21 @@ vAPI.net = {};
 /******************************************************************************/
 
 vAPI.net.registerListeners = function() {
-    var µb = µBlock;
-    var µburi = µb.URI;
+    var µm = µMatrix;
+    var µmuri = µm.URI;
 
     var normalizeRequestDetails = function(details) {
-        µburi.set(details.url);
+        µmuri.set(details.url);
 
         details.tabId = details.tabId.toString();
-        details.hostname = µburi.hostnameFromURI(details.url);
+        details.hostname = µmuri.hostnameFromURI(details.url);
 
         // The rest of the function code is to normalize type
         if ( details.type !== 'other' ) {
             return;
         }
 
-        var tail = µburi.path.slice(-6);
+        var tail = µmuri.path.slice(-6);
         var pos = tail.lastIndexOf('.');
 
         // https://github.com/chrisaljoudi/uBlock/issues/862
@@ -628,6 +672,20 @@ vAPI.net.registerListeners = function() {
         this.onBeforeRequest.extra
     );
 
+    var onBeforeSendHeadersClient = this.onBeforeSendHeaders.callback;
+    var onBeforeSendHeaders = function(details) {
+        normalizeRequestDetails(details);
+        return onBeforeSendHeadersClient(details);
+    };
+    chrome.webRequest.onBeforeSendHeaders.addListener(
+        onBeforeSendHeaders,
+        {
+            'urls': this.onBeforeSendHeaders.urls || ['<all_urls>'],
+            'types': this.onBeforeSendHeaders.types || []
+        },
+        this.onBeforeSendHeaders.extra
+    );
+
     var onHeadersReceivedClient = this.onHeadersReceived.callback;
     var onHeadersReceived = function(details) {
         normalizeRequestDetails(details);
@@ -640,6 +698,13 @@ vAPI.net.registerListeners = function() {
             'types': this.onHeadersReceived.types || []
         },
         this.onHeadersReceived.extra
+    );
+
+    chrome.webRequest.onErrorOccurred.addListener(
+        this.onErrorOccurred.callback,
+        {
+            'urls': this.onErrorOccurred.urls || ['<all_urls>']
+        }
     );
 };
 
@@ -672,48 +737,6 @@ vAPI.lastError = function() {
 // the web pages before uBlock was ready.
 
 vAPI.onLoadAllCompleted = function() {
-    // http://code.google.com/p/chromium/issues/detail?id=410868#c11
-    // Need to be sure to access `vAPI.lastError()` to prevent
-    // spurious warnings in the console.
-    var scriptDone = function() {
-        vAPI.lastError();
-    };
-    var scriptEnd = function(tabId) {
-        if ( vAPI.lastError() ) {
-            return;
-        }
-        vAPI.tabs.injectScript(tabId, {
-            file: 'js/contentscript-end.js',
-            allFrames: true,
-            runAt: 'document_idle'
-        }, scriptDone);
-    };
-    var scriptStart = function(tabId) {
-        vAPI.tabs.injectScript(tabId, {
-            file: 'js/vapi-client.js',
-            allFrames: true,
-            runAt: 'document_start'
-        }, function(){ });
-        vAPI.tabs.injectScript(tabId, {
-            file: 'js/contentscript-start.js',
-            allFrames: true,
-            runAt: 'document_start'
-        }, function(){ scriptEnd(tabId); });
-    };
-    var bindToTabs = function(tabs) {
-        var µb = µBlock;
-        var i = tabs.length, tab;
-        while ( i-- ) {
-            tab = tabs[i];
-            µb.tabContextManager.commit(tab.id, tab.url);
-            µb.bindTabToPageStats(tab.id);
-            // https://github.com/chrisaljoudi/uBlock/issues/129
-            scriptStart(tab.id);
-        }
-    };
-
-    chrome.tabs.query({ url: 'http://*/*' }, bindToTabs);
-    chrome.tabs.query({ url: 'https://*/*' }, bindToTabs);
 };
 
 /******************************************************************************/
@@ -726,6 +749,43 @@ vAPI.punycodeURL = function(url) {
     return url;
 };
 
+/******************************************************************************/
+
+vAPI.browserCache = {};
+
+/******************************************************************************/
+
+vAPI.browserCache.clearByTime = function(since) {
+    chrome.browsingData.removeCache({ since: 0 });
+};
+
+vAPI.browserCache.clearByOrigin = function(/* domain */) {
+    // unsupported on Chromium
+};
+
+/******************************************************************************/
+
+vAPI.cookies = {};
+
+/******************************************************************************/
+
+vAPI.cookies.registerListeners = function() {
+    if ( typeof this.onChanged === 'function' ) {
+        chrome.cookies.onChanged.addListener(this.onChanged);
+    }
+};
+
+/******************************************************************************/
+
+vAPI.cookies.getAll = function(callback) {
+    chrome.cookies.getAll({}, callback);
+};
+
+/******************************************************************************/
+
+vAPI.cookies.remove = function(details, callback) {
+    chrome.cookies.remove(details, callback || noopFunc);
+};
 /******************************************************************************/
 
 })();

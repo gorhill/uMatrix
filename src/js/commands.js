@@ -47,7 +47,7 @@ var onCommand = function(command) {
         µMatrix.revertAllRules();
         break;
     case 'whitelist-all':
-        chrome.tabs.query({ active: true }, whitelistAll);
+        vAPI.tabs.get(null, whitelistAll);
         break;
     case 'open-dashboard':
         µMatrix.utils.gotoExtensionURL('dashboard.html');
@@ -59,7 +59,7 @@ var onCommand = function(command) {
 
 /******************************************************************************/
 
-chrome.commands.onCommand.addListener(onCommand);
+// chrome.commands.onCommand.addListener(onCommand);
 
 /******************************************************************************/
 

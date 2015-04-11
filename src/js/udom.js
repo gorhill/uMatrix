@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    µBlock - a Chromium browser extension to block requests.
+    µBlock - a browser extension to block requests.
     Copyright (C) 2014 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,9 @@
     Home: https://github.com/gorhill/uBlock
 */
 
-/******************************************************************************/
+/* global DOMTokenList */
+/* exported uDom */
+
 /******************************************************************************/
 
 // It's just a silly, minimalist DOM framework: this allows me to not rely
@@ -29,6 +31,8 @@
 // of assumption on passed parameters, etc. I grow it on a per-need-basis only.
 
 var uDom = (function() {
+
+'use strict';
 
 /******************************************************************************/
 
@@ -136,7 +140,7 @@ var addHTMLToList = function(list, html) {
     var cTag = matches[1];
     var pTag = pTagOfChildTag[cTag] || 'div';
     var p = document.createElement(pTag);
-    p.innerHTML = html;
+    vAPI.insertHTML(p, html);
     // Find real parent
     var c = p.querySelector(cTag);
     p = c.parentNode;
@@ -218,6 +222,12 @@ DOMList.prototype.at = function(i) {
 
 DOMList.prototype.toArray = function() {
     return this.nodes.slice();
+};
+
+/******************************************************************************/
+
+DOMList.prototype.pop = function() {
+    return addNodeToList(new DOMList(), this.nodes.pop());
 };
 
 /******************************************************************************/
@@ -479,6 +489,28 @@ DOMList.prototype.clone = function(notDeep) {
 
 /******************************************************************************/
 
+DOMList.prototype.nthOfType = function() {
+    if ( this.nodes.length === 0 ) {
+        return 0;
+    }
+    var node = this.nodes[0];
+    var tagName = node.tagName;
+    var i = 1;
+    while ( node.previousElementSibling !== null ) {
+        node = node.previousElementSibling;
+        if ( typeof node.tagName !== 'string' ) {
+            continue;
+        }
+        if ( node.tagName !== tagName ) {
+            continue;
+        }
+        i++;
+    }
+    return i;
+};
+
+/******************************************************************************/
+
 DOMList.prototype.attr = function(attr, value) {
     var i = this.nodes.length;
     if ( value === undefined && typeof attr !== 'object' ) {
@@ -543,7 +575,7 @@ DOMList.prototype.html = function(html) {
         return i ? this.nodes[0].innerHTML : '';
     }
     while ( i-- ) {
-        this.nodes[i].innerHTML = html;
+        vAPI.insertHTML(this.nodes[i], html);
     }
     return this;
 };
@@ -637,6 +669,24 @@ DOMList.prototype.toggleClasses = function(classNames, targetState) {
 
 /******************************************************************************/
 
+var listenerEntries = [];
+
+var ListenerEntry = function(target, type, capture, callback) {
+    this.target = target;
+    this.type = type;
+    this.capture = capture;
+    this.callback = callback;
+    target.addEventListener(type, callback, capture);
+};
+
+ListenerEntry.prototype.dispose = function() {
+    this.target.removeEventListener(this.type, this.callback, this.capture);
+    this.target = null;
+    this.callback = null;
+};
+
+/******************************************************************************/
+
 var makeEventHandler = function(selector, callback) {
     return function(event) {
         var dispatcher = event.currentTarget;
@@ -660,7 +710,7 @@ DOMList.prototype.on = function(etype, selector, callback) {
 
     var i = this.nodes.length;
     while ( i-- ) {
-        this.nodes[i].addEventListener(etype, callback, selector !== undefined);
+        listenerEntries.push(new ListenerEntry(this.nodes[i], etype, selector !== undefined, callback));
     }
     return this;
 };
@@ -688,6 +738,20 @@ DOMList.prototype.trigger = function(etype) {
     }
     return this;
 };
+
+/******************************************************************************/
+
+// Cleanup
+
+var onBeforeUnload = function() {
+    var entry;
+    while ( entry = listenerEntries.pop() ) {
+        entry.dispose();
+    }
+    window.removeEventListener('beforeunload', onBeforeUnload);
+};
+
+window.addEventListener('beforeunload', onBeforeUnload);
 
 /******************************************************************************/
 

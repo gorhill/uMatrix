@@ -19,124 +19,43 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global vAPI */
 /* jshint multistr: true */
-/* global chrome */
 
 // Injected into content pages
 
 /******************************************************************************/
 
-// OK, I keep changing my mind whether a closure should be used or not. This
-// will be the rule: if there are any variables directly accessed on a regular
-// basis, use a closure so that they are cached. Otherwise I don't think the
-// overhead of a closure is worth it. That's my understanding.
-
 (function() {
 
-/******************************************************************************/
-/******************************************************************************/
-
-// https://github.com/gorhill/httpswitchboard/issues/345
-
-var messaging = (function(name){
-    var port = null;
-    var requestId = 1;
-    var requestIdToCallbackMap = {};
-    var listenCallback = null;
-
-    var onPortMessage = function(details) {
-        if ( typeof details.id !== 'number' ) {
-            return;
-        }
-        // Announcement?
-        if ( details.id < 0 ) {
-            if ( listenCallback ) {
-                listenCallback(details.msg);
-            }
-            return;
-        }
-        var callback = requestIdToCallbackMap[details.id];
-        if ( !callback ) {
-            return;
-        }
-        // Must be removed before calling client to be sure to not execute
-        // callback again if the client stops the messaging service.
-        delete requestIdToCallbackMap[details.id];
-        callback(details.msg);
-    };
-
-    var start = function(name) {
-        port = chrome.runtime.connect({ name: name });
-        port.onMessage.addListener(onPortMessage);
-
-        // https://github.com/gorhill/uBlock/issues/193
-        port.onDisconnect.addListener(stop);
-    };
-
-    var stop = function() {
-        listenCallback = null;
-        port.disconnect();
-        port = null;
-        flushCallbacks();
-    };
-
-    if ( typeof name === 'string' && name !== '' ) {
-        start(name);
-    }
-
-    var ask = function(msg, callback) {
-        if ( port === null ) {
-            if ( typeof callback === 'function' ) {
-                callback();
-            }
-            return;
-        }
-        if ( callback === undefined ) {
-            tell(msg);
-            return;
-        }
-        var id = requestId++;
-        port.postMessage({ id: id, msg: msg });
-        requestIdToCallbackMap[id] = callback;
-    };
-
-    var tell = function(msg) {
-        if ( port !== null ) {
-            port.postMessage({ id: 0, msg: msg });
-        }
-    };
-
-    var listen = function(callback) {
-        listenCallback = callback;
-    };
-
-    var flushCallbacks = function() {
-        var callback;
-        for ( var id in requestIdToCallbackMap ) {
-            if ( requestIdToCallbackMap.hasOwnProperty(id) === false ) {
-                continue;
-            }
-            callback = requestIdToCallbackMap[id];
-            if ( !callback ) {
-                continue;
-            }
-            // Must be removed before calling client to be sure to not execute
-            // callback again if the client stops the messaging service.
-            delete requestIdToCallbackMap[id];
-            callback();
-        }
-    };
-
-    return {
-        start: start,
-        stop: stop,
-        ask: ask,
-        tell: tell,
-        listen: listen
-    };
-})('contentscript-start.js');
+'use strict';
 
 /******************************************************************************/
+
+// https://github.com/chrisaljoudi/uBlock/issues/464
+if ( document instanceof HTMLDocument === false ) {
+    //console.debug('contentscript-start.js > not a HTLMDocument');
+    return false;
+}
+
+// This can happen
+if ( !vAPI ) {
+    //console.debug('contentscript-start.js > vAPI not found');
+    return;
+}
+
+// https://github.com/chrisaljoudi/uBlock/issues/456
+// Already injected?
+if ( vAPI.contentscriptStartInjected ) {
+    //console.debug('contentscript-end.js > content script already injected');
+    return;
+}
+vAPI.contentscriptStartInjected = true;
+
+/******************************************************************************/
+
+var localMessager = vAPI.messaging.channel('contentscript-start.js');
+
 /******************************************************************************/
 
 // If you play with this code, mind:
@@ -193,14 +112,13 @@ var injectNavigatorSpoofer = function(spoofedUserAgent) {
 
     // The port will never be used again at this point, disconnecting allows
     // to browser to flush this script from memory.
-    messaging.stop();
+    localMessager.close();
 };
 
-var requestDetails = {
+localMessager.send({
     what: 'getUserAgentReplaceStr',
     hostname: window.location.hostname
-};
-messaging.ask(requestDetails, injectNavigatorSpoofer);
+}, injectNavigatorSpoofer);
 
 /******************************************************************************/
 /******************************************************************************/

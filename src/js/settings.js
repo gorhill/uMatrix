@@ -19,16 +19,18 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global messaging, uDom */
+/* global vAPI, uDom */
 /* jshint multistr: true */
 
 /******************************************************************************/
 
 (function() {
 
+'use strict';
+
 /******************************************************************************/
 
-messaging.start('settings.js');
+var messager = vAPI.messaging.channel('settings.js');
 
 var cachedUserSettings = {};
 
@@ -68,7 +70,7 @@ var onSubframeColorChanged = function() {
 /******************************************************************************/
 
 function changeUserSettings(name, value) {
-    messaging.tell({
+    messager.send({
         what: 'userSettings',
         name: name,
         value: value
@@ -126,7 +128,7 @@ uDom.onLoad(function() {
 
         installEventHandlers();
     };
-    messaging.ask({ what: 'getUserSettings' }, onUserSettingsReceived);
+    messager.send({ what: 'getUserSettings' }, onUserSettingsReceived);
 });
 
 /******************************************************************************/

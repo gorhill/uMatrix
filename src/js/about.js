@@ -19,24 +19,29 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, messaging, uDom */
+/* global vAPI, uDom */
 
 /******************************************************************************/
 
 uDom.onLoad(function() {
 
+'use strict';
+
+/******************************************************************************/
+
+var messager = vAPI.messaging.channel('about.js');
+
 /******************************************************************************/
 
 var backupUserDataToFile = function() {
     var userDataReady = function(userData) {
-        chrome.downloads.download({
+        vAPI.download({
             'url': 'data:text/plain,' + encodeURIComponent(JSON.stringify(userData)),
-            'filename': uDom('[data-i18n="aboutBackupFilename"]').text(),
-            'saveAs': true
+            'filename': uDom('[data-i18n="aboutBackupFilename"]').text()
         });
     };
 
-    messaging.ask({ what: 'getAllUserData' }, userDataReady);
+    messager.send({ what: 'getAllUserData' }, userDataReady);
 };
 
 /******************************************************************************/
@@ -75,7 +80,7 @@ function restoreUserDataFromFile() {
             .replace('{{time}}', time.toLocaleString());
         var proceed = window.confirm(msg);
         if ( proceed ) {
-            messaging.tell({ what: 'restoreAllUserData', userData: userData });
+            messager.send({ what: 'restoreAllUserData', userData: userData });
         }
     };
 
@@ -107,7 +112,7 @@ var startRestoreFilePicker = function() {
 var resetUserData = function() {
     var proceed = window.confirm(uDom('[data-i18n="aboutResetConfirm"]').text());
     if ( proceed ) {
-        messaging.tell({ what: 'resetAllUserData' });
+        messager.send({ what: 'resetAllUserData' });
     }
 };
 
@@ -123,8 +128,7 @@ var resetUserData = function() {
         }
         uDom('#aboutStorageUsed').html(template.replace('{{storageUsed}}', storageUsed));
     };
-    messaging.start('about.js');
-    messaging.ask({ what: 'getSomeStats' }, renderStats);
+    messager.send({ what: 'getSomeStats' }, renderStats);
 })();
 
 /******************************************************************************/

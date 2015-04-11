@@ -301,7 +301,7 @@ var chromeCookieRemove = function(url, name) {
         }
     };
 
-    chrome.cookies.remove({ url: url, name: name }, callback);
+    vAPI.cookies.remove({ url: url, name: name }, callback);
 };
 
 /******************************************************************************/
@@ -485,7 +485,7 @@ var canRemoveCookie = function(cookieKey, srcHostnames) {
 
 // Listen to any change in cookieland, we will update page stats accordingly.
 
-var onChromeCookieChanged = function(changeInfo) {
+vAPI.cookies.onChanged = function(changeInfo) {
     if ( changeInfo.removed ) {
         return;
     }
@@ -524,8 +524,8 @@ var onChromeCookieChanged = function(changeInfo) {
 
 /******************************************************************************/
 
-chrome.cookies.getAll({}, addCookiesToDict);
-chrome.cookies.onChanged.addListener(onChromeCookieChanged);
+vAPI.cookies.getAll(addCookiesToDict);
+vAPI.cookies.registerListeners();
 
 µm.asyncJobs.add('cookieHunterRemove', null, processRemoveQueue, 2 * 60 * 1000, true);
 µm.asyncJobs.add('cookieHunterClean', null, processClean, 10 * 60 * 1000, true);

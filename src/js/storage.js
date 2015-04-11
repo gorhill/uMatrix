@@ -28,7 +28,7 @@
     var getBytesInUseHandler = function(bytesInUse) {
         µm.storageUsed = bytesInUse;
     };
-    chrome.storage.local.getBytesInUse(null, getBytesInUseHandler);
+    vAPI.storage.getBytesInUse(null, getBytesInUseHandler);
 };
 
 /******************************************************************************/
@@ -71,7 +71,7 @@
         callback(µm.userSettings);
     };
 
-    chrome.storage.local.get(this.userSettings, settingsLoaded);
+    vAPI.storage.get(this.userSettings, settingsLoaded);
 };
 
 /******************************************************************************/
@@ -157,7 +157,7 @@
         }
 
         // Now get user's selection of lists
-        chrome.storage.local.get(
+        vAPI.storage.get(
             { 'liveHostsFiles': availableHostsFiles },
             onSelectedHostsFilesLoaded   
         );
@@ -208,8 +208,8 @@
 
     var loadHostsFilesEnd = function() {
         µm.ubiquitousBlacklist.freeze();
-        chrome.storage.local.set({ 'liveHostsFiles': µm.liveHostsFiles });
-        µm.messaging.announce({ what: 'loadHostsFilesCompleted' });
+        vAPI.storage.set({ 'liveHostsFiles': µm.liveHostsFiles });
+        vAPI.messaging.broadcast({ what: 'loadHostsFilesCompleted' });
         callback();
     };
 
@@ -343,7 +343,7 @@
     }
 
     // Save switch states
-    chrome.storage.local.set(
+    vAPI.storage.set(
         { 'liveHostsFiles': liveHostsFiles },
         this.loadUpdatableAssets.bind(this, update)
     );

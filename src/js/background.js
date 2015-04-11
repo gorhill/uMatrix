@@ -49,8 +49,6 @@ var defaultUserAgentStrings = [
 /******************************************************************************/
 
 return {
-    manifest: chrome.runtime.getManifest(),
-
     userSettings: {
         autoUpdate: false,
         clearBrowserCache: true,
@@ -125,7 +123,6 @@ return {
     refererHeaderFoiledCounter: 0,
     hyperlinkAuditingFoiledCounter: 0,
     browserCacheClearedCounter: 0,
-    storageQuota: chrome.storage.local.QUOTA_BYTES,
     storageUsed: 0,
     userAgentReplaceStr: '',
     userAgentReplaceStrBirth: 0,
@@ -138,8 +135,8 @@ return {
 
     // Commonly encountered strings
     chromeExtensionURLPrefix: 'chrome-extension://',
-    noopCSSURL: chrome.runtime.getURL('css/noop.css'),
-    fontCSSURL: chrome.runtime.getURL('css/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf'),
+    noopCSSURL: vAPI.getURL('css/noop.css'),
+    fontCSSURL: vAPI.getURL('css/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf'),
 
     noopFunc: function(){},
 

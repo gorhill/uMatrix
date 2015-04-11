@@ -145,11 +145,7 @@ return asyncJobManager;
             pageStore.updateBadge(tabId);
             return;
         }
-        µm.XAL.setIcon(
-            tabId,
-            { '19': 'img/browsericons/icon19.png' },
-            '?'
-        );
+        vAPI.setIcon(tabId, null, '?');
     };
 
     var updateBadgeAsync = function(tabId) {
@@ -172,7 +168,7 @@ return asyncJobManager;
     // does not exist. I suspect this could be related to
     // https://github.com/gorhill/httpswitchboard/issues/58
     var urlStatsChangedCallback = function(pageUrl) {
-        µMatrix.messaging.tell('popup.js', {
+        vAPI.messaging.broadcast({
             what: 'urlStatsChanged',
             pageURL: pageUrl
         });

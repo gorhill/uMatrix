@@ -19,22 +19,24 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global messaging, uDom */
+/* global vAPI, uDom */
 
 /******************************************************************************/
 
 (function() {
 
+'use strict';
+
 /******************************************************************************/
 
-messaging.start('privacy.js');
+var messager = vAPI.messaging.channel('privacy.js');
 
 var cachedPrivacySettings = {};
 
 /******************************************************************************/
 
 function changeUserSettings(name, value) {
-    messaging.tell({
+    messager.send({
         what: 'userSettings',
         name: name,
         value: value
@@ -44,7 +46,7 @@ function changeUserSettings(name, value) {
 /******************************************************************************/
 
 function changeMatrixSwitch(name, state) {
-    messaging.tell({
+    messager.send({
         what: 'setMatrixSwitch',
         switchName: name,
         state: state
@@ -141,7 +143,7 @@ uDom.onLoad(function() {
 
         installEventHandlers();
     };
-    messaging.ask({ what: 'getPrivacySettings' }, onSettingsReceived);
+    messager.send({ what: 'getPrivacySettings' }, onSettingsReceived);
 });
 
 /******************************************************************************/

@@ -19,113 +19,49 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* jshint multistr: true */
-/* global chrome */
+/* global vAPI */
+/* jshint multistr: true, boss: true */
+
+/******************************************************************************/
+/******************************************************************************/
 
 // Injected into content pages
 
+(function() {
+
+'use strict';
+
 /******************************************************************************/
+
+// https://github.com/chrisaljoudi/uBlock/issues/464
+if ( document instanceof HTMLDocument === false ) {
+    //console.debug('contentscript-end.js > not a HTLMDocument');
+    return false;
+}
+
+// This can happen
+if ( !vAPI ) {
+    //console.debug('contentscript-end.js > vAPI not found');
+    return;
+}
+
+// https://github.com/chrisaljoudi/uBlock/issues/587
+// Pointless to execute without the start script having done its job.
+if ( !vAPI.contentscriptStartInjected ) {
+    return;
+}
+
+// https://github.com/chrisaljoudi/uBlock/issues/456
+// Already injected?
+if ( vAPI.contentscriptEndInjected ) {
+    //console.debug('contentscript-end.js > content script already injected');
+    return;
+}
+vAPI.contentscriptEndInjected = true;
+
 /******************************************************************************/
 
-// https://github.com/gorhill/httpswitchboard/issues/345
-
-var messaging = (function(name){
-    var port = null;
-    var requestId = 1;
-    var requestIdToCallbackMap = {};
-    var listenCallback = null;
-
-    var onPortMessage = function(details) {
-        if ( typeof details.id !== 'number' ) {
-            return;
-        }
-        // Announcement?
-        if ( details.id < 0 ) {
-            if ( listenCallback ) {
-                listenCallback(details.msg);
-            }
-            return;
-        }
-        var callback = requestIdToCallbackMap[details.id];
-        if ( !callback ) {
-            return;
-        }
-        // Must be removed before calling client to be sure to not execute
-        // callback again if the client stops the messaging service.
-        delete requestIdToCallbackMap[details.id];
-        callback(details.msg);
-    };
-
-    var start = function(name) {
-        port = chrome.runtime.connect({ name: name });
-        port.onMessage.addListener(onPortMessage);
-
-        // https://github.com/gorhill/uBlock/issues/193
-        port.onDisconnect.addListener(stop);
-    };
-
-    var stop = function() {
-        listenCallback = null;
-        port.disconnect();
-        port = null;
-        flushCallbacks();
-    };
-
-    if ( typeof name === 'string' && name !== '' ) {
-        start(name);
-    }
-
-    var ask = function(msg, callback) {
-        if ( port === null ) {
-            if ( typeof callback === 'function' ) {
-                callback();
-            }
-            return;
-        }
-        if ( callback === undefined ) {
-            tell(msg);
-            return;
-        }
-        var id = requestId++;
-        port.postMessage({ id: id, msg: msg });
-        requestIdToCallbackMap[id] = callback;
-    };
-
-    var tell = function(msg) {
-        if ( port !== null ) {
-            port.postMessage({ id: 0, msg: msg });
-        }
-    };
-
-    var listen = function(callback) {
-        listenCallback = callback;
-    };
-
-    var flushCallbacks = function() {
-        var callback;
-        for ( var id in requestIdToCallbackMap ) {
-            if ( requestIdToCallbackMap.hasOwnProperty(id) === false ) {
-                continue;
-            }
-            callback = requestIdToCallbackMap[id];
-            if ( !callback ) {
-                continue;
-            }
-            // Must be removed before calling client to be sure to not execute
-            // callback again if the client stops the messaging service.
-            delete requestIdToCallbackMap[id];
-            callback();
-        }
-    };
-
-    return {
-        start: start,
-        stop: stop,
-        ask: ask,
-        tell: tell,
-        listen: listen
-    };
-})('contentscript-end.js');
+var localMessager = vAPI.messaging.channel('contentscript-end.js');
 
 /******************************************************************************/
 /******************************************************************************/
@@ -154,12 +90,10 @@ var checkScriptBlacklistedHandler = function(response) {
     }
 };
 
-messaging.ask({
+localMessager.send({
         what: 'checkScriptBlacklisted',
         url: window.location.href
-    },
-    checkScriptBlacklistedHandler
-);
+}, checkScriptBlacklistedHandler);
 
 /******************************************************************************/
 
@@ -179,12 +113,10 @@ try {
     var hasLocalStorage = window.localStorage && window.localStorage.length;
     var hasSessionStorage = window.sessionStorage && window.sessionStorage.length;
     if ( hasLocalStorage || hasSessionStorage ) {
-        messaging.ask({
+        localMessager.send({
                 what: 'contentScriptHasLocalStorage',
                 url: window.location.href
-            },
-            localStorageHandler
-        );
+        }, localStorageHandler);
     }
 
     // TODO: indexedDB
@@ -291,25 +223,9 @@ var nodeListsAddedHandler = function(nodeLists) {
         nodesAddedHandler(nodeLists[i], summary);
     }
     if ( summary.mustReport ) {
-        messaging.tell(summary);
+        localMessager.send(summary);
     }
 };
-
-/******************************************************************************/
-
-// rhill 2013-11-09: Weird... This code is executed from HTTP Switchboard
-// context first time extension is launched. Avoid this.
-// TODO: Investigate if this was a fluke or if it can really happen.
-// I suspect this could only happen when I was using chrome.tabs.executeScript(),
-// because now a delarative content script is used, along with "http{s}" URL
-// pattern matching.
-
-// console.debug('contentscript-end.js > window.location.href = "%s"', window.location.href);
-
-if ( /^https?:\/\/./.test(window.location.href) === false ) {
-    console.debug("Huh?");
-    return;
-}
 
 /******************************************************************************/
 
@@ -329,7 +245,7 @@ if ( /^https?:\/\/./.test(window.location.href) === false ) {
 
     //console.debug('contentscript-end.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
 
-    messaging.tell(summary);
+    localMessager.send(summary);
 })();
 
 /******************************************************************************/
@@ -376,6 +292,11 @@ if ( document.body ) {
     });
 }
 
+/******************************************************************************/
+
+})();
+
+/******************************************************************************/
 /******************************************************************************/
 
 })();

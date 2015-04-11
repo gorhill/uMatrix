@@ -25,10 +25,14 @@
 
 (function() {
 
+'use strict';
+
+/******************************************************************************/
+
 var loadDashboardPanel = function(hash) {
     var button = uDom(hash);
     var url = button.attr('data-dashboard-panel-url');
-    uDom('iframe').nodeAt(0).src = url;
+    uDom('iframe').attr('src', url);
     uDom('.tabButton').forEach(function(button){
         button.toggleClass('selected', button.attr('data-dashboard-panel-url') === url);
     });

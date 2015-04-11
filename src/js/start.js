@@ -43,85 +43,6 @@
 
 /******************************************************************************/
 
-function onTabCreated(tab) {
-    // Can this happen?
-    if ( tab.id < 0 || !tab.url || tab.url === '' ) {
-        return;
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // This takes care of rebinding the tab to the proper page store
-    // when the user navigate back in his history.
-    µMatrix.bindTabToPageStats(tab.id, tab.url);
-}
-
-chrome.tabs.onCreated.addListener(onTabCreated);
-
-/******************************************************************************/
-
-function onTabUpdated(tabId, changeInfo, tab) {
-    // Can this happen?
-    if ( !tab.url || tab.url === '' ) {
-        return;
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // This takes care of rebinding the tab to the proper page store
-    // when the user navigate back in his history.
-    if ( changeInfo.url ) {
-        µMatrix.bindTabToPageStats(tabId, tab.url, 'pageUpdated');
-    }
-
-    // rhill 2013-12-23: Compute state after whole page is loaded. This is
-    // better than building a state snapshot dynamically when requests are
-    // recorded, because here we are not afflicted by the browser cache
-    // mechanism.
-
-    // rhill 2014-03-05: Use tab id instead of page URL: this allows a
-    // blocked page using µMatrix internal data URI-based page to be properly
-    // unblocked when user un-blacklist the hostname.
-    // https://github.com/gorhill/httpswitchboard/issues/198
-    if ( changeInfo.status === 'complete' ) {
-        var pageStats = µMatrix.pageStatsFromTabId(tabId);
-        if ( pageStats ) {
-            pageStats.state = µMatrix.computeTabState(tabId);
-        }
-    }
-}
-
-chrome.tabs.onUpdated.addListener(onTabUpdated);
-
-/******************************************************************************/
-
-function onTabRemoved(tabId) {
-    // Can this happen?
-    if ( tabId < 0 ) {
-        return;
-    }
-
-    µMatrix.unbindTabFromPageStats(tabId);
-}
-
-chrome.tabs.onRemoved.addListener(onTabRemoved);
-
-/******************************************************************************/
-
-// Bind a top URL to a specific tab
-
-function onBeforeNavigateCallback(details) {
-    // Don't bind to a subframe
-    if ( details.frameId > 0 ) {
-        return;
-    }
-    // console.debug('onBeforeNavigateCallback() > "%s" = %o', details.url, details);
-
-    µMatrix.bindTabToPageStats(details.tabId, details.url);
-}
-
-chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigateCallback);
-
-/******************************************************************************/
-
 // Browser data jobs
 
 (function() {
@@ -136,8 +57,8 @@ chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigateCallback);
         }
         µm.clearBrowserCacheCycle = µm.userSettings.clearBrowserCacheAfter;
         µm.browserCacheClearedCounter++;
-        chrome.browsingData.removeCache({ since: 0 });
-        // console.debug('clearBrowserCacheCallback()> chrome.browsingData.removeCache() called');
+        vAPI.browserCache.clearByTime(0);
+        // console.debug('clearBrowserCacheCallback()> vAPI.browserCache.clearByTime() called');
     };
 
     µMatrix.asyncJobs.add('clearBrowserCache', null, jobCallback, 15 * 60 * 1000, true);
@@ -177,13 +98,14 @@ chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigateCallback);
         var i = tabs.length;
         // console.debug('start.js > binding %d tabs', i);
         while ( i-- ) {
+            µm.tabContextManager.commit(tabs[i].id, tabs[i].url);
             µm.bindTabToPageStats(tabs[i].id, tabs[i].url);
         }
         µm.webRequest.start();
     };
 
     var queryTabs = function() {
-        chrome.tabs.query({ url: '<all_urls>' }, bindTabs);
+        vAPI.tabs.getAll(bindTabs);
     };
 
     µm.load(queryTabs);

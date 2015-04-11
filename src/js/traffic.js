@@ -197,15 +197,15 @@ var onBeforeChromeExtensionRequestHandler = function(details) {
 
 var onBeforeRootFrameRequestHandler = function(details) {
     var µm = µMatrix;
-
-    // Do not ignore traffic outside tabs
+    var requestURL = details.url;
     var tabId = details.tabId;
-    if ( tabId < 0 ) {
+
+    µm.tabContextManager.push(tabId, requestURL);
+
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
         tabId = µm.behindTheSceneTabId;
-    }
-    // It's a root frame, bind to a new page store
-    else {
-        µm.bindTabToPageStats(tabId, details.url);
+    } else {
+        µm.bindTabToPageStats(tabId);
     }
 
     var uri = µm.URI.set(details.url);
@@ -213,7 +213,6 @@ var onBeforeRootFrameRequestHandler = function(details) {
         return;
     }
 
-    var requestURL = uri.normalizedURI();
     var requestHostname = uri.hostname;
     var pageStore = µm.pageStatsFromTabId(tabId);
 
@@ -730,10 +729,6 @@ var onSubDocHeadersReceived = function(details) {
 
 /******************************************************************************/
 
-// As per Chrome API doc, webRequest.onErrorOccurred event is the last
-// one called in the sequence of webRequest events.
-// http://developer.chrome.com/extensions/webRequest.html
-
 var onErrorOccurredHandler = function(details) {
     // console.debug('onErrorOccurred()> "%s": %o', details.url, details);
     var requestType = requestTypeNormalizer[details.type];
@@ -798,68 +793,54 @@ var requestTypeNormalizer = {
 
 /******************************************************************************/
 
+vAPI.net.onBeforeRequest = {
+    urls: [
+        "http://*/*",
+        "https://*/*",
+        "chrome-extension://*/*"
+    ],
+    extra: [ 'blocking' ],
+    callback: onBeforeRequestHandler
+};
+
+vAPI.net.onBeforeSendHeaders = {
+    urls: [
+        "http://*/*",
+        "https://*/*"
+    ],
+    types: [
+        "main_frame",
+        "sub_frame"
+    ],
+    extra: [ 'blocking', 'requestHeaders' ],
+    callback: onBeforeSendHeadersHandler
+};
+
+vAPI.net.onHeadersReceived = {
+    urls: [
+        "http://*/*",
+        "https://*/*"
+    ],
+    types: [
+        "main_frame",
+        "sub_frame"
+    ],
+    extra: [ 'blocking', 'responseHeaders' ],
+    callback: onHeadersReceived
+};
+
+vAPI.net.onErrorOccurred = {
+    urls: [
+        "http://*/*",
+        "https://*/*"
+    ],
+    callback: onErrorOccurredHandler
+};
+
+/******************************************************************************/
+
 var start = function() {
-    chrome.webRequest.onBeforeRequest.addListener(
-        //function(details) {
-        //    quickProfiler.start('onBeforeRequest');
-        //    var r = onBeforeRequestHandler(details);
-        //    quickProfiler.stop();
-        //    return r;
-        //},
-        onBeforeRequestHandler,
-        {
-            "urls": [
-                "http://*/*",
-                "https://*/*",
-                "chrome-extension://*/*"
-            ],
-            "types": [
-                "main_frame",
-                "sub_frame",
-                'stylesheet',
-                "script",
-                "image",
-                "object",
-                "xmlhttprequest",
-                "other"
-            ]
-        },
-        [ "blocking" ]
-    );
-
-    //console.log('µMatrix > Beginning to intercept net requests at %s', (new Date()).toISOString());
-
-    chrome.webRequest.onBeforeSendHeaders.addListener(
-        onBeforeSendHeadersHandler,
-        {
-            'urls': [
-                "http://*/*",
-                "https://*/*"
-            ]
-        },
-        ['blocking', 'requestHeaders']
-    );
-
-    chrome.webRequest.onHeadersReceived.addListener(
-        onHeadersReceived,
-        {
-            'urls': [
-                "http://*/*",
-                "https://*/*"
-            ]
-        },
-        ['blocking', 'responseHeaders']
-    );
-
-    chrome.webRequest.onErrorOccurred.addListener(
-        onErrorOccurredHandler,
-        {
-            'urls': [
-                "http://*/*",
-                "https://*/*"
-            ]
-        }
-    );
+    vAPI.net.registerListeners();
 };
 
 /******************************************************************************/

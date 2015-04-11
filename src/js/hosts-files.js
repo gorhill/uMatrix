@@ -19,26 +19,15 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, messaging, uDom */
+/* global vAPI, uDom */
 
 /******************************************************************************/
 
 (function() {
 
-/******************************************************************************/
-
-var listDetails = {};
-var externalHostsFiles = '';
-var cacheWasPurged = false;
-var needUpdate = false;
-var hasCachedContent = false;
-
-var re3rdPartyExternalAsset = /^https?:\/\/[a-z0-9]+/;
-var re3rdPartyRepoAsset = /^assets\/thirdparties\/([^\/]+)/;
+'use strict';
 
 /******************************************************************************/
-
-messaging.start('hosts-files.js');
 
 var onMessage = function(msg) {
     switch ( msg.what ) {
@@ -51,7 +40,18 @@ var onMessage = function(msg) {
     }
 };
 
-messaging.listen(onMessage);
+var messager = vAPI.messaging.channel('hosts-files.js', onMessage);
+
+/******************************************************************************/
+
+var listDetails = {};
+var externalHostsFiles = '';
+var cacheWasPurged = false;
+var needUpdate = false;
+var hasCachedContent = false;
+
+var re3rdPartyExternalAsset = /^https?:\/\/[a-z0-9]+/;
+var re3rdPartyRepoAsset = /^assets\/thirdparties\/([^\/]+)/;
 
 /******************************************************************************/
 
@@ -94,9 +94,9 @@ var renderBlacklists = function() {
         return html.join('');
     };
 
-    var purgeButtontext = chrome.i18n.getMessage('hostsFilesExternalListPurge');
-    var updateButtontext = chrome.i18n.getMessage('hostsFilesExternalListNew');
-    var obsoleteButtontext = chrome.i18n.getMessage('hostsFilesExternalListObsolete');
+    var purgeButtontext = vAPI.i18n('hostsFilesExternalListPurge');
+    var updateButtontext = vAPI.i18n('hostsFilesExternalListNew');
+    var obsoleteButtontext = vAPI.i18n('hostsFilesExternalListObsolete');
     var liTemplate = [
         '<li class="listDetails">',
         '<input type="checkbox" {{checked}}>',
@@ -107,7 +107,7 @@ var renderBlacklists = function() {
         '{{homeURL}}',
         ': ',
         '<span class="dim">',
-        chrome.i18n.getMessage('hostsFilesPerFileStats'),
+        vAPI.i18n('hostsFilesPerFileStats'),
         '</span>'
     ].join('');
 
@@ -181,7 +181,7 @@ var renderBlacklists = function() {
         var html = htmlBuiltin.concat(htmlExternal);
 
         uDom('#listsOfBlockedHostsPrompt').text(
-            chrome.i18n.getMessage('hostsFilesStats')
+            vAPI.i18n('hostsFilesStats')
                 .replace('{{blockedHostnameCount}}', details.blockedHostnameCount.toLocaleString())
         );
         uDom('#autoUpdate').prop('checked', listDetails.autoUpdate === true);
@@ -191,7 +191,7 @@ var renderBlacklists = function() {
         updateWidgets();
     };
 
-    messaging.ask({ what: 'getLists' }, onListsReceived);
+    messager.send({ what: 'getLists' }, onListsReceived);
 };
 
 /******************************************************************************/
@@ -266,7 +266,7 @@ var onListCheckboxChanged = function() {
 /******************************************************************************/
 
 var onListLinkClicked = function(ev) {
-    messaging.tell({
+    messager.send({
         what: 'gotoExtensionURL',
         url: 'asset-viewer.html?url=' + uDom(this).attr('href')
     });
@@ -282,7 +282,7 @@ var onPurgeClicked = function() {
     if ( !href ) {
         return;
     }
-    messaging.tell({ what: 'purgeCache', path: href });
+    messager.send({ what: 'purgeCache', path: href });
     button.remove();
     if ( li.descendants('input').first().prop('checked') ) {
         cacheWasPurged = true;
@@ -312,7 +312,7 @@ var reloadAll = function(update) {
             off: lis.subset(i, 1).descendants('input').prop('checked') === false
         });
     }
-    messaging.tell({
+    messager.send({
         what: 'reloadHostsFiles',
         switches: switches,
         update: update
@@ -341,13 +341,13 @@ var buttonPurgeAllHandler = function() {
     var onCompleted = function() {
         renderBlacklists();
     };
-    messaging.ask({ what: 'purgeAllCaches' }, onCompleted);
+    messager.send({ what: 'purgeAllCaches' }, onCompleted);
 };
 
 /******************************************************************************/
 
 var autoUpdateCheckboxChanged = function() {
-    messaging.tell({
+    messager.send({
         what: 'userSettings',
         name: 'autoUpdate',
         value: this.checked
@@ -361,7 +361,7 @@ var renderExternalLists = function() {
         uDom('#externalHostsFiles').val(details);
         externalHostsFiles = details;
     };
-    messaging.ask({ what: 'userSettings', name: 'externalHostsFiles' }, onReceived);
+    messager.send({ what: 'userSettings', name: 'externalHostsFiles' }, onReceived);
 };
 
 /******************************************************************************/
@@ -377,7 +377,7 @@ var externalListsChangeHandler = function() {
 
 var externalListsApplyHandler = function() {
     externalHostsFiles = uDom('#externalHostsFiles').val();
-    messaging.tell({
+    messager.send({
         what: 'userSettings',
         name: 'externalHostsFiles',
         value: externalHostsFiles

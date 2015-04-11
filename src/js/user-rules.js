@@ -19,15 +19,17 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, messaging, uDom */
+/* global vAPI, uDom */
 
 /******************************************************************************/
 
 (function() {
 
+'use strict';
+
 /******************************************************************************/
 
-messaging.start('user-rules.js');
+var messager = vAPI.messaging.channel('user-rules.js');
 
 /******************************************************************************/
 
@@ -102,7 +104,7 @@ function handleImportFilePicker() {
             'what': 'setUserRules',
             'temporaryRules': rulesFromHTML('#diff .right li') + '\n' + this.result
         };
-        messaging.ask(request, processUserRules);
+        messager.send(request, processUserRules);
     };
     var file = this.files[0];
     if ( file === undefined || file.name === '' ) {
@@ -130,10 +132,9 @@ var startImportFilePicker = function() {
 /******************************************************************************/
 
 function exportUserRulesToFile() {
-    chrome.downloads.download({
+    vAPI.download({
         'url': 'data:text/plain,' + encodeURIComponent(rulesFromHTML('#diff .left li')),
-        'filename': uDom('[data-i18n="userRulesDefaultFileName"]').text(),
-        'saveAs': true
+        'filename': uDom('[data-i18n="userRulesDefaultFileName"]').text()
     });
 }
 
@@ -161,7 +162,7 @@ var revertHandler = function() {
         'what': 'setUserRules',
         'temporaryRules': rulesFromHTML('#diff .left li')
     };
-    messaging.ask(request, processUserRules);
+    messager.send(request, processUserRules);
 };
 
 /******************************************************************************/
@@ -171,7 +172,7 @@ var commitHandler = function() {
         'what': 'setUserRules',
         'permanentRules': rulesFromHTML('#diff .right li')
     };
-    messaging.ask(request, processUserRules);
+    messager.send(request, processUserRules);
 };
 
 /******************************************************************************/
@@ -191,7 +192,7 @@ var editStopHandler = function(ev) {
         'what': 'setUserRules',
         'temporaryRules': uDom('#diff .right textarea').val()
     };
-    messaging.ask(request, processUserRules);
+    messager.send(request, processUserRules);
 };
 
 /******************************************************************************/
@@ -210,7 +211,7 @@ var temporaryRulesToggler = function(ev) {
         'what': 'setUserRules',
         'temporaryRules': rulesFromHTML('#diff .right li')
     };
-    messaging.ask(request, processUserRules);
+    messager.send(request, processUserRules);
 };
 
 /******************************************************************************/
@@ -221,14 +222,14 @@ uDom.onLoad(function() {
     uDom('#importFilePicker').on('change', handleImportFilePicker);
     uDom('#exportButton').on('click', exportUserRulesToFile);
 
-    uDom('#revertButton').on('click', revertHandler)
-    uDom('#commitButton').on('click', commitHandler)
-    uDom('#editEnterButton').on('click', editStartHandler)
-    uDom('#editStopButton').on('click', editStopHandler)
-    uDom('#editCancelButton').on('click', editCancelHandler)
-    uDom('#diff > .right > ul').on('click', 'li', temporaryRulesToggler)
+    uDom('#revertButton').on('click', revertHandler);
+    uDom('#commitButton').on('click', commitHandler);
+    uDom('#editEnterButton').on('click', editStartHandler);
+    uDom('#editStopButton').on('click', editStopHandler);
+    uDom('#editCancelButton').on('click', editCancelHandler);
+    uDom('#diff > .right > ul').on('click', 'li', temporaryRulesToggler);
 
-    messaging.ask({ what: 'getUserRules' }, processUserRules);
+    messager.send({ what: 'getUserRules' }, processUserRules);
 });
 
 /******************************************************************************/

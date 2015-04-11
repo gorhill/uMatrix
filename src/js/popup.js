@@ -19,13 +19,15 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global punycode, uDom, messaging */
+/* global punycode, vAPI, uDom */
 /* jshint esnext: true, bitwise: false */
 
 /******************************************************************************/
 /******************************************************************************/
 
 (function() {
+
+'use strict';
 
 /******************************************************************************/
 /******************************************************************************/
@@ -71,8 +73,6 @@ var blacklistedHostnamesLabel = '';
 
 // https://github.com/gorhill/httpswitchboard/issues/345
 
-messaging.start('popup.js');
-
 var onMessage = function(msg) {
     if ( msg.what !== 'urlStatsChanged' ) {
         return;
@@ -83,7 +83,7 @@ var onMessage = function(msg) {
     queryMatrixSnapshot(makeMenu);
 };
 
-messaging.listen(onMessage);
+var messager = vAPI.messaging.channel('popup.js', onMessage);
 
 /******************************************************************************/
 /******************************************************************************/
@@ -94,7 +94,7 @@ function getUserSetting(setting) {
 
 function setUserSetting(setting, value) {
     matrixSnapshot.userSettings[setting] = value;
-    messaging.tell({
+    messager.send({
         what: 'userSettings',
         name: setting,
         value: value
@@ -405,7 +405,7 @@ function handleFilter(button, leaning) {
         desHostname: desHostname,
         type: type
     };
-    messaging.ask(request, updateMatrixSnapshot);
+    messager.send(request, updateMatrixSnapshot);
 }
 
 function handleWhitelistFilter(button) {
@@ -950,7 +950,7 @@ function initMenuEnvironment() {
     while ( i-- ) {
         key = keys[i];
         cell = uDom('#matHead .matCell[data-req-type="'+ key +'"]');
-        text = chrome.i18n.getMessage(key + 'PrettyName');
+        text = vAPI.i18n(key + 'PrettyName');
         cell.text(text);
         prettyNames[key] = text;
     }
@@ -1043,7 +1043,7 @@ function toggleMatrixSwitch() {
         switchName: switchName,
         srcHostname: matrixSnapshot.scope
     };
-    messaging.ask(request, updateMatrixSnapshot);
+    messager.send(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1068,7 +1068,7 @@ function persistMatrix() {
         what: 'applyDiffToPermanentMatrix',
         diff: matrixSnapshot.diff
     };
-    messaging.ask(request, updateMatrixSnapshot);
+    messager.send(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1081,7 +1081,7 @@ function revertMatrix() {
         what: 'applyDiffToTemporaryMatrix',
         diff: matrixSnapshot.diff
     };
-    messaging.ask(request, updateMatrixSnapshot);
+    messager.send(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1100,13 +1100,13 @@ function revertAll() {
     var request = {
         what: 'revertTemporaryMatrix'
     };
-    messaging.ask(request, updateMatrixSnapshot);
+    messager.send(request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
 
 function buttonReloadHandler() {
-    messaging.tell({
+    messager.send({
         what: 'forceReloadTab',
         tabId: targetTabId
     });
@@ -1125,9 +1125,9 @@ function mouseleaveMatrixCellHandler() {
 /******************************************************************************/
 
 function gotoExtensionURL() {
-    var url = this.getAttribute('data-extension-url');
+    var url = uDom(this).attr('data-extension-url');
     if ( url ) {
-        messaging.tell({ what: 'gotoExtensionURL', url: url });
+        messager.send({ what: 'gotoExtensionURL', url: url });
     }
 }
 
@@ -1136,7 +1136,7 @@ function gotoExtensionURL() {
 function gotoExternalURL() {
     var url = this.getAttribute('data-external-url');
     if ( url ) {
-        messaging.tell({ what: 'gotoURL', url: url });
+        messager.send({ what: 'gotoURL', url: url });
     }
 }
 
@@ -1152,8 +1152,6 @@ function dropDownMenuHide() {
 
 /******************************************************************************/
 
-// Because chrome.tabs.query() is async
-
 var onMatrixSnapshotReady = function(response) {
     // Now that tabId and pageURL are set, we can build our menu
     initMenuEnvironment();
@@ -1165,7 +1163,7 @@ var onMatrixSnapshotReady = function(response) {
         uDom('#toolbarLeft').remove();
 
         // https://github.com/gorhill/httpswitchboard/issues/191
-        uDom('#noNetTrafficPrompt').text(chrome.i18n.getMessage('matrixNoNetTrafficPrompt'));
+        uDom('#noNetTrafficPrompt').text(vAPI.i18n('matrixNoNetTrafficPrompt'));
         uDom('#noNetTrafficPrompt').css('display', '');
     }
 };
@@ -1183,20 +1181,7 @@ var queryMatrixSnapshot = function(callback) {
         matrixSnapshot = response;
         callback();
     };
-    var onTabsReceived = function(tabs) {
-        if ( tabs.length === 0 ) {
-            return;
-        }
-        var tab = tabs[0];
-        request.tabId = targetTabId = tab.id;
-        request.tabURL = tab.url;
-        messaging.ask(request, snapshotReceived);
-    };
-    if ( targetTabId === undefined ) {
-        chrome.tabs.query({ active: true, currentWindow: true }, onTabsReceived);
-    } else {
-        messaging.ask(request, snapshotReceived);
-    }
+    messager.send(request, snapshotReceived);
 };
 
 /******************************************************************************/

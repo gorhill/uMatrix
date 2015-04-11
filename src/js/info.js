@@ -19,15 +19,17 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global messaging, uDom */
+/* global vAPI, uDom */
 
 /******************************************************************************/
 
 (function() {
 
+'use strict';
+
 /******************************************************************************/
 
-messaging.start('info.js');
+var messager = vAPI.messaging.channel('info.js');
 
 var targetUrl = 'all';
 var maxRequests = 500;
@@ -55,7 +57,7 @@ function updateRequestData(callback) {
         what: 'getRequestLogs',
         pageURL: targetUrl !== 'all' ? targetUrl : null
     };
-    messaging.ask(request, onResponseReceived);
+    messager.send(request, onResponseReceived);
 }
 
 /******************************************************************************/
@@ -65,7 +67,7 @@ function clearRequestData() {
         what: 'clearRequestLogs',
         pageURL: targetUrl !== 'all' ? targetUrl : null
     };
-    messaging.tell(request);
+    messager.send(request);
 }
 
 /******************************************************************************/
@@ -93,7 +95,7 @@ function renderNumbers(set) {
 
 var renderLocalized = function(id, map) {
     var uElem = uDom('#' + id);
-    var msg = chrome.i18n.getMessage(id);
+    var msg = vAPI.i18n(id);
     for ( var k in map ) {
         if ( map.hasOwnProperty(k) === false ) {
             continue;
@@ -144,7 +146,7 @@ function renderPageUrls() {
         // Select whatever needs to be selected
         //uDom('#selectPageUrls > option[value="'+targetUrl+'"]').prop('selected', true);
     };
-    messaging.ask({ what: 'getPageURLs' }, onResponseReceived);
+    messager.send({ what: 'getPageURLs' }, onResponseReceived);
 }
 
 /******************************************************************************/
@@ -193,7 +195,7 @@ function renderStats() {
         uDom('a').attr('target', '_blank');
     };
 
-    messaging.ask({
+    messager.send({
             what: 'getStats',
             pageURL: targetUrl === 'all' ? null : targetUrl
         },
@@ -285,7 +287,7 @@ var clearRequests = function() {
 
 function changeUserSettings(name, value) {
     cachedUserSettings[name] = value;
-    messaging.tell({
+    messager.send({
         what: 'userSettings',
         name: name,
         value: value
@@ -404,7 +406,7 @@ uDom.onLoad(function(){
 
         installEventHandlers();
     };
-    messaging.ask({ what: 'getUserSettings' }, onResponseReceived);
+    messager.send({ what: 'getUserSettings' }, onResponseReceived);
 
     renderTransientData(true);
     updateRequests();

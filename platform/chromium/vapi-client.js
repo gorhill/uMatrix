@@ -38,8 +38,8 @@ if ( vAPI.vapiClientInjected ) {
     //console.debug('vapi-client.js already injected: skipping.');
     return;
 }
-
 vAPI.vapiClientInjected = true;
+
 vAPI.sessionId = String.fromCharCode(Date.now() % 25 + 97) +
     Math.random().toString(36).slice(2);
 vAPI.chrome = true;

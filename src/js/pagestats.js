@@ -436,6 +436,8 @@ return {
 
 µMatrix.PageStore = (function() {
 
+'use strict';
+
 /******************************************************************************/
 
 var µm = µMatrix;
@@ -555,20 +557,16 @@ PageStore.prototype.recordRequest = function(type, url, block) {
 // notifying me, and this causes internal cached state to be out of sync.
 
 PageStore.prototype.updateBadge = function(tabId) {
-    // Icon
-    var iconPath;
+    var iconId = null;
     var badgeStr = '';
     var total = this.perLoadAllowedRequestCount + this.perLoadBlockedRequestCount;
     if ( total ) {
         var squareSize = 19;
         var greenSize = squareSize * Math.sqrt(this.perLoadAllowedRequestCount / total);
-        greenSize = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
-        iconPath = 'img/browsericons/icon19-' + greenSize + '.png';
+        iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
         badgeStr = µm.formatCount(this.distinctRequestCount);
-    } else {
-        iconPath = 'img/browsericons/icon19.png';
     }
-    µm.XAL.setIcon(tabId, iconPath, badgeStr);
+    vAPI.setIcon(tabId, iconId, badgeStr);
 };
 
 /******************************************************************************/
@@ -576,6 +574,8 @@ PageStore.prototype.updateBadge = function(tabId) {
 return {
     factory: pageStoreFactory
 };
+
+/******************************************************************************/
 
 })();
 

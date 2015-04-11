@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2013  Raymond Hill
+    µMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2013-2015 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,13 +19,30 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, µMatrix */
+/* global vAPI, µMatrix, YaMD5 */
+/* jshint boss: true */
+
+/*******************************************************************************
+
+File system structure:
+    assets
+        umatrix
+            ...
+        thirdparties
+            ...
+        user
+            filters.txt
+            ...
+
+*/
 
 /******************************************************************************/
 
 // Low-level asset files manager
 
 µMatrix.assets = (function() {
+
+'use strict';
 
 /******************************************************************************/
 
@@ -36,19 +53,22 @@ var oneDay = 24 * oneHour;
 
 /******************************************************************************/
 
-var repositoryRoot = µMatrix.projectServerRoot;
+var projectRepositoryRoot = µMatrix.projectServerRoot;
 var nullFunc = function() {};
-var reIsExternalPath = /^https?:\/\/[a-z0-9]/;
+var reIsExternalPath = /^[a-z]+:\/\//;
 var reIsUserPath = /^assets\/user\//;
+var reIsCachePath = /^cache:\/\//;
 var lastRepoMetaTimestamp = 0;
+var lastRepoMetaIsRemote = false;
 var refreshRepoMetaPeriod = 5 * oneHour;
-
-// TODO: move chrome.i18n.getMessage to vAPI
-var errorCantConnectTo = chrome.i18n.getMessage('errorCantConnectTo');
+var errorCantConnectTo = vAPI.i18n('errorCantConnectTo');
 
 var exports = {
     autoUpdate: true,
-    autoUpdateDelay: 4 * oneDay
+    autoUpdateDelay: 4 * oneDay,
+
+    // https://github.com/chrisaljoudi/uBlock/issues/426
+    remoteFetchBarrier: 0
 };
 
 /******************************************************************************/
@@ -57,7 +77,6 @@ var AssetEntry = function() {
     this.localChecksum = '';
     this.repoChecksum = '';
     this.expireTimestamp = 0;
-    this.homeURL = '';
 };
 
 var RepoMetadata = function() {
@@ -66,6 +85,21 @@ var RepoMetadata = function() {
 };
 
 var repoMetadata = null;
+
+// We need these to persist beyond repoMetaData
+var homeURLs = {};
+
+/******************************************************************************/
+
+var stringIsNotEmpty = function(s) {
+    return typeof s === 'string' && s !== '';
+};
+
+/******************************************************************************/
+
+var cacheIsObsolete = function(t) {
+    return typeof t !== 'number' || (Date.now() - t) >= exports.autoUpdateDelay;
+};
 
 /******************************************************************************/
 
@@ -82,31 +116,30 @@ var cachedAssetsManager = (function() {
         // Flush cached non-user assets if these are from a prior version.
         // https://github.com/gorhill/httpswitchboard/issues/212
         var onLastVersionRead = function(store) {
-            var currentVersion = chrome.runtime.getManifest().version;
+            var currentVersion = vAPI.app.version;
             var lastVersion = store.extensionLastVersion || '0.0.0.0';
             if ( currentVersion !== lastVersion ) {
-                chrome.storage.local.set({ 'extensionLastVersion': currentVersion });
-                exports.remove(/^assets\/(umatrix|thirdparties)\//);
-                exports.remove('assets/checksums.txt');
+                vAPI.storage.set({ 'extensionLastVersion': currentVersion });
             }
             callback(entries);
         };
         var onLoaded = function(bin) {
             // https://github.com/gorhill/httpswitchboard/issues/381
-            // Maybe the index was requested multiple times and already 
+            // Maybe the index was requested multiple times and already
             // fetched by one of the occurrences.
             if ( entries === null ) {
-                if ( chrome.runtime.lastError ) {
+                var lastError = vAPI.lastError();
+                if ( lastError ) {
                     console.error(
-                        'assets.js > cachedAssetsManager> getEntries():',
-                        chrome.runtime.lastError.message
+                        'µMatrix> cachedAssetsManager> getEntries():',
+                        lastError.message
                     );
                 }
                 entries = bin.cached_asset_entries || {};
             }
-            chrome.storage.local.get('extensionLastVersion', onLastVersionRead);
+            vAPI.storage.get('extensionLastVersion', onLastVersionRead);
         };
-        chrome.storage.local.get('cached_asset_entries', onLoaded);
+        vAPI.storage.get('cached_asset_entries', onLoaded);
     };
     exports.entries = getEntries;
 
@@ -119,14 +152,25 @@ var cachedAssetsManager = (function() {
         };
         var cachedContentPath = cachedAssetPathPrefix + path;
         var onLoaded = function(bin) {
-            if ( chrome.runtime.lastError ) {
-                details.error = 'Error: ' + chrome.runtime.lastError.message;
-                console.error('assets.js > cachedAssetsManager.load():', details.error);
+            var lastError = vAPI.lastError();
+            if ( lastError ) {
+                details.error = 'Error: ' + lastError.message;
+                console.error('µMatrix> cachedAssetsManager.load():', details.error);
                 cbError(details);
-            } else {
-                details.content = bin[cachedContentPath];
-                cbSuccess(details);
+                return;
             }
+            // Not sure how this can happen, but I've seen it happen. It could
+            // be because the save occurred while I was stepping in the code
+            // though, which means it would not occur during normal operation.
+            // Still, just to be safe.
+            if ( stringIsNotEmpty(bin[cachedContentPath]) === false ) {
+                exports.remove(path);
+                details.error = 'Error: not found';
+                cbError(details);
+                return;
+            }
+            details.content = bin[cachedContentPath];
+            cbSuccess(details);
         };
         var onEntries = function(entries) {
             if ( entries[path] === undefined ) {
@@ -134,7 +178,7 @@ var cachedAssetsManager = (function() {
                 cbError(details);
                 return;
             }
-            chrome.storage.local.get(cachedContentPath, onLoaded);
+            vAPI.storage.get(cachedContentPath, onLoaded);
         };
         getEntries(onEntries);
     };
@@ -146,22 +190,37 @@ var cachedAssetsManager = (function() {
             path: path,
             content: content
         };
+        if ( content === '' ) {
+            exports.remove(path);
+            cbSuccess(details);
+            return;
+        }
         var cachedContentPath = cachedAssetPathPrefix + path;
         var bin = {};
         bin[cachedContentPath] = content;
+        var removedItems = [];
         var onSaved = function() {
-            if ( chrome.runtime.lastError ) {
-                details.error = 'Error: ' + chrome.runtime.lastError.message;
-                console.error('assets.js > cachedAssetsManager.save():', details.error);
+            var lastError = vAPI.lastError();
+            if ( lastError ) {
+                details.error = 'Error: ' + lastError.message;
+                console.error('µMatrix> cachedAssetsManager.save():', details.error);
                 cbError(details);
-            } else {
-                cbSuccess(details);
+                return;
             }
+            // Saving over an existing item must be seen as removing an
+            // existing item and adding a new one.
+            if ( typeof exports.onRemovedListener === 'function' ) {
+                exports.onRemovedListener(removedItems);
+            }
+            cbSuccess(details);
         };
         var onEntries = function(entries) {
+            if ( entries.hasOwnProperty(path) ) {
+                removedItems.push(path);
+            }
             entries[path] = Date.now();
             bin.cached_asset_entries = entries;
-            chrome.storage.local.set(bin, onSaved);
+            vAPI.storage.set(bin, onSaved);
         };
         getEntries(onEntries);
     };
@@ -169,6 +228,7 @@ var cachedAssetsManager = (function() {
     exports.remove = function(pattern, before) {
         var onEntries = function(entries) {
             var keystoRemove = [];
+            var removedItems = [];
             var paths = Object.keys(entries);
             var i = paths.length;
             var path;
@@ -183,12 +243,16 @@ var cachedAssetsManager = (function() {
                 if ( typeof before === 'number' && entries[path] >= before ) {
                     continue;
                 }
+                removedItems.push(path);
                 keystoRemove.push(cachedAssetPathPrefix + path);
                 delete entries[path];
             }
             if ( keystoRemove.length ) {
-                chrome.storage.local.remove(keystoRemove);
-                chrome.storage.local.set({ 'cached_asset_entries': entries });
+                vAPI.storage.remove(keystoRemove);
+                vAPI.storage.set({ 'cached_asset_entries': entries });
+                if ( typeof exports.onRemovedListener === 'function' ) {
+                    exports.onRemovedListener(removedItems);
+                }
             }
         };
         getEntries(onEntries);
@@ -196,15 +260,23 @@ var cachedAssetsManager = (function() {
 
     exports.removeAll = function(callback) {
         var onEntries = function() {
+            // Careful! do not remove 'assets/user/'
             exports.remove(/^https?:\/\/[a-z0-9]+/);
             exports.remove(/^assets\/(umatrix|thirdparties)\//);
+            exports.remove(/^cache:\/\//);
             exports.remove('assets/checksums.txt');
             if ( typeof callback === 'function' ) {
-                callback();
+                callback(null);
             }
         };
         getEntries(onEntries);
     };
+
+    exports.rmrf = function() {
+        exports.remove(/./);
+    };
+
+    exports.onRemovedListener = null;
 
     return exports;
 })();
@@ -212,22 +284,50 @@ var cachedAssetsManager = (function() {
 /******************************************************************************/
 
 var getTextFileFromURL = function(url, onLoad, onError) {
+    // console.log('µMatrix.assets/getTextFileFromURL("%s"):', url);
+
     // https://github.com/gorhill/uMatrix/issues/15
     var onResponseReceived = function() {
-        if ( typeof this.status === 'number' && this.status >= 200 && this.status < 300 ) {
-            return onLoad.call(this);
+        this.onload = this.onerror = this.ontimeout = null;
+        // xhr for local files gives status 0, but actually succeeds
+        var status = this.status || 200;
+        if ( status < 200 || status >= 300 ) {
+            return onError.call(this);
         }
-        return onError.call(this);
+        // consider an empty result to be an error
+        if ( stringIsNotEmpty(this.responseText) === false ) {
+            return onError.call(this);
+        }
+        // we never download anything else than plain text: discard if response
+        // appears to be a HTML document: could happen when server serves
+        // some kind of error page I suppose
+        var text = this.responseText.trim();
+        if ( text.charAt(0) === '<' && text.slice(-1) === '>' ) {
+            return onError.call(this);
+        }
+        return onLoad.call(this);
     };
-    // console.log('assets.js > getTextFileFromURL("%s"):', url);
+
+    var onErrorReceived = function() {
+        this.onload = this.onerror = this.ontimeout = null;
+        onError.call(this);
+    };
+
+    // Be ready for thrown exceptions:
+    // I am pretty sure it used to work, but now using a URL such as
+    // `file:///` on Chromium 40 results in an exception being thrown.
     var xhr = new XMLHttpRequest();
-    xhr.open('get', url, true);
-    xhr.responseType = 'text';
-    xhr.timeout = 15000;
-    xhr.onload = onResponseReceived;
-    xhr.onerror = onError;
-    xhr.ontimeout = onError;
-    xhr.send();
+    try {
+        xhr.open('get', url, true);
+        xhr.timeout = 30000;
+        xhr.onload = onResponseReceived;
+        xhr.onerror = onErrorReceived;
+        xhr.ontimeout = onErrorReceived;
+        xhr.responseType = 'text';
+        xhr.send();
+    } catch (e) {
+        onErrorReceived.call(xhr);
+    }
 };
 
 /******************************************************************************/
@@ -255,19 +355,27 @@ var updateLocalChecksums = function() {
 var getRepoMetadata = function(callback) {
     callback = callback || nullFunc;
 
+    // https://github.com/chrisaljoudi/uBlock/issues/515
+    // Handle re-entrancy here, i.e. we MUST NOT tamper with the waiting list
+    // of callers, if any, except to add one at the end of the list.
+    if ( repoMetadata !== null && repoMetadata.waiting.length !== 0 ) {
+        repoMetadata.waiting.push(callback);
+        return;
+    }
+
+    if ( exports.remoteFetchBarrier === 0 && lastRepoMetaIsRemote === false ) {
+        lastRepoMetaTimestamp = 0;
+    }
     if ( (Date.now() - lastRepoMetaTimestamp) >= refreshRepoMetaPeriod ) {
         repoMetadata = null;
     }
     if ( repoMetadata !== null ) {
-        if ( repoMetadata.waiting.length !== 0 ) {
-            repoMetadata.waiting.push(callback);
-        } else {
-            callback(repoMetadata);
-        }
+        callback(repoMetadata);
         return;
     }
 
     lastRepoMetaTimestamp = Date.now();
+    lastRepoMetaIsRemote = exports.remoteFetchBarrier === 0;
 
     var localChecksums;
     var repoChecksums;
@@ -300,9 +408,16 @@ var getRepoMetadata = function(callback) {
             updateLocalChecksums();
         }
         // Notify all waiting callers
-        while ( callback = repoMetadata.waiting.pop() ) {
-            callback(repoMetadata);
+        // https://github.com/chrisaljoudi/uBlock/issues/515
+        // VERY IMPORTANT: because of re-entrancy, we MUST:
+        // - process the waiting callers in a FIFO manner
+        // - not cache repoMetadata.waiting.length, we MUST use the live
+        //   value, because it can change while looping
+        // - not change the waiting list until they are all processed
+        for ( var i = 0; i < repoMetadata.waiting.length; i++ ) {
+            repoMetadata.waiting[i](repoMetadata);
         }
+        repoMetadata.waiting.length = 0;
     };
 
     var validateChecksums = function(details) {
@@ -358,14 +473,10 @@ var getRepoMetadata = function(callback) {
 /******************************************************************************/
 
 exports.setHomeURL = function(path, homeURL) {
-    var onRepoMetadataReady = function(metadata) {
-        var entry = metadata.entries[path];
-        if ( entry === undefined ) {
-            entry = metadata.entries[path] = new AssetEntry();
-        }
-        entry.homeURL = homeURL;
-    };
-    getRepoMetadata(onRepoMetadataReady);
+    if ( typeof homeURL !== 'string' || homeURL === '' ) {
+        return;
+    }
+    homeURLs[path] = homeURL;
 };
 
 /******************************************************************************/
@@ -386,24 +497,22 @@ var readLocalFile = function(path, callback) {
     };
 
     var onInstallFileLoaded = function() {
-        this.onload = this.onerror = null;
-        //console.log('assets.js > readLocalFile("%s") / onInstallFileLoaded()', path);
+        //console.log('µMatrix> readLocalFile("%s") / onInstallFileLoaded()', path);
         reportBack(this.responseText);
     };
 
     var onInstallFileError = function() {
-        this.onload = this.onerror = null;
-        console.error('assets.js > readLocalFile("%s") / onInstallFileError()', path);
+        console.error('µMatrix> readLocalFile("%s") / onInstallFileError()', path);
         reportBack('', 'Error');
     };
 
     var onCachedContentLoaded = function(details) {
-        //console.log('assets.js > readLocalFile("%s") / onCachedContentLoaded()', path);
+        //console.log('µMatrix> readLocalFile("%s") / onCachedContentLoaded()', path);
         reportBack(details.content);
     };
 
     var onCachedContentError = function(details) {
-        //console.error('assets.js > readLocalFile("%s") / onCachedContentError()', path);
+        //console.error('µMatrix> readLocalFile("%s") / onCachedContentError()', path);
         if ( reIsExternalPath.test(path) ) {
             reportBack('', 'Error: asset not found');
             return;
@@ -413,7 +522,7 @@ var readLocalFile = function(path, callback) {
             reportBack('');
             return;
         }
-        getTextFileFromURL(chrome.runtime.getURL(details.path), onInstallFileLoaded, onInstallFileError);
+        getTextFileFromURL(vAPI.getURL(details.path), onInstallFileLoaded, onInstallFileError);
     };
 
     cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
@@ -426,6 +535,12 @@ var readLocalFile = function(path, callback) {
 // Get the repository copy of a built-in asset.
 
 var readRepoFile = function(path, callback) {
+    // https://github.com/chrisaljoudi/uBlock/issues/426
+    if ( exports.remoteFetchBarrier !== 0 ) {
+        readLocalFile(path, callback);
+        return;
+    }
+
     var reportBack = function(content, err) {
         var details = {
             'path': path,
@@ -435,11 +550,10 @@ var readRepoFile = function(path, callback) {
         callback(details);
     };
 
-    var repositoryURL = repositoryRoot + path;
+    var repositoryURL = projectRepositoryRoot + path;
 
     var onRepoFileLoaded = function() {
-        this.onload = this.onerror = null;
-        //console.log('assets.js > readRepoFile("%s") / onRepoFileLoaded()', path);
+        //console.log('µMatrix> readRepoFile("%s") / onRepoFileLoaded()', path);
         // https://github.com/gorhill/httpswitchboard/issues/263
         if ( this.status === 200 ) {
             reportBack(this.responseText);
@@ -449,7 +563,6 @@ var readRepoFile = function(path, callback) {
     };
 
     var onRepoFileError = function() {
-        this.onload = this.onerror = null;
         console.error(errorCantConnectTo.replace('{{url}}', repositoryURL));
         reportBack('', 'Error');
     };
@@ -466,13 +579,14 @@ var readRepoFile = function(path, callback) {
 
 // An asset from an external source with a copy shipped with the extension:
 //       Path --> starts with 'assets/(thirdparties|umatrix)/', with a home URL
-//   External --> 
+//   External -->
 // Repository --> has checksum (to detect need for update only)
 //      Cache --> has expiration timestamp (in cache)
 //      Local --> install time version
 
 var readRepoCopyAsset = function(path, callback) {
     var assetEntry;
+    var homeURL = homeURLs[path];
 
     var reportBack = function(content, err) {
         var details = {
@@ -493,52 +607,47 @@ var readRepoCopyAsset = function(path, callback) {
     };
 
     var onInstallFileLoaded = function() {
-        this.onload = this.onerror = null;
-        //console.log('assets.js > readRepoCopyAsset("%s") / onInstallFileLoaded()', path);
+        //console.log('µMatrix> readRepoCopyAsset("%s") / onInstallFileLoaded()', path);
         reportBack(this.responseText);
     };
 
     var onInstallFileError = function() {
-        this.onload = this.onerror = null;
-        console.error('assets.js > readRepoCopyAsset("%s") / onInstallFileError():', path, this.statusText);
+        console.error('µMatrix> readRepoCopyAsset("%s") / onInstallFileError():', path, this.statusText);
         reportBack('', 'Error');
     };
 
     var onCachedContentLoaded = function(details) {
-        //console.log('assets.js > readRepoCopyAsset("%s") / onCacheFileLoaded()', path);
+        //console.log('µMatrix> readRepoCopyAsset("%s") / onCacheFileLoaded()', path);
         reportBack(details.content);
     };
 
     var onCachedContentError = function(details) {
-        //console.log('assets.js > readRepoCopyAsset("%s") / onCacheFileError()', path);
-        getTextFileFromURL(chrome.runtime.getURL(details.path), onInstallFileLoaded, onInstallFileError);
+        //console.log('µMatrix> readRepoCopyAsset("%s") / onCacheFileError()', path);
+        getTextFileFromURL(vAPI.getURL(details.path), onInstallFileLoaded, onInstallFileError);
     };
 
-    var repositoryURL = repositoryRoot + path;
+    var repositoryURL = projectRepositoryRoot + path;
     var repositoryURLSkipCache = repositoryURL + '?umatrix=' + Date.now();
 
     var onRepoFileLoaded = function() {
-        this.onload = this.onerror = null;
-        if ( typeof this.responseText !== 'string' || this.responseText === '' ) {
-            console.error('assets.js > readRepoCopyAsset("%s") / onRepoFileLoaded("%s"): error', path, repositoryURL);
+        if ( stringIsNotEmpty(this.responseText) === false ) {
+            console.error('µMatrix> readRepoCopyAsset("%s") / onRepoFileLoaded("%s"): error', path, repositoryURL);
             cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
             return;
         }
-        //console.log('assets.js > readRepoCopyAsset("%s") / onRepoFileLoaded("%s")', path, repositoryURL);
+        //console.log('µMatrix> readRepoCopyAsset("%s") / onRepoFileLoaded("%s")', path, repositoryURL);
         updateChecksum();
         cachedAssetsManager.save(path, this.responseText, callback);
     };
 
     var onRepoFileError = function() {
-        this.onload = this.onerror = null;
         console.error(errorCantConnectTo.replace('{{url}}', repositoryURL));
         cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
     };
 
     var onHomeFileLoaded = function() {
-        this.onload = this.onerror = null;
-        if ( typeof this.responseText !== 'string' || this.responseText === '' ) {
-            console.error('assets.js > readRepoCopyAsset("%s") / onHomeFileLoaded("%s"): no response', path, assetEntry.homeURL);
+        if ( stringIsNotEmpty(this.responseText) === false ) {
+            console.error('µMatrix> readRepoCopyAsset("%s") / onHomeFileLoaded("%s"): no response', path, homeURL);
             // Fetch from repo only if obsolescence was due to repo checksum
             if ( assetEntry.localChecksum !== assetEntry.repoChecksum ) {
                 getTextFileFromURL(repositoryURLSkipCache, onRepoFileLoaded, onRepoFileError);
@@ -547,14 +656,13 @@ var readRepoCopyAsset = function(path, callback) {
             }
             return;
         }
-        //console.log('assets.js > readRepoCopyAsset("%s") / onHomeFileLoaded("%s")', path, assetEntry.homeURL);
+        //console.log('µMatrix> readRepoCopyAsset("%s") / onHomeFileLoaded("%s")', path, homeURL);
         updateChecksum();
         cachedAssetsManager.save(path, this.responseText, callback);
     };
 
     var onHomeFileError = function() {
-        this.onload = this.onerror = null;
-        console.error(errorCantConnectTo.replace('{{url}}', assetEntry.homeURL));
+        console.error(errorCantConnectTo.replace('{{url}}', homeURL));
         // Fetch from repo only if obsolescence was due to repo checksum
         if ( assetEntry.localChecksum !== assetEntry.repoChecksum ) {
             getTextFileFromURL(repositoryURLSkipCache, onRepoFileLoaded, onRepoFileError);
@@ -567,24 +675,26 @@ var readRepoCopyAsset = function(path, callback) {
         // Fetch from remote if:
         // - Auto-update enabled AND (not in cache OR in cache but obsolete)
         var timestamp = entries[path];
-        var homeURL = assetEntry.homeURL;
-        if ( exports.autoUpdate && typeof homeURL === 'string' && homeURL !== '' ) {
-            var obsolete = Date.now() - exports.autoUpdateDelay;
-            if ( typeof timestamp !== 'number' || timestamp <= obsolete ) {
-                //console.log('assets.js > readRepoCopyAsset("%s") / onCacheMetaReady(): not cached or obsolete', path);
+        var inCache = typeof timestamp === 'number';
+        if (
+            exports.remoteFetchBarrier === 0 &&
+            exports.autoUpdate && stringIsNotEmpty(homeURL)
+        ) {
+            if ( inCache === false || cacheIsObsolete(timestamp) ) {
+                //console.log('µMatrix> readRepoCopyAsset("%s") / onCacheMetaReady(): not cached or obsolete', path);
                 getTextFileFromURL(homeURL, onHomeFileLoaded, onHomeFileError);
                 return;
             }
         }
 
         // In cache
-        if ( typeof timestamp === 'number' ) {
+        if ( inCache ) {
             cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
             return;
         }
 
         // Not in cache
-        getTextFileFromURL(chrome.runtime.getURL(path), onInstallFileLoaded, onInstallFileError);
+        getTextFileFromURL(vAPI.getURL(path), onInstallFileLoaded, onInstallFileError);
     };
 
     var onRepoMetaReady = function(meta) {
@@ -597,10 +707,13 @@ var readRepoCopyAsset = function(path, callback) {
         }
 
         // Repo copy changed: fetch from home URL
-        if ( exports.autoUpdate && assetEntry.localChecksum !== assetEntry.repoChecksum ) {
-            //console.log('assets.js > readRepoCopyAsset("%s") / onRepoMetaReady(): repo has newer version', path);
-            var homeURL = assetEntry.homeURL;
-            if ( typeof homeURL === 'string' && homeURL !== '' ) {
+        if (
+            exports.remoteFetchBarrier === 0 &&
+            exports.autoUpdate &&
+            assetEntry.localChecksum !== assetEntry.repoChecksum
+        ) {
+            //console.log('µMatrix> readRepoCopyAsset("%s") / onRepoMetaReady(): repo has newer version', path);
+            if ( stringIsNotEmpty(homeURL) ) {
                 getTextFileFromURL(homeURL, onHomeFileLoaded, onHomeFileError);
             } else {
                 getTextFileFromURL(repositoryURLSkipCache, onRepoFileLoaded, onRepoFileError);
@@ -619,7 +732,7 @@ var readRepoCopyAsset = function(path, callback) {
 
 /******************************************************************************/
 
-// An important asset shipped with the extension -- typically small, or 
+// An important asset shipped with the extension -- typically small, or
 // doesn't change often:
 //       Path --> starts with 'assets/(thirdparties|umatrix)/', without a home URL
 // Repository --> has checksum (to detect need for update and corruption)
@@ -642,49 +755,45 @@ var readRepoOnlyAsset = function(path, callback) {
     };
 
     var onInstallFileLoaded = function() {
-        this.onload = this.onerror = null;
-        //console.log('assets.js > readRepoOnlyAsset("%s") / onInstallFileLoaded()', path);
+        //console.log('µMatrix> readRepoOnlyAsset("%s") / onInstallFileLoaded()', path);
         reportBack(this.responseText);
     };
 
     var onInstallFileError = function() {
-        this.onload = this.onerror = null;
-        console.error('assets.js > readRepoOnlyAsset("%s") / onInstallFileError()', path);
+        console.error('µMatrix> readRepoOnlyAsset("%s") / onInstallFileError()', path);
         reportBack('', 'Error');
     };
 
     var onCachedContentLoaded = function(details) {
-        //console.log('assets.js > readRepoOnlyAsset("%s") / onCachedContentLoaded()', path);
+        //console.log('µMatrix> readRepoOnlyAsset("%s") / onCachedContentLoaded()', path);
         reportBack(details.content);
     };
 
     var onCachedContentError = function() {
-        //console.log('assets.js > readRepoOnlyAsset("%s") / onCachedContentError()', path);
-        getTextFileFromURL(chrome.runtime.getURL(path), onInstallFileLoaded, onInstallFileError);
+        //console.log('µMatrix> readRepoOnlyAsset("%s") / onCachedContentError()', path);
+        getTextFileFromURL(vAPI.getURL(path), onInstallFileLoaded, onInstallFileError);
     };
 
-    var repositoryURL = repositoryRoot + path + '?umatrix=' + Date.now();
+    var repositoryURL = projectRepositoryRoot + path + '?umatrix=' + Date.now();
 
     var onRepoFileLoaded = function() {
-        this.onload = this.onerror = null;
         if ( typeof this.responseText !== 'string' ) {
-            console.error('assets.js > readRepoOnlyAsset("%s") / onRepoFileLoaded("%s"): no response', path, repositoryURL);
+            console.error('µMatrix> readRepoOnlyAsset("%s") / onRepoFileLoaded("%s"): no response', path, repositoryURL);
             cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
             return;
         }
         if ( YaMD5.hashStr(this.responseText) !== assetEntry.repoChecksum ) {
-            console.error('assets.js > readRepoOnlyAsset("%s") / onRepoFileLoaded("%s"): bad md5 checksum', path, repositoryURL);
+            console.error('µMatrix> readRepoOnlyAsset("%s") / onRepoFileLoaded("%s"): bad md5 checksum', path, repositoryURL);
             cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
             return;
         }
-        //console.log('assets.js > readRepoOnlyAsset("%s") / onRepoFileLoaded("%s")', path, repositoryURL);
+        //console.log('µMatrix> readRepoOnlyAsset("%s") / onRepoFileLoaded("%s")', path, repositoryURL);
         assetEntry.localChecksum = assetEntry.repoChecksum;
         updateLocalChecksums();
         cachedAssetsManager.save(path, this.responseText, callback);
     };
 
     var onRepoFileError = function() {
-        this.onload = this.onerror = null;
         console.error(errorCantConnectTo.replace('{{url}}', repositoryURL));
         cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
     };
@@ -699,8 +808,12 @@ var readRepoOnlyAsset = function(path, callback) {
         }
 
         // Asset added or changed: load from repo URL and then cache result
-        if ( exports.autoUpdate && assetEntry.localChecksum !== assetEntry.repoChecksum ) {
-            //console.log('assets.js > readRepoOnlyAsset("%s") / onRepoMetaReady(): repo has newer version', path);
+        if (
+            exports.remoteFetchBarrier === 0 &&
+            exports.autoUpdate &&
+            assetEntry.localChecksum !== assetEntry.repoChecksum
+        ) {
+            //console.log('µMatrix> readRepoOnlyAsset("%s") / onRepoMetaReady(): repo has newer version', path);
             getTextFileFromURL(repositoryURL, onRepoFileLoaded, onRepoFileError);
             return;
         }
@@ -744,24 +857,29 @@ var readExternalAsset = function(path, callback) {
     };
 
     var onCachedContentLoaded = function(details) {
-        //console.log('assets.js > readExternalAsset("%s") / onCachedContentLoaded()', path);
+        //console.log('µMatrix> readExternalAsset("%s") / onCachedContentLoaded()', path);
         reportBack(details.content);
     };
 
     var onCachedContentError = function() {
-        console.error('assets.js > readExternalAsset("%s") / onCachedContentError()', path);
+        console.error('µMatrix> readExternalAsset("%s") / onCachedContentError()', path);
         reportBack('', 'Error');
     };
 
     var onExternalFileLoaded = function() {
-        this.onload = this.onerror = null;
-        //console.log('assets.js > readExternalAsset("%s") / onExternalFileLoaded1()', path);
+        // https://github.com/chrisaljoudi/uBlock/issues/708
+        // A successful download should never return an empty file: turn this
+        // into an error condition.
+        if ( stringIsNotEmpty(this.responseText) === false ) {
+            onExternalFileError();
+            return;
+        }
+        //console.log('µMatrix> readExternalAsset("%s") / onExternalFileLoaded1()', path);
         cachedAssetsManager.save(path, this.responseText);
         reportBack(this.responseText);
     };
 
     var onExternalFileError = function() {
-        this.onload = this.onerror = null;
         console.error(errorCantConnectTo.replace('{{url}}', path));
         cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
     };
@@ -769,11 +887,14 @@ var readExternalAsset = function(path, callback) {
     var onCacheMetaReady = function(entries) {
         // Fetch from remote if:
         // - Not in cache OR
-        // 
+        //
         // - Auto-update enabled AND in cache but obsolete
         var timestamp = entries[path];
-        var obsolete = Date.now() - exports.autoUpdateDelay;
-        if ( typeof timestamp !== 'number' || (exports.autoUpdate && timestamp <= obsolete) ) {
+        var notInCache = typeof timestamp !== 'number';
+        var updateCache = exports.remoteFetchBarrier === 0 &&
+                          exports.autoUpdate &&
+                          cacheIsObsolete(timestamp);
+        if ( notInCache || updateCache ) {
             getTextFileFromURL(path, onExternalFileLoaded, onExternalFileError);
             return;
         }
@@ -793,12 +914,33 @@ var readExternalAsset = function(path, callback) {
 
 var readUserAsset = function(path, callback) {
     var onCachedContentLoaded = function(details) {
-        //console.log('assets.js > readUserAsset("%s") / onCachedContentLoaded()', path);
+        //console.log('µMatrix.assets/readUserAsset("%s")/onCachedContentLoaded()', path);
         callback({ 'path': path, 'content': details.content });
     };
 
     var onCachedContentError = function() {
-        //console.log('assets.js > readUserAsset("%s") / onCachedContentError()', path);
+        //console.log('µMatrix.assets/readUserAsset("%s")/onCachedContentError()', path);
+        callback({ 'path': path, 'content': '' });
+    };
+
+    cachedAssetsManager.load(path, onCachedContentLoaded, onCachedContentError);
+};
+
+/******************************************************************************/
+
+// Asset available only from the cache.
+// Cache data:
+//       Path --> starts with 'cache://'
+//      Cache --> whatever
+
+var readCacheAsset = function(path, callback) {
+    var onCachedContentLoaded = function(details) {
+        //console.log('µMatrix.assets/readCacheAsset("%s")/onCachedContentLoaded()', path);
+        callback({ 'path': path, 'content': details.content });
+    };
+
+    var onCachedContentError = function() {
+        //console.log('µMatrix.assets/readCacheAsset("%s")/onCachedContentError()', path);
         callback({ 'path': path, 'content': '' });
     };
 
@@ -811,7 +953,7 @@ var readUserAsset = function(path, callback) {
 //
 // A copy of an asset from an external source shipped with the extension:
 //       Path --> starts with 'assets/(thirdparties|umatrix)/', with a home URL
-//   External --> 
+//   External -->
 // Repository --> has checksum (to detect obsolescence)
 //      Cache --> has expiration timestamp (to detect obsolescence)
 //      Local --> install time version
@@ -825,7 +967,7 @@ var readUserAsset = function(path, callback) {
 //
 // An external filter list:
 //       Path --> starts with 'http'
-//   External --> 
+//   External -->
 //      Cache --> has expiration timestamp (to detect obsolescence)
 //
 // User data:
@@ -838,7 +980,7 @@ var readUserAsset = function(path, callback) {
 // the asset needs to be updated.
 //
 // If no update required, an asset if first fetched from the cache. If the
-// asset is not cached it is fetched from the closest location: local for 
+// asset is not cached it is fetched from the closest location: local for
 // an asset shipped with the extension, external for an asset not shipped
 // with the extension.
 
@@ -846,6 +988,11 @@ exports.get = function(path, callback) {
 
     if ( reIsUserPath.test(path) ) {
         readUserAsset(path, callback);
+        return;
+    }
+
+    if ( reIsCachePath.test(path) ) {
+        readCacheAsset(path, callback);
         return;
     }
 
@@ -864,7 +1011,7 @@ exports.get = function(path, callback) {
         }
 
         // Asset is repo copy of external content
-        if ( assetEntry.homeURL !== '' ) {
+        if ( stringIsNotEmpty(homeURLs[path]) ) {
             readRepoCopyAsset(path, callback);
             return;
         }
@@ -890,24 +1037,27 @@ exports.put = function(path, content, callback) {
 
 /******************************************************************************/
 
+exports.rmrf = function() {
+    cachedAssetsManager.rmrf();
+};
+
+/******************************************************************************/
+
 exports.metadata = function(callback) {
     var out = {};
 
-    // https://github.com/gorhill/uBlock/issues/186
+    // https://github.com/chrisaljoudi/uBlock/issues/186
     // We need to check cache obsolescence when both cache and repo meta data
     // has been gathered.
     var checkCacheObsolescence = function() {
-        var obsolete = Date.now() - exports.autoUpdateDelay;
         var entry;
         for ( var path in out ) {
             if ( out.hasOwnProperty(path) === false ) {
                 continue;
             }
             entry = out[path];
-            entry.cacheObsolete =
-                typeof entry.homeURL === 'string' &&
-                entry.homeURL !== '' &&
-                (typeof entry.lastModified !== 'number' || entry.lastModified <= obsolete);
+            entry.cacheObsolete = stringIsNotEmpty(homeURLs[path]) &&
+                                  cacheIsObsolete(entry.lastModified);
         }
         callback(out);
     };
@@ -926,7 +1076,7 @@ exports.metadata = function(callback) {
             }
             entryOut.localChecksum = entryRepo.localChecksum;
             entryOut.repoChecksum = entryRepo.repoChecksum;
-            entryOut.homeURL = entryRepo.homeURL;
+            entryOut.homeURL = homeURLs[path] || '';
             entryOut.repoObsolete = entryOut.localChecksum !== entryOut.repoChecksum;
         }
         checkCacheObsolescence();
@@ -964,17 +1114,364 @@ exports.purge = function(pattern, before) {
     cachedAssetsManager.remove(pattern, before);
 };
 
-/******************************************************************************/
-
 exports.purgeAll = function(callback) {
     cachedAssetsManager.removeAll(callback);
 };
 
 /******************************************************************************/
 
-return exports;
+exports.onAssetCacheRemoved = {
+    addEventListener: function(callback) {
+        cachedAssetsManager.onRemovedListener = callback || null;
+    }
+};
 
 /******************************************************************************/
+
+return exports;
+
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
+µMatrix.assetUpdater = (function() {
+
+'use strict';
+
+/******************************************************************************/
+
+var µm = µMatrix;
+
+var updateDaemonTimer = null;
+var autoUpdateDaemonTimerPeriod   = 11 * 60 * 1000; // 11 minutes
+var manualUpdateDaemonTimerPeriod =       5 * 1000; //  5 seconds
+
+var updateCycleFirstPeriod  =       7 * 60 * 1000; //  7 minutes
+var updateCycleNextPeriod   = 11 * 60 * 60 * 1000; // 11 hours
+var updateCycleTime = 0;
+
+var toUpdate = {};
+var toUpdateCount = 0;
+var updated = {};
+var updatedCount = 0;
+var metadata = null;
+
+var onStartListener = null;
+var onCompletedListener = null;
+var onAssetUpdatedListener = null;
+
+var exports = {
+    manualUpdate: false,
+    manualUpdateProgress: {
+        value: 0,
+        text: null
+    }
+};
+
+/******************************************************************************/
+
+var onOneUpdated = function(details) {
+    // Resource fetched, we can safely restart the daemon.
+    scheduleUpdateDaemon();
+
+    var path = details.path;
+    if ( details.error ) {
+        manualUpdateNotify(false, updatedCount / (updatedCount + toUpdateCount));
+        //console.debug('µMatrix.assetUpdater/onOneUpdated: "%s" failed', path);
+        return;
+    }
+
+    //console.debug('µMatrix.assetUpdater/onOneUpdated: "%s"', path);
+    updated[path] = true;
+    updatedCount += 1;
+
+    if ( typeof onAssetUpdatedListener === 'function' ) {
+        onAssetUpdatedListener(details);
+    }
+
+    manualUpdateNotify(false, updatedCount / (updatedCount + toUpdateCount + 1));
+};
+
+/******************************************************************************/
+
+var updateOne = function() {
+    // Because this can be called from outside the daemon's main loop
+    µm.assets.autoUpdate = µm.userSettings.autoUpdate || exports.manualUpdate;
+
+    var metaEntry;
+    var updatingCount = 0;
+    var updatingText = null;
+
+    for ( var path in toUpdate ) {
+        if ( toUpdate.hasOwnProperty(path) === false ) {
+            continue;
+        }
+        if ( toUpdate[path] !== true ) {
+            continue;
+        }
+        toUpdate[path] = false;
+        toUpdateCount -= 1;
+        if ( metadata.hasOwnProperty(path) === false ) {
+            continue;
+        }
+        metaEntry = metadata[path];
+        if ( !metaEntry.cacheObsolete && !metaEntry.repoObsolete ) {
+            continue;
+        }
+
+        // Will restart the update daemon once the resource is received: the
+        // fetching of a resource may take some time, possibly beyond the
+        // next scheduled daemon cycle, so this ensure the daemon won't do
+        // anything else before the resource is fetched (or times out).
+        suspendUpdateDaemon();
+
+        //console.debug('µMatrix.assetUpdater/updateOne: assets.get("%s")', path);
+        µm.assets.get(path, onOneUpdated);
+        updatingCount = 1;
+        updatingText = metaEntry.homeURL || path;
+        break;
+    }
+
+    manualUpdateNotify(
+        false,
+        (updatedCount + updatingCount/2) / (updatedCount + toUpdateCount + updatingCount + 1),
+        updatingText
+    );
+};
+
+/******************************************************************************/
+
+// Update one asset, fetch metadata if not done yet.
+
+var safeUpdateOne = function() {
+    if ( metadata !== null ) {
+        updateOne();
+        return;
+    }
+
+    // Because this can be called from outside the daemon's main loop
+    µm.assets.autoUpdate = µm.userSettings.autoUpdate || exports.manualUpdate;
+
+    var onMetadataReady = function(response) {
+        scheduleUpdateDaemon();
+        metadata = response;
+        updateOne();
+    };
+
+    suspendUpdateDaemon();
+    µm.assets.metadata(onMetadataReady);
+};
+
+/******************************************************************************/
+
+var safeStartListener = function(callback) {
+    // Because this can be called from outside the daemon's main loop
+    µm.assets.autoUpdate = µm.userSettings.autoUpdate || exports.manualUpdate;
+
+    var onStartListenerDone = function(assets) {
+        scheduleUpdateDaemon();
+        assets = assets || {};
+        for ( var path in assets ) {
+            if ( assets.hasOwnProperty(path) === false ) {
+                continue;
+            }
+            if ( toUpdate.hasOwnProperty(path) ) {
+                continue;
+            }
+            //console.debug('assets.js > µMatrix.assetUpdater/safeStartListener: "%s"', path);
+            toUpdate[path] = true;
+            toUpdateCount += 1;
+        }
+        if ( typeof callback === 'function' ) {
+            callback();
+        }
+    };
+
+    if ( typeof onStartListener === 'function' ) {
+        suspendUpdateDaemon();
+        onStartListener(onStartListenerDone);
+    } else {
+        onStartListenerDone(null);
+    }
+};
+
+/******************************************************************************/
+
+var updateDaemon = function() {
+    updateDaemonTimer = null;
+    scheduleUpdateDaemon();
+
+    µm.assets.autoUpdate = µm.userSettings.autoUpdate || exports.manualUpdate;
+
+    if ( µm.assets.autoUpdate !== true ) {
+        return;
+    }
+
+    // Start an update cycle?
+    if ( updateCycleTime !== 0 ) {
+        if ( Date.now() >= updateCycleTime ) {
+            //console.debug('µMatrix.assetUpdater/updateDaemon: update cycle started');
+            reset();
+            safeStartListener();
+        }
+        return;
+    }
+
+    // Any asset to update?
+    if ( toUpdateCount !== 0 ) {
+        safeUpdateOne();
+        return;
+    }
+    // Nothing left to update
+
+    // In case of manual update, fire progress notifications
+    manualUpdateNotify(true, 1, '');
+
+    // If anything was updated, notify listener
+    if ( updatedCount !== 0 ) {
+        if ( typeof onCompletedListener === 'function' ) {
+            //console.debug('µMatrix.assetUpdater/updateDaemon: update cycle completed');
+            onCompletedListener({
+                updated: JSON.parse(JSON.stringify(updated)), // give callee its own safe copy
+                updatedCount: updatedCount
+            });
+        }
+    }
+
+    // Schedule next update cycle
+    if ( updateCycleTime === 0 ) {
+        reset();
+        //console.debug('µMatrix.assetUpdater/updateDaemon: update cycle re-scheduled');
+        updateCycleTime = Date.now() + updateCycleNextPeriod;
+    }
+};
+
+/******************************************************************************/
+
+var scheduleUpdateDaemon = function() {
+    if ( updateDaemonTimer !== null ) {
+        clearTimeout(updateDaemonTimer);
+    }
+    updateDaemonTimer = setTimeout(
+        updateDaemon,
+        exports.manualUpdate ? manualUpdateDaemonTimerPeriod : autoUpdateDaemonTimerPeriod
+    );
+};
+
+var suspendUpdateDaemon = function() {
+    if ( updateDaemonTimer !== null ) {
+        clearTimeout(updateDaemonTimer);
+        updateDaemonTimer = null;
+    }
+};
+
+scheduleUpdateDaemon();
+
+/******************************************************************************/
+
+var reset = function() {
+    toUpdate = {};
+    toUpdateCount = 0;
+    updated = {};
+    updatedCount = 0;
+    updateCycleTime = 0;
+    metadata = null;
+};
+
+/******************************************************************************/
+
+var manualUpdateNotify = function(done, value, text) {
+    if ( exports.manualUpdate === false ) {
+        return;
+    }
+
+    exports.manualUpdate = !done;
+    exports.manualUpdateProgress.value = value || 0;
+    if ( typeof text === 'string' ) {
+        exports.manualUpdateProgress.text = text;
+    }
+
+    vAPI.messaging.broadcast({
+        what: 'forceUpdateAssetsProgress',
+        done: !exports.manualUpdate,
+        progress: exports.manualUpdateProgress,
+        updatedCount: updatedCount
+    });
+
+    // When manually updating, whatever launched the manual update is
+    // responsible to launch a reload of the filter lists.
+    if ( exports.manualUpdate !== true ) {
+        reset();
+    }
+};
+
+/******************************************************************************/
+
+// Manual update: just a matter of forcing the update daemon to work on a
+// tighter schedule.
+
+exports.force = function() {
+    if ( exports.manualUpdate ) {
+        return;
+    }
+
+    reset();
+
+    exports.manualUpdate = true;
+
+    var onStartListenerDone = function() {
+        if ( toUpdateCount === 0 ) {
+            updateCycleTime = Date.now() + updateCycleNextPeriod;
+            manualUpdateNotify(true, 1);
+        } else {
+            manualUpdateNotify(false, 0);
+            safeUpdateOne();
+        }
+    };
+
+    safeStartListener(onStartListenerDone);
+};
+
+/******************************************************************************/
+
+exports.onStart = {
+    addEventListener: function(callback) {
+        onStartListener = callback || null;
+        if ( typeof onStartListener === 'function' ) {
+            updateCycleTime = Date.now() + updateCycleFirstPeriod;
+        }
+    }
+};
+
+/******************************************************************************/
+
+exports.onAssetUpdated = {
+    addEventListener: function(callback) {
+        onAssetUpdatedListener = callback || null;
+    }
+};
+
+/******************************************************************************/
+
+exports.onCompleted = {
+    addEventListener: function(callback) {
+        onCompletedListener = callback || null;
+    }
+};
+
+/******************************************************************************/
+
+// Typically called when an update has been forced.
+
+exports.restart = function() {
+    reset();
+    updateCycleTime = Date.now() + updateCycleNextPeriod;
+};
+
+/******************************************************************************/
+
+return exports;
 
 })();
 
