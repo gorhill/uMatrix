@@ -38,12 +38,13 @@ body {
     position: absolute;
     top: 0;
     }
-html.ltr .toolbar.alignLeft,
-html.rtl .toolbar.alignRight {
+
+body[dir="ltr"] .toolbar.alignLeft,
+body[dir="rtl"] .toolbar.alignRight {
     left: 0;
     }
-html.ltr .toolbar.alignRight,
-html.rtl .toolbar.alignLeft {
+body[dir="ltr"] .toolbar.alignRight,
+body[dir="rtl"] .toolbar.alignLeft {
     right: 0;
     }
 
@@ -83,10 +84,10 @@ body.tScopeSite .scopeRel:not(.disabled) {
     color: #a00;
     }
 
-html.ltr #buttonMtxSwitches + .dropdown-menu {
+body[dir="ltr"] #buttonMtxSwitches + .dropdown-menu {
     left: -80%;
     }
-html.rtl #buttonMtxSwitches + .dropdown-menu {
+body[dir="rtl"] #buttonMtxSwitches + .dropdown-menu {
     right: -80%;
     }
 #mtxSwitches > li  {
@@ -98,10 +99,10 @@ html.rtl #buttonMtxSwitches + .dropdown-menu {
 #mtxSwitches > li > span:before {
     font: 120% FontAwesome;
     }
-html.ltr #mtxSwitches > li > span:before {
+body[dir="ltr"] #mtxSwitches > li > span:before {
     padding-right: 0.5em;
     }
-html.rtl #mtxSwitches > li > span:before {
+body[dir="rtl"] #mtxSwitches > li > span:before {
     padding-left: 0.5em;
     }
 #mtxSwitches > li > span:before {

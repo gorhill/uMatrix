@@ -28,7 +28,7 @@ div > p:last-child {
 #diff > .pane > div > span {
     float: left;
     }
-html.ltr #revertButton:after {
+body[dir="ltr"] #revertButton:after {
     content: '\2009\f061';
     font-family: FontAwesome;
     font-style: normal;
@@ -37,7 +37,7 @@ html.ltr #revertButton:after {
     vertical-align: baseline;
     display: inline-block;
     }
-html.rtl #revertButton:after {
+body[dir="rtl"] #revertButton:after {
     content: '\2009\f060';
     font-family: FontAwesome;
     font-style: normal;
@@ -46,7 +46,7 @@ html.rtl #revertButton:after {
     vertical-align: baseline;
     display: inline-block;
     }
-html.ltr #commitButton:before {
+body[dir="ltr"] #commitButton:before {
     content: '\f060\2009';
     font-family: FontAwesome;
     font-style: normal;
@@ -55,7 +55,7 @@ html.ltr #commitButton:before {
     vertical-align: baseline;
     display: inline-block;
     }
-html.rtl #commitButton:before {
+body[dir="rtl"] #commitButton:before {
     content: '\f061\2009';
     font-family: FontAwesome;
     font-style: normal;

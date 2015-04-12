@@ -23,21 +23,14 @@
 // jQuery must be present at this point.
 
 window.addEventListener('load', function() {
-    // http://en.wikipedia.org/wiki/Right-to-left
-    var rtlLanguages = {
-        'ar': true,
-        'fa': true,
-        'he': true
-    };
-    uDom('html').toggleClass('rtl', rtlLanguages.hasOwnProperty(navigator.language));
-    uDom('html').toggleClass('ltr', rtlLanguages.hasOwnProperty(navigator.language) === false);
+    'use strict';
 
     var nodeList = document.querySelectorAll('[data-i18n]');
     var i = nodeList.length;
     var node;
     while ( i-- ) {
         node = nodeList[i];
-        node.innerHTML = vAPI.i18n(node.getAttribute('data-i18n'));
+        vAPI.insertHTML(node, vAPI.i18n(node.getAttribute('data-i18n')));
     }
     // copy text of <h1> if any to document title
     node = document.querySelector('h1');
