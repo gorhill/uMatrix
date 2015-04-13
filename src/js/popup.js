@@ -50,7 +50,6 @@ var matrixSnapshot = {};
 var groupsSnapshot = [];
 var allHostnamesSnapshot = 'do not leave this initial string empty';
 
-var targetTabId;
 var matrixCellHotspots = null;
 
 var matrixHeaderPrettyNames = {
@@ -1108,7 +1107,7 @@ function revertAll() {
 function buttonReloadHandler() {
     messager.send({
         what: 'forceReloadTab',
-        tabId: targetTabId
+        tabId: matrixSnapshot.tabId
     });
 }
 
@@ -1174,7 +1173,7 @@ var onMatrixSnapshotReady = function(response) {
 var queryMatrixSnapshot = function(callback) {
     var request = {
         what: 'matrixSnapshot',
-        tabId: targetTabId,
+        tabId: matrixSnapshot.tabId,
         tabURL: matrixSnapshot.url
     };
     var snapshotReceived = function(response) {
