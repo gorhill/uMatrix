@@ -676,8 +676,7 @@ vAPI.tabs.select = function(tab) {
         return;
     }
 
-    var tabBrowser = getTabBrowser(getOwnerWindow(tab));
-    tabBrowser.selectedTab = tab;
+    getTabBrowser(getOwnerWindow(tab)).selectedTab = tab;
 };
 
 /******************************************************************************/
@@ -1791,10 +1790,6 @@ vAPI.onLoadAllCompleted = function() {
     var µb = µBlock;
     for ( var tab of this.tabs.getAll() ) {
         // We're insterested in only the tabs that were already loaded
-        if ( tab.hasAttribute('pending') ) {
-            continue;
-        }
-
         var tabId = this.tabs.getTabId(tab);
         var browser = getBrowserForTab(tab);
         µb.tabContextManager.commit(tabId, browser.currentURI.asciiSpec);
