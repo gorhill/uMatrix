@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/gorhill/uMatrix
 */
 
 /* jshint esnext: true, bitwise: false */
@@ -39,12 +39,11 @@ const {Services} = Cu.import('resource://gre/modules/Services.jsm', null);
 
 var vAPI = self.vAPI = self.vAPI || {};
 vAPI.firefox = true;
-vAPI.fennec = Services.appinfo.ID === '{aa3c5121-dab2-40e2-81ca-7ea25febc110}';
 
 /******************************************************************************/
 
 vAPI.app = {
-    name: 'uBlock₀',
+    name: 'uMatrix',
     version: location.hash.slice(1)
 };
 
@@ -78,7 +77,7 @@ window.addEventListener('unload', function() {
 
     if ( cleanupTasks.length < expectedNumberOfCleanups ) {
         console.error(
-            'uBlock> Cleanup tasks performed: %s (out of %s)',
+            'uMatrix> Cleanup tasks performed: %s (out of %s)',
             cleanupTasks.length,
             expectedNumberOfCleanups
         );
@@ -296,10 +295,7 @@ var windowWatcher = {
             return;
         }
 
-        if ( tabBrowser.deck ) {
-            // Fennec
-            tabContainer = tabBrowser.deck;
-        } else if ( tabBrowser.tabContainer ) {
+        if ( tabBrowser.tabContainer ) {
             // desktop Firefox
             tabContainer = tabBrowser.tabContainer;
             vAPI.contextMenu.register(this.document);
@@ -347,7 +343,7 @@ vAPI.noTabId = '-1';
 /******************************************************************************/
 
 var getTabBrowser = function(win) {
-    return vAPI.fennec && win.BrowserApp || win.gBrowser || null;
+    return win.gBrowser || null;
 };
 
 /******************************************************************************/
@@ -356,7 +352,7 @@ var getBrowserForTab = function(tab) {
     if ( !tab ) {
         return null;
     }
-    return vAPI.fennec && tab.browser || tab.linkedBrowser || null;
+    return tab.linkedBrowser || null;
 };
 
 /******************************************************************************/
@@ -364,15 +360,6 @@ var getBrowserForTab = function(tab) {
 var getOwnerWindow = function(target) {
     if ( target.ownerDocument ) {
         return target.ownerDocument.defaultView;
-    }
-
-    // Fennec
-    for ( var win of vAPI.tabs.getWindows() ) {
-        for ( var tab of win.BrowserApp.tabs) {
-            if ( tab === target || tab.window === target ) {
-                return win;
-            }
-        }
     }
 
     return null;
@@ -407,10 +394,7 @@ vAPI.tabs.registerListeners = function() {
                 continue;
             }
 
-            if ( tabBrowser.deck ) {
-                // Fennec
-                tabContainer = tabBrowser.deck;
-            } else if ( tabBrowser.tabContainer ) {
+            if ( tabBrowser.tabContainer ) {
                 tabContainer = tabBrowser.tabContainer;
                 tabBrowser.removeTabsProgressListener(tabWatcher);
             }
@@ -444,12 +428,7 @@ vAPI.tabs.getTabId = function(target) {
     if ( !target ) {
         return vAPI.noTabId;
     }
-    if ( vAPI.fennec ) {
-        if ( target.browser ) {
-            // target is a tab
-            target = target.browser;
-        }
-    } else if ( target.linkedPanel ) {
+    if ( target.linkedPanel ) {
         // target is a tab
         target = target.linkedBrowser;
     }
@@ -519,14 +498,8 @@ vAPI.tabs.get = function(tabId, callback) {
     var windows = this.getWindows();
     var browser = getBrowserForTab(tab);
     var tabBrowser = getTabBrowser(win);
-    var tabIndex, tabTitle;
-    if ( vAPI.fennec ) {
-        tabIndex = tabBrowser.tabs.indexOf(tab);
-        tabTitle = browser.contentTitle;
-    } else {
-        tabIndex = tabBrowser.browsers.indexOf(browser);
-        tabTitle = tab.label;
-    }
+    var tabIndex = tabBrowser.browsers.indexOf(browser);
+    var tabTitle = tab.label;
 
     callback({
         id: tabId,
@@ -630,12 +603,6 @@ vAPI.tabs.open = function(details) {
     win = Services.wm.getMostRecentWindow('navigator:browser');
     tabBrowser = getTabBrowser(win);
 
-    if ( vAPI.fennec ) {
-        tabBrowser.addTab(details.url, {selected: details.active !== false});
-        // Note that it's impossible to move tabs on Fennec, so don't bother
-        return;
-    }
-
     if ( details.index === -1 ) {
         details.index = tabBrowser.browsers.indexOf(tabBrowser.selectedBrowser) + 1;
     }
@@ -668,10 +635,6 @@ vAPI.tabs.replace = function(tabId, url) {
 /******************************************************************************/
 
 vAPI.tabs._remove = function(tab, tabBrowser) {
-    if ( vAPI.fennec ) {
-        tabBrowser.closeTab(tab);
-        return;
-    }
     tabBrowser.removeTab(tab);
 };
 
@@ -714,12 +677,7 @@ vAPI.tabs.select = function(tab) {
     }
 
     var tabBrowser = getTabBrowser(getOwnerWindow(tab));
-
-    if ( vAPI.fennec ) {
-        tabBrowser.selectTab(tab);
-    } else {
-        tabBrowser.selectedTab = tab;
-    }
+    tabBrowser.selectedTab = tab;
 };
 
 /******************************************************************************/
@@ -844,7 +802,7 @@ vAPI.messaging.onMessage = function({target, data}) {
         return;
     }
 
-    console.error('uBlock> messaging > unknown request: %o', data);
+    console.error('uMatrix> messaging > unknown request: %o', data);
 
     // Unhandled:
     // Need to callback anyways in case caller expected an answer, or
@@ -1020,7 +978,7 @@ var httpObserver = {
             try {
                 this.componentRegistrar.unregisterFactory(this.classID, Components.manager.getClassObject(this.classID, Ci.nsIFactory));
             } catch (ex) {
-                console.error('uBlock> httpObserver > unable to unregister stale instance: ', ex);
+                console.error('uMatrix> httpObserver > unable to unregister stale instance: ', ex);
             }
         }
 
@@ -1388,75 +1346,6 @@ vAPI.toolbarButton = {
 
 // Toolbar button UI for desktop Firefox
 vAPI.toolbarButton.init = function() {
-    if ( vAPI.fennec ) {
-        // Menu UI for Fennec
-        var tb = {
-            menuItemIds: new WeakMap(),
-            label: vAPI.app.name,
-            tabs: {}
-        };
-        vAPI.toolbarButton = tb;
-
-        tb.getMenuItemLabel = function(tabId) {
-            var label = this.label;
-            if ( tabId === undefined ) {
-                return label;
-            }
-            var tabDetails = this.tabs[tabId];
-            if ( !tabDetails ) {
-                return label;
-            }
-            if ( !tabDetails.img ) {
-                label += ' (' + vAPI.i18n('fennecMenuItemBlockingOff') + ')';
-            } else if ( tabDetails.badge ) {
-                label += ' (' + tabDetails.badge + ')';
-            }
-            return label;
-        };
-
-        tb.onClick = function() {
-            var win = Services.wm.getMostRecentWindow('navigator:browser');
-            var curTabId = vAPI.tabs.getTabId(getTabBrowser(win).selectedTab);
-            vAPI.tabs.open({
-                url: 'popup.html?tabId=' + curTabId,
-                index: -1,
-                select: true
-            });
-        };
-
-        tb.updateState = function(win, tabId) {
-            var id = this.menuItemIds.get(win);
-            if ( !id ) {
-                return;
-            }
-            win.NativeWindow.menu.update(id, {
-                name: this.getMenuItemLabel(tabId)
-            });
-        };
-
-        // Only actually expecting one window under Fennec (note, not tabs, windows)
-        for ( var win of vAPI.tabs.getWindows() ) {
-            var label = tb.getMenuItemLabel();
-            var id = win.NativeWindow.menu.add({
-                name: label,
-                callback: tb.onClick
-            });
-            tb.menuItemIds.set(win, id);
-        }
-
-        cleanupTasks.push(function() {
-            for ( var win of vAPI.tabs.getWindows() ) {
-                var id = tb.menuItemIds.get(win);
-                if ( id ) {
-                    win.NativeWindow.menu.remove(id);
-                    tb.menuItemIds.delete(win);
-                }
-            }
-        });
-
-        return;
-    }
-
     var CustomizableUI;
     try {
         CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
@@ -1756,17 +1645,6 @@ vAPI.contextMenu.register = function(doc) {
         return;
     }
 
-    if ( vAPI.fennec ) {
-        // TODO https://developer.mozilla.org/en-US/Add-ons/Firefox_for_Android/API/NativeWindow/contextmenus/add
-        /*var nativeWindow = doc.defaultView.NativeWindow;
-        contextId = nativeWindow.contextmenus.add(
-            this.menuLabel,
-            nativeWindow.contextmenus.linkOpenableContext,
-            this.onCommand
-        );*/
-        return;
-    }
-
     var contextMenu = doc.getElementById('contentAreaContextMenu');
     var menuitem = doc.createElement('menuitem');
     menuitem.setAttribute('id', this.menuItemId);
@@ -1782,11 +1660,6 @@ vAPI.contextMenu.register = function(doc) {
 
 vAPI.contextMenu.unregister = function(doc) {
     if ( !this.menuItemId ) {
-        return;
-    }
-
-    if ( vAPI.fennec ) {
-        // TODO
         return;
     }
 
@@ -1862,7 +1735,7 @@ vAPI.contextMenu.remove = function() {
 /******************************************************************************/
 
 var optionsObserver = {
-    addonId: 'uBlock0@raymondhill.net',
+    addonId: 'uMatrix@raymondhill.net',
 
     register: function() {
         Services.obs.addObserver(this, 'addon-options-displayed', false);
@@ -1918,7 +1791,7 @@ vAPI.onLoadAllCompleted = function() {
     var µb = µBlock;
     for ( var tab of this.tabs.getAll() ) {
         // We're insterested in only the tabs that were already loaded
-        if ( !vAPI.fennec && tab.hasAttribute('pending') ) {
+        if ( tab.hasAttribute('pending') ) {
             continue;
         }
 

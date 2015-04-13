@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/gorhill/uMatrix
 */
 
 /* global APP_SHUTDOWN, APP_STARTUP */
@@ -27,11 +27,11 @@
 /******************************************************************************/
 
 // Accessing the context of the background page:
-// var win = Services.appShell.hiddenDOMWindow.document.querySelector('iframe[src*=ublock]').contentWindow;
+// var win = Services.appShell.hiddenDOMWindow.document.querySelector('iframe[src*=umatrix]').contentWindow;
 
 let bgProcess;
 let version;
-const hostName = 'ublock0';
+const hostName = 'umatrix';
 const restartListener = {
     get messageManager() {
         return Components.classes['@mozilla.org/parentprocessmessagemanager;1']

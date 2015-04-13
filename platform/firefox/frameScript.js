@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/gorhill/uMatrix
 */
 
 /******************************************************************************/
@@ -50,11 +50,11 @@ let injectContentScripts = function(win) {
 };
 
 let onLoadCompleted = function() {
-    removeMessageListener('ublock-load-completed', onLoadCompleted);
+    removeMessageListener('umatrix-load-completed', onLoadCompleted);
     injectContentScripts(content);
 };
 
-addMessageListener('ublock-load-completed', onLoadCompleted);
+addMessageListener('umatrix-load-completed', onLoadCompleted);
 
 locationChangeListener = new LocationChangeListener(docShell);
 

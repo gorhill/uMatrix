@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/gorhill/uMatrix
 */
 
 /* global addMessageListener, removeMessageListener, sendAsyncMessage */
@@ -160,7 +160,7 @@ vAPI.messaging = {
                     vAPI.messaging.listeners[message.requestId] = callback;
                 }
 
-                sendAsyncMessage('ublock0:background', message);
+                sendAsyncMessage('umatrix:background', message);
             },
             close: function() {
                 delete vAPI.messaging.channels[this.channelName];

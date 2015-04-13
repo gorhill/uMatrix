@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/gorhill/uMatrix
 */
 
 'use strict';
@@ -49,7 +49,7 @@ const getMessageManager = function(win) {
 
 const contentObserver = {
     classDescription: 'content-policy for ' + hostName,
-    classID: Components.ID('{7afbd130-cbaf-46c2-b944-f5d24305f484}'),
+    classID: Components.ID('{d8baca19-b666-4c09-84b1-a36d9a0bb03f}'),
     contractID: '@' + hostName + '/content-policy;1',
     ACCEPT: Ci.nsIContentPolicy.ACCEPT,
     MAIN_FRAME: Ci.nsIContentPolicy.TYPE_DOCUMENT,
