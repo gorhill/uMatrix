@@ -262,8 +262,8 @@ var matrixSnapshot = function(tabId, details) {
 /******************************************************************************/
 
 var matrixSnapshotFromTabId = function(details, callback) {
-    if ( details.targetTabId ) {
-        callback(matrixSnapshot(details.targetTabId, details));
+    if ( details.tabId ) {
+        callback(matrixSnapshot(details.tabId, details));
         return;
     }
 
