@@ -49,6 +49,16 @@ vAPI.app = {
 
 /******************************************************************************/
 
+vAPI.app.start = function() {
+};
+
+/******************************************************************************/
+
+vAPI.app.stop = function() {
+};
+
+/******************************************************************************/
+
 vAPI.app.restart = function() {
     // Listening in bootstrap.js
     Cc['@mozilla.org/childprocessmessagemanager;1']
@@ -454,7 +464,7 @@ vAPI.tabs.getTabsForIds = function(tabIds) {
     if ( singleTab ) {
         tabIds = [tabIds];
     }
-    for ( var tab of this.getAll() ) {
+    for ( var tab of this.getAllSync() ) {
         var tabId = this.stack.get(getBrowserForTab(tab));
         if ( !tabId ) {
             continue;
@@ -513,7 +523,7 @@ vAPI.tabs.get = function(tabId, callback) {
 
 /******************************************************************************/
 
-vAPI.tabs.getAll = function(window) {
+vAPI.tabs.getAllSync = function(window) {
     var win, tab;
     var tabs = [];
 
@@ -533,6 +543,27 @@ vAPI.tabs.getAll = function(window) {
     }
 
     return tabs;
+};
+
+/******************************************************************************/
+
+vAPI.tabs.getAll = function(callback) {
+    var tabs = [];
+    var win, tab;
+
+    for ( win of this.getWindows() ) {
+        var tabBrowser = getTabBrowser(win);
+        if ( tabBrowser === null ) {
+            continue;
+        }
+        for ( tab of tabBrowser.tabs ) {
+            tabs.push({
+                id: this.getTabId(tab),
+                url: getBrowserForTab(tab).currentURI.asciiSpec
+            });
+        }
+    }
+    callback(tabs);
 };
 
 /******************************************************************************/
@@ -575,7 +606,7 @@ vAPI.tabs.open = function(details) {
     if ( details.select ) {
         var URI = Services.io.newURI(details.url, null, null);
 
-        for ( tab of this.getAll() ) {
+        for ( tab of this.getAllSync() ) {
             var browser = getBrowserForTab(tab);
 
             // Or simply .equals if we care about the fragment
@@ -712,10 +743,12 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
 
 /******************************************************************************/
 
-vAPI.setIcon = function(tabId, iconStatus, badge) {
+vAPI.setIcon = function(tabId, iconId, badge) {
+    var iconStatus = typeof iconId === 'number';
+
     // If badge is undefined, then setIcon was called from the TabSelect event
     var win = badge === undefined
-        ? iconStatus
+        ? iconId
         : Services.wm.getMostRecentWindow('navigator:browser');
     var curTabId = vAPI.tabs.getTabId(getTabBrowser(win).selectedTab);
     var tb = vAPI.toolbarButton;
@@ -1030,7 +1063,10 @@ var httpObserver = {
         var onBeforeRequest = vAPI.net.onBeforeRequest;
         var type = this.typeMap[details.type] || 'other';
 
-        if ( onBeforeRequest.types.has(type) === false ) {
+        if (
+            onBeforeRequest.types.size !== 0 &&
+            onBeforeRequest.types.has(type) === false
+        ) {
             return false;
         }
 
@@ -1239,7 +1275,7 @@ vAPI.net.registerListeners = function() {
 
         // Popup candidate
         if ( details.openerURL ) {
-            for ( var tab of vAPI.tabs.getAll() ) {
+            for ( var tab of vAPI.tabs.getAllSync() ) {
                 var URI = getBrowserForTab(tab).currentURI;
 
                 // Probably isn't the best method to identify the source tab
@@ -1306,7 +1342,7 @@ vAPI.net.registerListeners = function() {
             tabId: tabId,
             url: details.url,
         });
-    }
+    };
 
     vAPI.messaging.globalMessageManager.addMessageListener(
         locationChangedListenerMessageName,
@@ -1356,7 +1392,7 @@ vAPI.toolbarButton.init = function() {
     this.styleURI = [
         '#' + this.id + ' {',
             'list-style-image: url(',
-                vAPI.getURL('img/browsericons/icon16-off.svg'),
+                vAPI.getURL('img/browsericons/icon19-off.png'),
             ');',
         '}',
         '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
@@ -1568,7 +1604,7 @@ vAPI.toolbarButton.updateState = function(win, tabId) {
         icon = '';
     }
     else {
-        icon = 'url(' + vAPI.getURL('img/browsericons/icon16.svg') + ')';
+        icon = 'url(' + vAPI.getURL('img/browsericons/icon19-19.png') + ')';
     }
 
     button.style.listStyleImage = icon;
@@ -1648,7 +1684,7 @@ vAPI.contextMenu.register = function(doc) {
     var menuitem = doc.createElement('menuitem');
     menuitem.setAttribute('id', this.menuItemId);
     menuitem.setAttribute('label', this.menuLabel);
-    menuitem.setAttribute('image', vAPI.getURL('img/browsericons/icon16.svg'));
+    menuitem.setAttribute('image', vAPI.getURL('img/browsericons/icon19-19.png'));
     menuitem.setAttribute('class', 'menuitem-iconic');
     menuitem.addEventListener('command', this.onCommand);
     contextMenu.addEventListener('popupshowing', this.displayMenuItem);
@@ -1788,7 +1824,7 @@ vAPI.lastError = function() {
 
 vAPI.onLoadAllCompleted = function() {
     var µb = µBlock;
-    for ( var tab of this.tabs.getAll() ) {
+    for ( var tab of this.tabs.getAllSync() ) {
         // We're insterested in only the tabs that were already loaded
         var tabId = this.tabs.getTabId(tab);
         var browser = getBrowserForTab(tab);
@@ -1819,6 +1855,49 @@ vAPI.punycodeURL = function(url) {
     return url;
 };
 
+/******************************************************************************/
+
+/******************************************************************************/
+
+vAPI.browserCache = {};
+
+/******************************************************************************/
+
+vAPI.browserCache.clearByTime = function(since) {
+    // TODO
+};
+
+vAPI.browserCache.clearByOrigin = function(/* domain */) {
+    // TODO
+};
+
+/******************************************************************************/
+
+vAPI.cookies = {};
+
+/******************************************************************************/
+
+vAPI.cookies.registerListeners = function() {
+    // TODO
+};
+
+/******************************************************************************/
+
+vAPI.cookies.getAll = function(callback) {
+    // TODO
+    if ( typeof callback === 'function' ) {
+        callback([]);
+    }
+};
+
+/******************************************************************************/
+
+vAPI.cookies.remove = function(details, callback) {
+    // TODO
+    if ( typeof callback === 'function' ) {
+        callback();
+    }
+};
 /******************************************************************************/
 
 })();

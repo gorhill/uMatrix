@@ -16,7 +16,7 @@ cp    ./platform/chromium/*.html        $DES/
 cp    ./platform/chromium/*.js          $DES/js/
 cp -R ./platform/chromium/img/*         $DES/img/
 cp    ./platform/chromium/manifest.json $DES/
-cp    LICENSE                           $DES/
+cp    LICENSE.txt                       $DES/
 
 if [ "$1" = all ]; then
     echo "*** µMatrix.chromium: Creating package..."

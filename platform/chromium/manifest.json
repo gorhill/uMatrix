@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "__MSG_extName__",
+    "name": "µMatrix",
     "short_name": "µMatrix",
     "version": "0.8.1.4",
     "description": "__MSG_extShortDesc__",
@@ -12,7 +12,7 @@
         "default_icon": {
             "19": "img/browsericons/icon19-off.png"
         },
-        "default_title": "__MSG_extName__",
+        "default_title": "µMatrix",
         "default_popup": "popup.html"
     },
     "author": "Raymond Hill",

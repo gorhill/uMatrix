@@ -6,6 +6,7 @@ import sys
 from io import open
 from shutil import rmtree
 from collections import OrderedDict
+from xml.sax.saxutils import escape
 
 if len(sys.argv) == 1 or not sys.argv[1]:
     raise SystemExit('Build dir missing.')
@@ -56,13 +57,13 @@ for alpha2 in sorted(os.listdir(source_locale_dir)):
 chrome_manifest = pj(build_dir, 'chrome.manifest')
 
 with open(chrome_manifest, 'at', encoding='utf-8', newline='\n') as f:
-    f.write(u'\nlocale ublock0 en ./locale/en/\n')
+    f.write(u'\nlocale umatrix en ./locale/en/\n')
 
     for alpha2 in language_codes:
         if alpha2 == 'en':
             continue
 
-        f.write(u'locale ublock0 ' + alpha2 + ' ./locale/' + alpha2 + '/\n')
+        f.write(u'locale umatrix ' + alpha2 + ' ./locale/' + alpha2 + '/\n')
 
 rmtree(source_locale_dir)
 
@@ -73,8 +74,8 @@ chromium_manifest = pj(proj_dir, 'platform', 'chromium', 'manifest.json')
 with open(chromium_manifest, encoding='utf-8') as m:
     manifest = json.load(m)
 
-manifest['homepage'] = 'https://github.com/gorhill/uBlock'
-manifest['description'] = descriptions['en']
+manifest['homepage'] = 'https://github.com/gorhill/uMatrix'
+manifest['description'] = escape(descriptions['en'])
 del descriptions['en']
 manifest['localized'] = []
 
@@ -89,7 +90,7 @@ for alpha2 in descriptions:
         '\n' + t*2 + '<localized><r:Description>\n' +
         t3 + '<locale>' + alpha2 + '</locale>\n' +
         t3 + '<name>' + manifest['name'] + '</name>\n' +
-        t3 + '<description>' + descriptions[alpha2] + '</description>\n' +
+        t3 + '<description>' + escape(descriptions[alpha2]) + '</description>\n' +
         t3 + '<creator>' + manifest['author'] + '</creator>\n' +
         # t3 + '<translator>' + ??? + '</translator>\n' +
         t3 + '<homepageURL>' + manifest['homepage'] + '</homepageURL>\n' +
