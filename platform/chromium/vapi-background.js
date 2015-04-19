@@ -614,7 +614,79 @@ vAPI.net = {};
 vAPI.net.registerListeners = function() {
     var µm = µMatrix;
     var µmuri = µm.URI;
+    var httpRequestHeadersJunkyard = [];
 
+    // Abstraction layer to deal with request headers
+    // >>>>>>>>
+    var httpRequestHeadersFactory = function(headers) {
+        var entry = httpRequestHeadersJunkyard.pop();
+        if ( entry ) {
+            return entry.init(headers);
+        }
+        return new HTTPRequestHeaders(headers);
+    };
+
+    var HTTPRequestHeaders = function(headers) {
+        this.init(headers);
+    };
+
+    HTTPRequestHeaders.prototype.init = function(headers) {
+        this.modified = false;
+        this.headers = headers;
+        return this;
+    };
+
+    HTTPRequestHeaders.prototype.dispose = function() {
+        var r = this.modified ? this.headers : null;
+        this.headers = null;
+        httpRequestHeadersJunkyard.push(this);
+        return r;
+    };
+
+    HTTPRequestHeaders.prototype.getHeader = function(target) {
+        var headers = this.headers;
+        var header, name;
+        var i = headers.length;
+        while ( i-- ) {
+            header = headers[i];
+            name = header.name.toLowerCase();
+            if ( name === target ) {
+                return header.value;
+            }
+        }
+        return '';
+    };
+
+    HTTPRequestHeaders.prototype.setHeader = function(target, value, create) {
+        var headers = this.headers;
+        var header, name;
+        var i = headers.length;
+        while ( i-- ) {
+            header = headers[i];
+            name = header.name.toLowerCase();
+            if ( name === target ) {
+                break;
+            }
+        }
+        if ( i < 0 && !create ) {       // Header not found, don't add it
+            return false;
+        }
+        if ( i < 0 ) {                  // Header not found, add it
+            headers.push({ name: target, value: value });
+        } else if ( value === '' ) {    // Header found, remove it
+            headers.splice(i, 1);
+        } else {                        // Header found, modify it
+            header.value = value;
+        }
+        this.modified = true;
+        return true;
+    };
+    // <<<<<<<<
+    // End of: Abstraction layer to deal with request headers
+
+
+    // Normalizing request types
+    // >>>>>>>>
     var normalizeRequestDetails = function(details) {
         µmuri.set(details.url);
 
@@ -651,7 +723,12 @@ vAPI.net.registerListeners = function() {
         // https://code.google.com/p/chromium/issues/detail?id=410382
         details.type = 'object';
     };
+    // <<<<<<<<
+    // End of: Normalizing request types
 
+
+    // Network event handlers
+    // >>>>>>>>
     var onBeforeRequestClient = this.onBeforeRequest.callback;
     var onBeforeRequest = function(details) {
         normalizeRequestDetails(details);
@@ -675,7 +752,15 @@ vAPI.net.registerListeners = function() {
     var onBeforeSendHeadersClient = this.onBeforeSendHeaders.callback;
     var onBeforeSendHeaders = function(details) {
         normalizeRequestDetails(details);
-        return onBeforeSendHeadersClient(details);
+        details.requestHeaders = httpRequestHeadersFactory(details.requestHeaders);
+        var result = onBeforeSendHeadersClient(details);
+        if ( typeof result === 'object' ) {
+            return result;
+        }
+        var modifiedHeaders = details.requestHeaders.dispose();
+        if ( modifiedHeaders !== null ) {
+            return { requestHeaders: modifiedHeaders };
+        }
     };
     chrome.webRequest.onBeforeSendHeaders.addListener(
         onBeforeSendHeaders,
@@ -706,6 +791,8 @@ vAPI.net.registerListeners = function() {
             'urls': this.onErrorOccurred.urls || ['<all_urls>']
         }
     );
+    // <<<<<<<<
+    // End of: Network event handlers
 };
 
 /******************************************************************************/

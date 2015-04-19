@@ -272,7 +272,7 @@ var onBeforeRequestHandler = function(details) {
 
     // console.debug('onBeforeRequestHandler()> "%s": %o', details.url, details);
 
-    var requestType = requestTypeNormalizer[details.type];
+    var requestType = requestTypeNormalizer[details.type] || 'other';
 
     // https://github.com/gorhill/httpswitchboard/issues/303
     // Wherever the main doc comes from, create a receiver page URL: synthetize
@@ -284,7 +284,7 @@ var onBeforeRequestHandler = function(details) {
     var requestURL = details.url;
 
     // Is it µMatrix's noop css file?
-    if ( requestType === 'css' && requestURL.slice(0, µm.noopCSSURL.length) === µm.noopCSSURL ) {
+    if ( requestType === 'css' && requestURL.lastIndexOf(µm.noopCSSURL, 0) === 0 ) {
         return onBeforeChromeExtensionRequestHandler(details);
     }
 
@@ -295,18 +295,11 @@ var onBeforeRequestHandler = function(details) {
 
     // Do not block myself from updating assets
     // https://github.com/gorhill/httpswitchboard/issues/202
-    if ( requestType === 'xhr' && requestURL.slice(0, µm.projectServerRoot.length) === µm.projectServerRoot ) {
+    if ( requestType === 'xhr' && requestURL.lastIndexOf(µm.projectServerRoot, 0) === 0 ) {
         return;
     }
 
     var requestHostname = µmuri.hostname;
-
-    // rhill 2013-12-15:
-    // Try to transpose generic `other` category into something more
-    // meaningful.
-    if ( requestType === 'other' ) {
-        requestType = µm.transposeType(requestType, µmuri.path);
-    }
 
     // Re-classify orphan HTTP requests as behind-the-scene requests. There is
     // not much else which can be done, because there are URLs
@@ -361,11 +354,7 @@ var onBeforeRequestHandler = function(details) {
 
 /******************************************************************************/
 
-// This is where tabless requests are processed, as here there may be a chance
-// we can bind a request to a specific tab, as headers may contain useful
-// information to accomplish this.
-//
-// Also we sanitize outgoing headers as per user settings.
+// Sanitize outgoing headers as per user settings.
 
 var onBeforeSendHeadersHandler = function(details) {
 
@@ -392,11 +381,27 @@ var onBeforeSendHeadersHandler = function(details) {
     // If yes, create a synthetic URL for reporting hyperlink auditing
     // in request log. This way the user is better informed of what went
     // on.
+
+    // http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing
+    //
+    // Target URL = the href of the link
+    // Doc URL = URL of the document containing the target URL
+    // Ping URLs = servers which will be told that user clicked target URL
+    //
+    // `Content-Type` = `text/ping` (always present)
+    // `Ping-To` = target URL (always present)
+    // `Ping-From` = doc URL
+    // `Referer` = doc URL
+    // request URL = URL which will receive the information
+    //
+    // With hyperlink-auditing, removing header(s) is pointless, the whole
+    // request must be cancelled.
+
     var requestURL = details.url;
-    var requestType = requestTypeNormalizer[details.type];
+    var requestType = requestTypeNormalizer[details.type] || 'other';
     if ( requestType === 'other' ) {
-        var linkAuditor = hyperlinkAuditorFromHeaders(details.requestHeaders);
-        if ( linkAuditor ) {
+        var linkAuditor = details.requestHeaders.getHeader('ping-to');
+        if ( linkAuditor !== '' ) {
             var block = µm.userSettings.processHyperlinkAuditing;
             pageStore.recordRequest('other', requestURL + '{Ping-To:' + linkAuditor + '}', block);
             µm.updateBadgeAsync(tabId);
@@ -411,123 +416,41 @@ var onBeforeSendHeadersHandler = function(details) {
     // is to sanitize headers.
 
     var reqHostname = µm.hostnameFromURL(requestURL);
-    var changed = false;
 
     if ( µm.mustBlock(pageStore.pageHostname, reqHostname, 'cookie') ) {
-        changed = foilCookieHeaders(µm, details) || changed;
+        if ( details.requestHeaders.setHeader('cookie', '') ) {
+            µm.cookieHeaderFoiledCounter++;
+        }
     }
 
     if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', pageStore.pageHostname) ) {
-        changed = foilRefererHeaders(µm, reqHostname, details) || changed;
+        foilRefererHeaders(µm, reqHostname, details);
     }
 
     if ( µm.tMatrix.evaluateSwitchZ('ua-spoof', pageStore.pageHostname) ) {
-        changed = foilUserAgent(µm, details) || changed;
-        // https://github.com/gorhill/httpswitchboard/issues/252
-        // To avoid potential mismatch between the user agent from HTTP headers
-        // and the user agent from subrequests and the window.navigator object,
-        // I could always store here the effective user agent, but I am really
-        // not convinced it is worth the added overhead given the low
-        // probability and the benign consequence if it ever happen. Can always
-        // be revised if ever I become aware a mismatch is a terrible thing
+        details.requestHeaders.setHeader('user-agent', µm.userAgentReplaceStr);
     }
-
-    if ( changed ) {
-        // console.debug('onBeforeSendHeadersHandler()> CHANGED "%s": %o', requestURL, details);
-        return { requestHeaders: details.requestHeaders };
-    }
-};
-
-/******************************************************************************/
-
-// http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing
-//
-// Target URL = the href of the link
-// Doc URL = URL of the document containing the target URL
-// Ping URLs = servers which will be told that user clicked target URL
-//
-// `Content-Type` = `text/ping` (always present)
-// `Ping-To` = target URL (always present)
-// `Ping-From` = doc URL
-// `Referer` = doc URL
-// request URL = URL which will receive the information
-//
-// With hyperlink-auditing, removing header(s) is pointless, the whole
-// request must be cancelled.
-
-var hyperlinkAuditorFromHeaders = function(headers) {
-    var i = headers.length;
-    while ( i-- ) {
-        if ( headers[i].name.toLowerCase() === 'ping-to' ) {
-            return headers[i].value;
-        }
-    }
-    return;
-};
-
-/******************************************************************************/
-
-var foilCookieHeaders = function(µm, details) {
-    var changed = false;
-    var headers = details.requestHeaders;
-    var header;
-    var i = headers.length;
-    while ( i-- ) {
-        header = headers[i];
-        if ( header.name.toLowerCase() !== 'cookie' ) {
-            continue;
-        }
-        // console.debug('foilCookieHeaders()> foiled browser attempt to send cookie(s) to "%s"', details.url);
-        headers.splice(i, 1);
-        µm.cookieHeaderFoiledCounter++;
-        changed = true;
-    }
-    return changed;
 };
 
 /******************************************************************************/
 
 var foilRefererHeaders = function(µm, toHostname, details) {
-    var headers = details.requestHeaders;
-    var i = headers.length, header;
-    while ( i-- ) {
-        header = headers[i];
-        if ( header.name.toLowerCase() === 'referer' ) {
-            break;
-        }
-    }
-    if ( i === -1 ) {
-        return false;
+    var referer = details.requestHeaders.getHeader('referer');
+    if ( referer === '' ) {
+        return;
     }
     var µmuri = µm.URI;
-    var fromDomain = µmuri.domainFromURI(header.value);
-    var toDomain = µmuri.domainFromHostname(toHostname);
-    if ( toDomain === fromDomain ) {
-        return false;
+    if ( µmuri.domainFromHostname(toHostname) === µmuri.domainFromURI(referer) ) {
+        return;
     }
     //console.debug('foilRefererHeaders()> foiled referer for "%s"', details.url);
     //console.debug('\treferrer "%s"', header.value);
     // https://github.com/gorhill/httpswitchboard/issues/222#issuecomment-44828402
-    header.value = µmuri.schemeFromURI(details.url) + '://' + toHostname + '/';
-    //console.debug('\treplaced with "%s"', header.value);
+    details.requestHeaders.setHeader(
+        'referer',
+        µmuri.schemeFromURI(details.url) + '://' + toHostname + '/'
+    );
     µm.refererHeaderFoiledCounter++;
-    return true;
-};
-
-/******************************************************************************/
-
-var foilUserAgent = function(µm, details) {
-    var headers = details.requestHeaders;
-    var header;
-    var i = 0;
-    while ( header = headers[i] ) {
-        if ( header.name.toLowerCase() === 'user-agent' ) {
-            header.value = µm.userAgentReplaceStr;
-            return true; // Assuming only one `user-agent` entry
-        }
-        i += 1;
-    }
-    return false;
 };
 
 /******************************************************************************/
@@ -549,7 +472,7 @@ var onHeadersReceived = function(details) {
         return;
     }
 
-    var requestType = requestTypeNormalizer[details.type];
+    var requestType = requestTypeNormalizer[details.type] || 'other';
     if ( requestType === 'frame' ) {
         return onSubDocHeadersReceived(details);
     }
@@ -731,7 +654,7 @@ var onSubDocHeadersReceived = function(details) {
 
 var onErrorOccurredHandler = function(details) {
     // console.debug('onErrorOccurred()> "%s": %o', details.url, details);
-    var requestType = requestTypeNormalizer[details.type];
+    var requestType = requestTypeNormalizer[details.type] || 'other';
 
     // Ignore all that is not a main document
     if ( requestType !== 'doc'|| details.parentFrameId >= 0 ) {
@@ -788,7 +711,8 @@ var requestTypeNormalizer = {
     'image'         : 'image',
     'object'        : 'plugin',
     'xmlhttprequest': 'xhr',
-    'other'         : 'other'
+    'other'         : 'other',
+    'font'          : 'css'
 };
 
 /******************************************************************************/
@@ -807,10 +731,6 @@ vAPI.net.onBeforeSendHeaders = {
     urls: [
         "http://*/*",
         "https://*/*"
-    ],
-    types: [
-        "main_frame",
-        "sub_frame"
     ],
     extra: [ 'blocking', 'requestHeaders' ],
     callback: onBeforeSendHeadersHandler

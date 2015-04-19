@@ -948,6 +948,52 @@ CallbackWrapper.prototype.proxy = function(response) {
 
 /******************************************************************************/
 
+var httpRequestHeadersFactory = function(channel) {
+    var entry = httpRequestHeadersFactory.junkyard.pop();
+    if ( entry ) {
+        return entry.init(channel);
+    }
+    return new HTTPRequestHeaders(channel);
+};
+
+httpRequestHeadersFactory.junkyard = [];
+
+var HTTPRequestHeaders = function(channel) {
+    this.init(channel);
+};
+
+HTTPRequestHeaders.prototype.init = function(channel) {
+    this.channel = channel;
+    return this;
+};
+
+HTTPRequestHeaders.prototype.dispose = function() {
+    this.channel = null;
+    httpRequestHeadersFactory.junkyard.push(this);
+};
+
+HTTPRequestHeaders.prototype.getHeader = function(name) {
+    try {
+        return this.channel.getRequestHeader(name);
+    } catch (e) {
+    }
+    return '';
+};
+
+HTTPRequestHeaders.prototype.setHeader = function(name, newValue, create) {
+    var oldValue = this.getHeader(name);
+    if ( newValue === oldValue ) {
+        return false;
+    }
+    if ( oldValue === '' && create !== true ) {
+        return false;
+    }
+    this.channel.setRequestHeader(name, newValue, false);
+    return true;
+};
+
+/******************************************************************************/
+
 var httpObserver = {
     classDescription: 'net-channel-event-sinks for ' + location.host,
     classID: Components.ID('{dc8d6319-5f6e-4438-999e-53722db99e84}'),
@@ -967,9 +1013,11 @@ var httpObserver = {
         5: 'object',
         6: 'main_frame',
         7: 'sub_frame',
+        10: 'ping',
         11: 'xmlhttprequest',
         12: 'object',
         14: 'font',
+        16: 'websocket',
         21: 'image'
     },
     lastRequest: [{}, {}],
@@ -1061,41 +1109,47 @@ var httpObserver = {
     },
 
     handleRequest: function(channel, URI, details) {
-        var onBeforeRequest = vAPI.net.onBeforeRequest;
         var type = this.typeMap[details.type] || 'other';
-
-        if (
-            onBeforeRequest.types.size !== 0 &&
-            onBeforeRequest.types.has(type) === false
-        ) {
-            return false;
-        }
-
-        var result = onBeforeRequest.callback({
+        var result;
+        var callbackDetails = {
             frameId: details.frameId,
             hostname: URI.asciiHost,
             parentFrameId: details.parentFrameId,
             tabId: details.tabId,
             type: type,
             url: URI.asciiSpec
-        });
+        };
 
-        if ( !result || typeof result !== 'object' ) {
-            return false;
+        var onBeforeRequest = vAPI.net.onBeforeRequest;
+        if ( onBeforeRequest.types.size === 0 || onBeforeRequest.types.has(type) ) {
+            result = onBeforeRequest.callback(callbackDetails);
+
+            if ( typeof result === 'object' && result.cancel === true ) {
+                channel.cancel(this.ABORT);
+                return true;
+            }
+
+            /*if ( result.redirectUrl ) {
+                channel.redirectionLimit = 1;
+                channel.redirectTo(
+                    Services.io.newURI(result.redirectUrl, null, null)
+                );
+                return true;
+            }*/
         }
 
-        if ( result.cancel === true ) {
-            channel.cancel(this.ABORT);
-            return true;
-        }
+        var onBeforeSendHeaders = vAPI.net.onBeforeSendHeaders;
+        if ( onBeforeSendHeaders.types.size === 0 || onBeforeSendHeaders.types.has(type) ) {
+            callbackDetails.requestHeaders = httpRequestHeadersFactory(channel);
+            result = onBeforeSendHeaders.callback(callbackDetails);
+            callbackDetails.requestHeaders.dispose();
 
-        /*if ( result.redirectUrl ) {
-            channel.redirectionLimit = 1;
-            channel.redirectTo(
-                Services.io.newURI(result.redirectUrl, null, null)
-            );
-            return true;
-        }*/
+            if ( typeof result === 'object' && result.cancel === true ) {
+                channel.cancel(this.ABORT);
+                return true;
+            }
+            
+        }
 
         return false;
     },
@@ -1263,10 +1317,8 @@ vAPI.net = {};
 /******************************************************************************/
 
 vAPI.net.registerListeners = function() {
-    // Since it's not used
-    this.onBeforeSendHeaders = null;
-
     this.onBeforeRequest.types = new Set(this.onBeforeRequest.types);
+    this.onBeforeSendHeaders.types = new Set(this.onBeforeSendHeaders.types);
 
     var shouldLoadListenerMessageName = location.host + ':shouldLoad';
     var shouldLoadListener = function(e) {

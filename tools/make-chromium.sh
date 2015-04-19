@@ -5,7 +5,7 @@
 echo "*** µMatrix(Chromium): Creating package"
 echo "*** µMatrix(Chromium): Copying files"
 
-DES=./dist/uMatrix.chromium
+DES=./dist/build/uMatrix.chromium
 rm -rf $DES
 mkdir -p $DES
 
