@@ -693,9 +693,16 @@ vAPI.net.registerListeners = function() {
         details.tabId = details.tabId.toString();
         details.hostname = µmuri.hostnameFromURI(details.url);
 
-        // The rest of the function code is to normalize type
+        // The rest of the function code is to normalize request type
         if ( details.type !== 'other' ) {
             return;
+        }
+
+        if ( details.requestHeaders instanceof HTTPRequestHeaders ) {
+            if ( details.requestHeaders.getHeader('ping-to') !== '' ) {
+                details.type = 'ping';
+                return;
+            }
         }
 
         var tail = µmuri.path.slice(-6);
@@ -751,8 +758,8 @@ vAPI.net.registerListeners = function() {
 
     var onBeforeSendHeadersClient = this.onBeforeSendHeaders.callback;
     var onBeforeSendHeaders = function(details) {
-        normalizeRequestDetails(details);
         details.requestHeaders = httpRequestHeadersFactory(details.requestHeaders);
+        normalizeRequestDetails(details);
         var result = onBeforeSendHeadersClient(details);
         if ( typeof result === 'object' ) {
             return result;

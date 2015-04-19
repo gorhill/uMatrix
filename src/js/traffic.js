@@ -399,7 +399,7 @@ var onBeforeSendHeadersHandler = function(details) {
 
     var requestURL = details.url;
     var requestType = requestTypeNormalizer[details.type] || 'other';
-    if ( requestType === 'other' ) {
+    if ( requestType === 'ping' ) {
         var linkAuditor = details.requestHeaders.getHeader('ping-to');
         if ( linkAuditor !== '' ) {
             var block = µm.userSettings.processHyperlinkAuditing;
@@ -704,15 +704,16 @@ var headerIndexFromName = function(headerName, headers) {
 /******************************************************************************/
 
 var requestTypeNormalizer = {
-    'main_frame'    : 'doc',
-    'sub_frame'     : 'frame',
-    'stylesheet'    : 'css',
-    'script'        : 'script',
+    'font'          : 'css',
     'image'         : 'image',
+    'main_frame'    : 'doc',
     'object'        : 'plugin',
-    'xmlhttprequest': 'xhr',
     'other'         : 'other',
-    'font'          : 'css'
+    'ping'          : 'ping',
+    'script'        : 'script',
+    'stylesheet'    : 'css',
+    'sub_frame'     : 'frame',
+    'xmlhttprequest': 'xhr'
 };
 
 /******************************************************************************/
