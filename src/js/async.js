@@ -149,7 +149,7 @@ return asyncJobManager;
     };
 
     var updateBadgeAsync = function(tabId) {
-        if ( typeof tabId !== 'number' || tabId <= 0 ) {
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
             return;
         }
         µm.asyncJobs.add('updateBadge-' + tabId, tabId, updateBadge, 500);

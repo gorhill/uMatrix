@@ -744,12 +744,13 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
 /******************************************************************************/
 
 vAPI.setIcon = function(tabId, iconId, badge) {
-    var iconStatus = typeof iconId === 'number';
-
     // If badge is undefined, then setIcon was called from the TabSelect event
-    var win = badge === undefined ?
-        iconId :
-        Services.wm.getMostRecentWindow('navigator:browser');
+    var win;
+    if ( badge === undefined ) {
+        win = iconId;
+    } else {
+        win = Services.wm.getMostRecentWindow('navigator:browser');
+    }
     var curTabId = vAPI.tabs.getTabId(getTabBrowser(win).selectedTab);
     var tb = vAPI.toolbarButton;
 
@@ -757,7 +758,7 @@ vAPI.setIcon = function(tabId, iconId, badge) {
     if ( tabId === undefined ) {
         tabId = curTabId;
     } else if ( badge !== undefined ) {
-        tb.tabs[tabId] = { badge: badge, img: iconStatus === 'on' };
+        tb.tabs[tabId] = { badge: badge, img: iconId };
     }
 
     if ( tabId === curTabId ) {
@@ -1600,12 +1601,8 @@ vAPI.toolbarButton.updateState = function(win, tabId) {
     var icon = this.tabs[tabId];
     button.setAttribute('badge', icon && icon.badge || '');
 
-    if ( !icon || !icon.img ) {
-        icon = '';
-    }
-    else {
-        icon = 'url(' + vAPI.getURL('img/browsericons/icon19-19.png') + ')';
-    }
+    var iconId = icon && icon.img ? icon.img : 'off';
+    icon = 'url(' + vAPI.getURL('img/browsericons/icon19-' + iconId + '.png') + ')';
 
     button.style.listStyleImage = icon;
 };
