@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* jshint esnext: true, bitwise: false */
+/* jshint bitwise: false, boss: true, esnext: true */
 /* global self, Components, punycode, µBlock */
 
 // For background page
@@ -747,9 +747,9 @@ vAPI.setIcon = function(tabId, iconId, badge) {
     var iconStatus = typeof iconId === 'number';
 
     // If badge is undefined, then setIcon was called from the TabSelect event
-    var win = badge === undefined
-        ? iconId
-        : Services.wm.getMostRecentWindow('navigator:browser');
+    var win = badge === undefined ?
+        iconId :
+        Services.wm.getMostRecentWindow('navigator:browser');
     var curTabId = vAPI.tabs.getTabId(getTabBrowser(win).selectedTab);
     var tb = vAPI.toolbarButton;
 
@@ -1322,7 +1322,7 @@ vAPI.net.registerListeners = function() {
         var details = e.data;
         var browser = e.target;
         var tabId = vAPI.tabs.getTabId(browser);
-        
+
         //console.debug("nsIWebProgressListener: onLocationChange: " + details.url + " (" + details.flags + ")");        
 
         // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
@@ -1657,9 +1657,15 @@ vAPI.contextMenu.displayMenuItem = function({target}) {
     var ctxMap = vAPI.contextMenu.contextMap;
 
     for ( var context of ctx ) {
-        if ( context === 'page' && !gContextMenu.onLink && !gContextMenu.onImage
-            && !gContextMenu.onEditableArea && !gContextMenu.inFrame
-            && !gContextMenu.onVideo && !gContextMenu.onAudio ) {
+        if (
+            context === 'page' &&
+            !gContextMenu.onLink &&
+            !gContextMenu.onImage &&
+            !gContextMenu.onEditableArea &&
+            !gContextMenu.inFrame &&
+            !gContextMenu.onVideo &&
+            !gContextMenu.onAudio
+        ) {
             menuitem.hidden = false;
             return;
         }

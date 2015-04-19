@@ -19,6 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* jshint boss: true, esnext: true */
 /* global addMessageListener, removeMessageListener, sendAsyncMessage */
 
 // For non background pages
@@ -112,16 +113,15 @@ vAPI.messaging = {
 
         addMessageListener(this.connector);
 
-        this.channels['vAPI'] = {};
-        this.channels['vAPI'].listener = function(msg) {
-            if ( msg.cmd === 'injectScript' ) {
-                var details = msg.details;
-
-                if ( !details.allFrames && window !== window.top ) {
-                    return;
+        this.channels.vAPI = {
+            listener: function(msg) {
+                if ( msg.cmd === 'injectScript' ) {
+                    var details = msg.details;
+                    if ( !details.allFrames && window !== window.top ) {
+                        return;
+                    }
+                    self.injectScript(details.file);
                 }
-
-                self.injectScript(details.file);
             }
         };
     },
@@ -195,7 +195,7 @@ window.addEventListener('pageshow', vAPI.messaging.toggleListener, true);
 // we are not a top window (because element picker can still
 // be injected in top window).
 if ( window !== window.top ) {
-	// Can anything be done?
+    // Can anything be done?
 }
 
 /******************************************************************************/

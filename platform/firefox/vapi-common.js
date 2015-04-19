@@ -19,6 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* jshint esnext: true */
 /* global sendAsyncMessage */
 
 // For background page or non-background pages
