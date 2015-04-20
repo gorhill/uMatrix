@@ -1121,9 +1121,8 @@ var httpObserver = {
         };
 
         var onBeforeRequest = vAPI.net.onBeforeRequest;
-        if ( onBeforeRequest.types.size === 0 || onBeforeRequest.types.has(type) ) {
+        if ( !onBeforeRequest.types || onBeforeRequest.types.has(type) ) {
             result = onBeforeRequest.callback(callbackDetails);
-
             if ( typeof result === 'object' && result.cancel === true ) {
                 channel.cancel(this.ABORT);
                 return true;
@@ -1139,7 +1138,7 @@ var httpObserver = {
         }
 
         var onBeforeSendHeaders = vAPI.net.onBeforeSendHeaders;
-        if ( onBeforeSendHeaders.types.size === 0 || onBeforeSendHeaders.types.has(type) ) {
+        if ( !onBeforeSendHeaders.types || onBeforeSendHeaders.types.has(type) ) {
             callbackDetails.requestHeaders = httpRequestHeadersFactory(channel);
             result = onBeforeSendHeaders.callback(callbackDetails);
             callbackDetails.requestHeaders.dispose();
@@ -1148,7 +1147,6 @@ var httpObserver = {
                 channel.cancel(this.ABORT);
                 return true;
             }
-            
         }
 
         return false;
@@ -1317,8 +1315,12 @@ vAPI.net = {};
 /******************************************************************************/
 
 vAPI.net.registerListeners = function() {
-    this.onBeforeRequest.types = new Set(this.onBeforeRequest.types);
-    this.onBeforeSendHeaders.types = new Set(this.onBeforeSendHeaders.types);
+    this.onBeforeRequest.types = this.onBeforeRequest.types ?
+        new Set(this.onBeforeRequest.types) :
+        null;
+    this.onBeforeSendHeaders.types = this.onBeforeSendHeaders.types ?
+        new Set(this.onBeforeSendHeaders.types) :
+        null;
 
     var shouldLoadListenerMessageName = location.host + ':shouldLoad';
     var shouldLoadListener = function(e) {
