@@ -31,10 +31,8 @@
 
 (function() {
     var µm = µMatrix;
-    var pageStore = µm.createPageStore(µm.behindTheSceneURL);
-    µm.pageUrlToTabId[µm.behindTheSceneURL] = µm.behindTheSceneTabId;
-    µm.tabIdToPageUrl[µm.behindTheSceneTabId] = µm.behindTheSceneURL;
-    pageStore.boundCount += 1;
+    var tabContext = µm.tabContextManager.mustLookup(vAPI.noTabId);
+    µm.pageStores[vAPI.noTabId] = µm.PageStore.factory(tabContext);
 })();
 
 /******************************************************************************/
@@ -95,11 +93,13 @@
 
     // This needs to be done when the PSL is loaded
     var bindTabs = function(tabs) {
+        var tab;
         var i = tabs.length;
         // console.debug('start.js > binding %d tabs', i);
         while ( i-- ) {
-            µm.tabContextManager.commit(tabs[i].id, tabs[i].url);
-            µm.bindTabToPageStats(tabs[i].id, tabs[i].url);
+            tab = tabs[i];
+            µm.tabContextManager.commit(tab.id, tab.url);
+            µm.bindTabToPageStats(tab.id);
         }
         µm.webRequest.start();
     };

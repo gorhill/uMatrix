@@ -98,16 +98,12 @@ return {
 
     // urls stats are kept on the back burner while waiting to be reactivated
     // in a tab or another.
-    pageStats: {}, // TODO: rename
+    pageStores: {},
+    pageStoreCemetery: {},
 
     // A map of redirects, to allow reverse lookup of redirects from landing
     // page, so that redirection can be reported to the user.
     redirectRequests: {}, 
-
-    // tabs are used to redirect stats collection to a specific url stats
-    // structure.
-    pageUrlToTabId: {},
-    tabIdToPageUrl: {},
 
     // page url => permission scope
     tMatrix: null,
@@ -129,7 +125,7 @@ return {
 
     // record what chromium is doing behind the scene
     behindTheSceneURL: 'http://chromium-behind-the-scene/',
-    behindTheSceneTabId: 0x7FFFFFFF,
+    behindTheSceneTabId: vAPI.noTabId,
     behindTheSceneMaxReq: 250,
     behindTheSceneScope: 'chromium-behind-the-scene',
 

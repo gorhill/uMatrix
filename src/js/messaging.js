@@ -156,18 +156,18 @@ var matrixSnapshot = function(tabId, details) {
         }
     };
 
+    var tabContext = µm.tabContextManager.lookup(tabId);
+
     // Allow examination of behind-the-scene requests
-    // TODO: Not portable
-    if ( details.tabURL ) {
-        if ( details.tabURL.lastIndexOf(vAPI.getURL(''), 0) === 0 ) {
-            tabId = µm.behindTheSceneTabId;
-        } else if ( details.tabURL === µm.behindTheSceneURL ) {
-            tabId = µm.behindTheSceneTabId;
-        }
+    if (
+        tabContext.rawURL.lastIndexOf(vAPI.getURL(''), 0) === 0 ||
+        tabContext.rawURL === µm.behindTheSceneURL
+    ) {
+        tabId = µm.behindTheSceneTabId;
     }
 
-    var pageStore = µm.pageStatsFromTabId(tabId);
-    if ( !pageStore ) {
+    var pageStore = µm.pageStoreFromTabId(tabId);
+    if ( pageStore === null ) {
         return r;
     }
 
@@ -371,8 +371,8 @@ var contentScriptSummaryHandler = function(tabId, details) {
     if ( !details || !details.locationURL ) {
         return;
     }
-    var pageURL = µm.pageUrlFromTabId(tabId);
-    var pageStats = µm.pageStatsFromPageUrl(pageURL);
+    var pageStore = µm.pageStoreFromTabId(tabId);
+    var pageURL = pageStore.pageUrl;
     var µmuri = µm.URI.set(details.locationURL);
     var frameURL = µmuri.normalizedURI();
     var frameHostname = µmuri.hostname;
@@ -384,7 +384,7 @@ var contentScriptSummaryHandler = function(tabId, details) {
 
     // scripts
     // https://github.com/gorhill/httpswitchboard/issues/25
-    if ( pageStats && inlineScriptBlocked ) {
+    if ( pageStore && inlineScriptBlocked ) {
         urls = details.scriptSources;
         for ( url in urls ) {
             if ( !urls.hasOwnProperty(url) ) {
@@ -394,8 +394,9 @@ var contentScriptSummaryHandler = function(tabId, details) {
                 url = frameURL + '{inline_script}';
             }
             r = µm.filterRequest(pageURL, 'script', url);
-            pageStats.recordRequest('script', url, r !== false, r);
+            pageStore.recordRequest('script', url, r !== false, r);
         }
+        pageStore.updateBadgeAsync();
     }
 
     // TODO: as of 2014-05-26, not sure this is needed anymore, since µMatrix
@@ -403,28 +404,29 @@ var contentScriptSummaryHandler = function(tabId, details) {
     // this code was put in).
     // plugins
     // https://github.com/gorhill/httpswitchboard/issues/25
-    if ( pageStats ) {
+    if ( pageStore ) {
         urls = details.pluginSources;
         for ( url in urls ) {
             if ( !urls.hasOwnProperty(url) ) {
                 continue;
             }
             r = µm.filterRequest(pageURL, 'plugin', url);
-            pageStats.recordRequest('plugin', url, r !== false, r);
+            pageStore.recordRequest('plugin', url, r !== false, r);
         }
+        pageStore.updateBadgeAsync();
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181
-    µm.onPageLoadCompleted(pageURL);
+    µm.onPageLoadCompleted(tabId);
 };
 
 /******************************************************************************/
 
-var contentScriptLocalStorageHandler = function(pageURL) {
+var contentScriptLocalStorageHandler = function(tabId, pageURL) {
     var µmuri = µm.URI.set(pageURL);
     var response = µm.mustBlock(µm.scopeFromURL(pageURL), µmuri.hostname, 'cookie');
-    µm.recordFromPageUrl(
-        pageURL,
+    µm.recordFromTabId(
+        tabId,
         'cookie',
         µmuri.rootURL() + '/{localStorage}',
         response
@@ -452,13 +454,11 @@ var onMessage = function(request, sender, callback) {
 
     switch ( request.what ) {
     case 'contentScriptHasLocalStorage':
-        response = contentScriptLocalStorageHandler(request.url);
-        µm.updateBadgeAsync(tabId);
+        response = contentScriptLocalStorageHandler(tabId, request.url);
         break;
 
     case 'contentScriptSummary':
         contentScriptSummaryHandler(tabId, request);
-        µm.updateBadgeAsync(tabId);
         break;
 
     case 'checkScriptBlacklisted':
@@ -699,22 +699,46 @@ vAPI.messaging.listen('hosts-files.js', onMessage);
 
 (function() {
 
+var µm = µMatrix;
+
+/******************************************************************************/
+
+var getTabURLs = function() {
+    var pageURLs = [];
+    var pageStores = µm.pageStores;
+
+    for ( var tabId in pageStores ) {
+        if ( pageStores.hasOwnProperty(tabId) === false ) {
+            continue;
+        }
+        pageURLs.push({
+            tabId: tabId,
+            pageURL: pageStores[tabId].pageUrl
+        });
+    }
+
+    return {
+        pageURLs: pageURLs,
+        behindTheSceneURL: µm.behindTheSceneURL
+    };
+};
+
 /******************************************************************************/
 
 // map(pageURL) => array of request log entries
 
-var getRequestLog = function(pageURL) {
+var getRequestLog = function(tabId) {
     var requestLogs = {};
-    var pageStores = µMatrix.pageStats;
-    var pageURLs = pageURL ? [pageURL] : Object.keys(pageStores);
-    var pageStore, pageRequestLog, logEntries, j, logEntry;
+    var pageStores = µm.pageStores;
+    var tabIds = tabId ? [tabId] : Object.keys(pageStores);
+    var pageStore, pageURL, pageRequestLog, logEntries, j, logEntry;
 
-    for ( var i = 0; i < pageURLs.length; i++ ) {
-        pageURL = pageURLs[i];
-        pageStore = pageStores[pageURL];
+    for ( var i = 0; i < tabIds.length; i++ ) {
+        pageStore = pageStores[tabIds[i]];
         if ( !pageStore ) {
             continue;
         }
+        pageURL = pageStore.pageUrl;
         pageRequestLog = [];
         logEntries = pageStore.requests.getLoggedRequests();
         j = logEntries.length;
@@ -733,23 +757,23 @@ var getRequestLog = function(pageURL) {
 
 /******************************************************************************/
 
-var clearRequestLog = function(pageURL) {
-    var pageStores = µMatrix.pageStats;
-    var pageURLs = pageURL ? [pageURL] : Object.keys(pageStores);
+var clearRequestLog = function(tabId) {
+    var pageStores = µm.pageStores;
+    var tabIds = tabId ? [tabId] : Object.keys(pageStores);
     var pageStore;
 
-    for ( var i = 0; i < pageURLs.length; i++ ) {
-        if ( pageStore = pageStores[pageURLs[i]] ) {
-            pageStore.requests.clearLogBuffer();
+    for ( var i = 0; i < tabIds.length; i++ ) {
+        pageStore = pageStores[tabIds[i]];
+        if ( !pageStore ) {
+            continue;
         }
+        pageStore.requests.clearLogBuffer();
     }
 };
 
 /******************************************************************************/
 
 var onMessage = function(request, sender, callback) {
-    var µm = µMatrix;
-
     // Async
     switch ( request.what ) {
     default:
@@ -761,14 +785,11 @@ var onMessage = function(request, sender, callback) {
 
     switch ( request.what ) {
     case 'getPageURLs':
-        response = {
-            pageURLs: Object.keys(µm.pageUrlToTabId),
-            behindTheSceneURL: µm.behindTheSceneURL
-        };
+        response = getTabURLs();
         break;
 
     case 'getStats':
-        var pageStore = µm.pageStats[request.pageURL];
+        var pageStore = µm.pageStores[request.tabId];
         response = {
             globalNetStats: µm.requestStats,
             pageNetStats: pageStore ? pageStore.requestStats : null,
@@ -782,11 +803,11 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'getRequestLogs':
-        response = getRequestLog(request.pageURL);
+        response = getRequestLog(request.tabId);
         break;
 
     case 'clearRequestLogs':
-        clearRequestLog(request.pageURL);
+        clearRequestLog(request.tabId);
         break;
 
     default:

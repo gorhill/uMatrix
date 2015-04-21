@@ -1002,9 +1002,10 @@ var httpObserver = {
     ABORT: Components.results.NS_BINDING_ABORTED,
     ACCEPT: Components.results.NS_SUCCEEDED,
     // Request types: https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy#Constants
-    MAIN_FRAME: Ci.nsIContentPolicy.TYPE_DOCUMENT,
-    VALID_CSP_TARGETS: 1 << Ci.nsIContentPolicy.TYPE_DOCUMENT |
-                       1 << Ci.nsIContentPolicy.TYPE_SUBDOCUMENT,
+    frameTypeMap: {
+        6: 'main_frame',
+        7: 'sub_frame'
+    },
     typeMap: {
         1: 'other',
         2: 'script',
@@ -1128,13 +1129,15 @@ var httpObserver = {
                 return true;
             }
 
-            /*if ( result.redirectUrl ) {
-                channel.redirectionLimit = 1;
-                channel.redirectTo(
-                    Services.io.newURI(result.redirectUrl, null, null)
-                );
+            // For the time being, will block instead of redirecting
+            // TODO: figure a better way of blocking embedded frames.
+            // Maybe blocking network requests, then having a content script
+            // revisit the DOM to replace blocked frame with something more
+            // friendly. Will see.
+            if ( typeof result === 'object' && result.redirectUrl ) {
+                channel.cancel(this.ABORT);
                 return true;
-            }*/
+            }
         }
 
         var onBeforeSendHeaders = vAPI.net.onBeforeSendHeaders;
@@ -1158,7 +1161,7 @@ var httpObserver = {
         }
 
         var URI = channel.URI;
-        var channelData, result;
+        var channelData, type, result;
 
         if ( topic === 'http-on-examine-response' ) {
             if ( !(channel instanceof Ci.nsIWritablePropertyBag) ) {
@@ -1175,7 +1178,8 @@ var httpObserver = {
                 return;
             }
 
-            if ( (1 << channelData[4] & this.VALID_CSP_TARGETS) === 0 ) {
+            type = this.frameTypeMap[channelData[4]];
+            if ( !type ) {
                 return;
             }
 
@@ -1191,7 +1195,9 @@ var httpObserver = {
                 hostname: URI.asciiHost,
                 parentFrameId: channelData[1],
                 responseHeaders: result ? [{name: topic, value: result}] : [],
+                statusLine: channel.responseStatus.toString(),
                 tabId: channelData[3],
+                type: type,
                 url: URI.asciiSpec
             });
 
@@ -1469,7 +1475,7 @@ vAPI.toolbarButton.init = function() {
                 'font-size: 9px;',
                 'font-weight: bold;',
                 'color: #fff;',
-                'background: #666;',
+                'background: #000;',
                 'content: attr(badge);',
             '}'
         );
@@ -1503,7 +1509,7 @@ vAPI.toolbarButton.init = function() {
 
         this.CUIEvents.updateBadgeStyle = function() {
             var css = [
-                'background: #666',
+                'background: #000',
                 'color: #fff'
             ].join(';');
 
@@ -1592,18 +1598,19 @@ vAPI.toolbarButton.onBeforeCreated = function(doc) {
         if ( updateTimer ) {
             return;
         }
-
         updateTimer = setTimeout(resizePopup, 10);
     };
     var resizePopup = function() {
         updateTimer = null;
         var body = iframe.contentDocument.body;
         panel.parentNode.style.maxWidth = 'none';
+        // We set a limit for height
+        var height = Math.min(body.clientHeight, 600);
         // https://github.com/chrisaljoudi/uBlock/issues/730
         // Voodoo programming: this recipe works
-        panel.style.height = iframe.style.height = body.clientHeight.toString() + 'px';
+        panel.style.height = iframe.style.height = height.toString() + 'px';
         panel.style.width = iframe.style.width = body.clientWidth.toString() + 'px';
-        if ( iframe.clientHeight !== body.clientHeight || iframe.clientWidth !== body.clientWidth ) {
+        if ( iframe.clientHeight !== height || iframe.clientWidth !== body.clientWidth ) {
             delayedResize();
         }
     };

@@ -31,7 +31,7 @@
 
 var messager = vAPI.messaging.channel('info.js');
 
-var targetUrl = 'all';
+var targetTabId = null;
 var maxRequests = 500;
 var cachedUserSettings = {};
 
@@ -55,7 +55,7 @@ function updateRequestData(callback) {
     };
     var request = {
         what: 'getRequestLogs',
-        pageURL: targetUrl !== 'all' ? targetUrl : null
+        tabId: targetTabId
     };
     messager.send(request, onResponseReceived);
 }
@@ -65,7 +65,7 @@ function updateRequestData(callback) {
 function clearRequestData() {
     var request = {
         what: 'clearRequestLogs',
-        pageURL: targetUrl !== 'all' ? targetUrl : null
+        tabId: targetTabId
     };
     messager.send(request);
 }
@@ -108,7 +108,7 @@ var renderLocalized = function(id, map) {
 /******************************************************************************/
 
 function renderPageUrls() {
-    var onResponseReceived = function(r) {
+    var onResponseReceived = function(result) {
         var i, n;
         var select = uDom('#selectPageUrls');
 
@@ -118,25 +118,25 @@ function renderPageUrls() {
         n = builtinOptions.length;
         for ( i = 0; i < n; i++ ) {
             option = builtinOptions.at(i).clone();
-            if ( option.val() === targetUrl ) {
+            if ( option.val() === targetTabId ) {
                 option.attr('selected', true);
             }
             select.append(option);
         }
 
-        var pageURLs = r.pageURLs.sort();
-        var pageURL, option;
-        n = pageURLs.length;
+        var entries = result.pageURLs.sort();
+        var entry, pageURL, option;
+        n = entries.length;
         for ( i = 0; i < n; i++ ) {
-            pageURL = pageURLs[i];
+            entry = entries[i];
             // Behind-the-scene entry is always present, no need to recreate it
-            if ( pageURL === r.behindTheSceneURL ) {
+            if ( entry.pageURL === result.behindTheSceneURL ) {
                 continue;
             }
             option = uDom('<option>');
-            option.val(pageURL);
-            option.text(pageURL);
-            if ( pageURL === targetUrl ) {
+            option.val(entry.tabId);
+            option.text(entry.pageURL);
+            if ( entry.pageURL === targetTabId ) {
                 option.attr('selected', true);
             }
             select.append(option);
@@ -154,10 +154,10 @@ function renderPageUrls() {
 function renderStats() {
     var onResponseReceived = function(r) {
         if ( !r.pageNetStats ) {
-            targetUrl = 'all';
+            targetTabId = null;
         }
 
-        var requestStats = targetUrl === 'all' ? r.globalNetStats : r.pageNetStats;
+        var requestStats = targetTabId ? r.pageNetStats : r.globalNetStats;
         var blockedStats = requestStats.blocked;
         var allowedStats = requestStats.allowed;
 
@@ -197,7 +197,7 @@ function renderStats() {
 
     messager.send({
             what: 'getStats',
-            pageURL: targetUrl === 'all' ? null : targetUrl
+            tabId: targetTabId
         },
         onResponseReceived
     );
@@ -363,8 +363,8 @@ function renderTransientData(internal) {
 
 /******************************************************************************/
 
-function targetUrlChangeHandler() {
-    targetUrl = this[this.selectedIndex].value;
+function targetTabIdChangeHandler() {
+    targetTabId = this[this.selectedIndex].value;
     renderStats();
     updateRequests();
 }
@@ -381,7 +381,7 @@ var installEventHandlers = function() {
     uDom('#refreshRequests').on('click', updateRequests);
     uDom('#clearRequests').on('click', clearRequests);
     uDom('input[id^="show-"][type="checkbox"]').on('change', changeFilterHandler);
-    uDom('#selectPageUrls').on('change', targetUrlChangeHandler);
+    uDom('#selectPageUrls').on('change', targetTabIdChangeHandler);
     uDom('#max-logged-requests').on('change', function(){ changeValueHandler(uDom(this), 'maxLoggedRequests', 0, 999); });
 
     // https://github.com/gorhill/httpswitchboard/issues/197

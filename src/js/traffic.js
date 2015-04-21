@@ -39,57 +39,55 @@ var rootFrameReplacement = [
     '<meta charset="utf-8" />',
     '<style>',
     '@font-face {',
-    'font-family:httpsb;',
-    'font-style:normal;',
-    'font-weight:400;',
-    'src: local("httpsb"),url("',
-    µMatrix.fontCSSURL,
-    '") format("truetype");',
+        'font-family:httpsb;',
+        'font-style:normal;',
+        'font-weight:400;',
+        'src: local("httpsb"),url("', µMatrix.fontCSSURL, '") format("truetype");',
     '}',
     'body {',
-    'margin:0;',
-    'border:0;',
-    'padding:0;',
-    'font:15px httpsb,sans-serif;',
-    'width:100%;',
-    'height:100%;',
-    'background-color:transparent;',
-    'background-size:10px 10px;',
-    'background-image:',
-    'repeating-linear-gradient(',
-    '-45deg,',
-    'rgba(204,0,0,0.5),rgba(204,0,0,0.5) 24%,',
-    'transparent 26%,transparent 49%,',
-    'rgba(204,0,0,0.5) 51%,rgba(204,0,0,0.5) 74%,',
-    'transparent 76%,transparent',
-    ');',
-    'text-align: center;',
+        'margin:0;',
+        'border:0;',
+        'padding:0;',
+        'font:15px httpsb,sans-serif;',
+        'width:100%;',
+        'height:100%;',
+        'background-color:transparent;',
+        'background-size:10px 10px;',
+        'background-image:',
+        'repeating-linear-gradient(',
+            '-45deg,',
+            'rgba(204,0,0,0.5),rgba(204,0,0,0.5) 24%,',
+            'transparent 26%,transparent 49%,',
+            'rgba(204,0,0,0.5) 51%,rgba(204,0,0,0.5) 74%,',
+            'transparent 76%,transparent',
+        ');',
+        'text-align: center;',
     '}',
     '#p {',
-    'margin:8px;',
-    'padding:4px;',
-    'display:inline-block;',
-    'background-color:white;',
+        'margin:8px;',
+        'padding:4px;',
+        'display:inline-block;',
+        'background-color:white;',
     '}',
     '#t {',
-    'margin:2px;',
-    'border:0;',
-    'padding:0 2px;',
-    'display:inline-block;',
+        'margin:2px;',
+        'border:0;',
+        'padding:0 2px;',
+        'display:inline-block;',
     '}',
     '#t b {',
-    'padding:0 4px;',
-    'background-color:#eee;',
-    'font-weight:normal;',
+        'padding:0 4px;',
+        'background-color:#eee;',
+        'font-weight:normal;',
     '}',
     '</style>',
     '<link href="{{cssURL}}?url={{originalURL}}&hostname={{hostname}}&t={{now}}" rel="stylesheet" type="text/css">',
     '<title>Blocked by &mu;Matrix</title>',
     '</head>',
     '<body>',
-    '<div id="p">',
-    '<div id="t"><b>{{hostname}}</b> blocked by &mu;Matrix</div>',
-    '</div>',
+        '<div id="p">',
+        '<div id="t"><b>{{hostname}}</b> blocked by &mu;Matrix</div>',
+        '</div>',
     '</body>',
     '</html>'
 ].join('');
@@ -100,56 +98,54 @@ var subFrameReplacement = [
     '<head>',
     '<meta charset="utf-8" />',
     '<style>',
-    '@font-face{',
-    'font-family:httpsb;',
-    'font-style:normal;',
-    'font-weight:400;',
-    'src:local("httpsb"),url("',
-    µMatrix.fontCSSURL,
-    '") format("truetype");',
+        '@font-face{',
+        'font-family:httpsb;',
+        'font-style:normal;',
+        'font-weight:400;',
+        'src:local("httpsb"),url("', µMatrix.fontCSSURL, '") format("truetype");',
     '}',
     'body{',
-    'margin:0;',
-    'border:0;',
-    'padding:0;',
-    'font:13px httpsb,sans-serif;',
+        'margin:0;',
+        'border:0;',
+        'padding:0;',
+        'font:13px httpsb,sans-serif;',
     '}',
     '#bg{',
-    'border:1px dotted {{subframeColor}};',
-    'position:absolute;',
-    'top:0;',
-    'right:0;',
-    'bottom:0;',
-    'left:0;',
-    'background-color:transparent;',
-    'background-size:10px 10px;',
-    'background-image:',
-    'repeating-linear-gradient(',
-    '-45deg,',
-    '{{subframeColor}},{{subframeColor}} 24%,',
-    'transparent 25%,transparent 49%,',
-    '{{subframeColor}} 50%,{{subframeColor}} 74%,',
-    'transparent 75%,transparent',
-    ');',
-    'opacity:{{subframeOpacity}};',
-    'text-align:center;',
+        'border:1px dotted {{subframeColor}};',
+        'position:absolute;',
+        'top:0;',
+        'right:0;',
+        'bottom:0;',
+        'left:0;',
+        'background-color:transparent;',
+        'background-size:10px 10px;',
+        'background-image:',
+        'repeating-linear-gradient(',
+            '-45deg,',
+            '{{subframeColor}},{{subframeColor}} 24%,',
+            'transparent 25%,transparent 49%,',
+            '{{subframeColor}} 50%,{{subframeColor}} 74%,',
+            'transparent 75%,transparent',
+        ');',
+        'opacity:{{subframeOpacity}};',
+        'text-align:center;',
     '}',
     '#bg > div{',
-    'display:inline-block;',
-    'background-color:rgba(255,255,255,1);',
+        'display:inline-block;',
+        'background-color:rgba(255,255,255,1);',
     '}',
     '#bg > div > a {',
-    'padding:0 2px;',
-    'display:inline-block;',
-    'color:white;',
-    'background-color:{{subframeColor}};',
-    'text-decoration:none;',
+        'padding:0 2px;',
+        'display:inline-block;',
+        'color:white;',
+        'background-color:{{subframeColor}};',
+        'text-decoration:none;',
     '}',
     '</style>',
     '<title>Blocked by &mu;Matrix</title>',
     '</head>',
     '<body title="&ldquo;{{hostname}}&rdquo; frame\nblocked by &mu;Matrix">',
-    '<div id="bg"><div><a href="{{frameSrc}}" target="_blank">{{hostname}}</a></div></div>',
+        '<div id="bg"><div><a href="{{frameSrc}}" target="_blank">{{hostname}}</a></div></div>',
     '</body>',
     '</html>'
 ].join('');
@@ -202,44 +198,31 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
     µm.tabContextManager.push(tabId, requestURL);
 
-    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-        tabId = µm.behindTheSceneTabId;
-    } else {
-        µm.bindTabToPageStats(tabId);
-    }
-
-    var uri = µm.URI.set(details.url);
-    if ( uri.scheme.indexOf('http') === -1 ) {
-        return;
-    }
-
-    var requestHostname = uri.hostname;
-    var pageStore = µm.pageStatsFromTabId(tabId);
+    var tabContext = µm.tabContextManager.mustLookup(tabId);
+    var pageStore = µm.bindTabToPageStats(tabId, 'weak');
 
     // Disallow request as per matrix?
-    var block = µm.mustBlock(pageStore.pageHostname, requestHostname, 'doc');
+    var block = µm.mustBlock(tabContext.rootHostname, details.hostname, 'doc');
 
     // console.debug('onBeforeRequestHandler()> block=%s "%s": %o', block, details.url, details);
 
-    // whitelisted?
+
+    // Not blocked
     if ( !block ) {
         // rhill 2013-11-07: Senseless to do this for behind-the-scene requests.
         // rhill 2013-12-03: Do this here only for root frames.
-        if ( tabId !== µm.behindTheSceneTabId ) {
-            µm.cookieHunter.recordPageCookies(pageStore);
-        }
+        µm.cookieHunter.recordPageCookies(pageStore);
         return;
     }
 
-    // blacklisted
+    // Blocked
 
     // rhill 2014-01-15: Delay logging of non-blocked top `main_frame`
     // requests, in order to ensure any potential redirects is reported
     // in proper chronological order.
     // https://github.com/gorhill/httpswitchboard/issues/112
     pageStore.recordRequest('doc', requestURL, block);
-
-    µm.updateBadgeAsync(tabId);
+    pageStore.updateBadgeAsync();
 
     // If it's a blacklisted frame, redirect to frame.html
     // rhill 2013-11-05: The root frame contains a link to noop.css, this
@@ -308,11 +291,8 @@ var onBeforeRequestHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabId = details.tabId;
-    var pageStore = µm.pageStatsFromTabId(tabId);
-    if ( !pageStore ) {
-        pageStore = µm.pageStatsFromTabId(µm.behindTheSceneTabId);
-    }
+    var pageStore = µm.mustPageStoreFromTabId(details.tabId);
+    var tabId = pageStore.tabId;
 
     // Disallow request as per temporary matrix?
     var block = µm.mustBlock(pageStore.pageHostname, requestHostname, requestType);
@@ -324,8 +304,7 @@ var onBeforeRequestHandler = function(details) {
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
     pageStore.recordRequest(requestType, requestURL, block);
-
-    µm.updateBadgeAsync(tabId);
+    pageStore.updateBadgeAsync();
 
     // whitelisted?
     if ( !block ) {
@@ -357,7 +336,6 @@ var onBeforeRequestHandler = function(details) {
 // Sanitize outgoing headers as per user settings.
 
 var onBeforeSendHeadersHandler = function(details) {
-
     var µm = µMatrix;
 
     // console.debug('onBeforeSendHeadersHandler()> "%s": %o', details.url, details);
@@ -369,12 +347,8 @@ var onBeforeSendHeadersHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabId = details.tabId;
-    var pageStore = µm.pageStatsFromTabId(tabId);
-    if ( !pageStore ) {
-        tabId = µm.behindTheSceneTabId;
-        pageStore = µm.pageStatsFromTabId(tabId);
-    }
+    var pageStore = µm.mustPageStoreFromTabId(details.tabId);
+    var tabId = pageStore.tabId;
 
     // https://github.com/gorhill/httpswitchboard/issues/342
     // Is this hyperlink auditing?
@@ -404,7 +378,7 @@ var onBeforeSendHeadersHandler = function(details) {
         if ( linkAuditor !== '' ) {
             var block = µm.userSettings.processHyperlinkAuditing;
             pageStore.recordRequest('other', requestURL + '{Ping-To:' + linkAuditor + '}', block);
-            µm.updateBadgeAsync(tabId);
+            pageStore.updateBadgeAsync();
             if ( block ) {
                 µm.hyperlinkAuditingFoiledCounter += 1;
                 return { 'cancel': true };
@@ -464,11 +438,10 @@ var foilRefererHeaders = function(µm, toHostname, details) {
 // https://github.com/gorhill/httpswitchboard/issues/35
 
 var onHeadersReceived = function(details) {
-
     // console.debug('onHeadersReceived()> "%s": %o', details.url, details);
 
     // Ignore schemes other than 'http...'
-    if ( details.url.slice(0, 4) !== 'http' ) {
+    if ( details.url.lastIndexOf('http', 0) !== 0 ) {
         return;
     }
 
@@ -484,30 +457,24 @@ var onHeadersReceived = function(details) {
 /******************************************************************************/
 
 var onMainDocHeadersReceived = function(details) {
+    // https://github.com/gorhill/uMatrix/issues/145
+    // Check if the main_frame is a download
+    if ( headerValue(details.responseHeaders, 'content-disposition').lastIndexOf('attachment', 0) === 0 ) {
+        µb.tabContextManager.unpush(details.tabId, details.url);
+    }
 
     // console.debug('onMainDocHeadersReceived()> "%s": %o', details.url, details);
 
     var µm = µMatrix;
 
-    // Do not ignore traffic outside tabs.
-    // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabId = details.tabId;
-    if ( tabId < 0 ) {
-        tabId = µm.behindTheSceneTabId;
-    }
-
-    var µmuri = µm.URI.set(details.url);
-    var requestURL = µmuri.normalizedURI();
-    var requestScheme = µmuri.scheme;
-    var requestHostname = µmuri.hostname;
-
     // rhill 2013-12-07:
     // Apparently in Opera, onBeforeRequest() is triggered while the
     // URL is not yet bound to a tab (-1), which caused the code here
-    // to not be able to lookup the pageStats. So let the code here bind
+    // to not be able to lookup the page store. So let the code here bind
     // the page to a tab if not done yet.
     // https://github.com/gorhill/httpswitchboard/issues/75
-    µm.bindTabToPageStats(tabId, requestURL);
+
+    // TODO: check this works fine on Opera
 
     // Re-classify orphan HTTP requests as behind-the-scene requests. There is
     // not much else which can be done, because there are URLs
@@ -516,12 +483,12 @@ var onMainDocHeadersReceived = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var pageStats = µm.pageStatsFromTabId(tabId);
-    if ( !pageStats ) {
-        tabId = µm.behindTheSceneTabId;
-        pageStats = µm.pageStatsFromTabId(tabId);
-    }
-
+    var pageStore = µm.mustPageStoreFromTabId(details.tabId);
+    var tabId = pageStore.tabId;
+    var µmuri = µm.URI.set(details.url);
+    var requestURL = µmuri.normalizedURI();
+    var requestScheme = µmuri.scheme;
+    var requestHostname = µmuri.hostname;
     var headers = details.responseHeaders;
 
     // Simplify code paths by splitting func in two different handlers, one
@@ -530,7 +497,7 @@ var onMainDocHeadersReceived = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/112
     // rhill 2014-02-10: Handle all redirects.
     // https://github.com/gorhill/httpswitchboard/issues/188
-    if ( /\s+30[12378]\s+/.test(details.statusLine) ) {
+    if ( /\b30[12378]\b/.test(details.statusLine) ) {
         var i = headerIndexFromName('location', headers);
         if ( i >= 0 ) {
             // rhill 2014-01-20: Be ready to handle relative URLs.
@@ -557,22 +524,22 @@ var onMainDocHeadersReceived = function(details) {
         }
 
         while ( destinationURL = mainFrameStack.pop() ) {
-            pageStats.recordRequest('doc', destinationURL, false);
+            pageStore.recordRequest('doc', destinationURL, false);
         }
-        µm.updateBadgeAsync(tabId);
+        pageStore.updateBadgeAsync();
     }
 
     // Maybe modify inbound headers
     var csp = '';
 
     // Enforce strict HTTPS?
-    if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', pageStats.pageHostname) ) {
+    if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', pageStore.pageHostname) ) {
         csp += "default-src chrome-search: data: https: wss: 'unsafe-eval' 'unsafe-inline';";
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181
-    pageStats.pageScriptBlocked = µm.mustBlock(pageStats.pageHostname, requestHostname, 'script');
-    if ( pageStats.pageScriptBlocked ) {
+    pageStore.pageScriptBlocked = µm.mustBlock(pageStore.pageHostname, requestHostname, 'script');
+    if ( pageStore.pageScriptBlocked ) {
         // If javascript not allowed, say so through a `Content-Security-Policy` directive.
         // console.debug('onMainDocHeadersReceived()> PAGE CSP "%s": %o', details.url, details);
         csp += " script-src 'none'";
@@ -599,25 +566,13 @@ var onSubDocHeadersReceived = function(details) {
     // Do not ignore traffic outside tabs.
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
     var tabId = details.tabId;
-    if ( tabId < 0 ) {
-        tabId = µm.behindTheSceneTabId;
-    }
-
-    // Re-classify orphan HTTP requests as behind-the-scene requests. There is
-    // not much else which can be done, because there are URLs
-    // which cannot be handled by HTTP Switchboard, i.e. `opera://startpage`,
-    // as this would lead to complications with no obvious solution, like how
-    // to scope on unknown scheme? Etc.
-    // https://github.com/gorhill/httpswitchboard/issues/191
-    // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var pageStats = µm.pageStatsFromTabId(tabId);
-    if ( !pageStats ) {
-        tabId = µm.behindTheSceneTabId;
-        pageStats = µm.pageStatsFromTabId(tabId);
+    var tabContext = µm.tabContextManager.lookup(tabId);
+    if ( tabContext === null ) {
+        return;
     }
 
     // Evaluate
-    if ( µm.mustAllow(pageStats.pageHostname, µm.hostnameFromURL(details.url), 'script') ) {
+    if ( µm.mustAllow(tabContext.rootHostname, µm.hostnameFromURL(details.url), 'script') ) {
         return;
     }
 
@@ -644,10 +599,22 @@ var onSubDocHeadersReceived = function(details) {
 
     details.responseHeaders.push({
         'name': 'Content-Security-Policy',
-        'value': 'sandbox allow-forms allow-same-origin allow-popups allow-top-navigation'
+        'value': "script-src 'none'"
     });
 
     return { responseHeaders: details.responseHeaders };
+};
+
+/******************************************************************************/
+
+var headerValue = function(headers, name) {
+    var i = headers.length;
+    while ( i-- ) {
+        if ( headers[i].name.toLowerCase() === name ) {
+            return headers[i].value.trim();
+        }
+    }
+    return '';
 };
 
 /******************************************************************************/
@@ -662,7 +629,7 @@ var onErrorOccurredHandler = function(details) {
     }
 
     var µm = µMatrix;
-    var pageStats = µm.pageStatsFromPageUrl(details.url);
+    var pageStats = µm.pageStoreFromTabId(details.tabId);
     if ( !pageStats ) {
         return;
     }
@@ -684,7 +651,7 @@ var onErrorOccurredHandler = function(details) {
     while ( destinationURL = mainFrameStack.pop() ) {
         pageStats.recordRequest('doc', destinationURL, false);
     }
-    µm.updateBadgeAsync(details.tabId);
+    pageStats.updateBadgeAsync();
 };
 
 /******************************************************************************/

@@ -55,13 +55,13 @@ var µm = µMatrix;
         return uri.normalizedURI();
     }
 
-    var url = 'http://' + scheme + '-scheme/';
+    var url = scheme + '-scheme';
 
     if ( uri.hostname !== '' ) {
-        url += uri.hostname + '/';
+        url = uri.hostname + '.' + url;
     }
 
-    return url;
+    return 'http://' + url + '/';
 };
 
 /******************************************************************************/
@@ -198,7 +198,7 @@ housekeep itself.
             this.rawURL = this.stack[this.stack.length - 1];
             this.normalURL = µm.normalizePageURL(this.tabId, this.rawURL);
             this.rootHostname = µm.URI.hostnameFromURI(this.normalURL);
-            this.rootDomain = µm.URI.domainFromHostname(this.rootHostname);
+            this.rootDomain = µm.URI.domainFromHostname(this.rootHostname) || this.rootHostname;
         }
     };
 
@@ -264,7 +264,7 @@ housekeep itself.
 
     // Find a tab context for a specific tab. If none is found, attempt to
     // fix this. When all fail, the behind-the-scene context is returned.
-    var lookup = function(tabId, url) {
+    var mustLookup = function(tabId, url) {
         var entry;
         if ( url !== undefined ) {
             entry = push(tabId, url);
@@ -315,8 +315,8 @@ housekeep itself.
         }
     };
 
-    var exists = function(tabId) {
-        return tabContexts[tabId] !== undefined;
+    var lookup = function(tabId) {
+        return tabContexts[tabId] || null;
     };
 
     // Behind-the-scene tab context
@@ -350,7 +350,7 @@ housekeep itself.
         unpush: unpush,
         commit: commit,
         lookup: lookup,
-        exists: exists,
+        mustLookup: mustLookup,
         createContext: createContext
     };
 })();
@@ -365,9 +365,15 @@ vAPI.tabs.onNavigation = function(details) {
     if ( details.frameId !== 0 ) {
         return;
     }
-    var tabContext = µm.tabContextManager.commit(details.tabId, details.url);
-    var pageStore = µm.bindTabToPageStats(details.tabId, 'afterNavigate');
 
+    // This actually can happen
+    var tabId = details.tabId;
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+        return;
+    }
+
+    µm.tabContextManager.commit(tabId, details.url);
+    µm.bindTabToPageStats(tabId, 'commit');
 };
 
 /******************************************************************************/
@@ -381,9 +387,14 @@ vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
         return;
     }
 
+    // This actually can happen
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+        return;
+    }
+
     if ( changeInfo.url ) {
         µm.tabContextManager.commit(tabId, changeInfo.url);
-        µm.bindTabToPageStats(tabId, 'tabUpdated');
+        µm.bindTabToPageStats(tabId, 'updated');
     }
 
     // rhill 2013-12-23: Compute state after whole page is loaded. This is
@@ -396,7 +407,7 @@ vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
     // unblocked when user un-blacklist the hostname.
     // https://github.com/gorhill/httpswitchboard/issues/198
     if ( changeInfo.status === 'complete' ) {
-        var pageStats = µm.pageStatsFromTabId(tabId);
+        var pageStats = µm.pageStoreFromTabId(tabId);
         if ( pageStats ) {
             pageStats.state = µm.computeTabState(tabId);
         }
@@ -406,10 +417,10 @@ vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
 /******************************************************************************/
 
 vAPI.tabs.onClosed = function(tabId) {
-    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-        return;
-    }
-    µm.unbindTabFromPageStats(tabId);
+    // I could incinerate all the page stores in the crypt associated with the
+    // tab id, but this will be done anyway once all incineration timers
+    // elapse. Let's keep it simple: they can all just rot a bit more before
+    // incineration.
 };
 
 /******************************************************************************/
@@ -419,121 +430,73 @@ vAPI.tabs.registerListeners();
 /******************************************************************************/
 /******************************************************************************/
 
-// Create a new page url stats store (if not already present)
-
-µm.createPageStore = function(pageURL) {
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // At this point, the URL has been page-URL-normalized
-
-    // do not create stats store for urls which are of no interest
-    if ( pageURL.search(/^https?/) !== 0 ) {
-        return;
-    }
-    var pageStore = null;
-    if ( this.pageStats.hasOwnProperty(pageURL) ) {
-        pageStore = this.pageStats[pageURL];
-    }
-    if ( pageStore === null ) {
-        pageStore = this.PageStore.factory(pageURL);
-        // These counters are used so that icon presents an overview of how
-        // much allowed/blocked.
-        pageStore.perLoadAllowedRequestCount =
-        pageStore.perLoadBlockedRequestCount = 0;
-        this.pageStats[pageURL] = pageStore;
-    }
-
-    // TODO: revisit code, need to account for those web pages for which the
-    // URL changes with the content only updated
-    if ( pageStore.pageUrl !== pageURL ) {
-        pageStore.init(pageURL);
-    }
-
-    return pageStore;
-};
-
-/******************************************************************************/
-
 // Create an entry for the tab if it doesn't exist
 
 µm.bindTabToPageStats = function(tabId, context) {
-    if ( vAPI.isBehindTheSceneTabId(tabId) === false ) {
-        this.updateBadgeAsync(tabId);
-    }
-
     // Do not create a page store for URLs which are of no interests
-    if ( µm.tabContextManager.exists(tabId) === false ) {
-        this.unbindTabFromPageStats(tabId);
-        return null;
+    // Example: dev console
+    var tabContext = this.tabContextManager.lookup(tabId);
+    if ( tabContext === null ) {
+        throw new Error('Unmanaged tab id: ' + tabId);
     }
-
-    var tabContext = µm.tabContextManager.lookup(tabId);
-    var rawURL = tabContext.rawURL;
-
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // Don't rebind pages blocked by µMatrix.
-    var blockedRootFramePrefix = this.webRequest.blockedRootFramePrefix;
-    if ( rawURL.lastIndexOf(blockedRootFramePrefix, 0) === 0 ) {
-        return null;
-    }
-
-    var pageStore;
-    var pageURL = tabContext.normalURL;
-
-    // The previous page URL, if any, associated with the tab
-    if ( this.tabIdToPageUrl.hasOwnProperty(tabId) ) {
-        var previousPageURL = this.tabIdToPageUrl[tabId];
-
-        // No change, do not rebind
-        if ( previousPageURL === pageURL ) {
-            return this.pageStats[pageURL];
-        }
-
-        // https://github.com/gorhill/uMatrix/issues/37
-        // Just rebind whenever possible: the URL changed, but the document maybe is the same.
-        // Example: Google Maps, Github
-
-        // https://github.com/gorhill/uMatrix/issues/72
-        // Need to double-check that the new scope is same as old scope
-        if ( context === 'pageUpdated' ) {
-            pageStore = this.pageStats[previousPageURL];
-            if ( pageStore.pageHostname === this.hostnameFromURL(pageURL) ) {
-                pageStore.pageUrl = pageURL;
-                delete this.pageStats[previousPageURL];
-                this.pageStats[pageURL] = pageStore;
-                delete this.pageUrlToTabId[previousPageURL];
-                this.pageUrlToTabId[pageURL] = tabId;
-                this.tabIdToPageUrl[tabId] = pageURL;
-                return pageStore;
-            }
-        }
-    }
-
-    pageStore = this.createPageStore(pageURL, context);
-
-    // console.debug('tab.js > bindTabToPageStats(): dispatching traffic in tab id %d to page store "%s"', tabId, pageUrl);
 
     // rhill 2013-11-24: Never ever rebind chromium-behind-the-scene
     // virtual tab.
     // https://github.com/gorhill/httpswitchboard/issues/67
-    if ( tabId === this.behindTheSceneTabId ) {
-        return pageStore;
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+        return this.pageStores[tabId];
     }
 
-    // https://github.com/gorhill/uMatrix/issues/37
-    this.updateBadgeAsync(tabId);
-
-    this.unbindTabFromPageStats(tabId);
-
-    // rhill 2014-02-08: Do not create an entry if no page store
-    // exists (like when visiting about:blank)
-    // https://github.com/gorhill/httpswitchboard/issues/186
-    if ( !pageStore ) {
+    // https://github.com/gorhill/httpswitchboard/issues/303
+    // Don't rebind pages blocked by µMatrix.
+    var blockedRootFramePrefix = this.webRequest.blockedRootFramePrefix;
+    if ( tabContext.rawURL.lastIndexOf(blockedRootFramePrefix, 0) === 0 ) {
         return null;
     }
 
-    this.pageUrlToTabId[pageURL] = tabId;
-    this.tabIdToPageUrl[tabId] = pageURL;
-    pageStore.boundCount += 1;
+    var normalURL = tabContext.normalURL;
+    var pageStore = this.pageStores[tabId] || null;
+
+    // The previous page URL, if any, associated with the tab
+    if ( pageStore !== null ) {
+        // No change, do not rebind
+        if ( pageStore.pageUrl === normalURL ) {
+            return pageStore;
+        }
+
+        // Do not change anything if it's weak binding -- typically when
+        // binding from network request handler.
+        if ( context === 'weak' ) {
+            return pageStore;
+        }
+
+        // https://github.com/gorhill/uMatrix/issues/37
+        // Just rebind whenever possible: the URL changed, but the document
+        // maybe is the same.
+        // Example: Google Maps, Github
+        // https://github.com/gorhill/uMatrix/issues/72
+        // Need to double-check that the new scope is same as old scope
+        if ( context === 'updated' && pageStore.pageHostname === tabContext.rootHostname ) {
+            pageStore.rawURL = tabContext.rawURL;
+            pageStore.normalURL = normalURL;
+            return pageStore;
+        }
+
+        // We won't be reusing this page store.
+        this.unbindTabFromPageStats(tabId);
+    }
+
+    // Try to resurrect first.
+    pageStore = this.resurrectPageStore(tabId, normalURL);
+    if ( pageStore === null ) {
+        pageStore = this.PageStore.factory(tabContext);
+    }
+    this.pageStores[tabId] = pageStore;
+
+    // console.debug('tab.js > bindTabToPageStats(): dispatching traffic in tab id %d to page store "%s"', tabId, pageUrl);
+
+    // https://github.com/gorhill/uMatrix/issues/37
+    pageStore.updateBadgeAsync();
 
     return pageStore;
 };
@@ -541,19 +504,98 @@ vAPI.tabs.registerListeners();
 /******************************************************************************/
 
 µm.unbindTabFromPageStats = function(tabId) {
-    if ( this.tabIdToPageUrl.hasOwnProperty(tabId) === false ) {
+    // Never unbind behind-the-scene page store.
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
         return;
     }
-    var pageURL = this.tabIdToPageUrl[tabId];
-    if ( this.pageStats.hasOwnProperty(pageURL) ) {
-        var pageStore = this.pageStats[pageURL];
-        pageStore.boundCount -= 1;
-        if ( pageStore.boundCount === 0 ) {
-            pageStore.obsoleteAfter = Date.now() + (5 * 60 * 1000);
-        }
+
+    var pageStore = this.pageStores[tabId] || null;
+    if ( pageStore === null ) {
+        return;
     }
-    delete this.tabIdToPageUrl[tabId];
-    delete this.pageUrlToTabId[pageURL];
+    delete this.pageStores[tabId];
+
+    if ( pageStore.incinerationTimer ) {
+        clearTimeout(pageStore.incinerationTimer);
+        pageStore.incinerationTimer = null;
+    }
+
+    if ( this.pageStoreCemetery.hasOwnProperty(tabId) === false ) {
+        this.pageStoreCemetery[tabId] = {};
+    }
+    var pageStoreCrypt = this.pageStoreCemetery[tabId];
+
+    var pageURL = pageStore.pageUrl;
+    pageStoreCrypt[pageURL] = pageStore;
+
+    pageStore.incinerationTimer = setTimeout(
+        this.incineratePageStore.bind(this, tabId, pageURL),
+        4 * 60 * 1000
+    );
+};
+
+/******************************************************************************/
+
+µm.resurrectPageStore = function(tabId, pageURL) {
+    if ( this.pageStoreCemetery.hasOwnProperty(tabId) === false ) {
+        return null;
+    }
+    var pageStoreCrypt = this.pageStoreCemetery[tabId];
+
+    if ( pageStoreCrypt.hasOwnProperty(pageURL) === false ) {
+        return null;
+    }
+
+    var pageStore = pageStoreCrypt[pageURL];
+
+    if ( pageStore.incinerationTimer !== null ) {
+        clearTimeout(pageStore.incinerationTimer);
+        pageStore.incinerationTimer = null;
+    }
+
+    delete pageStoreCrypt[pageURL];
+    if ( Object.keys(pageStoreCrypt).length === 0 ) {
+        delete this.pageStoreCemetery[tabId];
+    }
+
+    return pageStore;
+};
+
+/******************************************************************************/
+
+µm.incineratePageStore = function(tabId, pageURL) {
+    if ( this.pageStoreCemetery.hasOwnProperty(tabId) === false ) {
+        return;
+    }
+    var pageStoreCrypt = this.pageStoreCemetery[tabId];
+
+    if ( pageStoreCrypt.hasOwnProperty(pageURL) === false ) {
+        return;
+    }
+
+    var pageStore = pageStoreCrypt[pageURL];
+    if ( pageStore.incinerationTimer !== null ) {
+        clearTimeout(pageStore.incinerationTimer);
+        pageStore.incinerationTimer = null;
+    }
+
+    delete pageStoreCrypt[pageURL];
+    if ( Object.keys(pageStoreCrypt).length === 0 ) {
+        delete this.pageStoreCemetery[tabId];
+    }
+
+    pageStore.dispose();
+};
+
+/******************************************************************************/
+
+µm.pageStoreFromTabId = function(tabId) {
+    return this.pageStores[tabId] || null;
+};
+
+// Never return null
+µm.mustPageStoreFromTabId = function(tabId) {
+    return this.pageStores[tabId] || this.pageStores[vAPI.noTabId];
 };
 
 /******************************************************************************/
@@ -561,31 +603,28 @@ vAPI.tabs.registerListeners();
 // Log a request
 
 µm.recordFromTabId = function(tabId, type, url, blocked) {
-    var pageStats = this.pageStatsFromTabId(tabId);
-    if ( pageStats ) {
-        pageStats.recordRequest(type, url, blocked);
-        this.updateBadgeAsync(tabId);
-    }
-};
-
-µm.recordFromPageUrl = function(pageUrl, type, url, blocked, reason) {
-    var pageStats = this.pageStatsFromPageUrl(pageUrl);
-    if ( pageStats ) {
-        pageStats.recordRequest(type, url, blocked, reason);
+    var pageStore = this.pageStoreFromTabId(tabId);
+    if ( pageStore ) {
+        pageStore.recordRequest(type, url, blocked);
+        pageStore.updateBadgeAsync();
     }
 };
 
 /******************************************************************************/
 
-µm.onPageLoadCompleted = function(pageURL) {
-    var pageStats = this.pageStatsFromPageUrl(pageURL);
-    if ( !pageStats ) {
+µm.onPageLoadCompleted = function(tabId) {
+    var pageStore = this.pageStoreFromTabId(tabId);
+    if ( !pageStore ) {
         return;
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181
-    if ( pageStats.thirdpartyScript ) {
-        pageStats.recordRequest('script', pageURL + '{3rd-party_scripts}', pageStats.pageScriptBlocked);
+    if ( pageStore.thirdpartyScript ) {
+        pageStore.recordRequest(
+            'script',
+            pageStore.pageURL + '{3rd-party_scripts}',
+            pageStore.pageScriptBlocked
+        );
     }
 };
 
@@ -609,7 +648,7 @@ vAPI.tabs.registerListeners();
         var i = chromeTabs.length;
         while ( i-- ) {
             tabId = chromeTabs[i].id;
-            if ( µm.tabExists(tabId) ) {
+            if ( µm.pageStores.hasOwnProperty(tabId) ) {
                 µm.smartReloadTab(tabId);
             }
         }
@@ -627,7 +666,7 @@ vAPI.tabs.registerListeners();
 // Reload content of a tab
 
 µm.smartReloadTab = function(tabId) {
-    var pageStats = this.pageStatsFromTabId(tabId);
+    var pageStats = this.pageStoreFromTabId(tabId);
     if ( !pageStats ) {
         //console.error('HTTP Switchboard> µMatrix.smartReloadTab(): page stats for tab id %d not found', tabId);
         return;
@@ -691,20 +730,8 @@ vAPI.tabs.registerListeners();
 
 /******************************************************************************/
 
-// Required since not all tabs are of interests to HTTP Switchboard.
-// Examples:
-//      `chrome://extensions/`
-//      `chrome-devtools://devtools/devtools.html`
-//      etc.
-
-µm.tabExists = function(tabId) {
-    return !!this.pageUrlFromTabId(tabId);
-};
-
-/******************************************************************************/
-
 µm.computeTabState = function(tabId) {
-    var pageStats = this.pageStatsFromTabId(tabId);
+    var pageStats = this.pageStoreFromTabId(tabId);
     if ( !pageStats ) {
         //console.error('tab.js > µMatrix.computeTabState(): page stats for tab id %d not found', tabId);
         return {};
@@ -738,36 +765,8 @@ vAPI.tabs.registerListeners();
 
 /******************************************************************************/
 
-µm.pageUrlFromTabId = function(tabId) {
-    return this.tabIdToPageUrl[tabId];
-};
-
-µm.pageUrlFromPageStats = function(pageStats) {
-    if ( pageStats ) {
-        return pageStats.pageUrl;
-    }
-    return undefined;
-};
-
-µm.pageStatsFromTabId = function(tabId) {
-    var pageUrl = this.tabIdToPageUrl[tabId];
-    if ( pageUrl ) {
-        return this.pageStats[pageUrl];
-    }
-    return undefined;
-};
-
-µm.pageStatsFromPageUrl = function(pageURL) {
-    if ( pageURL ) {
-        return this.pageStats[this.normalizePageURL(pageURL)];
-    }
-    return null;
-};
-
-/******************************************************************************/
-
 µm.resizeLogBuffers = function(size) {
-    var pageStores = this.pageStats;
+    var pageStores = this.pageStores;
     for ( var pageURL in pageStores ) {
         if ( pageStores.hasOwnProperty(pageURL) ) {
             pageStores[pageURL].requests.resizeLogBuffer(size);
@@ -780,60 +779,6 @@ vAPI.tabs.registerListeners();
 µm.forceReload = function(tabId) {
     vAPI.tabs.reload(tabId, { bypassCache: true });
 };
-
-/******************************************************************************/
-
-// Garbage collect stale url stats entries
-(function() {
-    var gcPageStats = function() {
-        var pageStore;
-        var now = Date.now();
-        for ( var pageURL in µm.pageStats ) {
-            if ( µm.pageStats.hasOwnProperty(pageURL) === false ) {
-                continue;
-            }
-            pageStore = µm.pageStats[pageURL];
-            if ( pageStore.boundCount !== 0 ) {
-                continue;
-            }
-            if ( pageStore.obsoleteAfter > now ) {
-                continue;
-            }
-            µm.cookieHunter.removePageCookies(pageStore);
-            pageStore.dispose();
-            delete µm.pageStats[pageURL];
-        }
-
-        // Prune content of chromium-behind-the-scene virtual tab
-        // When `suggest-as-you-type` is on in Chromium, this can lead to a
-        // LOT of uninteresting behind the scene requests.
-        pageStore = µm.pageStats[µm.behindTheSceneURL];
-        if ( !pageStore ) {
-            return;
-        }
-        var reqKeys = pageStore.requests.getRequestKeys();
-        if ( reqKeys.length <= µm.behindTheSceneMaxReq ) {
-            return;
-        }
-        reqKeys = reqKeys.sort(function(a,b){
-            return pageStore.requests[b] - pageStore.requests[a];
-        }).slice(µm.behindTheSceneMaxReq);
-        var iReqKey = reqKeys.length;
-        while ( iReqKey-- ) {
-            pageStore.requests.disposeOne(reqKeys[iReqKey]);
-        }
-    };
-
-    // Time somewhat arbitrary: If a web page has not been in a tab
-    // for some time minutes, flush its stats.
-    µm.asyncJobs.add(
-        'gcPageStats',
-        null,
-        gcPageStats,
-        (2.5 * 60 * 1000) | 0,
-        true
-    );
-})();
 
 /******************************************************************************/
 

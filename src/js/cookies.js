@@ -197,8 +197,7 @@ var recordPageCookiesAsync = function(pageStats) {
     if ( !pageStats ) {
         return;
     }
-    var pageURL = µm.pageUrlFromPageStats(pageStats);
-    recordPageCookiesQueue[pageURL] = pageStats;
+    recordPageCookiesQueue[pageStats.pageUrl] = pageStats;
     µm.asyncJobs.add(
         'cookieHunterPageRecord',
         null,
@@ -220,6 +219,10 @@ var cookieLogEntryBuilder = [
 ];
 
 var recordPageCookie = function(pageStore, cookieKey) {
+    if ( vAPI.isBehindTheSceneTabId(pageStore.tabId) ) {
+        return;
+    }
+
     var cookieEntry = cookieDict[cookieKey];
     var block = µm.mustBlock(pageStore.pageHostname, cookieEntry.hostname, 'cookie');
 
@@ -263,8 +266,7 @@ var removePageCookiesAsync = function(pageStats) {
     if ( !pageStats ) {
         return;
     }
-    var pageURL = µm.pageUrlFromPageStats(pageStats);
-    removePageCookiesQueue[pageURL] = pageStats;
+    removePageCookiesQueue[pageStats.pageUrl] = pageStats;
     µm.asyncJobs.add(
         'cookieHunterPageRemove',
         null,
@@ -508,13 +510,13 @@ vAPI.cookies.onChanged = function(changeInfo) {
 
     // Go through all pages and update if needed, as one cookie can be used
     // by many web pages, so they need to be recorded for all these pages.
-    var pageStores = µm.pageStats;
+    var pageStores = µm.pageStores;
     var pageStore;
-    for ( var pageURL in pageStores ) {
-        if ( pageStores.hasOwnProperty(pageURL) === false ) {
+    for ( var tabId in pageStores ) {
+        if ( pageStores.hasOwnProperty(tabId) === false ) {
             continue;
         }
-        pageStore = pageStores[pageURL];
+        pageStore = pageStores[tabId];
         if ( !cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
             continue;
         }

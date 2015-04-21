@@ -445,28 +445,30 @@ var pageStoreJunkyard = [];
 
 /******************************************************************************/
 
-var pageStoreFactory = function(pageUrl) {
+var pageStoreFactory = function(tabContext) {
     var entry = pageStoreJunkyard.pop();
     if ( entry ) {
-        return entry.init(pageUrl);
+        return entry.init(tabContext);
     }
-    return new PageStore(pageUrl);
+    return new PageStore(tabContext);
 };
 
 /******************************************************************************/
 
-function PageStore(pageUrl) {
+function PageStore(tabContext) {
     this.requestStats = new WebRequestStats();
     this.off = false;
-    this.init(pageUrl);
+    this.init(tabContext);
 }
 
 /******************************************************************************/
 
-PageStore.prototype.init = function(pageUrl) {
-    this.pageUrl = pageUrl;
-    this.pageHostname = µm.URI.hostnameFromURI(pageUrl);
-    this.pageDomain =  µm.URI.domainFromHostname(this.pageHostname) || this.pageHostname;
+PageStore.prototype.init = function(tabContext) {
+    this.tabId = tabContext.tabId;
+    this.rawUrl = tabContext.rawURL;
+    this.pageUrl = tabContext.normalURL;
+    this.pageHostname = tabContext.rootHostname;
+    this.pageDomain =  tabContext.rootDomain;
     this.pageScriptBlocked = false;
     this.thirdpartyScript = false;
     this.requests = µm.PageRequestStats.factory();
@@ -477,8 +479,8 @@ PageStore.prototype.init = function(pageUrl) {
     this.distinctRequestCount = 0;
     this.perLoadAllowedRequestCount = 0;
     this.perLoadBlockedRequestCount = 0;
-    this.boundCount = 0;
-    this.obsoleteAfter = 0;
+    this.incinerationTimer = null;
+    this.updateBadgeTimer = null;
     return this;
 };
 
@@ -486,12 +488,24 @@ PageStore.prototype.init = function(pageUrl) {
 
 PageStore.prototype.dispose = function() {
     this.requests.dispose();
+    this.rawUrl = '';
     this.pageUrl = '';
     this.pageHostname = '';
     this.pageDomain = '';
     this.domains = {};
     this.allHostnamesString = ' ';
     this.state = {};
+
+    if ( this.incinerationTimer !== null ) {
+        clearTimeout(this.incinerationTimer);
+        this.incinerationTimer = null;
+    }
+
+    if ( this.updateBadgeTimer !== null ) {
+        clearTimeout(this.updateBadgeTimer);
+        this.updateBadgeTimer = null;
+    }
+
     if ( pageStoreJunkyard.length < 8 ) {
         pageStoreJunkyard.push(this);
     }
@@ -550,24 +564,35 @@ PageStore.prototype.recordRequest = function(type, url, block) {
 
 /******************************************************************************/
 
-// Update badge, incrementally
+// Update badge
 
 // rhill 2013-11-09: well this sucks, I can't update icon/badge
 // incrementally, as chromium overwrite the icon at some point without
 // notifying me, and this causes internal cached state to be out of sync.
 
-PageStore.prototype.updateBadge = function(tabId) {
-    var iconId = null;
-    var badgeStr = '';
-    var total = this.perLoadAllowedRequestCount + this.perLoadBlockedRequestCount;
-    if ( total ) {
-        var squareSize = 19;
-        var greenSize = squareSize * Math.sqrt(this.perLoadAllowedRequestCount / total);
-        iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
-        badgeStr = µm.formatCount(this.distinctRequestCount);
-    }
-    vAPI.setIcon(tabId, iconId, badgeStr);
-};
+PageStore.prototype.updateBadgeAsync = (function() {
+    var updateBadge = function() {
+        this.updateBadgeTimer = null;
+
+        var iconId = null;
+        var badgeStr = '';
+        var total = this.perLoadAllowedRequestCount + this.perLoadBlockedRequestCount;
+        if ( total ) {
+            var squareSize = 19;
+            var greenSize = squareSize * Math.sqrt(this.perLoadAllowedRequestCount / total);
+            iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
+            badgeStr = µm.formatCount(this.distinctRequestCount);
+        }
+
+        vAPI.setIcon(this.tabId, iconId, badgeStr);
+    };
+
+    return function() {
+        if ( this.updateBadgeTimer === null ) {
+            this.updateBadgeTimer = setTimeout(updateBadge.bind(this), 500);
+        }
+    };
+})();
 
 /******************************************************************************/
 
