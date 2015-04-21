@@ -6,7 +6,8 @@ body {
     margin: 0;
     min-height: 16em;
     min-width: 32em;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     padding: 0;
     }
 *:focus {
@@ -26,7 +27,6 @@ body {
 .paneContent {
     padding-top: 5.5em;
     }
-
 
 
 .toolbar {
@@ -49,7 +49,6 @@ body[dir="ltr"] .toolbar.alignRight,
 body[dir="rtl"] .toolbar.alignLeft {
     right: 0;
     }
-
 
 
 body .toolbar button {
@@ -398,8 +397,8 @@ body.tScopeSite #scopeCell {
     padding: 0;
     border: 0;
     height: 6px;
-    background: url('img/matrix-group-hide.png') no-repeat center top,
-                url('img/matrix-group-hline.png') repeat-x center top 3px;
+    background: url('../img/matrix-group-hide.png') no-repeat center top,
+                url('../img/matrix-group-hline.png') repeat-x center top 3px;
     opacity: 0.2;
     cursor: pointer;
     }
@@ -407,8 +406,8 @@ body.tScopeSite #scopeCell {
     opacity: 0.4;
     }
 .matrix .g4Meta.g4Collapsed {
-    background: url('img/matrix-group-show.png') no-repeat center top,
-                url('img/matrix-group-hline.png') repeat-x center top 3px;
+    background: url('../img/matrix-group-show.png') no-repeat center top,
+                url('../img/matrix-group-hline.png') repeat-x center top 3px;
     }
 .matrix .g4Meta.g4Collapsed ~ .matSection {
     display: none;
@@ -450,12 +449,12 @@ body.powerOff .matrix .g4Meta.g4Collapsed ~ .matRow.ro {
     background-color: #d0f0d0;
     }
 .matCell.p81 {
-    background-image: url('img/permanent-black-small.png');
+    background-image: url('../img/permanent-black-small.png');
     background-repeat: no-repeat;
     background-position: -1px -1px;
     }
 .matCell.p82 {
-    background-image: url('img/permanent-white-small.png');
+    background-image: url('../img/permanent-white-small.png');
     background-repeat: no-repeat;
     background-position: -1px -1px;
     }
@@ -481,10 +480,10 @@ body.colorblind .t2 {
     background-color: #ccc;
     }
 body.colorblind .matCell.p81 {
-    background-image: url('img/permanent-black-small-cb.png');
+    background-image: url('../img/permanent-black-small-cb.png');
     }
 body.colorblind .matCell.p82 {
-    background-image: url('img/permanent-white-small-cb.png');
+    background-image: url('../img/permanent-white-small-cb.png');
     }
     
 
