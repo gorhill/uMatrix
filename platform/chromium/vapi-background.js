@@ -791,13 +791,6 @@ vAPI.net.registerListeners = function() {
         },
         this.onHeadersReceived.extra
     );
-
-    chrome.webRequest.onErrorOccurred.addListener(
-        this.onErrorOccurred.callback,
-        {
-            'urls': this.onErrorOccurred.urls || ['<all_urls>']
-        }
-    );
     // <<<<<<<<
     // End of: Network event handlers
 };

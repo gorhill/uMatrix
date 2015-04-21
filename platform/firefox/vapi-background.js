@@ -1202,7 +1202,6 @@ var httpObserver = {
                 hostname: URI.asciiHost,
                 parentFrameId: channelData[1],
                 responseHeaders: result ? [{name: topic, value: result}] : [],
-                statusLine: channel.responseStatus.toString(),
                 tabId: channelData[3],
                 type: type,
                 url: URI.asciiSpec

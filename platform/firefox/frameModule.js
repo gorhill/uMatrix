@@ -328,7 +328,7 @@ LocationChangeListener.prototype.onLocationChange = function(webProgress, reques
     if ( !webProgress.isTopLevel ) {
         return;
     }
-    
+
     this.messageManager.sendAsyncMessage(locationChangedMessageName, {
         url: location.asciiSpec,
         flags: flags,

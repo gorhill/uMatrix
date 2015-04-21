@@ -206,6 +206,8 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
     // console.debug('onBeforeRequestHandler()> block=%s "%s": %o', block, details.url, details);
 
+    pageStore.recordRequest('doc', requestURL, block);
+    pageStore.updateBadgeAsync();
 
     // Not blocked
     if ( !block ) {
@@ -216,13 +218,6 @@ var onBeforeRootFrameRequestHandler = function(details) {
     }
 
     // Blocked
-
-    // rhill 2014-01-15: Delay logging of non-blocked top `main_frame`
-    // requests, in order to ensure any potential redirects is reported
-    // in proper chronological order.
-    // https://github.com/gorhill/httpswitchboard/issues/112
-    pageStore.recordRequest('doc', requestURL, block);
-    pageStore.updateBadgeAsync();
 
     // If it's a blacklisted frame, redirect to frame.html
     // rhill 2013-11-05: The root frame contains a link to noop.css, this
@@ -282,8 +277,6 @@ var onBeforeRequestHandler = function(details) {
         return;
     }
 
-    var requestHostname = µmuri.hostname;
-
     // Re-classify orphan HTTP requests as behind-the-scene requests. There is
     // not much else which can be done, because there are URLs
     // which cannot be handled by µMatrix, i.e. `opera://startpage`,
@@ -291,11 +284,12 @@ var onBeforeRequestHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var pageStore = µm.mustPageStoreFromTabId(details.tabId);
-    var tabId = pageStore.tabId;
+    var tabContext = µm.tabContextManager.mustLookup(details.tabId);
+    var tabId = tabContext.tabId;
+    var requestHostname = µmuri.hostname;
 
     // Disallow request as per temporary matrix?
-    var block = µm.mustBlock(pageStore.pageHostname, requestHostname, requestType);
+    var block = µm.mustBlock(tabContext.rootHostname, requestHostname, requestType);
 
     // Record request.
     // https://github.com/gorhill/httpswitchboard/issues/342
@@ -303,6 +297,7 @@ var onBeforeRequestHandler = function(details) {
     // processing has already been performed, and that a synthetic URL has
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
+    var pageStore = µm.mustPageStoreFromTabId(details.tabId);
     pageStore.recordRequest(requestType, requestURL, block);
     pageStore.updateBadgeAsync();
 
@@ -457,15 +452,19 @@ var onHeadersReceived = function(details) {
 /******************************************************************************/
 
 var onMainDocHeadersReceived = function(details) {
+    var µm = µMatrix;
+
     // https://github.com/gorhill/uMatrix/issues/145
     // Check if the main_frame is a download
     if ( headerValue(details.responseHeaders, 'content-disposition').lastIndexOf('attachment', 0) === 0 ) {
-        µb.tabContextManager.unpush(details.tabId, details.url);
+        µm.tabContextManager.unpush(details.tabId, details.url);
+    }
+    var tabContext = µm.tabContextManager.lookup(details.tabId);
+    if ( tabContext === null ) {
+        return;
     }
 
     // console.debug('onMainDocHeadersReceived()> "%s": %o', details.url, details);
-
-    var µm = µMatrix;
 
     // rhill 2013-12-07:
     // Apparently in Opera, onBeforeRequest() is triggered while the
@@ -484,61 +483,19 @@ var onMainDocHeadersReceived = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
     var pageStore = µm.mustPageStoreFromTabId(details.tabId);
-    var tabId = pageStore.tabId;
-    var µmuri = µm.URI.set(details.url);
-    var requestURL = µmuri.normalizedURI();
-    var requestScheme = µmuri.scheme;
-    var requestHostname = µmuri.hostname;
     var headers = details.responseHeaders;
-
-    // Simplify code paths by splitting func in two different handlers, one
-    // for main docs, one for sub docs.
-    // rhill 2014-01-15: Report redirects.
-    // https://github.com/gorhill/httpswitchboard/issues/112
-    // rhill 2014-02-10: Handle all redirects.
-    // https://github.com/gorhill/httpswitchboard/issues/188
-    if ( reStatusRedirect.test(details.statusLine) ) {
-        var i = headerIndexFromName('location', headers);
-        if ( i >= 0 ) {
-            // rhill 2014-01-20: Be ready to handle relative URLs.
-            // https://github.com/gorhill/httpswitchboard/issues/162
-            var locationURL = µmuri.set(headers[i].value.trim()).normalizedURI();
-            if ( µmuri.authority === '' ) {
-                locationURL = requestScheme + '://' + requestHostname + µmuri.path;
-            }
-            µm.redirectRequests[locationURL] = requestURL;
-        }
-        // console.debug('onMainDocHeadersReceived()> redirect "%s" to "%s"', requestURL, headers[i].value);
-    }
-
-    // rhill 2014-01-15: Report redirects if any.
-    // https://github.com/gorhill/httpswitchboard/issues/112
-    if ( reStatusOK.test(details.statusLine) ) {
-        var mainFrameStack = [requestURL];
-        var destinationURL = requestURL;
-        var sourceURL;
-        while ( sourceURL = µm.redirectRequests[destinationURL] ) {
-            mainFrameStack.push(sourceURL);
-            delete µm.redirectRequests[destinationURL];
-            destinationURL = sourceURL;
-        }
-
-        while ( destinationURL = mainFrameStack.pop() ) {
-            pageStore.recordRequest('doc', destinationURL, false);
-        }
-        pageStore.updateBadgeAsync();
-    }
 
     // Maybe modify inbound headers
     var csp = '';
 
     // Enforce strict HTTPS?
-    if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', pageStore.pageHostname) ) {
+    var requestScheme = µm.URI.schemeFromURI(details.url);
+    if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', tabContext.rootHostname) ) {
         csp += "default-src chrome-search: data: https: wss: 'unsafe-eval' 'unsafe-inline';";
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181
-    pageStore.pageScriptBlocked = µm.mustBlock(pageStore.pageHostname, requestHostname, 'script');
+    pageStore.pageScriptBlocked = µm.mustBlock(tabContext.rootHostname, tabContext.rootHostname, 'script');
     if ( pageStore.pageScriptBlocked ) {
         // If javascript not allowed, say so through a `Content-Security-Policy` directive.
         // console.debug('onMainDocHeadersReceived()> PAGE CSP "%s": %o', details.url, details);
@@ -554,9 +511,6 @@ var onMainDocHeadersReceived = function(details) {
         return { responseHeaders: headers };
     }
 };
-
-var reStatusOK = /\b(?:200|304)\b/;
-var reStatusRedirect = /\b30[12378]\b/;
 
 /******************************************************************************/
 
@@ -622,43 +576,6 @@ var headerValue = function(headers, name) {
 
 /******************************************************************************/
 
-var onErrorOccurredHandler = function(details) {
-    // console.debug('onErrorOccurred()> "%s": %o', details.url, details);
-    var requestType = requestTypeNormalizer[details.type] || 'other';
-
-    // Ignore all that is not a main document
-    if ( requestType !== 'doc'|| details.parentFrameId >= 0 ) {
-        return;
-    }
-
-    var µm = µMatrix;
-    var pageStats = µm.pageStoreFromTabId(details.tabId);
-    if ( !pageStats ) {
-        return;
-    }
-
-    // rhill 2014-01-28: Unwind the stack of redirects if any. Chromium will
-    // emit an error when a web page redirects apparently endlessly, so
-    //  we need to unravel and report all these redirects upon error.
-    // https://github.com/gorhill/httpswitchboard/issues/171
-    var requestURL = µm.URI.set(details.url).normalizedURI();
-    var mainFrameStack = [requestURL];
-    var destinationURL = requestURL;
-    var sourceURL;
-    while ( sourceURL = µm.redirectRequests[destinationURL] ) {
-        mainFrameStack.push(sourceURL);
-        delete µm.redirectRequests[destinationURL];
-        destinationURL = sourceURL;
-    }
-
-    while ( destinationURL = mainFrameStack.pop() ) {
-        pageStats.recordRequest('doc', destinationURL, false);
-    }
-    pageStats.updateBadgeAsync();
-};
-
-/******************************************************************************/
-
 // Caller must ensure headerName is normalized to lower case.
 
 var headerIndexFromName = function(headerName, headers) {
@@ -718,14 +635,6 @@ vAPI.net.onHeadersReceived = {
     ],
     extra: [ 'blocking', 'responseHeaders' ],
     callback: onHeadersReceived
-};
-
-vAPI.net.onErrorOccurred = {
-    urls: [
-        "http://*/*",
-        "https://*/*"
-    ],
-    callback: onErrorOccurredHandler
 };
 
 /******************************************************************************/
