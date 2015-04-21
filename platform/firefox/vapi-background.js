@@ -1054,6 +1054,7 @@ var httpObserver = {
     register: function() {
         Services.obs.addObserver(this, 'http-on-opening-request', true);
         Services.obs.addObserver(this, 'http-on-examine-response', true);
+        Services.obs.addObserver(this, 'http-on-examine-cached-response', true);
 
         // Guard against stale instances not having been unregistered
         if ( this.componentRegistrar.isCIDRegistered(this.classID) ) {
@@ -1082,6 +1083,7 @@ var httpObserver = {
     unregister: function() {
         Services.obs.removeObserver(this, 'http-on-opening-request');
         Services.obs.removeObserver(this, 'http-on-examine-response');
+        Services.obs.removeObserver(this, 'http-on-examine-cached-response');
 
         this.componentRegistrar.unregisterFactory(this.classID, this);
         this.categoryManager.deleteCategoryEntry(
@@ -1155,6 +1157,8 @@ var httpObserver = {
         return false;
     },
 
+    // https://developer.mozilla.org/en/docs/Observer_Notifications#HTTP_requests
+    //
     observe: function(channel, topic) {
         if ( channel instanceof Ci.nsIHttpChannel === false ) {
             return;
@@ -1163,7 +1167,10 @@ var httpObserver = {
         var URI = channel.URI;
         var channelData, type, result;
 
-        if ( topic === 'http-on-examine-response' ) {
+        if (
+            topic === 'http-on-examine-response' ||
+            topic === 'http-on-examine-cached-response'
+        ) {
             if ( !(channel instanceof Ci.nsIWritablePropertyBag) ) {
                 return;
             }
@@ -1606,11 +1613,12 @@ vAPI.toolbarButton.onBeforeCreated = function(doc) {
         panel.parentNode.style.maxWidth = 'none';
         // We set a limit for height
         var height = Math.min(body.clientHeight, 600);
+        var width = body.clientWidth;
         // https://github.com/chrisaljoudi/uBlock/issues/730
         // Voodoo programming: this recipe works
         panel.style.height = iframe.style.height = height.toString() + 'px';
-        panel.style.width = iframe.style.width = body.clientWidth.toString() + 'px';
-        if ( iframe.clientHeight !== height || iframe.clientWidth !== body.clientWidth ) {
+        panel.style.width = iframe.style.width = width.toString() + 'px';
+        if ( iframe.clientHeight !== height || iframe.clientWidth !== width ) {
             delayedResize();
         }
     };

@@ -497,7 +497,7 @@ var onMainDocHeadersReceived = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/112
     // rhill 2014-02-10: Handle all redirects.
     // https://github.com/gorhill/httpswitchboard/issues/188
-    if ( /\b30[12378]\b/.test(details.statusLine) ) {
+    if ( reStatusRedirect.test(details.statusLine) ) {
         var i = headerIndexFromName('location', headers);
         if ( i >= 0 ) {
             // rhill 2014-01-20: Be ready to handle relative URLs.
@@ -513,7 +513,7 @@ var onMainDocHeadersReceived = function(details) {
 
     // rhill 2014-01-15: Report redirects if any.
     // https://github.com/gorhill/httpswitchboard/issues/112
-    if ( details.statusLine.indexOf(' 200') > 0 ) {
+    if ( reStatusOK.test(details.statusLine) ) {
         var mainFrameStack = [requestURL];
         var destinationURL = requestURL;
         var sourceURL;
@@ -554,6 +554,9 @@ var onMainDocHeadersReceived = function(details) {
         return { responseHeaders: headers };
     }
 };
+
+var reStatusOK = /\b(?:200|304)\b/;
+var reStatusRedirect = /\b30[12378]\b/;
 
 /******************************************************************************/
 
