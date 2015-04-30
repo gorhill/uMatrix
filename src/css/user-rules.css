@@ -147,7 +147,7 @@ body[dir="rtl"] #commitButton:before {
     position: absolute;
     resize: none;
     visibility: hidden;
-    white-space: nowrap;
+    white-space: pre;
     width: 100%;
     }
 #diff.edit textarea {
