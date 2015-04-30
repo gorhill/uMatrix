@@ -366,10 +366,17 @@ var domainCachePrune = function() {
     }
 };
 
+var domainCacheReset = function() {
+    domainCache = {};
+    domainCacheCount = 0;
+};
+
 var domainCache = {};
 var domainCacheCount = 0;
 var domainCacheCountLowWaterMark = 75;
 var domainCacheCountHighWaterMark = 100;
+
+psl.onChanged.addListener(domainCacheReset);
 
 /******************************************************************************/
 
