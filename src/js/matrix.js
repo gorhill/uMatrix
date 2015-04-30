@@ -748,6 +748,12 @@ Matrix.prototype.fromString = function(text, append) {
                 continue;
             }
 
+            // Backward compatibility:
+            // `chromium-behind-the-scene` is now `behind-the-scene`
+            if ( srcHostname === 'chromium-behind-the-scene' ) {
+                srcHostname = 'behind-the-scene';
+            }
+
             matrix.setSwitch(switchName, srcHostname, nameToSwitchStateMap[fieldVal]);
             continue;
         }
@@ -799,6 +805,12 @@ Matrix.prototype.fromString = function(text, append) {
             state = nameToStateMap[fieldVal];
         } else {
             state = 2;
+        }
+
+        // Backward compatibility:
+        // `chromium-behind-the-scene` is now `behind-the-scene`
+        if ( srcHostname === 'chromium-behind-the-scene' ) {
+            srcHostname = 'behind-the-scene';
         }
 
         matrix.setCell(srcHostname, desHostname, type, state);

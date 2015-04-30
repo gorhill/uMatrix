@@ -120,10 +120,10 @@ return {
     userAgentReplaceStrBirth: 0,
 
     // record what chromium is doing behind the scene
-    behindTheSceneURL: 'http://chromium-behind-the-scene/',
+    behindTheSceneURL: 'http://behind-the-scene/',
     behindTheSceneTabId: vAPI.noTabId,
     behindTheSceneMaxReq: 250,
-    behindTheSceneScope: 'chromium-behind-the-scene',
+    behindTheSceneScope: 'behind-the-scene',
 
     // Commonly encountered strings
     chromeExtensionURLPrefix: 'chrome-extension://',

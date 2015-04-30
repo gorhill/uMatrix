@@ -37,7 +37,7 @@ var µm = µMatrix;
 //   Any scheme other than 'http' and 'https' is remapped into a fake
 //   URL which trick the rest of µMatrix into being able to process an
 //   otherwise unmanageable scheme. µMatrix needs web page to have a proper
-//   hostname to work properly, so just like the 'chromium-behind-the-scene'
+//   hostname to work properly, so just like the 'behind-the-scene'
 //   fake domain name, we map unknown schemes into a fake '{scheme}-scheme'
 //   hostname. This way, for a specific scheme you can create scope with
 //   rules which will apply only to that scheme.
@@ -55,13 +55,15 @@ var µm = µMatrix;
         return uri.normalizedURI();
     }
 
-    var url = scheme + '-scheme';
+    var fakeHostname = scheme + '-scheme';
 
     if ( uri.hostname !== '' ) {
-        url = uri.hostname + '.' + url;
+        fakeHostname = uri.hostname + '.' + fakeHostname;
+    } else if ( scheme === 'about' ) {
+        fakeHostname = uri.path + '.' + fakeHostname;
     }
 
-    return 'http://' + url + '/';
+    return 'http://' + fakeHostname + '/';
 };
 
 /******************************************************************************/
@@ -326,7 +328,7 @@ housekeep itself.
         entry.rawURL = '';
         entry.normalURL = µm.normalizePageURL(entry.tabId);
         entry.rootHostname = µm.URI.hostnameFromURI(entry.normalURL);
-        entry.rootDomain = µm.URI.domainFromHostname(entry.rootHostname);
+        entry.rootDomain = µm.URI.domainFromHostname(entry.rootHostname) || entry.rootHostname;
     })();
 
     // Context object, typically to be used to feed filtering engines.
@@ -442,7 +444,7 @@ vAPI.tabs.registerListeners();
         throw new Error('Unmanaged tab id: ' + tabId);
     }
 
-    // rhill 2013-11-24: Never ever rebind chromium-behind-the-scene
+    // rhill 2013-11-24: Never ever rebind behind-the-scene
     // virtual tab.
     // https://github.com/gorhill/httpswitchboard/issues/67
     if ( vAPI.isBehindTheSceneTabId(tabId) ) {
