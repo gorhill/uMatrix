@@ -372,6 +372,8 @@ vAPI.tabs.onNavigation = function(details) {
         return;
     }
 
+    //console.log('vAPI.tabs.onNavigation: %s %s %o', details.url, details.transitionType, details.transitionQualifiers);
+
     µm.tabContextManager.commit(tabId, details.url);
     µm.bindTabToPageStats(tabId, 'commit');
 };

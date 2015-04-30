@@ -32,6 +32,12 @@
 
 /******************************************************************************/
 
+// Useful links
+//
+// https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface
+
+/******************************************************************************/
+
 const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 const {Services} = Cu.import('resource://gre/modules/Services.jsm', null);
 
@@ -1052,6 +1058,7 @@ var httpObserver = {
     },
 
     register: function() {
+        // https://developer.mozilla.org/en/docs/Observer_Notifications#HTTP_requests
         Services.obs.addObserver(this, 'http-on-opening-request', true);
         Services.obs.addObserver(this, 'http-on-examine-response', true);
         Services.obs.addObserver(this, 'http-on-examine-cached-response', true);
@@ -1157,8 +1164,6 @@ var httpObserver = {
         return false;
     },
 
-    // https://developer.mozilla.org/en/docs/Observer_Notifications#HTTP_requests
-    //
     observe: function(channel, topic) {
         if ( channel instanceof Ci.nsIHttpChannel === false ) {
             return;
