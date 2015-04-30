@@ -14,7 +14,6 @@ div > p:last-child {
     border: 0;
     box-sizing: box-border;
     display: inline-block;
-    font: 12px/1.4 monospace;
     margin: 0;
     padding: 0;
     position: relative;
@@ -95,6 +94,10 @@ body[dir="rtl"] #commitButton:before {
     overflow: hidden;
     padding: 1em 0 0 0;
     }
+#diff ul,
+#diff textarea {
+    font: 12px/1.8 monospace;
+    }
 #diff.edit .right ul {
     visibility: hidden;
     }
@@ -107,7 +110,7 @@ body[dir="rtl"] #commitButton:before {
 #diff li {
     background-color: white;
     direction: ltr;
-    padding: 2px 0;
+    padding: 0;
     text-align: left;
     white-space: nowrap;
     }
@@ -136,8 +139,6 @@ body[dir="rtl"] #commitButton:before {
     border: 0;
     border-top: 1px solid #eee;
     direction: ltr;
-    font: 12px monospace;
-    line-height: calc(140% + 4px);
     height: 100%;
     left: 0;
     margin: 0;
