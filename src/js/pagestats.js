@@ -571,26 +571,38 @@ PageStore.prototype.recordRequest = function(type, url, block) {
 // notifying me, and this causes internal cached state to be out of sync.
 
 PageStore.prototype.updateBadgeAsync = (function() {
-    var updateBadge = function() {
-        this.updateBadgeTimer = null;
+    var tabIdToTimer = {};
+
+    var updateBadge = function(tabId) {
+        delete tabIdToTimer[tabId];
+
+        var pageStore = µm.pageStoreFromTabId(tabId);
+        if ( pageStore === null ) {
+            return;
+        }
 
         var iconId = null;
         var badgeStr = '';
-        var total = this.perLoadAllowedRequestCount + this.perLoadBlockedRequestCount;
+        var total = pageStore.perLoadAllowedRequestCount +
+                    pageStore.perLoadBlockedRequestCount;
         if ( total ) {
             var squareSize = 19;
-            var greenSize = squareSize * Math.sqrt(this.perLoadAllowedRequestCount / total);
+            var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
             iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
-            badgeStr = µm.formatCount(this.distinctRequestCount);
+            badgeStr = µm.formatCount(pageStore.distinctRequestCount);
         }
 
-        vAPI.setIcon(this.tabId, iconId, badgeStr);
+        vAPI.setIcon(tabId, iconId, badgeStr);
     };
 
     return function() {
-        if ( this.updateBadgeTimer === null ) {
-            this.updateBadgeTimer = setTimeout(updateBadge.bind(this), 500);
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
         }
+        if ( tabIdToTimer.hasOwnProperty(this.tabId) ) {
+            return;
+        }
+        tabIdToTimer[this.tabId] = setTimeout(updateBadge.bind(null, this.tabId), 500);
     };
 })();
 
