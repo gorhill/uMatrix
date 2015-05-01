@@ -1121,7 +1121,7 @@ exports.purgeAll = function(callback) {
 /******************************************************************************/
 
 exports.onAssetCacheRemoved = {
-    addEventListener: function(callback) {
+    addListener: function(callback) {
         cachedAssetsManager.onRemovedListener = callback || null;
     }
 };
@@ -1436,7 +1436,7 @@ exports.force = function() {
 /******************************************************************************/
 
 exports.onStart = {
-    addEventListener: function(callback) {
+    addListener: function(callback) {
         onStartListener = callback || null;
         if ( typeof onStartListener === 'function' ) {
             updateCycleTime = Date.now() + updateCycleFirstPeriod;
@@ -1447,7 +1447,7 @@ exports.onStart = {
 /******************************************************************************/
 
 exports.onAssetUpdated = {
-    addEventListener: function(callback) {
+    addListener: function(callback) {
         onAssetUpdatedListener = callback || null;
     }
 };
@@ -1455,7 +1455,7 @@ exports.onAssetUpdated = {
 /******************************************************************************/
 
 exports.onCompleted = {
-    addEventListener: function(callback) {
+    addListener: function(callback) {
         onCompletedListener = callback || null;
     }
 };

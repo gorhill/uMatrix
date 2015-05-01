@@ -55,6 +55,10 @@ function onMessage(request, sender, callback) {
         µm.forceReload(request.tabId);
         break;
 
+    case 'forceUpdateAssets':
+        µm.assetUpdater.force();
+        break;
+
     case 'getUserSettings':
         response = µm.userSettings;
         break;
@@ -68,7 +72,11 @@ function onMessage(request, sender, callback) {
         break;
 
     case 'reloadHostsFiles':
-        µm.reloadHostsFiles(request.switches, request.update);
+        µm.reloadHostsFiles();
+        break;
+
+    case 'selectHostsFiles':
+        µm.selectHostsFiles(request.switches);
         break;
 
     case 'userSettings':
@@ -637,20 +645,41 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
+var prepEntries = function(entries) {
+    var µmuri = µm.URI;
+    var entry;
+    for ( var k in entries ) {
+        if ( entries.hasOwnProperty(k) === false ) {
+            continue;
+        }
+        entry = entries[k];
+        if ( typeof entry.homeURL === 'string' ) {
+            entry.homeHostname = µmuri.hostnameFromURI(entry.homeURL);
+            entry.homeDomain = µmuri.domainFromHostname(entry.homeHostname);
+        }
+    }
+};
+
+/******************************************************************************/
+
 var getLists = function(callback) {
     var r = {
+        autoUpdate: µm.userSettings.autoUpdate,
         available: null,
         cache: null,
         current: µm.liveHostsFiles,
-        blockedHostnameCount: µm.ubiquitousBlacklist.count,
-        autoUpdate: µm.userSettings.autoUpdate
+        blockedHostnameCount: µm.ubiquitousBlacklist.count
     };
     var onMetadataReady = function(entries) {
         r.cache = entries;
+        prepEntries(r.cache);
+        r.manualUpdate = µm.assetUpdater.manualUpdate;
+        r.manualUpdateProgress = µm.assetUpdater.manualUpdateProgress;
         callback(r);
     };
     var onAvailableHostsFilesReady = function(lists) {
         r.available = lists;
+        prepEntries(r.available);
         µm.assets.metadata(onMetadataReady);
     };
     µm.getAvailableHostsFiles(onAvailableHostsFilesReady);

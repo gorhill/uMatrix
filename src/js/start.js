@@ -70,18 +70,12 @@
 (function() {
     var µm = µMatrix;
 
-    var jobDone = function(details) {
-        if ( details.changedCount === 0 ) {
-            return;
-        }
-        µm.loadUpdatableAssets();
-    };
-
-    var jobCallback = function() {
-        µm.assetUpdater.update(null, jobDone);
-    };
-
-    µm.asyncJobs.add('autoUpdateAssets', null, jobCallback, µm.updateAssetsEvery, true);
+    // https://github.com/chrisaljoudi/uBlock/issues/184
+    // Check for updates not too far in the future.
+    µm.assetUpdater.onStart.addListener(µm.updateStartHandler.bind(µm));
+    µm.assetUpdater.onCompleted.addListener(µm.updateCompleteHandler.bind(µm));
+    µm.assetUpdater.onAssetUpdated.addListener(µm.assetUpdatedHandler.bind(µm));
+    µm.assets.onAssetCacheRemoved.addListener(µm.assetCacheRemovedHandler.bind(µm));
 })();
 
 /******************************************************************************/
@@ -90,6 +84,8 @@
 
 (function() {
     var µm = µMatrix;
+
+    µm.assets.remoteFetchBarrier += 1;
 
     // This needs to be done when the PSL is loaded
     var bindTabs = function(tabs) {
@@ -102,13 +98,27 @@
             µm.bindTabToPageStats(tab.id);
         }
         µm.webRequest.start();
+
+        // Important: remove barrier to remote fetching, this was useful only
+        // for launch time.
+        µm.assets.remoteFetchBarrier -= 1;
     };
 
     var queryTabs = function() {
         vAPI.tabs.getAll(bindTabs);
     };
 
-    µm.load(queryTabs);
+    var onSettingsReady = function(settings) {
+        µm.loadPublicSuffixList(queryTabs);
+        µm.loadHostsFiles();
+    };
+
+    var onMatrixReady = function() {
+    };
+
+    µm.loadUserSettings(onSettingsReady);
+    µm.loadMatrix(onMatrixReady);
+
 })();
 
 /******************************************************************************/

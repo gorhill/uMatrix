@@ -27,7 +27,29 @@
 <p style="margin: 0.25em 0 0 0"><button id="externalListsParse" disabled="true" data-i18n="hostsFilesExternalListsParse"></button></p>
 </div>
 
-<div id="busyOverlay"></div>
+<div id="busyOverlay">
+    <div></div>
+    <!-- progress bar widget -->
+    <div><div></div><div></div></div>
+</div>
+
+<div id="templates" style="display: none;">
+    <ul>
+        <li class="groupEntry"><span class="geName"></span> <span class="geCount dim"></span>
+            <ul></ul>
+        </li>
+        <li class="listEntry">
+            <input type="checkbox">
+            <a type="text/plain" target="_blank" href=""></a>
+            <a href="" style="display: none;" target="_blank"></a>: <!--
+         --><span class="dim"></span><!--
+         --><span class="status unsecure" style="display: none;">http</span><!--
+         --><span class="status new" style="display: none;" data-i18n="hostsFilesExternalListNew"></span><!--
+         --><span class="status obsolete" style="display: none;" data-i18n="hostsFilesExternalListObsolete"></span><!--
+         --><span class="status purge" style="display: none;" data-i18n="hostsFilesExternalListPurge"></span>
+        </li>
+    </ul>
+</div>
 
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>

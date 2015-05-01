@@ -27,6 +27,7 @@
     var µm = µMatrix;
     µm.pMatrix = new µm.Matrix();
     µm.pMatrix.setSwitch('matrix-off', 'localhost', 1);
+    µm.pMatrix.setSwitch('matrix-off', 'about-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', 'chrome-extension-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', 'chrome-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', µm.behindTheSceneScope, 1);

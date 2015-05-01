@@ -19,6 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* jshint boss: true */
 /* global chrome, µMatrix, punycode, publicSuffixList */
 
 /******************************************************************************/
@@ -250,7 +251,7 @@
 /******************************************************************************/
 
 µMatrix.mergeHostsFile = function(details) {
-    // console.log('storage.js > mergeHostsFile from "%s": "%s..."', details.path, details.content.slice(0, 40));
+    //console.log('storage.js > mergeHostsFile from "%s": "%s..."', details.path, details.content.slice(0, 40));
 
     var usedCount = this.ubiquitousBlacklist.count;
     var duplicateCount = this.ubiquitousBlacklist.duplicateCount;
@@ -268,7 +269,7 @@
 /******************************************************************************/
 
 µMatrix.mergeHostsFileContent = function(rawText) {
-    // console.log('storage.js > mergeHostsFileContent from "%s": "%s..."', details.path, details.content.slice(0, 40));
+    //console.log('storage.js > mergeHostsFileContent from "%s": "%s..."', details.path, details.content.slice(0, 40));
 
     var rawEnd = rawText.length;
     var ubiquitousBlacklist = this.ubiquitousBlacklist;
@@ -312,7 +313,7 @@
         // For example, when a filter contains whitespace characters, or
         // whatever else outside the range of printable ascii characters.
         if ( matches[0] !== line ) {
-            // console.error('"%s": "%s" !== "%s"', details.path, matches[0], line);
+            //console.error('"%s": "%s" !== "%s"', details.path, matches[0], line);
             continue;
         }
 
@@ -327,26 +328,50 @@
 
 /******************************************************************************/
 
+// `switches` contains the filter lists for which the switch must be revisited.
+
+µMatrix.selectHostsFiles = function(switches) {
+    switches = switches || {};
+
+    // Only the lists referenced by the switches are touched.
+    var liveHostsFiles = this.liveHostsFiles;
+    var entry, state, location;
+    var i = switches.length;
+    while ( i-- ) {
+        entry = switches[i];
+        state = entry.off === true;
+        location = entry.location;
+        if ( liveHostsFiles.hasOwnProperty(location) === false ) {
+            if ( state !== true ) {
+                liveHostsFiles[location] = { off: state };
+            }
+            continue;
+        }
+        if ( liveHostsFiles[location].off === state ) {
+            continue;
+        }
+        liveHostsFiles[location].off = state;
+    }
+
+    vAPI.storage.set({ 'liveHostsFiles': liveHostsFiles });
+};
+
+/******************************************************************************/
+
 // `switches` contains the preset blacklists for which the switch must be
 // revisited.
 
-µMatrix.reloadHostsFiles = function(switches, update) {
-    var liveHostsFiles = this.liveHostsFiles;
+µMatrix.reloadHostsFiles = function() {
+    var µm = this;
 
-    // Toggle switches
-    var i = switches.length;
-    while ( i-- ) {
-        if ( !liveHostsFiles[switches[i].location] ) {
-            continue;
-        }
-        liveHostsFiles[switches[i].location].off = !!switches[i].off;
-    }
+    // We are just reloading the filter lists: we do not want assets to update.
+    this.assets.autoUpdate = false;
 
-    // Save switch states
-    vAPI.storage.set(
-        { 'liveHostsFiles': liveHostsFiles },
-        this.loadUpdatableAssets.bind(this, update)
-    );
+    var onHostsFilesReady = function() {
+        µm.assets.autoUpdate = µm.userSettings.autoUpdate;
+    };
+
+    this.loadHostsFiles(onHostsFilesReady);
 };
 
 /******************************************************************************/
@@ -362,86 +387,115 @@
         }
         callback();
     };
+
     this.assets.get(this.pslPath, applyPublicSuffixList);
 };
 
 /******************************************************************************/
 
-// Load updatable assets
+µMatrix.updateStartHandler = function(callback) {
+    var µm = this;
+    var onListsReady = function(lists) {
+        var assets = {};
+        for ( var location in lists ) {
+            if ( lists.hasOwnProperty(location) === false ) {
+                continue;
+            }
+            if ( lists[location].off ) {
+                continue;
+            }
+            assets[location] = true;
+        }
+        assets[µm.pslPath] = true;
+        callback(assets);
+    };
 
-µMatrix.loadUpdatableAssets = function(forceUpdate, callback) {
-    if ( typeof callback !== 'function' ) {
-        callback = this.noopFunc;
-    }
-
-    this.assets.autoUpdate = forceUpdate === true;
-    this.assets.autoUpdateDelay = this.updateAssetsEvery;
-    if ( forceUpdate ) {
-        this.updater.restart();
-    }
-
-    this.loadPublicSuffixList(callback);
-    this.loadHostsFiles();
+    this.getAvailableHostsFiles(onListsReady);
 };
 
 /******************************************************************************/
 
-// Load all
+µMatrix.assetUpdatedHandler = function(details) {
+    var path = details.path || '';
+    if ( this.liveHostsFiles.hasOwnProperty(path) === false ) {
+        return;
+    }
+    var entry = this.liveHostsFiles[path];
+    if ( entry.off ) {
+        return;
+    }
+    // Compile the list while we have the raw version in memory
+    //console.debug('µMatrix.getCompiledFilterList/onRawListLoaded: compiling "%s"', path);
+    //this.assets.put(
+    //    this.getCompiledFilterListPath(path),
+    //    this.compileFilters(details.content)
+    //);
+};
 
-µMatrix.load = function(callback) {
-    if ( typeof callback !== 'function' ) {
-        callback = this.noopFunc;
+/******************************************************************************/
+
+µMatrix.updateCompleteHandler = function(details) {
+    var µm = this;
+
+    var updatedCount = details.updatedCount;
+    if ( updatedCount === 0 ) {
+        return;
     }
 
-    var µm = this;
-    var settingsReady = false;
-    var matrixReady = false;
+    // Assets are supposed to have been all updated, prevent fetching from
+    // remote servers.
+    µm.assets.remoteFetchBarrier += 1;
 
-    // TODO: to remove when everybody (and their backup file) has their
-    // ua-spoof/referrer-spoof setting converted into a matrix switch.
-    var onSettingsAndMatrixReady = function() {
-        if ( !settingsReady || !matrixReady ) {
+    var onFiltersReady = function() {
+        µm.assets.remoteFetchBarrier -= 1;
+    };
+
+    var onPSLReady = function() {
+        if ( updatedCount !== 0 ) {
+            //console.debug('storage.js > µMatrix.updateCompleteHandler: reloading filter lists');
+            µm.loadHostsFiles(onFiltersReady);
+        } else {
+            onFiltersReady();
+        }
+    };
+
+    if ( details.hasOwnProperty(this.pslPath) ) {
+        //console.debug('storage.js > µMatrix.updateCompleteHandler: reloading PSL');
+        this.loadPublicSuffixList(onPSLReady);
+        updatedCount -= 1;
+    } else {
+        onPSLReady();
+    }
+};
+
+/******************************************************************************/
+
+µMatrix.assetCacheRemovedHandler = (function() {
+    var barrier = false;
+
+    var handler = function(paths) {
+        if ( barrier ) {
             return;
         }
-        var saveMatrix = false;
-        if ( µm.userSettings.spoofUserAgent ) {
-            µm.tMatrix.setSwitch('ua-spoof', '*', 1);
-            µm.pMatrix.setSwitch('ua-spoof', '*', 1);
-            saveMatrix = true;
+        barrier = true;
+        var i = paths.length;
+        var path;
+        while ( i-- ) {
+            path = paths[i];
+            if ( this.liveHostsFiles.hasOwnProperty(path) ) {
+                //console.debug('µMatrix.assetCacheRemovedHandler: decompiling "%s"', path);
+                //this.purgeCompiledFilterList(path);
+                continue;
+            }
+            if ( path === this.pslPath ) {
+                //console.debug('µMatrix.assetCacheRemovedHandler: decompiling "%s"', path);
+                //this.assets.purge('cache://compiled-publicsuffixlist');
+                continue;
+            }
         }
-        if ( µm.userSettings.processReferer ) {
-            µm.tMatrix.setSwitch('referrer-spoof', '*', 1);
-            µm.pMatrix.setSwitch('referrer-spoof', '*', 1);
-            saveMatrix = true;
-        }
-        if ( saveMatrix ) {
-            µm.saveMatrix();
-        }
-        delete µm.userSettings.processReferer;
-        delete µm.userSettings.spoofUserAgent;
-        µm.saveUserSettings();
-        µm.XAL.keyvalRemoveOne('processReferer');
-        µm.XAL.keyvalRemoveOne('spoofUserAgent');
+        //this.destroySelfie();
+        barrier = false;
     };
 
-    var onSettingsReady = function(settings) {
-        // Never auto-update at boot time
-        µm.loadUpdatableAssets(false, callback);
- 
-        // Setup auto-updater, earlier if auto-upate is enabled, later if not
-        if ( settings.autoUpdate ) {
-            µm.updater.restart(µm.firstUpdateAfter);
-        }
-        settingsReady = true;
-        onSettingsAndMatrixReady();
-    };
-
-    var onMatrixReady = function() {
-        matrixReady = true;
-        onSettingsAndMatrixReady();
-    };
-
-    this.loadUserSettings(onSettingsReady);
-    this.loadMatrix(onMatrixReady);
-    this.getBytesInUse();
-};
+    return handler;
+})();

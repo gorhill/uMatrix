@@ -86,10 +86,6 @@ return {
 
     // permanent hosts files
     permanentHostsFiles: {
-        // µMatrix
-        'assets/umatrix/blacklist.txt': {
-            title: 'µMatrix hosts file'
-        }
     },
 
     // list of live hosts files
