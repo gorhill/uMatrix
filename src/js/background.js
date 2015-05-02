@@ -61,6 +61,7 @@ return {
         deleteLocalStorage: false,
         displayTextSize: '13px',
         externalHostsFiles: '',
+        iconBadgeEnabled: true,
         maxLoggedRequests: 50,
         popupCollapseDomains: false,
         popupCollapseSpecificDomains: {},

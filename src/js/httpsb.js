@@ -62,26 +62,6 @@
 
 /******************************************************************************/
 
-µMatrix.transposeType = function(type, path) {
-    if ( type !== 'other' ) {
-        return type;
-    }
-    var pos = path.lastIndexOf('.');
-    if ( pos === -1 ) {
-        return 'other';
-    }
-    var ext = path.slice(pos) + '.';
-    if ( '.css.eot.ttf.otf.svg.woff.woff2.'.indexOf(ext) !== -1 ) {
-        return 'css';
-    }
-    if ( '.ico.png.gif.jpg.jpeg.bmp.'.indexOf(ext) !== -1 ) {
-        return 'image';
-    }
-    return type;
-};
-
-/******************************************************************************/
-
 // Whitelist something
 
 µMatrix.whitelistTemporarily = function(srcHostname, desHostname, type) {

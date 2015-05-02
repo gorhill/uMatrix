@@ -153,6 +153,8 @@ return asyncJobManager;
                 var squareSize = 19;
                 var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
                 iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
+            }
+            if ( this.userSettings.iconBadgeEnabled && pageStore.distinctRequestCount !== 0) {
                 badgeStr = this.formatCount(pageStore.distinctRequestCount);
             }
         }
