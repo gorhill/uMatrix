@@ -474,7 +474,6 @@ PageStore.prototype.init = function(tabContext) {
     this.requests = µm.PageRequestStats.factory();
     this.domains = {};
     this.allHostnamesString = ' ';
-    this.state = {};
     this.requestStats.reset();
     this.distinctRequestCount = 0;
     this.perLoadAllowedRequestCount = 0;
@@ -493,7 +492,6 @@ PageStore.prototype.dispose = function() {
     this.pageDomain = '';
     this.domains = {};
     this.allHostnamesString = ' ';
-    this.state = {};
 
     if ( this.incinerationTimer !== null ) {
         clearTimeout(this.incinerationTimer);
@@ -533,18 +531,6 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     // https://github.com/gorhill/httpswitchboard/issues/181
     if ( type === 'script' && hostname !== this.pageHostname ) {
         this.thirdpartyScript = true;
-    }
-
-    // rhill 2013-12-24: put blocked requests in dict on the fly, since
-    // doing it only at one point after the page has loaded completely will
-    // result in unnecessary reloads (because requests can be made *after*
-    // the page load has completed).
-    // https://github.com/gorhill/httpswitchboard/issues/98
-    // rhill 2014-03-12: disregard blocking operations which do not originate
-    // from matrix evaluation, or else this can cause a useless reload of the
-    // page if something important was blocked through ABP filtering.
-    if ( block !== false ) {
-        this.state[type + '|' + hostname] = true;
     }
 
     this.distinctRequestCount++;
