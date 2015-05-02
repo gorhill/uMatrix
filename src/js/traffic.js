@@ -204,10 +204,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     // Disallow request as per matrix?
     var block = µm.mustBlock(tabContext.rootHostname, details.hostname, 'doc');
 
-    // console.debug('onBeforeRequestHandler()> block=%s "%s": %o', block, details.url, details);
-
     pageStore.recordRequest('doc', requestURL, block);
-    pageStore.updateBadgeAsync();
 
     // Not blocked
     if ( !block ) {
@@ -299,7 +296,6 @@ var onBeforeRequestHandler = function(details) {
     // it is available.
     var pageStore = µm.mustPageStoreFromTabId(details.tabId);
     pageStore.recordRequest(requestType, requestURL, block);
-    pageStore.updateBadgeAsync();
 
     // whitelisted?
     if ( !block ) {
@@ -373,7 +369,6 @@ var onBeforeSendHeadersHandler = function(details) {
         if ( linkAuditor !== '' ) {
             var block = µm.userSettings.processHyperlinkAuditing;
             pageStore.recordRequest('other', requestURL + '{Ping-To:' + linkAuditor + '}', block);
-            pageStore.updateBadgeAsync();
             if ( block ) {
                 µm.hyperlinkAuditingFoiledCounter += 1;
                 return { 'cancel': true };

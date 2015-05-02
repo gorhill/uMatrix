@@ -480,7 +480,6 @@ PageStore.prototype.init = function(tabContext) {
     this.perLoadAllowedRequestCount = 0;
     this.perLoadBlockedRequestCount = 0;
     this.incinerationTimer = null;
-    this.updateBadgeTimer = null;
     return this;
 };
 
@@ -501,11 +500,6 @@ PageStore.prototype.dispose = function() {
         this.incinerationTimer = null;
     }
 
-    if ( this.updateBadgeTimer !== null ) {
-        clearTimeout(this.updateBadgeTimer);
-        this.updateBadgeTimer = null;
-    }
-
     if ( pageStoreJunkyard.length < 8 ) {
         pageStoreJunkyard.push(this);
     }
@@ -520,6 +514,7 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     // https://github.com/gorhill/httpswitchboard/issues/306
     // If it is recorded locally, record globally
     µm.requestStats.record(type, block);
+    µm.updateBadgeAsync(this.tabId);
 
     if ( block !== false ) {
         this.perLoadBlockedRequestCount++;
@@ -561,50 +556,6 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     µm.urlStatsChanged(this.pageUrl);
     // console.debug("pagestats.js > PageStore.recordRequest(): %o: %s @ %s", this, type, url);
 };
-
-/******************************************************************************/
-
-// Update badge
-
-// rhill 2013-11-09: well this sucks, I can't update icon/badge
-// incrementally, as chromium overwrite the icon at some point without
-// notifying me, and this causes internal cached state to be out of sync.
-
-PageStore.prototype.updateBadgeAsync = (function() {
-    var tabIdToTimer = {};
-
-    var updateBadge = function(tabId) {
-        delete tabIdToTimer[tabId];
-
-        var pageStore = µm.pageStoreFromTabId(tabId);
-        if ( pageStore === null ) {
-            return;
-        }
-
-        var iconId = null;
-        var badgeStr = '';
-        var total = pageStore.perLoadAllowedRequestCount +
-                    pageStore.perLoadBlockedRequestCount;
-        if ( total ) {
-            var squareSize = 19;
-            var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
-            iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
-            badgeStr = µm.formatCount(pageStore.distinctRequestCount);
-        }
-
-        vAPI.setIcon(tabId, iconId, badgeStr);
-    };
-
-    return function() {
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
-        }
-        if ( tabIdToTimer.hasOwnProperty(this.tabId) ) {
-            return;
-        }
-        tabIdToTimer[this.tabId] = setTimeout(updateBadge.bind(null, this.tabId), 500);
-    };
-})();
 
 /******************************************************************************/
 

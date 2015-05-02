@@ -404,7 +404,6 @@ var contentScriptSummaryHandler = function(tabId, details) {
             r = µm.filterRequest(pageURL, 'script', url);
             pageStore.recordRequest('script', url, r !== false, r);
         }
-        pageStore.updateBadgeAsync();
     }
 
     // TODO: as of 2014-05-26, not sure this is needed anymore, since µMatrix
@@ -421,7 +420,6 @@ var contentScriptSummaryHandler = function(tabId, details) {
             r = µm.filterRequest(pageURL, 'plugin', url);
             pageStore.recordRequest('plugin', url, r !== false, r);
         }
-        pageStore.updateBadgeAsync();
     }
 
     // https://github.com/gorhill/httpswitchboard/issues/181

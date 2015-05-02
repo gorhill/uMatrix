@@ -437,6 +437,8 @@ vAPI.tabs.registerListeners();
 // Create an entry for the tab if it doesn't exist
 
 µm.bindTabToPageStats = function(tabId, context) {
+    this.updateBadgeAsync(tabId);
+
     // Do not create a page store for URLs which are of no interests
     // Example: dev console
     var tabContext = this.tabContextManager.lookup(tabId);
@@ -498,9 +500,6 @@ vAPI.tabs.registerListeners();
     this.pageStores[tabId] = pageStore;
 
     // console.debug('tab.js > bindTabToPageStats(): dispatching traffic in tab id %d to page store "%s"', tabId, pageUrl);
-
-    // https://github.com/gorhill/uMatrix/issues/37
-    pageStore.updateBadgeAsync();
 
     return pageStore;
 };
@@ -610,7 +609,6 @@ vAPI.tabs.registerListeners();
     var pageStore = this.pageStoreFromTabId(tabId);
     if ( pageStore ) {
         pageStore.recordRequest(type, url, blocked);
-        pageStore.updateBadgeAsync();
     }
 };
 

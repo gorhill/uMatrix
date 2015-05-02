@@ -130,15 +130,47 @@ return asyncJobManager;
 
 /******************************************************************************/
 
-// Update visual of extension icon.
-// A time out is used to coalesce adjacent requests to update badge.
+// Update badge
 
-µMatrix.updateBadgeAsync = function(tabId) {
-    var pageStore = this.pageStoreFromTabId(tabId);
-    if ( pageStore ) {
-        pageStore.updateBadge();
-    }
-};
+// rhill 2013-11-09: well this sucks, I can't update icon/badge
+// incrementally, as chromium overwrite the icon at some point without
+// notifying me, and this causes internal cached state to be out of sync.
+
+µMatrix.updateBadgeAsync = (function() {
+    var tabIdToTimer = Object.create(null);
+
+    var updateBadge = function(tabId) {
+        delete tabIdToTimer[tabId];
+
+        var pageStore = this.pageStoreFromTabId(tabId);
+        if ( pageStore === null ) {
+            return;
+        }
+
+        var iconId = null;
+        var badgeStr = '';
+        var total = pageStore.perLoadAllowedRequestCount +
+                    pageStore.perLoadBlockedRequestCount;
+        if ( total ) {
+            var squareSize = 19;
+            var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
+            iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
+            badgeStr = this.formatCount(pageStore.distinctRequestCount);
+        }
+
+        vAPI.setIcon(tabId, iconId, badgeStr);
+    };
+
+    return function(tabId) {
+        if ( tabIdToTimer[tabId] ) {
+            return;
+        }
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+            return;
+        }
+        tabIdToTimer[tabId] = setTimeout(updateBadge.bind(this, tabId), 500);
+    };
+})();
 
 /******************************************************************************/
 
