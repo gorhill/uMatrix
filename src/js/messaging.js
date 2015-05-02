@@ -446,6 +446,45 @@ var contentScriptLocalStorageHandler = function(tabId, pageURL) {
 
 /******************************************************************************/
 
+// Evaluate many URLs against the matrix.
+
+var evaluateURLs = function(tabId, requests) {
+    if ( µm.userSettings.collapseBlocked === false ) {
+        return requests;
+    }
+
+    // Create evaluation context
+    var tabContext = µm.tabContextManager.lookup(tabId);
+    if ( tabContext === null ) {
+        return requests;
+    }
+    var rootHostname = tabContext.rootHostname;
+
+    //console.debug('messaging.js/contentscript-end.js: processing %d requests', requests.length);
+
+    var µmuri = µm.URI;
+    var typeMap = tagNameToRequestTypeMap;
+    var request;
+    var i = requests.length;
+    while ( i-- ) {
+        request = requests[i];
+        request.collapse = µm.mustBlock(
+            rootHostname,
+            µmuri.hostnameFromURI(request.url),
+            typeMap[request.tagName]
+        );
+    }
+
+    return requests;
+};
+
+var tagNameToRequestTypeMap = {
+    'iframe': 'sub_frame',
+       'img': 'image'
+};
+
+/******************************************************************************/
+
 var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
@@ -453,20 +492,12 @@ var onMessage = function(request, sender, callback) {
         break;
     }
 
-    var tabId = sender.tab.id;
+    var tabId = sender && sender.tab ? sender.tab.id || 0 : 0;
 
     // Sync
     var response;
 
     switch ( request.what ) {
-    case 'contentScriptHasLocalStorage':
-        response = contentScriptLocalStorageHandler(tabId, request.url);
-        break;
-
-    case 'contentScriptSummary':
-        contentScriptSummaryHandler(tabId, request);
-        break;
-
     case 'checkScriptBlacklisted':
         response = {
             scriptBlacklisted: µm.mustBlock(
@@ -477,10 +508,29 @@ var onMessage = function(request, sender, callback) {
         };
         break;
 
+    case 'contentScriptHasLocalStorage':
+        response = contentScriptLocalStorageHandler(tabId, request.url);
+        break;
+
+    case 'contentScriptSummary':
+        contentScriptSummaryHandler(tabId, request);
+        break;
+
+    case 'evaluateURLs':
+        response = evaluateURLs(tabId, request.requests);
+        break;
+
     case 'getUserAgentReplaceStr':
         response = µm.tMatrix.evaluateSwitchZ('ua-spoof', request.hostname) ?
             µm.userAgentReplaceStr : 
             undefined;
+        break;
+
+    case 'shutdown?':
+        var tabContext = µm.tabContextManager.lookup(tabId);
+        if ( tabContext !== null ) {
+            response = µm.tMatrix.evaluateSwitchZ('matrix-off', tabContext.rootHostname);
+        }
         break;
 
     default:

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "µMatrix",
-    "short_name": "µMatrix",
+    "name": "uMatrix",
+    "short_name": "uMatrix",
     "version": "0.8.1.4",
     "description": "__MSG_extShortDesc__",
     "icons": {
@@ -12,7 +12,7 @@
         "default_icon": {
             "19": "img/browsericons/icon19-19.png"
         },
-        "default_title": "µMatrix",
+        "default_title": "uMatrix",
         "default_popup": "popup.html"
     },
     "author": "Raymond Hill",

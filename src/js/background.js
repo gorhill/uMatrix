@@ -53,6 +53,7 @@ return {
         autoUpdate: false,
         clearBrowserCache: true,
         clearBrowserCacheAfter: 60,
+        collapseBlocked: false,
         colorBlindFriendly: false,
         deleteCookies: false,
         deleteUnusedSessionCookies: false,

@@ -462,22 +462,22 @@ body.powerOff .matrix .g4Meta.g4Collapsed ~ .matRow.ro {
 /* Cell coloring for color blind-friendly (hopefully) */
 body.colorblind .t81 {
     color: white;
-    background-color: #000;
+    background-color: rgb(0, 19, 110);
     }
 body.colorblind .t82 {
-    border-color: #aaa;
+    border-color: rgb(255, 194, 57);
     color: black;
-    background-color: #fff;
+    background-color: rgb(255, 194, 57);
     }
 body.colorblind .t1 {
-    border-color: #333;
-    color: white;
-    background-color: #666;
+    border-color: rgba(0, 19, 110, 0.3);
+    color: black;
+    background-color: rgba(0, 19, 110, 0.2);
     }
 body.colorblind .t2 {
-    border-color: #aaa;
+    border-color: rgba(255, 194, 57, 0.3);
     color: black;
-    background-color: #ccc;
+    background-color: rgba(255, 194, 57, 0.2);
     }
 body.colorblind .matCell.p81 {
     background-image: url('../img/permanent-black-small-cb.png');
@@ -533,17 +533,14 @@ body.powerOff #whitelist, body.powerOff #blacklist {
     background-color: #080;
     opacity: 0.25;
     }
-body.colorblind .rw .matCell.t1 #whitelist:hover {
-    background-color: #fff;
+body.colorblind .rw .matCell.t1 #whitelist:hover,
+body.colorblind .rw .matCell.t2 #whitelist:hover {
+    background-color: rgb(255, 194, 57);
     opacity: 0.6;
     }
 .rw .matCell.t2 #whitelist:hover {
     background-color: #080;
     opacity: 0.25;
-    }
-body.colorblind .rw .matCell.t2 #whitelist:hover {
-    background-color: #fff;
-    opacity: 0.6;
     }
 .matCell.t81 #whitelist:hover {
     background-color: transparent;
@@ -555,17 +552,14 @@ body.colorblind .rw .matCell.t2 #whitelist:hover {
     background-color: #c00;
     opacity: 0.25;
     }
-body.colorblind .rw .matCell.t1 #blacklist:hover {
-    background-color: #000;
+body.colorblind .rw .matCell.t1 #blacklist:hover,
+body.colorblind .rw .matCell.t2 #blacklist:hover {
+    background-color: rgb(0, 19, 110);
     opacity: 0.4;
     }
 .rw .matCell.t2 #blacklist:hover {
     background-color: #c00;
     opacity: 0.25;
-    }
-body.colorblind .rw .matCell.t2 #blacklist:hover {
-    background-color: #000;
-    opacity: 0.4;
     }
 .matCell.t81 #blacklist:hover {
     background-color: transparent;

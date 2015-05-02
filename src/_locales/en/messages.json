@@ -299,6 +299,10 @@
         "message": "Opacity",
         "description": "English: Opacity"
     },
+    "settingsCollapseBlocked" : {
+        "message": "Collapse placeholder of blocked elements",
+        "description": "English: Collapse placeholder of blocked elements"
+    },
 
 
     "privacyPageTitle" : {
