@@ -1157,6 +1157,10 @@ var onMatrixSnapshotReady = function(response) {
         uDom('#noNetTrafficPrompt').text(vAPI.i18n('matrixNoNetTrafficPrompt'));
         uDom('#noNetTrafficPrompt').css('display', '');
     }
+
+    // Create a hash to find out whether the reload button needs to be
+    // highlighted.
+    // TODO:
 };
 
 

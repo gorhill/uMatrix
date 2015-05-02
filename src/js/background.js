@@ -70,7 +70,6 @@ return {
         processBehindTheSceneRequests: false,
         processHyperlinkAuditing: true,
         processReferer: false,
-        smartAutoReload: 'current',
         spoofUserAgent: false,
         spoofUserAgentEvery: 5,
         spoofUserAgentWith: defaultUserAgentStrings,

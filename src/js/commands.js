@@ -33,10 +33,7 @@ var whitelistAll = function(tabs) {
     if ( !tab.url ) {
         return;
     }
-    var µm = µMatrix;
-    if ( µm.autoWhitelistAllTemporarily(tab.url) ) {
-        µm.smartReloadTab(tab.id);
-    }
+    µMatrix.autoWhitelistAllTemporarily(tab.url);
 };
 
 /******************************************************************************/

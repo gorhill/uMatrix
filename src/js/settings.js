@@ -61,9 +61,6 @@ var installEventHandlers = function() {
     uDom('input[name="displayTextSize"]').on('change', function(){
         changeUserSettings('displayTextSize', this.value);
     });
-    uDom('#smart-auto-reload').on('change', function(){
-        changeUserSettings('smartAutoReload', this.value);
-    });
 
     // https://github.com/gorhill/httpswitchboard/issues/197
     uDom(window).on('beforeunload', prepareToDie);
@@ -85,7 +82,6 @@ uDom.onLoad(function() {
         uDom('input[name="displayTextSize"]').forEach(function(elem) {
             elem.prop('checked', elem.val() === userSettings.displayTextSize);
         });
-        uDom('#smart-auto-reload').val(userSettings.smartAutoReload);
 
         installEventHandlers();
     };

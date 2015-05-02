@@ -105,6 +105,7 @@ vAPI.tabs.registerListeners = function() {
     var onNavigationClient = this.onNavigation || noopFunc;
     var onPopupClient = this.onPopup || noopFunc;
     var onUpdatedClient = this.onUpdated || noopFunc;
+    var onClosedClient = this.onClosed || noopFunc;
 
     // https://developer.chrome.com/extensions/webNavigation
     // [onCreatedNavigationTarget ->]
@@ -211,14 +212,15 @@ vAPI.tabs.registerListeners = function() {
         popupCandidateDestroy(details);
     };
 
+    var onClosed = function(tabId) {
+        onClosedClient(tabId.toString());
+    };
+
     chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTarget);
     chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigate);
     chrome.webNavigation.onCommitted.addListener(onCommitted);
     chrome.tabs.onUpdated.addListener(onUpdated);
-
-    if ( typeof this.onClosed === 'function' ) {
-        chrome.tabs.onRemoved.addListener(this.onClosed);
-    }
+    chrome.tabs.onRemoved.addListener(onClosed);
 };
 
 /******************************************************************************/

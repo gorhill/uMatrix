@@ -53,14 +53,6 @@
     var settingsLoaded = function(store) {
         // console.log('storage.js > loaded user settings');
 
-        // Ensure backward-compatibility
-        // https://github.com/gorhill/httpswitchboard/issues/229
-        if ( store.smartAutoReload === true ) {
-            store.smartAutoReload = 'all';
-        } else if ( store.smartAutoReload === false ) {
-            store.smartAutoReload = 'none';
-        }
-
         µm.userSettings = store;
 
         // https://github.com/gorhill/uMatrix/issues/47

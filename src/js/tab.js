@@ -414,31 +414,12 @@ vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
         µm.tabContextManager.commit(tabId, changeInfo.url);
         µm.bindTabToPageStats(tabId, 'updated');
     }
-
-    // rhill 2013-12-23: Compute state after whole page is loaded. This is
-    // better than building a state snapshot dynamically when requests are
-    // recorded, because here we are not afflicted by the browser cache
-    // mechanism.
-
-    // rhill 2014-03-05: Use tab id instead of page URL: this allows a
-    // blocked page using µMatrix internal data URI-based page to be properly
-    // unblocked when user un-blacklist the hostname.
-    // https://github.com/gorhill/httpswitchboard/issues/198
-    if ( changeInfo.status === 'complete' ) {
-        var pageStats = µm.pageStoreFromTabId(tabId);
-        if ( pageStats ) {
-            pageStats.state = µm.computeTabState(tabId);
-        }
-    }
 };
 
 /******************************************************************************/
 
 vAPI.tabs.onClosed = function(tabId) {
-    // I could incinerate all the page stores in the crypt associated with the
-    // tab id, but this will be done anyway once all incineration timers
-    // elapse. Let's keep it simple: they can all just rot a bit more before
-    // incineration.
+    µm.unbindTabFromPageStats(tabId);
 };
 
 /******************************************************************************/
@@ -623,7 +604,7 @@ vAPI.tabs.registerListeners();
 
 µm.onPageLoadCompleted = function(tabId) {
     var pageStore = this.pageStoreFromTabId(tabId);
-    if ( !pageStore ) {
+    if ( pageStore === null ) {
         return;
     }
 
@@ -631,145 +612,10 @@ vAPI.tabs.registerListeners();
     if ( pageStore.thirdpartyScript ) {
         pageStore.recordRequest(
             'script',
-            pageStore.pageURL + '{3rd-party_scripts}',
+            pageStore.pageUrl + '{3rd-party_scripts}',
             pageStore.pageScriptBlocked
         );
     }
-};
-
-/******************************************************************************/
-
-// Reload content of one or more tabs.
-
-µm.smartReloadTabs = function(which, tabId) {
-    if ( which === 'none' ) {
-        return;
-    }
-
-    if ( which === 'current' && typeof tabId === 'number' ) {
-        this.smartReloadTab(tabId);
-        return;
-    }
-
-    // which === 'all'
-    var reloadTabs = function(chromeTabs) {
-        var tabId;
-        var i = chromeTabs.length;
-        while ( i-- ) {
-            tabId = chromeTabs[i].id;
-            if ( µm.pageStores.hasOwnProperty(tabId) ) {
-                µm.smartReloadTab(tabId);
-            }
-        }
-    };
-
-    var getTabs = function() {
-        vAPI.tabs.getAll(reloadTabs);
-    };
-
-    this.asyncJobs.add('smartReloadTabs', null, getTabs, 500);
-};
-
-/******************************************************************************/
-
-// Reload content of a tab
-
-µm.smartReloadTab = function(tabId) {
-    var pageStats = this.pageStoreFromTabId(tabId);
-    if ( !pageStats ) {
-        //console.error('HTTP Switchboard> µMatrix.smartReloadTab(): page stats for tab id %d not found', tabId);
-        return;
-    }
-
-    // rhill 2013-12-23: Reload only if something previously blocked is now
-    // unblocked.
-    var blockRule;
-    var oldState = pageStats.state;
-    var newState = this.computeTabState(tabId);
-    var mustReload = false;
-    for ( blockRule in oldState ) {
-        if ( !oldState.hasOwnProperty(blockRule) ) {
-            continue;
-        }
-        // General rule, reload...
-        // If something previously blocked is no longer blocked.
-        if ( !newState[blockRule] ) {
-            // console.debug('tab.js > µMatrix.smartReloadTab(): will reload because "%s" is no longer blocked', blockRule);
-            mustReload = true;
-            break;
-        }
-    }
-    // Exceptions: blocking these previously unblocked types must result in a
-    // reload:
-    // - a script
-    // - a frame
-    // Related issues:
-    // https://github.com/gorhill/httpswitchboard/issues/94
-    // https://github.com/gorhill/httpswitchboard/issues/141
-    if ( !mustReload ) {
-        var reloadNewlyBlockedTypes = {
-            'doc': true,
-            'script' : true,
-            'frame': true
-        };
-        var blockRuleType;
-        for ( blockRule in newState ) {
-            if ( !newState.hasOwnProperty(blockRule) ) {
-                continue;
-            }
-            blockRuleType = blockRule.slice(0, blockRule.indexOf('|'));
-            if ( !reloadNewlyBlockedTypes[blockRuleType] ) {
-                continue;
-            }
-            if ( !oldState[blockRule] ) {
-                // console.debug('tab.js > µMatrix.smartReloadTab(): will reload because "%s" is now blocked', blockRule);
-                mustReload = true;
-                break;
-            }
-        }
-    }
-
-    // console.log('old state: %o\nnew state: %o', oldState, newState);
-    
-    if ( mustReload ) {
-        vAPI.tabs.reload(tabId);
-    }
-    // pageStats.state = newState;
-};
-
-/******************************************************************************/
-
-µm.computeTabState = function(tabId) {
-    var pageStats = this.pageStoreFromTabId(tabId);
-    if ( !pageStats ) {
-        //console.error('tab.js > µMatrix.computeTabState(): page stats for tab id %d not found', tabId);
-        return {};
-    }
-    // Go through all recorded requests, apply filters to create state
-    // It is a critical error for a tab to not be defined here
-    var pageURL = pageStats.pageUrl;
-    var srcHostname = this.scopeFromURL(pageURL);
-    var requestDict = pageStats.requests.getRequestDict();
-    var computedState = {};
-    var desHostname, type;
-    for ( var reqKey in requestDict ) {
-        if ( !requestDict.hasOwnProperty(reqKey) ) {
-            continue;
-        }
-
-        // The evaluation code here needs to reflect the evaluation code in
-        // beforeRequestHandler()
-        desHostname = this.PageRequestStats.hostnameFromRequestKey(reqKey);
-
-        // rhill 2013-12-10: mind how stylesheets are to be evaluated:
-        // `stylesheet` or `other`? Depends of domain of request.
-        // https://github.com/gorhill/httpswitchboard/issues/85
-        type = this.PageRequestStats.typeFromRequestKey(reqKey);
-        if ( this.mustBlock(srcHostname, desHostname, type) ) {
-            computedState[type +  '|' + desHostname] = true;
-        }
-    }
-    return computedState;
 };
 
 /******************************************************************************/
@@ -788,6 +634,46 @@ vAPI.tabs.registerListeners();
 µm.forceReload = function(tabId) {
     vAPI.tabs.reload(tabId, { bypassCache: true });
 };
+
+/******************************************************************************/
+
+// Stale page store entries janitor
+// https://github.com/chrisaljoudi/uBlock/issues/455
+
+(function() {
+    var cleanupPeriod = 7 * 60 * 1000;
+    var cleanupSampleAt = 0;
+    var cleanupSampleSize = 11;
+
+    var cleanup = function() {
+        var vapiTabs = vAPI.tabs;
+        var tabIds = Object.keys(µb.pageStores).sort();
+        var checkTab = function(tabId) {
+            vapiTabs.get(tabId, function(tab) {
+                if ( !tab ) {
+                    µb.unbindTabFromPageStats(tabId);
+                }
+            });
+        };
+        if ( cleanupSampleAt >= tabIds.length ) {
+            cleanupSampleAt = 0;
+        }
+        var tabId;
+        var n = Math.min(cleanupSampleAt + cleanupSampleSize, tabIds.length);
+        for ( var i = cleanupSampleAt; i < n; i++ ) {
+            tabId = tabIds[i];
+            if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+                continue;
+            }
+            checkTab(tabId);
+        }
+        cleanupSampleAt = n;
+
+        setTimeout(cleanup, cleanupPeriod);
+    };
+
+    setTimeout(cleanup, cleanupPeriod);
+})();
 
 /******************************************************************************/
 

@@ -117,15 +117,6 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
-var smartReload = function(tabs) {
-    var i = tabs.length;
-    while ( i-- ) {
-        µm.smartReloadTabs(µm.userSettings.smartAutoReload, tabs[i].id);
-    }
-};
-
-/******************************************************************************/
-
 // Constructor is faster than object literal
 
 var RowSnapshot = function(srcHostname, desHostname, desDomain) {
@@ -305,13 +296,6 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
-    case 'disconnected':
-        // https://github.com/gorhill/httpswitchboard/issues/94
-        if ( µm.userSettings.smartAutoReload ) {
-            vAPI.tabs.get(null, smartReload);
-        }
-        break;
-
     case 'toggleMatrixSwitch':
         µm.tMatrix.setSwitchZ(
             request.switchName,
