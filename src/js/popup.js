@@ -1128,15 +1128,7 @@ function gotoExtensionURL() {
     if ( url ) {
         messager.send({ what: 'gotoExtensionURL', url: url });
     }
-}
-
-/******************************************************************************/
-
-function gotoExternalURL() {
-    var url = this.getAttribute('data-external-url');
-    if ( url ) {
-        messager.send({ what: 'gotoURL', url: url });
-    }
+    vAPI.closePopup();
 }
 
 /******************************************************************************/
@@ -1220,7 +1212,6 @@ uDom.onLoad(function() {
     uDom('#buttonRevertAll').on('click', revertAll);
     uDom('#buttonReload').on('click', buttonReloadHandler);
     uDom('.extensionURL').on('click', gotoExtensionURL);
-    uDom('.externalURL').on('click', gotoExternalURL);
 
     uDom('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
     uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
