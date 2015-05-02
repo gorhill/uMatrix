@@ -572,6 +572,22 @@
         "description": "Message asking user to confirm reset"
     },
 
+    "mainBlockedPrompt1": {
+        "message": "uMatrix has prevented the following page from loading:",
+        "description": "English: uMatrix has prevented the following page from loading:"
+    },
+    "mainBlockedPrompt2": {
+        "message": "Because of the following rule",
+        "description": "English: Because of the following rule"
+    },
+    "mainBlockedBack" : {
+        "message": "Go back",
+        "description": "English: Go back"
+    },
+    "mainBlockedClose" : {
+        "message": "Close",
+        "description": "English: Close"
+    },
 
     "commandRevertAll" : {
         "message": "Remove all temporary changes",

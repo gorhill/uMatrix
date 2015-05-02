@@ -71,6 +71,14 @@ function onMessage(request, sender, callback) {
         µm.utils.gotoURL(request);
         break;
 
+    case 'mustBlock':
+        response = µm.mustBlock(
+            request.scope,
+            request.hostname,
+            request.type
+        );
+        break;
+
     case 'reloadHostsFiles':
         µm.reloadHostsFiles();
         break;
@@ -168,7 +176,7 @@ var matrixSnapshot = function(tabId, details) {
 
     // Allow examination of behind-the-scene requests
     if (
-        tabContext.rawURL.lastIndexOf(vAPI.getURL(''), 0) === 0 ||
+        tabContext.rawURL.lastIndexOf(vAPI.getURL('dashboard.html'), 0) === 0 ||
         tabContext.rawURL === µm.behindTheSceneURL
     ) {
         tabId = µm.behindTheSceneTabId;

@@ -49,6 +49,20 @@ var µm = µMatrix;
     if ( vAPI.isBehindTheSceneTabId(tabId) ) {
         return 'http://behind-the-scene/';
     }
+
+    // If the URL is that of our "blocked page" document, return the URL of
+    // the blocked page.
+    if ( pageURL.lastIndexOf(vAPI.getURL('main-blocked.html'), 0) === 0 ) {
+        var matches = /main-blocked\.html\?details=([^&]+)/.exec(pageURL);
+        if ( matches && matches.length === 2 ) {
+            try {
+                var details = JSON.parse(atob(matches[1]));
+                pageURL = details.url;
+            } catch (e) {
+            }
+        }
+    }
+
     var uri = this.URI.set(pageURL);
     var scheme = uri.scheme;
     if ( scheme === 'https' || scheme === 'http' ) {
@@ -451,13 +465,6 @@ vAPI.tabs.registerListeners();
     // https://github.com/gorhill/httpswitchboard/issues/67
     if ( vAPI.isBehindTheSceneTabId(tabId) ) {
         return this.pageStores[tabId];
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/303
-    // Don't rebind pages blocked by µMatrix.
-    var blockedRootFramePrefix = this.webRequest.blockedRootFramePrefix;
-    if ( tabContext.rawURL.lastIndexOf(blockedRootFramePrefix, 0) === 0 ) {
-        return null;
     }
 
     var normalURL = tabContext.normalURL;

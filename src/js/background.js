@@ -123,8 +123,6 @@ return {
     behindTheSceneScope: 'behind-the-scene',
 
     // Commonly encountered strings
-    chromeExtensionURLPrefix: 'chrome-extension://',
-    noopCSSURL: vAPI.getURL('css/noop.css'),
     fontCSSURL: vAPI.getURL('css/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf'),
 
     noopFunc: function(){},

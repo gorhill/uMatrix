@@ -33,65 +33,6 @@
 // The `id='uMatrix'` is important, it allows µMatrix to detect whether a
 // specific data URI originates from itself.
 
-var rootFrameReplacement = [
-    '<!DOCTYPE html><html id="uMatrix">',
-    '<head>',
-    '<meta charset="utf-8" />',
-    '<style>',
-    '@font-face {',
-        'font-family:httpsb;',
-        'font-style:normal;',
-        'font-weight:400;',
-        'src: local("httpsb"),url("', µMatrix.fontCSSURL, '") format("truetype");',
-    '}',
-    'body {',
-        'margin:0;',
-        'border:0;',
-        'padding:0;',
-        'font:15px httpsb,sans-serif;',
-        'width:100%;',
-        'height:100%;',
-        'background-color:transparent;',
-        'background-size:10px 10px;',
-        'background-image:',
-        'repeating-linear-gradient(',
-            '-45deg,',
-            'rgba(204,0,0,0.5),rgba(204,0,0,0.5) 24%,',
-            'transparent 26%,transparent 49%,',
-            'rgba(204,0,0,0.5) 51%,rgba(204,0,0,0.5) 74%,',
-            'transparent 76%,transparent',
-        ');',
-        'text-align: center;',
-    '}',
-    '#p {',
-        'margin:8px;',
-        'padding:4px;',
-        'display:inline-block;',
-        'background-color:white;',
-    '}',
-    '#t {',
-        'margin:2px;',
-        'border:0;',
-        'padding:0 2px;',
-        'display:inline-block;',
-    '}',
-    '#t b {',
-        'padding:0 4px;',
-        'background-color:#eee;',
-        'font-weight:normal;',
-    '}',
-    '</style>',
-    '<link href="{{cssURL}}?url={{originalURL}}&hostname={{hostname}}&t={{now}}" rel="stylesheet" type="text/css">',
-    '<title>Blocked by &mu;Matrix</title>',
-    '</head>',
-    '<body>',
-        '<div id="p">',
-        '<div id="t"><b>{{hostname}}</b> blocked by &mu;Matrix</div>',
-        '</div>',
-    '</body>',
-    '</html>'
-].join('');
-
 var subFrameReplacement = [
     '<!DOCTYPE html>',
     '<html>',
@@ -152,43 +93,6 @@ var subFrameReplacement = [
 
 /******************************************************************************/
 
-// If it is HTTP Switchboard's root frame replacement URL, verify that
-// the page that was blacklisted is still blacklisted, and if not,
-// redirect to the previously blacklisted page.
-
-var onBeforeChromeExtensionRequestHandler = function(details) {
-    var requestURL = details.url;
-
-    // console.debug('onBeforeChromeExtensionRequestHandler()> "%s": %o', details.url, details);
-
-    // rhill 2013-12-10: Avoid regex whenever a faster indexOf() can be used:
-    // here we can use fast indexOf() as a first filter -- which is executed
-    // for every single request (so speed matters).
-    var matches = requestURL.match(/url=([^&]+)&hostname=([^&]+)/);
-    if ( !matches ) {
-        return;
-    }
-
-    var µm = µMatrix;
-    var pageURL = decodeURIComponent(matches[1]);
-    var pageHostname = decodeURIComponent(matches[2]);
-
-    // Blacklisted as per matrix?
-    if ( µm.mustBlock(µm.scopeFromURL(pageURL), pageHostname, 'doc') ) {
-        return;
-    }
-
-    µMatrix.asyncJobs.add(
-        'gotoURL-' + details.tabId,
-        { tabId: details.tabId, url: pageURL },
-        µm.utils.gotoURL,
-        200,
-        false
-    );
-};
-
-/******************************************************************************/
-
 // Intercept and filter web requests according to white and black lists.
 
 var onBeforeRootFrameRequestHandler = function(details) {
@@ -199,7 +103,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     µm.tabContextManager.push(tabId, requestURL);
 
     var tabContext = µm.tabContextManager.mustLookup(tabId);
-    var pageStore = µm.bindTabToPageStats(tabId, 'weak');
+    var pageStore = µm.bindTabToPageStats(tabId);
 
     // Disallow request as per matrix?
     var block = µm.mustBlock(tabContext.rootHostname, details.hostname, 'doc');
@@ -215,19 +119,15 @@ var onBeforeRootFrameRequestHandler = function(details) {
     }
 
     // Blocked
+    var query = btoa(JSON.stringify({
+        url: requestURL,
+        hn: details.hostname,
+        why: '?'
+    }));
 
-    // If it's a blacklisted frame, redirect to frame.html
-    // rhill 2013-11-05: The root frame contains a link to noop.css, this
-    // allows to later check whether the root frame has been unblocked by the
-    // user, in which case we are able to force a reload using a redirect.
-    var html = rootFrameReplacement;
-    html = html.replace('{{cssURL}}', µm.noopCSSURL);
-    html = html.replace(/{{hostname}}/g, encodeURIComponent(requestHostname));
-    html = html.replace('{{originalURL}}', encodeURIComponent(requestURL));
-    html = html.replace('{{now}}', String(Date.now()));
-    var dataURI = 'data:text/html;base64,' + btoa(html);
+    vAPI.tabs.replace(tabId, vAPI.getURL('main-blocked.html?details=') + query);
 
-    return { 'redirectUrl': dataURI };
+    return { cancel: true };
 };
 
 /******************************************************************************/
@@ -257,11 +157,6 @@ var onBeforeRequestHandler = function(details) {
     }
 
     var requestURL = details.url;
-
-    // Is it µMatrix's noop css file?
-    if ( requestType === 'css' && requestURL.lastIndexOf(µm.noopCSSURL, 0) === 0 ) {
-        return onBeforeChromeExtensionRequestHandler(details);
-    }
 
     // Ignore non-http schemes
     if ( requestScheme.indexOf('http') !== 0 ) {
@@ -603,8 +498,7 @@ var requestTypeNormalizer = {
 vAPI.net.onBeforeRequest = {
     urls: [
         "http://*/*",
-        "https://*/*",
-        "chrome-extension://*/*"
+        "https://*/*"
     ],
     extra: [ 'blocking' ],
     callback: onBeforeRequestHandler
@@ -641,7 +535,6 @@ var start = function() {
 /******************************************************************************/
 
 return {
-    blockedRootFramePrefix: 'data:text/html;base64,' + btoa(rootFrameReplacement).slice(0, 80),
     start: start
 };
 

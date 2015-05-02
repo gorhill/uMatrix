@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" href="css/common.css" type="text/css">
+<style>
+body {
+    font-family: sans-serif;
+    font-size: large;
+    text-align: center;
+    }
+body > div {
+    margin: 1.5em 0;
+    }
+body > div > p {
+    margin: 4px 0;
+    }
+body > div > p:first-child {
+    margin: 1.5em 0 0 0;
+    }
+.code {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-family: monospace;
+    font-size: large;
+    line-height: 1;
+    padding: 2px 4px;
+    word-break: break-all;
+    }
+button {
+    cursor: pointer;
+    margin: 0 1em 0.25em 1em;
+    padding: 0.25em 0.5em;
+    font-size: inherit;
+    }
+#warningSign {
+    margin: 1e, 0;
+    opacity: 1;
+    pointer-events: none;
+    width: 100%;
+    }
+#warningSign > span {
+    color: #f2a500;
+    font-size: 180px;
+    }
+</style>
+</head>
+<body>
+<div id="warningSign"><span class="fa">&#xf071;</span></div>
+<div>
+    <p data-i18n="mainBlockedPrompt1"></p>
+    <p class="what code"></p>
+    </div>
+
+<!-- <div>
+    <p data-i18n="mainBlockedPrompt2"></p>
+    <p id="why" class="code"></p>
+    </div>
+    -->
+
+<div>
+    <p><button id="back" data-i18n="mainBlockedBack" type="button"></button>
+    <button id="bye" data-i18n="mainBlockedClose" type="button"></button></p>
+    </div>
+
+<script src="js/vapi-common.js"></script>
+<script src="js/vapi-client.js"></script>
+<script src="js/udom.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/main-blocked.js"></script>
+</body>
+</html>
