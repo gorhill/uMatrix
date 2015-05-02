@@ -142,20 +142,19 @@ return asyncJobManager;
     var updateBadge = function(tabId) {
         delete tabIdToTimer[tabId];
 
-        var pageStore = this.pageStoreFromTabId(tabId);
-        if ( pageStore === null ) {
-            return;
-        }
-
         var iconId = null;
         var badgeStr = '';
-        var total = pageStore.perLoadAllowedRequestCount +
-                    pageStore.perLoadBlockedRequestCount;
-        if ( total ) {
-            var squareSize = 19;
-            var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
-            iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
-            badgeStr = this.formatCount(pageStore.distinctRequestCount);
+
+        var pageStore = this.pageStoreFromTabId(tabId);
+        if ( pageStore !== null ) {
+            var total = pageStore.perLoadAllowedRequestCount +
+                        pageStore.perLoadBlockedRequestCount;
+            if ( total ) {
+                var squareSize = 19;
+                var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
+                iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
+                badgeStr = this.formatCount(pageStore.distinctRequestCount);
+            }
         }
 
         vAPI.setIcon(tabId, iconId, badgeStr);
