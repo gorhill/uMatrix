@@ -36,39 +36,6 @@ var cachedUserSettings = {};
 
 /******************************************************************************/
 
-var subframeDemoBackgroundImage = 'repeating-linear-gradient(\
--45deg,\
-{{color}},{{color}} 24%,\
-transparent 26%,transparent 49%,\
-{{color}} 51%,{{color}} 74%,\
-transparent 76%,transparent\
-)';
-
-var updateSubframeDemo = function() {
-    var demo = uDom('#subframe-color-demo');
-    var color = uDom('#subframe-color').val();
-    demo.css('border-color', color);
-    var re = new RegExp('\{\{color\}\}', 'g');
-    demo.css('background-image', subframeDemoBackgroundImage.replace(re, color));
-    demo.css('opacity', (parseInt(uDom('#subframe-opacity').val(), 10) / 100).toFixed(1));
-};
-
-var onSubframeColorChanged = function() {
-    var color = uDom('#subframe-color').val();
-    if ( color === '' ) {
-        uDom('#subframe-color').val(color);
-    }
-    changeUserSettings('subframeColor', color);
-    var opacity = parseInt(uDom('#subframe-opacity').val(), 10);
-    if ( Number.isNaN(opacity) ) {
-        opacity = 100;
-    }
-    changeUserSettings('subframeOpacity', opacity);
-    updateSubframeDemo();
-};
-
-/******************************************************************************/
-
 function changeUserSettings(name, value) {
     messager.send({
         what: 'userSettings',
@@ -80,7 +47,6 @@ function changeUserSettings(name, value) {
 /******************************************************************************/
 
 function prepareToDie() {
-    onSubframeColorChanged();
 }
 
 /******************************************************************************/
@@ -98,8 +64,6 @@ var installEventHandlers = function() {
     uDom('#smart-auto-reload').on('change', function(){
         changeUserSettings('smartAutoReload', this.value);
     });
-    uDom('#subframe-color').on('change', function(){ onSubframeColorChanged(); });
-    uDom('#subframe-opacity').on('change', function(){ onSubframeColorChanged(); });
 
     // https://github.com/gorhill/httpswitchboard/issues/197
     uDom(window).on('beforeunload', prepareToDie);
@@ -122,9 +86,6 @@ uDom.onLoad(function() {
             elem.prop('checked', elem.val() === userSettings.displayTextSize);
         });
         uDom('#smart-auto-reload').val(userSettings.smartAutoReload);
-        uDom('#subframe-color').val(userSettings.subframeColor);
-        uDom('#subframe-opacity').val(userSettings.subframeOpacity);
-        updateSubframeDemo();
 
         installEventHandlers();
     };

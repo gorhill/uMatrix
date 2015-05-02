@@ -30,69 +30,6 @@
 
 /******************************************************************************/
 
-// The `id='uMatrix'` is important, it allows µMatrix to detect whether a
-// specific data URI originates from itself.
-
-var subFrameReplacement = [
-    '<!DOCTYPE html>',
-    '<html>',
-    '<head>',
-    '<meta charset="utf-8" />',
-    '<style>',
-        '@font-face{',
-        'font-family:httpsb;',
-        'font-style:normal;',
-        'font-weight:400;',
-        'src:local("httpsb"),url("', µMatrix.fontCSSURL, '") format("truetype");',
-    '}',
-    'body{',
-        'margin:0;',
-        'border:0;',
-        'padding:0;',
-        'font:13px httpsb,sans-serif;',
-    '}',
-    '#bg{',
-        'border:1px dotted {{subframeColor}};',
-        'position:absolute;',
-        'top:0;',
-        'right:0;',
-        'bottom:0;',
-        'left:0;',
-        'background-color:transparent;',
-        'background-size:10px 10px;',
-        'background-image:',
-        'repeating-linear-gradient(',
-            '-45deg,',
-            '{{subframeColor}},{{subframeColor}} 24%,',
-            'transparent 25%,transparent 49%,',
-            '{{subframeColor}} 50%,{{subframeColor}} 74%,',
-            'transparent 75%,transparent',
-        ');',
-        'opacity:{{subframeOpacity}};',
-        'text-align:center;',
-    '}',
-    '#bg > div{',
-        'display:inline-block;',
-        'background-color:rgba(255,255,255,1);',
-    '}',
-    '#bg > div > a {',
-        'padding:0 2px;',
-        'display:inline-block;',
-        'color:white;',
-        'background-color:{{subframeColor}};',
-        'text-decoration:none;',
-    '}',
-    '</style>',
-    '<title>Blocked by &mu;Matrix</title>',
-    '</head>',
-    '<body title="&ldquo;{{hostname}}&rdquo; frame\nblocked by &mu;Matrix">',
-        '<div id="bg"><div><a href="{{frameSrc}}" target="_blank">{{hostname}}</a></div></div>',
-    '</body>',
-    '</html>'
-].join('');
-
-/******************************************************************************/
-
 // Intercept and filter web requests according to white and black lists.
 
 var onBeforeRootFrameRequestHandler = function(details) {
@@ -200,19 +137,6 @@ var onBeforeRequestHandler = function(details) {
 
     // blacklisted
     // console.debug('onBeforeRequestHandler()> BLOCK "%s": %o', details.url, details);
-
-    // If it's a blacklisted frame, redirect to frame.html
-    // rhill 2013-11-05: The root frame contains a link to noop.css, this
-    // allows to later check whether the root frame has been unblocked by the
-    // user, in which case we are able to force a reload using a redirect.
-    if ( requestType === 'frame' ) {
-        var html = subFrameReplacement
-            .replace(/{{hostname}}/g, requestHostname)
-            .replace('{{frameSrc}}', requestURL)
-            .replace(/{{subframeColor}}/g, µm.userSettings.subframeColor)
-            .replace('{{subframeOpacity}}', (µm.userSettings.subframeOpacity / 100).toFixed(1));
-        return { 'redirectUrl': 'data:text/html,' + encodeURIComponent(html) };
-    }
 
     return { 'cancel': true };
 };

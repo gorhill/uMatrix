@@ -23,20 +23,6 @@ ul > li {
     font-weight: 100;
     color: #888;
     }
-#subframe-color-demo {
-    margin: 0;
-    border: 1px dotted transparent;
-    padding: 0;
-    display: inline-block;
-    position: relative;
-    top: 1px;
-    width: 2em;
-    height: 20px;
-    text-align: center;
-    vertical-align: baseline;
-    background-color: transparent;
-    background-size: 10px 10px;
-    }
 </style>
 </head>
 
@@ -48,10 +34,6 @@ ul > li {
     <li style="margin-top:0.5em;"><span data-i18n="settingsMatrixDisplayTextSizePrompt"></span>
     <input type="radio" name="displayTextSize" id="displayTextSizeNormal" value="13px"><label data-i18n="settingsMatrixDisplayTextSizeNormal" for="displayTextSizeNormal"></label>
     <input type="radio" name="displayTextSize" id="displayTextSizeLarge" value="16px"><label data-i18n="settingsMatrixDisplayTextSizeLarge" for="displayTextSizeLarge"></label>
-    <li style="margin-top:0.5em;">
-        <span data-i18n="settingsSubframeColor"></span> <input id="subframe-color" type="color" value="#cc0000">
-        &ensp;<span data-i18n="settingsSubframeOpacity"></span> <input id="subframe-opacity" type="range" min="0" max="100" value="100">
-        &ensp;<span id="subframe-color-demo">&nbsp;</span>
 </ul>
 
 <h2 data-i18n="settingsMatrixConvenienceHeader"></h2>
@@ -59,14 +41,6 @@ ul > li {
     <li>
         <input id="collapseBlocked" type="checkbox" data-range="bool">
         <label data-i18n="settingsCollapseBlocked" for="collapseBlocked"></label>
-    <!-- <li>
-        <span data-i18n="settingsMatrixAutoReloadPrompt"></span> <select id="smart-auto-reload">
-            <option value="none" data-i18n="settingsMatrixAutoReloadNone">
-            <option value="current" data-i18n="settingsMatrixAutoReloadCurrent">
-            <option value="all" data-i18n="settingsMatrixAutoReloadAll">
-            </select> <button class="whatisthis"></button>
-        <div class="whatisthis-expandable para" data-i18n="settingsMatrixAutoReloadInfo"></div>
-    -->
 </ul>
 
 

@@ -174,14 +174,17 @@ body[dir="rtl"] #mtxSwitches > li > span:before {
     display: block;
     }
 
+#buttonReload {
+    margin-right: 1em;
+    }
 body #buttonRevertAll {
     position: relative;
     color: transparent;
     }
 body #buttonRevertAll > span {
-    position: absolute;
-    font-size: 60%;
     color: black;
+    font-size: 60%;
+    position: absolute;
     }
 body #buttonRevertAll > span:nth-of-type(1) {
     left: 3px;

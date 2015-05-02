@@ -153,12 +153,34 @@ var collapser = (function() {
     var newRequests = [];
     var pendingRequests = {};
     var pendingRequestCount = 0;
+    var backgroundImage = [
+        'linear-gradient(',
+            '0deg,',
+            'rgba(0,0,0,0.02) 25%,',
+            'rgba(0,0,0,0.05) 25%,',
+            'rgba(0,0,0,0.05) 75%,',
+            'rgba(0,0,0,0.02) 75%,',
+            'rgba(0,0,0,0.02)',
+        ') center center / 10px 10px repeat scroll,',
+        'linear-gradient(',
+            '90deg,',
+            'rgba(0,0,0,0.02) 25%,',
+            'rgba(0,0,0,0.05) 25%,',
+            'rgba(0,0,0,0.05) 75%,',
+            'rgba(0,0,0,0.02) 75%,',
+            'rgba(0,0,0,0.02)',
+        ') center center / 10px 10px repeat scroll'
+    ].join('');
     var srcProps = {
         'iframe': 'src',
         'img': 'src'
     };
+    var srcValues = {
+        'iframe': 'about:blank',
+        'img': 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+    };
 
-    var PendingRequest = function(target, tagName, attr) {
+    var PendingRequest = function(target) {
         this.id = requestId++;
         this.target = target;
         pendingRequests[this.id] = this;
@@ -175,14 +197,17 @@ var collapser = (function() {
     };
 
     var onProcessed = function(response) {
+        if ( !response ) {
+            return;
+        }
         var requests = response.requests;
         if ( requests === null || Array.isArray(requests) === false ) {
             return;
         }
         var collapse = response.collapse;
-
+        var bgImg = backgroundImage;
         var i = requests.length;
-        var request, entry;
+        var request, entry, target, tagName;
         while ( i-- ) {
             request = requests[i];
             if ( pendingRequests.hasOwnProperty(request.id) === false ) {
@@ -191,15 +216,17 @@ var collapser = (function() {
             entry = pendingRequests[request.id];
             delete pendingRequests[request.id];
             pendingRequestCount -= 1;
-
             if ( !request.blocked ) {
                 continue;
             }
-
+            target = entry.target;
             if ( collapse ) {
-                entry.target.style.setProperty('display', 'none', 'important');
+                target.style.setProperty('display', 'none', 'important');
             } else {
-                // TODO: uMatrix placeholder
+                tagName = target.localName;
+                target.setAttribute(srcProps[tagName], srcValues[tagName]);
+                target.style.setProperty('border', '1px solid rgba(0,0,0,0.05)', 'important');
+                target.style.setProperty('background', bgImg, 'important');
             }
         }
 
@@ -247,7 +274,7 @@ var collapser = (function() {
         if ( src.lastIndexOf('http', 0) !== 0 ) {
             return;
         }
-        var req = new PendingRequest(target, tagName, prop);
+        var req = new PendingRequest(target);
         newRequests.push(new BouncingRequest(req.id, tagName, src));
     };
 

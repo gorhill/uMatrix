@@ -73,9 +73,7 @@ return {
         spoofUserAgent: false,
         spoofUserAgentEvery: 5,
         spoofUserAgentWith: defaultUserAgentStrings,
-        statsFilters: {},
-        subframeColor: '#cc0000',
-        subframeOpacity: 100
+        statsFilters: {}
     },
 
     clearBrowserCacheCycle: 0,
