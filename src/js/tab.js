@@ -647,11 +647,11 @@ vAPI.tabs.registerListeners();
 
     var cleanup = function() {
         var vapiTabs = vAPI.tabs;
-        var tabIds = Object.keys(µb.pageStores).sort();
+        var tabIds = Object.keys(µm.pageStores).sort();
         var checkTab = function(tabId) {
             vapiTabs.get(tabId, function(tab) {
                 if ( !tab ) {
-                    µb.unbindTabFromPageStats(tabId);
+                    µm.unbindTabFromPageStats(tabId);
                 }
             });
         };
