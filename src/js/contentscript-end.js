@@ -171,13 +171,15 @@ var collapser = (function() {
         this.id = id;
         this.tagName = tagName;
         this.url = url;
-        this.collapse = false;
+        this.blocked = false;
     };
 
-    var onProcessed = function(requests) {
+    var onProcessed = function(response) {
+        var requests = response.requests;
         if ( requests === null || Array.isArray(requests) === false ) {
             return;
         }
+        var collapse = response.collapse;
 
         var i = requests.length;
         var request, entry;
@@ -190,15 +192,17 @@ var collapser = (function() {
             delete pendingRequests[request.id];
             pendingRequestCount -= 1;
 
-            // https://github.com/chrisaljoudi/uBlock/issues/869
-            if ( !request.collapse ) {
+            if ( !request.blocked ) {
                 continue;
             }
 
-            // https://github.com/chrisaljoudi/uBlock/issues/399
-            // Never remove elements from the DOM, just hide them
-            entry.target.style.setProperty('display', 'none', 'important');
+            if ( collapse ) {
+                entry.target.style.setProperty('display', 'none', 'important');
+            } else {
+                // TODO: uMatrix placeholder
+            }
         }
+
         // Renew map: I believe that even if all properties are deleted, an
         // object will still use more memory than a brand new one.
         if ( pendingRequestCount === 0 ) {

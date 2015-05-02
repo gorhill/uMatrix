@@ -449,10 +449,6 @@ var contentScriptLocalStorageHandler = function(tabId, pageURL) {
 // Evaluate many URLs against the matrix.
 
 var evaluateURLs = function(tabId, requests) {
-    if ( µm.userSettings.collapseBlocked === false ) {
-        return requests;
-    }
-
     // Create evaluation context
     var tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) {
@@ -468,7 +464,7 @@ var evaluateURLs = function(tabId, requests) {
     var i = requests.length;
     while ( i-- ) {
         request = requests[i];
-        request.collapse = µm.mustBlock(
+        request.blocked = µm.mustBlock(
             rootHostname,
             µmuri.hostnameFromURI(request.url),
             typeMap[request.tagName]
@@ -517,7 +513,10 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'evaluateURLs':
-        response = evaluateURLs(tabId, request.requests);
+        response = {
+            collapse: µm.userSettings.collapseBlocked,
+            requests: evaluateURLs(tabId, request.requests)
+        };
         break;
 
     case 'getUserAgentReplaceStr':

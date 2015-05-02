@@ -53,7 +53,7 @@ vAPI.app.start = function() {
     // rhill 2013-12-07:
     // Relinquish control over javascript execution to the user.
     //   https://github.com/gorhill/httpswitchboard/issues/74
-    chrome.contentSettings.javascript.clear({});
+    //chrome.contentSettings.javascript.clear({});
 };
 
 /******************************************************************************/
@@ -65,14 +65,14 @@ vAPI.app.stop = function() {
     // Tell Chromium to allow all javascript: µMatrix will control whether
     // javascript execute through `Content-Policy-Directive` and webRequest.
     //   https://github.com/gorhill/httpswitchboard/issues/74
-    chrome.contentSettings.javascript.set({
-        primaryPattern: 'https://*/*',
-        setting: 'allow'
-    });
-    chrome.contentSettings.javascript.set({
-        primaryPattern: 'http://*/*',
-        setting: 'allow'
-    });
+    //chrome.contentSettings.javascript.set({
+    //    primaryPattern: 'https://*/*',
+    //    setting: 'allow'
+    //});
+    //chrome.contentSettings.javascript.set({
+    //    primaryPattern: 'http://*/*',
+    //    setting: 'allow'
+    //});
 };
 
 /******************************************************************************/
