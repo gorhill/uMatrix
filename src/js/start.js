@@ -84,7 +84,9 @@ var defaultLocalUserSettings = {
     placeholderDocument: [
             'data:text/html,',
             encodeURIComponent('<html><head><style>'),
-            encodeURIComponent('body { color: gray; font: 12px sans-serif; margin: 0; padding: 2px; white-space: nowrap; }'),
+            encodeURIComponent('body { background: '),
+            '{{bg}}',
+            encodeURIComponent('; color: gray; font: 12px sans-serif; margin: 0; padding: 2px; white-space: nowrap; }'),
             encodeURIComponent('</style></head><body>'),
             '{{url}}',
             encodeURIComponent('</body></html>')

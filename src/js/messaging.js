@@ -441,10 +441,16 @@ var contentScriptLocalStorageHandler = function(tabId, pageURL) {
 // Evaluate many URLs against the matrix.
 
 var evaluateURLs = function(tabId, requests) {
+    var collapse = µm.userSettings.collapseBlocked;
+    var response = {
+        collapse: collapse,
+        requests: requests
+    };
+
     // Create evaluation context
     var tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) {
-        return requests;
+        return response;
     }
     var rootHostname = tabContext.rootHostname;
 
@@ -463,13 +469,33 @@ var evaluateURLs = function(tabId, requests) {
         );
     }
 
-    return requests;
+    if ( collapse ) {
+        placeholders = null;
+        return response;
+    }
+
+    if ( placeholders === null ) {
+        var bg = vAPI.localStorage.getItem('placeholderBackground');
+        placeholders = {
+            background: bg,
+            border: vAPI.localStorage.getItem('placeholderBorder'),
+            iframe: vAPI.localStorage.getItem('placeholderDocument').replace('{{bg}}', encodeURIComponent(bg)),
+            img: vAPI.localStorage.getItem('placeholderImage')
+        };
+    }
+    response.placeholders = placeholders;
+
+    return response;
 };
+
+/******************************************************************************/
 
 var tagNameToRequestTypeMap = {
     'iframe': 'sub_frame',
        'img': 'image'
 };
+
+var placeholders = null;
 
 /******************************************************************************/
 
@@ -505,18 +531,7 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'evaluateURLs':
-        response = {
-            collapse: µm.userSettings.collapseBlocked,
-            requests: evaluateURLs(tabId, request.requests)
-        };
-        if ( !response.collapse ) {
-            response.placeholders = {
-                background: vAPI.localStorage.getItem('placeholderBackground'),
-                border: vAPI.localStorage.getItem('placeholderBorder'),
-                iframe: vAPI.localStorage.getItem('placeholderDocument'),
-                img: vAPI.localStorage.getItem('placeholderImage')
-            };
-        }
+        response = evaluateURLs(tabId, request.requests);
         break;
 
     case 'getUserAgentReplaceStr':

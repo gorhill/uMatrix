@@ -207,8 +207,10 @@ var collapser = (function() {
                 srcProps[tagName],
                 placeholders[tagName].replace('{{url}}', request.url)
             );
-            target.style.setProperty('border', placeholders.border, 'important');
-            target.style.setProperty('background', placeholders.background, 'important');
+            if ( tagName !== 'iframe' ) {
+                target.style.setProperty('border', placeholders.border, 'important');
+                target.style.setProperty('background', placeholders.background, 'important');
+            }
         }
 
         // Renew map: I believe that even if all properties are deleted, an
