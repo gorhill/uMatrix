@@ -259,7 +259,7 @@ var collapser = (function() {
         }
         process();
     };
-    var iframeSourceObserver = new MutationObserver(iframeSourceModified);
+    var iframeSourceObserver = null;
     var iframeSourceObserverOptions = {
         attributes: true,
         attributeFilter: [ 'src' ]
@@ -269,6 +269,9 @@ var collapser = (function() {
         // https://github.com/gorhill/uBlock/issues/162
         // Be prepared to deal with possible change of src attribute.
         if ( dontObserve !== true ) {
+            if ( iframeSourceObserver === null ) {
+                iframeSourceObserver = new MutationObserver(iframeSourceModified);
+            }
             iframeSourceObserver.observe(iframe, iframeSourceObserverOptions);
         }
         // https://github.com/chrisaljoudi/uBlock/issues/174
@@ -342,6 +345,10 @@ var collapser = (function() {
         if ( timer !== null ) {
             clearTimeout(timer);
             timer = null;
+        }
+        if ( iframeSourceObserver !== null ) {
+            iframeSourceObserver.disconnect();
+            iframeSourceObserver = null;
         }
         document.removeEventListener('error', onResourceFailed, true);
         newRequests = [];
