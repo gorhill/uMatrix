@@ -153,24 +153,6 @@ var collapser = (function() {
     var newRequests = [];
     var pendingRequests = {};
     var pendingRequestCount = 0;
-    var backgroundImage = [
-        'linear-gradient(',
-            '0deg,',
-            'rgba(0,0,0,0.02) 25%,',
-            'rgba(0,0,0,0.05) 25%,',
-            'rgba(0,0,0,0.05) 75%,',
-            'rgba(0,0,0,0.02) 75%,',
-            'rgba(0,0,0,0.02)',
-        ') center center / 10px 10px repeat scroll,',
-        'linear-gradient(',
-            '90deg,',
-            'rgba(0,0,0,0.02) 25%,',
-            'rgba(0,0,0,0.05) 25%,',
-            'rgba(0,0,0,0.05) 75%,',
-            'rgba(0,0,0,0.02) 75%,',
-            'rgba(0,0,0,0.02)',
-        ') center center / 10px 10px repeat scroll'
-    ].join('');
     var srcProps = {
         'iframe': 'src',
         'img': 'src'
@@ -205,7 +187,7 @@ var collapser = (function() {
             return;
         }
         var collapse = response.collapse;
-        var bgImg = backgroundImage;
+        var bgImg = response.backgroundImage;
         var i = requests.length;
         var request, entry, target, tagName;
         while ( i-- ) {

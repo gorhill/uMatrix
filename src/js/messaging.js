@@ -509,6 +509,9 @@ var onMessage = function(request, sender, callback) {
             collapse: µm.userSettings.collapseBlocked,
             requests: evaluateURLs(tabId, request.requests)
         };
+        if ( !response.collapse ) {
+            response.backgroundImage = vAPI.localStorage.getItem('placeholderBackgroundImage');
+        }
         break;
 
     case 'getUserAgentReplaceStr':
