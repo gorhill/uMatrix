@@ -157,10 +157,6 @@ var collapser = (function() {
         'iframe': 'src',
         'img': 'src'
     };
-    var srcValues = {
-        'iframe': 'about:blank',
-        'img': 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-    };
 
     var PendingRequest = function(target) {
         this.id = requestId++;
@@ -187,7 +183,8 @@ var collapser = (function() {
             return;
         }
         var collapse = response.collapse;
-        var bgImg = response.backgroundImage;
+        var placeholders = response.placeholders;
+        var background = placeholders.background;
         var i = requests.length;
         var request, entry, target, tagName;
         while ( i-- ) {
@@ -206,9 +203,12 @@ var collapser = (function() {
                 target.style.setProperty('display', 'none', 'important');
             } else {
                 tagName = target.localName;
-                target.setAttribute(srcProps[tagName], srcValues[tagName]);
+                target.setAttribute(
+                    srcProps[tagName],
+                    placeholders[tagName].replace('{{url}}', request.url)
+                );
                 target.style.setProperty('border', '1px solid rgba(0,0,0,0.05)', 'important');
-                target.style.setProperty('background', bgImg, 'important');
+                target.style.setProperty('background', background, 'important');
             }
         }
 
@@ -240,13 +240,45 @@ var collapser = (function() {
         }
     };
 
+    var iframeSourceModified = function(mutations) {
+        var i = mutations.length;
+        while ( i-- ) {
+            addFrameNode(mutations[i].target, true);
+        }
+        process();
+    };
+    var iframeSourceObserver = new MutationObserver(iframeSourceModified);
+    var iframeSourceObserverOptions = {
+        attributes: true,
+        attributeFilter: [ 'src' ]
+    };
+
+    var addFrameNode = function(iframe, dontObserve) {
+        // https://github.com/gorhill/uBlock/issues/162
+        // Be prepared to deal with possible change of src attribute.
+        if ( dontObserve !== true ) {
+            iframeSourceObserver.observe(iframe, iframeSourceObserverOptions);
+        }
+        // https://github.com/chrisaljoudi/uBlock/issues/174
+        // Do not remove fragment from src URL
+        var src = iframe.src;
+        if ( src.lastIndexOf('http', 0) !== 0 ) {
+            return;
+        }
+        var req = new PendingRequest(iframe);
+        newRequests.push(new BouncingRequest(req.id, 'iframe', src));
+    };
+
     var addNode = function(target) {
         var tagName = target.localName;
+        if ( tagName === 'iframe' ) {
+            addFrameNode(target);
+            return;
+        }
         var prop = srcProps[tagName];
         if ( prop === undefined ) {
             return;
         }
-
         // https://github.com/chrisaljoudi/uBlock/issues/174
         // Do not remove fragment from src URL
         var src = target[prop];
@@ -462,7 +494,7 @@ var nodeListsAddedHandler = function(nodeLists) {
     };
 
     // This fixes http://acid3.acidtests.org/
-    if ( document.body ) {
+    if ( !document.body ) {
         return;
     }
 

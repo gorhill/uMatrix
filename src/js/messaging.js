@@ -510,7 +510,11 @@ var onMessage = function(request, sender, callback) {
             requests: evaluateURLs(tabId, request.requests)
         };
         if ( !response.collapse ) {
-            response.backgroundImage = vAPI.localStorage.getItem('placeholderBackgroundImage');
+            response.placeholders = {
+                background: vAPI.localStorage.getItem('placeholderBackground'),
+                iframe: vAPI.localStorage.getItem('placeholderDocument'),
+                img: vAPI.localStorage.getItem('placeholderImage')
+            };
         }
         break;
 

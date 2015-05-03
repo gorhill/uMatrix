@@ -62,6 +62,37 @@ var jobCallback = function() {
 
 /******************************************************************************/
 
+var defaultLocalUserSettings = {
+    placeholderBackground: [
+            'linear-gradient(0deg,',
+                'rgba(0,0,0,0.02) 25%,',
+                'rgba(0,0,0,0.05) 25%,',
+                'rgba(0,0,0,0.05) 75%,',
+                'rgba(0,0,0,0.02) 75%,',
+                'rgba(0,0,0,0.02)',
+            ') center center / 10px 10px repeat scroll,',
+            'linear-gradient(',
+                '90deg,',
+                'rgba(0,0,0,0.02) 25%,',
+                'rgba(0,0,0,0.05) 25%,',
+                'rgba(0,0,0,0.05) 75%,',
+                'rgba(0,0,0,0.02) 75%,',
+                'rgba(0,0,0,0.02)',
+            ') center center / 10px 10px repeat scroll'
+        ].join(''),
+    placeholderDocument: [
+            'data:text/html,',
+            encodeURIComponent('<html><head><style>'),
+            encodeURIComponent('body {  color: gray; font: 12px sans-serif; margin: 0; padding: 2px; white-space: nowrap; }'),
+            encodeURIComponent('</style></head><body>'),
+            '{{url}}',
+            encodeURIComponent('</body></html>')
+        ].join(''),
+    placeholderImage: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+};
+
+/******************************************************************************/
+
 var onAllDone = function() {
     µm.webRequest.start();
 
@@ -78,24 +109,13 @@ var onAllDone = function() {
     // for launch time.
     µm.assets.remoteFetchBarrier -= 1;
 
-    if ( vAPI.localStorage.getItem('placeholderBackgroundImage') === null ) {
-        vAPI.localStorage.setItem('placeholderBackgroundImage', [
-            'linear-gradient(0deg,',
-                'rgba(0,0,0,0.02) 25%,',
-                'rgba(0,0,0,0.05) 25%,',
-                'rgba(0,0,0,0.05) 75%,',
-                'rgba(0,0,0,0.02) 75%,',
-                'rgba(0,0,0,0.02)',
-            ') center center / 10px 10px repeat scroll,',
-            'linear-gradient(',
-                '90deg,',
-                'rgba(0,0,0,0.02) 25%,',
-                'rgba(0,0,0,0.05) 25%,',
-                'rgba(0,0,0,0.05) 75%,',
-                'rgba(0,0,0,0.02) 75%,',
-                'rgba(0,0,0,0.02)',
-            ') center center / 10px 10px repeat scroll'
-        ].join(''));
+    for ( var key in defaultLocalUserSettings ) {
+        if ( defaultLocalUserSettings.hasOwnProperty(key) === false ) {
+            continue;
+        }
+        if ( vAPI.localStorage.getItem(key) === null ) {
+            vAPI.localStorage.setItem(key, defaultLocalUserSettings[key]);
+        }
     }
 };
 
