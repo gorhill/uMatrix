@@ -479,7 +479,7 @@ var evaluateURLs = function(tabId, requests) {
         placeholders = {
             background: bg,
             border: vAPI.localStorage.getItem('placeholderBorder'),
-            iframe: vAPI.localStorage.getItem('placeholderDocument').replace('{{bg}}', encodeURIComponent(bg)),
+            iframe: vAPI.localStorage.getItem('placeholderDocument').replace('{{bg}}', bg),
             img: vAPI.localStorage.getItem('placeholderImage')
         };
     }

@@ -154,7 +154,6 @@ var collapser = (function() {
     var pendingRequests = {};
     var pendingRequestCount = 0;
     var srcProps = {
-        'iframe': 'src',
         'img': 'src'
     };
 
@@ -194,23 +193,35 @@ var collapser = (function() {
             entry = pendingRequests[request.id];
             delete pendingRequests[request.id];
             pendingRequestCount -= 1;
+
+            // Not blocked
             if ( !request.blocked ) {
                 continue;
             }
+
             target = entry.target;
+
+            // No placeholders
             if ( collapse ) {
                 target.style.setProperty('display', 'none', 'important');
                 continue;
             }
+
             tagName = target.localName;
-            target.setAttribute(
-                srcProps[tagName],
-                placeholders[tagName].replace('{{url}}', request.url)
-            );
-            if ( tagName !== 'iframe' ) {
-                target.style.setProperty('border', placeholders.border, 'important');
-                target.style.setProperty('background', placeholders.background, 'important');
+
+            // Special case: iframe
+            if ( tagName === 'iframe' ) {
+                target.setAttribute(
+                    'src',
+                    'data:text/html,' + encodeURIComponent(placeholders.iframe.replace('{{url}}', request.url))
+                );
+                continue;
             }
+
+            // Everything else
+            target.setAttribute(srcProps[tagName], placeholders[tagName]);
+            target.style.setProperty('border', placeholders.border, 'important');
+            target.style.setProperty('background', placeholders.background, 'important');
         }
 
         // Renew map: I believe that even if all properties are deleted, an

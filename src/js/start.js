@@ -82,14 +82,18 @@ var defaultLocalUserSettings = {
         ].join(''),
     placeholderBorder: '1px solid rgba(0, 0, 0, 0.05)',
     placeholderDocument: [
-            'data:text/html,',
-            encodeURIComponent('<html><head><style>'),
-            encodeURIComponent('body { background: '),
-            '{{bg}}',
-            encodeURIComponent('; color: gray; font: 12px sans-serif; margin: 0; padding: 2px; white-space: nowrap; }'),
-            encodeURIComponent('</style></head><body>'),
+            '<html><head><style>',
+            'body { ',
+                'background: {{bg}};',
+                'color: gray;',
+                'font: 12px sans-serif;',
+                'margin: 0;',
+                'padding: 2px;',
+                'white-space: nowrap;',
+            '}',
+            '</style></head><body>',
             '{{url}}',
-            encodeURIComponent('</body></html>')
+            '</body></html>'
         ].join(''),
     placeholderImage: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 };
