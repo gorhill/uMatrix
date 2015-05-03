@@ -80,10 +80,11 @@ var defaultLocalUserSettings = {
                 'rgba(0,0,0,0.02)',
             ') center center / 10px 10px repeat scroll'
         ].join(''),
+    placeholderBorder: '1px solid rgba(0, 0, 0, 0.05)',
     placeholderDocument: [
             'data:text/html,',
             encodeURIComponent('<html><head><style>'),
-            encodeURIComponent('body {  color: gray; font: 12px sans-serif; margin: 0; padding: 2px; white-space: nowrap; }'),
+            encodeURIComponent('body { color: gray; font: 12px sans-serif; margin: 0; padding: 2px; white-space: nowrap; }'),
             encodeURIComponent('</style></head><body>'),
             '{{url}}',
             encodeURIComponent('</body></html>')

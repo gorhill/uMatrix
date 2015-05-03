@@ -184,7 +184,6 @@ var collapser = (function() {
         }
         var collapse = response.collapse;
         var placeholders = response.placeholders;
-        var background = placeholders.background;
         var i = requests.length;
         var request, entry, target, tagName;
         while ( i-- ) {
@@ -201,15 +200,15 @@ var collapser = (function() {
             target = entry.target;
             if ( collapse ) {
                 target.style.setProperty('display', 'none', 'important');
-            } else {
-                tagName = target.localName;
-                target.setAttribute(
-                    srcProps[tagName],
-                    placeholders[tagName].replace('{{url}}', request.url)
-                );
-                target.style.setProperty('border', '1px solid rgba(0,0,0,0.05)', 'important');
-                target.style.setProperty('background', background, 'important');
+                continue;
             }
+            tagName = target.localName;
+            target.setAttribute(
+                srcProps[tagName],
+                placeholders[tagName].replace('{{url}}', request.url)
+            );
+            target.style.setProperty('border', placeholders.border, 'important');
+            target.style.setProperty('background', placeholders.background, 'important');
         }
 
         // Renew map: I believe that even if all properties are deleted, an

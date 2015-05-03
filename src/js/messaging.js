@@ -512,6 +512,7 @@ var onMessage = function(request, sender, callback) {
         if ( !response.collapse ) {
             response.placeholders = {
                 background: vAPI.localStorage.getItem('placeholderBackground'),
+                border: vAPI.localStorage.getItem('placeholderBorder'),
                 iframe: vAPI.localStorage.getItem('placeholderDocument'),
                 img: vAPI.localStorage.getItem('placeholderImage')
             };
