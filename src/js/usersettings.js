@@ -38,10 +38,6 @@
     // Pre-change
     switch ( name ) {
     
-    case 'maxLoggedRequests':
-        value = Math.max(Math.min(value, 500), 0); 
-        break;
-
     default:        
         break;
     }
@@ -52,10 +48,6 @@
     // Post-change
     switch ( name ) {
     
-    case 'maxLoggedRequests':
-        this.resizeLogBuffers(value);
-        break;
-
     // https://github.com/gorhill/httpswitchboard/issues/344
     case 'spoofUserAgentWith':
         this.userAgentSpoofer.shuffle();

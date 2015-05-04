@@ -120,7 +120,7 @@ body[dir="rtl"] #mtxSwitches > li > span:before {
     display: none;
     font-size: 110%;
     padding: 3px 0 0 0;
-    position: absolute;
+    position: fixed;
     white-space: normal;
     z-index: 50;
     }
@@ -203,9 +203,6 @@ body #buttonRevertAll > span:nth-of-type(4) {
     bottom: 3px;
     }
 
-button {
-    position: relative;
-    }
 button > span.badge {
     padding: 1px 1px;
     display: inline-block;
@@ -302,10 +299,9 @@ body .toolbar button#scopeCell {
     }
 body #scopeCell + .dropdown-menu {
     padding: 6px 1px 3px 1px;
-    left: 0;
-    right: 0;
     text-align: right;
-    width: 16em;
+    min-width: 50%;
+    max-width: 80%;
     }
 body.tScopeGlobal #scopeCell {
     background-color: #000;

@@ -294,11 +294,12 @@ var chromeCookieRemove = function(url, name) {
         }
         var cookieKey = cookieKeyFromCookieURL(details.url, 'session', details.name);
         if ( removeCookieFromDict(cookieKey) ) {
+            µm.logger.writeOne('', 'info', 'cookie deleted: ' + cookieKey);
             µm.cookieRemovedCounter += 1;
-            return;
         }
         cookieKey = cookieKeyFromCookieURL(details.url, 'persistent', details.name);
         if ( removeCookieFromDict(cookieKey) ) {
+            µm.logger.writeOne('', 'info', 'cookie deleted: ' + cookieKey);
             µm.cookieRemovedCounter += 1;
         }
     };

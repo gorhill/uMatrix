@@ -44,24 +44,6 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
-// Browser data jobs
-
-var jobCallback = function() {
-    if ( !µm.userSettings.clearBrowserCache ) {
-        return;
-    }
-    µm.clearBrowserCacheCycle -= 15;
-    if ( µm.clearBrowserCacheCycle > 0 ) {
-        return;
-    }
-    µm.clearBrowserCacheCycle = µm.userSettings.clearBrowserCacheAfter;
-    µm.browserCacheClearedCounter++;
-    vAPI.browserCache.clearByTime(0);
-    // console.debug('clearBrowserCacheCallback()> vAPI.browserCache.clearByTime() called');
-};
-
-/******************************************************************************/
-
 var defaultLocalUserSettings = {
     placeholderBackground: [
             'linear-gradient(0deg,',
@@ -78,7 +60,7 @@ var defaultLocalUserSettings = {
                 'rgba(0,0,0,0.05) 75%,',
                 'rgba(0,0,0,0.02) 75%,',
                 'rgba(0,0,0,0.02)',
-            ') center center / 10px 10px repeat scroll'
+            ') #fff center center / 10px 10px repeat scroll'
         ].join(''),
     placeholderBorder: '1px solid rgba(0, 0, 0, 0.05)',
     placeholderDocument: [
@@ -109,8 +91,6 @@ var onAllDone = function() {
     µm.assetUpdater.onCompleted.addListener(µm.updateCompleteHandler.bind(µm));
     µm.assetUpdater.onAssetUpdated.addListener(µm.assetUpdatedHandler.bind(µm));
     µm.assets.onAssetCacheRemoved.addListener(µm.assetCacheRemovedHandler.bind(µm));
-
-    µMatrix.asyncJobs.add('clearBrowserCache', null, jobCallback, 15 * 60 * 1000, true);
 
     // Important: remove barrier to remote fetching, this was useful only
     // for launch time.

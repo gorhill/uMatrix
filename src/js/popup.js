@@ -1031,12 +1031,13 @@ function updateMatrixSwitches() {
     uDom('body').toggleClass('powerOff', switches['matrix-off']);
 }
 
-function toggleMatrixSwitch() {
-    var pos = this.id.indexOf('_');
+function toggleMatrixSwitch(ev) {
+    var elem = ev.currentTarget;
+    var pos = elem.id.indexOf('_');
     if ( pos === -1 ) {
         return;
     }
-    var switchName = this.id.slice(pos + 1);
+    var switchName = elem.id.slice(pos + 1);
     var request = {
         what: 'toggleMatrixSwitch',
         switchName: switchName,
@@ -1113,8 +1114,8 @@ function buttonReloadHandler() {
 
 /******************************************************************************/
 
-function mouseenterMatrixCellHandler() {
-    matrixCellHotspots.appendTo(this);
+function mouseenterMatrixCellHandler(ev) {
+    matrixCellHotspots.appendTo(ev.target);
 }
 
 function mouseleaveMatrixCellHandler() {
@@ -1123,8 +1124,8 @@ function mouseleaveMatrixCellHandler() {
 
 /******************************************************************************/
 
-function gotoExtensionURL() {
-    var url = uDom(this).attr('data-extension-url');
+function gotoExtensionURL(ev) {
+    var url = uDom(ev.currentTarget).attr('data-extension-url');
     if ( url ) {
         messager.send({ what: 'gotoExtensionURL', url: url });
     }
@@ -1133,8 +1134,16 @@ function gotoExtensionURL() {
 
 /******************************************************************************/
 
-function dropDownMenuShow() {
-    uDom(this).next('.dropdown-menu').addClass('show');
+function dropDownMenuShow(ev) {
+    var button = ev.target;
+    var menu = button.nextElementSibling;
+    var butnRect = button.getBoundingClientRect();
+    var viewRect = document.body.getBoundingClientRect();
+    var butnNormalLeft = butnRect.left / (viewRect.width - butnRect.width);
+    menu.classList.add('show');
+    var menuRect = menu.getBoundingClientRect();
+    var menuLeft = butnNormalLeft * (viewRect.width - menuRect.width);
+    menu.style.left = menuLeft.toFixed(0) + 'px';
 }
 
 function dropDownMenuHide() {

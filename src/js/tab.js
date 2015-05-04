@@ -620,17 +620,6 @@ vAPI.tabs.registerListeners();
 
 /******************************************************************************/
 
-µm.resizeLogBuffers = function(size) {
-    var pageStores = this.pageStores;
-    for ( var pageURL in pageStores ) {
-        if ( pageStores.hasOwnProperty(pageURL) ) {
-            pageStores[pageURL].requests.resizeLogBuffer(size);
-        }
-    }
-};
-
-/******************************************************************************/
-
 µm.forceReload = function(tabId) {
     vAPI.tabs.reload(tabId, { bypassCache: true });
 };

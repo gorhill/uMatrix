@@ -176,6 +176,7 @@ vAPI.tabs.registerListeners = function() {
     var reGoodForWebRequestAPI = /^https?:\/\//;
 
     var onCreatedNavigationTarget = function(details) {
+        details.tabId = details.tabId.toString();
         //console.debug('onCreatedNavigationTarget: popup candidate tab id %d = "%s"', details.tabId, details.url);
         if ( reGoodForWebRequestAPI.test(details.url) === false ) {
             details.frameId = 0;
@@ -190,10 +191,12 @@ vAPI.tabs.registerListeners = function() {
             return;
         }
         //console.debug('onBeforeNavigate: popup candidate tab id %d = "%s"', details.tabId, details.url);
+        details.tabId = details.tabId.toString();
         popupCandidateTest(details);
     };
 
     var onUpdated = function(tabId, changeInfo, tab) {
+        tabId = tabId.toString();
         if ( changeInfo.url && popupCandidateTest({ tabId: tabId, url: changeInfo.url }) ) {
             return;
         }
@@ -204,6 +207,7 @@ vAPI.tabs.registerListeners = function() {
         if ( details.frameId !== 0 ) {
             return;
         }
+        details.tabId = details.tabId.toString();
         onNavigationClient(details);
         //console.debug('onCommitted: popup candidate tab id %d = "%s"', details.tabId, details.url);
         if ( popupCandidateTest(details) === true ) {
@@ -231,9 +235,10 @@ vAPI.tabs.get = function(tabId, callback) {
     var onTabReady = function(tab) {
         // https://code.google.com/p/chromium/issues/detail?id=410868#c8
         if ( chrome.runtime.lastError ) {
-            /* noop */
         }
-        // Caller must be prepared to deal with nil tab value
+        if ( tab instanceof Object ) {
+            tab.id = tab.id.toString();
+        }
         callback(tab);
     };
     if ( tabId !== null ) {
@@ -246,9 +251,13 @@ vAPI.tabs.get = function(tabId, callback) {
     var onTabReceived = function(tabs) {
         // https://code.google.com/p/chromium/issues/detail?id=410868#c8
         if ( chrome.runtime.lastError ) {
-            /* noop */
         }
-        callback(tabs[0]);
+        var tab = null;
+        if ( Array.isArray(tabs) && tabs.length !== 0 ) {
+            tab = tabs[0];
+            tab.id = tab.id.toString();
+        }
+        callback(tab);
     };
     chrome.tabs.query({ active: true, currentWindow: true }, onTabReceived);
 };
@@ -256,7 +265,16 @@ vAPI.tabs.get = function(tabId, callback) {
 /******************************************************************************/
 
 vAPI.tabs.getAll = function(callback) {
-    chrome.tabs.query({ url: '<all_urls>' }, callback);
+    var onTabsReady = function(tabs) {
+        if ( Array.isArray(tabs) ) {
+            var i = tabs.length;
+            while ( i-- ) {
+                tabs[i].id = tabs[i].id.toString();
+            }
+        }
+        callback(tabs);
+    };
+    chrome.tabs.query({ url: '<all_urls>' }, onTabsReady);
 };
 
 /******************************************************************************/
@@ -714,7 +732,6 @@ vAPI.net.registerListeners = function() {
         // If no transposition possible, transpose to `object` as per
         // Chromium bug 410382 (see below)
         if ( pos === -1 ) {
-            details.type = 'object';
             return;
         }
 
@@ -729,8 +746,6 @@ vAPI.net.registerListeners = function() {
             details.type = 'image';
             return;
         }
-        // https://code.google.com/p/chromium/issues/detail?id=410382
-        details.type = 'object';
     };
     // <<<<<<<<
     // End of: Normalizing request types

@@ -170,7 +170,7 @@ var matrixSnapshot = function(tabId, details) {
         tabContext.rawURL.lastIndexOf(vAPI.getURL('dashboard.html'), 0) === 0 ||
         tabContext.rawURL === µm.behindTheSceneURL
     ) {
-        tabId = µm.behindTheSceneTabId;
+        tabId = vAPI.noTabId;
     }
 
     var pageStore = µm.pageStoreFromTabId(tabId);
@@ -491,7 +491,7 @@ var evaluateURLs = function(tabId, requests) {
 /******************************************************************************/
 
 var tagNameToRequestTypeMap = {
-    'iframe': 'sub_frame',
+    'iframe': 'frame',
        'img': 'image'
 };
 
@@ -816,54 +816,6 @@ var getTabURLs = function() {
 
 /******************************************************************************/
 
-// map(pageURL) => array of request log entries
-
-var getRequestLog = function(tabId) {
-    var requestLogs = {};
-    var pageStores = µm.pageStores;
-    var tabIds = tabId ? [tabId] : Object.keys(pageStores);
-    var pageStore, pageURL, pageRequestLog, logEntries, j, logEntry;
-
-    for ( var i = 0; i < tabIds.length; i++ ) {
-        pageStore = pageStores[tabIds[i]];
-        if ( !pageStore ) {
-            continue;
-        }
-        pageURL = pageStore.pageUrl;
-        pageRequestLog = [];
-        logEntries = pageStore.requests.getLoggedRequests();
-        j = logEntries.length;
-        while ( j-- ) {
-            // rhill 2013-12-04: `logEntry` can be null since a ring buffer is
-            // now used, and it might not have been filled yet.
-            if ( logEntry = logEntries[j] ) {
-                pageRequestLog.push(logEntry);
-            }
-        }
-        requestLogs[pageURL] = pageRequestLog;
-    }
-
-    return requestLogs;
-};
-
-/******************************************************************************/
-
-var clearRequestLog = function(tabId) {
-    var pageStores = µm.pageStores;
-    var tabIds = tabId ? [tabId] : Object.keys(pageStores);
-    var pageStore;
-
-    for ( var i = 0; i < tabIds.length; i++ ) {
-        pageStore = pageStores[tabIds[i]];
-        if ( !pageStore ) {
-            continue;
-        }
-        pageStore.requests.clearLogBuffer();
-    }
-};
-
-/******************************************************************************/
-
 var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
@@ -891,14 +843,6 @@ var onMessage = function(request, sender, callback) {
             localStorageRemovedCounter: µm.localStorageRemovedCounter,
             browserCacheClearedCounter: µm.browserCacheClearedCounter
         };
-        break;
-
-    case 'getRequestLogs':
-        response = getRequestLog(request.tabId);
-        break;
-
-    case 'clearRequestLogs':
-        clearRequestLog(request.tabId);
         break;
 
     default:
@@ -1000,6 +944,52 @@ var onMessage = function(request, sender, callback) {
 };
 
 vAPI.messaging.listen('about.js', onMessage);
+
+/******************************************************************************/
+/******************************************************************************/
+
+// logger-ui.js
+
+(function() {
+
+'use strict';
+
+/******************************************************************************/
+
+var µm = µMatrix;
+
+/******************************************************************************/
+
+var onMessage = function(request, sender, callback) {
+    // Async
+    switch ( request.what ) {
+        default:
+            break;
+    }
+
+    // Sync
+    var response;
+
+    switch ( request.what ) {
+        case 'readMany':
+            response = {
+                colorBlind: false,
+                entries: µm.logger.readAll(request.tabId)
+            };
+            break;
+
+        default:
+            return vAPI.messaging.UNHANDLED;
+    }
+
+    callback(response);
+};
+
+vAPI.messaging.listen('logger-ui.js', onMessage);
+
+/******************************************************************************/
+
+})();
 
 /******************************************************************************/
 /******************************************************************************/

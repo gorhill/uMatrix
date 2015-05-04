@@ -55,9 +55,6 @@
 
         µm.userSettings = store;
 
-        // https://github.com/gorhill/uMatrix/issues/47
-        µm.resizeLogBuffers(store.maxLoggedRequests);
-
         // https://github.com/gorhill/httpswitchboard/issues/344
         µm.userAgentSpoofer.shuffle();
 

@@ -20,7 +20,7 @@
 <div class="paneHead">
     <div id="toolbarLeft" class="toolbar alignLeft">
         <button id="scopeCell" class="dropdown-menu-button" tabindex="-1"></button>
-        <div id="scopeKeys" class="dropdown-menu">
+        <div class="dropdown-menu">
             <ul>
                 <li id="scopeKeyGlobal" class="dropdown-menu-entry">&#x2217;
                 <li id="scopeKeyDomain" class="dropdown-menu-entry">
@@ -49,7 +49,14 @@
     <div class="toolbar alignRight">
         <button id="buttonReload" type="button" class="fa tip-anchor-right" data-i18n-tip="matrixReloadButton">&#xf021;</button>
         <button id="buttonRevertAll" type="button" class="fa tip-anchor-right" tabindex="-1" data-i18n-tip="matrixRevertButtonAllTip">&#xf12d;<span class="fa">&#xf12d;</span><span class="fa">&#xf12d;</span><span class="fa">&#xf12d;</span><span class="fa">&#xf12d;</span></button>
-        <button id="buttonDashboard" type="button" class="extensionURL fa tip-anchor-right" data-extension-url="dashboard.html">&#xf085;</button>
+        <button type="button" class="dropdown-menu-button fa tip-anchor-right">&#xf085;</button>
+        <div class="dropdown-menu">
+            <ul>
+                <li class="dropdown-menu-entry extensionURL" data-extension-url="logger-ui.html" data-i18n="matrixLoggerMenuEntry">
+                <li class="dropdown-menu-entry extensionURL" data-extension-url="dashboard.html" data-i18n="matrixDashboardMenuEntry">
+            </ul>
+        </div>
+        <div class="dropdown-menu-capture"></div>
     </div>
 
     <div id="matHead" class="matrix collapsible">

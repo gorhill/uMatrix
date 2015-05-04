@@ -27,7 +27,6 @@
 A PageRequestStore object is used to store net requests in two ways:
 
 To record distinct net requests
-To create a log of net requests
 
 **/
 
@@ -152,37 +151,8 @@ var stringPacker = {
 
 /******************************************************************************/
 
-var LogEntry = function() {
-    this.url = '';
-    this.type = '';
-    this.when = 0;
-    this.block = false;
-};
-
-var logEntryJunkyard = [];
-
-LogEntry.prototype.dispose = function() {
-    this.url = this.type = '';
-    // Let's not grab and hold onto too much memory..
-    if ( logEntryJunkyard.length < 200 ) {
-        logEntryJunkyard.push(this);
-    }
-};
-
-var logEntryFactory = function() {
-    var entry = logEntryJunkyard.pop();
-    if ( entry ) {
-        return entry;
-    }
-    return new LogEntry();
-};
-
-/******************************************************************************/
-
 var PageRequestStats = function() {
     this.requests = {};
-    this.ringBuffer = null;
-    this.ringBufferPointer = 0;
     if ( !µmuri ) {
         µmuri = µm.URI;
     }
@@ -205,7 +175,6 @@ var pageRequestStoreFactory = function() {
     } else {
         pageRequestStore = new PageRequestStats();
     }
-    pageRequestStore.resizeLogBuffer(µm.userSettings.maxLoggedRequests);
     return pageRequestStore;
 };
 
@@ -229,16 +198,6 @@ PageRequestStats.prototype.dispose = function() {
         stringPacker.forget(reqKey.slice(3));
     }
     this.requests = {};
-    var i = this.ringBuffer.length;
-    var logEntry;
-    while ( i-- ) {
-        logEntry = this.ringBuffer[i];
-        if ( logEntry ) {
-            logEntry.dispose();
-        }
-    }
-    this.ringBuffer = [];
-    this.ringBufferPointer = 0;
     if ( pageRequestStoreJunkyard.length < 8 ) {
         pageRequestStoreJunkyard.push(this);
     }
@@ -309,100 +268,6 @@ PageRequestStats.prototype.createEntryIfNotExists = function(url, type) {
     rememberRequestKey(reqKey);
     this.requests[reqKey] = Date.now();
     return true;
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.resizeLogBuffer = function(size) {
-    if ( !this.ringBuffer ) {
-        this.ringBuffer = new Array(0);
-        this.ringBufferPointer = 0;
-    }
-    if ( size === this.ringBuffer.length ) {
-        return;
-    }
-    if ( !size ) {
-        this.ringBuffer = new Array(0);
-        this.ringBufferPointer = 0;
-        return;
-    }
-    var newBuffer = new Array(size);
-    var copySize = Math.min(size, this.ringBuffer.length);
-    var newBufferPointer = (copySize % size) | 0;
-    var isrc = this.ringBufferPointer;
-    var ides = newBufferPointer;
-    while ( copySize-- ) {
-        isrc--;
-        if ( isrc < 0 ) {
-            isrc = this.ringBuffer.length - 1;
-        }
-        ides--;
-        if ( ides < 0 ) {
-            ides = size - 1;
-        }
-        newBuffer[ides] = this.ringBuffer[isrc];
-    }
-    this.ringBuffer = newBuffer;
-    this.ringBufferPointer = newBufferPointer;
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.clearLogBuffer = function() {
-    var buffer = this.ringBuffer;
-    if ( buffer === null ) {
-        return;
-    }
-    var logEntry;
-    var i = buffer.length;
-    while ( i-- ) {
-        if ( logEntry = buffer[i] ) {
-            logEntry.dispose();
-            buffer[i] = null;
-        }
-    }
-    this.ringBufferPointer = 0;
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.logRequest = function(url, type, block) {
-    var buffer = this.ringBuffer;
-    var len = buffer.length;
-    if ( !len ) {
-        return;
-    }
-    var pointer = this.ringBufferPointer;
-    if ( !buffer[pointer] ) {
-        buffer[pointer] = logEntryFactory();
-    }
-    var logEntry = buffer[pointer];
-    logEntry.url = url;
-    logEntry.type = type;
-    logEntry.when = Date.now();
-    logEntry.block = block;
-    this.ringBufferPointer = ((pointer + 1) % len) | 0;
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.getLoggedRequests = function() {
-    var buffer = this.ringBuffer;
-    if ( !buffer.length ) {
-        return [];
-    }
-    // [0 - pointer] = most recent
-    // [pointer - length] = least recent
-    // thus, ascending order:
-    //   [pointer - length] + [0 - pointer]
-    var pointer = this.ringBufferPointer;
-    return buffer.slice(pointer).concat(buffer.slice(0, pointer)).reverse();
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.getLoggedRequestEntry = function(reqURL, reqType) {
-    return this.requests[makeRequestKey(reqURL, reqType)];
 };
 
 /******************************************************************************/
@@ -520,7 +385,7 @@ PageStore.prototype.recordRequest = function(type, url, block) {
         this.perLoadAllowedRequestCount++;
     }
 
-    this.requests.logRequest(url, type, block);
+    µm.logger.writeOne(this.tabId, 'net', block ? '---' : '', type, url);
 
     if ( !this.requests.createEntryIfNotExists(url, type, block) ) {
         return;

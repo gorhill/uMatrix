@@ -31,18 +31,18 @@
 /******************************************************************************/
 /******************************************************************************/
 
-var LogEntry = function(tabId, details, result) {
-    this.init(tabId, details, result);
+var LogEntry = function(args) {
+    this.init(args);
 };
 
 /******************************************************************************/
 
-var logEntryFactory = function(tabId, details, result) {
+var logEntryFactory = function(args) {
     var entry = logEntryJunkyard.pop();
     if ( entry ) {
-        return entry.init(tabId, details, result);
+        return entry.init(args);
     }
-    return new LogEntry(tabId, details, result);
+    return new LogEntry(args);
 };
 
 var logEntryJunkyard = [];
@@ -50,13 +50,14 @@ var logEntryJunkyardMax = 100;
 
 /******************************************************************************/
 
-LogEntry.prototype.init = function(tabId, details, result) {
+LogEntry.prototype.init = function(args) {
     this.tstamp = Date.now();
-    this.tabId = tabId;
-    this.url = details.requestURL;
-    this.hostname = details.requestHostname;
-    this.type = details.requestType;
-    this.result = result;
+    this.tab = args[0] || '';
+    this.cat = args[1] || '';
+    this.d0 = args[2];
+    this.d1 = args[3];
+    this.d2 = args[4];
+    this.d3 = args[5];
     return this;
 };
 
@@ -97,13 +98,13 @@ LogBuffer.prototype.dispose = function() {
 
 /******************************************************************************/
 
-LogBuffer.prototype.writeOne = function(tabId, details, result) {
+LogBuffer.prototype.writeOne = function(args) {
     // Reusing log entry = less memory churning
     var entry = this.buffer[this.writePtr];
     if ( entry instanceof LogEntry === false ) {
-        this.buffer[this.writePtr] = logEntryFactory(tabId, details, result);
+        this.buffer[this.writePtr] = logEntryFactory(args);
     } else {
-        entry.init(tabId, details, result);
+        entry.init(args);
     }
     this.writePtr += 1;
     if ( this.writePtr === this.size ) {
@@ -156,11 +157,11 @@ var loggerJanitorPeriod = 2 * 60 * 1000;
 
 /******************************************************************************/
 
-var writeOne = function(tabId, details, result) {
+var writeOne = function() {
     if ( logBuffer === null ) {
         return;
     }
-    logBuffer.writeOne(tabId, details, result);
+    logBuffer.writeOne(arguments);
 };
 
 /******************************************************************************/

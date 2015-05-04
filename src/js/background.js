@@ -116,7 +116,6 @@ return {
 
     // record what chromium is doing behind the scene
     behindTheSceneURL: 'http://behind-the-scene/',
-    behindTheSceneTabId: vAPI.noTabId,
     behindTheSceneMaxReq: 250,
     behindTheSceneScope: 'behind-the-scene',
 

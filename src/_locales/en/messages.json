@@ -109,15 +109,23 @@
     },
     "matrixSwitchNoMixedContent" : {
         "message": "Strict HTTPS",
-        "description": ""
+        "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchUASpoof" : {
         "message": "User agent spoofing",
-        "description": ""
+        "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof" : {
         "message": "Referrer spoofing",
-        "description": ""
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixLoggerMenuEntry" : {
+        "message": "Request log",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixDashboardMenuEntry" : {
+        "message": "Dashboard",
+        "description": "A menu entry in the matrix popup"
     },
 
 
