@@ -1,7 +1,9 @@
 body {
+    background-color: #fff;
+    color: #000;
     margin: 0;
     padding: 0 0.5em 5em 0.5em;
-    font: 15px sans-serif;
+    font: 15px/1.4 sans-serif;
     }
 body > *:first-child {
     margin-top: 0;
@@ -39,17 +41,16 @@ button {
     width: 40em;
     }
 
-
-
 .whatisthis {
     margin: 0 0 0 8px;
     border: 0;
+    font-family: FontAwesome;
     padding: 0 0 4px 0;
-    width: 16px;
-    height: 16px;
-    background: url('/img/help16.png') no-repeat right bottom 1px;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.4;
+    }
+.whatisthis:before {
+    content: '\f059';
     }
 .whatisthis:hover {
     opacity: 1.0;
@@ -59,7 +60,7 @@ button {
     padding: 0.5em;
     font-size: smaller;
     display: none;
-    border: 1px dotted black;
+    border: 1px dotted #aaa;
     background-color: #F8F8F8;
     }
 .whatisthis-expandable > p {
@@ -77,4 +78,3 @@ button {
     padding: 5px;
     background-color: #FEDAE0;
     }
-

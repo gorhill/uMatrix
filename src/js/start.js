@@ -70,6 +70,7 @@ var defaultLocalUserSettings = {
                 'color: gray;',
                 'font: 12px sans-serif;',
                 'margin: 0;',
+                'overflow: hidden;',
                 'padding: 2px;',
                 'white-space: nowrap;',
             '}',
