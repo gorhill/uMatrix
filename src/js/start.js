@@ -60,7 +60,7 @@ var defaultLocalUserSettings = {
                 'rgba(0,0,0,0.05) 75%,',
                 'rgba(0,0,0,0.02) 75%,',
                 'rgba(0,0,0,0.02)',
-            ') #fff center center / 10px 10px repeat scroll'
+            ') center center / 10px 10px repeat scroll #fff'
         ].join(''),
     placeholderBorder: '1px solid rgba(0, 0, 0, 0.05)',
     placeholderDocument: [
