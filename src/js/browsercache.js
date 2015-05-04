@@ -44,14 +44,15 @@ var clearCache = function() {
         return;
     }
 
+    vAPI.browserData.clearCache();
+
     µm.clearBrowserCacheCycle = µm.userSettings.clearBrowserCacheAfter;
     µm.browserCacheClearedCounter++;
 
-    vAPI.browserCache.clearByTime(0);
-
+    // TODO: i18n
     µm.logger.writeOne('', 'info', 'browser cache cleared');
 
-    //console.debug('clearBrowserCacheCallback()> vAPI.browserCache.clearByTime() called');
+    //console.debug('clearBrowserCacheCallback()> vAPI.browserData.clearCache() called');
 };
 
 setTimeout(clearCache, 15 * 60 * 1000);

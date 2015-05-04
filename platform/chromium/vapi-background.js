@@ -474,6 +474,7 @@ vAPI.setIcon = function(tabId, iconId, badge) {
 };
 
 /******************************************************************************/
+/******************************************************************************/
 
 vAPI.messaging = {
     ports: {},
@@ -625,6 +626,7 @@ CallbackWrapper.prototype.proxy = function(response) {
     CallbackWrapper.junkyard.push(this);
 };
 
+/******************************************************************************/
 /******************************************************************************/
 
 vAPI.net = {};
@@ -813,6 +815,7 @@ vAPI.net.registerListeners = function() {
 };
 
 /******************************************************************************/
+/******************************************************************************/
 
 vAPI.contextMenu = {
     create: function(details, callback) {
@@ -834,6 +837,7 @@ vAPI.lastError = function() {
 };
 
 /******************************************************************************/
+/******************************************************************************/
 
 // This is called only once, when everything has been loaded in memory after
 // the extension was launched. It can be used to inject content scripts
@@ -843,6 +847,7 @@ vAPI.lastError = function() {
 vAPI.onLoadAllCompleted = function() {
 };
 
+/******************************************************************************/
 /******************************************************************************/
 
 vAPI.punycodeHostname = function(hostname) {
@@ -854,29 +859,47 @@ vAPI.punycodeURL = function(url) {
 };
 
 /******************************************************************************/
+/******************************************************************************/
 
-vAPI.browserCache = {};
+vAPI.browserData = {};
 
 /******************************************************************************/
 
-vAPI.browserCache.clearByTime = function(since) {
-    chrome.browsingData.removeCache({ since: 0 });
+// https://developer.chrome.com/extensions/browsingData
+
+vAPI.browserData.clearCache = function(callback) {
+    chrome.browsingData.removeCache({ since: 0 }, callback);
 };
 
-vAPI.browserCache.clearByOrigin = function(/* domain */) {
+/******************************************************************************/
+
+// Not supported on Chromium
+
+vAPI.browserData.clearOrigin = function(domain, callback) {
     // unsupported on Chromium
+    if ( typeof callback === 'function' ) {
+        callback(undefined);
+    }
 };
 
 /******************************************************************************/
+/******************************************************************************/
+
+// https://developer.chrome.com/extensions/cookies
 
 vAPI.cookies = {};
 
 /******************************************************************************/
 
-vAPI.cookies.registerListeners = function() {
-    if ( typeof this.onChanged === 'function' ) {
-        chrome.cookies.onChanged.addListener(this.onChanged);
-    }
+vAPI.cookies.start = function() {
+    var onChanged = function(changeInfo) {
+        var handler = changeInfo.removed ? this.onRemoved : this.onChanged;
+        if ( typeof handler !== 'function' ) {
+            return;
+        }
+        handler(changeInfo.cookie);
+    };
+    chrome.cookies.onChanged.addListener(onChanged.bind(this));
 };
 
 /******************************************************************************/
@@ -890,6 +913,8 @@ vAPI.cookies.getAll = function(callback) {
 vAPI.cookies.remove = function(details, callback) {
     chrome.cookies.remove(details, callback || noopFunc);
 };
+
+/******************************************************************************/
 /******************************************************************************/
 
 })();

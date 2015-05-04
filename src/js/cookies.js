@@ -496,13 +496,7 @@ var canRemoveCookie = function(cookieKey, srcHostnames) {
 
 // Listen to any change in cookieland, we will update page stats accordingly.
 
-vAPI.cookies.onChanged = function(changeInfo) {
-    if ( changeInfo.removed ) {
-        return;
-    }
-
-    var cookie = changeInfo.cookie;
-
+vAPI.cookies.onChanged = function(cookie) {
     // rhill 2013-12-11: If cookie value didn't change, no need to record.
     // https://github.com/gorhill/httpswitchboard/issues/79
     var cookieKey = cookieKeyFromCookie(cookie);
@@ -536,7 +530,7 @@ vAPI.cookies.onChanged = function(changeInfo) {
 /******************************************************************************/
 
 vAPI.cookies.getAll(addCookiesToDict);
-vAPI.cookies.registerListeners();
+vAPI.cookies.start();
 
 µm.asyncJobs.add('cookieHunterRemove', null, processRemoveQueue, 2 * 60 * 1000, true);
 µm.asyncJobs.add('cookieHunterClean', null, processClean, 10 * 60 * 1000, true);

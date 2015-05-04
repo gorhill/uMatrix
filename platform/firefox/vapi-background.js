@@ -35,6 +35,7 @@
 // Useful links
 //
 // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface
+// https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Services.jsm
 
 /******************************************************************************/
 
@@ -84,7 +85,7 @@ var cleanupTasks = [];
 // Fixed by github.com/AlexVallat:
 //   https://github.com/AlexVallat/uBlock/commit/7b781248f00cbe3d61b1cc367c440db80fa06049
 //   7 instances of cleanupTasks.push, but one is unique to fennec, and one to desktop.
-var expectedNumberOfCleanups = 6;
+var expectedNumberOfCleanups = 7;
 
 window.addEventListener('unload', function() {
     for ( var cleanup of cleanupTasks ) {
@@ -1685,6 +1686,7 @@ vAPI.toolbarButton.updateState = function(win, tabId) {
 vAPI.toolbarButton.init();
 
 /******************************************************************************/
+/******************************************************************************/
 
 vAPI.contextMenu = {
     contextMap: {
@@ -1844,6 +1846,7 @@ vAPI.contextMenu.remove = function() {
 };
 
 /******************************************************************************/
+/******************************************************************************/
 
 var optionsObserver = {
     addonId: 'uMatrix@raymondhill.net',
@@ -1886,11 +1889,13 @@ var optionsObserver = {
 optionsObserver.register();
 
 /******************************************************************************/
+/******************************************************************************/
 
 vAPI.lastError = function() {
     return null;
 };
 
+/******************************************************************************/
 /******************************************************************************/
 
 // This is called only once, when everything has been loaded in memory after
@@ -1899,19 +1904,15 @@ vAPI.lastError = function() {
 // the web pages before uBlock was ready.
 
 vAPI.onLoadAllCompleted = function() {
-    var µb = µBlock;
     for ( var tab of this.tabs.getAllSync() ) {
         // We're insterested in only the tabs that were already loaded
-        var tabId = this.tabs.getTabId(tab);
-        var browser = getBrowserForTab(tab);
-        µb.tabContextManager.commit(tabId, browser.currentURI.asciiSpec);
-        µb.bindTabToPageStats(tabId, browser.currentURI.asciiSpec);
-        browser.messageManager.sendAsyncMessage(
+        getBrowserForTab(tab).messageManager.sendAsyncMessage(
             location.host + '-load-completed'
         );
     }
 };
 
+/******************************************************************************/
 /******************************************************************************/
 
 // Likelihood is that we do not have to punycode: given punycode overhead,
@@ -1932,48 +1933,113 @@ vAPI.punycodeURL = function(url) {
 };
 
 /******************************************************************************/
+/******************************************************************************/
+
+vAPI.browserData = {};
 
 /******************************************************************************/
 
-vAPI.browserCache = {};
+// https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICacheService
+// https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICache
+
+vAPI.browserData.clearCache = function(callback) {
+    // PURGE_DISK_DATA_ONLY:1
+    // PURGE_DISK_ALL:2
+    // PURGE_EVERYTHING:3
+    // However I verified that not argument does clear the cache data.
+    Services.cache2.clear();
+    if ( typeof callback === 'function' ) {
+        callback();
+    }
+};
 
 /******************************************************************************/
 
-vAPI.browserCache.clearByTime = function(since) {
+vAPI.browserData.clearOrigin = function(/* domain */) {
     // TODO
 };
 
-vAPI.browserCache.clearByOrigin = function(/* domain */) {
-    // TODO
-};
-
 /******************************************************************************/
+/******************************************************************************/
+
+// https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICookie2
+// https://developer.mozilla.org/en-US/docs/Observer_Notifications#Cookies
 
 vAPI.cookies = {};
 
 /******************************************************************************/
 
-vAPI.cookies.registerListeners = function() {
-    // TODO
+vAPI.cookies.CookieEntry = function(ffCookie) {
+    this.domain = ffCookie.host;
+    this.name = ffCookie.name;
+    this.path = ffCookie.path;
+    this.secure = ffCookie.isSecure === true;
+    this.session = ffCookie.expires === 0;
+    this.value = ffCookie.value;
 };
 
 /******************************************************************************/
 
-vAPI.cookies.getAll = function(callback) {
-    // TODO
-    if ( typeof callback === 'function' ) {
-        callback([]);
+vAPI.cookies.start = function() {
+    Services.obs.addObserver(this, 'cookie-changed', false);
+    cleanupTasks.push(this.stop.bind(this));
+};
+
+/******************************************************************************/
+
+vAPI.cookies.stop = function() {
+    Services.obs.removeObserver(this, 'cookie-changed');
+};
+
+/******************************************************************************/
+
+vAPI.cookies.observe = function(subject, topic, reason) {
+    if ( topic !== 'cookie-changed' ) {
+        return;
     }
+    var handler = reason === 'deleted' ? this.onRemoved : this.onChanged;
+    if ( typeof handler !== 'function' ) {
+        return;
+    }
+    handler(new this.CookieEntry(subject.QueryInterface(Ci.nsICookie)));
+};
+
+/******************************************************************************/
+
+// Meant and expected to be asynchronous.
+
+vAPI.cookies.getAll = function(callback) {
+    if ( typeof callback !== 'function' ) {
+        return;
+    }
+    var onAsync = function() {
+        var out = [];
+        var enumerator = Services.cookies.enumerator;
+        while ( enumerator.hasMoreElements() ) {
+            out.push(new this.CookieEntry(enumerator.getNext().QueryInterface(Ci.nsICookie)));
+        }
+        callback(out);
+    };
+    setTimeout(onAsync.bind(this), 0);
 };
 
 /******************************************************************************/
 
 vAPI.cookies.remove = function(details, callback) {
-    // TODO
+    var uri = Services.io.newURI(details.url, null, null);
+    var cookies = Services.cookies;
+    cookies.remove(uri.asciiHost, details.name, uri.path, false);
+    cookies.remove( '.' + uri.asciiHost, details.name, uri.path, false);
     if ( typeof callback === 'function' ) {
-        callback(null);
+        callback({
+            domain: uri.asciiHost,
+            name: details.name,
+            path: uri.path
+        });
     }
 };
+
+/******************************************************************************/
 /******************************************************************************/
 
 })();
