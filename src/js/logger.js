@@ -64,7 +64,9 @@ LogEntry.prototype.init = function(args) {
 /******************************************************************************/
 
 LogEntry.prototype.dispose = function() {
-    this.url = this.hostname = this.type = this.result = '';
+    this.tstamp = 0;
+    this.tab = this.cat = '';
+    this.d0 = this.d1 = this.d2 = this.d3 = undefined;
     if ( logEntryJunkyard.length < logEntryJunkyardMax ) {
         logEntryJunkyard.push(this);
     }
@@ -152,16 +154,26 @@ var logBuffer = null;
 // thus removed from memory.
 var logBufferObsoleteAfter = 60 * 1000;
 
-// The janitor will look for stale log buffer every 2 minutes.
-var loggerJanitorPeriod = 2 * 60 * 1000;
+/******************************************************************************/
+
+var janitor = function() {
+    if (
+        logBuffer !== null &&
+        logBuffer.lastReadTime < (Date.now() - logBufferObsoleteAfter)
+    ) {
+        logBuffer = logBuffer.dispose();
+    }
+    if ( logBuffer !== null ) {
+        setTimeout(janitor, logBufferObsoleteAfter);
+    }
+};
 
 /******************************************************************************/
 
 var writeOne = function() {
-    if ( logBuffer === null ) {
-        return;
+    if ( logBuffer !== null ) {
+        logBuffer.writeOne(arguments);
     }
-    logBuffer.writeOne(arguments);
 };
 
 /******************************************************************************/
@@ -169,23 +181,10 @@ var writeOne = function() {
 var readAll = function(tabId) {
     if ( logBuffer === null ) {
         logBuffer = new LogBuffer();
+        setTimeout(janitor, logBufferObsoleteAfter);
     }
     return logBuffer.readAll();
 };
-
-/******************************************************************************/
-
-var loggerJanitor = function() {
-    if (
-        logBuffer !== null &&
-        logBuffer.lastReadTime < (Date.now() - logBufferObsoleteAfter)
-    ) {
-        logBuffer = logBuffer.dispose();
-    }
-    setTimeout(loggerJanitor, loggerJanitorPeriod);
-};
-
-setTimeout(loggerJanitor, loggerJanitorPeriod);
 
 /******************************************************************************/
 

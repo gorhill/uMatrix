@@ -1971,7 +1971,7 @@ vAPI.cookies.getAll = function(callback) {
 vAPI.cookies.remove = function(details, callback) {
     // TODO
     if ( typeof callback === 'function' ) {
-        callback();
+        callback(null);
     }
 };
 /******************************************************************************/

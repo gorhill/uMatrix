@@ -1,6 +1,8 @@
 body {
+    background-color: white;
     border: 0;
     box-sizing: border-box;
+    color: black;
     -moz-box-sizing: border-box;
     margin: 0;
     overflow-x: hidden;
@@ -57,50 +59,33 @@ input:focus {
     }
 #content table tr {
     background-color: #fafafa;
+    color: #444;
     }
 #content table tr.cat_info {
-    color: #00a;
+    color: #00f;
     }
 #content table tr.blocked {
-    color: #c00;
+    color: #f00;
     }
 #content table tr:nth-of-type(2n+1) {
     background-color: #eee;
-    }
-#content table tr > td[colspan="3"]:nth-of-type(2) {
-    white-space: normal;
-    word-break: break-all;
-    word-wrap: break-word;
     }
 #content table tr.doc {
     background-color: #666;
     color: white;
     text-align: center;
     }
-#content table tr.doc > td {
-    border: 0;
-    }
-#content table tr.doc > td:nth-of-type(2) {
-    padding: 0.6em 0;
-    }
-/*
-#content table tr.allowed {
-    background-color: rgba(0, 160, 0, 0.1);
-    }
-#content table tr.allowed:nth-of-type(2n+1) {
-    background-color: rgba(0, 160, 0, 0.2);
-    }
-body.colorBlind #content table tr.allowed {
-    background-color: rgba(255, 194, 57, 0.1)
-    }
-*/
 body:not(.filterOff) #content table tr.hidden {
     display: none;
     }
 #content table tr td {
     border: 1px solid #ccc;
+    min-width: 0.5em;
     padding: 3px;
     vertical-align: top;
+    }
+#content table tr.doc > td {
+    border: 0;
     }
 #content table tr td:nth-of-type(1) {
     text-align: center;
@@ -108,15 +93,27 @@ body:not(.filterOff) #content table tr.hidden {
     width: 8em;
     }
 #content table tr td:nth-of-type(2) {
-    white-space: pre;
-    width: 2em;
+    width: 1em;
     }
 #content table tr td:nth-of-type(3) {
     white-space: pre;
-    width: 8em;
+    width: 2em;
     }
 #content table tr td:nth-of-type(4) {
+    white-space: pre;
+    width: 8em;
+    }
+#content table tr td:nth-of-type(5) {
     border-right: none;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    }
+#content table tr.tab_bts > td:nth-of-type(2):before {
+    content: '\f070';
+    font: 1em FontAwesome;
+    }
+#content table tr > td[colspan="3"]:nth-of-type(3) {
     white-space: normal;
     word-break: break-all;
     word-wrap: break-word;

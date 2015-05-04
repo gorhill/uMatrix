@@ -287,20 +287,28 @@ var removeCookieAsync = function(cookieKey) {
 
 /******************************************************************************/
 
+// TODO: i18n
+
 var chromeCookieRemove = function(url, name) {
+    var sessionCookieKey = cookieKeyFromCookieURL(url, 'session', name);
+    var persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
     var callback = function(details) {
-        if ( !details ) {
-            return;
+        var success = !!details;
+        if ( cookieDict.hasOwnProperty(sessionCookieKey) ) {
+            if ( success ) {
+                µm.logger.writeOne('', 'info', 'cookie deleted: ' + sessionCookieKey);
+                µm.cookieRemovedCounter += 1;
+            } else {
+                µm.logger.writeOne('', 'error', 'failed to delete cookie: ' + sessionCookieKey);
+            }
         }
-        var cookieKey = cookieKeyFromCookieURL(details.url, 'session', details.name);
-        if ( removeCookieFromDict(cookieKey) ) {
-            µm.logger.writeOne('', 'info', 'cookie deleted: ' + cookieKey);
-            µm.cookieRemovedCounter += 1;
-        }
-        cookieKey = cookieKeyFromCookieURL(details.url, 'persistent', details.name);
-        if ( removeCookieFromDict(cookieKey) ) {
-            µm.logger.writeOne('', 'info', 'cookie deleted: ' + cookieKey);
-            µm.cookieRemovedCounter += 1;
+        if ( cookieDict.hasOwnProperty(persistCookieKey) ) {
+            if ( success ) {
+                µm.logger.writeOne('', 'info', 'cookie deleted: ' + persistCookieKey);
+                µm.cookieRemovedCounter += 1;
+            } else {
+                µm.logger.writeOne('', 'error', 'failed to delete cookie: ' + persistCookieKey);
+            }
         }
     };
 

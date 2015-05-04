@@ -73,11 +73,10 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
 var onBeforeRequestHandler = function(details) {
     var µm = µMatrix;
-    var µmuri = µm.URI.set(details.url);
-    var requestScheme = µmuri.scheme;
 
     // rhill 2014-02-17: Ignore 'filesystem:': this can happen when listening
     // to 'chrome-extension://'.
+    var requestScheme = µm.URI.schemeFromURI(details.url);
     if ( requestScheme === 'filesystem' ) {
         return;
     }
@@ -96,7 +95,7 @@ var onBeforeRequestHandler = function(details) {
     var requestURL = details.url;
 
     // Ignore non-http schemes
-    if ( requestScheme.indexOf('http') !== 0 ) {
+    if ( requestScheme.lastIndexOf('http', 0) !== 0 ) {
         return;
     }
 
@@ -115,10 +114,21 @@ var onBeforeRequestHandler = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
     var tabContext = µm.tabContextManager.mustLookup(details.tabId);
     var tabId = tabContext.tabId;
-    var requestHostname = µmuri.hostname;
+
+    // Enforce strict secure connection?
+    var block = false;
+    if (
+        tabContext.secure &&
+        µm.URI.isSecureScheme(requestScheme) === false &&
+        µm.tMatrix.evaluateSwitchZ('https-strict', tabContext.rootHostname)
+    ) {
+        block = true;
+    }
 
     // Disallow request as per temporary matrix?
-    var block = µm.mustBlock(tabContext.rootHostname, requestHostname, requestType);
+    if ( block === false ) {
+        block = µm.mustBlock(tabContext.rootHostname, details.hostname, requestType);
+    }
 
     // Record request.
     // https://github.com/gorhill/httpswitchboard/issues/342
@@ -126,16 +136,16 @@ var onBeforeRequestHandler = function(details) {
     // processing has already been performed, and that a synthetic URL has
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
-    var pageStore = µm.mustPageStoreFromTabId(details.tabId);
+    var pageStore = µm.mustPageStoreFromTabId(tabContext.tabId);
     pageStore.recordRequest(requestType, requestURL, block);
 
-    // whitelisted?
+    // Allowed?
     if ( !block ) {
         // console.debug('onBeforeRequestHandler()> ALLOW "%s": %o', details.url, details);
         return;
     }
 
-    // blacklisted
+    // Blocked
     // console.debug('onBeforeRequestHandler()> BLOCK "%s": %o', details.url, details);
 
     return { 'cancel': true };
@@ -198,16 +208,14 @@ var onBeforeSendHeadersHandler = function(details) {
     // If we reach this point, request is not blocked, so what is left to do
     // is to sanitize headers.
 
-    var reqHostname = µm.hostnameFromURL(requestURL);
-
-    if ( µm.mustBlock(pageStore.pageHostname, reqHostname, 'cookie') ) {
+    if ( µm.mustBlock(pageStore.pageHostname, details.hostname, 'cookie') ) {
         if ( details.requestHeaders.setHeader('cookie', '') ) {
             µm.cookieHeaderFoiledCounter++;
         }
     }
 
     if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', pageStore.pageHostname) ) {
-        foilRefererHeaders(µm, reqHostname, details);
+        foilRefererHeaders(µm, details.hostname, details);
     }
 
     if ( µm.tMatrix.evaluateSwitchZ('ua-spoof', pageStore.pageHostname) ) {
@@ -267,83 +275,63 @@ var onHeadersReceived = function(details) {
 
 var onMainDocHeadersReceived = function(details) {
     var µm = µMatrix;
+    var tabId = details.tabId;
+    var requestURL = details.url;
 
     // https://github.com/gorhill/uMatrix/issues/145
     // Check if the main_frame is a download
-    if ( headerValue(details.responseHeaders, 'content-disposition').lastIndexOf('attachment', 0) === 0 ) {
-        µm.tabContextManager.unpush(details.tabId, details.url);
+    if ( headerValue(details.responseHeaders, 'content-type').lastIndexOf('application/x-', 0) === 0 ) {
+        µm.tabContextManager.unpush(tabId, requestURL);
+    } else {
+        µm.tabContextManager.push(tabId, requestURL);
     }
-    var tabContext = µm.tabContextManager.lookup(details.tabId);
+
+    var tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) {
         return;
     }
 
-    // console.debug('onMainDocHeadersReceived()> "%s": %o', details.url, details);
+    // console.debug('onMainDocHeadersReceived()> "%s": %o', requestURL, details);
 
-    // rhill 2013-12-07:
-    // Apparently in Opera, onBeforeRequest() is triggered while the
-    // URL is not yet bound to a tab (-1), which caused the code here
-    // to not be able to lookup the page store. So let the code here bind
-    // the page to a tab if not done yet.
-    // https://github.com/gorhill/httpswitchboard/issues/75
-
-    // TODO: check this works fine on Opera
-
-    // Re-classify orphan HTTP requests as behind-the-scene requests. There is
-    // not much else which can be done, because there are URLs
-    // which cannot be handled by HTTP Switchboard, i.e. `opera://startpage`,
-    // as this would lead to complications with no obvious solution, like how
-    // to scope on unknown scheme? Etc.
-    // https://github.com/gorhill/httpswitchboard/issues/191
-    // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var pageStore = µm.mustPageStoreFromTabId(details.tabId);
-    var headers = details.responseHeaders;
-
-    // Maybe modify inbound headers
-    var csp = '';
-
-    // Enforce strict HTTPS?
-    var requestScheme = µm.URI.schemeFromURI(details.url);
-    if ( requestScheme === 'https' && µm.tMatrix.evaluateSwitchZ('https-strict', tabContext.rootHostname) ) {
-        csp += "default-src chrome-search: data: https: wss: 'unsafe-eval' 'unsafe-inline';";
-    }
+    var blockScript = µm.mustBlock(tabContext.rootHostname, tabContext.rootHostname, 'script');
 
     // https://github.com/gorhill/httpswitchboard/issues/181
-    pageStore.pageScriptBlocked = µm.mustBlock(tabContext.rootHostname, tabContext.rootHostname, 'script');
-    if ( pageStore.pageScriptBlocked ) {
-        // If javascript not allowed, say so through a `Content-Security-Policy` directive.
-        // console.debug('onMainDocHeadersReceived()> PAGE CSP "%s": %o', details.url, details);
-        csp += " script-src 'none'";
+    var pageStore = µm.pageStoreFromTabId(tabId);
+    if ( pageStore ) {
+        pageStore.pageScriptBlocked = blockScript;
     }
 
-    // https://github.com/gorhill/httpswitchboard/issues/181
-    if ( csp !== '' ) {
-        headers.push({
-            'name': 'Content-Security-Policy',
-            'value': csp.trim()
-        });
-        return { responseHeaders: headers };
+    if ( !blockScript ) {
+        return;
     }
+
+    µm.logger.writeOne(tabId, 'net', '---', 'inline-script', requestURL);
+
+    // If javascript not allowed, say so through a `Content-Security-Policy` directive.
+    details.responseHeaders.push({
+        'name': 'Content-Security-Policy',
+        'value': "script-src 'none'"
+    });
+    return { responseHeaders: details.responseHeaders };
 };
 
 /******************************************************************************/
 
 var onSubDocHeadersReceived = function(details) {
+    var µm = µMatrix;
+    var tabId = details.tabId;
 
     // console.debug('onSubDocHeadersReceived()> "%s": %o', details.url, details);
 
-    var µm = µMatrix;
-
     // Do not ignore traffic outside tabs.
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabId = details.tabId;
     var tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) {
         return;
     }
 
     // Evaluate
-    if ( µm.mustAllow(tabContext.rootHostname, µm.hostnameFromURL(details.url), 'script') ) {
+    if ( µm.mustAllow(tabContext.rootHostname, details.hostname, 'script') ) {
         return;
     }
 
@@ -368,6 +356,9 @@ var onSubDocHeadersReceived = function(details) {
 
     // console.debug('onSubDocHeadersReceived()> FRAME CSP "%s": %o, scope="%s"', details.url, details, pageURL);
 
+    µm.logger.writeOne(tabId, 'net', '---', 'inline-script', details.url);
+
+    // If javascript not allowed, say so through a `Content-Security-Policy` directive.
     details.responseHeaders.push({
         'name': 'Content-Security-Policy',
         'value': "script-src 'none'"

@@ -974,6 +974,7 @@ var onMessage = function(request, sender, callback) {
         case 'readMany':
             response = {
                 colorBlind: false,
+                noTabId: vAPI.noTabId,
                 entries: µm.logger.readAll(request.tabId)
             };
             break;

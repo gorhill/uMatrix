@@ -41,8 +41,9 @@ var body = doc.body;
 var tbody = doc.querySelector('#content tbody');
 var trJunkyard = [];
 var tdJunkyard = [];
-var firstVarDataCol = 1;
-var lastVarDataCol = 3;
+var firstVarDataCol = 2;  // currently, column 2 (0-based index)
+var lastVarDataIndex = 3; // currently, d0-d3
+var noTabId = '';
 
 var prettyRequestTypes = {
     'main_frame': 'doc',
@@ -61,12 +62,22 @@ var timeOptions = {
 
 /******************************************************************************/
 
-var createCell = function() {
-    var td = tdJunkyard.pop();
-    if ( td ) {
-        return td;
+var createCellAt = function(tr, index) {
+    var td = tr.cells[index];
+    var mustAppend = !td;
+    if ( mustAppend ) {
+        td = tdJunkyard.pop();
     }
-    return doc.createElement('td');
+    if ( td ) {
+        td.removeAttribute('colspan');
+        td.textContent = '';
+    } else {
+        td = doc.createElement('td');
+    }
+    if ( mustAppend ) {
+        tr.appendChild(td);
+    }
+    return td;
 };
 
 /******************************************************************************/
@@ -78,23 +89,13 @@ var createRow = function(entry) {
     } else {
         tr = doc.createElement('tr');
     }
-    var td;
     for ( var index = 0; index < firstVarDataCol; index++ ) {
-        td = tr.cells[index];
-        if ( td === undefined ) {
-            td = createCell();
-            tr.appendChild(td);
-        }
-        td.removeAttribute('colspan');
+        createCellAt(tr, index);
     }
-    var i = 1, span = 1;
+    var i = 1, span = 1, td;
     for (;;) {
-        td = tr.cells[index];
-        if ( td === undefined ) {
-            td = createCell();
-            tr.appendChild(td);
-        }
-        if ( i === lastVarDataCol ) {
+        td = createCellAt(tr, index);
+        if ( i === lastVarDataIndex ) {
             break;
         }
         if ( entry['d' + i] === undefined ) {
@@ -102,8 +103,6 @@ var createRow = function(entry) {
         } else {
             if ( span !== 1 ) {
                 td.setAttribute('colspan', span);
-            } else {
-                td.removeAttribute('colspan');
             }
             index += 1;
             span = 1;
@@ -112,8 +111,6 @@ var createRow = function(entry) {
     }
     if ( span !== 1 ) {
         td.setAttribute('colspan', span);
-    } else {
-        td.removeAttribute('colspan');
     }
     index += 1;
     while ( td = tr.cells[index] ) {
@@ -134,17 +131,25 @@ var createGap = function(url) {
 /******************************************************************************/
 
 var renderLogEntry = function(entry) {
+    var fvdc = firstVarDataCol;
     var tr = createRow(entry);
 
-    tr.classList.add('tab_' + entry.tab);
-    tr.classList.add('cat_' + entry.cat);
+    if ( entry.tab === noTabId ) {
+        tr.classList.add('tab_bts');
+    } else if ( entry.tab !== '' ) {
+        tr.classList.add('tab_' + entry.tab);
+    }
+    if ( entry.cat !== '' ) {
+        tr.classList.add('cat_' + entry.cat);
+    }
 
     var time = new Date(entry.tstamp);
     tr.cells[0].textContent = time.toLocaleString('fullwide', timeOptions);
 
     switch ( entry.cat ) {
+    case 'error':
     case 'info':
-        tr.cells[firstVarDataCol].textContent = entry.d0;
+        tr.cells[fvdc].textContent = entry.d0;
         break;
 
     case 'net':
@@ -155,15 +160,16 @@ var renderLogEntry = function(entry) {
         }
         if ( entry.d0 ) {
             tr.classList.add('blocked');
-            tr.cells[1].textContent = '---';
+            tr.cells[fvdc].textContent = '---';
         } else {
-            tr.cells[1].textContent = '';
+            tr.cells[fvdc].textContent = '';
         }
-        tr.cells[2].textContent = (prettyRequestTypes[entry.d1] || entry.d1) + '\t';
-        tr.cells[3].textContent = entry.d2 + '\t';
+        tr.cells[fvdc+1].textContent = (prettyRequestTypes[entry.d1] || entry.d1) + '\t';
+        tr.cells[fvdc+2].textContent = entry.d2 + '\t';
         break;
 
     default:
+        tr.cells[fvdc].textContent = entry.d0;
         break;
     }
 
@@ -177,6 +183,8 @@ var renderLogBuffer = function(response) {
     if ( buffer.length === 0 ) {
         return;
     }
+
+    noTabId = response.noTabId;
 
     // Preserve scroll position
     var height = tbody.offsetHeight;

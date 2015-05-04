@@ -236,6 +236,14 @@ URI.schemeFromURI = function(uri) {
 
 /******************************************************************************/
 
+URI.isSecureScheme = function(scheme) {
+    return scheme === 'https' ||
+           scheme === 'wss' ||
+           scheme === 'ftps';
+};
+
+/******************************************************************************/
+
 URI.authorityFromURI = function(uri) {
     var matches = reAuthorityFromURI.exec(uri);
     if ( !matches ) {

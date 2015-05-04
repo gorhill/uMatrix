@@ -157,8 +157,10 @@ housekeep itself.
         this.stack = [];
         this.rawURL =
         this.normalURL =
+        this.scheme =
         this.rootHostname =
         this.rootDomain = '';
+        this.secure = false;
         this.timer = null;
         this.onTabCallback = null;
         this.onTimerCallback = null;
@@ -209,18 +211,28 @@ housekeep itself.
     // root URL.
     TabContext.prototype.update = function() {
         if ( this.stack.length === 0 ) {
-            this.rawURL = this.normalURL = this.rootHostname = this.rootDomain = '';
+            this.rawURL =
+            this.normalURL =
+            this.scheme =
+            this.rootHostname =
+            this.rootDomain = '';
         } else {
             this.rawURL = this.stack[this.stack.length - 1];
             this.normalURL = µm.normalizePageURL(this.tabId, this.rawURL);
+            this.scheme = µm.URI.schemeFromURI(this.rawURL);
             this.rootHostname = µm.URI.hostnameFromURI(this.normalURL);
             this.rootDomain = µm.URI.domainFromHostname(this.rootHostname) || this.rootHostname;
         }
+        this.secure = µm.URI.isSecureScheme(this.scheme);
     };
 
     // Called whenever a candidate root URL is spotted for the tab.
     TabContext.prototype.push = function(url) {
         if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        var count = this.stack.length;
+        if ( count !== 0 && this.stack[count - 1] === url ) {
             return;
         }
         this.stack.push(url);

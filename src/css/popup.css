@@ -69,7 +69,7 @@ body .toolbar button.disabled {
     color: #ccc;
     }
 body .toolbar button.fa {
-    font: 1.75em 'FontAwesome';
+    font: 1.75em FontAwesome;
     min-width: 1.1em;
     }
 body.tScopeGlobal .scopeRel:not(.disabled) {
