@@ -294,7 +294,7 @@ var chromeCookieRemove = function(url, name) {
     var persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
     var callback = function(details) {
         var success = !!details;
-        if ( cookieDict.hasOwnProperty(sessionCookieKey) ) {
+        if ( removeCookieFromDict(sessionCookieKey) ) {
             if ( success ) {
                 µm.logger.writeOne('', 'info', 'cookie deleted: ' + sessionCookieKey);
                 µm.cookieRemovedCounter += 1;
@@ -302,7 +302,7 @@ var chromeCookieRemove = function(url, name) {
                 µm.logger.writeOne('', 'error', 'failed to delete cookie: ' + sessionCookieKey);
             }
         }
-        if ( cookieDict.hasOwnProperty(persistCookieKey) ) {
+        if ( removeCookieFromDict(persistCookieKey) ) {
             if ( success ) {
                 µm.logger.writeOne('', 'info', 'cookie deleted: ' + persistCookieKey);
                 µm.cookieRemovedCounter += 1;
