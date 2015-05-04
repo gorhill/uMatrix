@@ -97,21 +97,31 @@ body[dir="rtl"] #buttonMtxSwitches + .dropdown-menu {
 #mtxSwitches > li.switchTrue {
     color: #000;
     }
-#mtxSwitches > li > span:before {
-    font: 120% FontAwesome;
+#mtxSwitches > li:before {
+    font: 110% FontAwesome;
     }
-body[dir="ltr"] #mtxSwitches > li > span:before {
+body[dir="ltr"] #mtxSwitches > li:before {
     padding-right: 0.5em;
     }
-body[dir="rtl"] #mtxSwitches > li > span:before {
+body[dir="rtl"] #mtxSwitches > li:before {
     padding-left: 0.5em;
     }
-#mtxSwitches > li > span:before {
+#mtxSwitches > li:before {
     content: '\f204';
     }
-#mtxSwitches > li.switchTrue > span:before {
+#mtxSwitches > li.switchTrue:before {
     color: #000;
     content: '\f205';
+    }
+[data-i18n="matrixLoggerMenuEntry"]:before {
+    content: '\f022';
+    font: 110% FontAwesome;
+    padding-right: 0.5em;
+    }
+[data-i18n="matrixDashboardMenuEntry"]:before {
+    content: '\f085';
+    font: 110% FontAwesome;
+    padding-right: 0.5em;
     }
 
 .dropdown-menu {
