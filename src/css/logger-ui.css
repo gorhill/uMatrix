@@ -58,25 +58,30 @@ input:focus {
 #content table tr {
     background-color: #fafafa;
     }
+#content table tr.cat_info {
+    color: #00a;
+    }
+#content table tr.blocked {
+    color: #c00;
+    }
 #content table tr:nth-of-type(2n+1) {
     background-color: #eee;
+    }
+#content table tr > td[colspan="3"]:nth-of-type(2) {
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
     }
 #content table tr.doc {
     background-color: #666;
     color: white;
     text-align: center;
     }
+#content table tr.doc > td {
+    border: 0;
+    }
 #content table tr.doc > td:nth-of-type(2) {
-    padding: 1em 0;
-    white-space: normal;
-    word-break: break-all;
-    word-wrap: break-word;
-    }
-#content table tr.cat_info {
-    color: #00a;
-    }
-#content table tr.blocked {
-    color: #c00;
+    padding: 0.6em 0;
     }
 /*
 #content table tr.allowed {
