@@ -24,20 +24,16 @@ ul > li {
     color: #888;
     }
 #spoof-user-agent-with {
+    box-sizing: border-box;
     direction: ltr;
     display: block;
     font-size: 11px;
-    width: 50em;
-    height: 12em;
-    white-space: pre;
-    word-wrap: normal;
+    height: 16em;
     overflow-x: scroll;
-    }
-body[dir="ltr"] #spoof-user-agent-with {
-    margin-left: 1.25em;
-    }
-body[dir="rtl"] #spoof-user-agent-with {
-    margin-right: 1.25em;
+    resize: vertical;
+    white-space: pre;
+    width: 100%;
+    word-wrap: normal;
     }
 </style>
 </head>
@@ -98,11 +94,6 @@ body[dir="rtl"] #spoof-user-agent-with {
         <div class="whatisthis-expandable para" data-i18n="privacySpoofUserAgentHelp"></div>
         <textarea id="spoof-user-agent-with" spellcheck="false"></textarea>
 </ul>
-
-<h2 data-i18n="privacyBehindTheSceneHeader"></h2>
-<div>
-    <p class="para" data-i18n="privacyProcessBehindTheSceneHelp"></p>
-</div>
 
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
