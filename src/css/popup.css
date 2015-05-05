@@ -113,6 +113,11 @@ body[dir="rtl"] #mtxSwitches > li:before {
     color: #000;
     content: '\f205';
     }
+#buttonRevertAll:before {
+    content: '\f122';
+    font: 110% FontAwesome;
+    padding-right: 0.5em;
+    }
 [data-i18n="matrixLoggerMenuEntry"]:before {
     content: '\f022';
     font: 110% FontAwesome;
@@ -185,32 +190,7 @@ body[dir="rtl"] #mtxSwitches > li:before {
     }
 
 #buttonReload {
-    margin-right: 1em;
-    }
-body #buttonRevertAll {
-    position: relative;
-    color: transparent;
-    }
-body #buttonRevertAll > span {
-    color: black;
-    font-size: 60%;
-    position: absolute;
-    }
-body #buttonRevertAll > span:nth-of-type(1) {
-    left: 3px;
-    top: 3px;
-    }
-body #buttonRevertAll > span:nth-of-type(2) {
-    right: 3px;
-    top: 3px;
-    }
-body #buttonRevertAll > span:nth-of-type(3) {
-    right: 3px;
-    bottom: 3px;
-    }
-body #buttonRevertAll > span:nth-of-type(4) {
-    left: 3px;
-    bottom: 3px;
+    margin-left: 1em;
     }
 
 button > span.badge {

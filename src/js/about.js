@@ -36,7 +36,7 @@ var messager = vAPI.messaging.channel('about.js');
 var backupUserDataToFile = function() {
     var userDataReady = function(userData) {
         vAPI.download({
-            'url': 'data:text/plain,' + encodeURIComponent(JSON.stringify(userData)),
+            'url': 'data:text/plain,' + encodeURIComponent(JSON.stringify(userData, null, 2)),
             'filename': uDom('[data-i18n="aboutBackupFilename"]').text()
         });
     };

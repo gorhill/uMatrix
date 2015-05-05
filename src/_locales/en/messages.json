@@ -80,20 +80,16 @@
         "description": ""
     },
     "matrixMtxButtonTip" : {
-        "message": "Disable/enable matrix filtering for this scope.\nRequests blocked through matrix filtering on this page: {{count}}.",
-        "description": "Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+        "message": "Disable/enable matrix filtering for this scope.",
+        "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip" : {
         "message": "Save all temporary changes for this scope.",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip" : {
-        "message": "Remove temporary changes for this scope.",
+        "message": "Revert temporary changes for this scope.",
         "description": "Tool tip for the revert local permission button"
-    },
-    "matrixRevertButtonAllTip" : {
-        "message": "Remove all temporary changes.",
-        "description": "Tool tip for the revert all permissions button"
     },
     "matrixReloadButton" : {
         "message": "Reload the page.",
@@ -119,15 +115,18 @@
         "message": "Referrer spoofing",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixRevertAllEntry" : {
+        "message": "Revert all temporary changes",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixLoggerMenuEntry" : {
-        "message": "Request log",
+        "message": "Go to request log",
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry" : {
-        "message": "Dashboard",
+        "message": "Go to dashboard",
         "description": "A menu entry in the matrix popup"
     },
-
 
     "statsPageTitle" : {
         "message": "uMatrix &ndash; Statistics",
@@ -602,7 +601,7 @@
     },
 
     "commandRevertAll" : {
-        "message": "Remove all temporary changes",
+        "message": "Revert all temporary changes",
         "description": ""
     },
     "commandWhitelistPageDomain" : {

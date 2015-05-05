@@ -63,8 +63,9 @@ html.rtl {
     color: black;
     content: attr(data-tip);
     font: 12px sans-serif;
+    left: -100%;
     line-height: 140%;
-    min-width: 40vw;
+    min-width: 25vw;
     padding: 4px 6px;
     position: absolute;
     text-align: start;

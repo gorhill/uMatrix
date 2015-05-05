@@ -1101,6 +1101,7 @@ function revertAll() {
         what: 'revertTemporaryMatrix'
     };
     messager.send(request, updateMatrixSnapshot);
+    dropDownMenuHide();
 }
 
 /******************************************************************************/

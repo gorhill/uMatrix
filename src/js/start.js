@@ -37,13 +37,6 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
-// Important: raise barrier to remote fetching: we do not want resources to
-// be pulled from remote server at start up time.
-
-µm.assets.remoteFetchBarrier += 1;
-
-/******************************************************************************/
-
 var defaultLocalUserSettings = {
     placeholderBackground: [
             'linear-gradient(0deg,',
@@ -83,6 +76,13 @@ var defaultLocalUserSettings = {
 
 /******************************************************************************/
 
+// Important: raise barrier to remote fetching: we do not want resources to
+// be pulled from remote server at start up time.
+
+µm.assets.remoteFetchBarrier += 1;
+
+/******************************************************************************/
+
 var onAllDone = function() {
     µm.webRequest.start();
 
@@ -92,10 +92,6 @@ var onAllDone = function() {
     µm.assetUpdater.onCompleted.addListener(µm.updateCompleteHandler.bind(µm));
     µm.assetUpdater.onAssetUpdated.addListener(µm.assetUpdatedHandler.bind(µm));
     µm.assets.onAssetCacheRemoved.addListener(µm.assetCacheRemovedHandler.bind(µm));
-
-    // Important: remove barrier to remote fetching, this was useful only
-    // for launch time.
-    µm.assets.remoteFetchBarrier -= 1;
 
     for ( var key in defaultLocalUserSettings ) {
         if ( defaultLocalUserSettings.hasOwnProperty(key) === false ) {
@@ -123,16 +119,16 @@ var onTabsReady = function(tabs) {
     onAllDone();
 };
 
-var onSettingsReady = function(settings) {
-    µm.loadHostsFiles();
-};
-
-var onMatrixReady = function() {
+var onHostsFilesLoaded = function() {
+    // Important: remove barrier to remote fetching, this was useful only
+    // for launch time.
+    µm.assets.remoteFetchBarrier -= 1;
 };
 
 var onPSLReady = function() {
-    µm.loadUserSettings(onSettingsReady);
-    µm.loadMatrix(onMatrixReady);
+    µm.loadHostsFiles(onHostsFilesLoaded);
+    µm.loadUserSettings();
+    µm.loadMatrix();
 
     // rhill 2013-11-24: bind behind-the-scene virtual tab/url manually, since the
     // normal way forbid binding behind the scene tab.
