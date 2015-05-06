@@ -1130,6 +1130,7 @@ function gotoExtensionURL(ev) {
     if ( url ) {
         messager.send({ what: 'gotoExtensionURL', url: url });
     }
+    dropDownMenuHide();
     vAPI.closePopup();
 }
 

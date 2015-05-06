@@ -34,7 +34,6 @@
 
 var messager = vAPI.messaging.channel('logger-ui.js');
 
-var inspectedTabId = '';
 var doc = document;
 var body = doc.body;
 var tbody = doc.querySelector('#content tbody');
@@ -44,7 +43,6 @@ var firstVarDataCol = 2;  // currently, column 2 (0-based index)
 var lastVarDataIndex = 3; // currently, d0-d3
 var maxEntries = 5000;
 var noTabId = '';
-var popupTabId;
 
 var prettyRequestTypes = {
     'main_frame': 'doc',
@@ -166,9 +164,10 @@ var createRow = function(layout) {
 
 /******************************************************************************/
 
-var createGap = function(url) {
+var createGap = function(tabId, url) {
     var tr = createRow('1');
     tr.classList.add('doc');
+    tr.classList.add('tab_' + tabId);
     tr.cells[firstVarDataCol].textContent = url;
     tbody.insertBefore(tr, tbody.firstChild);
 };
@@ -190,8 +189,8 @@ var renderLogEntry = function(entry) {
         tr = createRow('111');
         // If the request is that of a root frame, insert a gap in the table
         // in order to visually separate entries for different documents. 
-        if ( entry.d2 === 'doc' ) {
-            createGap(entry.d1);
+        if ( entry.d2 === 'doc' && entry.tab !== noTabId ) {
+            createGap(entry.tab, entry.d1);
         }
         if ( entry.d3 ) {
             tr.classList.add('blocked');
@@ -303,7 +302,7 @@ var onBufferRead = function(response) {
 // require a bit more code to ensure no multi time out events.
 
 var readLogBuffer = function() {
-    messager.send({ what: 'readMany', tabId: inspectedTabId }, onBufferRead);
+    messager.send({ what: 'readMany' }, onBufferRead);
 };
 
 /******************************************************************************/
@@ -328,45 +327,93 @@ var toggleCompactView = function() {
 /******************************************************************************/
 
 var togglePopup = (function() {
+    var realTabId = null;
+    var localTabId = null;
     var container = null;
     var movingOverlay = null;
     var popup = null;
     var popupObserver = null;
     var style = null;
-    var styleTemplate = 'tr:not(.tab_{{tabId}}) { opacity: 0.1; }';
-    var dx, dy;
+    var styleTemplate = [
+        'tr:not(.tab_{{tabId}}) {',
+            'cursor: not-allowed;',
+            'opacity: 0.1;',
+        '}'
+    ].join('\n');
 
-    var moveTo = function(ev) {
-        container.style.left = (ev.clientX + dx) + 'px';
-        container.style.top = (ev.clientY + dy) + 'px';
+    // Related to moving the popup around
+    var xnormal, ynormal, crect, dx, dy, vw, vh;
+
+    // Viewport data assumed to be properly set up
+    var positionFromNormal = function(x, y) {
+        if ( typeof x === 'number' ) {
+            if ( x < 0.5 ) {
+                container.style.setProperty('left', (x * vw) + 'px');
+                container.style.removeProperty('right');
+            } else {
+                container.style.removeProperty('left');
+                container.style.setProperty('right', ((1 - x) * vw) + 'px');
+            }
+        }
+        if ( typeof y === 'number' ) {
+            if ( y < 0.5 ) {
+                container.style.setProperty('top', (y * vh) + 'px');
+                container.style.removeProperty('bottom');
+            } else {
+                container.style.removeProperty('top');
+                container.style.setProperty('bottom', ((1 - y) * vh) + 'px');
+            }
+        }
+        // TODO: adjust size
+    };
+    var updateViewportData = function() {
+        crect = container.getBoundingClientRect();
+        vw = document.documentElement.clientWidth - crect.width;
+        vh = document.documentElement.clientHeight - crect.height;
+    };
+    var toNormalX = function(x) {
+        return xnormal = Math.max(Math.min(x / vw, 1), 0);
+    };
+    var toNormalY = function(y) {
+        return ynormal = Math.max(Math.min(y / vh, 1), 0);
     };
 
     var onMouseMove = function(ev) {
-        moveTo(ev);
+        updateViewportData();
+        positionFromNormal(
+            toNormalX(ev.clientX + dx),
+            toNormalY(ev.clientY + dy)
+        );
         ev.stopPropagation();
         ev.preventDefault();
     };
 
     var onMouseUp = function(ev) {
-        moveTo(ev);
+        updateViewportData();
+        positionFromNormal(
+            toNormalX(ev.clientX + dx),
+            toNormalY(ev.clientY + dy)
+        );
         movingOverlay.removeEventListener('mouseup', onMouseUp);
         movingOverlay.removeEventListener('mousemove', onMouseMove);
         movingOverlay = null;
         container.classList.remove('moving');
-        var rect = container.getBoundingClientRect();
         vAPI.localStorage.setItem('popupLastPosition', JSON.stringify({
-            x: rect.left,
-            y: rect.top
+            xnormal: xnormal,
+            ynormal: ynormal
         }));
         ev.stopPropagation();
         ev.preventDefault();
     };
 
-    var onMove = function(ev) {
+    var onMouseDown = function(ev) {
+        if ( ev.target !== ev.currentTarget ) {
+            return;
+        }
         container.classList.add('moving');
-        var rect = container.getBoundingClientRect();
-        dx = rect.left - ev.clientX;
-        dy = rect.top - ev.clientY;
+        updateViewportData();
+        dx = crect.left - ev.clientX;
+        dy = crect.top - ev.clientY;
         movingOverlay = document.getElementById('movingOverlay');
         movingOverlay.addEventListener('mousemove', onMouseMove, true);
         movingOverlay.addEventListener('mouseup', onMouseUp, true);
@@ -398,61 +445,74 @@ var togglePopup = (function() {
         if ( matches === null ) {
             return;
         }
-        var tabId = matches[1];
-        if ( tabId === 'bts' ) {
-            tabId = noTabId;
+        realTabId = localTabId = matches[1];
+        if ( localTabId === 'bts' ) {
+            realTabId = noTabId;
         }
 
-        // Use last position if one is defined
-        var x, y;
+        // Use last normalized position if one is defined.
+        // Default to top-right.
+        var x = 1, y = 0;
         var json = vAPI.localStorage.getItem('popupLastPosition');
         if ( json ) {
             try {
                 var popupLastPosition = JSON.parse(json);
-                x = popupLastPosition.x;
-                y = popupLastPosition.y;
+                x = popupLastPosition.xnormal;
+                y = popupLastPosition.ynormal;
             }
             catch (e) {
             }
         }
-        // Fall back to cell position if no position defined
-        if ( x === undefined ) {
-            var rect = td.getBoundingClientRect();
-            x = rect.left;
-            y = rect.bottom;
-        }
         container = document.getElementById('popupContainer');
-        container.style.left = x + 'px';
-        container.style.top = y + 'px';
-        container.addEventListener('mousedown', onMove);
-        popup = container.querySelector('iframe');
-        popup.setAttribute('src', 'popup.html?tabId=' + tabId);
+        updateViewportData();
+        positionFromNormal(x, y);
+
+        // Window controls
+        container.querySelector('div > span:first-child').addEventListener('click', toggleOff);
+        container.querySelector('div').addEventListener('mousedown', onMouseDown);
+
+        popup = document.createElement('iframe');
         popup.addEventListener('load', onLoad);
+        popup.setAttribute('src', 'popup.html?tabId=' + realTabId);
         popupObserver = new MutationObserver(resizePopup);
+        container.appendChild(popup);
+
         style = document.querySelector('#content > style');
-        style.textContent = styleTemplate.replace('{{tabId}}', tabId);
-        container.classList.add('show');
-        popupTabId = tabId;
+        style.textContent = styleTemplate.replace('{{tabId}}', localTabId);
+
+        document.body.classList.add('popupOn');
     };
 
     var toggleOff = function() {
-        style.textContent = '';
-        style = null;
+        document.body.classList.remove('popupOn');
+
+        // Just in case
+        if ( movingOverlay !== null ) {
+            movingOverlay.removeEventListener('mousemove', onMouseMove, true);
+            movingOverlay.removeEventListener('mouseup', onMouseUp, true);
+            movingOverlay = null;
+        }
+
+        // Window controls
+        container.querySelector('div > span:first-child').removeEventListener('click', toggleOff);
+        container.querySelector('div').removeEventListener('mousedown', onMouseDown);
+
+        popup.removeEventListener('load', onLoad);
         popupObserver.disconnect();
         popupObserver = null;
-        popup.removeEventListener('load', onLoad);
         popup.setAttribute('src', '');
+        container.removeChild(popup);
         popup = null;
-        container.classList.remove('show');
-        container.removeEventListener('mousedown', onMove);
+
+        style.textContent = '';
+        style = null;
+
         container = null;
-        popupTabId = undefined;
+        realTabId = null;
     };
 
     return function(ev) {
-        if ( popupTabId !== undefined ) {
-            toggleOff();
-        } else {
+        if ( realTabId === null ) {
             toggleOn(ev.target);
         }
     };
@@ -483,19 +543,12 @@ var onMaxEntriesChanged = function() {
 /******************************************************************************/
 
 uDom.onLoad(function() {
-    // Extract the tab id of the page we need to pull the log
-    var matches = window.location.search.match(/[\?&]tabId=([^&]+)/);
-    if ( matches && matches.length === 2 ) {
-        inspectedTabId = matches[1];
-    }
-
     readLogBuffer();
 
     uDom('#compactViewToggler').on('click', toggleCompactView);
     uDom('#clear').on('click', clearBuffer);
     uDom('#maxEntries').on('change', onMaxEntriesChanged);
     uDom('#content table').on('click', 'tr.cat_net > td:nth-of-type(2)', togglePopup);
-    uDom('#focusOverlay').on('click', togglePopup);
 });
 
 /******************************************************************************/

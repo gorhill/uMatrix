@@ -76,7 +76,7 @@ input:focus {
     width: 3em;
     }
 #content table > colgroup > col:nth-of-type(4) {
-    width: 8em;
+    width: 5em;
     }
 #content table > colgroup > col:nth-of-type(5) {
     width: calc(100% - 20em);
@@ -141,7 +141,7 @@ body.compactView #content td {
     content: '\f070';
     font: 1em FontAwesome;
     }
-#content table tr.cat_net td:nth-of-type(2) {
+body:not(.popupOn) #content table tr.cat_net td:nth-of-type(2) {
     cursor: zoom-in;
     }
 #content table tr.cat_net td:nth-of-type(3) {
@@ -160,36 +160,43 @@ body.compactView #content td {
     }
 
 #popupContainer {
-    background: #444;
+    background: white;
     border: 1px solid gray;
-    cursor: -webkit-grab;
-    cursor: grab;
     display: none;
     overflow: hidden;
     position: fixed;
     z-index: 200;
     }
-#popupContainer.show {
+body.popupOn #popupContainer {
     display: block;
+    }
+#popupContainer > div {
+    background: #444;
+    cursor: -webkit-grab;
+    cursor: grab;
+    height: 2em;
+    }
+body[dir="ltr"] #popupContainer > div {
+    direction: rtl;
+    }
+body[dir="rtl"] #popupContainer > div {
+    direction: ltr;
+    }
+#popupContainer > div > span {
+    color: #ccc;
+    cursor: pointer;
+    display: inline-block;
+    font: 14px FontAwesome;
+    padding: 4px;
+    }
+#popupContainer > div > span:hover {
+    color: white;
     }
 #popupContainer > iframe {
     border: 0;
     padding: 0;
-    margin: 1.5em 0 0 0;
+    margin: 0;
     width: 100%;
-    }
-#focusOverlay {
-    bottom: 0;
-    cursor: not-allowed;
-    display: none;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 3.5em;
-    z-index: 100;
-    }
-#popupContainer.show ~ #focusOverlay {
-    display: block;
     }
 #movingOverlay {
     bottom: 0;
