@@ -87,28 +87,8 @@ function setUserSetting(setting, value) {
 
 /******************************************************************************/
 
-var matrixSnapshotChanged = function() {
-    if ( typeof matrixSnapshot !== 'object' ) {
-        return;
-    }
-    if ( matrixSnapshot.mtxContentModified ) {
-        makeMenu();
-        return;
-    }
-    if ( matrixSnapshot.mtxCountModified ) {
-        updateMatrixCounts();
-    }
-    if ( matrixSnapshot.mtxColorModified ) {
-        updateMatrixColors();
-        updateMatrixBehavior();
-        updateMatrixButtons();
-    }
-};
-
-/******************************************************************************/
-
 function updateMatrixSnapshot() {
-    matrixSnapshotPoller.pollNow(matrixSnapshotChanged);
+    matrixSnapshotPoller.pollNow();
 }
 
 /******************************************************************************/
@@ -1209,20 +1189,39 @@ var onMatrixSnapshotReady = function(response) {
 var matrixSnapshotPoller = (function() {
     var timer = null;
 
-    var snapshotPolled = function(response) {
-        timer = null;
-        if ( typeof response === 'object' ) {
-            matrixSnapshot = response;
-            matrixSnapshotChanged();
+    var processPollResult = function(response) {
+        if ( typeof response !== 'object' ) {
+            return;
+        }
+        if (
+            response.mtxContentModified === false &&
+            response.mtxCountModified === false &&
+            response.mtxColorModified === false
+        ) {
+            return;
+        }
+        matrixSnapshot = response;
+        if ( response.mtxContentModified ) {
+            makeMenu();
+            return;
+        }
+        if ( response.mtxCountModified ) {
+            updateMatrixCounts();
+        }
+        if ( response.mtxColorModified ) {
+            updateMatrixColors();
+            updateMatrixBehavior();
+            updateMatrixButtons();
         }
     };
 
-    var pollNow = function(callback) {
+    var onPolled = function(response) {
+        processPollResult(response);
+        pollAsync();
+    };
+
+    var pollNow = function() {
         unpollAsync();
-        var onPolled = function(response) {
-            callback(response);
-            pollAsync();
-        };
         messager.send({
             what: 'matrixSnapshot',
             tabId: matrixSnapshot.tabId,
@@ -1234,7 +1233,7 @@ var matrixSnapshotPoller = (function() {
 
     var poll = function() {
         timer = null;
-        pollNow(snapshotPolled);
+        pollNow();
     };
 
     var pollAsync = function() {
@@ -1276,7 +1275,9 @@ var matrixSnapshotPoller = (function() {
         }, snapshotFetched);
     })();
 
-    return pollNow;
+    return {
+        pollNow: pollNow
+    };
 })();
 
 /******************************************************************************/
