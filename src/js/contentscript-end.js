@@ -381,7 +381,7 @@ var nodesAddedHandler = function(nodeList, summary) {
 
         case 'script':
             // https://github.com/gorhill/httpswitchboard/issues/252
-            // Do not count µMatrix's own script tags, they are not required
+            // Do not count uMatrix's own script tags, they are not required
             // to "unbreak" a web page
             if ( typeof node.id === 'string' && node.id.lastIndexOf('uMatrix-', 0) === 0 ) {
                 break;
@@ -404,22 +404,6 @@ var nodesAddedHandler = function(nodeList, summary) {
                 summary.mustReport = true;
             }
             break;
-
-        case 'object':
-            src = (node.data || '').trim();
-            if ( src !== '' ) {
-                summary.pluginSources[src] = true;
-                summary.mustReport = true;
-            }
-            break;
-
-        case 'embed':
-            src = (node.src || '').trim();
-            if ( src !== '' ) {
-                summary.pluginSources[src] = true;
-                summary.mustReport = true;
-            }
-            break;
         }
     }
 };
@@ -435,7 +419,6 @@ var nodeListsAddedHandler = function(nodeLists) {
         what: 'contentScriptSummary',
         locationURL: window.location.href,
         scriptSources: {}, // to avoid duplicates
-        pluginSources: {}, // to avoid duplicates
         mustReport: false
     };
     while ( i-- ) {
@@ -458,14 +441,13 @@ var nodeListsAddedHandler = function(nodeLists) {
         what: 'contentScriptSummary',
         locationURL: window.location.href,
         scriptSources: {}, // to avoid duplicates
-        pluginSources: {}, // to avoid duplicates
         mustReport: true
     };
     // https://github.com/gorhill/httpswitchboard/issues/25
     // &
     // Looks for inline javascript also in at least one a[href] element.
     // https://github.com/gorhill/httpswitchboard/issues/131
-    nodesAddedHandler(document.querySelectorAll('a[href^="javascript:"],embed,object,script'), summary);
+    nodesAddedHandler(document.querySelectorAll('a[href^="javascript:"],script'), summary);
 
     //console.debug('contentscript-end.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
 

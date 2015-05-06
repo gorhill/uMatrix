@@ -390,7 +390,6 @@ vAPI.tabs = {};
 
 vAPI.tabs.registerListeners = function() {
     // onClosed - handled in tabWatcher.onTabClose
-    // onPopup - handled in httpObserver.handlePopup
 
     for ( var win of this.getWindows() ) {
         windowWatcher.onReady.call(win);
@@ -1101,24 +1100,6 @@ var httpObserver = {
         );
     },
 
-    handlePopup: function(URI, tabId, sourceTabId) {
-        if ( !sourceTabId ) {
-            return false;
-        }
-
-        if ( !URI.schemeIs('http') && !URI.schemeIs('https') ) {
-            return false;
-        }
-
-        var result = vAPI.tabs.onPopup({
-            targetTabId: tabId,
-            openerTabId: sourceTabId,
-            targetURL: URI.asciiSpec
-        });
-
-        return result === true;
-    },
-
     handleRequest: function(channel, URI, details) {
         var type = this.typeMap[details.type] || 'other';
         var result;
@@ -1297,11 +1278,6 @@ var httpObserver = {
 
             var channelData = oldChannel.getProperty(this.REQDATAKEY);
 
-            if ( this.handlePopup(URI, channelData[3], channelData[2]) ) {
-                result = this.ABORT;
-                return;
-            }
-
             var details = {
                 frameId: channelData[0],
                 parentFrameId: channelData[1],
@@ -1345,34 +1321,6 @@ vAPI.net.registerListeners = function() {
         var details = e.data;
         var tabId = vAPI.tabs.getTabId(e.target);
         var sourceTabId = null;
-
-        // Popup candidate
-        if ( details.openerURL ) {
-            for ( var tab of vAPI.tabs.getAllSync() ) {
-                var URI = getBrowserForTab(tab).currentURI;
-
-                // Probably isn't the best method to identify the source tab
-                if ( URI.spec !== details.openerURL ) {
-                    continue;
-                }
-
-                sourceTabId = vAPI.tabs.getTabId(tab);
-
-                if ( sourceTabId === tabId ) {
-                    sourceTabId = null;
-                    continue;
-                }
-
-                URI = Services.io.newURI(details.url, null, null);
-
-                if ( httpObserver.handlePopup(URI, tabId, sourceTabId) ) {
-                    return;
-                }
-
-                break;
-            }
-        }
-
         var lastRequest = httpObserver.lastRequest;
         lastRequest[1] = lastRequest[0];
         lastRequest[0] = {

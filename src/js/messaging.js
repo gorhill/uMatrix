@@ -269,11 +269,13 @@ var matrixSnapshot = function(tabId, details) {
 /******************************************************************************/
 
 var matrixSnapshotFromTabId = function(details, callback) {
+    // Specific tab id requested?
     if ( details.tabId ) {
         callback(matrixSnapshot(details.tabId, details));
         return;
     }
 
+    // Otherwise use tab id of current tab
     vAPI.tabs.get(null, function(tab) {
         callback(matrixSnapshot(tab.id, details));
     });
@@ -373,6 +375,7 @@ var contentScriptSummaryHandler = function(tabId, details) {
     }
     var pageStore = µm.pageStoreFromTabId(tabId);
     var pageURL = pageStore.pageUrl;
+    var pageHostname = pageStore.pageHostname;
     var µmuri = µm.URI.set(details.locationURL);
     var frameURL = µmuri.normalizedURI();
     var frameHostname = µmuri.hostname;
@@ -380,7 +383,7 @@ var contentScriptSummaryHandler = function(tabId, details) {
 
     // https://github.com/gorhill/httpswitchboard/issues/333
     // Look-up here whether inline scripting is blocked for the frame.
-    var inlineScriptBlocked = µm.mustBlock(µm.scopeFromURL(pageURL), frameHostname, 'script');
+    var inlineScriptBlocked = µm.mustBlock(pageHostname, frameHostname, 'script');
 
     // scripts
     // https://github.com/gorhill/httpswitchboard/issues/25
@@ -394,23 +397,8 @@ var contentScriptSummaryHandler = function(tabId, details) {
                 url = frameURL + '{inline_script}';
             }
             r = µm.filterRequest(pageURL, 'script', url);
-            pageStore.recordRequest('script', url, r !== false, r);
-        }
-    }
-
-    // TODO: as of 2014-05-26, not sure this is needed anymore, since µMatrix
-    // no longer uses chrome.contentSettings API (I think that was the reason
-    // this code was put in).
-    // plugins
-    // https://github.com/gorhill/httpswitchboard/issues/25
-    if ( pageStore ) {
-        urls = details.pluginSources;
-        for ( url in urls ) {
-            if ( !urls.hasOwnProperty(url) ) {
-                continue;
-            }
-            r = µm.filterRequest(pageURL, 'plugin', url);
-            pageStore.recordRequest('plugin', url, r !== false, r);
+            pageStore.recordRequest('script', url, r !== false);
+            µm.logger.writeOne(tabId, 'net', pageHostname, url, 'script', r);
         }
     }
 
@@ -974,8 +962,9 @@ var onMessage = function(request, sender, callback) {
         case 'readMany':
             response = {
                 colorBlind: false,
-                noTabId: vAPI.noTabId,
-                entries: µm.logger.readAll(request.tabId)
+                entries: µm.logger.readAll(request.tabId),
+                maxLoggedRequests: µm.userSettings.maxLoggedRequests,
+                noTabId: vAPI.noTabId
             };
             break;
 

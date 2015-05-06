@@ -1177,9 +1177,19 @@ var onMatrixSnapshotReady = function(response) {
 /******************************************************************************/
 
 var queryMatrixSnapshot = function(callback) {
+    var tabId = matrixSnapshot.tabId;
+
+    // If no tab id yet, see if there is one specified in our URL
+    if ( tabId === undefined ) {
+        var matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
+        if ( matches !== null ) {
+            tabId = matches[1];
+        }
+    }
+
     var request = {
         what: 'matrixSnapshot',
-        tabId: matrixSnapshot.tabId,
+        tabId: tabId,
         tabURL: matrixSnapshot.url
     };
     var snapshotReceived = function(response) {

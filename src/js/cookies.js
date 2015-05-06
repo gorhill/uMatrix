@@ -224,22 +224,22 @@ var recordPageCookie = function(pageStore, cookieKey) {
     }
 
     var cookieEntry = cookieDict[cookieKey];
-    var block = µm.mustBlock(pageStore.pageHostname, cookieEntry.hostname, 'cookie');
+    var pageHostname = pageStore.pageHostname;
+    var block = µm.mustBlock(pageHostname, cookieEntry.hostname, 'cookie');
 
     cookieLogEntryBuilder[0] = cookieURLFromCookieEntry(cookieEntry);
     cookieLogEntryBuilder[2] = cookieEntry.session ? 'session' : 'persistent';
     cookieLogEntryBuilder[4] = encodeURIComponent(cookieEntry.name);
 
+    var cookieURL = cookieLogEntryBuilder.join('');
+
     // rhill 2013-11-20:
     // https://github.com/gorhill/httpswitchboard/issues/60
     // Need to URL-encode cookie name
-    pageStore.recordRequest(
-        'cookie',
-        cookieLogEntryBuilder.join(''),
-        block
-    );
+    pageStore.recordRequest('cookie', cookieURL, block);
+    µm.logger.writeOne(pageStore.tabId, 'net', pageHostname, cookieURL, 'cookie', block);
 
-    cookieEntry.usedOn[pageStore.pageHostname] = true;
+    cookieEntry.usedOn[pageHostname] = true;
 
     // rhill 2013-11-21:
     // https://github.com/gorhill/httpswitchboard/issues/65

@@ -35,7 +35,6 @@
 var messager = vAPI.messaging.channel('logger-ui.js');
 
 var inspectedTabId = '';
-var maxEntries = 0;
 var doc = document;
 var body = doc.body;
 var tbody = doc.querySelector('#content tbody');
@@ -43,7 +42,9 @@ var trJunkyard = [];
 var tdJunkyard = [];
 var firstVarDataCol = 2;  // currently, column 2 (0-based index)
 var lastVarDataIndex = 3; // currently, d0-d3
+var maxEntries = 5000;
 var noTabId = '';
+var popupTabId;
 
 var prettyRequestTypes = {
     'main_frame': 'doc',
@@ -53,12 +54,56 @@ var prettyRequestTypes = {
 };
 
 var timeOptions = {
-    month: 'short',
-    day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
-    second: '2-digit'
+    second: '2-digit',
+    hour12: false
 };
+
+var dateOptions = {
+    month: 'short',
+    day: '2-digit'
+};
+
+/******************************************************************************/
+
+var escapeHTML = function(s) {
+    return s.replace(reEscapeLeftBracket, '&lt;')
+            .replace(reEscapeRightBracket, '&gt;');
+};
+
+var reEscapeLeftBracket = /</g;
+var reEscapeRightBracket = />/g;
+
+/******************************************************************************/
+
+// Emphasize hostname in URL, as this is what matters in uMatrix's rules.
+
+var nodeFromURL = function(url) {
+    var hnbeg = url.indexOf('://');
+    if ( hnbeg === -1 ) {
+        return document.createTextNode(url);
+    }
+    hnbeg += 3;
+
+    var hnend = url.indexOf('/', hnbeg);
+    if ( hnend === -1 ) {
+        hnend = url.slice(hnbeg).search(/\?#/);
+        if ( hnend !== -1 ) {
+            hnend += hnbeg;
+        } else {
+            hnend = url.length;
+        }
+    }
+
+    var node = renderedURLTemplate.cloneNode(true);
+    node.childNodes[0].textContent = url.slice(0, hnbeg);
+    node.childNodes[1].textContent = url.slice(hnbeg, hnend);
+    node.childNodes[2].textContent = url.slice(hnend);
+    return node;
+};
+
+var renderedURLTemplate = document.querySelector('#renderedURLTemplate > span');
 
 /******************************************************************************/
 
@@ -82,7 +127,7 @@ var createCellAt = function(tr, index) {
 
 /******************************************************************************/
 
-var createRow = function(entry) {
+var createRow = function(layout) {
     var tr = trJunkyard.pop();
     if ( tr ) {
         tr.className = '';
@@ -98,7 +143,7 @@ var createRow = function(entry) {
         if ( i === lastVarDataIndex ) {
             break;
         }
-        if ( entry['d' + i] === undefined ) {
+        if ( layout.charAt(i) !== '1' ) {
             span += 1;
         } else {
             if ( span !== 1 ) {
@@ -122,7 +167,7 @@ var createRow = function(entry) {
 /******************************************************************************/
 
 var createGap = function(url) {
-    var tr = createRow({ d0: '' });
+    var tr = createRow('1');
     tr.classList.add('doc');
     tr.cells[firstVarDataCol].textContent = url;
     tbody.insertBefore(tr, tbody.firstChild);
@@ -131,8 +176,43 @@ var createGap = function(url) {
 /******************************************************************************/
 
 var renderLogEntry = function(entry) {
+    var tr;
     var fvdc = firstVarDataCol;
-    var tr = createRow(entry);
+
+    switch ( entry.cat ) {
+    case 'error':
+    case 'info':
+        tr = createRow('1');
+        tr.cells[fvdc].textContent = entry.d0;
+        break;
+
+    case 'net':
+        tr = createRow('111');
+        // If the request is that of a root frame, insert a gap in the table
+        // in order to visually separate entries for different documents. 
+        if ( entry.d2 === 'doc' ) {
+            createGap(entry.d1);
+        }
+        if ( entry.d3 ) {
+            tr.classList.add('blocked');
+            tr.cells[fvdc].textContent = '---';
+        } else {
+            tr.cells[fvdc].textContent = '';
+        }
+        tr.cells[fvdc+1].textContent = (prettyRequestTypes[entry.d2] || entry.d2);
+        tr.cells[fvdc+2].appendChild(nodeFromURL(entry.d1));
+        break;
+
+    default:
+        tr = createRow('1');
+        tr.cells[fvdc].textContent = entry.d0;
+        break;
+    }
+
+    // Fields common to all rows.
+    var time = new Date(entry.tstamp);
+    tr.cells[0].textContent = time.toLocaleTimeString('fullwide', timeOptions);
+    tr.cells[0].title = time.toLocaleDateString('fullwide', dateOptions);
 
     if ( entry.tab === noTabId ) {
         tr.classList.add('tab_bts');
@@ -141,36 +221,6 @@ var renderLogEntry = function(entry) {
     }
     if ( entry.cat !== '' ) {
         tr.classList.add('cat_' + entry.cat);
-    }
-
-    var time = new Date(entry.tstamp);
-    tr.cells[0].textContent = time.toLocaleString('fullwide', timeOptions);
-
-    switch ( entry.cat ) {
-    case 'error':
-    case 'info':
-        tr.cells[fvdc].textContent = entry.d0;
-        break;
-
-    case 'net':
-        // If the request is that of a root frame, insert a gap in the table
-        // in order to visually separate entries for different documents. 
-        if ( entry.d1 === 'doc' ) {
-            createGap(entry.d2);
-        }
-        if ( entry.d0 ) {
-            tr.classList.add('blocked');
-            tr.cells[fvdc].textContent = '---';
-        } else {
-            tr.cells[fvdc].textContent = '';
-        }
-        tr.cells[fvdc+1].textContent = (prettyRequestTypes[entry.d1] || entry.d1) + '\t';
-        tr.cells[fvdc+2].textContent = entry.d2 + '\t';
-        break;
-
-    default:
-        tr.cells[fvdc].textContent = entry.d0;
-        break;
     }
 
     tbody.insertBefore(tr, tbody.firstChild);
@@ -225,9 +275,9 @@ var renderLogBuffer = function(response) {
 
 var truncateLog = function(size) {
     if ( size === 0 ) {
-        size = 25000;
+        size = 5000;
     }
-    size = Math.min(size, 25000);
+    size = Math.min(size, 5000);
     var tr;
     while ( tbody.childElementCount > size ) {
         tr = tbody.lastElementChild;
@@ -238,6 +288,10 @@ var truncateLog = function(size) {
 /******************************************************************************/
 
 var onBufferRead = function(response) {
+    if ( response.maxLoggedRequests !== maxEntries ) {
+        maxEntries = response.maxLoggedRequests;
+        uDom('#maxEntries').val(maxEntries || '');
+    }
     renderLogBuffer(response);
     setTimeout(readLogBuffer, 1000);
 };
@@ -264,9 +318,145 @@ var clearBuffer = function() {
 
 /******************************************************************************/
 
-var reloadTab = function() {
-    messager.send({ what: 'reloadTab', tabId: inspectedTabId });
+var toggleCompactView = function() {
+    body.classList.toggle(
+        'compactView',
+        body.classList.contains('compactView') === false
+    );
 };
+
+/******************************************************************************/
+
+var togglePopup = (function() {
+    var container = null;
+    var movingOverlay = null;
+    var popup = null;
+    var popupObserver = null;
+    var style = null;
+    var styleTemplate = 'tr:not(.tab_{{tabId}}) { opacity: 0.1; }';
+    var dx, dy;
+
+    var moveTo = function(ev) {
+        container.style.left = (ev.clientX + dx) + 'px';
+        container.style.top = (ev.clientY + dy) + 'px';
+    };
+
+    var onMouseMove = function(ev) {
+        moveTo(ev);
+        ev.stopPropagation();
+        ev.preventDefault();
+    };
+
+    var onMouseUp = function(ev) {
+        moveTo(ev);
+        movingOverlay.removeEventListener('mouseup', onMouseUp);
+        movingOverlay.removeEventListener('mousemove', onMouseMove);
+        movingOverlay = null;
+        container.classList.remove('moving');
+        var rect = container.getBoundingClientRect();
+        vAPI.localStorage.setItem('popupLastPosition', JSON.stringify({
+            x: rect.left,
+            y: rect.top
+        }));
+        ev.stopPropagation();
+        ev.preventDefault();
+    };
+
+    var onMove = function(ev) {
+        container.classList.add('moving');
+        var rect = container.getBoundingClientRect();
+        dx = rect.left - ev.clientX;
+        dy = rect.top - ev.clientY;
+        movingOverlay = document.getElementById('movingOverlay');
+        movingOverlay.addEventListener('mousemove', onMouseMove, true);
+        movingOverlay.addEventListener('mouseup', onMouseUp, true);
+        ev.stopPropagation();
+        ev.preventDefault();
+    };
+
+    var resizePopup = function() {
+        var popupBody = popup.contentWindow.document.body;
+        if ( popupBody.clientWidth !== 0 && container.clientWidth !== popupBody.clientWidth ) {
+            container.style.width = popupBody.clientWidth + 'px';
+        }
+        if ( popupBody.clientHeight !== 0 && popup.clientHeight !== popupBody.clientHeight ) {
+            popup.style.height = popupBody.clientHeight + 'px';
+        }
+    };
+
+    var onLoad = function() {
+        resizePopup();
+        popupObserver.observe(popup.contentDocument.body, {
+            subtree: true,
+            attributes: true
+        });
+    };
+
+    var toggleOn = function(td) {
+        var tr = td.parentNode;
+        var matches = tr.className.match(/(?:^| )tab_([^ ]+)/);
+        if ( matches === null ) {
+            return;
+        }
+        var tabId = matches[1];
+        if ( tabId === 'bts' ) {
+            tabId = noTabId;
+        }
+
+        // Use last position if one is defined
+        var x, y;
+        var json = vAPI.localStorage.getItem('popupLastPosition');
+        if ( json ) {
+            try {
+                var popupLastPosition = JSON.parse(json);
+                x = popupLastPosition.x;
+                y = popupLastPosition.y;
+            }
+            catch (e) {
+            }
+        }
+        // Fall back to cell position if no position defined
+        if ( x === undefined ) {
+            var rect = td.getBoundingClientRect();
+            x = rect.left;
+            y = rect.bottom;
+        }
+        container = document.getElementById('popupContainer');
+        container.style.left = x + 'px';
+        container.style.top = y + 'px';
+        container.addEventListener('mousedown', onMove);
+        popup = container.querySelector('iframe');
+        popup.setAttribute('src', 'popup.html?tabId=' + tabId);
+        popup.addEventListener('load', onLoad);
+        popupObserver = new MutationObserver(resizePopup);
+        style = document.querySelector('#content > style');
+        style.textContent = styleTemplate.replace('{{tabId}}', tabId);
+        container.classList.add('show');
+        popupTabId = tabId;
+    };
+
+    var toggleOff = function() {
+        style.textContent = '';
+        style = null;
+        popupObserver.disconnect();
+        popupObserver = null;
+        popup.removeEventListener('load', onLoad);
+        popup.setAttribute('src', '');
+        popup = null;
+        container.classList.remove('show');
+        container.removeEventListener('mousedown', onMove);
+        container = null;
+        popupTabId = undefined;
+    };
+
+    return function(ev) {
+        if ( popupTabId !== undefined ) {
+            toggleOff();
+        } else {
+            toggleOn(ev.target);
+        }
+    };
+})();
 
 /******************************************************************************/
 
@@ -283,7 +473,7 @@ var onMaxEntriesChanged = function() {
 
     messager.send({
         what: 'userSettings',
-        name: 'requestLogMaxEntries',
+        name: 'maxLoggedRequests',
         value: maxEntries
     });
 
@@ -299,17 +489,13 @@ uDom.onLoad(function() {
         inspectedTabId = matches[1];
     }
 
-    var onSettingsReady = function(settings) {
-        maxEntries = settings.requestLogMaxEntries || 0;
-        uDom('#maxEntries').val(maxEntries || '');
-    };
-    messager.send({ what: 'getUserSettings' }, onSettingsReady);
-
     readLogBuffer();
 
-    uDom('#reload').on('click', reloadTab);
+    uDom('#compactViewToggler').on('click', toggleCompactView);
     uDom('#clear').on('click', clearBuffer);
     uDom('#maxEntries').on('change', onMaxEntriesChanged);
+    uDom('#content table').on('click', 'tr.cat_net > td:nth-of-type(2)', togglePopup);
+    uDom('#focusOverlay').on('click', togglePopup);
 });
 
 /******************************************************************************/

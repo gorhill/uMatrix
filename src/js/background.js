@@ -62,7 +62,7 @@ return {
         displayTextSize: '13px',
         externalHostsFiles: '',
         iconBadgeEnabled: true,
-        maxLoggedRequests: 50,
+        maxLoggedRequests: 2000,
         popupCollapseDomains: false,
         popupCollapseSpecificDomains: {},
         popupHideBlacklisted: false,

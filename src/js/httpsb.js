@@ -134,17 +134,7 @@
     }
 
     // Blocked by matrix filtering?
-    if ( this.mustBlock(srcHostname, desHostname, type) ) {
-        return true;
-    }
-
-    // Cookies are not really requests, but are conveniently treated
-    // as such from matrix filtering point of view only.
-    if ( type === 'cookie' ) {
-        return false;
-    }
-
-    return false;
+    return this.mustBlock(srcHostname, desHostname, type);
 };
 
 /******************************************************************************/

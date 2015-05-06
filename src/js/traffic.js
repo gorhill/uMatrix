@@ -40,17 +40,18 @@ var onBeforeRootFrameRequestHandler = function(details) {
     µm.tabContextManager.push(tabId, requestURL);
 
     var tabContext = µm.tabContextManager.mustLookup(tabId);
+    var rootHostname = tabContext.rootHostname;
     var pageStore = µm.bindTabToPageStats(tabId);
 
     // Disallow request as per matrix?
-    var block = µm.mustBlock(tabContext.rootHostname, details.hostname, 'doc');
+    var block = µm.mustBlock(rootHostname, details.hostname, 'doc');
 
     pageStore.recordRequest('doc', requestURL, block);
+    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, 'doc', block);
 
     // Not blocked
     if ( !block ) {
         // rhill 2013-11-07: Senseless to do this for behind-the-scene requests.
-        // rhill 2013-12-03: Do this here only for root frames.
         µm.cookieHunter.recordPageCookies(pageStore);
         return;
     }
@@ -114,20 +115,21 @@ var onBeforeRequestHandler = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
     var tabContext = µm.tabContextManager.mustLookup(details.tabId);
     var tabId = tabContext.tabId;
+    var rootHostname = tabContext.rootHostname;
 
     // Enforce strict secure connection?
     var block = false;
     if (
         tabContext.secure &&
         µm.URI.isSecureScheme(requestScheme) === false &&
-        µm.tMatrix.evaluateSwitchZ('https-strict', tabContext.rootHostname)
+        µm.tMatrix.evaluateSwitchZ('https-strict', rootHostname)
     ) {
         block = true;
     }
 
     // Disallow request as per temporary matrix?
     if ( block === false ) {
-        block = µm.mustBlock(tabContext.rootHostname, details.hostname, requestType);
+        block = µm.mustBlock(rootHostname, details.hostname, requestType);
     }
 
     // Record request.
@@ -136,8 +138,9 @@ var onBeforeRequestHandler = function(details) {
     // processing has already been performed, and that a synthetic URL has
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
-    var pageStore = µm.mustPageStoreFromTabId(tabContext.tabId);
+    var pageStore = µm.mustPageStoreFromTabId(tabId);
     pageStore.recordRequest(requestType, requestURL, block);
+    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, requestType, block);
 
     // Allowed?
     if ( !block ) {
@@ -198,6 +201,7 @@ var onBeforeSendHeadersHandler = function(details) {
         if ( linkAuditor !== '' ) {
             var block = µm.userSettings.processHyperlinkAuditing;
             pageStore.recordRequest('other', requestURL + '{Ping-To:' + linkAuditor + '}', block);
+            µm.logger.writeOne(tabId, 'net', '', requestURL, 'ping', block);
             if ( block ) {
                 µm.hyperlinkAuditingFoiledCounter += 1;
                 return { 'cancel': true };
@@ -293,7 +297,8 @@ var onMainDocHeadersReceived = function(details) {
 
     // console.debug('onMainDocHeadersReceived()> "%s": %o', requestURL, details);
 
-    var blockScript = µm.mustBlock(tabContext.rootHostname, tabContext.rootHostname, 'script');
+    var rootHostname = tabContext.rootHostname;
+    var blockScript = µm.mustBlock(rootHostname, rootHostname, 'script');
 
     // https://github.com/gorhill/httpswitchboard/issues/181
     var pageStore = µm.pageStoreFromTabId(tabId);
@@ -305,7 +310,7 @@ var onMainDocHeadersReceived = function(details) {
         return;
     }
 
-    µm.logger.writeOne(tabId, 'net', '---', 'inline-script', requestURL);
+    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL + '{inline_script}', 'script', true);
 
     // If javascript not allowed, say so through a `Content-Security-Policy` directive.
     details.responseHeaders.push({
@@ -356,7 +361,7 @@ var onSubDocHeadersReceived = function(details) {
 
     // console.debug('onSubDocHeadersReceived()> FRAME CSP "%s": %o, scope="%s"', details.url, details, pageURL);
 
-    µm.logger.writeOne(tabId, 'net', '---', 'inline-script', details.url);
+    µm.logger.writeOne(tabId, 'net', tabContext.rootHostname, details.url + '{inline_script}', 'script', true);
 
     // If javascript not allowed, say so through a `Content-Security-Policy` directive.
     details.responseHeaders.push({

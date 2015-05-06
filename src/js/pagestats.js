@@ -385,8 +385,6 @@ PageStore.prototype.recordRequest = function(type, url, block) {
         this.perLoadAllowedRequestCount++;
     }
 
-    µm.logger.writeOne(this.tabId, 'net', block ? '---' : '', type, url);
-
     if ( !this.requests.createEntryIfNotExists(url, type, block) ) {
         return;
     }

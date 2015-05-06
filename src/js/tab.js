@@ -607,9 +607,11 @@ vAPI.tabs.registerListeners();
 
 µm.recordFromTabId = function(tabId, type, url, blocked) {
     var pageStore = this.pageStoreFromTabId(tabId);
-    if ( pageStore ) {
-        pageStore.recordRequest(type, url, blocked);
+    if ( pageStore === null ) {
+        return;
     }
+    pageStore.recordRequest(type, url, blocked);
+    this.logger.writeOne(tabId, 'net', pageStore.pageHostname, url, type, blocked);
 };
 
 /******************************************************************************/

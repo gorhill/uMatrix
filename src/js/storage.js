@@ -406,6 +406,11 @@
 
 µMatrix.assetUpdatedHandler = function(details) {
     var path = details.path || '';
+
+    if ( path !== '' ) {
+        this.logger.writeOne('', 'info', 'asset updated: ' + path);
+    }
+
     if ( this.liveHostsFiles.hasOwnProperty(path) === false ) {
         return;
     }
