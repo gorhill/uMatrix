@@ -207,6 +207,7 @@ Matrix.prototype.reset = function() {
     this.switches = {};
     this.rules = {};
     this.rootValue = Matrix.GreenIndirect;
+    this.modifiedTime = 0;
 };
 
 /******************************************************************************/
@@ -248,6 +249,7 @@ Matrix.prototype.assign = function(other) {
         }
         this.switches[k] = other.switches[k];
     }
+    this.modifiedTime = other.modifiedTime;
     return this;
 };
 
@@ -273,6 +275,7 @@ Matrix.prototype.setSwitch = function(switchName, srcHostname, newVal) {
     } else {
         this.switches[srcHostname] = bits;
     }
+    this.modifiedTime = Date.now();
     return true;
 };
 
@@ -294,6 +297,7 @@ Matrix.prototype.setCell = function(srcHostname, desHostname, type, state) {
     } else {
         this.rules[k] = newBitmap;
     }
+    this.modifiedTime = Date.now();
     return true;
 };
 
@@ -535,6 +539,7 @@ Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
     } else {
         this.switches[srcHostname] = bits;
     }
+    this.modifiedTime = Date.now();
     state = this.evaluateSwitchZ(switchName, srcHostname);
     if ( state === newState ) {
         return true;
@@ -819,6 +824,8 @@ Matrix.prototype.fromString = function(text, append) {
     if ( !append ) {
         this.assign(matrix);
     }
+
+    this.modifiedTime = Date.now();
 };
 
 /******************************************************************************/
@@ -836,6 +843,7 @@ Matrix.prototype.toSelfie = function() {
 Matrix.prototype.fromSelfie = function(selfie) {
     this.switches = selfie.switches;
     this.rules = selfie.rules;
+    this.modifiedTime = Date.now();
 };
 
 /******************************************************************************/

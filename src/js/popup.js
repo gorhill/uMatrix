@@ -87,13 +87,28 @@ function setUserSetting(setting, value) {
 
 /******************************************************************************/
 
-function updateMatrixSnapshot() {
-    var snapshotReady = function() {
+var matrixSnapshotChanged = function() {
+    if ( typeof matrixSnapshot !== 'object' ) {
+        return;
+    }
+    if ( matrixSnapshot.mtxContentModified ) {
+        makeMenu();
+        return;
+    }
+    if ( matrixSnapshot.mtxCountModified ) {
+        updateMatrixCounts();
+    }
+    if ( matrixSnapshot.mtxColorModified ) {
         updateMatrixColors();
         updateMatrixBehavior();
         updateMatrixButtons();
-    };
-    matrixSnapshotPoller.mustFetch(snapshotReady);
+    }
+};
+
+/******************************************************************************/
+
+function updateMatrixSnapshot() {
+    matrixSnapshotPoller.pollNow(matrixSnapshotChanged);
 }
 
 /******************************************************************************/
@@ -311,6 +326,35 @@ function toggleSpecificCollapseState(uelem) {
     } else if ( specificCollapseStates[domain] !== undefined ) {
         delete specificCollapseStates[domain];
         setUserSetting('popupCollapseSpecificDomains', specificCollapseStates);
+    }
+}
+
+/******************************************************************************/
+
+// Update count value of matrix cells(s)
+
+function updateMatrixCounts() {
+    var matCells = uDom('.matrix .matRow.rw > .matCell');
+    var i = matCells.length;
+    var matRow, matCell, count, counts;
+    var headers = matrixSnapshot.headers;
+    var rows = matrixSnapshot.rows;
+    while ( i-- ) {
+        matCell = matCells.nodeAt(i);
+        if ( matCell.hostname === '*' ) {
+            continue;
+        }
+        if ( matCell.reqType === '*' ) {
+            continue;
+        }
+        matRow = matCell.parentNode;
+        counts = matRow.classList.contains('meta') ? 'totals' : 'counts';
+        count = rows[matCell.hostname][counts][headers[matCell.reqType]];
+        if ( count === matCell.count) {
+            continue;
+        }
+        matCell.count = count;
+        matCell.textContent = count ? count : '\u00A0';
     }
 }
 
@@ -1169,38 +1213,45 @@ var matrixSnapshotPoller = (function() {
         timer = null;
         if ( typeof response === 'object' ) {
             matrixSnapshot = response;
-            makeMenu();
+            matrixSnapshotChanged();
         }
-        pollSnapshotAsync();
     };
 
-    var pollSnapshot = function() {
-        timer = null;
+    var pollNow = function(callback) {
+        unpollAsync();
+        var onPolled = function(response) {
+            callback(response);
+            pollAsync();
+        };
         messager.send({
             what: 'matrixSnapshot',
             tabId: matrixSnapshot.tabId,
+            mtxColorModifiedTime: matrixSnapshot.mtxColorModifiedTime,
             mtxContentModifiedTime: matrixSnapshot.mtxContentModifiedTime,
             mtxCountModifiedTime: matrixSnapshot.mtxCountModifiedTime
-        }, snapshotPolled);
+        }, onPolled);
     };
 
-    var pollSnapshotAsync = function() {
+    var poll = function() {
+        timer = null;
+        pollNow(snapshotPolled);
+    };
+
+    var pollAsync = function() {
         if ( timer !== null ) {
             return;
         }
-        timer = setTimeout(pollSnapshot, 1414);
+        timer = setTimeout(poll, 1414);
     };
 
-    var cancelSnapshotAsync = function() {
+    var unpollAsync = function() {
         if ( timer !== null ) {
             clearTimeout(timer);
             timer = null;
         }
     };
 
-    var mustFetch = function(callback) {
-        cancelSnapshotAsync();
-
+    (function() {
         var tabId = matrixSnapshot.tabId;
 
         // If no tab id yet, see if there is one specified in our URL
@@ -1215,68 +1266,60 @@ var matrixSnapshotPoller = (function() {
             if ( typeof response === 'object' ) {
                 matrixSnapshot = response;
             }
-            callback();
-            pollSnapshotAsync();
+            onMatrixSnapshotReady();
+            pollAsync();
         };
 
         messager.send({
             what: 'matrixSnapshot',
             tabId: tabId
         }, snapshotFetched);
-    };
+    })();
 
-    return {
-        mustFetch: mustFetch
-    };
+    return pollNow;
 })();
 
 /******************************************************************************/
 
-// Make menu only when popup html is fully loaded
+// Below is UI stuff which is not key to make the menu, so this can
+// be done without having to wait for a tab to be bound to the menu.
 
-uDom.onLoad(function() {
-    matrixSnapshotPoller.mustFetch(onMatrixSnapshotReady);
-
-    // Below is UI stuff which is not key to make the menu, so this can
-    // be done without having to wait for a tab to be bound to the menu.
-
-    // We reuse for all cells the one and only cell hotspots.
-    uDom('#whitelist').on('click', function() {
-            handleWhitelistFilter(uDom(this));
-            return false;
-        });
-    uDom('#blacklist').on('click', function() {
-            handleBlacklistFilter(uDom(this));
-            return false;
-        });
-    uDom('#domainOnly').on('click', function() {
-            toggleCollapseState(uDom(this));
-            return false;
-        });
-    matrixCellHotspots = uDom('#cellHotspots').detach();
-    uDom('body')
-        .on('mouseenter', '.matCell', mouseenterMatrixCellHandler)
-        .on('mouseleave', '.matCell', mouseleaveMatrixCellHandler);
-    uDom('#scopeKeyGlobal').on('click', selectGlobalScope);
-    uDom('#scopeKeyDomain').on('click', selectDomainScope);
-    uDom('#scopeKeySite').on('click', selectSiteScope);
-    uDom('[id^="mtxSwitch_"]').on('click', toggleMatrixSwitch);
-    uDom('#buttonPersist').on('click', persistMatrix);
-    uDom('#buttonRevertScope').on('click', revertMatrix);
-
-    uDom('#buttonRevertAll').on('click', revertAll);
-    uDom('#buttonReload').on('click', buttonReloadHandler);
-    uDom('.extensionURL').on('click', gotoExtensionURL);
-
-    uDom('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
-    uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
-
-    uDom('#matList').on('click', '.g4Meta', function() {
-        var collapsed = uDom(this)
-            .toggleClass('g4Collapsed')
-            .hasClass('g4Collapsed');
-        setUserSetting('popupHideBlacklisted', collapsed);
+// We reuse for all cells the one and only cell hotspots.
+uDom('#whitelist').on('click', function() {
+        handleWhitelistFilter(uDom(this));
+        return false;
     });
+uDom('#blacklist').on('click', function() {
+        handleBlacklistFilter(uDom(this));
+        return false;
+    });
+uDom('#domainOnly').on('click', function() {
+        toggleCollapseState(uDom(this));
+        return false;
+    });
+matrixCellHotspots = uDom('#cellHotspots').detach();
+uDom('body')
+    .on('mouseenter', '.matCell', mouseenterMatrixCellHandler)
+    .on('mouseleave', '.matCell', mouseleaveMatrixCellHandler);
+uDom('#scopeKeyGlobal').on('click', selectGlobalScope);
+uDom('#scopeKeyDomain').on('click', selectDomainScope);
+uDom('#scopeKeySite').on('click', selectSiteScope);
+uDom('[id^="mtxSwitch_"]').on('click', toggleMatrixSwitch);
+uDom('#buttonPersist').on('click', persistMatrix);
+uDom('#buttonRevertScope').on('click', revertMatrix);
+
+uDom('#buttonRevertAll').on('click', revertAll);
+uDom('#buttonReload').on('click', buttonReloadHandler);
+uDom('.extensionURL').on('click', gotoExtensionURL);
+
+uDom('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
+uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
+
+uDom('#matList').on('click', '.g4Meta', function() {
+    var collapsed = uDom(this)
+        .toggleClass('g4Collapsed')
+        .hasClass('g4Collapsed');
+    setUserSetting('popupHideBlacklisted', collapsed);
 });
 
 /******************************************************************************/

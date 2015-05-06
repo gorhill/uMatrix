@@ -146,6 +146,10 @@ var matrixSnapshot = function(pageStore, details) {
         domain: pageStore.pageDomain,
         headers: µm.Matrix.getColumnHeaders(),
         hostname: pageStore.pageHostname,
+        mtxColorModified: µm.tMatrix.modifiedTime !== details.mtxColorModifiedTime,
+        mtxContentModified: pageStore.mtxContentModifiedTime !== details.mtxContentModifiedTime,
+        mtxCountModified: pageStore.mtxCountModifiedTime !== details.mtxCountModifiedTime,
+        mtxColorModifiedTime: µm.tMatrix.modifiedTime,
         mtxContentModifiedTime: pageStore.mtxContentModifiedTime,
         mtxCountModifiedTime: pageStore.mtxCountModifiedTime,
         pSwitches: {},
@@ -260,6 +264,7 @@ var matrixSnapshotFromTabId = function(details, callback) {
 
         // First verify whether we must return data or not.
         if (
+            µm.tMatrix.modifiedTime === details.mtxColorModifiedTime &&
             pageStore.mtxContentModifiedTime === details.mtxContentModifiedTime &&
             pageStore.mtxCountModifiedTime === details.mtxCountModifiedTime
         ) {
