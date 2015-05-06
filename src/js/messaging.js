@@ -138,21 +138,23 @@ RowSnapshot.counts = (function() {
 
 /******************************************************************************/
 
-var matrixSnapshot = function(tabId, details) {
+var matrixSnapshot = function(pageStore, details) {
     var µmuser = µm.userSettings;
     var r = {
-        tabId: tabId,
-        url: '',
-        hostname: '',
-        domain: '',
-        blockedCount: 0,
-        scope: '*',
+        blockedCount: pageStore.requestStats.blocked.all,
+        diff: [],
+        domain: pageStore.pageDomain,
         headers: µm.Matrix.getColumnHeaders(),
-        tSwitches: {},
+        hostname: pageStore.pageHostname,
+        mtxContentModifiedTime: pageStore.mtxContentModifiedTime,
+        mtxCountModifiedTime: pageStore.mtxCountModifiedTime,
         pSwitches: {},
         rows: {},
         rowCount: 0,
-        diff: [],
+        scope: '*',
+        tabId: pageStore.tabId,
+        tSwitches: {},
+        url: pageStore.pageUrl,
         userSettings: {
             colorBlindFriendly: µmuser.colorBlindFriendly,
             displayTextSize: µmuser.displayTextSize,
@@ -163,27 +165,7 @@ var matrixSnapshot = function(tabId, details) {
         }
     };
 
-    var tabContext = µm.tabContextManager.lookup(tabId);
-
-    // Allow examination of behind-the-scene requests
-    if (
-        tabContext.rawURL.lastIndexOf(vAPI.getURL('dashboard.html'), 0) === 0 ||
-        tabContext.rawURL === µm.behindTheSceneURL
-    ) {
-        tabId = vAPI.noTabId;
-    }
-
-    var pageStore = µm.pageStoreFromTabId(tabId);
-    if ( pageStore === null ) {
-        return r;
-    }
-
     var headers = r.headers;
-
-    r.url = pageStore.pageUrl;
-    r.hostname = pageStore.pageHostname;
-    r.domain = pageStore.pageDomain;
-    r.blockedCount = pageStore.requestStats.blocked.all;
 
     if ( µmuser.popupScopeLevel === 'site' ) {
         r.scope = r.hostname;
@@ -269,16 +251,46 @@ var matrixSnapshot = function(tabId, details) {
 /******************************************************************************/
 
 var matrixSnapshotFromTabId = function(details, callback) {
+    var matrixSnapshotIf = function(tabId, details) {
+        var pageStore = µm.pageStoreFromTabId(tabId);
+        if ( pageStore === null ) {
+            callback('ENOTFOUND');
+            return;
+        }
+
+        // First verify whether we must return data or not.
+        if (
+            pageStore.mtxContentModifiedTime === details.mtxContentModifiedTime &&
+            pageStore.mtxCountModifiedTime === details.mtxCountModifiedTime
+        ) {
+            callback('ENOCHANGE');
+            return ;
+        }
+
+        callback(matrixSnapshot(pageStore, details));
+    };
+
     // Specific tab id requested?
     if ( details.tabId ) {
-        callback(matrixSnapshot(details.tabId, details));
+        matrixSnapshotIf(details.tabId, details);
         return;
     }
 
-    // Otherwise use tab id of current tab
-    vAPI.tabs.get(null, function(tab) {
-        callback(matrixSnapshot(tab.id, details));
-    });
+    // Fall back to currently active tab
+    var onTabReady = function(tab) {
+        if ( typeof tab !== 'object' ) {
+            callback('ENOTFOUND');
+            return;
+        }
+
+        // Allow examination of behind-the-scene requests
+        var tabId = tab.url.lastIndexOf(vAPI.getURL('dashboard.html'), 0) !== 0 ?
+            tab.id :
+            vAPI.noTabId;
+        matrixSnapshotIf(tabId, details);
+    };
+
+    vAPI.tabs.get(null, onTabReady);
 };
 
 /******************************************************************************/
@@ -962,9 +974,10 @@ var onMessage = function(request, sender, callback) {
         case 'readMany':
             response = {
                 colorBlind: false,
-                entries: µm.logger.readAll(request.tabId),
+                entries: µm.logger.readAll(),
                 maxLoggedRequests: µm.userSettings.maxLoggedRequests,
-                noTabId: vAPI.noTabId
+                noTabId: vAPI.noTabId,
+                allTabIds: Object.keys(µm.pageStores)
             };
             break;
 

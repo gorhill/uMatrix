@@ -172,22 +172,3 @@ return asyncJobManager;
         tabIdToTimer[tabId] = setTimeout(updateBadge.bind(this, tabId), 500);
     };
 })();
-
-/******************************************************************************/
-
-// Notify whoever care that url stats have changed (they need to
-// rebuild their matrix).
-
-µMatrix.urlStatsChanged = function(pageUrl) {
-    // rhill 2013-11-17: No point in sending this message if the popup menu
-    // does not exist. I suspect this could be related to
-    // https://github.com/gorhill/httpswitchboard/issues/58
-    var urlStatsChangedCallback = function(pageUrl) {
-        vAPI.messaging.broadcast({
-            what: 'urlStatsChanged',
-            pageURL: pageUrl
-        });
-    };
-
-    this.asyncJobs.add('urlStatsChanged-' + pageUrl, pageUrl, urlStatsChangedCallback, 1000);
-};

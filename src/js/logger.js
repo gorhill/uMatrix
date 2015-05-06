@@ -178,7 +178,7 @@ var writeOne = function() {
 
 /******************************************************************************/
 
-var readAll = function(tabId) {
+var readAll = function() {
     if ( logBuffer === null ) {
         logBuffer = new LogBuffer();
         setTimeout(janitor, logBufferObsoleteAfter);

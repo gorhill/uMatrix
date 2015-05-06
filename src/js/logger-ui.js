@@ -43,6 +43,7 @@ var firstVarDataCol = 2;  // currently, column 2 (0-based index)
 var lastVarDataIndex = 3; // currently, d0-d3
 var maxEntries = 5000;
 var noTabId = '';
+var allTabIds = {};
 
 var prettyRequestTypes = {
     'main_frame': 'doc',
@@ -167,6 +168,8 @@ var createRow = function(layout) {
 var createGap = function(tabId, url) {
     var tr = createRow('1');
     tr.classList.add('doc');
+    tr.classList.add('tab');
+    tr.classList.add('canMtx');
     tr.classList.add('tab_' + tabId);
     tr.cells[firstVarDataCol].textContent = url;
     tbody.insertBefore(tr, tbody.firstChild);
@@ -187,6 +190,7 @@ var renderLogEntry = function(entry) {
 
     case 'net':
         tr = createRow('111');
+        tr.classList.add('canMtx');
         // If the request is that of a root frame, insert a gap in the table
         // in order to visually separate entries for different documents. 
         if ( entry.d2 === 'doc' && entry.tab !== noTabId ) {
@@ -213,10 +217,13 @@ var renderLogEntry = function(entry) {
     tr.cells[0].textContent = time.toLocaleTimeString('fullwide', timeOptions);
     tr.cells[0].title = time.toLocaleDateString('fullwide', dateOptions);
 
-    if ( entry.tab === noTabId ) {
-        tr.classList.add('tab_bts');
-    } else if ( entry.tab !== '' ) {
-        tr.classList.add('tab_' + entry.tab);
+    if ( entry.tab ) {
+        tr.classList.add('tab');
+        if ( entry.tab === noTabId ) {
+            tr.classList.add('tab_bts');
+        } else if ( entry.tab !== '' ) {
+            tr.classList.add('tab_' + entry.tab);
+        }
     }
     if ( entry.cat !== '' ) {
         tr.classList.add('cat_' + entry.cat);
@@ -232,8 +239,6 @@ var renderLogBuffer = function(response) {
     if ( buffer.length === 0 ) {
         return;
     }
-
-    noTabId = response.noTabId;
 
     // Preserve scroll position
     var height = tbody.offsetHeight;
@@ -276,7 +281,7 @@ var truncateLog = function(size) {
     if ( size === 0 ) {
         size = 5000;
     }
-    size = Math.min(size, 5000);
+    size = Math.min(size, 10000);
     var tr;
     while ( tbody.childElementCount > size ) {
         tr = tbody.lastElementChild;
@@ -286,13 +291,38 @@ var truncateLog = function(size) {
 
 /******************************************************************************/
 
-var onBufferRead = function(response) {
+var onLogBufferRead = function(response) {
+    // This tells us the behind-the-scene tab id
+    noTabId = response.noTabId;
+
+    // This may have changed meanwhile
     if ( response.maxLoggedRequests !== maxEntries ) {
         maxEntries = response.maxLoggedRequests;
         uDom('#maxEntries').val(maxEntries || '');
     }
+
+    // Neuter rows for which a tab does not exist anymore
+    // TODO: sort to avoid using indexOf
+    var targetTabId;
+    var i = allTabIds.length;
+    while ( i-- ) {
+        targetTabId = allTabIds[i];
+        if ( targetTabId === noTabId ) {
+            continue;
+        }
+        if ( response.allTabIds.indexOf(targetTabId) !== -1 ) {
+            continue;
+        }
+        uDom('.tab_' + targetTabId).removeClass('canMtx');
+        // Close popup if it is currently inspecting this tab
+        if ( targetTabId === popupManager.tabId ) {
+            popupManager.toggleOff();
+        }
+    }
+    allTabIds = response.allTabIds;
+
     renderLogBuffer(response);
-    setTimeout(readLogBuffer, 1000);
+    setTimeout(readLogBuffer, 1200);
 };
 
 /******************************************************************************/
@@ -302,7 +332,7 @@ var onBufferRead = function(response) {
 // require a bit more code to ensure no multi time out events.
 
 var readLogBuffer = function() {
-    messager.send({ what: 'readMany' }, onBufferRead);
+    messager.send({ what: 'readMany' }, onLogBufferRead);
 };
 
 /******************************************************************************/
@@ -326,7 +356,7 @@ var toggleCompactView = function() {
 
 /******************************************************************************/
 
-var togglePopup = (function() {
+var popupManager = (function() {
     var realTabId = null;
     var localTabId = null;
     var container = null;
@@ -337,7 +367,7 @@ var togglePopup = (function() {
     var styleTemplate = [
         'tr:not(.tab_{{tabId}}) {',
             'cursor: not-allowed;',
-            'opacity: 0.1;',
+            'opacity: 0.2;',
         '}'
     ].join('\n');
 
@@ -511,11 +541,24 @@ var togglePopup = (function() {
         realTabId = null;
     };
 
-    return function(ev) {
-        if ( realTabId === null ) {
-            toggleOn(ev.target);
+    var exports = {
+        toggleOn: function(ev) {
+            if ( realTabId === null ) {
+                toggleOn(ev.target);
+            }
+        },
+        toggleOff: function() {
+            if ( realTabId !== null ) {
+                toggleOff();
+            }
         }
     };
+
+    Object.defineProperty(exports, 'tabId', {
+        get: function() { return realTabId || 0; }
+    });
+
+    return exports;
 })();
 
 /******************************************************************************/
@@ -548,7 +591,7 @@ uDom.onLoad(function() {
     uDom('#compactViewToggler').on('click', toggleCompactView);
     uDom('#clear').on('click', clearBuffer);
     uDom('#maxEntries').on('change', onMaxEntriesChanged);
-    uDom('#content table').on('click', 'tr.cat_net > td:nth-of-type(2)', togglePopup);
+    uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(2)', popupManager.toggleOn);
 });
 
 /******************************************************************************/

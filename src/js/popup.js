@@ -67,22 +67,7 @@ var matrixHeaderPrettyNames = {
 var firstPartyLabel = '';
 var blacklistedHostnamesLabel = '';
 
-/******************************************************************************/
-/******************************************************************************/
-
-// https://github.com/gorhill/httpswitchboard/issues/345
-
-var onMessage = function(msg) {
-    if ( msg.what !== 'urlStatsChanged' ) {
-        return;
-    }
-    if ( matrixSnapshot.url !== msg.pageURL ) {
-        return;
-    }
-    queryMatrixSnapshot(makeMenu);
-};
-
-var messager = vAPI.messaging.channel('popup.js', onMessage);
+var messager = vAPI.messaging.channel('popup.js');
 
 /******************************************************************************/
 /******************************************************************************/
@@ -108,7 +93,7 @@ function updateMatrixSnapshot() {
         updateMatrixBehavior();
         updateMatrixButtons();
     };
-    queryMatrixSnapshot(snapshotReady);
+    matrixSnapshotPoller.mustFetch(snapshotReady);
 }
 
 /******************************************************************************/
@@ -1177,35 +1162,80 @@ var onMatrixSnapshotReady = function(response) {
 
 /******************************************************************************/
 
-var queryMatrixSnapshot = function(callback) {
-    var tabId = matrixSnapshot.tabId;
+var matrixSnapshotPoller = (function() {
+    var timer = null;
 
-    // If no tab id yet, see if there is one specified in our URL
-    if ( tabId === undefined ) {
-        var matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
-        if ( matches !== null ) {
-            tabId = matches[1];
+    var snapshotPolled = function(response) {
+        timer = null;
+        if ( typeof response === 'object' ) {
+            matrixSnapshot = response;
+            makeMenu();
         }
-    }
+        pollSnapshotAsync();
+    };
 
-    var request = {
-        what: 'matrixSnapshot',
-        tabId: tabId,
-        tabURL: matrixSnapshot.url
+    var pollSnapshot = function() {
+        timer = null;
+        messager.send({
+            what: 'matrixSnapshot',
+            tabId: matrixSnapshot.tabId,
+            mtxContentModifiedTime: matrixSnapshot.mtxContentModifiedTime,
+            mtxCountModifiedTime: matrixSnapshot.mtxCountModifiedTime
+        }, snapshotPolled);
     };
-    var snapshotReceived = function(response) {
-        matrixSnapshot = response;
-        callback();
+
+    var pollSnapshotAsync = function() {
+        if ( timer !== null ) {
+            return;
+        }
+        timer = setTimeout(pollSnapshot, 1414);
     };
-    messager.send(request, snapshotReceived);
-};
+
+    var cancelSnapshotAsync = function() {
+        if ( timer !== null ) {
+            clearTimeout(timer);
+            timer = null;
+        }
+    };
+
+    var mustFetch = function(callback) {
+        cancelSnapshotAsync();
+
+        var tabId = matrixSnapshot.tabId;
+
+        // If no tab id yet, see if there is one specified in our URL
+        if ( tabId === undefined ) {
+            var matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
+            if ( matches !== null ) {
+                tabId = matches[1];
+            }
+        }
+
+        var snapshotFetched = function(response) {
+            if ( typeof response === 'object' ) {
+                matrixSnapshot = response;
+            }
+            callback();
+            pollSnapshotAsync();
+        };
+
+        messager.send({
+            what: 'matrixSnapshot',
+            tabId: tabId
+        }, snapshotFetched);
+    };
+
+    return {
+        mustFetch: mustFetch
+    };
+})();
 
 /******************************************************************************/
 
 // Make menu only when popup html is fully loaded
 
 uDom.onLoad(function() {
-    queryMatrixSnapshot(onMatrixSnapshotReady);
+    matrixSnapshotPoller.mustFetch(onMatrixSnapshotReady);
 
     // Below is UI stuff which is not key to make the menu, so this can
     // be done without having to wait for a tab to be bound to the menu.

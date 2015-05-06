@@ -344,6 +344,8 @@ PageStore.prototype.init = function(tabContext) {
     this.perLoadAllowedRequestCount = 0;
     this.perLoadBlockedRequestCount = 0;
     this.incinerationTimer = null;
+    this.mtxContentModifiedTime = 0;
+    this.mtxCountModifiedTime = 0;
     return this;
 };
 
@@ -397,12 +399,14 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     }
 
     this.distinctRequestCount++;
+    this.mtxCountModifiedTime = Date.now();
+
     if ( this.domains.hasOwnProperty(hostname) === false ) {
         this.domains[hostname] = true;
         this.allHostnamesString += hostname + ' ';
+        this.mtxContentModifiedTime = Date.now();
     }
 
-    µm.urlStatsChanged(this.pageUrl);
     // console.debug("pagestats.js > PageStore.recordRequest(): %o: %s @ %s", this, type, url);
 };
 

@@ -141,8 +141,18 @@ body.compactView #content td {
     content: '\f070';
     font: 1em FontAwesome;
     }
-body:not(.popupOn) #content table tr.cat_net td:nth-of-type(2) {
+#content table tr.tab:not(.canMtx) {
+    opacity: 0.2;
+    }
+#content table tr.tab:not(.canMtx) > td:nth-of-type(2):before {
+    content: '\f00d';
+    font: 1em FontAwesome;
+    }
+body:not(.popupOn) #content table tr.canMtx td:nth-of-type(2) {
     cursor: zoom-in;
+    }
+body:not(.popupOn) #content table tr.canMtx td:nth-of-type(2):hover {
+    background: white;
     }
 #content table tr.cat_net td:nth-of-type(3) {
     font: 12px monospace;
@@ -172,6 +182,8 @@ body.popupOn #popupContainer {
     }
 #popupContainer > div {
     background: #444;
+    border: 0;
+    border-bottom: 1px solid white;
     cursor: -webkit-grab;
     cursor: grab;
     height: 2em;
