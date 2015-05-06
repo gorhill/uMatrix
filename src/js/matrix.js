@@ -668,7 +668,7 @@ Matrix.prototype.toString = function() {
             out.push(switchName + ': ' + srcHostname + ' ' + switchStateToNameMap[val]);
         }
     }
-    return out.join('\n');
+    return out.sort().join('\n');
 };
 
 /******************************************************************************/
