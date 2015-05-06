@@ -32,6 +32,10 @@ body {
     margin: 0;
     padding: 8px;
     }
+#toolbar .button.disabled {
+    opacity: 0.2;
+    pointer-events: none;
+    }
 #toolbar .button:hover {
     background-color: #eee;
     }

@@ -234,18 +234,25 @@ var renderLogEntry = function(entry) {
 
 /******************************************************************************/
 
-var renderLogBuffer = function(response) {
-    var buffer = response.entries;
-    if ( buffer.length === 0 ) {
+var renderLogEntries = function(response) {
+    var entries = response.entries;
+    if ( entries.length === 0 ) {
         return;
     }
 
     // Preserve scroll position
     var height = tbody.offsetHeight;
 
-    var n = buffer.length;
+    var tabIds = response.tabIds;
+    var n = entries.length;
+    var entry;
     for ( var i = 0; i < n; i++ ) {
-        renderLogEntry(buffer[i]);
+        entry = entries[i];
+        // Unlikely, but it may happen
+        if ( entry.tab && tabIds.hasOwnProperty(entry.tab) === false ) {
+            continue;
+        }
+        renderLogEntry(entries[i]);
     }
 
     // Prevent logger from growing infinitely and eating all memory. For
@@ -303,25 +310,37 @@ var onLogBufferRead = function(response) {
 
     // Neuter rows for which a tab does not exist anymore
     // TODO: sort to avoid using indexOf
-    var targetTabId;
-    var i = allTabIds.length;
-    while ( i-- ) {
-        targetTabId = allTabIds[i];
-        if ( targetTabId === noTabId ) {
+    var rowVoided = false;
+    for ( var tabId in allTabIds ) {
+        if ( allTabIds.hasOwnProperty(tabId) === false ) {
             continue;
         }
-        if ( response.allTabIds.indexOf(targetTabId) !== -1 ) {
+        if ( response.tabIds.hasOwnProperty(tabId) ) {
             continue;
         }
-        uDom('.tab_' + targetTabId).removeClass('canMtx');
-        // Close popup if it is currently inspecting this tab
-        if ( targetTabId === popupManager.tabId ) {
+        uDom('.tab_' + tabId).removeClass('canMtx');
+        if ( tabId === popupManager.tabId ) {
             popupManager.toggleOff();
         }
+        rowVoided = true;
     }
-    allTabIds = response.allTabIds;
+    allTabIds = response.tabIds;
 
-    renderLogBuffer(response);
+    renderLogEntries(response);
+
+    if ( rowVoided ) {
+        uDom('#clean').toggleClass(
+            'disabled',
+            tbody.querySelector('tr.tab:not(.canMtx)') === null
+        );
+    }
+
+    // Synchronize toolbar with content of log
+    uDom('#clear').toggleClass(
+        'disabled',
+        tbody.querySelector('tr') === null
+    );
+
     setTimeout(readLogBuffer, 1200);
 };
 
@@ -343,6 +362,19 @@ var clearBuffer = function() {
         tr = tbody.lastElementChild;
         trJunkyard.push(tbody.removeChild(tr));
     }
+    uDom('#clear').addClass('disabled');
+    uDom('#clean').addClass('disabled');
+};
+
+/******************************************************************************/
+
+var cleanBuffer = function() {
+    var rows = uDom('#content tr.tab:not(.canMtx)').remove();
+    var i = rows.length;
+    while ( i-- ) {
+        trJunkyard.push(rows.nodeAt(i));
+    }
+    uDom('#clean').addClass('disabled');
 };
 
 /******************************************************************************/
@@ -589,6 +621,7 @@ uDom.onLoad(function() {
     readLogBuffer();
 
     uDom('#compactViewToggler').on('click', toggleCompactView);
+    uDom('#clean').on('click', cleanBuffer);
     uDom('#clear').on('click', clearBuffer);
     uDom('#maxEntries').on('change', onMaxEntriesChanged);
     uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(2)', popupManager.toggleOn);

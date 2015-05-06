@@ -977,12 +977,18 @@ var onMessage = function(request, sender, callback) {
 
     switch ( request.what ) {
         case 'readMany':
+            var tabIds = {};
+            for ( var tabId in µm.pageStores ) {
+                if ( µm.pageStores.hasOwnProperty(tabId) ) {
+                    tabIds[tabId] = true;
+                }
+            }
             response = {
                 colorBlind: false,
                 entries: µm.logger.readAll(),
                 maxLoggedRequests: µm.userSettings.maxLoggedRequests,
                 noTabId: vAPI.noTabId,
-                allTabIds: Object.keys(µm.pageStores)
+                tabIds: tabIds
             };
             break;
 
