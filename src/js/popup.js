@@ -1268,6 +1268,8 @@ var matrixSnapshotPoller = (function() {
             var matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
             if ( matches !== null ) {
                 tabId = matches[1];
+                // No need for logger button when embedded in logger
+                uDom('[data-extension-url="logger-ui.html"]').remove();
             }
         }
 

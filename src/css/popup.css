@@ -118,11 +118,6 @@ body[dir="rtl"] #mtxSwitches > li:before {
     font: 110% FontAwesome;
     padding-right: 0.5em;
     }
-[data-i18n="matrixLoggerMenuEntry"]:before {
-    content: '\f022';
-    font: 110% FontAwesome;
-    padding-right: 0.5em;
-    }
 [data-i18n="matrixDashboardMenuEntry"]:before {
     content: '\f085';
     font: 110% FontAwesome;

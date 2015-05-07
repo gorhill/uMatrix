@@ -45,10 +45,13 @@ body #compactViewToggler.button:before {
 body.compactView #compactViewToggler.button:before {
     content: '\f103';
     }
-body.filterOff #toolbar #filterButton {
+#filterButton {
     opacity: 0.25;
     }
-#filterExpression.bad {
+body.f #filterButton {
+    opacity: 1;
+    }
+#filterInput.bad {
     background-color: #fee;
     }
 #maxEntries {
@@ -74,19 +77,22 @@ input:focus {
     width: 6em;
     }
 #content table > colgroup > col:nth-of-type(2) {
-    width: 3em;
+    width: 2.5em;
     }
 #content table > colgroup > col:nth-of-type(3) {
-    width: 3em;
+    width: 2.5em;
     }
 #content table > colgroup > col:nth-of-type(4) {
     width: 5em;
     }
 #content table > colgroup > col:nth-of-type(5) {
-    width: calc(100% - 20em);
+    width: calc(100% - 19em);
     }
 #content table tr {
     background-color: #fafafa;
+    }
+body.f table tr.f {
+    display: none;
     }
 #content table tr:nth-of-type(2n+1) {
     background-color: #eee;
@@ -102,10 +108,6 @@ input:focus {
     background-color: #666;
     color: white;
     text-align: center;
-    }
-
-body:not(.filterOff) #content table tr.hidden {
-    display: none;
     }
 
 body #content td {

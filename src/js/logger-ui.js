@@ -17,8 +17,6 @@
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
     Home: https://github.com/gorhill/sessbench
-
-    TODO: cleanup/refactor
 */
 
 /* jshint boss: true */
@@ -33,10 +31,7 @@
 /******************************************************************************/
 
 var messager = vAPI.messaging.channel('logger-ui.js');
-
-var doc = document;
-var body = doc.body;
-var tbody = doc.querySelector('#content tbody');
+var tbody = document.querySelector('#content tbody');
 var trJunkyard = [];
 var tdJunkyard = [];
 var firstVarDataCol = 2;  // currently, column 2 (0-based index)
@@ -116,7 +111,7 @@ var createCellAt = function(tr, index) {
         td.removeAttribute('colspan');
         td.textContent = '';
     } else {
-        td = doc.createElement('td');
+        td = document.createElement('td');
     }
     if ( mustAppend ) {
         tr.appendChild(td);
@@ -131,7 +126,7 @@ var createRow = function(layout) {
     if ( tr ) {
         tr.className = '';
     } else {
-        tr = doc.createElement('tr');
+        tr = document.createElement('tr');
     }
     for ( var index = 0; index < firstVarDataCol; index++ ) {
         createCellAt(tr, index);
@@ -198,7 +193,7 @@ var renderLogEntry = function(entry) {
         }
         if ( entry.d3 ) {
             tr.classList.add('blocked');
-            tr.cells[fvdc].textContent = '---';
+            tr.cells[fvdc].textContent = '--';
         } else {
             tr.cells[fvdc].textContent = '';
         }
@@ -228,6 +223,8 @@ var renderLogEntry = function(entry) {
     if ( entry.cat !== '' ) {
         tr.classList.add('cat_' + entry.cat);
     }
+
+    rowFilterer.filterOne(tr);
 
     tbody.insertBefore(tr, tbody.firstChild);
 };
@@ -268,15 +265,15 @@ var renderLogEntries = function(response) {
     // Chromium:
     //   body.scrollTop = good value
     //   body.parentNode.scrollTop = 0
-    if ( body.scrollTop !== 0 ) {
-        body.scrollTop += yDelta;
+    if ( document.body.scrollTop !== 0 ) {
+        document.body.scrollTop += yDelta;
         return;
     }
 
     // Firefox:
     //   body.scrollTop = 0
     //   body.parentNode.scrollTop = good value
-    var parentNode = body.parentNode;
+    var parentNode = document.body.parentNode;
     if ( parentNode && parentNode.scrollTop !== 0 ) {
         parentNode.scrollTop += yDelta;
     }
@@ -288,6 +285,7 @@ var truncateLog = function(size) {
     if ( size === 0 ) {
         size = 5000;
     }
+    var tbody = document.querySelector('#content tbody');
     size = Math.min(size, 10000);
     var tr;
     while ( tbody.childElementCount > size ) {
@@ -356,7 +354,155 @@ var readLogBuffer = function() {
 
 /******************************************************************************/
 
+var onMaxEntriesChanged = function() {
+    var raw = uDom(this).val();
+    try {
+        maxEntries = parseInt(raw, 10);
+        if ( isNaN(maxEntries) ) {
+            maxEntries = 0;
+        }
+    } catch (e) {
+        maxEntries = 0;
+    }
+
+    messager.send({
+        what: 'userSettings',
+        name: 'maxLoggedRequests',
+        value: maxEntries
+    });
+
+    truncateLog(maxEntries);
+};
+
+/******************************************************************************/
+
+var rowFilterer = (function() {
+    var filters = [];
+
+    var parseInput = function() {
+        filters = [];
+
+        var rawPart, not, hardBeg, hardEnd, reStr;
+        var raw = uDom('#filterInput').val().trim();
+        var rawParts = raw.split(/\s+/);
+        var i = rawParts.length;
+        while ( i-- ) {
+            rawPart = rawParts[i];
+            not = rawPart.charAt(0) === '!';
+            if ( not ) {
+                rawPart = rawPart.slice(1);
+            }
+            hardBeg = rawPart.charAt(0) === '[';
+            if ( hardBeg ) {
+                rawPart = rawPart.slice(1);
+            }
+            hardEnd = rawPart.slice(-1) === ']';
+            if ( hardEnd ) {
+                rawPart = rawPart.slice(0, -1);
+            }
+            if ( rawPart === '' ) {
+                continue;
+            }
+            // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
+            reStr = rawPart.replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+                           .replace(/\*/g, '.*');
+            if ( hardBeg ) {
+                reStr = '(?:^|\\s)' + reStr;
+            }
+            if ( hardEnd ) {
+                reStr += '(?:\\s|$)';
+            }
+            filters.push({
+                re: new RegExp(reStr, 'i'),
+                r: !not
+            });
+        }
+    };
+
+    var filterOne = function(tr) {
+        var cl = tr.classList;
+        // do not filter out doc boundaries, they help separate important
+        // section of log.
+        if ( cl.contains('doc') ) {
+            return;
+        }
+        var ff = filters;
+        var fcount = ff.length;
+        if ( fcount === 0 ) {
+            cl.remove('f');
+            return;
+        }
+        var cc = tr.cells;
+        var ccount = cc.length;
+        var hit, j, f;
+        // each filter expression must hit (implicit and-op)
+        // if...
+        //   positive filter expression = there must one hit on any field
+        //   negative filter expression = there must be no hit on all fields
+        for ( var i = 0; i < fcount; i++ ) {
+            f = ff[i];
+            hit = !f.r;
+            for ( j = 0; j < ccount; j++ ) {
+                if ( f.re.test(cc[j].innerText) ) {
+                    hit = f.r;
+                    break;
+                }
+            }
+            if ( !hit ) {
+                cl.add('f');
+                return;
+            }
+        }
+        cl.remove('f');
+    };
+
+    var filterAll = function() {
+        // Special case: no filter
+        if ( filters.length === 0 ) {
+            uDom('#content tr').removeClass('f');
+            return;
+        }
+        var tbody = document.querySelector('#content tbody');
+        var rows = tbody.rows;
+        var i = rows.length;
+        while ( i-- ) {
+            filterOne(rows[i]);
+        }
+    };
+
+    var onFilterChangedAsync = (function() {
+        var timer = null;
+        var commit = function() {
+            timer = null;
+            parseInput();
+            filterAll();
+        };
+        return function() {
+            if ( timer !== null ) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(commit, 750);
+        };
+    })();
+
+    var onFilterButton = function() {
+        var cl = document.body.classList;
+        cl.toggle('f', cl.contains('f') === false);
+    };
+
+    uDom('#filterButton').on('click', onFilterButton);
+    uDom('#filterInput').on('input', onFilterChangedAsync);
+
+    return {
+        filterOne: filterOne,
+        filterAll: filterAll
+    };
+})();
+
+/******************************************************************************/
+
 var clearBuffer = function() {
+    var tbody = document.querySelector('#content tbody');
     var tr;
     while ( tbody.firstChild !== null ) {
         tr = tbody.lastElementChild;
@@ -380,9 +526,9 @@ var cleanBuffer = function() {
 /******************************************************************************/
 
 var toggleCompactView = function() {
-    body.classList.toggle(
+    document.body.classList.toggle(
         'compactView',
-        body.classList.contains('compactView') === false
+        document.body.classList.contains('compactView') === false
     );
 };
 
@@ -592,28 +738,6 @@ var popupManager = (function() {
 
     return exports;
 })();
-
-/******************************************************************************/
-
-var onMaxEntriesChanged = function() {
-    var raw = uDom(this).val();
-    try {
-        maxEntries = parseInt(raw, 10);
-        if ( isNaN(maxEntries) ) {
-            maxEntries = 0;
-        }
-    } catch (e) {
-        maxEntries = 0;
-    }
-
-    messager.send({
-        what: 'userSettings',
-        name: 'maxLoggedRequests',
-        value: maxEntries
-    });
-
-    truncateLog(maxEntries);
-};
 
 /******************************************************************************/
 

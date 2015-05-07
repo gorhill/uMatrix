@@ -43,19 +43,19 @@
     display: inline-block;
     }
 
-html {
+body[dir="ltr"] {
     direction: ltr;
     }
-html.rtl {
+body[dir="rtl"] {
     direction: rtl;
     }
 
 /* http://stackoverflow.com/questions/2011142/how-to-change-the-style-of-title-attribute-inside-the-anchor-tag?answertab=votes */
-*[data-tip] {
+*[data-i18n-tip] {
     position: relative;
     cursor: pointer;
     }
-*[data-tip]:hover:after {
+*[data-i18n-tip]:hover:after {
     background-color: #fffffa;
     border: 1px solid gray;
     border-radius: 3px;
@@ -63,7 +63,6 @@ html.rtl {
     color: black;
     content: attr(data-tip);
     font: 12px sans-serif;
-    left: -100%;
     line-height: 140%;
     min-width: 25vw;
     padding: 4px 6px;
@@ -73,11 +72,11 @@ html.rtl {
     white-space: pre-line;
     z-index: 20;
     }
-html.ltr .tip-anchor-left[data-tip]:hover:after,
-html.rtl .tip-anchor-right[data-tip]:hover:after {
-    left: -5vw;
+body[dir="ltr"] .tip-anchor-left[data-i18n-tip]:hover:after,
+body[dir="rtl"] .tip-anchor-right[data-i18n-tip]:hover:after {
+    left: -3vw;
     }
-html.ltr .tip-anchor-right[data-tip]:hover:after,
-html.rtl .tip-anchor-left[data-tip]:hover:after {
-    right: -5vw;
+body[dir="ltr"] .tip-anchor-right[data-i18n-tip]:hover:after,
+body[dir="rtl"] .tip-anchor-left[data-i18n-tip]:hover:after {
+    right: -3vw;
     }

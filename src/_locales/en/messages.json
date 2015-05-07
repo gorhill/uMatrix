@@ -583,6 +583,11 @@
         "description": "Message asking user to confirm reset"
     },
 
+    "loggerFilterInputPlaceholder" : {
+        "message": "filter expression(s)",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+
     "mainBlockedPrompt1": {
         "message": "uMatrix has prevented the following page from loading:",
         "description": "English: uMatrix has prevented the following page from loading:"

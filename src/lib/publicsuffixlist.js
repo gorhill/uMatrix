@@ -45,7 +45,7 @@ var selfieMagic = 'iscjsfsaolnm';
 //    < this.cutoffLength = indexOf()
 //   >= this.cutoffLength = binary search
 var cutoffLength = 256;
-var mustPunycode = /[^a-z0-9.-]/;
+var mustPunycode = /[^\w.*-]/;
 
 var onChangedListeners = [];
 
@@ -171,11 +171,6 @@ function parse(text, toAscii) {
     exceptions = {};
     rules = {};
 
-    // http://publicsuffix.org/list/:
-    // "... all rules must be canonicalized in the normal way
-    // for hostnames - lower-case, Punycode ..."
-    text = text.toLowerCase();
-
     var lineBeg = 0, lineEnd;
     var textEnd = text.length;
     var line, store, pos, tld;
@@ -207,10 +202,6 @@ function parse(text, toAscii) {
             continue;
         }
 
-        if ( mustPunycode.test(line) ) {
-            line = toAscii(line);
-        }
-
         // Is this an exception rule?
         if ( line.charAt(0) === '!' ) {
             store = exceptions;
@@ -218,6 +209,15 @@ function parse(text, toAscii) {
         } else {
             store = rules;
         }
+
+        if ( mustPunycode.test(line) ) {
+            line = toAscii(line);
+        }
+
+        // http://publicsuffix.org/list/:
+        // "... all rules must be canonicalized in the normal way
+        // for hostnames - lower-case, Punycode ..."
+        line = line.toLowerCase();
 
         // Extract TLD
         pos = line.lastIndexOf('.');

@@ -52,6 +52,16 @@ while ( i-- ) {
     node.setAttribute('data-tip', vAPI.i18n(node.getAttribute('data-i18n-tip')));
 }
 
+nodeList = document.querySelectorAll('input[placeholder]');
+i = nodeList.length;
+while ( i-- ) {
+    node = nodeList[i];
+    node.setAttribute(
+        'placeholder',
+        vAPI.i18n(node.getAttribute('placeholder')) || ''
+    );
+}
+
 /******************************************************************************/
 
 vAPI.i18n.renderElapsedTimeToString = function(tstamp) {
