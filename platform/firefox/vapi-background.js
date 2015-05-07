@@ -1934,10 +1934,9 @@ vAPI.cookies.observe = function(subject, topic, reason) {
     if ( reason === 'deleted' || subject instanceof Ci.nsICookie2 === false ) {
         return;
     }
-    if ( typeof this.onChanged !== 'function' ) {
-        return;
+    if ( typeof this.onChanged === 'function' ) {
+        this.onChanged(new this.CookieEntry(subject));
     }
-    this.onChanged(new this.CookieEntry(subject));
 };
 
 /******************************************************************************/
