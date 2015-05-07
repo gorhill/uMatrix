@@ -1930,11 +1930,14 @@ vAPI.cookies.observe = function(subject, topic, reason) {
     if ( topic !== 'cookie-changed' ) {
         return;
     }
-    var handler = reason === 'deleted' ? this.onRemoved : this.onChanged;
-    if ( typeof handler !== 'function' ) {
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICookieService
+    if ( reason === 'deleted' || subject instanceof Ci.nsICookie2 === false ) {
         return;
     }
-    handler(new this.CookieEntry(subject.QueryInterface(Ci.nsICookie)));
+    if ( typeof this.onChanged !== 'function' ) {
+        return;
+    }
+    this.onChanged(new this.CookieEntry(subject));
 };
 
 /******************************************************************************/
