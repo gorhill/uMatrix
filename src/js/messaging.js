@@ -146,17 +146,19 @@ var matrixSnapshot = function(pageStore, details) {
         domain: pageStore.pageDomain,
         headers: µm.Matrix.getColumnHeaders(),
         hostname: pageStore.pageHostname,
-        mtxColorModified: µm.tMatrix.modifiedTime !== details.mtxColorModifiedTime,
         mtxContentModified: pageStore.mtxContentModifiedTime !== details.mtxContentModifiedTime,
         mtxCountModified: pageStore.mtxCountModifiedTime !== details.mtxCountModifiedTime,
-        mtxColorModifiedTime: µm.tMatrix.modifiedTime,
         mtxContentModifiedTime: pageStore.mtxContentModifiedTime,
         mtxCountModifiedTime: pageStore.mtxCountModifiedTime,
+        pMatrixModified: µm.pMatrix.modifiedTime !== details.pMatrixModifiedTime,
+        pMatrixModifiedTime: µm.pMatrix.modifiedTime,
         pSwitches: {},
         rows: {},
         rowCount: 0,
         scope: '*',
         tabId: pageStore.tabId,
+        tMatrixModified: µm.tMatrix.modifiedTime !== details.tMatrixModifiedTime,
+        tMatrixModifiedTime: µm.tMatrix.modifiedTime,
         tSwitches: {},
         url: pageStore.pageUrl,
         userSettings: {
@@ -264,7 +266,8 @@ var matrixSnapshotFromTabId = function(details, callback) {
 
         // First verify whether we must return data or not.
         if (
-            µm.tMatrix.modifiedTime === details.mtxColorModifiedTime &&
+            µm.tMatrix.modifiedTime === details.tMatrixModifiedTime &&
+            µm.pMatrix.modifiedTime === details.pMatrixModifiedTime &&
             pageStore.mtxContentModifiedTime === details.mtxContentModifiedTime &&
             pageStore.mtxCountModifiedTime === details.mtxCountModifiedTime
         ) {

@@ -973,18 +973,21 @@ function initMenuEnvironment() {
 
 function selectGlobalScope() {
     setUserSetting('popupScopeLevel', '*');
+    matrixSnapshot.tMatrixModifiedTime = undefined;
     updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
 function selectDomainScope() {
     setUserSetting('popupScopeLevel', 'domain');
+    matrixSnapshot.tMatrixModifiedTime = undefined;
     updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
 function selectSiteScope() {
     setUserSetting('popupScopeLevel', 'site');
+    matrixSnapshot.tMatrixModifiedTime = undefined;
     updateMatrixSnapshot();
     dropDownMenuHide();
 }
@@ -1196,7 +1199,8 @@ var matrixSnapshotPoller = (function() {
         if (
             response.mtxContentModified === false &&
             response.mtxCountModified === false &&
-            response.mtxColorModified === false
+            response.pMatrixModified === false &&
+            response.tMatrixModified === false
         ) {
             return;
         }
@@ -1208,7 +1212,11 @@ var matrixSnapshotPoller = (function() {
         if ( response.mtxCountModified ) {
             updateMatrixCounts();
         }
-        if ( response.mtxColorModified ) {
+        if (
+            response.pMatrixModified ||
+            response.tMatrixModified ||
+            response.scopeModified
+        ) {
             updateMatrixColors();
             updateMatrixBehavior();
             updateMatrixButtons();
@@ -1225,9 +1233,11 @@ var matrixSnapshotPoller = (function() {
         messager.send({
             what: 'matrixSnapshot',
             tabId: matrixSnapshot.tabId,
-            mtxColorModifiedTime: matrixSnapshot.mtxColorModifiedTime,
             mtxContentModifiedTime: matrixSnapshot.mtxContentModifiedTime,
-            mtxCountModifiedTime: matrixSnapshot.mtxCountModifiedTime
+            mtxCountModifiedTime: matrixSnapshot.mtxCountModifiedTime,
+            mtxDiffCount: matrixSnapshot.diff.length,
+            pMatrixModifiedTime: matrixSnapshot.pMatrixModifiedTime,
+            tMatrixModifiedTime: matrixSnapshot.tMatrixModifiedTime,
         }, onPolled);
     };
 
