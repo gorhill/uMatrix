@@ -443,7 +443,7 @@ var rowFilterer = (function() {
             f = ff[i];
             hit = !f.r;
             for ( j = 0; j < ccount; j++ ) {
-                if ( f.re.test(cc[j].innerText) ) {
+                if ( f.re.test(cc[j].textContent) ) {
                     hit = f.r;
                     break;
                 }
