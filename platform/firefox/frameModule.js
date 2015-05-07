@@ -55,7 +55,6 @@ const contentObserver = {
     MAIN_FRAME: Ci.nsIContentPolicy.TYPE_DOCUMENT,
     contentBaseURI: 'chrome://' + hostName + '/content/js/',
     cpMessageName: hostName + ':shouldLoad',
-    ignoredPopups: new WeakMap(),
     uniqueSandboxId: 1,
 
     get componentRegistrar() {
@@ -120,6 +119,7 @@ const contentObserver = {
 
     // https://bugzil.la/612921
     shouldLoad: function(type, location, origin, context) {
+/*
         if ( !context ) {
             return this.ACCEPT;
         }
@@ -128,15 +128,8 @@ const contentObserver = {
             return this.ACCEPT;
         }
 
-        let openerURL = null;
-
         if ( type === this.MAIN_FRAME ) {
             context = context.contentWindow || context;
-
-            if ( context.opener && context.opener !== context
-                && this.ignoredPopups.has(context) === false ) {
-                openerURL = context.opener.location.href;
-            }
         } else if ( type === 7 ) { // SUB_DOCUMENT
             context = context.contentWindow;
         } else {
@@ -163,7 +156,6 @@ const contentObserver = {
         let messageManager = getMessageManager(context);
         let details = {
             frameId: isTopLevel ? 0 : this.getFrameId(context),
-            openerURL: openerURL,
             parentFrameId: parentFrameId,
             type: type,
             url: location.spec
@@ -176,7 +168,7 @@ const contentObserver = {
             // Compatibility for older versions
             messageManager.sendSyncMessage(this.cpMessageName, details);
         }
-
+*/
         return this.ACCEPT;
     },
 
@@ -247,27 +239,11 @@ const contentObserver = {
         return sandbox;
     },
 
-    ignorePopup: function(e) {
-        if ( e.isTrusted === false ) {
-            return;
-        }
-
-        let contObs = contentObserver;
-        contObs.ignoredPopups.set(this, true);
-        this.removeEventListener('keydown', contObs.ignorePopup, true);
-        this.removeEventListener('mousedown', contObs.ignorePopup, true);
-    },
-
     observe: function(doc) {
         let win = doc.defaultView;
 
         if ( !win ) {
             return;
-        }
-
-        if ( win.opener && this.ignoredPopups.has(win) === false ) {
-            win.addEventListener('keydown', this.ignorePopup, true);
-            win.addEventListener('mousedown', this.ignorePopup, true);
         }
 
         let loc = win.location;
@@ -291,10 +267,6 @@ const contentObserver = {
             let doc = e.target;
             doc.removeEventListener(e.type, docReady, true);
             lss(this.contentBaseURI + 'contentscript-end.js', sandbox);
-
-            if ( doc.querySelector('a[href^="abp:"]') ) {
-                lss(this.contentBaseURI + 'subscriber.js', sandbox);
-            }
         };
 
         if ( doc.readyState === 'loading') {

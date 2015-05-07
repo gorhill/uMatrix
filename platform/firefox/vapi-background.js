@@ -1027,7 +1027,6 @@ var httpObserver = {
         16: 'websocket',
         21: 'image'
     },
-    lastRequest: [{}, {}],
 
     get componentRegistrar() {
         return Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
@@ -1104,9 +1103,8 @@ var httpObserver = {
         var type = this.typeMap[details.type] || 'other';
         var result;
         var callbackDetails = {
-            frameId: details.frameId,
             hostname: URI.asciiHost,
-            parentFrameId: details.parentFrameId,
+            parentFrameId: type === 'main_frame' ? -1 : 0,
             tabId: details.tabId,
             type: type,
             url: URI.asciiSpec
@@ -1172,7 +1170,7 @@ var httpObserver = {
                 return;
             }
 
-            type = this.frameTypeMap[channelData[4]];
+            type = this.frameTypeMap[channelData[1]];
             if ( !type ) {
                 return;
             }
@@ -1187,10 +1185,10 @@ var httpObserver = {
 
             result = vAPI.net.onHeadersReceived.callback({
                 hostname: URI.asciiHost,
-                parentFrameId: channelData[1],
+                parentFrameId: type === 6 ? -1 : 0,
                 responseHeaders: result ? [{name: topic, value: result}] : [],
-                tabId: channelData[3],
-                type: type,
+                tabId: channelData[0],
+                type: this.typeMap[type] || 'other',
                 url: URI.asciiSpec
             });
 
@@ -1207,57 +1205,54 @@ var httpObserver = {
 
         // http-on-opening-request
 
-        var lastRequest = this.lastRequest[0];
-
-        if ( lastRequest.url !== URI.spec ) {
-            if ( this.lastRequest[1].url === URI.spec ) {
-                lastRequest = this.lastRequest[1];
-            } else {
-                lastRequest.url = null;
+        // https://github.com/gorhill/uMatrix/issues/165
+        // https://developer.mozilla.org/en-US/Firefox/Releases/3.5/Updating_extensions#Getting_a_load_context_from_a_request
+        // Not sure `umatrix:shouldLoad` is still needed, uMatrix does not
+        //   care about embedded frames topography.
+        var tabId = vAPI.noTabId;
+        var loadCtx;
+        try { 
+            loadCtx = channel
+                .QueryInterface(Components.interfaces.nsIChannel)
+                .notificationCallbacks
+                .getInterface(Components.interfaces.nsILoadContext);
+        } catch (ex) { 
+            try { 
+                loadCtx = channel
+                    .loadGroup.notificationCallbacks 
+                    .getInterface(Components.interfaces.nsILoadContext); 
+            } catch (ex) {
             }
         }
-
-        if ( lastRequest.url === null ) {
-            lastRequest.type = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
-            result = this.handleRequest(channel, URI, {
-                tabId: vAPI.noTabId,
-                type: lastRequest.type
-            });
-
-            if ( result === true ) {
-                return;
-            }
-
-            if ( channel instanceof Ci.nsIWritablePropertyBag === false ) {
-                return;
-            }
-
-            // Carry data for behind-the-scene redirects
-            channel.setProperty(
-                this.REQDATAKEY,
-                [lastRequest.type, vAPI.noTabId, null, 0, -1]
+        if ( loadCtx && loadCtx.associatedWindow ) {
+            tabId = vAPI.tabs.getTabId(
+                loadCtx
+                    .associatedWindow
+                    .QueryInterface(Ci.nsIInterfaceRequestor)
+                    .getInterface(Ci.nsIWebNavigation)
+                    .QueryInterface(Ci.nsIDocShell)
+                    .rootTreeItem
+                    .QueryInterface(Ci.nsIInterfaceRequestor)
+                    .getInterface(Ci.nsIDOMWindow)
+                    .gBrowser
+                    .getBrowserForContentWindow(loadCtx.associatedWindow)
             );
+        }
+
+        type = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
+        result = this.handleRequest(channel, URI, { tabId: tabId, type: type });
+
+        if ( result === true ) {
             return;
         }
 
-        // Important! When loading file via XHR for mirroring,
-        // the URL will be the same, so it could fall into an infinite loop
-        lastRequest.url = null;
-
-        if ( this.handleRequest(channel, URI, lastRequest) ) {
+        if ( channel instanceof Ci.nsIWritablePropertyBag === false ) {
             return;
         }
 
-        // If request is not handled we may use the data in on-modify-request
-        if ( channel instanceof Ci.nsIWritablePropertyBag ) {
-            channel.setProperty(this.REQDATAKEY, [
-                lastRequest.frameId,
-                lastRequest.parentFrameId,
-                lastRequest.sourceTabId,
-                lastRequest.tabId,
-                lastRequest.type
-            ]);
-        }
+        // Carry data for behind-the-scene redirects
+        channel.setProperty(this.REQDATAKEY, [tabId, type]);
+        return;
     },
 
     // contentPolicy.shouldLoad doesn't detect redirects, this needs to be used
@@ -1279,10 +1274,8 @@ var httpObserver = {
             var channelData = oldChannel.getProperty(this.REQDATAKEY);
 
             var details = {
-                frameId: channelData[0],
-                parentFrameId: channelData[1],
-                tabId: channelData[3],
-                type: channelData[4]
+                tabId: channelData[0],
+                type: channelData[1]
             };
 
             if ( this.handleRequest(newChannel, URI, details) ) {
@@ -1317,21 +1310,7 @@ vAPI.net.registerListeners = function() {
         null;
 
     var shouldLoadListenerMessageName = location.host + ':shouldLoad';
-    var shouldLoadListener = function(e) {
-        var details = e.data;
-        var tabId = vAPI.tabs.getTabId(e.target);
-        var sourceTabId = null;
-        var lastRequest = httpObserver.lastRequest;
-        lastRequest[1] = lastRequest[0];
-        lastRequest[0] = {
-            frameId: details.frameId,
-            parentFrameId: details.parentFrameId,
-            sourceTabId: sourceTabId,
-            tabId: tabId,
-            type: details.type,
-            url: details.url
-        };
-    };
+    var shouldLoadListener = function(e) { };
 
     vAPI.messaging.globalMessageManager.addMessageListener(
         shouldLoadListenerMessageName,
