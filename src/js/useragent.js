@@ -60,7 +60,11 @@ var userAgentSpoofer = function(force) {
     if ( uaStr === '' ) {
         µm.userAgentReplaceStr = userAgentRandomPicker();
         µm.userAgentReplaceStrBirth = Date.now();
-        µm.logger.writeOne('', 'info', 'spoofing user agent with: ' + µm.userAgentReplaceStr);
+        µm.logger.writeOne(
+            '',
+            'info',
+            vAPI.i18n('loggerEntryUserAgentSpoofing').replace('{{value}}', µm.userAgentReplaceStr)
+        );
     }
 };
 

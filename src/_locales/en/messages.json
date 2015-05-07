@@ -587,6 +587,26 @@
         "message": "filter expression(s)",
         "description": "Appears in the input filed where filter expressions are entered"
     },
+    "loggerEntryUserAgentSpoofing" : {
+        "message": "spoofing user agent with: {{value}}",
+        "description": "An entry for when a new user agent string is selected"
+    },
+    "loggerEntryCookieDeleted" : {
+        "message": "cookie deleted: {{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError" : {
+        "message": "browser cache cleared",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared" : {
+        "message": "failed to delete cookie: {{value}}",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated" : {
+        "message": "asset updated: {{value}}",
+        "description": "An entry for when an asset was updated"
+    },
 
     "mainBlockedPrompt1": {
         "message": "uMatrix has prevented the following page from loading:",

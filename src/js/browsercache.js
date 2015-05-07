@@ -50,7 +50,7 @@ var clearCache = function() {
     µm.browserCacheClearedCounter++;
 
     // TODO: i18n
-    µm.logger.writeOne('', 'info', 'browser cache cleared');
+    µm.logger.writeOne('', 'info', vAPI.i18n('loggerEntryBrowserCacheCleared'));
 
     //console.debug('clearBrowserCacheCallback()> vAPI.browserData.clearCache() called');
 };

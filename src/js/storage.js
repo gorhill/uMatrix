@@ -408,7 +408,7 @@
     var path = details.path || '';
 
     if ( path !== '' ) {
-        this.logger.writeOne('', 'info', 'asset updated: ' + path);
+        this.logger.writeOne('', 'info', vAPI.i18n('loggerEntryAssetUpdated').replace('{{value}}', path));
     }
 
     if ( this.liveHostsFiles.hasOwnProperty(path) === false ) {

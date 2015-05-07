@@ -296,18 +296,18 @@ var chromeCookieRemove = function(url, name) {
         var success = !!details;
         if ( removeCookieFromDict(sessionCookieKey) ) {
             if ( success ) {
-                µm.logger.writeOne('', 'info', 'cookie deleted: ' + sessionCookieKey);
+                µm.logger.writeOne('', 'info', vAPI.i18n('loggerEntryCookieDeleted').replace('{{value}}', sessionCookieKey));
                 µm.cookieRemovedCounter += 1;
             } else {
-                µm.logger.writeOne('', 'error', 'failed to delete cookie: ' + sessionCookieKey);
+                µm.logger.writeOne('', 'error', vAPI.i18n('loggerEntryDeleteCookieError').replace('{{value}}', sessionCookieKey));
             }
         }
         if ( removeCookieFromDict(persistCookieKey) ) {
             if ( success ) {
-                µm.logger.writeOne('', 'info', 'cookie deleted: ' + persistCookieKey);
+                µm.logger.writeOne('', 'info', vAPI.i18n('loggerEntryCookieDeleted').replace('{{value}}', persistCookieKey));
                 µm.cookieRemovedCounter += 1;
             } else {
-                µm.logger.writeOne('', 'error', 'failed to delete cookie: ' + persistCookieKey);
+                µm.logger.writeOne('', 'error', vAPI.i18n('loggerEntryDeleteCookieError').replace('{{value}}', persistCookieKey));
             }
         }
     };
