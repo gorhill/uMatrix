@@ -49,7 +49,7 @@ const getMessageManager = function(win) {
 
 const contentObserver = {
     classDescription: 'content-policy for ' + hostName,
-    classID: Components.ID('{d8baca19-b666-4c09-84b1-a36d9a0bb03f}'),
+    classID: Components.ID('{c84283d4-9975-41b7-b1a4-f106af56b51d}'),
     contractID: '@' + hostName + '/content-policy;1',
     ACCEPT: Ci.nsIContentPolicy.ACCEPT,
     MAIN_FRAME: Ci.nsIContentPolicy.TYPE_DOCUMENT,

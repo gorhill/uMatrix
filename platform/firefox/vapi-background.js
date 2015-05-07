@@ -1002,7 +1002,7 @@ HTTPRequestHeaders.prototype.setHeader = function(name, newValue, create) {
 
 var httpObserver = {
     classDescription: 'net-channel-event-sinks for ' + location.host,
-    classID: Components.ID('{dc8d6319-5f6e-4438-999e-53722db99e84}'),
+    classID: Components.ID('{5d2e2797-6d68-42e2-8aeb-81ce6ba16b95}'),
     contractID: '@' + location.host + '/net-channel-event-sinks;1',
     REQDATAKEY: location.host + 'reqdata',
     ABORT: Components.results.NS_BINDING_ABORTED,
@@ -1210,24 +1210,29 @@ var httpObserver = {
         // Not sure `umatrix:shouldLoad` is still needed, uMatrix does not
         //   care about embedded frames topography.
         var tabId = vAPI.noTabId;
-        var loadCtx;
-        try { 
-            loadCtx = channel
-                .QueryInterface(Components.interfaces.nsIChannel)
-                .notificationCallbacks
-                .getInterface(Components.interfaces.nsILoadContext);
-        } catch (ex) { 
-            try { 
-                loadCtx = channel
-                    .loadGroup.notificationCallbacks 
-                    .getInterface(Components.interfaces.nsILoadContext); 
+        var aWindow;
+
+        if ( channel.notificationCallbacks ) {
+            try {
+                aWindow = channel
+                    .notificationCallbacks
+                    .getInterface(Components.interfaces.nsILoadContext)
+                    .associatedWindow;
             } catch (ex) {
             }
         }
-        if ( loadCtx && loadCtx.associatedWindow ) {
-            tabId = vAPI.tabs.getTabId(
-                loadCtx
-                    .associatedWindow
+        if ( !aWindow && channel.loadGroup && channel.loadGroup.notificationCallbacks ) {
+            try {
+                aWindow = channel
+                    .loadGroup.notificationCallbacks
+                    .getInterface(Components.interfaces.nsILoadContext)
+                    .associatedWindow;
+            } catch (ex) {
+            }
+        }
+        if ( aWindow ) {
+            try {
+                tabId = vAPI.tabs.getTabId(aWindow
                     .QueryInterface(Ci.nsIInterfaceRequestor)
                     .getInterface(Ci.nsIWebNavigation)
                     .QueryInterface(Ci.nsIDocShell)
@@ -1235,8 +1240,10 @@ var httpObserver = {
                     .QueryInterface(Ci.nsIInterfaceRequestor)
                     .getInterface(Ci.nsIDOMWindow)
                     .gBrowser
-                    .getBrowserForContentWindow(loadCtx.associatedWindow)
-            );
+                    .getBrowserForContentWindow(aWindow)
+                );
+            } catch (ex) {
+            }
         }
 
         type = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
@@ -1252,7 +1259,6 @@ var httpObserver = {
 
         // Carry data for behind-the-scene redirects
         channel.setProperty(this.REQDATAKEY, [tabId, type]);
-        return;
     },
 
     // contentPolicy.shouldLoad doesn't detect redirects, this needs to be used
