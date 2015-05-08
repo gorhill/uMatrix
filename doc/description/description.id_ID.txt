@@ -1,93 +1,93 @@
-µMatrix: A point-and-click matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+µMatrix: firewall tunjuk-dan-klik berbasis matriks, dengan banyak peralatan privasi yang ditingkatkan. Untuk pengguna tingkat lanjut.
 
-µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
+µMatrix memberikan anda kontrol penuh kemana peramban anda diizinkan untuk berhubungan, tipe data apa yang diizinkan untuk diunduh, dan apa yang diizinkan untuk dieksekusi. Tidak ada orang lain yang memutuskan untuk anda: Anda sendiri yang memilih. Anda mengontrol penuh privasi anda sendiri.
 
-Out of the box, µMatrix works in relax block-all/allow-exceptionally mode, meaning web sites which require 3rd-party scripts are likely to be "broken". With two clicks, µMatrix can be set to work in allow-all/block-exceptionally mode, which generally will not break web sites. See https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
+Secara bawaan, µMatrix bekerja dalam mode blokir-semua/perbolehkan-beberapa yang agak ketat, artinya situs web yang membutuhkan skrip pihak ketiga besar kemungkinan menjadi "rusak". Dengan dua klik, µMatrix dapat diatur untuk bekerja dalam mode perbolehkan-semua/blokir-beberapa, yang pada umumnya tidak akan membuat rusak situs web. Lihat https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views untuk penjelasan lebih rinci perihal topik ini.
 
-Regarding the myth that "Chromium-based browsers can't reliably block javascript", see: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Summary: Yes, javascript can be blocked reliably in Chromium.
+Mengenai mitos "Peramban barbasis Chromium tidak dapat dengan handal memblokir javascript", lihat: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Ringkasan: Ya, javascript dapat diblokir dengan handal di Chromium.
 
-* See ALL the remote connections, failed or attempted, depending on whether they were blocked or allowed (you decide).
+* Lihat SEMUA koneksi asing, yang gagal atau percobaan, tergantung dari apakah mereka diblokir atau diizinkan (anda memutuskan).
 
-* A single-click to whitelist/blacklist one or multiple classes of requests according to the destination and type of data (a blocked request will NEVER leave your browser).
+* Sekali klik untuk mendaftar-putih/hitamkan satu atau banyak permintaan menurut destinasi dan jenis data (permintaan yang diblokir TIDAK AKAN PERNAH meninggalkan peramban anda).
 
-* Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
+* Pendaftar-hitaman yang efisien: kuki tidak akan meninggalkan peramban anda, javascript tidak akan dieksekusi, plugin tidak akan memutar, piksel pelacakan tidak akan diunduh, dll.
 
-* You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
+* Anda tidak harus bergantung hanya pada daftar-hitam tertentu (dengan alasan banyak entri yang hilang) selain tidak ada lagi yang dapat diblokir: Anda dalam kontrol penuh.
 
-* Ease of use: µMatrix lets you easily whitelist/blacklist net requests which originate from within a web page according to a point-and-click matrix:
+* Mudah dalam penggunaan: µMatrix memungkinkan anda dengan mudah mendaftar-putih/hitamkan permintaan jaringan yang berasal dari laman web menurut matriks tunjuk-dan-klik:
 
-- domain names (left column)
-  * from very specific
-  * to very generic
+- nama ranah (kolom kiri)
+  * dari sangat spesifik
+  * ke sangat umum
 
-- type of requests (top row)
-  * cookies
-  * CSS-related resources (stylesheets and web fonts)
-  * images
-  * plugins
-  * scripts
-  * XHR (requests made by scripts)
-  * frames
-  * others
+- jenis permintaan (baris atas)
+  * kuki
+  * sumber daya terkait CSS (stylesheet dan fon web)
+  * gambar
+  * pengaya
+  * skrip
+  * XHR (permintaan yang dibuat oleh skrip)
+  * frame
+  * lainnya
 
-You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
+Anda dapat mendaftar-hitam/putihkan satu sel, seluruh baris, satu grup dari baris, seluruh kolom, atau seluruh matriks hanya dengan satu klik.
 
-µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
+Mesin penyaringan µMatrix mendahulukan penggunaan logika untuk mengevaluasi apa yang diblokir/diizinkan sesuai dengan sel mana yang di daftar-hitam/putih. Sebagai contoh, berikut ini memungkinkan anda mendaftar-putihkan seluruh laman dengan satu klik, tanpa perlu berulang-ulang mendaftar-putihkan data baru apapun yang muncul di halaman.
 
-All rules are scoped. For example, you can block `facebook.com` and `facebook.net` everywhere except when visiting a page on `www.facebook.com`. This way Facebook won't be able to build a profile of your browsing habits.
+Mencakup semua aturan. Sebagai contoh, anda dapat memblokir `facebook.com` dan `facebook.net` di manapun kecuali ketika mengunjungi sebuah laman di `www.facebook.com`. Dengan cara ini Facebook tidak akan bisa membangun profil mengenai kebiasaan penjelajahan anda.
 
-The goal of this extension is to make the allowing or blocking of web sites, wholly or partly, as straightforward as possible, so as to encourage users to care about their privacy.
+Tujuan dari ekstensi ini adalah untuk mengizinkan atau memblokir situs web, sepenuhnya atau sebagian, sesederhana mungkin, sehingga mendorong para pengguna untuk lebih peduli tentang privasi mereka.
 
-The extension comes with 3rd-party hosts files totaling over 58,000 distinct hostnames (lists can be selectively disabled/enabled according to your choice).
+Ekstensi ini hadir bersama berkas host pihak ketiga dengan total lebih dari 58,000 nama host yang berbeda (daftar dapat secara selektif dinonaktif/aktifkan sesuai dengan pilihan anda).
 
-Ultimately, you can choose however you browse the net:
+Pada akhirnya, Anda dapat memilih sebagaimana anda menjelajah internet:
 
-* Blacklist all by default, and whitelist as needed (default mode).
+* Daftar-hitamkan semua secara bawaan, dan daftar-putihkan sesuai kebutuhan (mode bawaan).
 
-* Whitelist all by default, and blacklist as needed.
+* Daftar-putihkan semua secara bawaan, dan daftar-hitamkan sesuai kebutuhan.
 
-Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
+Dengan cara manapun, anda masih diuntungkan dari aturan bawaan daftar-hitam sehingga paling tidak anda tetap mendapatkan perlindungan mendasar dari pelacak, situs malware, dll. Atau anda dapat menonaktifkan semua aturan bawaan daftar-hitam tersebut.
 
-Your choice.
+Pilihan anda.
 
-Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
-
-=====
-
-FEEDBACK:
-
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+Secara acak menghimpun dokumentasi: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+UMPAN BALIK:
+
+Untuk pertanyaan/masalah yang mungkin anda dapat, gunakan tombol "Kirim Umpan Balik" di sebelah kanan, agar saya dapat menjawab dengan mudah. Saya tidak dapat menjawab secara langsung untuk ulasan, tapi saya akan lebih dari senang untuk menjawab anda secara langsung di bagian umpan balik.
+
+=====
+
+BUG, MASALAH, SARAN:
 
 https://github.com/gorhill/uMatrix/issues
 
-You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
+Anda sangat diterima untuk berkontribusi mengenai pandangan anda pada masalah yang belum terselesaikan dan saran, argumen apapun baik membangun/kontra membantu saya memutuskan apa yang diperlukan untuk memperbaiki ekstensi ini.
 
-Ease of use is the primary goal. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+Mudah dalam penggunaan adalah tujuan utama. Saya telah melihat banyak pengguna menggunakan NoScript pada Firefox karena semakin banyak halangan yang terjadi menurut mereka, jadi dari pada menyalahkan para pengguna atas kebiasaan keamanan yang buruk, saya memilih menyalahkan pengembang dan proyek ini adalah eksperimen untuk mengatasi masalah tersebut yang menyebabkan beberapa pengguna menyerah pada keamanan dasar.
 
-This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
+Ekstensi ini juga bermanfaat untuk memahami apa yang laman web lakukan di peramban anda, seringkali tanpa sepengetahuan anda. Anda mempunyai kemampuan penuh untuk melihat dan memutuskan dengan siapa sebuah laman web berkomunikasi, dan membatasi komunikasi ini hanya untuk kelas obyek yang spesifik dalam laman web.
 
-The number which appear in the extension icon correspond to the total number of distinct requests attempted (successfully or not depending on whether these were allowed or blocked) by the web page.
+Angka yang muncul pada ikon ekstensi berhubungan dengan jumlah total percobaan permintaan yang berbeda (sukses atau tidak tergantung pada apakah hal tersebut diizinkan atau diblokir) oleh laman web.
 
-Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
+Cukup klik pada entri yang sesuai dalam matriks untuk memutihkan, menghitamkan, mengabu-abukan sebuah komponen. Mendaftar-abukan berarti status diblokir atau diizinkan akan diturunkan dari sel lainnya dengan urutan prioritas yang lebih tinggi dalam matriks.
 
-Red square = effectively blacklisted, i.e. requests are prevented from reaching their intended destination:
-* Dark red square: the domain name and/or type of request is specifically blacklisted.
-* Faded red square: the blacklist status is inherited because the entry is graylisted.
+Persegi merah = didaftar-hitamkan dengan efektif, contoh. permintaan dicegah untuk mencapai destinasi yang dinginkan:
+* Persegi merah gelap: nama ranah dan/atau jenis permintaan secara spesifik didaftar-hitamkan.
+* Persegi merah pudar: status daftar-hitam diturunkan karena entri berada di daftar abu-abu.
 
-Green square = effectively whitelisted, i.e. requests are allowed to reach their intended destination:
-* Dark green square: the domain name and/or type of request is specifically whitelisted.
-* Faded green square: the whitelist status is inherited because the entry is graylisted.
+Persegi hijau = didaftar-putihkan dengan efektif, contoh. permintaan diizinkan untuk mencapai destinasi yang diinginkan:
+* Persegi hijau gelap: nama ranah dan/atau jenis permintaan secara spesifik didaftar-putihkan.
+* Persegi hijau pudar: status daftar-putih diturunkan karena entri berada di daftar abu-abu.
 
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
+Sel kiri atas dalam matriks, sel "semua", mewakili pengaturan global bawaan, yang memungkinkan anda memilih apakah mengizinkan atau memblokir semuanya sebagai perilaku/tindakan bawaan. Beberapa memilih mengizinkan semuanya sambil memblokir secukupnya. Preferensi personal saya adalah tentu saja kebalikannya, memblokir semuanya dan mengizinkan secukupnya.
 
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+Ekstensi ini juga berguna jika anda ingin mempercepat penjelajahan anda, dengan secara global memblokir semua permintaan untuk gambar sebagai contohnya.
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/uMatrix (GPLv3)
+KODE SUMBER: https://github.com/gorhill/uMatrix (GPLv3)
 
-CHANGE LOG: https://github.com/gorhill/uMatrix/releases
+CATATAN PERUBAHAN: https://github.com/gorhill/uMatrix/releases

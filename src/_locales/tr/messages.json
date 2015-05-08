@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Alan dosyaları",
+    "message":"Alan adı dosyaları",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -76,8 +76,8 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Bu kapsam için matris süzgecini devre dışı bırak\/etkinleştir.\nBu sayfada matris süzgeciyle engellenen istekler: {{count}}.",
-    "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    "message":"Bu kapsam için matris süzgecini devre dışı bırak\/etkinleştir.",
+    "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
     "message":"Bu kapsam için geçici değişikliklerin tümünü kaydet.",
@@ -86,10 +86,6 @@
   "matrixRevertButtonTip":{
     "message":"Bu kapsam için geçici değişiklikleri kaldır.",
     "description":"Tool tip for the revert local permission button"
-  },
-  "matrixRevertButtonAllTip":{
-    "message":"Geçici değişikliklerin tümünü kaldır.",
-    "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
     "message":"Sayfayı yeniden yükle.",
@@ -105,15 +101,27 @@
   },
   "matrixSwitchNoMixedContent":{
     "message":"Katı HTTPS",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"Kullanıcı aracı aldatma",
-    "description":""
+    "message":"Kullanıcı aracını aldat",
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Başvuran aldatma",
-    "description":""
+    "message":"Başvuran aldat",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixRevertAllEntry":{
+    "message":"Geçici değişikliklerin tümünü geri al",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixLoggerMenuEntry":{
+    "message":"İstek günlüğüne git",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixDashboardMenuEntry":{
+    "message":"Kontrol paneline git",
+    "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
     "message":"µMatrix &ndash; İstatistikleri",
@@ -280,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Matristen bir veya daha fazla sayfanın görünümünü ve\/veya davranışını etkileyebilecek değişiklikler yapıldığında, <i>µMatrix<\/i> matris kapatıldığında etkilenen sayfaları yeniden yükleyecektir.",
+    "message":"Matristen sayfa görünümünü ve\/veya davranışını etkileyebilecek değişiklikler yaptığınızda, <i>µMatrix<\/i> bunlardan etkilenen sayfaları matris kapatıldığında otomatik olarak yeniden yükleyecektir.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -290,6 +298,14 @@
   "settingsSubframeOpacity":{
     "message":"Saydamlık",
     "description":"English: Opacity"
+  },
+  "settingsIconBadgeEnabled":{
+    "message":"Farklı isteklerin sayısını simge üzerinde göster",
+    "description":"English: Show the number of distinct requests on the icon"
+  },
+  "settingsCollapseBlocked":{
+    "message":"Engellenmiş elementlerin yertutucularını daralt",
+    "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
     "message":"µMatrix &ndash; Gizlilik",
@@ -340,7 +356,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Wikipedia'dan:<\/p><blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote><p>Bu ayar işaretliyse, <i>µMatrix<\/i> HTTP başvuran bilgisinin alan adı istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
+    "message":"<p>Wikipedia'dan:<\/p><blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote><p>Bu ayar işaretliyse, <i>µMatrix<\/i> HTTP başvuran bilgisinin alan adı, istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -424,7 +440,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"Alan dosyasındaki tüm alan adları genel kapsamda kara listeye yüklenir.",
+    "message":"Alan adı dosyasındaki tüm alan adları genel kapsamda kara listeye yüklenir.",
     "description":""
   },
   "hostsFilesStats":{
@@ -435,12 +451,16 @@
     "message":"{{total}} süzgecin {{used}} adedi kullanıldı",
     "description":""
   },
+  "hostsFilesLastUpdate":{
+    "message":"Son güncelleme: {{ago}}",
+    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+  },
   "hostsFilesApplyChanges":{
     "message":"Değişiklikleri uygula",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Alan dosyalarını otomatik olarak güncelle.",
+    "message":"Alan adı dosyalarını otomatik olarak güncelle.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -547,8 +567,48 @@
     "message":"Uyarı! Bu işlem tüm kişisel ayarlarınızı kaldıracaktır. Devam etmek istediğinizden emin misiniz?",
     "description":"Message asking user to confirm reset"
   },
+  "loggerFilterInputPlaceholder":{
+    "message":"filtre ifadeleri",
+    "description":"Appears in the input filed where filter expressions are entered"
+  },
+  "loggerEntryUserAgentSpoofing":{
+    "message":"kullanıcı aracı bununla aldatılıyor: {{value}}",
+    "description":"An entry for when a new user agent string is selected"
+  },
+  "loggerEntryCookieDeleted":{
+    "message":"çerez silindi: {{value}}",
+    "description":"An entry for when a cookie is deleted"
+  },
+  "loggerEntryDeleteCookieError":{
+    "message":"tarayıcı önbelleği temizlendi",
+    "description":"An entry for when the browser cache is cleared"
+  },
+  "loggerEntryBrowserCacheCleared":{
+    "message":"çerez silme başarısız: {{value}}",
+    "description":"An entry for when a cookie can't be deleted"
+  },
+  "loggerEntryAssetUpdated":{
+    "message":"liste güncellendi: {{value}}",
+    "description":"An entry for when an asset was updated"
+  },
+  "mainBlockedPrompt1":{
+    "message":"uMatrix aşağıdaki sayfaların yüklenmesini engelledi:",
+    "description":"English: uMatrix has prevented the following page from loading:"
+  },
+  "mainBlockedPrompt2":{
+    "message":"Bu kural nedeniyle",
+    "description":"English: Because of the following rule"
+  },
+  "mainBlockedBack":{
+    "message":"Geri git",
+    "description":"English: Go back"
+  },
+  "mainBlockedClose":{
+    "message":"Kapat",
+    "description":"English: Close"
+  },
   "commandRevertAll":{
-    "message":"Geçici değişikliklerin tümünü kaldır",
+    "message":"Geçici değişikliklerin tümünü geri al",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -562,6 +622,38 @@
   "commandOpenDashboard":{
     "message":"Kontrol paneli aç",
     "description":""
+  },
+  "elapsedOneMinuteAgo":{
+    "message":"dakika önce",
+    "description":"English: a minute ago"
+  },
+  "elapsedManyMinutesAgo":{
+    "message":"{{value}} dakika önce",
+    "description":"English: {{value}} minutes ago"
+  },
+  "elapsedOneHourAgo":{
+    "message":"saat önce",
+    "description":"English: an hour ago"
+  },
+  "elapsedManyHoursAgo":{
+    "message":"{{value}} saat önce",
+    "description":"English: {{value}} hours ago"
+  },
+  "elapsedOneDayAgo":{
+    "message":"gün önce",
+    "description":"English: a day ago"
+  },
+  "elapsedManyDaysAgo":{
+    "message":"{{value}} gün önce",
+    "description":"English: {{value}} days ago"
+  },
+  "showDashboardButton":{
+    "message":"Dashboard",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "showLoggerButton":{
+    "message":"Logger",
+    "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
     "message":"Ağ hatası: {{url}} sitesine bağlanılamıyor",

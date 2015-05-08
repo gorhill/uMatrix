@@ -1,6 +1,6 @@
-µMatrix: A point-and-click matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+µMatrix: 一个靠点击工作的矩阵防火墙，拥有许多隐私保护工具 面向高级用户
 
-µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
+µMatrix让你控制你的浏览器可以连接哪里，可以请求哪些数据并控制何时执行 没有人替你做决定：一切由你选择 你可以完全控制你的个人隐私
 
 Out of the box, µMatrix works in relax block-all/allow-exceptionally mode, meaning web sites which require 3rd-party scripts are likely to be "broken". With two clicks, µMatrix can be set to work in allow-all/block-exceptionally mode, which generally will not break web sites. See https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
 
@@ -20,15 +20,15 @@ Regarding the myth that "Chromium-based browsers can't reliably block javascript
   * from very specific
   * to very generic
 
-- type of requests (top row)
+-请求种类（顶栏）
   * cookies
-  * CSS-related resources (stylesheets and web fonts)
-  * images
-  * plugins
-  * scripts
-  * XHR (requests made by scripts)
+  * CSS相关资源（样式表和字体）
+  *图片
+  *插件
+  *脚本
+  *XHR（由脚本发起的请求）
   * frames
-  * others
+  *其他
 
 You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
 
@@ -54,13 +54,13 @@ Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-FEEDBACK:
+反馈：
 
 For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+缺陷，问题，建议：
 
 https://github.com/gorhill/uMatrix/issues
 
@@ -82,12 +82,12 @@ Green square = effectively whitelisted, i.e. requests are allowed to reach their
 * Dark green square: the domain name and/or type of request is specifically whitelisted.
 * Faded green square: the whitelist status is inherited because the entry is graylisted.
 
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
+The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. 我的个人倾向当然与此相反，拦截一切和放行例外
 
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+这个扩展也可用来加快上网速度，例如通过全局阻止图片
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/uMatrix (GPLv3)
+源代码: https://github.com/gorhill/uMatrix (GPLv3)
 
-CHANGE LOG: https://github.com/gorhill/uMatrix/releases
+变更日志: https://github.com/gorhill/uMatrix/releases

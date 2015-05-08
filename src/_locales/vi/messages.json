@@ -4,39 +4,39 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"Di chuyển & click để chặn\/cho phép bất kỳ lớp yêu cầu nào được trình duyệt tạo ra. Dùng nó để chặn script, iframe, quảng cáo, facebook...",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Dashboard",
+    "message":"µMatrix — Bảng điều khiển",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Cấu hình",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Riêng tư",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Thống kê",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Quy tắc riêng",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Tập tin máy chủ",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Thông tin",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"tất cả",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
@@ -48,7 +48,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"ảnh",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -68,123 +68,131 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"khác",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Chưa phát hiện lưu lượng mạng trong thẻ này.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.\nRequests blocked through matrix filtering on this page: {{count}}.",
-    "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    "message":"Vô hiệu\/kích hoạt lọc ma trận cho phạm vi này.\nYêu cầu đã chặn thông qua lọc ma trận trên trang này: {{count}}.",
+    "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Lưu tất cả thay đổi tạm thời cho phạm vi này.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Remove temporary changes for this scope.",
+    "message":"Xoá thay đổi tạm thời của phạm vị này.",
     "description":"Tool tip for the revert local permission button"
   },
-  "matrixRevertButtonAllTip":{
-    "message":"Remove all temporary changes.",
-    "description":"Tool tip for the revert all permissions button"
-  },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Tải lại trang.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"bên thứ nhất",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}}  tên máy chủ trong danh sách đen",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
-    "description":""
+    "message":"HTTPS nghiêm ngặt",
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
-    "description":""
+    "message":"Giả đại diện trình duyệt",
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
-    "description":""
+    "message":"Giả tham chiếu",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixRevertAllEntry":{
+    "message":"Revert all temporary changes",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixLoggerMenuEntry":{
+    "message":"Go to request log",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixDashboardMenuEntry":{
+    "message":"Go to dashboard",
+    "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Statistics",
+    "message":"Thống kê µMatrix",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Thống kê tổng quát",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>Đầu mục cookie HTTP<\/a> bị chặn: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>Đầu mục tham chiếu HTTP<\/a> bị chặn: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> attempts foiled: {{count}}",
+    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Cố gắng kiểm tra siêu liên kết<\/a> bị chặn: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"Cookie trên máy đã xoá: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Lưu trữ trên máy<\/a> đã làm rỗng: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"Bộ đệm trình duyệt đã xoá: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Thống kê chi tiết",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Tất cả",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: Behind the scene",
+    "message":"Bí mật của Chromium",
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Tổng quan",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Yêu cầu",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Đã cho phép",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Đã chặn",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Tất cả",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Trang",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Cookie",
     "description":""
   },
   "statsPageCSS":{
@@ -192,127 +200,135 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Ảnh",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Plugin",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Script",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Frame",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Khác",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Request log",
+    "message":"Nhật ký yêu cầu",
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Nhớ mục cuối",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"Yêu cầu HTTP <b>mỗi trang<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>µMatrix<\/i>).<\/p>",
+    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Tải lại",
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Settings",
+    "message":"Cài đặt µMatrix",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Diện mạo",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Cỡ chữ:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Thường",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Lớn",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Thân thiện với người mù màu",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"Tiện lợi",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Khi đã đóng ma trận, tải lại thông minh những thẻ này:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"Không có",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"Hiện tại",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Tất cả",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>µMatrix<\/i> will reload affected pages automatically when you close the matrix.",
+    "message":"Bất cứ khi nào bạn tạo ra thay đổi trong ma trận có thể ảnh hưởng đến việc hiển thị và\/hoặc hành vi của một hoặc nhiều trang, <i>µMatrix<\/i> sẽ tự tải lại trang được ảnh hưởng khi bạn đóng ma trận.",
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Đã chặn frame:&ensp;Màu",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Độ mờ",
     "description":"English: Opacity"
   },
+  "settingsIconBadgeEnabled":{
+    "message":"Show the number of distinct requests on the icon",
+    "description":"English: Show the number of distinct requests on the icon"
+  },
+  "settingsCollapseBlocked":{
+    "message":"Collapse placeholder of blocked elements",
+    "description":"English: Collapse placeholder of blocked elements"
+  },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Privacy",
+    "message":"µMatrix &ndash; Riêng tư",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Delete blocked cookies.",
+    "message":"Xoá cookie đã chặn.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>µMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>µMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>µMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"Xoá cookie phiên làm việc không được chặn ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" phút sau lần cuối chúng được dùng.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> when using a Chromium-based browser. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -324,15 +340,15 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Xoá bộ đệm trình duyệt mỗi",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"phút.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>µMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -340,11 +356,11 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>From Wikipedia:<\/p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote><p>If this setting is checked, <i>µMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+    "message":"<p>From Wikipedia:<\/p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote><p>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"HTTPS nghiêm ngặt: chặn nội dung hỗn hợp.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -364,7 +380,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"phút.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -372,51 +388,51 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: behind-the-scene requests",
+    "message":"Behind-the-scene requests",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>According to <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>Chromium<\/i> might send HTTP requests to <i>Google<\/i> without the user expressly visiting a web page. Let's call these special requests <strong>behind-the-scene<\/strong> requests. Also, other installed browser extensions can send <strong>behind-the-scene<\/strong> HTTP requests.<\/p><p><i>µMatrix<\/i> lets you intercept and treat these requests like any other request: they can be processed in order to allow\/block them as per your whitelist\/blacklist.<\/p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Beware!<\/span> Blocking <strong>behind-the-scene<\/strong> net requests is potentially causing <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>an issue<\/a> when the user wants to install an extension from the Chrome store (including maybe preventing extensions from being updated), hence the ability to disable the feature here. Blocking can also cause other installed extensions to not work properly (those querying for remote data).<\/p><p>Even if this feature is not enabled, <strong>behind-the-scene<\/strong> requests are still logged by <i>µMatrix<\/i>. You can inspect these requests on the <a href='dashboard.html#statistics'>Statistics<\/a> page.<\/p>",
+    "message":"",
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Quy tắc vĩnh viễn",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Quy tắc tạm thời",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Phục hồi",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"Xác nhận",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Sửa",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Lưu",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Huỷ",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Nhập từ tập tin...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Xuất ra tập tin...",
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Xem trang này để biết quy tắc cú pháp.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -424,99 +440,103 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+    "message":"Tất cả tên máy chủ trong tập tin máy chủ được nạp là tên máy chủ trong danh sách đen trong phạm vi chung.",
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} distinct blocked hostnames from:",
+    "message":"{{blockedHostnameCount}} tên máy chủ đã chặn khác biệt  từ:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"{{used}} được dùng trên tổng {{total}}",
     "description":""
   },
+  "hostsFilesLastUpdate":{
+    "message":"Last update: {{ago}}",
+    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+  },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Áp dụng thay đổi",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Tự động cập nhật tập tin máy chủ.",
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Cập nhật ngay",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"Dọn tất cả bộ đệm",
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+    "message":"Một URL mỗi dòng. Các dòng bắt đầu với &lsquo;#&rsquo; sẽ được bỏ qua. URL không hợp lệ sẽ được tự bỏ qua.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Phân tích",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"dọn bộ đệm",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"có phiên bản mới",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"đã cũ",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Thay đổi<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"Lưu trữ đã dùng: {{storageUsed}} byte",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Tài liệu<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Quyền<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Mã nguồn (GPLv3)",
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"Lỗi và vấn đề",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Những người đóng góp",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Mã:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"Vấn đề:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Bản dịch:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"Dữ liệu của bạn",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Sao lưu ra tập tin...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -524,47 +544,119 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Phục hồi từ tập tin...",
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"All your settings will be overwritten using data backed up on {{time}}, and µMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+    "message":"Mọi cấu hình của bạn sẽ được thay thế bằng dữ liệu đã sao lưu vào {{time}}, và µMatrix sẽ khởi động lại.\n\nGhi đè tất cả cấu hình hiện tại bằng dữ liệu đã sao lưu?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"The data could not be read or is invalid",
+    "message":"Không thể đọc dữ liệu hoặc dữ liệu không hợp lệ",
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... hoặc ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"Phục hồi cấu hình mặc định",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Caution! this will remove all your custom settings. Are you sure you want to proceed?",
+    "message":"Cẩn trọng! Điều này sẽ xoá tất cả cấu hình tuỳ chỉnh của bạn. Bạn chắc muốn tiến hành?",
     "description":"Message asking user to confirm reset"
   },
+  "loggerFilterInputPlaceholder":{
+    "message":"filter expression(s)",
+    "description":"Appears in the input filed where filter expressions are entered"
+  },
+  "loggerEntryUserAgentSpoofing":{
+    "message":"spoofing user agent with: {{value}}",
+    "description":"An entry for when a new user agent string is selected"
+  },
+  "loggerEntryCookieDeleted":{
+    "message":"cookie deleted: {{value}}",
+    "description":"An entry for when a cookie is deleted"
+  },
+  "loggerEntryDeleteCookieError":{
+    "message":"browser cache cleared",
+    "description":"An entry for when the browser cache is cleared"
+  },
+  "loggerEntryBrowserCacheCleared":{
+    "message":"failed to delete cookie: {{value}}",
+    "description":"An entry for when a cookie can't be deleted"
+  },
+  "loggerEntryAssetUpdated":{
+    "message":"asset updated: {{value}}",
+    "description":"An entry for when an asset was updated"
+  },
+  "mainBlockedPrompt1":{
+    "message":"uMatrix has prevented the following page from loading:",
+    "description":"English: uMatrix has prevented the following page from loading:"
+  },
+  "mainBlockedPrompt2":{
+    "message":"Because of the following rule",
+    "description":"English: Because of the following rule"
+  },
+  "mainBlockedBack":{
+    "message":"Go back",
+    "description":"English: Go back"
+  },
+  "mainBlockedClose":{
+    "message":"Close",
+    "description":"English: Close"
+  },
   "commandRevertAll":{
-    "message":"Remove all temporary changes",
+    "message":"Xoá tất cả thay đổi tạm thời",
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Temporarily whitelist page domain",
+    "message":"Tạm thời thêm tên miền trang vào danh sách an toàn",
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Temporarily whitelist all",
+    "message":"Tạm thời thêm tất cả vào danh sách an toàn",
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Mở bảng điều khiển",
     "description":""
   },
+  "elapsedOneMinuteAgo":{
+    "message":"a minute ago",
+    "description":"English: a minute ago"
+  },
+  "elapsedManyMinutesAgo":{
+    "message":"{{value}} minutes ago",
+    "description":"English: {{value}} minutes ago"
+  },
+  "elapsedOneHourAgo":{
+    "message":"an hour ago",
+    "description":"English: an hour ago"
+  },
+  "elapsedManyHoursAgo":{
+    "message":"{{value}} hours ago",
+    "description":"English: {{value}} hours ago"
+  },
+  "elapsedOneDayAgo":{
+    "message":"a day ago",
+    "description":"English: a day ago"
+  },
+  "elapsedManyDaysAgo":{
+    "message":"{{value}} days ago",
+    "description":"English: {{value}} days ago"
+  },
+  "showDashboardButton":{
+    "message":"Dashboard",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "showLoggerButton":{
+    "message":"Logger",
+    "description":"Appears in Firefox's add-on preferences"
+  },
   "errorCantConnectTo":{
-    "message":"Network error: Unable to connect to {{url}}",
+    "message":"Lỗi mạng: Không thể kết nối đến {{url}}",
     "description":""
   }
 }

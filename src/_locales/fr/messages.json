@@ -1,6 +1,6 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Tableau de bord",
+    "message":"uMatrix — Tableau de bord",
     "description":""
   },
   "settingsPageName":{
@@ -76,8 +76,8 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Cliquez pour activer\/désactiver les filtres matriciels pour le contexte actuel. Nombre de requêtes bloquées via les filtres matriciels : {{count}}",
-    "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    "message":"Activer\/Désactiver les filtres matriciels pour le contexte actuel. Nombre de requêtes bloquées via les filtres matriciels : {{count}}",
+    "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
     "message":"Conserver définitivement les changements du contexte actuel",
@@ -86,10 +86,6 @@
   "matrixRevertButtonTip":{
     "message":"Annuler les changements temporaires (contexte actuel)",
     "description":"Tool tip for the revert local permission button"
-  },
-  "matrixRevertButtonAllTip":{
-    "message":"Annuler les changements temporaires (tous les contextes)",
-    "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
     "message":"Actualiser la page",
@@ -105,18 +101,30 @@
   },
   "matrixSwitchNoMixedContent":{
     "message":"Trafic HTTPS uniquement",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
     "message":"Modifier l'Identification du navigateur",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
     "message":"Modifier le Référant HTTP",
-    "description":""
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixRevertAllEntry":{
+    "message":"Annuler tous les changements temporaires",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixLoggerMenuEntry":{
+    "message":"Aller au journal des requêtes",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixDashboardMenuEntry":{
+    "message":"Aller au Tableau de bord",
+    "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Statistiques",
+    "message":"uMatrix &ndash; Statistiques",
     "description":""
   },
   "statsPageGenericStats":{
@@ -228,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Cette option vous permet de saisir le nombre de plus récentes requêtes HTTP à journaliser pour une inspection ultérieure.<\/p><p>Ceci est particulièrement utile pour les utilisateurs expérimentés qui veulent déterminer ce que fait précisément une page Web. Mais le processus de journalisation nécessite de la mémoire vive, et si vous ne vous souciez guère de ces informations, la mémoire utilisée dans ce but est gaspillée.<\/p><p>Pour désactiver cette fonctionnalité et ainsi réduire l'empreinte mémoire de <i>µMatrix<\/i>, saisissez &ldquo;<code>0<\/code>&rdquo;.<\/p>",
+    "message":"<p>Cette option vous permet de saisir le nombre de plus récentes requêtes HTTP à journaliser pour une inspection ultérieure.<\/p><p>Ceci est particulièrement utile pour les utilisateurs expérimentés qui veulent déterminer ce que fait précisément une page Web. Mais le processus de journalisation nécessite de la mémoire vive, et si vous ne vous souciez guère de ces informations, la mémoire utilisée dans ce but est gaspillée.<\/p><p>Pour désactiver cette fonctionnalité et ainsi réduire l'empreinte mémoire de <i>uMatrix<\/i>, saisissez &ldquo;<code>0<\/code>&rdquo;.<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -236,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Réglages",
+    "message":"uMatrix &ndash; Réglages",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -280,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Lorsque vous avez modifié des permissions susceptibles d'affecter l'apparence et\/ou le comportement d'une page Web, <i>µMatrix<\/i> rechargera automatiquement une ou plusieurs page(s) Web concernée(s) (selon votre choix) en fermant la matrice. Si l'option Aucune page est sélectionnée, vous devrez actualiser la page Web vous-même pour appliquer les modifications.",
+    "message":"Lorsque vous avez modifié des permissions susceptibles d'affecter l'apparence et\/ou le comportement d'une page Web, <i>uMatrix<\/i> rechargera automatiquement une ou plusieurs page(s) Web concernée(s) à la fermeture de la matrice. Si l'option Aucune page est sélectionnée, vous devrez actualiser la page Web vous-même pour appliquer les modifications.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -291,8 +299,16 @@
     "message":"Opacité :",
     "description":"English: Opacity"
   },
+  "settingsIconBadgeEnabled":{
+    "message":"Montrer le nombre de requêtes distinctes sur l'icône",
+    "description":"English: Show the number of distinct requests on the icon"
+  },
+  "settingsCollapseBlocked":{
+    "message":"Cacher les espaces réservés aux éléments bloqués",
+    "description":"English: Collapse placeholder of blocked elements"
+  },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Confidentialité",
+    "message":"uMatrix &ndash; Confidentialité",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -300,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p><i>µMatrix<\/i> n'empêche pas les cookies bloqués 'd'entrer' dans votre navigateur, mais les empêche d'en 'repartir', et c'est cela qui importe. 'Laisser venir' les cookies vous permet de savoir lorsqu'un site essaye d'en utiliser, ou même d'en inspecter le contenu si vous le désirez.<\/p><p>Une fois que les cookies bloqués ont été pris en compte par <i>µMatrix<\/i>, ils peuvent être supprimés de votre navigateur si vous le souhaitez.<\/p><p><b>Note importante<\/b> : Les extensions peuvent faire des requêtes Web au cours de leurs opérations ordinaires. Ces requêtes peuvent entraîner la création de cookies dans le navigateur. Si cette fonctionnalité est activée et que le nom d'hôte originel du cookie n'est pas sur liste blanche, le cookie sera supprimé du navigateur par <i>µMatrix<\/i>, alors assurez-vous que le(s) nom(s) d'hôte(s) avec le(s)quel(s) l'extension interagit soit\/soient sur liste blanche.<\/p>",
+    "message":"<p><i>uMatrix<\/i> n'empêche pas les cookies bloqués 'd'entrer' dans votre navigateur, mais les empêche d'en 'repartir', et c'est cela qui importe. 'Laisser venir' les cookies vous permet de savoir lorsqu'un site essaye d'en utiliser, ou même d'en inspecter le contenu si vous le désirez.<\/p><p>Une fois que les cookies bloqués ont été pris en compte par <i>uMatrix<\/i>, ils peuvent être supprimés de votre navigateur si vous le souhaitez.<\/p><p><b>Note importante<\/b> : Les extensions peuvent faire des requêtes Web au cours de leurs opérations ordinaires. Ces requêtes peuvent entraîner la création de cookies dans le navigateur. Si cette fonctionnalité est activée et que le nom d'hôte originel du cookie n'est pas sur liste blanche, le cookie sera supprimé du navigateur par <i>uMatrix<\/i>, alors assurez-vous que le(s) nom(s) d'hôte(s) avec le(s)quel(s) l'extension interagit soit\/soient sur liste blanche.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -332,7 +348,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Certains sites Web sont déterminés à connaître votre vie privée en ligne, quitte à employer des méthodes peu orthodoxes pour contrer les dispositions que vous avez prises pour ne pas être victime de pistage.<\/p><p>Certaines de ces techniques exploitent<sup style='font-size:smaller'>[1, 2]<\/sup> le <a href='https:\/\/fr.wikipedia.org\/wiki\/Cache_web'>cache du navigateur<\/a> dont le contenu perdure souvent un bon bout de temps, puisque les utilisateurs prennent rarement le temps de fréquemment vider leur cache de navigation.<\/p><p>Nettoyer régulièrement le cache du navigateur est un dérangement aux yeux de certaines personnes, même si cela empêche ces envahissants pisteurs de bafouer votre confidentialité.<\/p><p>Cochez cette option pour que <i>µMatrix<\/i> s'en occupe à votre place, suivant la fréquence de votre choix.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies”&rdquo;<\/a><\/p>",
+    "message":"<p>Certains sites Web sont déterminés à connaître votre vie privée en ligne, quitte à employer des méthodes peu orthodoxes pour contrer les dispositions que vous avez prises pour ne pas être victime de pistage.<\/p><p>Certaines de ces techniques exploitent<sup style='font-size:smaller'>[1, 2]<\/sup> le <a href='https:\/\/fr.wikipedia.org\/wiki\/Cache_web'>cache du navigateur<\/a> dont le contenu perdure souvent un bon bout de temps, puisque les utilisateurs prennent rarement le temps de fréquemment vider leur cache de navigation.<\/p><p>Nettoyer régulièrement le cache du navigateur est un dérangement aux yeux de certaines personnes, même si cela empêche ces envahissants pisteurs de bafouer votre confidentialité.<\/p><p>Cochez cette option pour que <i>uMatrix<\/i> s'en occupe à votre place, suivant la fréquence de votre choix.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies”&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -340,7 +356,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>D'après Wikipédia :<\/p> <blockquote>Un référant HTTP est un champ dans l'entête HTTP, qui indique l'adresse de la page Web depuis laquelle on se connecte vers la ressource demandée[...] <b>Puisque les informations comprises dans un référant peuvent compromettre la vie privée, certains navigateurs Web permettent aux utilisateurs de désactiver l'envoi de ces données.<\/b><\/blockquote><p>Si ce paramètre est coché, <i>µMatrix<\/i> supprimera le référant HTTP si le nom de domaine du référant HTTP est différent du nom de domaine de la requête réseau (autrement dit, si vous venez d'un site différent de celui que vous visitez)<\/p>",
+    "message":"<p>D'après Wikipédia :<\/p> <blockquote>Un référant HTTP est un champ dans l'entête HTTP, qui indique l'adresse de la page Web depuis laquelle on se connecte vers la ressource demandée[...] <b>Puisque les informations comprises dans un référant peuvent compromettre la vie privée, certains navigateurs Web permettent aux utilisateurs de désactiver l'envoi de ces données.<\/b><\/blockquote><p>Si ce paramètre est coché, <i>uMatrix<\/i> supprimera le référant HTTP si le nom de domaine du référant HTTP est différent du nom de domaine de la requête réseau (autrement dit, si vous venez d'un site différent de celui que vous visitez)<\/p>",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -376,7 +392,7 @@
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>Il faut savoir qu'un navigateur Web est susceptible d'émettre secrètement des requêtes HTTP, qui sont souvent nécessaires à son bon fonctionnement (c'est par exemple le cas de <a href='https:\/\/www.google.com\/intl\/fr\/chrome\/browser\/privacy\/whitepaper.html'><i>Chromium<\/i><\/a>). Les extensions peuvent également recourir à ce procédé.<\/p><p>Qualifions ces requêtes singulières de <strong>requêtes en coulisses<\/strong>.<\/p><p><i>µMatrix<\/i> vous permet d'intercepter et de traiter ces requêtes comme toutes les autres, et peuvent donc être autorisées ou bloquées selon vos réglages.<\/p><p>Rendez-vous dans l'onglet Mes règles pour activer ou non le traitement des requêtes en coulisses et définir d'éventuelles règles de gestion adéquate.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Veuillez trouver ci-après diverses informations susceptibles de s'appliquer à votre navigateur Web.<\/span> Utilisateurs de Chrome\/Chromium\/Dérivés de Chromium : Le blocage de certaines requêtes HTTP en coulisses peut empêcher l'ajout par l'utilisateur ou la mise à jour d'une extension depuis le Chrome Web Store, ainsi que des interférences sur d'autres extensions installées. En conséquence, définissez avec soin le traitement des requêtes en coulisses en appliquant les bonnes autorisations.<\/p><p>Utilisateurs d'Opera\/Opera beta\/Opera developer : Si vous activez la gestion des requêtes en coulisses, veuillez autoriser les requêtes en coulisses de type Autre afin de ne pas entraver la génération des miniatures de vos Accès Rapide. Si vous souhaitez utiliser la fonction Découvrir de votre navigateur, ajoutez la règle suivante dans Mes règles : \"* api.recsys.opera.com * allow\" (sans les guillemets). Le blocage de certaines requêtes en coulisses peut occasionner des dysfonctionnements sur autres extensions installées (celles requérant l'utilisation de données distantes). En conséquence, définissez avec soin le traitement des requêtes en coulisses en appliquant les bonnes autorisations.<\/p><p>Sachez que même si vous désactivez cette fonctionnalité, les <strong>requêtes en coulisses<\/strong> sont toujours journalisées par <i>µMatrix<\/i>, pour que vous puissez quand même les inspecter (depuis la page Statistiques).<\/p>",
+    "message":"<p>Il faut savoir qu'un navigateur Web est susceptible d'émettre secrètement des requêtes HTTP, qui sont souvent nécessaires à son bon fonctionnement (c'est par exemple le cas de <a href='https:\/\/www.google.com\/intl\/fr\/chrome\/browser\/privacy\/whitepaper.html'><i>Chromium<\/i><\/a>). Les extensions peuvent également recourir à ce procédé.<\/p><p>Qualifions ces requêtes singulières de <strong>requêtes en coulisses<\/strong>.<\/p><p><i>uMatrix<\/i> vous permet d'intercepter et de traiter ces requêtes comme toutes les autres, et peuvent donc être autorisées ou bloquées selon vos réglages.<\/p><p>Rendez-vous dans l'onglet Mes règles pour activer ou non le traitement des requêtes en coulisses et définir d'éventuelles règles de gestion adéquates.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Veuillez trouver ci-après diverses informations susceptibles de s'appliquer à votre navigateur Web.<\/span> Utilisateurs de Chrome\/Chromium\/Dérivés de Chromium : Le blocage de certaines requêtes HTTP en coulisses peut empêcher l'ajout par l'utilisateur ou la mise à jour d'une extension depuis le Chrome Web Store, ainsi que des interférences sur d'autres extensions installées. En conséquence, définissez avec soin le traitement des requêtes en coulisses en appliquant les bonnes autorisations.<\/p><p>Utilisateurs d'Opera\/Opera beta\/Opera developer : Si vous activez la gestion des requêtes en coulisses, veuillez autoriser les requêtes en coulisses de type Autre afin de ne pas entraver la génération des miniatures de vos Accès Rapide. Si vous souhaitez utiliser la fonction Découvrir de votre navigateur, ajoutez la règle suivante dans Mes règles : \"* api.recsys.opera.com * allow\" (sans les guillemets). Le blocage de certaines requêtes en coulisses peut occasionner des dysfonctionnements sur autres extensions installées (celles requérant l'utilisation de données distantes). En conséquence, définissez avec soin le traitement des requêtes en coulisses en appliquant les bonnes autorisations.<\/p><p>Sachez que même si vous désactivez cette fonctionnalité, les <strong>requêtes en coulisses<\/strong> sont toujours journalisées par <i>uMatrix<\/i>, pour que vous puissez quand même les inspecter (depuis la page Statistiques).<\/p>",
     "description":""
   },
   "userRulesPermanentHeader":{
@@ -434,6 +450,10 @@
   "hostsFilesPerFileStats":{
     "message":"{{used}} utilisé(s) sur un total de {{total}}",
     "description":""
+  },
+  "hostsFilesLastUpdate":{
+    "message":"Dernière mise à jour effectuée il y a : {{ago}}",
+    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
     "message":"Appliquer les modifications",
@@ -528,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Toutes vos données seront remplacées par celles enregistrées le {{time}}, puis µMatrix redémarrera.\n\nDésirez-vous vraimant effectuer l'opération ?",
+    "message":"Toutes vos données seront remplacées par celles enregistrées le {{time}}, puis uMatrix redémarrera.\n\nDésirez-vous vraiment effectuer l'opération ?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -547,8 +567,48 @@
     "message":"Attention ! Cela supprimera tous vos paramétrages personnels. Désirez-vous vraiment réinitialiser ?",
     "description":"Message asking user to confirm reset"
   },
+  "loggerFilterInputPlaceholder":{
+    "message":"Expression(s) de filtre",
+    "description":"Appears in the input filed where filter expressions are entered"
+  },
+  "loggerEntryUserAgentSpoofing":{
+    "message":"Remplacement de l'Identification du navigateur par : {{value}}",
+    "description":"An entry for when a new user agent string is selected"
+  },
+  "loggerEntryCookieDeleted":{
+    "message":"Cookie supprimé : {{value}}",
+    "description":"An entry for when a cookie is deleted"
+  },
+  "loggerEntryDeleteCookieError":{
+    "message":"Cache du navigateur nettoyé",
+    "description":"An entry for when the browser cache is cleared"
+  },
+  "loggerEntryBrowserCacheCleared":{
+    "message":"Échec lors de la suppression du cookie : {{value}}",
+    "description":"An entry for when a cookie can't be deleted"
+  },
+  "loggerEntryAssetUpdated":{
+    "message":"Élément mis à jour : {{value}}",
+    "description":"An entry for when an asset was updated"
+  },
+  "mainBlockedPrompt1":{
+    "message":"uMatrix a empêché le chargement de cette page :",
+    "description":"English: uMatrix has prevented the following page from loading:"
+  },
+  "mainBlockedPrompt2":{
+    "message":"À cause de la règle suivante",
+    "description":"English: Because of the following rule"
+  },
+  "mainBlockedBack":{
+    "message":"Retour",
+    "description":"English: Go back"
+  },
+  "mainBlockedClose":{
+    "message":"Fermer",
+    "description":"English: Close"
+  },
   "commandRevertAll":{
-    "message":"Supprimer toutes les modifications temporaires",
+    "message":"Annuler toutes les modifications temporaires",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -562,6 +622,38 @@
   "commandOpenDashboard":{
     "message":"Ouvrir le Tableau de bord",
     "description":""
+  },
+  "elapsedOneMinuteAgo":{
+    "message":"une minute",
+    "description":"English: a minute ago"
+  },
+  "elapsedManyMinutesAgo":{
+    "message":"{{value}} minutes",
+    "description":"English: {{value}} minutes ago"
+  },
+  "elapsedOneHourAgo":{
+    "message":"une heure",
+    "description":"English: an hour ago"
+  },
+  "elapsedManyHoursAgo":{
+    "message":"{{value}} heures",
+    "description":"English: {{value}} hours ago"
+  },
+  "elapsedOneDayAgo":{
+    "message":"un jour",
+    "description":"English: a day ago"
+  },
+  "elapsedManyDaysAgo":{
+    "message":"{{value}} jours",
+    "description":"English: {{value}} days ago"
+  },
+  "showDashboardButton":{
+    "message":"Dashboard",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "showLoggerButton":{
+    "message":"Logger",
+    "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
     "message":"Erreur réseau : Ne peut se connecter à {{url}}",

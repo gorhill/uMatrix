@@ -77,7 +77,7 @@
   },
   "matrixMtxButtonTip":{
     "message":"Вкл\/выкл правил области\nОтклонённые запросы: {{count}}",
-    "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
     "message":"Утвердить новые правила области",
@@ -86,10 +86,6 @@
   "matrixRevertButtonTip":{
     "message":"Отменить новые правила области",
     "description":"Tool tip for the revert local permission button"
-  },
-  "matrixRevertButtonAllTip":{
-    "message":"Отменить все новые правила",
-    "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
     "message":"Обновить текущую страницу",
@@ -105,15 +101,27 @@
   },
   "matrixSwitchNoMixedContent":{
     "message":"Только HTTPS",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
     "message":"Подмена user agent",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
     "message":"Подмена referrer",
-    "description":""
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixRevertAllEntry":{
+    "message":"Revert all temporary changes",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixLoggerMenuEntry":{
+    "message":"Go to request log",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixDashboardMenuEntry":{
+    "message":"Go to dashboard",
+    "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Статистика",
@@ -291,6 +299,14 @@
     "message":"Затенение",
     "description":"English: Opacity"
   },
+  "settingsIconBadgeEnabled":{
+    "message":"Show the number of distinct requests on the icon",
+    "description":"English: Show the number of distinct requests on the icon"
+  },
+  "settingsCollapseBlocked":{
+    "message":"Collapse placeholder of blocked elements",
+    "description":"English: Collapse placeholder of blocked elements"
+  },
   "privacyPageTitle":{
     "message":"µMatrix &ndash; Безопасность",
     "description":""
@@ -435,6 +451,10 @@
     "message":"{{used}} из {{total}}",
     "description":""
   },
+  "hostsFilesLastUpdate":{
+    "message":"Last update: {{ago}}",
+    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+  },
   "hostsFilesApplyChanges":{
     "message":"Применить изменения",
     "description":""
@@ -547,6 +567,46 @@
     "message":"Внимание! Это сбросит все ваши ручные настройки. Вы уверены?",
     "description":"Message asking user to confirm reset"
   },
+  "loggerFilterInputPlaceholder":{
+    "message":"filter expression(s)",
+    "description":"Appears in the input filed where filter expressions are entered"
+  },
+  "loggerEntryUserAgentSpoofing":{
+    "message":"spoofing user agent with: {{value}}",
+    "description":"An entry for when a new user agent string is selected"
+  },
+  "loggerEntryCookieDeleted":{
+    "message":"cookie deleted: {{value}}",
+    "description":"An entry for when a cookie is deleted"
+  },
+  "loggerEntryDeleteCookieError":{
+    "message":"browser cache cleared",
+    "description":"An entry for when the browser cache is cleared"
+  },
+  "loggerEntryBrowserCacheCleared":{
+    "message":"failed to delete cookie: {{value}}",
+    "description":"An entry for when a cookie can't be deleted"
+  },
+  "loggerEntryAssetUpdated":{
+    "message":"asset updated: {{value}}",
+    "description":"An entry for when an asset was updated"
+  },
+  "mainBlockedPrompt1":{
+    "message":"uMatrix has prevented the following page from loading:",
+    "description":"English: uMatrix has prevented the following page from loading:"
+  },
+  "mainBlockedPrompt2":{
+    "message":"Because of the following rule",
+    "description":"English: Because of the following rule"
+  },
+  "mainBlockedBack":{
+    "message":"Go back",
+    "description":"English: Go back"
+  },
+  "mainBlockedClose":{
+    "message":"Close",
+    "description":"English: Close"
+  },
   "commandRevertAll":{
     "message":"Отменить все изменения",
     "description":""
@@ -562,6 +622,38 @@
   "commandOpenDashboard":{
     "message":"Открыть панель",
     "description":""
+  },
+  "elapsedOneMinuteAgo":{
+    "message":"a minute ago",
+    "description":"English: a minute ago"
+  },
+  "elapsedManyMinutesAgo":{
+    "message":"{{value}} minutes ago",
+    "description":"English: {{value}} minutes ago"
+  },
+  "elapsedOneHourAgo":{
+    "message":"an hour ago",
+    "description":"English: an hour ago"
+  },
+  "elapsedManyHoursAgo":{
+    "message":"{{value}} hours ago",
+    "description":"English: {{value}} hours ago"
+  },
+  "elapsedOneDayAgo":{
+    "message":"a day ago",
+    "description":"English: a day ago"
+  },
+  "elapsedManyDaysAgo":{
+    "message":"{{value}} days ago",
+    "description":"English: {{value}} days ago"
+  },
+  "showDashboardButton":{
+    "message":"Dashboard",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "showLoggerButton":{
+    "message":"Logger",
+    "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
     "message":"Ошибка сети: невозможно связаться с {{url}}",

@@ -10,27 +10,27 @@ Regarding the myth that "Chromium-based browsers can't reliably block javascript
 
 * A single-click to whitelist/blacklist one or multiple classes of requests according to the destination and type of data (a blocked request will NEVER leave your browser).
 
-* Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
+* Efektīgs melnais saraksts: "cepumiņi" nepametīs jūsu pārlūku, javascripts netiks izpildīts, spraudņi netiks palaisti, sekošanas pikseļi netiks novilkti, u.t.t.
 
 * You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
 
 * Ease of use: µMatrix lets you easily whitelist/blacklist net requests which originate from within a web page according to a point-and-click matrix:
 
-- domain names (left column)
-  * from very specific
-  * to very generic
+- domēnu vārdi (kreisajā kolonnā)
+  * sākot ar ļoti specifiskiem
+  * beidzot ar ļoti vispārējiem
 
-- type of requests (top row)
-  * cookies
+- Pieprasījumu veidi (augšējā rinda)
+  * "cepumiņi"
   * CSS-related resources (stylesheets and web fonts)
-  * images
-  * plugins
-  * scripts
-  * XHR (requests made by scripts)
-  * frames
-  * others
+  * attēli
+  * spraudņi
+  * "skriptus"
+  * XHR ("skriptu" pieprasījumus)
+  * rāmji
+  * citi
 
-You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
+Jūs variet iekļaut atsevišķas šūnas, veselu vai vairākas rindas, veselu kolonnu vai visu matriksu melnajā/baltajā sarakstā tikai are vienu peles klikšķi.
 
 µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
 
@@ -48,19 +48,19 @@ Ultimately, you can choose however you browse the net:
 
 Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
 
-Your choice.
+Jūsu izvēle.
 
-Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
-
-=====
-
-FEEDBACK:
-
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+Nejauši apkopota dokumentācija: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+ATSAUKSMES:
+
+Jebkuriem jautājumiem/problēmām izmantojot "Nosūtīt Atsauksmes" pogu labajā malā, lai man būtu vieglāk jums atbildēt. Es nevaru tieši atbildēt uz jūsu recenzijām, taču būšu vairāk kā priecīgs atbildēt jums tieši atsauksmju sadaļā.
+
+=====
+
+KĻŪDAS, PROBLĒMAS, IETEIKUMI:
 
 https://github.com/gorhill/uMatrix/issues
 
@@ -84,10 +84,10 @@ Green square = effectively whitelisted, i.e. requests are allowed to reach their
 
 The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
 
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+Šis paplašinājums ir arī noderīgs, ja vēlaties paātrināt savu "sērfošanas" ātrumu, piemēram, bloķējot globāli visus pieprasījumus pēc attēliem.
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/uMatrix (GPLv3)
+Pirmkods: https://github.com/gorhill/uMatrix (GPLv3)
 
-CHANGE LOG: https://github.com/gorhill/uMatrix/releases
+Izmaiņu žurnāls: https://github.com/gorhill/uMatrix/releases

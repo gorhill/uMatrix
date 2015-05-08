@@ -64,30 +64,30 @@ Bachi, problemi, consigli:
 
 https://github.com/gorhill/uMatrix/issues
 
-You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
+Chiunque può contribuire al lavoro, con suggerimenti, segnalazione di problemi, argomentazioni pro/contro, per aiutarmi a decidere quali migliorie fare nell'estensione.
 
-Ease of use is the primary goal. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+La facilità di utilizzo è il primo obiettivo. Ho visto utilizzatori rinunciare ad usare NoScript per Firefox perché complesso, quindi invece di accusare questi utilizzatori di avere abitudini non sicure, preferisco accusare gli sviluppatori e questo progetto vuole essere un tentativo di risolvere quei problemi che hanno determinato la rinuncia ad impiegare una sicurezza di base.
 
-This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
+Questa estensione è anche utile per capire cosa una pagina web fa effettivamente nel browser, spesso senza la vostra conoscenza.  Voi avete la piena abilità di vedere e decidere con chi la pagina web comunica e restringere queste comunicazioni a specifiche classi di oggetti all'interno della pagina.
 
-The number which appear in the extension icon correspond to the total number of distinct requests attempted (successfully or not depending on whether these were allowed or blocked) by the web page.
+Il numero che appare nella nell'icona dell'estensione corrisponde al numero complessivo di distinte richieste tentate (con successo o meno, dipendendo se queste siano permesse o bloccate) dalla pagina web.
 
-Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
+Semplicente fare click nella appropriata cella della matrice per permettere mettere un elemento in white-, black- o grey list.  La lista grigia (Graylisting) significa che lo stato di bloccato o permesso viene ereditato da un'altra cella con più alta priorità nella matrice.
 
-Red square = effectively blacklisted, i.e. requests are prevented from reaching their intended destination:
-* Dark red square: the domain name and/or type of request is specifically blacklisted.
-* Faded red square: the blacklist status is inherited because the entry is graylisted.
+Cella rossa = effettivamente bloccata, cioè alle richieste viene impedito di raggiungere la loro destinazione.
+* Cella rosso scuro: il dominio o il tipo di richiesta è specificamente bloccata.
+* Cella rossa opaca: lo stato di blocco (blacklist) è ereditato perchè l'elemento è in grey list.
 
-Green square = effectively whitelisted, i.e. requests are allowed to reach their intended destination:
-* Dark green square: the domain name and/or type of request is specifically whitelisted.
-* Faded green square: the whitelist status is inherited because the entry is graylisted.
+Cella verde = effettivamente permesso, cioè alle richieste è permesso raggiungere la loro destinazione:
+* Cella verde scuro: il dominio e/o il tipo di richiesta è specificamente permessa (whitelist).
+* Cella vedre opaca: lo stato di permesso è ereditato perchè l'elemento è in grey list.
 
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
+La cella in alto a sinistra nella matrice, la cella "tutto", rappresenta il setting globale di default, che permette di scegliere se permettere o bloccare tutto. Alcuni preferiscono permettere tutto e bloccare in casi specifici. La mia preferenza personale è naturalmente il contrario, bloccare tutto e permettere in casi specifici.
 
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+Questa estensione è inoltre utile se volete accelerare la vostra navigazione, bloccando tutte le richieste delle immagini, per esempio.
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/uMatrix (GPLv3)
+CODICE SORGENTE: https://github.com/gorhill/uMatrix (GPLv3)
 
 CHANGE LOG: https://github.com/gorhill/uMatrix/releases

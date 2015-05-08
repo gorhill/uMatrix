@@ -10,7 +10,7 @@ rm -r $ARCDIR
 unzip -q $DLDIR/umatrix.zip -d $ARCDIR
 
 # Add-on strings
-LOCALEDIR=tools/_locales
+LOCALEDIR=src/_locales
 SRCDIR=$ARCDIR/$LOCALEDIR
 DESDIR=./$LOCALEDIR
 cp $SRCDIR/am_ET/messages.json  $DESDIR/am/messages.json

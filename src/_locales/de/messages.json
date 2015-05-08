@@ -1,6 +1,6 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Dashboard",
+    "message":"uMatrix — Dashboard",
     "description":""
   },
   "settingsPageName":{
@@ -77,7 +77,7 @@
   },
   "matrixMtxButtonTip":{
     "message":"Aktiviere\/deaktiviere die Matrix-Filter für diesen Geltungsbereich.\nDurch die Matrix-Filter blockierte Anfragen auf dieser Seite: {{count}}.",
-    "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
     "message":"Speichere alle temporären Änderungen für diesen Geltungsbereich.",
@@ -86,10 +86,6 @@
   "matrixRevertButtonTip":{
     "message":"Entferne temporäre Änderungen für diesen Geltungsbereich.",
     "description":"Tool tip for the revert local permission button"
-  },
-  "matrixRevertButtonAllTip":{
-    "message":"Entferne alle temporären Änderungen.",
-    "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
     "message":"Seite neu laden.",
@@ -105,15 +101,27 @@
   },
   "matrixSwitchNoMixedContent":{
     "message":"Nur HTTPS",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
     "message":"User-Agent verschleiern",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
     "message":"Referrer-Spoofing",
-    "description":""
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixRevertAllEntry":{
+    "message":"Mache alle temporären Änderungen rückgängig",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixLoggerMenuEntry":{
+    "message":"Gehe zu den protokollierten Anfragen",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixDashboardMenuEntry":{
+    "message":"Gehe zum Dashboard",
+    "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
     "message":"µMatrix &ndash; Statistik",
@@ -216,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Anfragenverlauf",
+    "message":"Protokoll der Anfragen",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -290,6 +298,14 @@
   "settingsSubframeOpacity":{
     "message":"Undurchsuchtigkeit",
     "description":"English: Opacity"
+  },
+  "settingsIconBadgeEnabled":{
+    "message":"Zeige die Zahl der einzelnen Anfragen auf dem Icon an",
+    "description":"English: Show the number of distinct requests on the icon"
+  },
+  "settingsCollapseBlocked":{
+    "message":"Verstecke die Platzhalter für blockierte Elemente",
+    "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
     "message":"µMatrix &ndash; Privatsphäre",
@@ -435,6 +451,10 @@
     "message":"{{used}} benutzt aus {{total}}",
     "description":""
   },
+  "hostsFilesLastUpdate":{
+    "message":"Letztes Update: {{ago}}",
+    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+  },
   "hostsFilesApplyChanges":{
     "message":"Änderungen anwenden",
     "description":""
@@ -456,7 +476,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Analysieren",
+    "message":"Anwenden",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -547,6 +567,46 @@
     "message":"Vorsicht! Dies wird alle deine individuellen Einstellungen entfernen. Bist du sicher, dass du weitermachen willst?",
     "description":"Message asking user to confirm reset"
   },
+  "loggerFilterInputPlaceholder":{
+    "message":"Filter-Ausdrücke",
+    "description":"Appears in the input filed where filter expressions are entered"
+  },
+  "loggerEntryUserAgentSpoofing":{
+    "message":"Verschleiere den User-Agent mit: {{value}}",
+    "description":"An entry for when a new user agent string is selected"
+  },
+  "loggerEntryCookieDeleted":{
+    "message":"Cookie gelöscht: {{value}}",
+    "description":"An entry for when a cookie is deleted"
+  },
+  "loggerEntryDeleteCookieError":{
+    "message":"Browser-Cache geleert",
+    "description":"An entry for when the browser cache is cleared"
+  },
+  "loggerEntryBrowserCacheCleared":{
+    "message":"Löschen des Cookies fehlgeschlagen: {{value}}",
+    "description":"An entry for when a cookie can't be deleted"
+  },
+  "loggerEntryAssetUpdated":{
+    "message":"Hosts-Dateien aktualisiert: {{value}}",
+    "description":"An entry for when an asset was updated"
+  },
+  "mainBlockedPrompt1":{
+    "message":"uMatrix hat das Laden der folgende Seite verhindert:",
+    "description":"English: uMatrix has prevented the following page from loading:"
+  },
+  "mainBlockedPrompt2":{
+    "message":"Aufgrund der folgenden Regel",
+    "description":"English: Because of the following rule"
+  },
+  "mainBlockedBack":{
+    "message":"Gehe zurück",
+    "description":"English: Go back"
+  },
+  "mainBlockedClose":{
+    "message":"Schließe",
+    "description":"English: Close"
+  },
   "commandRevertAll":{
     "message":"Entferne alle temporären Änderungen",
     "description":""
@@ -562,6 +622,38 @@
   "commandOpenDashboard":{
     "message":"Dashboard öffnen",
     "description":""
+  },
+  "elapsedOneMinuteAgo":{
+    "message":"vor einer Minute",
+    "description":"English: a minute ago"
+  },
+  "elapsedManyMinutesAgo":{
+    "message":"vor {{value}} Minuten",
+    "description":"English: {{value}} minutes ago"
+  },
+  "elapsedOneHourAgo":{
+    "message":"vor einer Stunde",
+    "description":"English: an hour ago"
+  },
+  "elapsedManyHoursAgo":{
+    "message":"vor {{value}} Stunden",
+    "description":"English: {{value}} hours ago"
+  },
+  "elapsedOneDayAgo":{
+    "message":"vor einem Tag",
+    "description":"English: a day ago"
+  },
+  "elapsedManyDaysAgo":{
+    "message":"vor {{value}} Tagen",
+    "description":"English: {{value}} days ago"
+  },
+  "showDashboardButton":{
+    "message":"Dashboard",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "showLoggerButton":{
+    "message":"Logger",
+    "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
     "message":"Netzwerkfehler: konnte nicht zu {{url}} verbinden",

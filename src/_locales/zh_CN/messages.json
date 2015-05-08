@@ -40,7 +40,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"Cookie",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -68,16 +68,16 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"其它",
+    "message":"其他",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"此标签下未监测到网络流量。",
+    "message":"至今未监测到此标签页下的网络流量。",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"在此作用域下关闭\/开启matrix过滤列表。\n此页面上已被matrix过滤列表所阻止的请求：{{count}}.",
-    "description":"Tool tip for matrix button: {{}} is a placeholder for number of blocked requests."
+    "message":"在此作用域下禁用\/启用 matrix 过滤功能。\n此页面上已被 matrix 过滤所阻止的请求共计：{{count}}个。",
+    "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
     "message":"保存此作用域下的所有临时变更。",
@@ -86,10 +86,6 @@
   "matrixRevertButtonTip":{
     "message":"移除此作用域下的所有临时变更。",
     "description":"Tool tip for the revert local permission button"
-  },
-  "matrixRevertButtonAllTip":{
-    "message":"移除所有临时变更。",
-    "description":"Tool tip for the revert all permissions button"
   },
   "matrixReloadButton":{
     "message":"重新载入页面。",
@@ -105,34 +101,46 @@
   },
   "matrixSwitchNoMixedContent":{
     "message":"严格HTTPS策略",
-    "description":""
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"伪装User agent",
-    "description":""
+    "message":"伪装 User Agent",
+    "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"伪装Referrer",
-    "description":""
+    "message":"伪装 Referrer",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixRevertAllEntry":{
+    "message":"还原所有临时变更",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixLoggerMenuEntry":{
+    "message":"转至请求日志",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixDashboardMenuEntry":{
+    "message":"转至控制面板",
+    "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
     "message":"µMatrix &ndash; 统计",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"一般统计",
+    "message":"常规统计",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"已阻止的<a href='http:\/\/zh.wikipedia.org\/wiki\/Cookie'>HTTP cookie<\/a>请求头：{{count}}",
+    "message":"已阻止<a href='http:\/\/zh.wikipedia.org\/wiki\/Cookie'>HTTP Cookie<\/a>请求头：{{count}}次",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"已阻止的<a href='http:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP来源地址<\/a>请求头：{{count}}",
+    "message":"已阻止<a href='http:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP来源地址<\/a>请求头：{{count}}次",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"已阻止的<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审计<\/a>尝试：{{count}}",
+    "message":"已阻止<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审计<\/a>尝试：{{count}}次",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -204,7 +212,7 @@
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHR",
+    "message":"XHRs",
     "description":""
   },
   "statsPageFrames":{
@@ -291,12 +299,20 @@
     "message":"不透明度",
     "description":"English: Opacity"
   },
+  "settingsIconBadgeEnabled":{
+    "message":"Show the number of distinct requests on the icon",
+    "description":"English: Show the number of distinct requests on the icon"
+  },
+  "settingsCollapseBlocked":{
+    "message":"解除已屏蔽元素的占位符",
+    "description":"English: Collapse placeholder of blocked elements"
+  },
   "privacyPageTitle":{
     "message":"µMatrix &ndash; 隐私",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"删除已屏蔽的cookie。",
+    "message":"删除已屏蔽的cookies。",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -435,6 +451,10 @@
     "message":"{{total}}中使用{{used}}",
     "description":""
   },
+  "hostsFilesLastUpdate":{
+    "message":"上次更新：{{ago}}",
+    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+  },
   "hostsFilesApplyChanges":{
     "message":"应用变更",
     "description":""
@@ -547,6 +567,46 @@
     "message":"注意！这将移除您的所有个性设置。您确定要继续吗？",
     "description":"Message asking user to confirm reset"
   },
+  "loggerFilterInputPlaceholder":{
+    "message":"过滤规则表达式",
+    "description":"Appears in the input filed where filter expressions are entered"
+  },
+  "loggerEntryUserAgentSpoofing":{
+    "message":"伪造用户代理：{{value}}",
+    "description":"An entry for when a new user agent string is selected"
+  },
+  "loggerEntryCookieDeleted":{
+    "message":"Cookie 已删除：{{value}}",
+    "description":"An entry for when a cookie is deleted"
+  },
+  "loggerEntryDeleteCookieError":{
+    "message":"浏览器缓存已清除",
+    "description":"An entry for when the browser cache is cleared"
+  },
+  "loggerEntryBrowserCacheCleared":{
+    "message":"删除 Cookie 失败：{{value}}",
+    "description":"An entry for when a cookie can't be deleted"
+  },
+  "loggerEntryAssetUpdated":{
+    "message":"asset updated: {{value}}",
+    "description":"An entry for when an asset was updated"
+  },
+  "mainBlockedPrompt1":{
+    "message":"uMatrix 已阻止下列页面被载入：",
+    "description":"English: uMatrix has prevented the following page from loading:"
+  },
+  "mainBlockedPrompt2":{
+    "message":"因为下列规则",
+    "description":"English: Because of the following rule"
+  },
+  "mainBlockedBack":{
+    "message":"返回",
+    "description":"English: Go back"
+  },
+  "mainBlockedClose":{
+    "message":"关闭",
+    "description":"English: Close"
+  },
   "commandRevertAll":{
     "message":"移除所有临时变更",
     "description":""
@@ -562,6 +622,38 @@
   "commandOpenDashboard":{
     "message":"打开控制面板",
     "description":""
+  },
+  "elapsedOneMinuteAgo":{
+    "message":"一分钟前",
+    "description":"English: a minute ago"
+  },
+  "elapsedManyMinutesAgo":{
+    "message":"{{value}} 分钟前",
+    "description":"English: {{value}} minutes ago"
+  },
+  "elapsedOneHourAgo":{
+    "message":"一小时前",
+    "description":"English: an hour ago"
+  },
+  "elapsedManyHoursAgo":{
+    "message":"{{value}} 小时前",
+    "description":"English: {{value}} hours ago"
+  },
+  "elapsedOneDayAgo":{
+    "message":"一天前",
+    "description":"English: a day ago"
+  },
+  "elapsedManyDaysAgo":{
+    "message":"{{value}} 天前",
+    "description":"English: {{value}} days ago"
+  },
+  "showDashboardButton":{
+    "message":"控制面板",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "showLoggerButton":{
+    "message":"Logger",
+    "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
     "message":"网络错误：无法连接到 {{url}}",
