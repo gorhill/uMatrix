@@ -108,7 +108,7 @@
             if ( availableEntry === undefined ) {
                 continue;
             }
-            storedEntry = lists[oldLocation];
+            storedEntry = lists[oldLocation] || {};
             availableEntry.off = storedEntry.off || false;
             µm.assets.setHomeURL(newLocation, availableEntry.homeURL);
             if ( storedEntry.entryCount !== undefined ) {
@@ -118,7 +118,7 @@
                 availableEntry.entryUsedCount = storedEntry.entryUsedCount;
             }
             // This may happen if the list name was pulled from the list content
-            if ( availableEntry.title === '' && storedEntry.title !== '' ) {
+            if ( availableEntry.title === '' && storedEntry.title !== undefined ) {
                 availableEntry.title = storedEntry.title;
             }
         }
@@ -177,7 +177,7 @@
             continue;
         }
         availableHostsFiles[location] = {
-            title: '',
+            title: location,
             external: true
         };
     }

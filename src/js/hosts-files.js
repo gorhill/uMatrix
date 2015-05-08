@@ -72,6 +72,7 @@ var renderHostsFiles = function() {
     var listStatsTemplate = vAPI.i18n('hostsFilesPerFileStats');
     var lastUpdateString = vAPI.i18n('hostsFilesLastUpdate');
     var renderElapsedTimeToString = vAPI.i18n.renderElapsedTimeToString;
+    var reExternalHostFile = /^https?:/;
 
     // Assemble a pretty blacklist name if possible
     var listNameFromListKey = function(listKey) {
@@ -154,16 +155,16 @@ var renderHostsFiles = function() {
 
         var availableLists = details.available;
         var listKeys = Object.keys(details.available);
+
+        // Sort works this way:
+        // - Send /^https?:/ items at the end (custom hosts file URL)
         listKeys.sort(function(a, b) {
-            var ta = availableLists[a].title || '';
-            var tb = availableLists[b].title || '';
-            if ( ta !== '' && tb !== '' ) {
+            var ta = availableLists[a].title || a;
+            var tb = availableLists[b].title || b;
+            if ( reExternalHostFile.test(ta) === reExternalHostFile.test(tb) ) {
                 return ta.localeCompare(tb);
             }
-            if ( ta === '' && tb === '' ) {
-                return a.localeCompare(b);
-            }
-            if ( tb === ''  ) {
+            if ( reExternalHostFile.test(tb) ) {
                 return -1;
             }
             return 1;

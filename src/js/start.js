@@ -125,9 +125,12 @@ var onHostsFilesLoaded = function() {
     µm.assets.remoteFetchBarrier -= 1;
 };
 
-var onPSLReady = function() {
+var onUserSettingsLoaded = function() {
     µm.loadHostsFiles(onHostsFilesLoaded);
-    µm.loadUserSettings();
+};
+
+var onPSLReady = function() {
+    µm.loadUserSettings(onUserSettingsLoaded);
     µm.loadMatrix();
 
     // rhill 2013-11-24: bind behind-the-scene virtual tab/url manually, since the

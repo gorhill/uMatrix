@@ -118,7 +118,7 @@ body[dir="rtl"] #externalListsDiv {
     font-size: smaller;
     width: 100%;
     height: 12em;
-    white-space: nowrap;
+    white-space: pre;
     }
 body #busyOverlay {
     background-color: transparent;
