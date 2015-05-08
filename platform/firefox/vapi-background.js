@@ -1185,10 +1185,10 @@ var httpObserver = {
 
             result = vAPI.net.onHeadersReceived.callback({
                 hostname: URI.asciiHost,
-                parentFrameId: type === 6 ? -1 : 0,
+                parentFrameId: type === 'main_frame' ? -1 : 0,
                 responseHeaders: result ? [{name: topic, value: result}] : [],
                 tabId: channelData[0],
-                type: this.typeMap[type] || 'other',
+                type: type,
                 url: URI.asciiSpec
             });
 
