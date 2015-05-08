@@ -100,12 +100,6 @@ var onBeforeRequestHandler = function(details) {
         return;
     }
 
-    // Do not block myself from updating assets
-    // https://github.com/gorhill/httpswitchboard/issues/202
-    if ( requestType === 'xhr' && requestURL.lastIndexOf(µm.projectServerRoot, 0) === 0 ) {
-        return;
-    }
-
     // Re-classify orphan HTTP requests as behind-the-scene requests. There is
     // not much else which can be done, because there are URLs
     // which cannot be handled by µMatrix, i.e. `opera://startpage`,

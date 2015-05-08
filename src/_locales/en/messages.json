@@ -169,7 +169,7 @@
         "description": ""
     },
     "statsPageDetailedBehindTheScenePage" : {
-        "message": "Chromium: Behind the scene",
+        "message": "Behind the scene",
         "description": ""
     },
     "statsPageOverview" : {
@@ -337,7 +337,7 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp" : {
-        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;</p><p>Except that this <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>might not be happening</a> when using a Chromium-based browser. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.</p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;</p><p>Except that this <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>might not be happening</a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt" : {
@@ -397,11 +397,11 @@
         "description": ""
     },
     "privacyBehindTheSceneHeader" : {
-        "message": "Chromium: behind-the-scene requests",
+        "message": "Behind-the-scene requests",
         "description": ""
     },
     "privacyProcessBehindTheSceneHelp" : {
-        "message": "<p>According to <a href='https://www.google.com/intl/en/chrome/browser/privacy/whitepaper.html'>Google Chrome Privacy Whitepaper</a>, <i>Chromium</i> might send HTTP requests to <i>Google</i> without the user expressly visiting a web page. Let's call these special requests <strong>behind-the-scene</strong> requests. Also, other installed browser extensions can send <strong>behind-the-scene</strong> HTTP requests.</p><p><i>uMatrix</i> lets you intercept and treat these requests like any other request: they can be processed in order to allow/block them as per your whitelist/blacklist.</p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https://github.com/gorhill/httpswitchboard/wiki/Behind-the-scene-requests'>Behind-the-scene requests</a>.</p><div class='warn'><p><span style='color:red; font-weight:bold'>Beware!</span> Blocking <strong>behind-the-scene</strong> net requests is potentially causing <a href='https://github.com/gorhill/httpswitchboard/issues/27'>an issue</a> when the user wants to install an extension from the Chrome store (including maybe preventing extensions from being updated), hence the ability to disable the feature here. Blocking can also cause other installed extensions to not work properly (those querying for remote data).</p><p>Even if this feature is not enabled, <strong>behind-the-scene</strong> requests are still logged by <i>uMatrix</i>. You can inspect these requests on the <a href='dashboard.html#statistics'>Statistics</a> page.</p>",
+        "message": "",
         "description": ""
     },
 
@@ -665,6 +665,15 @@
     "elapsedManyDaysAgo":{
         "message":"{{value}} days ago",
         "description":"English: {{value}} days ago"
+    },
+
+    "showDashboardButton":{
+        "message":"Dashboard",
+        "description":"Appears in Firefox's add-on preferences"
+    },
+    "showLoggerButton":{
+        "message":"Logger",
+        "description":"Appears in Firefox's add-on preferences"
     },
 
     "errorCantConnectTo":{

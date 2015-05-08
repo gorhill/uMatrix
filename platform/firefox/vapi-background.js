@@ -1815,7 +1815,7 @@ var optionsObserver = {
         }
 
         this.setupOptionsButton(doc, 'showDashboardButton', 'dashboard.html');
-        this.setupOptionsButton(doc, 'showNetworkLogButton', 'devtools.html');
+        this.setupOptionsButton(doc, 'showLoggerButton', 'logger-ui.html');
     }
 };
 
@@ -1895,6 +1895,7 @@ vAPI.browserData.clearOrigin = function(/* domain */) {
 /******************************************************************************/
 /******************************************************************************/
 
+// https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICookieManager2
 // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICookie2
 // https://developer.mozilla.org/en-US/docs/Observer_Notifications#Cookies
 
@@ -1930,7 +1931,6 @@ vAPI.cookies.observe = function(subject, topic, reason) {
     if ( topic !== 'cookie-changed' ) {
         return;
     }
-    // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICookieService
     if ( reason === 'deleted' || subject instanceof Ci.nsICookie2 === false ) {
         return;
     }

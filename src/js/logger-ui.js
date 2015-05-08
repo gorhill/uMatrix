@@ -224,7 +224,7 @@ var renderLogEntry = function(entry) {
         tr.classList.add('cat_' + entry.cat);
     }
 
-    rowFilterer.filterOne(tr);
+    rowFilterer.filterOne(tr, true);
 
     tbody.insertBefore(tr, tbody.firstChild);
 };
@@ -392,11 +392,11 @@ var rowFilterer = (function() {
             if ( not ) {
                 rawPart = rawPart.slice(1);
             }
-            hardBeg = rawPart.charAt(0) === '[';
+            hardBeg = rawPart.charAt(0) === '|';
             if ( hardBeg ) {
                 rawPart = rawPart.slice(1);
             }
-            hardEnd = rawPart.slice(-1) === ']';
+            hardEnd = rawPart.slice(-1) === '|';
             if ( hardEnd ) {
                 rawPart = rawPart.slice(0, -1);
             }
@@ -419,15 +419,18 @@ var rowFilterer = (function() {
         }
     };
 
-    var filterOne = function(tr) {
-        var cl = tr.classList;
+    var filterOne = function(tr, clean) {
+        var ff = filters;
+        var fcount = ff.length;
+        if ( fcount === 0 && clean === true ) {
+            return;
+        }
         // do not filter out doc boundaries, they help separate important
         // section of log.
+        var cl = tr.classList;
         if ( cl.contains('doc') ) {
             return;
         }
-        var ff = filters;
-        var fcount = ff.length;
         if ( fcount === 0 ) {
             cl.remove('f');
             return;

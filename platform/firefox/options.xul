@@ -3,7 +3,7 @@
 	<setting type="control">
 		<vbox>
 		<button id="showDashboardButton"/>
-		<button id="showNetworkLogButton"/>
+		<button id="showLoggerButton"/>
 		</vbox>
 	</setting>
 </vbox>
