@@ -1,6 +1,8 @@
 ##### [2015-05-03] Issues are closed until I am ready to release a new development version -- no bug should be reported for anything else than versions listed in the [releases area](https://github.com/gorhill/uMatrix/releases).
 
-## µMatrix for Chromium<br>[<img src="https://travis-ci.org/gorhill/uMatrix.svg?branch=master" height="16">](https://travis-ci.org/gorhill/uMatrix)
+## uMatrix<br>[<img src="https://travis-ci.org/gorhill/uMatrix.svg?branch=master" height="16">](https://travis-ci.org/gorhill/uMatrix)
+
+Defintiely for advanced users.
 
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
