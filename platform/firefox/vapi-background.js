@@ -1541,6 +1541,7 @@ vAPI.toolbarButton.onBeforeCreated = function(doc) {
 
     var iframe = doc.createElement('iframe');
     iframe.setAttribute('type', 'content');
+    iframe.setAttribute('overflow-x', 'hidden');
 
     doc.getElementById('PanelUI-multiView')
         .appendChild(panel)
@@ -1562,10 +1563,20 @@ vAPI.toolbarButton.onBeforeCreated = function(doc) {
         var width = body.clientWidth;
         // https://github.com/chrisaljoudi/uBlock/issues/730
         // Voodoo programming: this recipe works
-        panel.style.height = iframe.style.height = height.toString() + 'px';
-        panel.style.width = iframe.style.width = width.toString() + 'px';
-        if ( iframe.clientHeight !== height || iframe.clientWidth !== width ) {
+        panel.style.setProperty('height', height + 'px');
+        iframe.style.setProperty('height', height + 'px');
+        // Adjust width for presence/absence of vertical scroll bar which may
+        // have appeared as a result of last operation.
+        panel.style.setProperty('width', width + 'px');
+        var cw = panel.clientWidth;
+        var dw = iframe.contentWindow.document.documentElement.clientWidth;
+        if ( cw !== dw ) {
+            width = 2 * cw - dw;
+            panel.style.setProperty('width', width + 'px');
+        }
+        if ( iframe.clientHeight !== height || panel.clientWidth !== width ) {
             delayedResize();
+            return;
         }
     };
     var onPopupReady = function() {
