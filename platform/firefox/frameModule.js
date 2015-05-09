@@ -54,7 +54,6 @@ const contentObserver = {
     ACCEPT: Ci.nsIContentPolicy.ACCEPT,
     MAIN_FRAME: Ci.nsIContentPolicy.TYPE_DOCUMENT,
     contentBaseURI: 'chrome://' + hostName + '/content/js/',
-    cpMessageName: hostName + ':shouldLoad',
     uniqueSandboxId: 1,
 
     get componentRegistrar() {
@@ -110,65 +109,8 @@ const contentObserver = {
         );
     },
 
-    getFrameId: function(win) {
-        return win
-            .QueryInterface(Ci.nsIInterfaceRequestor)
-            .getInterface(Ci.nsIDOMWindowUtils)
-            .outerWindowID;
-    },
-
     // https://bugzil.la/612921
     shouldLoad: function(type, location, origin, context) {
-/*
-        if ( !context ) {
-            return this.ACCEPT;
-        }
-
-        if ( !location.schemeIs('http') && !location.schemeIs('https') ) {
-            return this.ACCEPT;
-        }
-
-        if ( type === this.MAIN_FRAME ) {
-            context = context.contentWindow || context;
-        } else if ( type === 7 ) { // SUB_DOCUMENT
-            context = context.contentWindow;
-        } else {
-            context = (context.ownerDocument || context).defaultView;
-        }
-
-        // The context for the toolbar popup is an iframe element here,
-        // so check context.top instead of context
-        if ( !context.top || !context.location ) {
-            return this.ACCEPT;
-        }
-
-        let isTopLevel = context === context.top;
-        let parentFrameId;
-
-        if ( isTopLevel ) {
-            parentFrameId = -1;
-        } else if ( context.parent === context.top ) {
-            parentFrameId = 0;
-        } else {
-            parentFrameId = this.getFrameId(context.parent);
-        }
-
-        let messageManager = getMessageManager(context);
-        let details = {
-            frameId: isTopLevel ? 0 : this.getFrameId(context),
-            parentFrameId: parentFrameId,
-            type: type,
-            url: location.spec
-        };
-
-        if ( typeof messageManager.sendRpcMessage === 'function' ) {
-            // https://bugzil.la/1092216
-            messageManager.sendRpcMessage(this.cpMessageName, details);
-        } else {
-            // Compatibility for older versions
-            messageManager.sendSyncMessage(this.cpMessageName, details);
-        }
-*/
         return this.ACCEPT;
     },
 
@@ -241,12 +183,14 @@ const contentObserver = {
 
     observe: function(doc) {
         let win = doc.defaultView;
-
         if ( !win ) {
             return;
         }
 
         let loc = win.location;
+        if ( !loc ) {
+            return;
+        }
 
         if ( loc.protocol !== 'http:' && loc.protocol !== 'https:' && loc.protocol !== 'file:' ) {
             if ( loc.protocol === 'chrome:' && loc.host === hostName ) {

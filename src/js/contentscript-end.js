@@ -45,12 +45,6 @@ if ( !vAPI ) {
     return;
 }
 
-// https://github.com/chrisaljoudi/uBlock/issues/587
-// Pointless to execute without the start script having done its job.
-if ( !vAPI.contentscriptStartInjected ) {
-    return;
-}
-
 // https://github.com/chrisaljoudi/uBlock/issues/456
 // Already injected?
 if ( vAPI.contentscriptEndInjected ) {

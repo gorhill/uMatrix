@@ -1143,14 +1143,53 @@ var httpObserver = {
     },
 
     channelDataFromChannel: function(channel) {
-        if ( !(channel instanceof Ci.nsIWritablePropertyBag) ) {
-            return null;
-        }
-        try {
-            return channel.getProperty(this.REQDATAKEY);
-        } catch (ex) {
+        if ( channel instanceof Ci.nsIWritablePropertyBag ) {
+            try {
+                return channel.getProperty(this.REQDATAKEY);
+            } catch (ex) {
+            }
         }
         return null;
+    },
+
+    // https://github.com/gorhill/uMatrix/issues/165
+    // https://developer.mozilla.org/en-US/Firefox/Releases/3.5/Updating_extensions#Getting_a_load_context_from_a_request
+    // Not sure `umatrix:shouldLoad` is still needed, uMatrix does not
+    //   care about embedded frames topography.
+    tabIdFromChannel: function(channel) {
+        var aWindow;
+        if ( channel.notificationCallbacks ) {
+            try {
+                aWindow = channel
+                    .notificationCallbacks
+                    .getInterface(Components.interfaces.nsILoadContext)
+                    .associatedWindow;
+            } catch (ex) {
+            }
+        }
+        try {
+            if ( !aWindow && channel.loadGroup && channel.loadGroup.notificationCallbacks ) {
+                aWindow = channel
+                    .loadGroup
+                    .notificationCallbacks
+                    .getInterface(Components.interfaces.nsILoadContext)
+                    .associatedWindow;
+            }
+            if ( aWindow ) {
+                return vAPI.tabs.getTabId(aWindow
+                    .QueryInterface(Ci.nsIInterfaceRequestor)
+                    .getInterface(Ci.nsIWebNavigation)
+                    .QueryInterface(Ci.nsIDocShell)
+                    .rootTreeItem
+                    .QueryInterface(Ci.nsIInterfaceRequestor)
+                    .getInterface(Ci.nsIDOMWindow)
+                    .gBrowser
+                    .getBrowserForContentWindow(aWindow)
+                );
+            }
+        } catch (ex) {
+        }
+        return vAPI.noTabId;
     },
 
     observe: function(channel, topic) {
@@ -1159,7 +1198,7 @@ var httpObserver = {
         }
 
         var URI = channel.URI;
-        var channelData;
+        var channelData, tabId, rawtype;
 
         if (
             topic === 'http-on-examine-response' ||
@@ -1216,51 +1255,8 @@ var httpObserver = {
         }
 
         // http-on-opening-request
-
-        // https://github.com/gorhill/uMatrix/issues/165
-        // https://developer.mozilla.org/en-US/Firefox/Releases/3.5/Updating_extensions#Getting_a_load_context_from_a_request
-        // Not sure `umatrix:shouldLoad` is still needed, uMatrix does not
-        //   care about embedded frames topography.
-        var tabId = vAPI.noTabId;
-        var aWindow;
-
-        if ( channel.notificationCallbacks ) {
-            try {
-                aWindow = channel
-                    .notificationCallbacks
-                    .getInterface(Components.interfaces.nsILoadContext)
-                    .associatedWindow;
-            } catch (ex) {
-            }
-        }
-        
-        if ( !aWindow && channel.loadGroup && channel.loadGroup.notificationCallbacks ) {
-            try {
-                aWindow = channel
-                    .loadGroup.notificationCallbacks
-                    .getInterface(Components.interfaces.nsILoadContext)
-                    .associatedWindow;
-            } catch (ex) {
-            }
-        }
-        
-        if ( aWindow ) {
-            try {
-                tabId = vAPI.tabs.getTabId(aWindow
-                    .QueryInterface(Ci.nsIInterfaceRequestor)
-                    .getInterface(Ci.nsIWebNavigation)
-                    .QueryInterface(Ci.nsIDocShell)
-                    .rootTreeItem
-                    .QueryInterface(Ci.nsIInterfaceRequestor)
-                    .getInterface(Ci.nsIDOMWindow)
-                    .gBrowser
-                    .getBrowserForContentWindow(aWindow)
-                );
-            } catch (ex) {
-            }
-        }
-
-        var rawtype = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
+        tabId = this.tabIdFromChannel(channel);
+        rawtype = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
 
         if ( this.handleRequest(channel, URI, tabId, rawtype) === true ) {
             return;
@@ -1323,14 +1319,6 @@ vAPI.net.registerListeners = function() {
         new Set(this.onBeforeSendHeaders.types) :
         null;
 
-    var shouldLoadListenerMessageName = location.host + ':shouldLoad';
-    var shouldLoadListener = function(e) { };
-
-    vAPI.messaging.globalMessageManager.addMessageListener(
-        shouldLoadListenerMessageName,
-        shouldLoadListener
-    );
-
     var locationChangedListenerMessageName = location.host + ':locationChanged';
     var locationChangedListener = function(e) {
         var details = e.data;
@@ -1351,11 +1339,7 @@ vAPI.net.registerListeners = function() {
 
         // https://github.com/chrisaljoudi/uBlock/issues/105
         // Allow any kind of pages
-        vAPI.tabs.onNavigation({
-            frameId: 0,
-            tabId: tabId,
-            url: details.url,
-        });
+        vAPI.tabs.onNavigation({ frameId: 0, tabId: tabId, url: details.url });
     };
 
     vAPI.messaging.globalMessageManager.addMessageListener(
@@ -1366,11 +1350,6 @@ vAPI.net.registerListeners = function() {
     httpObserver.register();
 
     cleanupTasks.push(function() {
-        vAPI.messaging.globalMessageManager.removeMessageListener(
-            shouldLoadListenerMessageName,
-            shouldLoadListener
-        );
-
         vAPI.messaging.globalMessageManager.removeMessageListener(
             locationChangedListenerMessageName,
             locationChangedListener

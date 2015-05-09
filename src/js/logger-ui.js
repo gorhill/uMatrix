@@ -36,7 +36,7 @@ var trJunkyard = [];
 var tdJunkyard = [];
 var firstVarDataCol = 2;  // currently, column 2 (0-based index)
 var lastVarDataIndex = 3; // currently, d0-d3
-var maxEntries = 5000;
+var maxEntries = 1000;
 var noTabId = '';
 var allTabIds = {};
 
