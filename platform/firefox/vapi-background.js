@@ -1958,8 +1958,12 @@ vAPI.cookies.getAll = function(callback) {
     var onAsync = function() {
         var out = [];
         var enumerator = Services.cookies.enumerator;
+        var ffcookie;
         while ( enumerator.hasMoreElements() ) {
-            out.push(new this.CookieEntry(enumerator.getNext().QueryInterface(Ci.nsICookie)));
+            ffcookie = enumerator.getNext();
+            if ( ffcookie instanceof Ci.nsICookie ) {
+                out.push(new this.CookieEntry(ffcookie));
+            }
         }
         callback(out);
     };
