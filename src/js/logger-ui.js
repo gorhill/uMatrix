@@ -638,6 +638,7 @@ var popupManager = (function() {
 
         container.querySelector('div > span:nth-of-type(1)').removeEventListener('click', toggleSize);
         container.querySelector('div > span:nth-of-type(2)').removeEventListener('click', toggleOff);
+        container.classList.remove('hide');
 
         popup.removeEventListener('load', onLoad);
         popupObserver.disconnect();
