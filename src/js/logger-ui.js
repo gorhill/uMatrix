@@ -308,7 +308,8 @@ var onLogBufferRead = function(response) {
 
     // Neuter rows for which a tab does not exist anymore
     // TODO: sort to avoid using indexOf
-    var rowVoided = false;
+    var autoDeleteVoidRows = vAPI.localStorage.getItem('loggerAutoDeleteVoidRows');
+    var rowVoided = false, trs;
     for ( var tabId in allTabIds ) {
         if ( allTabIds.hasOwnProperty(tabId) === false ) {
             continue;
@@ -316,11 +317,16 @@ var onLogBufferRead = function(response) {
         if ( response.tabIds.hasOwnProperty(tabId) ) {
             continue;
         }
-        uDom('.tab_' + tabId).removeClass('canMtx');
+        trs = uDom('.tab_' + tabId);
+        if ( autoDeleteVoidRows ) {
+            toJunkyard(trs);
+        } else {
+            trs.removeClass('canMtx');
+            rowVoided = true;
+        }
         if ( tabId === popupManager.tabId ) {
             popupManager.toggleOff();
         }
-        rowVoided = true;
     }
     allTabIds = response.tabIds;
 
@@ -501,6 +507,16 @@ var rowFilterer = (function() {
         filterAll: filterAll
     };
 })();
+
+/******************************************************************************/
+
+var toJunkyard = function(trs) {
+    trs.remove();
+    var i = trs.length;
+    while ( i-- ) {
+        trJunkyard.push(trs.nodeAt(i));
+    }
+};
 
 /******************************************************************************/
 
