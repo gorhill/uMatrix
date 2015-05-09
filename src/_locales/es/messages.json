@@ -328,7 +328,7 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Una <i>cookie<\/i> de sesión ... es eliminada una vez usted termina la sesión del navegador. La <i>cookie<\/i> de sesión es almacenada en la memoria temporal y no está disponible luego de cerrar el navegador.&rdquo;<\/p><p>Excepto que esto <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>pudiera no estar sucediendo así<\/a> cuando se usa un navegador basado en Chromium. Además, cerrar el navegador para limpiar las <i>cookies<\/i> de sesión quizás no sea lo suficientemente rápido para algunas personas.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Una <i>cookie<\/i> de sesión ... es eliminada una vez usted termina la sesión del navegador. La <i>cookie<\/i> de sesión es almacenada en la memoria temporal y no está disponible luego de cerrar el navegador.&rdquo;<\/p><p>Excepto que esto <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>pudiera no estar sucediendo así<\/a> cuando se usa un navegador basado en Chromium. Además, cerrar el navegador para limpiar las <i>cookies<\/i> de sesión quizás no sea lo suficientemente rápido para algunos.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -648,11 +648,11 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Panel de control",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Registro",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{

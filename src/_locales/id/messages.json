@@ -1,6 +1,6 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Dasbor",
+    "message":"uMatrix — Dasbor",
     "description":""
   },
   "settingsPageName":{
@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Nonaktif\/aktifkan penyaringan matriks untuk lingkup ini.\nPermintaan diblokir melalui penyaringan matriks di laman ini: {{count}}.",
+    "message":"Nonaktif\/aktifkan penyaringan matriks untuk lingkup ini.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -84,7 +84,7 @@
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Buang perubahan sementara untuk lingkup ini.",
+    "message":"Kembalikan perubahan sementara untuk lingkup ini.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
@@ -112,19 +112,19 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Kembalikan semua perubahan sementara",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to request log",
+    "message":"Kunjungi catatan permintaan",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Kunjungi dasbor",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Statistik",
+    "message":"uMatrix &ndash; Statistik",
     "description":""
   },
   "statsPageGenericStats":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: Di balik layar",
+    "message":"Di balik layar",
     "description":""
   },
   "statsPageOverview":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Permintaan jaringan",
+    "message":"Catatan permintaan",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Anda dapat memeriksa rincian terkini permintaan mentah HTTP yang telah dibuat oleh laman web (lihat di bawah).<\/p><p>Hal ini sangat berguna untuk pengguna tingkat lanjut yang ingin menyelidiki secara pasti apa yang laman web lakukan. Tetapi, pencatatan permintaan HTTP ini memerlukan tambahan memori, dan jika anda tidak peduli tentang informasi teknis ini, maka memori akan terbuang percuma.<\/p><p>Oleh karena itu, ruas ini memungkinkan anda mengatur jumlah maksimum permintaan HTTP terbaru yang akan dicatat untuk pemeriksaan lebih lanjut.<\/p><p>Masukkan &ldquo;<code>0<\/code>&rdquo; untuk mematikan pencatatan terperinci (dan akan berakibat pada pengurangan penggunaan memori <i>µMatrix<\/i>).<\/p>",
+    "message":"<p>Anda dapat memeriksa rincian terkini permintaan mentah HTTP yang telah dibuat oleh laman web (lihat di bawah).<\/p><p>Hal ini sangat berguna untuk pengguna tingkat lanjut yang ingin menyelidiki secara pasti apa yang laman web lakukan. Tetapi, mencatat permintaan HTTP ini memerlukan tambahan memori, dan jika anda tidak peduli tentang informasi teknis ini, maka memori akan terbuang percuma.<\/p><p>Oleh karena itu, ruas ini memungkinkan anda mengatur jumlah maksimum permintaan HTTP terkini yang akan dicatat untuk pemeriksaan lebih lanjut.<\/p><p>Masukkan &ldquo;<code>0<\/code>&rdquo; untuk mematikan pencatatan terperinci (dan akan berakibat pada berkurangnya penggunaan memori <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Pengaturan",
+    "message":"uMatrix &ndash; Pengaturan",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -276,7 +276,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"Tidak ada",
+    "message":"Nihil",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
@@ -288,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Kapanpun anda membuat perubahan pada matriks yang dapat mempengaruhi tampilan dan\/atau perilaku satu atau lebih halaman, <i>µMatrix<\/i> akan memuat ulang laman yang terpengaruh secara otomatis ketika anda menutup matriks.",
+    "message":"Kapanpun anda membuat perubahan pada matriks yang dapat mempengaruhi tampilan dan\/atau perilaku satu atau lebih halaman, <i>uMatrix<\/i> akan memuat ulang laman yang terdampak secara otomatis ketika anda menutup matriks.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -300,15 +300,15 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Tampilkan jumlah permintaan yang berbeda pada ikon",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
+    "message":"Runtuhkan tempat elemen yang diblok",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Privasi",
+    "message":"uMatrix &ndash; Privasi",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Kuki dalam daftar hitam tidak dicegah <i>µMatrix<\/i> memasuki peramban anda. Namun, mereka dicegah untuk meninggalkan peramban anda, dan ini yang paling penting. Tidak memblokir kuki sebelum mereka memasuki peramban anda memberikan anda kesempatan mendapatkan informasi bahwa situs tersebut mencoba untuk menggunakan kuki, dan lebih lanjut memeriksa isi kuki tersebut jika anda inginkan.<\/p><p>Setelah kuki dalam daftar hitam ini dicatat oleh <i>µMatrix<\/i>, mereka dapat dihapus dari peramban anda jika anda menginginkannya.<\/p><p><b>Catatan Penting:<\/b> Ekstensi dapat membuat permintaan web selama operasi normal ekstensi berjalan. Permintaan ini dapat mengakibatkan beberapa kuki dibuat dalam peramban. Jika nama host dari mana kuki berasal tidak dalam daftar putih, kuki akan dibuang dari peramban oleh <i>µMatrix<\/i> jika opsi berikut dicentang. Jadi, pastikan nama host dengan yang ekstensi berkomunikasi masuk dalam daftar putih.<\/p>",
+    "message":"<p>Kuki dalam daftar hitam tidak dicegah oleh <i>uMatrix<\/i> untuk masuk ke peramban anda. Namun, mereka dicegah untuk meninggalkan peramban anda, dan ini yang paling penting. Tidak memblokir kuki sebelum mereka masuk ke peramban anda memberikan anda kesempatan mendapatkan informasi bahwa situs tersebut mencoba untuk menggunakan kuki, dan lebih lanjut memeriksa isi kuki tersebut jika anda inginkan.<\/p><p>Setelah kuki dalam daftar hitam ini dicatat oleh <i>uMatrix<\/i>, mereka dapat dibuang dari peramban anda jika anda menginginkannya.<\/p><p><b>Catatan penting:<\/b> Ekstensi dapat membuat permintaan web selama operasi normal ekstensi berjalan. Permintaan ini dapat mengakibatkan beberapa kuki dibuat dalam peramban. Jika nama host dari mana kuki berasal tidak dalam daftar putih, kuki akan dibuang dari peramban oleh <i>uMatrix<\/i> jika opsi berikut dicentang. Jadi, pastikan nama host dengan yang ekstensi berkomunikasi masuk dalam daftar putih.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -328,11 +328,11 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Kuki sesi ... dihapus ketika anda menutup sesi peramban. Kuki sesi disimpan di memori sementara dan tidak tinggal setelah peramban ditutup.&rdquo;<\/p><p>Kecuali untuk hal berikut<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>mungkin tidak akan terjadi<\/a> ketika menggunakan peramban berbasis Chromium. Juga, bagi beberapa, menutup peramban untuk membersihkan kuki sesi mungkin tidak cukup cepat.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Kuki sesi ... dihapus ketika anda mengakhiri sesi peramban. Kuki sesi disimpan di memori sementara dan tidak tinggal setelah peramban ditutup.&rdquo;<\/p><p>Kecuali hal ini <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>mungkin tidak akan terjadi<\/a> pada beberapa peramban. Juga, bagi beberapa, menutup peramban agar kuki sesi dibersihkan mungkin tidak cukup cepat.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Hapus isi <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>penyimpanan lokal<\/a> yang disimpan oleh nama host yang diblokir",
+    "message":"Hapus muatan <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>penyimpanan lokal<\/a> yang disimpan oleh nama host yang diblokir",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -348,7 +348,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Beberapa situs sangat lihai dalam melacak anda, amat sangat sampai meraka akan menggunakan cara-cara tidak baik untuk menghindari tindakan apapun yang anda lakukan agar tidak dilacak.<\/p><p>Beberapa cara-cara ini bergantung<sup style='font-size:smaller'>[1, 2]<\/sup> pada <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tembolok peramban<\/a>, yang isinya terkadang bertahan lama karena jarang pengguna akan menyempatkan waktu secara berkala membersihkan tembolok peramban mereka.<\/p><p>Ada sedikit ketidaknyamanan untuk membersihkan tembolok peramban secara berkala (kemungkinan adalah anda tidak akan tahu ketika hal tersebut terjadi), dan keuntungannya adalah untuk mencegah pelacak yang menjengkelkan ini melanggar privasi anda.<\/p><p>Centang opsi berikut untuk membuat <i>µMatrix<\/i> melakukannya untuk anda, pada jarak waktu yang anda inginkan.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Mencegah Pelacakan Web melalui Tembolok Web&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Kuki tanpa kuki&rdquo;<\/a><\/p>",
+    "message":"<p>Beberapa situs sangat lihai dalam melacak anda, amat sangat sampai meraka akan menggunakan cara-cara tidak baik untuk menghindari tindakan apapun yang anda lakukan agar tidak dilacak.<\/p><p>Beberapa cara-cara ini bergantung<sup style='font-size:smaller'>[1, 2]<\/sup> pada <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tembolok peramban<\/a>, yang muatannya terkadang bertahan lama karena jarang pengguna akan menyempatkan waktu secara berkala membersihkan tembolok peramban mereka.<\/p><p>Ada sedikit ketidaknyamanan untuk membersihkan tembolok peramban secara berkala (kemungkinan adalah anda tidak akan tahu ketika hal tersebut terjadi), dan keuntungannya adalah untuk mencegah pelacak yang menjengkelkan ini melanggar privasi anda.<\/p><p>Centang opsi berikut untuk membuat <i>uMatrix<\/i> melakukannya untuk anda, pada jarak waktu yang anda inginkan.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Mencegah Pelacakan Web melalui Tembolok Web&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Kuki tanpa kuki&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -356,7 +356,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Dari Wikipedia:<\/p><blockquote>Pengacu HTTP adalah sebuah ruas tajuk HTTP yang mengidentifikasi alamat dari laman web yang bertautan dengan sumber daya yang sedang diminta. ... <b>Karena informasi pengacu dapat melanggar privasi, beberapa peramban memperbolehkan pengguna untuk menonaktifkan pengiriman informasi pengacu.<\/b><\/blockquote><p>Jika aturan ini dicentang, <i>µMatrix<\/i> akan memalsukan informasi pengacu HTTP jika nama ranah pengacu HTTP adalah pihak ketiga dari nama ranah jaringan yang diminta.",
+    "message":"<p>Dari Wikipedia:<\/p><blockquote>Pengacu HTTP adalah sebuah ruas tajuk HTTP yang mengidentifikasi alamat dari laman web yang bertautan dengan sumber daya yang sedang diminta. ... <b>Karena informasi pengacu dapat melanggar privasi, beberapa peramban memperbolehkan pengguna untuk menonaktifkan pengiriman informasi pengacu.<\/b><\/blockquote><p>Jika aturan ini dicentang, <i>uMatrix<\/i> akan memalsukan informasi pengacu HTTP jika nama ranah pengacu HTTP adalah pihak ketiga dari nama ranah jaringan yang diminta.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -364,7 +364,7 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>Dari <a href='https:\/\/developer.mozilla.org\/id\/docs\/Security\/MixedContent'>Jaringan Pengembang Mozilla<\/a>:<\/p><blockquote>Jika [a] laman HTTPS mengandung konten yang diambil melalui HTTP berteks jelas\/biasa, maka koneksi hanya dienkripsi sebagian: konten yang tidak dienkripsi tersedia bagi para pengendus jaringan dan dapat diubah oleh serangan orang ditengah, dan oleh karena itu koneksi menjadi tidak lagi aman. Ketika laman web memperlihatkan perilaku seperti ini, hal ini disebut laman dengan konten campuran tidak aman.<\/blockquote>",
+    "message":"<p>Dari <a href='https:\/\/developer.mozilla.org\/id\/docs\/Security\/MixedContent'>Jaringan Pengembang Mozilla<\/a>:<\/p><blockquote>Jika laman HTTPS mengandung muatan yang diambil melalui HTTP umum \/ berteks jelas, maka koneksi hanya terenkripsi sebagian: muatan yang tidak terenkripsi tersedia bagi para pengendus jaringan dan dapat diubah oleh serangan orang-ditengah, dan oleh karena itu koneksi menjadi tidak lagi aman. Ketika laman web memperlihatkan perilaku seperti ini, hal ini disebut &ldquo;laman dengan muatan campuran tidak aman&rdquo;.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Mekanisme audit pranala yang memperbolehkan satu pihak, <b>pihak manapun<\/b>, mendapatkan informasi tentang tautan mana yang pengguna klik pada laman web tertentu. Hal ini pada dasarnya adalah fitur pelacakan: memperbolehkan sebuah situs web, atau pihak ketiga dari situs web tersebut, mendapatkan informasi tentang tautan mana di laman yang mana yang anda klik pada situs web tersebut. Tujuannya adalah untuk melacak aktifitas penjelajahan anda.<\/p>",
+    "message":"<p>Pengauditan pranala adalah mekanisme yang memperbolehkan satu pihak, <b>pihak manapun<\/b>, mendapatkan informasi tentang tautan mana yang pengguna klik pada laman web tertentu. Hal ini pada dasarnya adalah fitur pelacakan: memperbolehkan sebuah situs web, atau pihak ketiga dari situs web tersebut, mendapatkan informasi tentang tautan mana di laman yang mana yang anda klik pada situs web tersebut. Tujuannya adalah untuk melacak aktifitas penjelajahan anda.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -384,15 +384,15 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Menurut <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] peramban anda mengirimkan sebuah tajuk &lsquo;User Agent&rsquo; ke situs web dan menjelaskan secara akurat tentang sistem operasi dan peramban web yang anda gunakan. Informasi tersebut dapat membantu membedakan pengguna internet satu dengan yang lain karena versinya yang berbeda-beda, seringkali, orang per orang. [...] <b>Rangkaian User Agent adalah masalah utama privasi<\/b>.&rdquo;<p>Opsi ini membuat anda dapat mengatasi masalah privasi yang diangkat oleh EFF.<\/p><p>Anda dapat memberikan daftar rangkaian user agent anda sendiri. Satu rangkaian per baris. Baris kosong dan baris yang dimulai dengan &lsquo;#&rsquo; akan diabaikan.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Menurut <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] peramban anda mengirimkan sebuah tajuk &lsquo;User Agent&rsquo; ke situs web dan menjelaskan secara akurat tentang sistem operasi dan peramban web yang anda gunakan. Informasi tersebut dapat membantu membedakan pengguna internet satu dengan yang lain karena versi sistem operasi dan peramban yang berbeda-beda, seringkali, orang per orang. [...] <b>User Agent menjadi masalah utama privasi yang nyata<\/b>.&rdquo;<p>Opsi ini memungkinkan anda untuk mengatasi masalah privasi yang diangkat oleh EFF.<\/p><p>Anda dapat memberikan senarai user agent anda sendiri. Satu user agent per baris. Baris kosong dan baris yang dimulai dengan &lsquo;#&rsquo; akan diabaikan.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: permintaan di balik layar",
+    "message":"Permintaan di balik layar",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>Menurut <a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Laporan Privasi Google Chrome<\/a>, <i>Chromium<\/i> mungkin mengirimkan permintaan HTTP ke <i>Google<\/i> tanpa pengguna secara aktif mengunjungi laman web. Mari kita sebut permintaan spesial ini permintaan <strong>di balik layar<\/strong>. Juga, ekstensi peramban yang dipasang lainnya dapat mengirimkan permintaan HTTP <strong>di balik layar<\/strong>.<\/p><p><i>µMatrix<\/i> memungkinkan anda mencegat dan memperlakukan permintaan ini seperti permintaan apapun lainnya: permintaan tersebut dapat diproses untuk diizinkan\/diblokir sesuai dengan daftar putih\/hitam anda.<\/p><p>Klik ikon ekstensi saat melihat laman untuk memulai. Diperlukan membaca: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Permintaan di balik layar<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Hati-hati!<\/span> Memblokir permintaan jaringan <strong>di balik layar<\/strong> dapat mengakibatkan <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>masalah<\/a> ketika pengguna ingin memasang ekstensi dari toko Chrome (termasuk mungkin mencegah ekstensi diperbarui), oleh karena itu terdapat opsi untuk menonaktifkan fitur tersebut di sini. Pemblokiran juga dapat menyebabkan ekstensi yang terpasang lainnya tidak bekerja sebagaimana mestinya (khususnya ekstensi yang meminta data ekstenal).<\/p><p>Walaupun fitur ini dinonaktifkan, permintaan <strong>di balik layar<\/strong> masih tetap di catat oleh <i>µMatrix<\/i>. Anda dapat memeriksa permintaan tersebut pada laman <a href='dashboard.html#statistics'>Statistik<\/a>.<\/p>",
+    "message":"",
     "description":""
   },
   "userRulesPermanentHeader":{
@@ -452,7 +452,7 @@
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"Terakhir diperbarui: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
@@ -476,7 +476,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Baca",
+    "message":"Uraikan",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -512,7 +512,7 @@
     "description":""
   },
   "aboutIssues":{
-    "message":"Bug dan masalah",
+    "message":"Kutu dan masalah",
     "description":""
   },
   "aboutContributors":{
@@ -548,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Semua pengaturan anda akan ditimpa menggunakan data yang dicadangkan pada {{time}}, dan µMatrix akan memulai ulang.\n\nTimpa semua aturan yang ada menggunakan data yang dicadangkan?",
+    "message":"Semua pengaturan anda akan ditimpa menggunakan data yang dicadangkan pada {{time}}, dan uMatrix akan memulai ulang.\n\nTimpa semua aturan yang ada menggunakan data yang dicadangkan?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -568,47 +568,47 @@
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"ekspresi penyaring",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"memalsukan user agent dengan: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"kuki dihapus: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"browser cache cleared",
+    "message":"tembolok peramban dibersihkan",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"gagal menghapus kuki: {{value}}",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"aset diperbarui: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix telah mencegah laman berikut dimuat:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Disebabkan oleh aturan berikut",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Kembali",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Tutup",
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Buang semua perubahan sementara",
+    "message":"Kembalikan semua perubahan sementara",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -624,35 +624,35 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"semenit yang lalu",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"{{value}} menit yang lalu",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"sejam yang lalu",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"{{value}} jam yang lalu",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"sehari yang lalu",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"{{value}} hari yang lalu",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Dasbor",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Pencatat",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{

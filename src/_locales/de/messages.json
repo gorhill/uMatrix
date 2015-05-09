@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Aktiviere\/deaktiviere die Matrix-Filter für diesen Geltungsbereich.\nDurch die Matrix-Filter blockierte Anfragen auf dieser Seite: {{count}}.",
+    "message":"Aktiviere\/deaktiviere die Matrix-Filter für diesen Geltungsbereich.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: Hintergrundanfragen",
+    "message":"Hintergrundanfragen",
     "description":""
   },
   "statsPageOverview":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Die Details der letzten HTTP Anfragen einer Webseite kannst du dir unten anschauen.<\/p><p>Das ist besonders nützlich für neugierige bzw. erfahrene Benutzer, die genau wissen wollen, was eine Webseite gemacht hat. Allerdings benötigt das Logging dieser HTTP Anfragen Arbeitsspeicher, und wenn du an diesen detaillierten Informationen nicht interessiert bist, belegst du diesen Speicher unnötigerweise.<\/p><p>Daher lässt sich mit diesem Feld die maximale Zahl der letzten HTTP Anfragen, die aufgezeichnet werden sollen, festlegen.<p><p>Gib &ldquo;<code>0<\/code>&rdquo; ein, um dieses detaillierte Logging ganz abzuschalten (und entsprechend die Speicherbelegung von <i>µMatrix<\/i> zu reduzieren).<\/p>",
+    "message":"<p>Die Details der letzten HTTP Anfragen einer Webseite kannst du dir unten anschauen.<\/p><p>Das ist besonders nützlich für neugierige bzw. erfahrene Benutzer, die genau wissen wollen, was eine Webseite gemacht hat. Allerdings benötigt das Logging dieser HTTP Anfragen Arbeitsspeicher, und wenn du an diesen detaillierten Informationen nicht interessiert bist, belegst du diesen Speicher unnötigerweise.<\/p><p>Daher lässt sich mit diesem Feld die maximale Zahl der letzten HTTP Anfragen, die aufgezeichnet werden sollen, festlegen.<p><p>Gib &ldquo;<code>0<\/code>&rdquo; ein, um dieses detaillierte Logging ganz abzuschalten (und entsprechend die Speicherbelegung von <i>uMatrix<\/i> zu reduzieren).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Einstellungen",
+    "message":"uMatrix &ndash; Einstellungen",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Privatsphäre",
+    "message":"uMatrix &ndash; Privatsphäre",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Cookies auf der Blacklist werden von <i>µMatrix<\/i> nicht daran gehindert, vom Browser empfangen zu werden. Vielmehr werden sie daran gehindert, den Browser wieder zu verlassen - das ist es, worauf es wirklich ankommt. Dass Cookies nicht blockiert werden, bevor sie vom Browser empfangen werden, gibt dir die Gelegenheit, dich zu informieren, welche Seiten Cookies zu verwenden versuchen, und dir den Inhalt der Cookies anzuschauen, wenn du möchtest.<\/p><p>Sobald diese sich auf der Blacklist befindlichen Cookies von <i>µMatrix<\/i> erfasst sind, können sie aus deinem Browser gelöscht werden, falls du möchtest.<\/p><p><b>Wichtiger Hinweis:<\/b> Erweiterungen können während ihrer Benutzung Webanfragen tätigen. Diese Anfragen können dazu führen, dass Cookies im Browser erzeugt werden. Falls der Hostname, von dem das Cookie stammt, nicht auf der Whitelist ist, wird das Cookie von <i>µMatrix<\/i> aus dem Browser entfernt, sofern dieser Schalter aktiviert ist. Stelle daher sicher, dass Hostnamen, mit denen eine Erweiterung kommuniziert, auf der Whitelist stehen.<\/p>",
+    "message":"<p>Cookies auf der Blacklist werden von <i>uMatrix<\/i> nicht daran gehindert, vom Browser empfangen zu werden. Vielmehr werden sie daran gehindert, den Browser wieder zu verlassen - das ist es, worauf es wirklich ankommt. Dass Cookies nicht blockiert werden, bevor sie vom Browser empfangen werden, gibt dir die Gelegenheit, dich zu informieren, welche Seiten Cookies zu verwenden versuchen, und dir den Inhalt der Cookies anzuschauen, wenn du möchtest.<\/p><p>Sobald diese sich auf der Blacklist befindlichen Cookies von <i>uMatrix<\/i> erfasst sind, können sie aus deinem Browser gelöscht werden, falls du möchtest.<\/p><p><b>Wichtiger Hinweis:<\/b> Erweiterungen können während ihrer Benutzung Webanfragen tätigen. Diese Anfragen können dazu führen, dass Cookies im Browser erzeugt werden. Falls der Hostname, von dem das Cookie stammt, nicht auf der Whitelist ist, wird das Cookie von <i>uMatrix<\/i> aus dem Browser entfernt, sofern dieser Schalter aktiviert ist. Stelle daher sicher, dass Hostnamen, mit denen eine Erweiterung kommuniziert, auf der Whitelist stehen.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -328,7 +328,7 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Ein Sitzungscookie ... wird gelöscht, wenn die Browsersitzung beendet wird. Das Sitzungscookie wird temporär gespeichert und nicht behalten, wenn der Browser geschlossen ist.&rdquo;<\/p><p>Nur dass das möglicherweise <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>nicht passiert<\/a>, wenn man einen Chromium-basierten Browser verwendet. Außerdem bevorzugen es manche Benutzer, Sitzungscookies loszuwerden, bevor sie den Browser schließen.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Ein Sitzungscookie ... wird gelöscht, wenn die Browsersitzung beendet wird. Das Sitzungscookie wird temporär gespeichert und nicht behalten, wenn der Browser geschlossen ist.&rdquo;<\/p><p>Nur dass das möglicherweise bei einigen Browsern tatsächlich <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>nicht passiert<\/a>. Außerdem bevorzugen es manche Benutzer, Sitzungscookies loszuwerden, bevor sie den Browser schließen.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -348,7 +348,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Einige Webseiten sind wirklich darauf aus, dich zu verfolgen bzw. zu tracken, und scheuen nicht davor zurück, unfeine Tricks zu verwenden, um Maßnahmen, die dieses Tracking verhindern sollen, zu unterlaufen.<\/p><p>Einige dieser Tricks benutzen dazu den <sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/de.wikipedia.org\/wiki\/Browser-Cache'>Browser Cache<\/a>, dessen Inhalt häufig für lange Zeit auslesbar ist, da viele Benutzer ihn nicht regelmäßig löschen.<\/p><p>Das regelmäßige Löschen des Browser Caches bringt kaum Nachteile mit sich (wahrscheinlich wirst du gar keine bemerken), während die Vorteile darin bestehen, dass diese fiesen Tracker davon abgehalten werden, in deine Privatsphäre einzudringen.<\/p><p>Aktiviere diesen Schalter, damit  <i>µMatrix<\/i> diese Aufgabe in dem von dir gewünschten Intervall übernimmt.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Einige Webseiten sind wirklich darauf aus, dich zu verfolgen bzw. zu tracken, und scheuen nicht davor zurück, unfeine Tricks zu verwenden, um Maßnahmen, die dieses Tracking verhindern sollen, zu unterlaufen.<\/p><p>Einige dieser Tricks benutzen dazu den <sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/de.wikipedia.org\/wiki\/Browser-Cache'>Browser Cache<\/a>, dessen Inhalt häufig für lange Zeit auslesbar ist, da viele Benutzer ihn nicht regelmäßig löschen.<\/p><p>Das regelmäßige Löschen des Browser Caches bringt kaum Nachteile mit sich (wahrscheinlich wirst du gar keine bemerken), während die Vorteile darin bestehen, dass diese fiesen Tracker davon abgehalten werden, in deine Privatsphäre einzudringen.<\/p><p>Aktiviere diesen Schalter, damit  <i>uMatrix<\/i> diese Aufgabe in dem von dir gewünschten Intervall übernimmt.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -356,7 +356,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Aus Wikipedia:<\/p><blockquote>Ein Referrer ist die Internetadresse der Webseite, von der der Benutzer durch Anklicken eines Links zu der aktuellen Seite gekommen ist. ... <b>(Die Übertragung eines Referrers zu verhindern) ...ist unter anderem aus Datenschutzerwägungen interessant, da andernfalls die Möglichkeit besteht, die Referrer mit den Nutzer-IP-Adressen in Verbindung zu bringen.<\/b><\/blockquote><p>Wenn dieser Schalter aktiviert ist, wird <i>µMatrix<\/i> den HTTP Referrer verschleiern bzw. manipulieren, wenn der Domänenname des HTTP Referrer nicht mit dem Domänenname der anfragenden URL überein stimmt (das heißt, der Referrer stammt von einer Drittseite).",
+    "message":"<p>Aus Wikipedia:<\/p><blockquote>Ein Referrer ist die Internetadresse der Webseite, von der der Benutzer durch Anklicken eines Links zu der aktuellen Seite gekommen ist. ... <b>(Die Übertragung eines Referrers zu verhindern) ...ist unter anderem aus Datenschutzerwägungen interessant, da andernfalls die Möglichkeit besteht, die Referrer mit den Nutzer-IP-Adressen in Verbindung zu bringen.<\/b><\/blockquote><p>Wenn dieser Schalter aktiviert ist, wird <i>uMatrix<\/i> den HTTP Referrer verschleiern bzw. manipulieren, wenn der Domänenname des HTTP Referrer nicht mit dem Domänenname der anfragenden URL überein stimmt (das heißt, der Referrer stammt von einer Drittseite).",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -388,7 +388,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: Hintergrundanfragen",
+    "message":"Hintergrundanfragen",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -652,7 +652,7 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Protokoll",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{

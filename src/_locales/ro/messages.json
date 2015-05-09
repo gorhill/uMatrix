@@ -12,31 +12,31 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Opțiuni",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Intimitate",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Statistici",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Regulile mele",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Fișiere de gazde",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Despre",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"tot",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
@@ -48,7 +48,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"imagine",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -64,11 +64,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"cadru",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"altele",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -160,11 +160,11 @@
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Tot",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Behind the scene",
+    "message":"În spatele scenei",
     "description":""
   },
   "statsPageOverview":{
@@ -176,19 +176,19 @@
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Permis",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Blocat",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Tot",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Pagini",
     "description":""
   },
   "statsPageCookies":{
@@ -296,7 +296,7 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Opacitate",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
@@ -336,7 +336,7 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
+    "message":"DE FĂCUT",
     "description":""
   },
   "privacyClearCachePrompt1":{
@@ -344,7 +344,7 @@
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"minute.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -380,7 +380,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"minute.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -396,11 +396,11 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Reguli permanente",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Reguli temporare",
     "description":""
   },
   "userRulesRevert":{
@@ -416,7 +416,7 @@
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Salvează",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
@@ -464,7 +464,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Actualizează acum",
     "description":""
   },
   "hostsFilesPurgeAll":{

@@ -1,16 +1,16 @@
 µMatrix: firewall tunjuk-dan-klik berbasis matriks, dengan banyak peralatan privasi yang ditingkatkan. Untuk pengguna tingkat lanjut.
 
-µMatrix memberikan anda kontrol penuh kemana peramban anda diizinkan untuk berhubungan, tipe data apa yang diizinkan untuk diunduh, dan apa yang diizinkan untuk dieksekusi. Tidak ada orang lain yang memutuskan untuk anda: Anda sendiri yang memilih. Anda mengontrol penuh privasi anda sendiri.
+µMatrix memberikan anda kontrol penuh kemana peramban anda diizinkan terhubung, tipe data apa yang diizinkan untuk diunduh, dan apa yang diizinkan untuk dieksekusi. Tidak seorangpun memutuskan untuk anda: Anda yang memilih. Anda mengontrol penuh privasi anda sendiri.
 
 Secara bawaan, µMatrix bekerja dalam mode blokir-semua/perbolehkan-beberapa yang agak ketat, artinya situs web yang membutuhkan skrip pihak ketiga besar kemungkinan menjadi "rusak". Dengan dua klik, µMatrix dapat diatur untuk bekerja dalam mode perbolehkan-semua/blokir-beberapa, yang pada umumnya tidak akan membuat rusak situs web. Lihat https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views untuk penjelasan lebih rinci perihal topik ini.
 
-Mengenai mitos "Peramban barbasis Chromium tidak dapat dengan handal memblokir javascript", lihat: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Ringkasan: Ya, javascript dapat diblokir dengan handal di Chromium.
+Mengenai mitos "Peramban barbasis Chromium tidak dapat dengan handal memblokir JavaScript", lihat: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Ringkasnya: Ya, JavaScript dapat diblokir dengan handal di Chromium.
 
-* Lihat SEMUA koneksi asing, yang gagal atau percobaan, tergantung dari apakah mereka diblokir atau diizinkan (anda memutuskan).
+* Lihat SEMUA koneksi asing, yang gagal atau mencoba, tergantung dari apakah mereka diblokir atau diizinkan (anda memutuskan).
 
 * Sekali klik untuk mendaftar-putih/hitamkan satu atau banyak permintaan menurut destinasi dan jenis data (permintaan yang diblokir TIDAK AKAN PERNAH meninggalkan peramban anda).
 
-* Pendaftar-hitaman yang efisien: kuki tidak akan meninggalkan peramban anda, javascript tidak akan dieksekusi, plugin tidak akan memutar, piksel pelacakan tidak akan diunduh, dll.
+* Pendaftar-hitaman yang efisien: kuki tidak akan meninggalkan peramban anda, JavaScript tidak akan dieksekusi, plugin tidak akan memutar, piksel pelacakan tidak akan diunduh, dll.
 
 * Anda tidak harus bergantung hanya pada daftar-hitam tertentu (dengan alasan banyak entri yang hilang) selain tidak ada lagi yang dapat diblokir: Anda dalam kontrol penuh.
 
@@ -40,7 +40,7 @@ Tujuan dari ekstensi ini adalah untuk mengizinkan atau memblokir situs web, sepe
 
 Ekstensi ini hadir bersama berkas host pihak ketiga dengan total lebih dari 58,000 nama host yang berbeda (daftar dapat secara selektif dinonaktif/aktifkan sesuai dengan pilihan anda).
 
-Pada akhirnya, Anda dapat memilih sebagaimana anda menjelajah internet:
+Pada akhirnya, Anda dapat memilih bagaimana anda ingin menjelajah internet:
 
 * Daftar-hitamkan semua secara bawaan, dan daftar-putihkan sesuai kebutuhan (mode bawaan).
 
@@ -48,27 +48,27 @@ Pada akhirnya, Anda dapat memilih sebagaimana anda menjelajah internet:
 
 Dengan cara manapun, anda masih diuntungkan dari aturan bawaan daftar-hitam sehingga paling tidak anda tetap mendapatkan perlindungan mendasar dari pelacak, situs malware, dll. Atau anda dapat menonaktifkan semua aturan bawaan daftar-hitam tersebut.
 
-Pilihan anda.
+Terserah anda.
 
-Secara acak menghimpun dokumentasi: https://github.com/gorhill/uMatrix/wiki
+Himpunan acak dokumentasi: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
 UMPAN BALIK:
 
-Untuk pertanyaan/masalah yang mungkin anda dapat, gunakan tombol "Kirim Umpan Balik" di sebelah kanan, agar saya dapat menjawab dengan mudah. Saya tidak dapat menjawab secara langsung untuk ulasan, tapi saya akan lebih dari senang untuk menjawab anda secara langsung di bagian umpan balik.
+Jika ada pertanyaan/masalah yang mungkin ingin anda sampaikan, gunakan tombol "Kirim Umpan Balik" di sebelah kanan, agar saya dapat menjawab dengan mudah. Saya tidak dapat menjawab secara langsung untuk ulasan, tapi saya akan lebih dari senang untuk menjawab anda secara langsung di bagian umpan balik.
 
 =====
 
-BUG, MASALAH, SARAN:
+KUTU, MASALAH, SARAN:
 
 https://github.com/gorhill/uMatrix/issues
 
-Anda sangat diterima untuk berkontribusi mengenai pandangan anda pada masalah yang belum terselesaikan dan saran, argumen apapun baik membangun/kontra membantu saya memutuskan apa yang diperlukan untuk memperbaiki ekstensi ini.
+Anda sangat diharapkan untuk berkontribusi mengenai pandangan anda mengenai masalah yang belum terselesaikan dan saran, argumen apapun baik membangun/kontra membantu saya memutuskan apa yang diperlukan untuk memperbaiki ekstensi ini.
 
-Mudah dalam penggunaan adalah tujuan utama. Saya telah melihat banyak pengguna menggunakan NoScript pada Firefox karena semakin banyak halangan yang terjadi menurut mereka, jadi dari pada menyalahkan para pengguna atas kebiasaan keamanan yang buruk, saya memilih menyalahkan pengembang dan proyek ini adalah eksperimen untuk mengatasi masalah tersebut yang menyebabkan beberapa pengguna menyerah pada keamanan dasar.
+Mudah dalam penggunaan adalah tujuan utama. Saya melihat banyak pengguna menyerah menggunakan NoScript pada Firefox karena menurut mereka semakin banyak gangguan yang terjadi, jadi dari pada menyalahkan para pengguna atas kebiasaan keamanan yang buruk, saya memilih menyalahkan pengembang dan proyek ini adalah eksperimen untuk mengatasi masalah yang menyebabkan beberapa pengguna menyerah pada keamanan dasar.
 
-Ekstensi ini juga bermanfaat untuk memahami apa yang laman web lakukan di peramban anda, seringkali tanpa sepengetahuan anda. Anda mempunyai kemampuan penuh untuk melihat dan memutuskan dengan siapa sebuah laman web berkomunikasi, dan membatasi komunikasi ini hanya untuk kelas obyek yang spesifik dalam laman web.
+Ekstensi ini juga bermanfaat untuk memahami apa yang laman web lakukan di peramban anda, seringkali tanpa sepengetahuan anda. Anda memiliki kewenangan penuh untuk melihat dan memutuskan dengan siapa sebuah laman web berkomunikasi, dan membatasi komunikasi tersebut hanya untuk kelas obyek spesifik di dalam laman web.
 
 Angka yang muncul pada ikon ekstensi berhubungan dengan jumlah total percobaan permintaan yang berbeda (sukses atau tidak tergantung pada apakah hal tersebut diizinkan atau diblokir) oleh laman web.
 

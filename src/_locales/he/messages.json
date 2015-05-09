@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"כבה\/אפשר מטריצת פילטור עבור טווח זה.\nמספר הבקשות שנחסמו ע\"י מטריצת הפילטור בעמוד זה: {{count}}.",
+    "message":"כבה\/אפשר מטריצת פילטור עבור טווח זה.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -112,15 +112,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"מחק את כל השינויים הזמניים",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to request log",
+    "message":"עבור למתעד הבקשות",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"עבור לפאנל הקונפיגורציות",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"כרומיום: מאחורי הקלעים",
+    "message":"מאחורי הקלעים",
     "description":""
   },
   "statsPageOverview":{
@@ -300,11 +300,11 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"הראה את מספר הבקשות החסומות הייחודיות על האייקון",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
+    "message":"הסתר את המקום שנשאר מחסימה של אלמנטים",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
@@ -328,7 +328,7 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;עוגיית סשן ... נמחקת כאשר אתה מסיים הסשן של הדפדפן. עוגיית הסשן מאוכסנת בזיכרון זמני ולא נשמרת לאחר שהדפדפן נסגר.&rdquo;<\/p><p>אלא שהדבר <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>יכול לא לקרות<\/a> כשמשתמשים בדפדפן המבוסס כרומיום. כמו כן, לחלק, הפעולה של לסגור את הדפדפן על מנת שעוגיות הסשן יימחקו יכולה להיות  פעולה מספיק מוקדמת.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;עוגיית סשן ... נמחקת כאשר אתה מסיים הסשן של הדפדפן. עוגיית הסשן מאוכסנת בזיכרון זמני ולא נשמרת לאחר שהדפדפן נסגר.&rdquo;<\/p><p>אלא שהדבר <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>יכול לא לקרות<\/a> בדפדפנים מסויימים. כמו כן, לחלק, הפעולה של לסגור את הדפדפן על מנת שעוגיות הסשן יימחקו יכולה להיות  פעולה מספיק מוקדמת.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -388,7 +388,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"כרומיום: בקשות מאחורי הקלעים",
+    "message":"בקשות מאחורי-הקלעים",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -452,7 +452,7 @@
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"עדכון אחרון: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
@@ -568,43 +568,43 @@
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"ביטוי(י) פילטור",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"מחליף את ה user agent שלך ב: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"עוגייה נמחקה: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"browser cache cleared",
+    "message":"זיכרון מטמון נמחק",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"נכשל במחיקת העוגייה: {{value}}",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"הנכס עודכן: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix מנע מהעמוד הבא מלהיטען:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"בגלל החוק הבא",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"חזור",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"סגור",
     "description":"English: Close"
   },
   "commandRevertAll":{
@@ -624,35 +624,35 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"לפני דקה",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"לפני {{value}} דקות",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"לפני שעה",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"לפני {{value}} שעות",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"לפני יום",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"לפני {{value}} ימים",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"פאנל הקונפיגורציות",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"מתעד",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{

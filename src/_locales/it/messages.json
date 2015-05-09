@@ -96,7 +96,7 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"Hostname in blacklist",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -116,11 +116,11 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to request log",
+    "message":"Vai al log delle richieste",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Vai al pannello di controllo",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -152,7 +152,7 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"Cache del browser pulite: ",
     "description":""
   },
   "statsPageDetailedStats":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Behind the scene",
+    "message":"Dietro la scena",
     "description":""
   },
   "statsPageOverview":{

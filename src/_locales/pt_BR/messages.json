@@ -1,14 +1,14 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
-    "message":"Apontar\/clicar para proibir\/permitir quaisquer pedidos feitos por seu navegador. Bloqueia scripts, iframes, anúncios, Facebook, etc.",
+    "message":"Apontar\/clicar para proibir\/permitir quaisquer pedidos feitos pelo seu navegador. Bloqueia scripts, iframes, anúncios, Facebook, etc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Painel",
+    "message":"uMatrix — Painel",
     "description":""
   },
   "settingsPageName":{
@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Desativar\/Ativar filtragem pela matrix para este escopo.\nPedidos bloqueados através da filtragem pela matrix nesta página: {{count}}.",
+    "message":"Desativar\/Ativar filtragem pela matriz para este escopo.\nPedidos bloqueados através da filtragem pela matriz nesta página: {{count}}.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -100,7 +100,7 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"HTTPS Estrito",
+    "message":"HTTPS rigoroso",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
@@ -124,7 +124,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Estatísticas",
+    "message":"uMatrix &ndash; Estatísticas",
     "description":""
   },
   "statsPageGenericStats":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: Por trás da cena",
+    "message":"Por trás das cenas",
     "description":""
   },
   "statsPageOverview":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p> Você pode inspecionar os detalhes das mais recentes solicitações HTTP matérias que têm sido feitas por uma página web (veja abaixo). <\/p><p> Isto é útil para usuários avançados que querem investigar exatamente o que uma página da web tem vindo a fazer. Mas registrando essas solicitações HTTP requer memória, e se você não se preocupam com esta informação técnica, a memória está sendo desperdiçado. <\/p><p> Por isso, neste domínio, que permite ajustar o número máximo dos mais recentes solicitações HTTP que deve ser registada para inspeção adicional <\/p><p> Digite &ldquo;.<code>0<\/code>&rdquo; para desativar o log detalhado (e, consequentemente, reduzir o consumo de memória de <i>μMatrix<\/i>).<\/p>",
+    "message":"<p> Você pode inspecionar os detalhes das mais recentes solicitações HTTP matérias que têm sido feitas por uma página web (veja abaixo). <\/p><p> Isto é útil para usuários avançados que querem investigar exatamente o que uma página da web tem vindo a fazer. Mas registrando essas solicitações HTTP requer memória, e se você não se preocupam com esta informação técnica, a memória está sendo desperdiçado. <\/p><p> Por isso, neste domínio, que permite ajustar o número máximo dos mais recentes solicitações HTTP que deve ser registada para inspeção adicional <\/p><p> Digite &ldquo;.<code>0<\/code>&rdquo; para desativar o log detalhado (e, consequentemente, reduzir o consumo de memória de <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Configurações",
+    "message":"uMatrix &ndash; Definições",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -272,7 +272,7 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Quando a matrix é fechada, recarregue inteligentemente essas abas:",
+    "message":"Quando a matriz é fechada, recarregue inteligentemente essas abas:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
@@ -288,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Sempre que você fizer mudanças na matrix que podem afetar a visualização e\/ou comportamento de uma ou mais páginas, <i>µMatrix<\/i> recarregará páginas afetadas automaticamente quando você fechar a matrix.",
+    "message":"Sempre que você fizer mudanças na matriz que podem afetar a visualização e\/ou comportamento de uma ou mais páginas, <i>uMatrix<\/i> recarregará páginas afetadas automaticamente quando você fechar a matriz.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -300,15 +300,15 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Exibir o número de pedidos distintos sob o ícone",
+    "message":"Mostrar o número de pedidos distintos sob o ícone",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Agrupar espaço reservado de elementos bloqueados",
+    "message":"Colapsar espaço reservado de elementos bloqueados",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Privacidade",
+    "message":"uMatrix &ndash; Privacidade",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Cookies na lista negra não são impedidos pelo <i>µMatrix<\/i> de entrar em seu navegador. No entanto, eles estão impedidos de ficar no seu navegador, que é o que realmente importa. Não bloquear os cookies antes de introduzir o seu navegador lhe dá a oportunidade de ser informado de que um site tentou usar cookies, e além disso, para inspecionar o seu conteúdo, se desejar.<\/p><p>Uma vez que esses cookies lista negra foram contabilizados por <i>µMatrix<\/i>, eles podem ser removidos do seu navegador, se assim o desejar.<\/p><p><b>Nota importante:<\/b> As extensões podem fazer solicitações da web durante o curso de sua operação normal. Estes pedidos podem resultar em cookies que está sendo criado no navegador. Se o nome da máquina a partir de onde se originam um biscoito não está na lista branca, o cookie será removido a partir do navegador pelo <i>µMatrix<\/i> se esta opção estiver marcada. Então não se esqueça que o nome da máquina (s) com que uma extensão comunicar está na lista branca.<\/p>",
+    "message":"<p>Cookies na lista negra não são impedidos pelo <i>uMatrix<\/i> de entrar em seu navegador. No entanto, eles estão impedidos de ficar no seu navegador, que é o que realmente importa. Não bloquear os cookies antes de introduzir o seu navegador lhe dá a oportunidade de ser informado de que um site tentou usar cookies, e além disso, para inspecionar o seu conteúdo, se desejar.<\/p><p>Uma vez que esses cookies lista negra foram contabilizados por <i>uMatrix<\/i>, eles podem ser removidos do seu navegador, se assim o desejar.<\/p><p><b>Nota importante:<\/b> As extensões podem fazer solicitações da web durante o curso de sua operação normal. Estes pedidos podem resultar em cookies que está sendo criado no navegador. Se o nome da máquina a partir de onde se originam um biscoito não está na lista branca, o cookie será removido a partir do navegador pelo <i>uMatrix<\/i> se esta opção estiver marcada. Então não se esqueça que o nome da máquina (s) com que uma extensão comunicar está na lista branca.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -348,7 +348,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Alguns sites são realmente empenhados no seu rastreamento, tanto que eles vão usar truques não tão agradáveis ​​para contornar as medidas de tomar, a fim de não ser rastreado.<\/p><p>Alguns desses truques é usar<sup style='font-size:smaller'>[1, 2]<\/sup> no <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>cache do navegador<\/a>, que o conteúdo é muitas vezes de longa duração já que raramente os usuários irão perder seu tempo para limpar regularmente o cache de seu navegador.<\/p><p>Há pouco inconveniente em limpar o cache do navegador regularmente (mais provável é que você não vai notar quando isso acontece), e o benefício é para evitar que esses rastreadores detestáveis ​​de invadir a sua privacidade.<\/p><p>Marque esta opção para o <i>µMatrix<\/i> fazer isso por você, no intervalo que você desejar.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Alguns sites são realmente empenhados no seu rastreamento, tanto que eles vão usar truques não tão agradáveis ​​para contornar as medidas de tomar, a fim de não ser rastreado.<\/p><p>Alguns desses truques é usar<sup style='font-size:smaller'>[1, 2]<\/sup> no <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>cache do navegador<\/a>, que o conteúdo é muitas vezes de longa duração já que raramente os usuários irão perder seu tempo para limpar regularmente o cache de seu navegador.<\/p><p>Há pouco inconveniente em limpar o cache do navegador regularmente (mais provável é que você não vai notar quando isso acontece), e o benefício é para evitar que esses rastreadores detestáveis ​​de invadir a sua privacidade.<\/p><p>Marque esta opção para o <i>uMatrix<\/i> fazer isso por você, no intervalo que você desejar.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -356,11 +356,11 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Da Wikipedia: &ldquo;HTTP Referer é um campo de cabeçalho HTTP que identifica o endereço da página que ligado ao recurso que está sendo solicitado. ... <b>Porque a informação do  referer pode violar a privacidade, alguns navegadores da Web permitem que o usuário desativar o envio de informações do referer.<\/b>&rdquo;<\/p><p>Se essa configuração for selecionada, <i>µMatrix<\/i> irá remover as informações HTTP referer se <b>ambas <\/b> das seguintes condições forem verdadeiras:<ul style='padding-left:1em;list-style-type:disc;'><li>O nome de domínio do HTTP referer não corresponde ao nome de domínio do URL do pedido (ou seja, o referer é de terceiros para a página da web);<li>O nome do host do pedido não está na lista branca.<\/ul><\/p>",
+    "message":"<p>Do Wikipedia: &ldquo;HTTP Referer é um campo de cabeçalho HTTP que identifica o endereço da página que ligado ao recurso que está sendo solicitado. ... <b>Porque a informação do  referer pode violar a privacidade, alguns navegadores da Web permitem que o usuário desativar o envio de informações do referer.<\/b>&rdquo;<\/p><p>Se essa configuração for selecionada, <i>uMatrix<\/i> irá remover as informações HTTP referer se <b>ambas <\/b> das seguintes condições forem verdadeiras:<ul style='padding-left:1em;list-style-type:disc;'><li>O nome de domínio do HTTP referer não corresponde ao nome de domínio do URL do pedido (ou seja, o referer é de terceiros para a página da web);<li>O nome do host do pedido não está na lista branca.<\/ul><\/p>",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"HTTPS Estrito: proibir conteúdo misto.",
+    "message":"HTTPS rigoroso: proíbir conteúdo misto.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -388,11 +388,11 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: pedidos por trás das cenas",
+    "message":"Pedidos por trás das cenas",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>De acordo com <a href='https:\/\/www.google.com\/intl\/pt-BR\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Privacy Whitepaper<\/a>, <i>Chromium<\/i> pode enviar pedidos  HTTP para <i>Google<\/i> sem que o usuário esteja expressamente visitando uma página de web. Vamos chamar esses pedidos especiais de pedidos <strong>por trás da cena<\/strong>. Também, outras extensões instaladas no navegados podem enviar pedidos HTTP <strong>por trás da cena<\/strong>.<\/p><p><i>µMatrix<\/i> deixa você interceptar e cuidar desse pedidos como qualquer outro pedido: eles podem ser processados em ordem de permitir\/bloquear eles com sua lista branca\/negra.<\/p><p>Clique no ícone da extensão enquanto vendo esta página ao iniciar. Leitura requerida: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Pedidos por trás da cena<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Cuidado!<\/span> Bloqueando pedidos de rede <strong>por trás da cena<\/strong> é pontencialmente causador <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>de um problema<\/a> quando o usuário quiser instalar uma extensão da loja do Chrome (incluindo as atualizações de outras extensões), portanto, a capacidade de desativar o recurso aqui. O bloqueio também pode causar outras extensões instaladas não funcionem corretamente (aqueles consulta de dados remoto).<\/p><p>Mesmo que este recurso não está habilitado, os pedidos <strong>por trás da cena<\/strong> ainda são registradas pelo <i>µMatrix<\/i>. Você pode inspecionar estes pedidos nas <a href='dashboard.html#statistics'> estatísticas<\/a> da página.<\/p>",
+    "message":"",
     "description":""
   },
   "userRulesPermanentHeader":{
@@ -436,7 +436,7 @@
     "description":""
   },
   "userRulesDefaultFileName":{
-    "message":"minhas-regras-umatrix.txt",
+    "message":"my-umatrix-rules.txt",
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
@@ -540,7 +540,7 @@
     "description":""
   },
   "aboutBackupFilename":{
-    "message":"meu-backup-umatrix.txt",
+    "message":"my-umatrix-backup.txt",
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
@@ -548,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Todas as suas configurações irão ser sobrescritas pelos dados salvos em {{time}}, e o µMatrix irá reiniciar.\n\nSubstituir todas as configurações existentes usando dados de backup?",
+    "message":"Todas as suas definições irão ser sobrescritas pelos dados salvos em {{time}}, e o uMatrix irá reiniciar.\n\nSubstituir todas a configuração atual usando dados de backup?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -572,7 +572,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"disfarçar user agent com: {{value}}",
+    "message":"falsificando user agent com: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
@@ -580,7 +580,7 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"cache do navegador limpo",
+    "message":"cache do navegador limpa",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
@@ -588,7 +588,7 @@
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"ativo atualizado: {{value}}",
+    "message":"recurso atualizado: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
@@ -596,7 +596,7 @@
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Por causa da regra a seguir",
+    "message":"Devido à seguinte regra",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
@@ -624,35 +624,35 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"um minuto atrás",
+    "message":"há um minuto atrás",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutos atrás",
+    "message":"há {{value}} minuto(s) atrás",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"uma hora atrás",
+    "message":"há uma hora atrás",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} horas atrás",
+    "message":"há {{value}} hora(s) atrás",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"um dia atrás",
+    "message":"há um dia atrás",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} dias atrás",
+    "message":"há {{value}} dia(s) atrás",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Painel",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Registro",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{

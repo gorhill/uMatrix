@@ -1,12 +1,12 @@
 Uma firewall point & click baseada numa matriz, com funcionalidade para reforçar a privacidade de cada um. Para utilizadores avançados.
 
-µMatrix coloca-o no controlo de onde o seu browser se pode conectar, que tipo de dados podem ser transferidos, e o que pode ser executado. Mais ninguém decide por si: Você escolhe. Você tem controlo total sob a sua privacidade.
+uMatrix coloca-o no controlo de onde o seu browser se pode conectar, que tipo de dados podem ser transferidos, e o que pode ser executado. Ninguém decide por si: Você escolhe. Você tem controlo total sob a sua privacidade.
 
-Fora da caixa, µMatrix funciona numa configuração relaxada bloqueia-tudo/permite-excepcionalmente, o que quer dizer que web sites que requiram scripts de terceiros estão provávelmente "disfuncionais". Com dois clicks, o µMatrix pode ser configurado para funcionar no modo permite-tudo/bloqueia-excepcionalmente, que geralmente não estraga web sites. Ver https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views para mais detalhes sobre este tópico.
+Fora da caixa, uMatrix funciona numa configuração relaxada "bloqueia-tudo/permite-excepcionalmente", o que quer dizer que web sites que necessitem scripts de terceiros poderão não estar funcionais. Com dois clicks, o uMatrix pode ser configurado para funcionar em modo "permite-tudo/bloqueia-excepcionalmente", o que geralmente não cria problemas em nenhuma página web. Ver https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views para mais detalhes sobre este tópico.
 
-Acerca do mito que "browser baseados em Chromium não conseguem bloquear JavaScript fielmente", ver: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Sumário: Sim, JavaScript pode ser bloqueado fielmente no Chromium.
+Sobre do mito que "browser baseados em Chromium não conseguem bloquear JavaScript fielmente", ver: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Sumário: Sim, JavaScript pode ser bloqueado com seguração no Chromium.
 
-* Ver TODAS as conexões remotas, falhadas ou tentativas, dependendo se foram bloqueadas ou permitidas (você decide).
+* Ver TODAS as conexões remotas, falhadas ou tentadas, dependendo se foram bloqueadas ou permitidas (você decide).
 
 * Um único-clique para meter múltiplas classes de pedidos na lista branca/negra, de acordo com o destino e tipo dos dados (um pedido bloqueado NUNCA vai sair do seu browser).
 
@@ -14,7 +14,7 @@ Acerca do mito que "browser baseados em Chromium não conseguem bloquear JavaScr
 
 * Você não tem de depender unicamente numa lista negra em particular (possivelmente a faltar entradas) fora do qual mais nada pode ser bloqueado: Você está em controlo total.
 
-* Facilidade de utilização: µMatrix deixa-o adicionar pedidos net que originam de uma página web a uma lista negra/branca, recorrendo a uma matriz point & click:
+* Facilidade de utilização: uMatrix deixa-o adicionar pedidos net que originam de uma página web a uma lista negra/branca, recorrendo a uma matriz point & click:
 
 - nomes de domínio (coluna esquerda)
   * de muito específico
@@ -32,9 +32,9 @@ Acerca do mito que "browser baseados em Chromium não conseguem bloquear JavaScr
 
 Pode adicionar uma única célula à lista negra/branca, um grupo de linhas, uma coluna inteira, ou toda a matriz, com apenas um clique.
 
-O mecanismo de filtragem do µMatrix usa lógica de precedência para avaliar o que é permitido/está bloqueado, de acordo com as células que estão na lista negra/branca. Por exemplo, isto permite que adicione uma página inteira à lista branca com um só clique, sem ter que adicionar elementos à mesma, à medida que vão aparecendo.
+O mecanismo de filtragem do uMatrix usa lógica de precedência para avaliar o que é permitido/está bloqueado, de acordo com as células que estão na lista negra/branca. Por exemplo, isto permite que adicione uma página inteira à lista branca com um só clique, sem ter que adicionar elementos à mesma, à medida que vão aparecendo.
 
-Todas as regras têm escopos. Por exemplo, pode bloquear 'facebook.com' e 'facebook.net' em todo o lado, excepto quando visita a página em 'www.facebook.com'. Desta maneira, o Facebook não será capaz de criar um perfil com os seus hábitos de browsing pessoais.
+Todas as regras têm escopos. Por exemplo, pode bloquear 'facebook.com' e 'facebook.net' em todo o lado, excepto quando visita a página em 'www.facebook.com'. Desta maneira, o Facebook não será capaz de criar um perfil com os seus hábitos de navegação pessoais.
 
 O objectivo desta extensão é tornar o acto de permitir ou proibir web sites, total ou parcialmente, o mais directo possível, para encorajar os utilizadores a se preocuparem com a sua privacidade.
 
@@ -48,7 +48,7 @@ Fundamentalmente, pode escolher como navegar na internet:
 
 De qualquer modo, vai sempre beneficiar das listas negras presentes, para que tenha sempre protecção básica contra trackers, sites de malware, etc. Ou pode desactivar todas as listas negras.
 
-A sua escolha.
+A escolha é sua.
 
 Documentação aleatória: https://github.com/gorhill/uMatrix/wiki
 
@@ -56,7 +56,7 @@ Documentação aleatória: https://github.com/gorhill/uMatrix/wiki
 
 FEEDBACK:
 
-Qualquer questão ou problema que possa ter, use o botão "Send Feedback" à direito, para que possa responder rapidamente. Não posso responder directamente a comentários, mas não poderia estar mais contente por lhe responder directamente na secção de feedback.
+Qualquer questão ou problema que possa ter, use o botão "Send Feedback" à direita, para que possa responder rapidamente. Não posso responder directamente a comentários, mas não poderia estar mais contente por lhe responder directamente na secção de feedback.
 
 =====
 
@@ -64,9 +64,9 @@ ERROS, PROBLEMAS, SUGESTÕES:
 
 https://github.com/gorhill/uMatrix/issues
 
-É muito bem vindo a contribuir com a sua opinião em questões em aberto e a dar sugestões, argumentas para/contra ajudar-me a decidir o que é preciso para melhorar a extensão.
+É muito bem vindo a contribuir com a sua opinião em questões em aberto, e a dar sugestões, argumentos para me ajudar a decidir o que é preciso para melhorar a extensão.
 
-Facilidade de uso é o objectivo principal. Já vi utilizadores desistir de usar o NoScript do Firefox porque requere configuração excessiva, portanto, em vez de os culpar por hábitos de segurança pobres, prefiro culpar os developers, e este projecto é uma tentativa a adereçar problemas que causam alguns a desistir de segurança básica.
+Facilidade de uso é o objectivo principal. Já vi utilizadores desistir de usar o NoScript do Firefox porque requer configuração excessiva, portanto, em vez de os culpar por hábitos de segurança pobres, prefiro culpar os developers, e este projecto é uma tentativa a adereçar problemas que causam alguns a desistir de segurança básica.
 
 Esta extensão é também útil para entender o que a página web no seu browser está a fazer, por vezes sem o seu conhecimento. Tem o poder de ver e decidir com quem é que a página web comunica, e restringir essas comunicações a uma classe específica de objectos na mesma página.
 
@@ -82,7 +82,7 @@ Quadrado verde = completamente na lista branca, i.e. pedidos são permitidos e c
 * Quadrado verde escuro: o nome do domínio e/ou tipo de pedido está especificamente na lista branca.
 * Quadrado verde esbranquiçado: o estatuto de lista branca foi herdado, porque a entrada está na lista cinzenta.
 
-A célula de topo à esquerda na matriz, a célula "all", representa a definição global, que permite escolher se quer permitir ou bloquear tudo, como o comportamento normal. Alguns preferem permitir tudo e bloquear excepcionalmente. A minha preferência pessoal é o oposto, bloquear tudo e permitir excepcionalmente.
+A célula de topo à esquerda na matriz, a célula "all", representa a definição global, que permite escolher se quer permitir ou bloquear tudo, como o comportamento normal. Alguns preferem permitir tudo e bloquear excepcionalmente. A minha preferência pessoal é o oposto -- bloquear tudo e permitir excepcionalmente.
 
 Esta extensão é também útil caso queira acelerar a velocidade do carregamento das páginas, bloqueando todos os pedidos para imagens, por exemplo.
 

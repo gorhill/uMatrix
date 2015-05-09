@@ -1,6 +1,6 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Kontrol Paneli",
+    "message":"uMatrix — Kontrol Paneli",
     "description":""
   },
   "settingsPageName":{
@@ -84,7 +84,7 @@
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Bu kapsam için geçici değişiklikleri kaldır.",
+    "message":"Bu kapsam için geçici değişiklikleri geri al.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
@@ -124,7 +124,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; İstatistikleri",
+    "message":"uMatrix &ndash; İstatistikleri",
     "description":""
   },
   "statsPageGenericStats":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: Perde arkası",
+    "message":"Perde arkası",
     "description":""
   },
   "statsPageOverview":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Bir web sayfası tarafından en son yapılan işlenmemiş HTTP isteklerinin ayrıntılarını denetleyebilirsiniz (aşağıya bakın).<\/p><p>Bu en çok ileri düzey kullanıcıların bir web sayfasının tam olarak ne yaptığını incelemerinde kullanışlı olur. Fakat bu HTTP istek günlüklüklerinin tutulması bellek kullanımı arttırır ve bu teknik bilgiye ihtiyacınız yoksa bellek boşa kullanılmış olur.<\/p><p>Bundan dolayı en fazla günlüğü tutulacak HTTP istek sayısını bu alandan ayarlayabilirsiniz.<\/p><p>&ldquo;<code>0<\/code>&rdquo; girerek ayrıntılı günlük tutulmasını kapatabilirsiniz (ve netice olarak <i>µMatrix'in<\/i> bellek kullanımını düşürürsünüz).<\/p>",
+    "message":"<p>Bir web sayfası tarafından en son yapılan işlenmemiş HTTP isteklerinin ayrıntılarını denetleyebilirsiniz (aşağıya bakın).<\/p><p>Bu en çok ileri düzey kullanıcıların bir web sayfasının tam olarak ne yaptığını incelemerinde kullanışlı olur. Fakat bu HTTP istek günlüklüklerinin tutulması bellek kullanımı arttırır ve bu teknik bilgiye ihtiyacınız yoksa bellek boşa kullanılmış olur.<\/p><p>Bundan dolayı en fazla günlüğü tutulacak HTTP istek sayısını bu alandan ayarlayabilirsiniz.<\/p><p>&ldquo;<code>0<\/code>&rdquo; girerek ayrıntılı günlük tutulmasını kapatabilirsiniz (ve netice olarak <i>uMatrix'in<\/i> bellek kullanımını düşürürsünüz).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Ayarları",
+    "message":"uMatrix &ndash; Ayarları",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -288,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Matristen sayfa görünümünü ve\/veya davranışını etkileyebilecek değişiklikler yaptığınızda, <i>µMatrix<\/i> bunlardan etkilenen sayfaları matris kapatıldığında otomatik olarak yeniden yükleyecektir.",
+    "message":"Matristen sayfa görünümünü ve\/veya davranışını etkileyebilecek değişiklikler yaptığınızda, <i>uMatrix<\/i> bunlardan etkilenen sayfaları matris kapatıldığında otomatik olarak yeniden yükleyecektir.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Gizlilik",
+    "message":"uMatrix &ndash; Gizlilik",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Kara listelenmiş çerezlerin tarayıcınıza girmesi <i>µMatrix<\/i> tarafından önlenmez. Ancak tarayıcınızdan çıkışları önlenir, önemli olan da budur. Çerezlerin tarayıcınıza girişi önlenmeyerek sitenin çerez kullanımı hakkında bilgi sahibi olma fırsatını elde edersiniz ve üstelik dilerseniz içeriklerini de denetleyebilirsiniz.<\/p><p>Bu engellenmiş çerezler bir kere <i>µMatrix<\/i> tarafından raporlandıktan sonra eğer isterseniz tabi tarayıcınızdan kaldırılabilir.<\/p><p><b>Önemli not:<\/b> Eklentiler normal işleyişleri sırasında web isteği yapabilir. Bu istekler tarayıcınızda çerez oluşumuna neden olur. Bu seçenek işaretli ve çerezin geldiği alan adı beyaz listede değilse, bu çerez <i>µMatrix<\/i> tarafından tarayıcınızdan kaldırılacaktır. Bu yüzden eklentilerin iletişim kurduğu alan ad(lar)ının beyaz listede bulunduğundan emin olunuz.<\/p>",
+    "message":"<p>Kara listelenmiş çerezlerin tarayıcınıza girmesi <i>uMatrix<\/i> tarafından önlenmez. Ancak tarayıcınızdan çıkışları önlenir, önemli olan da budur. Çerezlerin tarayıcınıza girişi önlenmeyerek sitenin çerez kullanımı hakkında bilgi sahibi olma fırsatını elde edersiniz ve üstelik dilerseniz içeriklerini de denetleyebilirsiniz.<\/p><p>Bu engellenmiş çerezler bir kere <i>uMatrix<\/i> tarafından raporlandıktan sonra eğer isterseniz tabi tarayıcınızdan kaldırılabilir.<\/p><p><b>Önemli not:<\/b> Eklentiler normal işleyişleri sırasında web isteği yapabilir. Bu istekler tarayıcınızda çerez oluşumuna neden olur. Bu seçenek işaretli ve çerezin geldiği alan adı beyaz listede değilse, bu çerez <i>uMatrix<\/i> tarafından tarayıcınızdan kaldırılacaktır. Bu yüzden eklentilerin iletişim kurduğu alan ad(lar)ının beyaz listede bulunduğundan emin olunuz.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -328,7 +328,7 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Bir oturum çerezi ... tarayıcı oturumu sonlandığında silinir. Oturum çerezi geçici bellekte depolanır ve tarayıcı kapandıktan sonra muhafaza edilmez.&rdquo;<\/p><p>Chromium tabanlı bir tarayıcı kullanırken <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>bu durum gerçekleşmeyebilir.<\/a> Ayrıca, bazılarımız için, oturum çerezlerini temizlenmek için tarayıcının kapatılması yeteri kadar erken olmayabilir.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Bir oturum çerezi ... tarayıcı oturumu sonlandığında silinir. Oturum çerezi geçici bellekte depolanır ve tarayıcı kapandıktan sonra muhafaza edilmez.&rdquo;<\/p><p>Bazı tarayıcıları kullanırken <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>bu durum gerçekleşmeyebilir.<\/a> Ayrıca, bazılarımız için, oturum çerezlerinin temizlenmesi için tarayıcının kapatılması yeteri kadar erken olmayabilir.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -348,7 +348,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Bazı web siteleri sizi izlemekte çok kararlıdır, izlenmemek için aldığınız her ne önlem varsa bunları aşmak için hoş olmayan hileli yöntemler kullanıcaklardır.<\/p><p>Bu hilelerden bazıları <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tarayıcı önbelleği<\/a> <sup style='font-size:smaller'>[1, 2]<\/sup>'ye dayalıdır, kullanıcı düzenli olarak tarayıcısının geçmişini temizlemediği için içerik çok uzun süre tarayıcıda kalır.<\/p><p>Tarayıcı önbelleğini düzenli olarak temizlemek biraz zahmetlidir (temizlendiğinde farkına muhtemelen varmazsınız) ve faydası ise kötü izleyicilerin gizliliğinizi ihlal etmesinin önüne geçmiş olursunuz.<\/p><p>Bu seçeneği işaretleyerek belirli aralıklarla bu işlemi sizin yerinize <i>µMatrix<\/i> yapabilir.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Tarayıcı Önbelleği ile Web İzlemesini Önlemek&rdquo;<\/a><br>[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Çerezsiz çerezler&rdquo;<\/a><\/p>",
+    "message":"<p>Bazı web siteleri sizi izlemekte çok kararlıdır, izlenmemek için aldığınız her ne önlem varsa bunları aşmak için hoş olmayan hileli yöntemler kullanıcaklardır.<\/p><p>Bu hilelerden bazıları <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tarayıcı önbelleği<\/a> <sup style='font-size:smaller'>[1, 2]<\/sup>'ye dayalıdır, kullanıcı düzenli olarak tarayıcısının geçmişini temizlemediği için içerik çok uzun süre tarayıcıda kalır.<\/p><p>Tarayıcı önbelleğini düzenli olarak temizlemek biraz zahmetlidir (temizlendiğinde farkına muhtemelen varmazsınız) ve faydası ise kötü izleyicilerin gizliliğinizi ihlal etmesinin önüne geçmiş olursunuz.<\/p><p>Bu seçeneği işaretleyerek belirli aralıklarla bu işlemi sizin yerinize <i>uMatrix<\/i> yapabilir.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Tarayıcı Önbelleği ile Web İzlemesini Önlemek&rdquo;<\/a><br>[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Çerezsiz çerezler&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -356,7 +356,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Wikipedia'dan:<\/p><blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote><p>Bu ayar işaretliyse, <i>µMatrix<\/i> HTTP başvuran bilgisinin alan adı, istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
+    "message":"<p>Wikipedia'dan:<\/p><blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote><p>Bu ayar işaretliyse, <i>uMatrix<\/i> HTTP başvuran bilgisinin alan adı, istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -388,7 +388,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: perde arkası istekleri",
+    "message":"Perde arkası istekleri",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -548,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Tüm ayarlarınızın üzerine {{time}} zamanında alınan yedek yazılacak ve µMatrix yeniden başlatılacak.\n\nYedeklenmiş veri kullanılarak ayarlarınızın üzerine yazılsın mı?",
+    "message":"Tüm ayarlarınızın üzerine {{time}} zamanında alınan yedek yazılacak ve uMatrix yeniden başlatılacak.\n\nYedeklenmiş veri kullanılarak ayarlarınızın üzerine yazılsın mı?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -648,11 +648,11 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Kontrol Paneli",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Günlükçü",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
