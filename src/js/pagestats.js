@@ -334,8 +334,6 @@ PageStore.prototype.init = function(tabContext) {
     this.pageUrl = tabContext.normalURL;
     this.pageHostname = tabContext.rootHostname;
     this.pageDomain =  tabContext.rootDomain;
-    this.pageScriptBlocked = false;
-    this.thirdpartyScript = false;
     this.requests = µm.PageRequestStats.factory();
     this.domains = {};
     this.allHostnamesString = ' ';
@@ -392,11 +390,6 @@ PageStore.prototype.recordRequest = function(type, url, block) {
     }
 
     var hostname = µm.URI.hostnameFromURI(url);
-
-    // https://github.com/gorhill/httpswitchboard/issues/181
-    if ( type === 'script' && hostname !== this.pageHostname ) {
-        this.thirdpartyScript = true;
-    }
 
     this.distinctRequestCount++;
     this.mtxCountModifiedTime = Date.now();

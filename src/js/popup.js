@@ -1250,7 +1250,7 @@ var matrixSnapshotPoller = (function() {
         if ( timer !== null ) {
             return;
         }
-        timer = setTimeout(poll, 1414);
+        timer = vAPI.setTimeout(poll, 1414);
     };
 
     var unpollAsync = function() {

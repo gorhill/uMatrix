@@ -1353,7 +1353,7 @@ var scheduleUpdateDaemon = function() {
     if ( updateDaemonTimer !== null ) {
         clearTimeout(updateDaemonTimer);
     }
-    updateDaemonTimer = setTimeout(
+    updateDaemonTimer = vAPI.setTimeout(
         updateDaemon,
         exports.manualUpdate ? manualUpdateDaemonTimerPeriod : autoUpdateDaemonTimerPeriod
     );

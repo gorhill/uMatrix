@@ -242,7 +242,7 @@ var collapser = (function() {
             clearTimeout(timer);
             send();
         } else if ( timer === null ) {
-            timer = setTimeout(send, delay || 50);
+            timer = vAPI.setTimeout(send, delay || 50);
         }
     };
 
@@ -360,9 +360,9 @@ var collapser = (function() {
 /******************************************************************************/
 /******************************************************************************/
 
-var nodesAddedHandler = function(nodeList, summary) {
+var hasInlineScript = function(nodeList, summary) {
     var i = 0;
-    var node, src, text;
+    var node, text;
     while ( node = nodeList.item(i++) ) {
         if ( node.nodeType !== 1 ) {
             continue;
@@ -371,34 +371,28 @@ var nodesAddedHandler = function(nodeList, summary) {
             continue;
         }
 
-        switch ( node.localName ) {
-
-        case 'script':
+        if ( node.localName === 'script' ) {
             // https://github.com/gorhill/httpswitchboard/issues/252
             // Do not count uMatrix's own script tags, they are not required
             // to "unbreak" a web page
             if ( typeof node.id === 'string' && node.id.lastIndexOf('uMatrix-', 0) === 0 ) {
-                break;
+                continue;
             }
             text = node.textContent.trim();
-            if ( text !== '' ) {
-                summary.scriptSources['{inline_script}'] = true;
-                summary.mustReport = true;
+            if ( text === '' ) {
+                continue;
             }
-            src = (node.src || '').trim();
-            if ( src !== '' ) {
-                summary.scriptSources[src] = true;
-                summary.mustReport = true;
-            }
-            break;
-
-        case 'a':
-            if ( node.href.lastIndexOf('javascript', 0) === 0 ) {
-                summary.scriptSources['{inline_script}'] = true;
-                summary.mustReport = true;
-            }
+            summary.inlineScript = true;
             break;
         }
+
+        if ( node.localName === 'a' && node.href.lastIndexOf('javascript', 0) === 0 ) {
+            summary.inlineScript = true;
+            break;
+        }
+    }
+    if ( summary.inlineScript ) {
+        summary.mustReport = true;
     }
 };
 
@@ -412,11 +406,13 @@ var nodeListsAddedHandler = function(nodeLists) {
     var summary = {
         what: 'contentScriptSummary',
         locationURL: window.location.href,
-        scriptSources: {}, // to avoid duplicates
+        inlineScript: false,
         mustReport: false
     };
     while ( i-- ) {
-        nodesAddedHandler(nodeLists[i], summary);
+        if ( summary.inlineScript === false ) {
+            hasInlineScript(nodeLists[i], summary);
+        }
         collapser.addBranches(nodeLists[i]);
     }
     if ( summary.mustReport ) {
@@ -434,14 +430,14 @@ var nodeListsAddedHandler = function(nodeLists) {
     var summary = {
         what: 'contentScriptSummary',
         locationURL: window.location.href,
-        scriptSources: {}, // to avoid duplicates
+        inlineScript: false,
         mustReport: true
     };
     // https://github.com/gorhill/httpswitchboard/issues/25
     // &
     // Looks for inline javascript also in at least one a[href] element.
     // https://github.com/gorhill/httpswitchboard/issues/131
-    nodesAddedHandler(document.querySelectorAll('a[href^="javascript:"],script'), summary);
+    hasInlineScript(document.querySelectorAll('a[href^="javascript:"],script'), summary);
 
     //console.debug('contentscript-end.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
 
@@ -484,7 +480,7 @@ var nodeListsAddedHandler = function(nodeLists) {
         // nodes too often and the delay of many nodes less often. There is nothing
         // time critical here.
         if ( addedNodeListsTimer === null ) {
-            addedNodeListsTimer = setTimeout(treeMutationObservedHandler, 250);
+            addedNodeListsTimer = vAPI.setTimeout(treeMutationObservedHandler, 250);
         }
     };
 

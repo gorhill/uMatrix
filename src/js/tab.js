@@ -181,7 +181,7 @@ housekeep itself.
 
     TabContext.prototype.onTab = function(tab) {
         if ( tab ) {
-            this.timer = setTimeout(this.onTimerCallback, gcPeriod);
+            this.timer = vAPI.setTimeout(this.onTimerCallback, gcPeriod);
         } else {
             this.destroy();
         }
@@ -204,7 +204,7 @@ housekeep itself.
         }
         this.onTabCallback = this.onTab.bind(this);
         this.onTimerCallback = this.onTimer.bind(this);
-        this.timer = setTimeout(this.onTimerCallback, gcPeriod);
+        this.timer = vAPI.setTimeout(this.onTimerCallback, gcPeriod);
     };
 
     // Update just force all properties to be updated to match the most current
@@ -531,7 +531,7 @@ vAPI.tabs.registerListeners();
     var pageURL = pageStore.pageUrl;
     pageStoreCrypt[pageURL] = pageStore;
 
-    pageStore.incinerationTimer = setTimeout(
+    pageStore.incinerationTimer = vAPI.setTimeout(
         this.incineratePageStore.bind(this, tabId, pageURL),
         4 * 60 * 1000
     );
@@ -616,24 +616,6 @@ vAPI.tabs.registerListeners();
 
 /******************************************************************************/
 
-µm.onPageLoadCompleted = function(tabId) {
-    var pageStore = this.pageStoreFromTabId(tabId);
-    if ( pageStore === null ) {
-        return;
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/181
-    if ( pageStore.thirdpartyScript ) {
-        pageStore.recordRequest(
-            'script',
-            pageStore.pageUrl + '{3rd-party_scripts}',
-            pageStore.pageScriptBlocked
-        );
-    }
-};
-
-/******************************************************************************/
-
 µm.forceReload = function(tabId) {
     vAPI.tabs.reload(tabId, { bypassCache: true });
 };
@@ -672,10 +654,10 @@ vAPI.tabs.registerListeners();
         }
         cleanupSampleAt = n;
 
-        setTimeout(cleanup, cleanupPeriod);
+        vAPI.setTimeout(cleanup, cleanupPeriod);
     };
 
-    setTimeout(cleanup, cleanupPeriod);
+    vAPI.setTimeout(cleanup, cleanupPeriod);
 })();
 
 /******************************************************************************/

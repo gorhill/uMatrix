@@ -743,7 +743,7 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
     );
 
     if ( typeof callback === 'function' ) {
-        setTimeout(callback, 13);
+        vAPI.setTimeout(callback, 13);
     }
 };
 
@@ -1434,7 +1434,7 @@ vAPI.toolbarButton.init = function() {
             }
 
             // Anonymous elements need some time to be reachable
-            setTimeout(this.updateBadgeStyle, 250);
+            vAPI.setTimeout(this.updateBadgeStyle, 250);
         }.bind(this.CUIEvents);
         this.CUIEvents.onCustomizeEnd = updateBadge;
         this.CUIEvents.onWidgetUnderflow = updateBadge;
@@ -1465,7 +1465,7 @@ vAPI.toolbarButton.init = function() {
 
         this.onCreated = function(button) {
             button.setAttribute('badge', '');
-            setTimeout(updateBadge, 250);
+            vAPI.setTimeout(updateBadge, 250);
         };
 
         CustomizableUI.addListener(this.CUIEvents);
@@ -1531,7 +1531,7 @@ vAPI.toolbarButton.onBeforeCreated = function(doc) {
         if ( updateTimer ) {
             return;
         }
-        updateTimer = setTimeout(resizePopup, 10);
+        updateTimer = vAPI.setTimeout(resizePopup, 10);
     };
     var resizePopup = function() {
         updateTimer = null;
@@ -1870,8 +1870,7 @@ vAPI.browserData = {};
 
 /******************************************************************************/
 
-// https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICacheService
-// https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsICache
+// https://developer.mozilla.org/en-US/docs/HTTP_Cache
 
 vAPI.browserData.clearCache = function(callback) {
     // PURGE_DISK_DATA_ONLY:1
@@ -1957,7 +1956,7 @@ vAPI.cookies.getAll = function(callback) {
         }
         callback(out);
     };
-    setTimeout(onAsync.bind(this), 0);
+    vAPI.setTimeout(onAsync.bind(this), 0);
 };
 
 /******************************************************************************/

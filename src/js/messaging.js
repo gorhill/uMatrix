@@ -393,37 +393,28 @@ var contentScriptSummaryHandler = function(tabId, details) {
     if ( !details || !details.locationURL ) {
         return;
     }
+    if ( details.inlineScript !== true ) {
+        return;
+    }
+
+    // scripts
+    // https://github.com/gorhill/httpswitchboard/issues/25
     var pageStore = µm.pageStoreFromTabId(tabId);
-    var pageURL = pageStore.pageUrl;
+    if ( pageStore === null ) {
+        return;
+    }
+
     var pageHostname = pageStore.pageHostname;
     var µmuri = µm.URI.set(details.locationURL);
     var frameURL = µmuri.normalizedURI();
     var frameHostname = µmuri.hostname;
-    var urls, url, r;
 
     // https://github.com/gorhill/httpswitchboard/issues/333
     // Look-up here whether inline scripting is blocked for the frame.
     var inlineScriptBlocked = µm.mustBlock(pageHostname, frameHostname, 'script');
-
-    // scripts
-    // https://github.com/gorhill/httpswitchboard/issues/25
-    if ( pageStore && inlineScriptBlocked ) {
-        urls = details.scriptSources;
-        for ( url in urls ) {
-            if ( !urls.hasOwnProperty(url) ) {
-                continue;
-            }
-            if ( url === '{inline_script}' ) {
-                url = frameURL + '{inline_script}';
-            }
-            r = µm.filterRequest(pageURL, 'script', url);
-            pageStore.recordRequest('script', url, r !== false);
-            µm.logger.writeOne(tabId, 'net', pageHostname, url, 'script', r);
-        }
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/181
-    µm.onPageLoadCompleted(tabId);
+    var url = frameURL + '{inline_script}';
+    pageStore.recordRequest('script', url, inlineScriptBlocked);
+    µm.logger.writeOne(tabId, 'net', pageHostname, url, 'script', inlineScriptBlocked);
 };
 
 /******************************************************************************/
@@ -788,79 +779,6 @@ var onMessage = function(request, sender, callback) {
 };
 
 vAPI.messaging.listen('hosts-files.js', onMessage);
-
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// info.js
-
-(function() {
-
-var µm = µMatrix;
-
-/******************************************************************************/
-
-var getTabURLs = function() {
-    var pageURLs = [];
-    var pageStores = µm.pageStores;
-
-    for ( var tabId in pageStores ) {
-        if ( pageStores.hasOwnProperty(tabId) === false ) {
-            continue;
-        }
-        pageURLs.push({
-            tabId: tabId,
-            pageURL: pageStores[tabId].pageUrl
-        });
-    }
-
-    return {
-        pageURLs: pageURLs,
-        behindTheSceneURL: µm.behindTheSceneURL
-    };
-};
-
-/******************************************************************************/
-
-var onMessage = function(request, sender, callback) {
-    // Async
-    switch ( request.what ) {
-    default:
-        break;
-    }
-
-    // Sync
-    var response;
-
-    switch ( request.what ) {
-    case 'getPageURLs':
-        response = getTabURLs();
-        break;
-
-    case 'getStats':
-        var pageStore = µm.pageStores[request.tabId];
-        response = {
-            globalNetStats: µm.requestStats,
-            pageNetStats: pageStore ? pageStore.requestStats : null,
-            cookieHeaderFoiledCounter: µm.cookieHeaderFoiledCounter,
-            refererHeaderFoiledCounter: µm.refererHeaderFoiledCounter,
-            hyperlinkAuditingFoiledCounter: µm.hyperlinkAuditingFoiledCounter,
-            cookieRemovedCounter: µm.cookieRemovedCounter,
-            localStorageRemovedCounter: µm.localStorageRemovedCounter,
-            browserCacheClearedCounter: µm.browserCacheClearedCounter
-        };
-        break;
-
-    default:
-        return vAPI.messaging.UNHANDLED;
-    }
-
-    callback(response);
-};
-
-vAPI.messaging.listen('info.js', onMessage);
 
 })();
 

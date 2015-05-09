@@ -256,32 +256,23 @@ var onHeadersReceived = function(details) {
     // console.debug('onHeadersReceived()> "%s": %o', details.url, details);
 
     // Ignore schemes other than 'http...'
-    if ( details.url.lastIndexOf('http', 0) !== 0 ) {
+    var requestURL = details.url;
+    if ( requestURL.lastIndexOf('http', 0) !== 0 ) {
         return;
     }
 
-    var requestType = requestTypeNormalizer[details.type] || 'other';
-    if ( requestType === 'frame' ) {
-        return onSubDocHeadersReceived(details);
-    }
-    if ( requestType === 'doc' ) {
-        return onMainDocHeadersReceived(details);
-    }
-};
-
-/******************************************************************************/
-
-var onMainDocHeadersReceived = function(details) {
     var µm = µMatrix;
     var tabId = details.tabId;
-    var requestURL = details.url;
+    var requestType = requestTypeNormalizer[details.type] || 'other';
 
     // https://github.com/gorhill/uMatrix/issues/145
     // Check if the main_frame is a download
-    if ( headerValue(details.responseHeaders, 'content-type').lastIndexOf('application/x-', 0) === 0 ) {
-        µm.tabContextManager.unpush(tabId, requestURL);
-    } else {
-        µm.tabContextManager.push(tabId, requestURL);
+    if ( requestType === 'doc' ) {
+        if ( headerValue(details.responseHeaders, 'content-type').lastIndexOf('application/x-', 0) === 0 ) {
+            µm.tabContextManager.unpush(tabId, requestURL);
+        } else {
+            µm.tabContextManager.push(tabId, requestURL);
+        }
     }
 
     var tabContext = µm.tabContextManager.lookup(tabId);
@@ -289,80 +280,17 @@ var onMainDocHeadersReceived = function(details) {
         return;
     }
 
-    // console.debug('onMainDocHeadersReceived()> "%s": %o', requestURL, details);
-
-    var rootHostname = tabContext.rootHostname;
-    var blockScript = µm.mustBlock(rootHostname, rootHostname, 'script');
-
-    // https://github.com/gorhill/httpswitchboard/issues/181
-    var pageStore = µm.pageStoreFromTabId(tabId);
-    if ( pageStore ) {
-        pageStore.pageScriptBlocked = blockScript;
-    }
-
-    if ( !blockScript ) {
-        return;
-    }
-
-    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL + '{inline_script}', 'script', true);
-
-    // If javascript not allowed, say so through a `Content-Security-Policy` directive.
-    details.responseHeaders.push({
-        'name': 'Content-Security-Policy',
-        'value': "script-src 'none'"
-    });
-    return { responseHeaders: details.responseHeaders };
-};
-
-/******************************************************************************/
-
-var onSubDocHeadersReceived = function(details) {
-    var µm = µMatrix;
-    var tabId = details.tabId;
-
-    // console.debug('onSubDocHeadersReceived()> "%s": %o', details.url, details);
-
-    // Do not ignore traffic outside tabs.
-    // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabContext = µm.tabContextManager.lookup(tabId);
-    if ( tabContext === null ) {
-        return;
-    }
-
-    // Evaluate
     if ( µm.mustAllow(tabContext.rootHostname, details.hostname, 'script') ) {
         return;
     }
 
     // If javascript not allowed, say so through a `Content-Security-Policy`
-    // directive.
-
-    // For inline javascript within iframes, we need to sandbox.
-
-    // https://github.com/gorhill/httpswitchboard/issues/73
-    // Now because sandbox cancels all permissions, this means
-    // not just javascript is disabled. To avoid negative side
-    // effects, I allow some other permissions, but...
-
-    // https://github.com/gorhill/uMatrix/issues/27
-    // Need to add `allow-popups` to prevent completely breaking links on
-    // some sites old style sites.
-
-    // TODO: Reuse CSP `sandbox` directive if it's already in the
-    // headers (strip out `allow-scripts` if present),
-    // and find out if the `sandbox` in the header interfere with a
-    // `sandbox` attribute which might be present on the iframe.
-
-    // console.debug('onSubDocHeadersReceived()> FRAME CSP "%s": %o, scope="%s"', details.url, details, pageURL);
-
-    µm.logger.writeOne(tabId, 'net', tabContext.rootHostname, details.url + '{inline_script}', 'script', true);
-
-    // If javascript not allowed, say so through a `Content-Security-Policy` directive.
+    // directive. We block only inline-script tags, all the external javascript
+    // will be blocked by our request handler.
     details.responseHeaders.push({
         'name': 'Content-Security-Policy',
-        'value': "script-src 'none'"
+        'value': "script-src 'unsafe-eval' *"
     });
-
     return { responseHeaders: details.responseHeaders };
 };
 
