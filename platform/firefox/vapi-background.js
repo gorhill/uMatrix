@@ -1059,6 +1059,7 @@ var httpObserver = {
     register: function() {
         // https://developer.mozilla.org/en/docs/Observer_Notifications#HTTP_requests
         Services.obs.addObserver(this, 'http-on-opening-request', true);
+        Services.obs.addObserver(this, 'http-on-modify-request', true);
         Services.obs.addObserver(this, 'http-on-examine-response', true);
         Services.obs.addObserver(this, 'http-on-examine-cached-response', true);
 
@@ -1088,6 +1089,7 @@ var httpObserver = {
 
     unregister: function() {
         Services.obs.removeObserver(this, 'http-on-opening-request');
+        Services.obs.removeObserver(this, 'http-on-modify-request');
         Services.obs.removeObserver(this, 'http-on-examine-response');
         Services.obs.removeObserver(this, 'http-on-examine-cached-response');
 
@@ -1099,49 +1101,56 @@ var httpObserver = {
         );
     },
 
-    handleRequest: function(channel, URI, details) {
-        var type = this.typeMap[details.type] || 'other';
-        var result;
-        var callbackDetails = {
+    handleRequest: function(channel, URI, tabId, rawtype) {
+        var type = this.typeMap[rawtype] || 'other';
+        var onBeforeRequest = vAPI.net.onBeforeRequest;
+        if ( onBeforeRequest.types && onBeforeRequest.types.has(type) === false ) {
+            return false;
+        }
+
+        var result = onBeforeRequest.callback({
             hostname: URI.asciiHost,
             parentFrameId: type === 'main_frame' ? -1 : 0,
-            tabId: details.tabId,
+            tabId: tabId,
             type: type,
             url: URI.asciiSpec
-        };
+        });
 
-        var onBeforeRequest = vAPI.net.onBeforeRequest;
-        if ( !onBeforeRequest.types || onBeforeRequest.types.has(type) ) {
-            result = onBeforeRequest.callback(callbackDetails);
-            if ( typeof result === 'object' && result.cancel === true ) {
-                channel.cancel(this.ABORT);
-                return true;
-            }
-
-            // For the time being, will block instead of redirecting
-            // TODO: figure a better way of blocking embedded frames.
-            // Maybe blocking network requests, then having a content script
-            // revisit the DOM to replace blocked frame with something more
-            // friendly. Will see.
-            if ( typeof result === 'object' && result.redirectUrl ) {
-                channel.cancel(this.ABORT);
-                return true;
-            }
+        if ( typeof result !== 'object' ) {
+            return false;
         }
 
+        channel.cancel(this.ABORT);
+        return true;
+    },
+
+    handleRequestHeaders: function(channel, URI, tabId, rawtype) {
+        var type = this.typeMap[rawtype] || 'other';
         var onBeforeSendHeaders = vAPI.net.onBeforeSendHeaders;
-        if ( !onBeforeSendHeaders.types || onBeforeSendHeaders.types.has(type) ) {
-            callbackDetails.requestHeaders = httpRequestHeadersFactory(channel);
-            result = onBeforeSendHeaders.callback(callbackDetails);
-            callbackDetails.requestHeaders.dispose();
-
-            if ( typeof result === 'object' && result.cancel === true ) {
-                channel.cancel(this.ABORT);
-                return true;
-            }
+        if ( onBeforeSendHeaders.types && onBeforeSendHeaders.types.has(type) === false ) {
+            return;
         }
+        var requestHeaders = httpRequestHeadersFactory(channel);
+        onBeforeSendHeaders.callback({
+            hostname: URI.asciiHost,
+            parentFrameId: type === 'main_frame' ? -1 : 0,
+            requestHeaders: requestHeaders,
+            tabId: tabId,
+            type: type,
+            url: URI.asciiSpec
+        });
+        requestHeaders.dispose();
+    },
 
-        return false;
+    channelDataFromChannel: function(channel) {
+        if ( !(channel instanceof Ci.nsIWritablePropertyBag) ) {
+            return null;
+        }
+        try {
+            return channel.getProperty(this.REQDATAKEY);
+        } catch (ex) {
+        }
+        return null;
     },
 
     observe: function(channel, topic) {
@@ -1150,33 +1159,25 @@ var httpObserver = {
         }
 
         var URI = channel.URI;
-        var channelData, type, result;
+        var channelData;
 
         if (
             topic === 'http-on-examine-response' ||
             topic === 'http-on-examine-cached-response'
         ) {
-            if ( !(channel instanceof Ci.nsIWritablePropertyBag) ) {
+            channelData = this.channelDataFromChannel(channel);
+            if ( channelData === null ) {
                 return;
             }
 
-            try {
-                channelData = channel.getProperty(this.REQDATAKEY);
-            } catch (ex) {
-                return;
-            }
-
-            if ( !channelData ) {
-                return;
-            }
-
-            type = this.frameTypeMap[channelData[1]];
+            var type = this.frameTypeMap[channelData[1]];
             if ( !type ) {
                 return;
             }
 
             topic = 'Content-Security-Policy';
 
+            var result;
             try {
                 result = channel.getResponseHeader(topic);
             } catch (ex) {
@@ -1203,6 +1204,17 @@ var httpObserver = {
             return;
         }
 
+        if ( topic === 'http-on-modify-request' ) {
+            channelData = this.channelDataFromChannel(channel);
+            if ( channelData === null ) {
+                return;
+            }
+
+            this.handleRequestHeaders(channel, URI, channelData[0], channelData[1]);
+
+            return;
+        }
+
         // http-on-opening-request
 
         // https://github.com/gorhill/uMatrix/issues/165
@@ -1221,6 +1233,7 @@ var httpObserver = {
             } catch (ex) {
             }
         }
+        
         if ( !aWindow && channel.loadGroup && channel.loadGroup.notificationCallbacks ) {
             try {
                 aWindow = channel
@@ -1230,6 +1243,7 @@ var httpObserver = {
             } catch (ex) {
             }
         }
+        
         if ( aWindow ) {
             try {
                 tabId = vAPI.tabs.getTabId(aWindow
@@ -1246,10 +1260,9 @@ var httpObserver = {
             }
         }
 
-        type = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
-        result = this.handleRequest(channel, URI, { tabId: tabId, type: type });
+        var rawtype = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
 
-        if ( result === true ) {
+        if ( this.handleRequest(channel, URI, tabId, rawtype) === true ) {
             return;
         }
 
@@ -1258,7 +1271,7 @@ var httpObserver = {
         }
 
         // Carry data for behind-the-scene redirects
-        channel.setProperty(this.REQDATAKEY, [tabId, type]);
+        channel.setProperty(this.REQDATAKEY, [tabId, rawtype]);
     },
 
     // contentPolicy.shouldLoad doesn't detect redirects, this needs to be used
@@ -1279,12 +1292,7 @@ var httpObserver = {
 
             var channelData = oldChannel.getProperty(this.REQDATAKEY);
 
-            var details = {
-                tabId: channelData[0],
-                type: channelData[1]
-            };
-
-            if ( this.handleRequest(newChannel, URI, details) ) {
+            if ( this.handleRequest(newChannel, URI, channelData[0], channelData[1]) ) {
                 result = this.ABORT;
                 return;
             }
