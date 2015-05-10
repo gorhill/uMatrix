@@ -95,14 +95,29 @@ var processUserRules = function(response) {
 
 /******************************************************************************/
 
+var fromRequestPolicy = function(content) {
+    // https://github.com/chrisaljoudi/uBlock/issues/757
+    // Support RequestPolicy rule syntax
+    var matches = /\[origins-to-destinations\]([^\[]+)/.exec(content);
+    if ( matches === null || matches.length !== 2 ) {
+        return content;
+    }
+    return matches[1].trim()
+                     .replace(/\|/g, ' ')
+                     .replace(/\n/g, ' * allow\n');
+};
+
+/******************************************************************************/
+
 function handleImportFilePicker() {
     var fileReaderOnLoadHandler = function() {
         if ( typeof this.result !== 'string' || this.result === '' ) {
             return;
         }
+        var result = fromRequestPolicy(this.result);
         var request = {
             'what': 'setUserRules',
-            'temporaryRules': rulesFromHTML('#diff .right li') + '\n' + this.result
+            'temporaryRules': rulesFromHTML('#diff .right li') + '\n' + result
         };
         messager.send(request, processUserRules);
     };
