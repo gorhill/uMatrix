@@ -287,8 +287,6 @@ var removeCookieAsync = function(cookieKey) {
 
 /******************************************************************************/
 
-// TODO: i18n
-
 var chromeCookieRemove = function(url, name) {
     var sessionCookieKey = cookieKeyFromCookieURL(url, 'session', name);
     var persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
@@ -296,24 +294,27 @@ var chromeCookieRemove = function(url, name) {
         var success = !!details;
         if ( removeCookieFromDict(sessionCookieKey) ) {
             if ( success ) {
-                µm.logger.writeOne('', 'info', vAPI.i18n('loggerEntryCookieDeleted').replace('{{value}}', sessionCookieKey));
+                µm.logger.writeOne('', 'info', i18nCookieDeleteSuccess.replace('{{value}}', sessionCookieKey));
                 µm.cookieRemovedCounter += 1;
             } else {
-                µm.logger.writeOne('', 'error', vAPI.i18n('loggerEntryDeleteCookieError').replace('{{value}}', sessionCookieKey));
+                µm.logger.writeOne('', 'error', i18nCookieDeleteFailure.replace('{{value}}', sessionCookieKey));
             }
         }
         if ( removeCookieFromDict(persistCookieKey) ) {
             if ( success ) {
-                µm.logger.writeOne('', 'info', vAPI.i18n('loggerEntryCookieDeleted').replace('{{value}}', persistCookieKey));
+                µm.logger.writeOne('', 'info', i18nCookieDeleteSuccess.replace('{{value}}', persistCookieKey));
                 µm.cookieRemovedCounter += 1;
             } else {
-                µm.logger.writeOne('', 'error', vAPI.i18n('loggerEntryDeleteCookieError').replace('{{value}}', persistCookieKey));
+                µm.logger.writeOne('', 'error', i18nCookieDeleteFailure.replace('{{value}}', persistCookieKey));
             }
         }
     };
 
     vAPI.cookies.remove({ url: url, name: name }, callback);
 };
+
+var i18nCookieDeleteSuccess = vAPI.i18n('loggerEntryCookieDeleted');
+var i18nCookieDeleteFailure = vAPI.i18n('loggerEntryDeleteCookieError');
 
 /******************************************************************************/
 
