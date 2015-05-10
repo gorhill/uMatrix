@@ -2,8 +2,8 @@
 #
 # For more information about this list, see: http://pgl.yoyo.org/adservers/
 # ----
-# last updated:   Sun, 01 Mar 2015 07:39:13 GMT
-# entries:        2448
+# last updated:   Sat, 02 May 2015 15:49:19 GMT
+# entries:        2428
 # format:         hosts (hosts -- in hosts file format)
 # credits:        Peter Lowe - pgl@yoyo.org - http://pgl.yoyo.org/
 # this URL:       http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext
@@ -58,6 +58,7 @@
 127.0.0.1 acsseo.com
 127.0.0.1 actionsplash.com
 127.0.0.1 actualdeals.com
+127.0.0.1 ad-center.com
 127.0.0.1 ad-flow.com
 127.0.0.1 ad-images.suntimes.com
 127.0.0.1 ad-pay.de
@@ -257,7 +258,6 @@
 127.0.0.1 adimg1.chosun.com
 127.0.0.1 adimgs.sapo.pt
 127.0.0.1 adimpact.com
-127.0.0.1 adincl.gopher.com
 127.0.0.1 adinjector.net
 127.0.0.1 adinterax.com
 127.0.0.1 adisfy.com
@@ -277,6 +277,7 @@
 127.0.0.1 adlog.com.com
 127.0.0.1 adloox.com
 127.0.0.1 adlooxtracking.com
+127.0.0.1 adlure.net
 127.0.0.1 adm.ad.asap-asp.net
 127.0.0.1 admagnet.net
 127.0.0.1 admailtiser.com
@@ -511,7 +512,6 @@
 127.0.0.1 ads.ign.com
 127.0.0.1 ads.img.co.za
 127.0.0.1 ads.imgur.com
-127.0.0.1 ads.incgamers.com
 127.0.0.1 ads.indiatimes.com
 127.0.0.1 ads.infi.net
 127.0.0.1 ads.internic.co.il
@@ -539,7 +539,6 @@
 127.0.0.1 ads.livenation.com
 127.0.0.1 ads.localnow.com
 127.0.0.1 ads.lvz-online.de
-127.0.0.1 ads.mariuana.it
 127.0.0.1 ads.massinfra.nl
 127.0.0.1 ads.mcafee.com
 127.0.0.1 ads.mediaodyssey.com
@@ -673,6 +672,7 @@
 127.0.0.1 ads.verticalresponse.com
 127.0.0.1 ads.vgchartz.com
 127.0.0.1 ads.videosz.com
+127.0.0.1 ads.viewx.co.uk
 127.0.0.1 ads.virtual-nights.com
 127.0.0.1 ads.virtualcountries.com
 127.0.0.1 ads.vnumedia.com
@@ -820,13 +820,11 @@
 127.0.0.1 adserverplus.com
 127.0.0.1 adserversolutions.com
 127.0.0.1 adserveuk.com
-127.0.0.1 adserving.eleven-agency.com
 127.0.0.1 adservinginternational.com
 127.0.0.1 adsfac.eu
 127.0.0.1 adsfac.net
 127.0.0.1 adsfac.us
 127.0.0.1 adshost1.com
-127.0.0.1 adshuffle.com
 127.0.0.1 adside.com
 127.0.0.1 adskape.ru
 127.0.0.1 adsklick.de
@@ -845,6 +843,7 @@
 127.0.0.1 adsrevenue.net
 127.0.0.1 adsrv.deviantart.com
 127.0.0.1 adsrv.iol.co.za
+127.0.0.1 adsrvr.org
 127.0.0.1 adsstat.com
 127.0.0.1 adstat.4u.pl
 127.0.0.1 adstest.weather.com
@@ -865,7 +864,6 @@
 127.0.0.1 adtrading.de
 127.0.0.1 adtrak.net
 127.0.0.1 adtriplex.com
-127.0.0.1 adult-adv.com
 127.0.0.1 adultadvertising.com
 127.0.0.1 adv-adserver.com
 127.0.0.1 adv-banner.libero.it
@@ -914,7 +912,6 @@
 127.0.0.1 adworx.be
 127.0.0.1 adworx.nl
 127.0.0.1 adx.allstar.cz
-127.0.0.1 adx.arip.co.th
 127.0.0.1 adx.atnext.com
 127.0.0.1 adx.gainesvillesun.com
 127.0.0.1 adxpansion.com
@@ -933,7 +930,6 @@
 127.0.0.1 affiliate.doubleyourdating.com
 127.0.0.1 affiliate.dtiserv.com
 127.0.0.1 affiliate.gamestop.com
-127.0.0.1 affiliate.kitapyurdu.com
 127.0.0.1 affiliate.mercola.com
 127.0.0.1 affiliate.mogs.com
 127.0.0.1 affiliate.offgamers.com
@@ -949,7 +945,6 @@
 127.0.0.1 affiliates.ige.com
 127.0.0.1 affiliates.internationaljock.com
 127.0.0.1 affiliates.jlist.com
-127.0.0.1 affiliates.quintura.com
 127.0.0.1 affiliates.streamray.com
 127.0.0.1 affiliates.thinkhost.net
 127.0.0.1 affiliates.thrixxx.com
@@ -994,7 +989,6 @@
 127.0.0.1 at-adserver.alltop.com
 127.0.0.1 atdmt.com
 127.0.0.1 athena-ads.wikia.com
-127.0.0.1 atopsites.com
 127.0.0.1 atwola.com
 127.0.0.1 auctionads.com
 127.0.0.1 auctionads.net
@@ -1206,7 +1200,6 @@
 127.0.0.1 checkstat.nl
 127.0.0.1 chestionar.ro
 127.0.0.1 chitika.net
-127.0.0.1 ciaoclick.com
 127.0.0.1 cibleclick.com
 127.0.0.1 cityads.telus.net
 127.0.0.1 cj.com
@@ -1298,7 +1291,6 @@
 127.0.0.1 counter.rambler.ru
 127.0.0.1 counter.search.bg
 127.0.0.1 counter.sparklit.com
-127.0.0.1 counter.times.lv
 127.0.0.1 counter.yadro.ru
 127.0.0.1 counters.honesty.com
 127.0.0.1 counting.kmindex.ru
@@ -1345,7 +1337,6 @@
 127.0.0.1 di1.shopping.com
 127.0.0.1 dialerporn.com
 127.0.0.1 didtheyreadit.com
-127.0.0.1 digits.com
 127.0.0.1 direct-xxx-access.com
 127.0.0.1 directaclick.com
 127.0.0.1 directivepub.com
@@ -1355,7 +1346,6 @@
 127.0.0.1 discountclick.com
 127.0.0.1 displayadsmedia.com
 127.0.0.1 displaypagerank.com
-127.0.0.1 dist.belnk.com
 127.0.0.1 dmtracker.com
 127.0.0.1 dmtracking.alibaba.com
 127.0.0.1 dmtracking2.alibaba.com
@@ -1469,7 +1459,6 @@
 127.0.0.1 freelogs.com
 127.0.0.1 freeonlineusers.com
 127.0.0.1 freepay.com
-127.0.0.1 freestat.pl
 127.0.0.1 freestats.com
 127.0.0.1 freestats.tv
 127.0.0.1 freewebcounter.com
@@ -1606,7 +1595,6 @@
 127.0.0.1 infinityads.com
 127.0.0.1 infolinks.com
 127.0.0.1 information.com
-127.0.0.1 infra-ad.com
 127.0.0.1 initgroup.com
 127.0.0.1 inringtone.com
 127.0.0.1 insightexpress.com
@@ -1693,7 +1681,6 @@
 127.0.0.1 logua.com
 127.0.0.1 lop.com
 127.0.0.1 lucidmedia.com
-127.0.0.1 lynxtrack.com
 127.0.0.1 lzjl.com
 127.0.0.1 m.webtrends.com
 127.0.0.1 m1.webstats4u.com
@@ -1798,7 +1785,6 @@
 127.0.0.1 nedstatpro.net
 127.0.0.1 nend.net
 127.0.0.1 neocounter.neoworx-blog-tools.net
-127.0.0.1 neocounter.net
 127.0.0.1 neoffic.com
 127.0.0.1 net-filter.com
 127.0.0.1 netaffiliation.com
@@ -1808,7 +1794,6 @@
 127.0.0.1 netdirect.nl
 127.0.0.1 netflame.cc
 127.0.0.1 netincap.com
-127.0.0.1 netpool.netbookia.net
 127.0.0.1 netshelter.net
 127.0.0.1 network.business.com
 127.0.0.1 network.realmedia.com
@@ -1891,7 +1876,6 @@
 127.0.0.1 pageranktop.com
 127.0.0.1 partage-facile.com
 127.0.0.1 partner-ads.com
-127.0.0.1 partner.gonamic.de
 127.0.0.1 partner.pelikan.cz
 127.0.0.1 partner.topcities.com
 127.0.0.1 partnerad.l.google.com
@@ -1967,7 +1951,6 @@
 127.0.0.1 promos.fling.com
 127.0.0.1 promote.pair.com
 127.0.0.1 promotion-campaigns.com
-127.0.0.1 promozia.de
 127.0.0.1 pronetadvertising.com
 127.0.0.1 propellerads.com
 127.0.0.1 proranktracker.com
@@ -2340,7 +2323,6 @@
 127.0.0.1 vertadnet.com
 127.0.0.1 veruta.com
 127.0.0.1 vervewireless.com
-127.0.0.1 vg.ad.asap-asp.net
 127.0.0.1 vibrantmedia.com
 127.0.0.1 video-stats.video.google.com
 127.0.0.1 videoegg.com
@@ -2442,8 +2424,6 @@
 127.0.0.1 yieldmanager.net
 127.0.0.1 yoc.mobi
 127.0.0.1 yoggrt.com
-127.0.0.1 yourtracking.net
-127.0.0.1 z.times.lv
 127.0.0.1 z5x.net
 127.0.0.1 zangocash.com
 127.0.0.1 zanox-affiliate.de
