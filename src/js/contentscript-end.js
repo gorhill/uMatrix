@@ -150,6 +150,7 @@ var collapser = (function() {
     var srcProps = {
         'img': 'src'
     };
+    var reURLplaceholder = /\{\{url\}\}/g;
 
     var PendingRequest = function(target) {
         this.id = requestId++;
@@ -207,7 +208,9 @@ var collapser = (function() {
             if ( tagName === 'iframe' ) {
                 target.setAttribute(
                     'src',
-                    'data:text/html,' + encodeURIComponent(placeholders.iframe.replace('{{url}}', request.url))
+                    'data:text/html,' + encodeURIComponent(
+                        placeholders.iframe.replace(reURLplaceholder, request.url)
+                    )
                 );
                 continue;
             }

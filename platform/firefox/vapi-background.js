@@ -1160,12 +1160,11 @@ var httpObserver = {
     //   https://developer.mozilla.org/en-US/Firefox/Multiprocess_Firefox/Limitations_of_chrome_scripts
     tabIdFromChannel: function(channel) {
         var aWindow;
-
         if ( channel.notificationCallbacks ) {
             try {
                 var loadContext = channel
-                    .notificationCallbacks
-                    .getInterface(Ci.nsILoadContext);
+                        .notificationCallbacks
+                        .getInterface(Ci.nsILoadContext);
                 if ( loadContext.topFrameElement ) {
                     return vAPI.tabs.getTabId(loadContext.topFrameElement);
                 }

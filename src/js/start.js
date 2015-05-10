@@ -67,8 +67,13 @@ var defaultLocalUserSettings = {
                 'padding: 2px;',
                 'white-space: nowrap;',
             '}',
+            'a { ',
+                'color: inherit;',
+                'padding: 0 3px;',
+                'text-decoration: none;',
+            '}',
             '</style></head><body>',
-            '{{url}}',
+            '<a href="{{url}}" title="{{url}}" target="_blank">&#x2191;</a>{{url}}',
             '</body></html>'
         ].join(''),
     placeholderImage: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
@@ -97,9 +102,9 @@ var onAllDone = function() {
         if ( defaultLocalUserSettings.hasOwnProperty(key) === false ) {
             continue;
         }
-        if ( vAPI.localStorage.getItem(key) === null ) {
+        //if ( vAPI.localStorage.getItem(key) === null ) {
             vAPI.localStorage.setItem(key, defaultLocalUserSettings[key]);
-        }
+        //}
     }
 };
 
