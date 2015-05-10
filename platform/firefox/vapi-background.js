@@ -1156,15 +1156,22 @@ var httpObserver = {
     // https://developer.mozilla.org/en-US/Firefox/Releases/3.5/Updating_extensions#Getting_a_load_context_from_a_request
     // Not sure `umatrix:shouldLoad` is still needed, uMatrix does not
     //   care about embedded frames topography.
+    // Also:
+    //   https://developer.mozilla.org/en-US/Firefox/Multiprocess_Firefox/Limitations_of_chrome_scripts
     tabIdFromChannel: function(channel) {
         var aWindow;
+
         if ( channel.notificationCallbacks ) {
             try {
-                aWindow = channel
+                var loadContext = channel
                     .notificationCallbacks
-                    .getInterface(Components.interfaces.nsILoadContext)
-                    .associatedWindow;
+                    .getInterface(Ci.nsILoadContext);
+                if ( loadContext.topFrameElement ) {
+                    return vAPI.tabs.getTabId(loadContext.topFrameElement);
+                }
+                aWindow = loadContext.associatedWindow;
             } catch (ex) {
+                //console.error(ex);
             }
         }
         try {
@@ -1172,7 +1179,7 @@ var httpObserver = {
                 aWindow = channel
                     .loadGroup
                     .notificationCallbacks
-                    .getInterface(Components.interfaces.nsILoadContext)
+                    .getInterface(Ci.nsILoadContext)
                     .associatedWindow;
             }
             if ( aWindow ) {
@@ -1188,6 +1195,7 @@ var httpObserver = {
                 );
             }
         } catch (ex) {
+            //console.error(ex);
         }
         return vAPI.noTabId;
     },
