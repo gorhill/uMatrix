@@ -136,7 +136,7 @@ body.compactView #content td {
     }
 
 #content table tr td:nth-of-type(1) {
-    text-align: center;
+    text-align: right;
     white-space: nowrap;
     }
 #content table tr td:nth-of-type(2) {
@@ -148,7 +148,10 @@ body.compactView #content td {
     font: 1em FontAwesome;
     }
 #content table tr.tab:not(.canMtx) {
-    opacity: 0.2;
+    opacity: 0.3;
+    }
+#content table tr.tab:not(.canMtx):hover {
+    opacity: 0.7;
     }
 #content table tr.tab:not(.canMtx) > td:nth-of-type(2):before {
     content: '\f00d';
@@ -158,7 +161,7 @@ body:not(.popupOn) #content table tr.canMtx td:nth-of-type(2) {
     cursor: zoom-in;
     }
 body:not(.popupOn) #content table tr.canMtx td:nth-of-type(2):hover {
-    background: white;
+    background: #ccc;
     }
 #content table tr.cat_net td:nth-of-type(3) {
     font: 12px monospace;
@@ -192,7 +195,7 @@ body.popupOn #popupContainer {
     background: #444;
     border: 0;
     border-bottom: 1px solid white;
-    height: 1.8em;
+    height: 1.4em;
     }
 #popupContainer > div {
     text-align: right;
@@ -202,7 +205,7 @@ body.popupOn #popupContainer {
     cursor: pointer;
     display: inline-block;
     font: 14px FontAwesome;
-    padding: 4px;
+    padding: 1px 3px;
     }
 #popupContainer > div > span:hover {
     color: white;
