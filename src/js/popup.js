@@ -1029,9 +1029,9 @@ function initScopeCell() {
     if ( matrixSnapshot.hostname === matrixSnapshot.domain ) {
         uDom('#scopeKeySite').css('display', 'none');
     } else {
-        uDom('#scopeKeySite').text(matrixSnapshot.hostname);
+        uDom('#scopeKeySite').text(punycode.toUnicode(matrixSnapshot.hostname));
     }
-    uDom('#scopeKeyDomain').text(matrixSnapshot.domain);
+    uDom('#scopeKeyDomain').text(punycode.toUnicode(matrixSnapshot.domain));
     updateScopeCell();
 }
 
@@ -1039,7 +1039,9 @@ function updateScopeCell() {
     uDom('body')
         .removeClass('tScopeGlobal tScopeDomain tScopeSite')
         .addClass(getClassFromScope());
-    uDom('#scopeCell').text(matrixSnapshot.scope.replace('*', '\u2217'));
+    uDom('#scopeCell').text(
+        punycode.toUnicode(matrixSnapshot.scope).replace('*', '\u2217')
+    );
 }
 
 /******************************************************************************/
