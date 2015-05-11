@@ -40,6 +40,9 @@ var maxEntries = 0;
 var noTabId = '';
 var allTabIds = {};
 
+var emphasizeTemplate = document.querySelector('#emphasizeTemplate > span');
+var hiddenTemplate = document.querySelector('#hiddenTemplate > span');
+
 var prettyRequestTypes = {
     'main_frame': 'doc',
     'stylesheet': 'css',
@@ -127,8 +130,6 @@ var emphasizeHostname = function(url) {
     return node;
 };
 
-var emphasizeTemplate = document.querySelector('#emphasizeTemplate > span');
-
 /******************************************************************************/
 
 var createCellAt = function(tr, index) {
@@ -186,6 +187,14 @@ var createRow = function(layout) {
         tdJunkyard.push(tr.removeChild(td));
     }
     return tr;
+};
+
+/******************************************************************************/
+
+var createHiddenTextNode = function(text) {
+    var node = hiddenTemplate.cloneNode(true);
+    node.textContent = text;
+    return node;
 };
 
 /******************************************************************************/
@@ -254,6 +263,7 @@ var renderLogEntry = function(entry) {
         tr.classList.add('tab');
         if ( entry.tab === noTabId ) {
             tr.classList.add('tab_bts');
+            tr.cells[1].appendChild(createHiddenTextNode('bts'));
         } else if ( entry.tab !== '' ) {
             tr.classList.add('tab_' + entry.tab);
         }

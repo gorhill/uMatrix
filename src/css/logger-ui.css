@@ -83,10 +83,10 @@ input:focus {
     width: 2.5em;
     }
 #content table > colgroup > col:nth-of-type(4) {
-    width: 5em;
+    width: 5.5em;
     }
 #content table > colgroup > col:nth-of-type(5) {
-    width: calc(100% - 15.5em);
+    width: calc(100% - 16em);
     }
 #content table tr {
     background-color: #fafafa;
@@ -192,10 +192,8 @@ body.popupOn #popupContainer {
     display: block;
     }
 #popupContainer > div {
-    background: #444;
+    background: #888;
     border: 0;
-    border-bottom: 1px solid white;
-    height: 1.4em;
     }
 #popupContainer > div {
     text-align: right;
@@ -205,7 +203,7 @@ body.popupOn #popupContainer {
     cursor: pointer;
     display: inline-block;
     font: 14px FontAwesome;
-    padding: 1px 3px;
+    padding: 3px;
     }
 #popupContainer > div > span:hover {
     color: white;
