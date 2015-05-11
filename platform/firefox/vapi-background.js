@@ -110,6 +110,8 @@ window.addEventListener('unload', function() {
 /******************************************************************************/
 
 var SQLite = {
+    db: null,
+
     open: function() {
         var path = Services.dirsvc.get('ProfD', Ci.nsIFile);
         path.append('extension-data');

@@ -71,9 +71,37 @@ var reEscapeRightBracket = />/g;
 
 /******************************************************************************/
 
-// Emphasize hostname in URL, as this is what matters in uMatrix's rules.
+// Emphasize hostname and cookie name.
 
-var nodeFromURL = function(url) {
+var emphasizeCookie = function(s) {
+    var pnode = emphasizeHostname(s);
+    if ( pnode.childNodes.length !== 3 ) {
+        return pnode;
+    }
+    var prefix = '-cookie:';
+    var text = pnode.childNodes[2].textContent;
+    var beg = text.indexOf(prefix);
+    if ( beg === -1 ) {
+        return pnode;
+    }
+    beg += prefix.length;
+    var end = text.indexOf('}', beg);
+    if ( end === -1 ) {
+        return pnode;
+    }
+    var cnode = emphasizeTemplate.cloneNode(true);
+    cnode.childNodes[0].textContent = text.slice(0, beg);
+    cnode.childNodes[1].textContent = text.slice(beg, end);
+    cnode.childNodes[2].textContent = text.slice(end);
+    pnode.replaceChild(cnode, pnode.childNodes[2]);
+    return pnode;
+};
+
+/******************************************************************************/
+
+// Emphasize hostname in URL.
+
+var emphasizeHostname = function(url) {
     var hnbeg = url.indexOf('://');
     if ( hnbeg === -1 ) {
         return document.createTextNode(url);
@@ -90,14 +118,14 @@ var nodeFromURL = function(url) {
         }
     }
 
-    var node = renderedURLTemplate.cloneNode(true);
+    var node = emphasizeTemplate.cloneNode(true);
     node.childNodes[0].textContent = url.slice(0, hnbeg);
     node.childNodes[1].textContent = url.slice(hnbeg, hnend);
     node.childNodes[2].textContent = url.slice(hnend);
     return node;
 };
 
-var renderedURLTemplate = document.querySelector('#renderedURLTemplate > span');
+var emphasizeTemplate = document.querySelector('#emphasizeTemplate > span');
 
 /******************************************************************************/
 
@@ -180,7 +208,11 @@ var renderLogEntry = function(entry) {
     case 'error':
     case 'info':
         tr = createRow('1');
-        tr.cells[fvdc].textContent = entry.d0;
+        if ( entry.d0 === 'cookie' ) {
+            tr.cells[fvdc].appendChild(emphasizeCookie(entry.d1));
+        } else {
+            tr.cells[fvdc].textContent = entry.d0;
+        }
         break;
 
     case 'net':
@@ -198,7 +230,7 @@ var renderLogEntry = function(entry) {
             tr.cells[fvdc].textContent = '';
         }
         tr.cells[fvdc+1].textContent = (prettyRequestTypes[entry.d2] || entry.d2);
-        tr.cells[fvdc+2].appendChild(nodeFromURL(entry.d1));
+        tr.cells[fvdc+2].appendChild(emphasizeHostname(entry.d1));
         break;
 
     default:

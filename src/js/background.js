@@ -35,16 +35,18 @@ var oneDay = 24 * oneHour;
 /******************************************************************************/
 
 var defaultUserAgentStrings = [
-    '# http://www.useragentstring.com/pages/Chrome/',
     '# http://techblog.willshouse.com/2012/01/03/most-common-user-agents/',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.1.17 (KHTML, like Gecko) Version/7.1 Safari/537.85.10',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/600.1.25 (KHTML, like Gecko) Version/8.0 Safari/600.1.25',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36'
-].join('\n');
+    '# using ua string which are same browser as real one may work better overall',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.5.17 (KHTML, like Gecko) Version/8.0.5 Safari/600.5.17',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0',
+    ''
+].join('\n').trim();
 
 /******************************************************************************/
 
@@ -63,17 +65,13 @@ return {
         externalHostsFiles: '',
         iconBadgeEnabled: false,
         maxLoggedRequests: 1000,
-        popupCollapseDomains: false,
-        popupCollapseSpecificDomains: {},
-        popupHideBlacklisted: false,
         popupScopeLevel: 'domain',
         processBehindTheSceneRequests: false,
         processHyperlinkAuditing: true,
         processReferer: false,
         spoofUserAgent: false,
         spoofUserAgentEvery: 5,
-        spoofUserAgentWith: defaultUserAgentStrings,
-        statsFilters: {}
+        spoofUserAgentWith: defaultUserAgentStrings
     },
 
     clearBrowserCacheCycle: 0,
@@ -114,13 +112,8 @@ return {
     userAgentReplaceStr: '',
     userAgentReplaceStrBirth: 0,
 
-    // record what chromium is doing behind the scene
-    behindTheSceneURL: 'http://behind-the-scene/',
-    behindTheSceneMaxReq: 250,
+    // record what the browser is doing behind the scene
     behindTheSceneScope: 'behind-the-scene',
-
-    // Commonly encountered strings
-    fontCSSURL: vAPI.getURL('css/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf'),
 
     noopFunc: function(){},
 

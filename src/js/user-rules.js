@@ -236,7 +236,6 @@ uDom.onLoad(function() {
     uDom('#importButton').on('click', startImportFilePicker);
     uDom('#importFilePicker').on('change', handleImportFilePicker);
     uDom('#exportButton').on('click', exportUserRulesToFile);
-
     uDom('#revertButton').on('click', revertHandler);
     uDom('#commitButton').on('click', commitHandler);
     uDom('#editEnterButton').on('click', editStartHandler);

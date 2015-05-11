@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global APP_SHUTDOWN, APP_STARTUP */
+/* global ADDON_UNINSTALL, APP_SHUTDOWN, APP_STARTUP */
 /* exported startup, shutdown, install, uninstall */
 
 'use strict';
@@ -141,6 +141,16 @@ function install() {
 
 /******************************************************************************/
 
-function uninstall() {}
+function uninstall(data, aReason) {
+    if ( aReason !== ADDON_UNINSTALL ) {
+        return;
+    }
+    // To cleanup vAPI.localStorage in vapi-common.js, aka
+    // "extensions.umatrix.*" in `about:config`.
+    Components.utils.import('resource://gre/modules/Services.jsm', null)
+        .Services.prefs
+            .getBranch('extensions.' + hostName + '.')
+            .deleteBranch('');
+}
 
 /******************************************************************************/

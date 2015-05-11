@@ -292,21 +292,18 @@ var chromeCookieRemove = function(url, name) {
     var persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
     var callback = function(details) {
         var success = !!details;
+        var template = success ? i18nCookieDeleteSuccess : i18nCookieDeleteFailure;
         if ( removeCookieFromDict(sessionCookieKey) ) {
             if ( success ) {
-                µm.logger.writeOne('', 'info', i18nCookieDeleteSuccess.replace('{{value}}', sessionCookieKey));
                 µm.cookieRemovedCounter += 1;
-            } else {
-                µm.logger.writeOne('', 'error', i18nCookieDeleteFailure.replace('{{value}}', sessionCookieKey));
             }
+            µm.logger.writeOne('', 'info', 'cookie', template.replace('{{value}}', sessionCookieKey));
         }
         if ( removeCookieFromDict(persistCookieKey) ) {
             if ( success ) {
-                µm.logger.writeOne('', 'info', i18nCookieDeleteSuccess.replace('{{value}}', persistCookieKey));
                 µm.cookieRemovedCounter += 1;
-            } else {
-                µm.logger.writeOne('', 'error', i18nCookieDeleteFailure.replace('{{value}}', persistCookieKey));
             }
+            µm.logger.writeOne('', 'info', 'cookie', template.replace('{{value}}', persistCookieKey));
         }
     };
 

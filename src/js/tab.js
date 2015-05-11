@@ -47,7 +47,7 @@ var µm = µMatrix;
 
 µm.normalizePageURL = function(tabId, pageURL) {
     if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-        return 'http://behind-the-scene/';
+        return 'http://' + this.behindTheSceneScope + '/';
     }
 
     // If the URL is that of our "blocked page" document, return the URL of

@@ -131,6 +131,15 @@ var onHostsFilesLoaded = function() {
 };
 
 var onUserSettingsLoaded = function() {
+    // Version 0.9.0.0
+    // Remove obsolete user settings which may have been loaded.
+    // These are now stored as local settings:
+    delete µm.userSettings.popupCollapseDomains;
+    delete µm.userSettings.popupCollapseSpecificDomains;
+    delete µm.userSettings.popupHideBlacklisted;
+    // These do not exist anymore:
+    delete µm.userSettings.statsFilters;
+
     µm.loadHostsFiles(onHostsFilesLoaded);
 };
 
