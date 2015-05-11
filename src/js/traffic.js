@@ -97,6 +97,7 @@ var onBeforeRequestHandler = function(details) {
 
     // Ignore non-http schemes
     if ( requestScheme.lastIndexOf('http', 0) !== 0 ) {
+        µm.logger.writeOne('', 'info', 'request not processed: ' + details.url);
         return;
     }
 
