@@ -213,7 +213,7 @@ var cookieLogEntryBuilder = [
     '',
     '{',
     '',
-    '_cookie:',
+    '-cookie:',
     '',
     '}'
 ];

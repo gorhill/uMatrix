@@ -74,7 +74,7 @@ input:focus {
     width: 100%;
     }
 #content table > colgroup > col:nth-of-type(1) {
-    width: 6em;
+    width: 5.5em;
     }
 #content table > colgroup > col:nth-of-type(2) {
     width: 2.5em;
@@ -86,7 +86,7 @@ input:focus {
     width: 5em;
     }
 #content table > colgroup > col:nth-of-type(5) {
-    width: calc(100% - 19em);
+    width: calc(100% - 15.5em);
     }
 #content table tr {
     background-color: #fafafa;

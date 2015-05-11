@@ -36,7 +36,7 @@ var trJunkyard = [];
 var tdJunkyard = [];
 var firstVarDataCol = 2;  // currently, column 2 (0-based index)
 var lastVarDataIndex = 3; // currently, d0-d3
-var maxEntries = 1000;
+var maxEntries = 0;
 var noTabId = '';
 var allTabIds = {};
 
@@ -93,7 +93,9 @@ var emphasizeCookie = function(s) {
     cnode.childNodes[0].textContent = text.slice(0, beg);
     cnode.childNodes[1].textContent = text.slice(beg, end);
     cnode.childNodes[2].textContent = text.slice(end);
-    pnode.replaceChild(cnode, pnode.childNodes[2]);
+    pnode.replaceChild(cnode.childNodes[0], pnode.childNodes[2]);
+    pnode.appendChild(cnode.childNodes[0]);
+    pnode.appendChild(cnode.childNodes[0]);
     return pnode;
 };
 
@@ -230,7 +232,11 @@ var renderLogEntry = function(entry) {
             tr.cells[fvdc].textContent = '';
         }
         tr.cells[fvdc+1].textContent = (prettyRequestTypes[entry.d2] || entry.d2);
-        tr.cells[fvdc+2].appendChild(emphasizeHostname(entry.d1));
+        if ( entry.d2 === 'cookie' ) {
+            tr.cells[fvdc+2].appendChild(emphasizeCookie(entry.d1));
+        } else {
+            tr.cells[fvdc+2].appendChild(emphasizeHostname(entry.d1));
+        }
         break;
 
     default:
