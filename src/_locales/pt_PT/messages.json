@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Aceder ao histórico de pedidos",
+    "message":"Aceder ao registo de pedidos",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"cache do browser apagada",
+    "message":"falha ao eliminar cookie: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"não conseguiu eliminar o cookie: {{value}}",
+    "message":"cache do browser apagada",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

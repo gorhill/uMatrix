@@ -100,7 +100,7 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"HTTPS rigoroso",
+    "message":"HTTPS Estrito",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Ir para o registro de pedidos",
+    "message":"Ir para o registro",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Registro de pedidos",
+    "message":"Registro",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -232,7 +232,7 @@
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"pedidos HTTP <b>por página<\/b>.",
+    "message":"Pedidos HTTP <b>por página<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -272,7 +272,7 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Quando a matriz é fechada, recarregue inteligentemente essas abas:",
+    "message":"Quando a matrix é fechada, recarregue inteligentemente essas abas:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
@@ -360,7 +360,7 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"HTTPS rigoroso: proíbir conteúdo misto.",
+    "message":"HTTPS Estrito: proibir conteúdo misto.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -436,7 +436,7 @@
     "description":""
   },
   "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
+    "message":"minhas-regras-umatrix.txt",
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
@@ -540,7 +540,7 @@
     "description":""
   },
   "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
+    "message":"meu-backup-umatrix.txt",
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"cache do navegador limpa",
+    "message":"falha ao apagar cookie: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"falha ao apagar cookie: {{value}}",
+    "message":"cache do navegador limpo",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

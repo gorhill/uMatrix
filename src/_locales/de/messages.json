@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"Browser-Cache geleert",
+    "message":"Löschen des Cookies fehlgeschlagen: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"Löschen des Cookies fehlgeschlagen: {{value}}",
+    "message":"Browser-Cache geleert",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"tembolok peramban dibersihkan",
+    "message":"gagal menghapus kuki: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"gagal menghapus kuki: {{value}}",
+    "message":"tembolok peramban dibersihkan",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

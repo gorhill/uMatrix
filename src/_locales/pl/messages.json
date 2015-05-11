@@ -1,14 +1,14 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
-    "message":"Wskaż i kliknij by zablokować\/zezwolić na jakikolwiek typ połączeń wykonywanych przez przeglądarkę. Użyj by blokować skrypty, ramki, reklamy, fecebooka itp.",
+    "message":"Kliknij by za\/odblokować jakikolwiek połączenia wykonywane przez przeglądarkę. Blokuj skrypty, ramki, reklamy, fecebooka itp.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Kokpit",
+    "message":"uMatrix — Kokpit",
     "description":""
   },
   "settingsPageName":{
@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Wyłącz\/włącz filtrowanie matrycowe dla tego kontekstu.\nŻądań zablokowanych przez filtrowanie matrycowe na tej stronie {{count}}.",
+    "message":"Wyłącz\/włącz filtrowanie matrycowe dla tego kontekstu.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -124,7 +124,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Statystyki",
+    "message":"uMatrix &ndash; Statystyki",
     "description":""
   },
   "statsPageGenericStats":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: ukryte połączenia",
+    "message":"Ukryte połączenia",
     "description":""
   },
   "statsPageOverview":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Ustawienia",
+    "message":"uMatrix &ndash; Ustawienia",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Prywatność",
+    "message":"uMatrix &ndash; Prywatność",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -548,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Wszystkie ustawienia zostaną nadpisane danymi z kopii z {{time}}, a następnie µMatrix zostanie zrestartowany.\n\nNadpisać aktualne ustawienia używając danych z kopii?",
+    "message":"Wszystkie ustawienia zostaną nadpisane danymi z kopii z {{time}}, a następnie uMatrix zostanie zrestartowany.\n\nNadpisać aktualne ustawienia używając danych z kopii?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"browser cache cleared",
+    "message":"Nie udało się usunąć ciasteczka: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"pamięć podręczna przeglądarki wyczyszczona",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

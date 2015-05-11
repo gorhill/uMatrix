@@ -72,7 +72,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"Tráfico de red no detectado en la pestaña hasta ahora.",
+    "message":"No se ha detectado tráfico de red en la pestaña hasta el momento.",
     "description":""
   },
   "matrixMtxButtonTip":{
@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"vaciada caché del navegador",
+    "message":"fallo intentando eliminar cookie: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"fallo intentando eliminar cookie: {{value}}",
+    "message":"vaciada caché del navegador",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"İstek günlüğüne git",
+    "message":"Günlükçüye git",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"İstek günlüğü",
+    "message":"Günlükçü",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"tarayıcı önbelleği temizlendi",
+    "message":"çerez silme başarısız: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"çerez silme başarısız: {{value}}",
+    "message":"tarayıcı önbelleği temizlendi",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"עבור למתעד הבקשות",
+    "message":"עבור למתעד",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"מתעד הבקשות",
+    "message":"מתעד",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -580,11 +580,11 @@
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"זיכרון מטמון נמחק",
+    "message":"נכשל במחיקת העוגייה: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"נכשל במחיקת העוגייה: {{value}}",
+    "message":"זיכרון מטמון נמחק",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{

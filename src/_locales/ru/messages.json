@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to request log",
+    "message":"Go to logger",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
