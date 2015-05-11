@@ -835,7 +835,7 @@ var onMessage = function(request, sender, callback) {
     switch ( request.what ) {
     case 'getAllUserData':
         response = {
-            app: 'µMatrix',
+            app: vAPI.app.name,
             version: vAPI.app.version,
             when: Date.now(),
             settings: µm.userSettings,

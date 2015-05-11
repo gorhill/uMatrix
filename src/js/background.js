@@ -66,7 +66,6 @@ return {
         iconBadgeEnabled: false,
         maxLoggedRequests: 1000,
         popupScopeLevel: 'domain',
-        processBehindTheSceneRequests: false,
         processHyperlinkAuditing: true,
         processReferer: false,
         spoofUserAgent: false,
