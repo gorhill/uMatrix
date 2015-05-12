@@ -57,7 +57,9 @@ var defaultLocalUserSettings = {
         ].join(''),
     placeholderBorder: '1px solid rgba(0, 0, 0, 0.05)',
     placeholderDocument: [
-            '<html><head><style>',
+            '<html><head>',
+            '<meta charset="utf-8">',
+            '<style>',
             'body { ',
                 'background: {{bg}};',
                 'color: gray;',

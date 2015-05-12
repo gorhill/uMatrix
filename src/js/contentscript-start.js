@@ -38,6 +38,11 @@ if ( document instanceof HTMLDocument === false ) {
     return;
 }
 
+// This can also happen (for example if script injected into a `data:` URI doc)
+if ( !window.location ) {
+    return;
+}
+
 // This can happen
 if ( !vAPI ) {
     //console.debug('contentscript-start.js > vAPI not found');

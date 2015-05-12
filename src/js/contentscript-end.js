@@ -36,7 +36,12 @@
 // https://github.com/chrisaljoudi/uBlock/issues/464
 if ( document instanceof HTMLDocument === false ) {
     //console.debug('contentscript-end.js > not a HTLMDocument');
-    return false;
+    return;
+}
+
+// This can also happen (for example if script injected into a `data:` URI doc)
+if ( !window.location ) {
+    return;
 }
 
 // This can happen
