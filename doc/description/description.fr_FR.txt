@@ -1,20 +1,20 @@
-µMatrix : Un parefeu matriciel configurable à la volée, avec de nombreux outils d'amélioration de la vie privée en ligne. Pour utilisateurs avancés.
+uMatrix : Un parefeu matriciel configurable à la volée, avec de nombreux outils d'amélioration de la vie privée en ligne. Pour utilisateurs avancés.
 
-µMatrix vous donne les pleins pouvoirs sur votre navigateur. Vous contrôlez où il se connecte, ce qu'il télécharge, et ce qu'il exécute. Personne d'autre que vous ne prendra de décisions. Vous avez toutes les cartes en main pour protéger votre confidentialité.
+*Pour utilisateurs avancés*
 
-Après installation, µMatrix fonctionne en mode "Blocage total/Permissions exceptionnelles", ce qui veut dire que les sites Web ayant besoin de contenus tiers sont susceptibles de ne pas fonctionner correctement. En deux clics, µMatrix peut fonctionner en mode "Autorisation totale/Blocage exceptionnel", qui en principe n'empêchera pas les sites Web de fonctionner. Pour plus d'informations sur ce sujet, consultez cette page en Anglais : https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views .
+uMatrix vous donne les pleins pouvoirs sur votre navigateur. Vous contrôlez où il se connecte, ce qu'il télécharge, et ce qu'il exécute. Personne d'autre ne décidera pour vous. Vous avez toutes les cartes en main pour protéger votre confidentialité.
 
-En ce qui concerne le mythe disant que "les navigateurs basés sur Chromium ne peuvent bloquer du Javascript en toute fiabilité", consultez cette page en Anglais : https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers . Pour résumer ce qui y est dit : Si, le Javascript peut être bloqué en toute confiance au sein d'un navigateur basé sur Chromium.
+Après installation, uMatrix fonctionne en mode "Blocage total/Permissions exceptionnelles", ce qui veut dire que les sites Web ayant besoin de contenus tiers sont susceptibles de ne pas fonctionner correctement. En deux clics, uMatrix peut fonctionner en mode "Autorisation totale/Blocage exceptionnel", ce qui en principe n'empêchera pas les sites Web de fonctionner. Pour plus d'informations sur ce sujet, consultez cette page en Anglais : https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views .
 
-* Consultez TOUTES les tentatives de connexions distantes, échouées ou réussies, selon qu'elles soient bloquées ou autorisées (c'est vous qui le décidez).
+* Consultez TOUTES les tentatives de connexions distantes, échouées ou réussies, selon qu'elles soient bloquées ou autorisées (c'est vous qui décidez).
 
-* En un clic, vous pouvez mettre en liste blanche/noire une ou plusieurs sorte(s) de requête(s) d'après la destination et le type des données (sachant qu'une requête bloquée ne "s'en ira" JAMAIS de votre navigateur).
+* En un clic, vous pouvez mettre en liste blanche/noire une ou plusieurs sorte(s) de requête(s) d'après la destination et le type des données (sachant qu'une requête bloquée ne "partira" JAMAIS de votre navigateur).
 
 * Blocage efficace : Les cookies ne partiront pas de votre navigateur, le code JavaScript ne sera pas exécuté, les plugins ne démarreront pas, les pixels de pistage ne seront pas téléchargés, etc.
 
-* Vous n'avez pas à vous reposer que sur une seule liste prédéfinie de blocage (dans laquelle il manquerait beaucoup d'éléments), en ayant la possibilité de cumuler l'emploi de plusieurs listes de ce genre, vous avez entièrement le contrôle.
+* Vous n'avez pas à vous reposer sur une unique liste prédéfinie de blocage (dans laquelle il manquerait beaucoup d'éléments), avec la possibilité de cumuler l'emploi de plusieurs listes de ce genre, vous avez entièrement le contrôle.
 
-* Facilité d'utilisation : µMatrix vous laisse aisément mettre en liste blanche/noire des requêtes réseau provenant d'une page Web, d'après une matrice qui vous permet de manipuler en quelques clics de souris :
+* Facilité d'utilisation : uMatrix vous laisse aisément mettre en liste blanche/noire des requêtes réseau provenant d'une page Web, d'après une matrice qui vous permet de manipuler en quelques clics de souris :
 
 - Les noms de domaine (colonne de gauche)
   * de très spécifique
@@ -32,41 +32,27 @@ En ce qui concerne le mythe disant que "les navigateurs basés sur Chromium ne p
 
 En un clic, vous pouvez mettre en liste noire/blanche une simple cellule, une ligne entière, un ensemble de lignes, une colonne entière, ou toute la matrice.
 
-Le moteur de filtrage de µMatrix utilise une logique de priorité pour évaluer ce qui doit être bloqué/autorisé d'après l'état des cellules (liste noire/blanche). Par exemple, cela vous permet de mettre en liste blanche toute une page Web en un clic, sans avoir à mettre en liste blanche de manière répétitive toute nouvelle donnée apparaissant sur la page.
+Le moteur de filtrage de uMatrix utilise une logique de priorité pour évaluer ce qui doit être bloqué/autorisé d'après l'état des cellules (liste noire/blanche). Par exemple, cela vous permet de mettre en liste blanche toute une page Web en un clic, sans avoir à mettre en liste blanche de manière répétitive toute nouvelle donnée apparaissant sur la page.
 
 Toutes les règles sont contextualisées. Par exemple, vous pouvez bloquer "facebook.com" et "facebook.net" partout sauf lorsque vous visitez une page sur "www.facebook.com". Ainsi Facebook ne pourrait pas définir un profil de vous en se basant sur vos habitudes de navigation.
 
 Le but de cette extension est de rendre l'autorisation/le refus de sites Web, en totalité ou partiellement, aussi direct(e) que possible, pour encourager les utilisateurs à se préoccuper de leur confidentialité.
 
-L'extension fournit des listes prédéfinies de blocage totalisant plus de 58 000 noms de domaine différents, sachant que chacune de ces listes peut être désactivée/activé selon votre choix.
+L'extension fournit des listes prédéfinies de blocage totalisant plus de 62 000 noms de domaine différents, sachant que chacune de ces listes peut être désactivée/activé selon votre choix.
 
 Enfin, vous pouvez choisir comment surfer sur le Net :
 
 * Tout mettre en liste noire, et accorder des permissions exceptionnelles si besoin est (il s'agit du mode par défaut).
 
-* Tout mettre en liste blanche, et bloquer exceptionnellement si nécessaire.
+* Tout mettre en liste blanche, et bloquer si nécessaire.
 
 De toute manière, vous bénéficierez toujours des listes de règles prédéfinis pour avoir une protection décente contre les pisteurs, les sites Web malveillants, etc. Ou vous pouvez désactiver tout cela.
 
 Encore une fois, c'est votre choix.
 
-Retrouvez ici en langue anglaise de la documentation rassemblée aléatoirement sur l'extension : https://github.com/gorhill/uMatrix/wiki .
+Retrouvez ici en langue anglaise de la documentation rassemblée aléatoirement sur l'extension : https://github.com/gorhill/uMatrix/wiki (page en construction).
 
 =====
-
-RETOURS :
-
-Quelque soit le doute/problème rencontré, n'hésitez pas à me contacter. Je ne peux pas répondre directement aux avis des utilisateurs sur Chrome/Opera Web Store, mais je serais ravi de vous répondre directement dans la section adéquate.
-
-=====
-
-PROBLÈMES & SUGGESTIONS :
-
-https://github.com/gorhill/uMatrix/issues .
-
-Vous êtes plus que bienvenus pour rapporter des soucis et des suggestions, divers arguments de type pour ou contre m'aideront à décider ce qu'il faut améliorer dans l'extension.
-
-Le but premier c'est la facilité d'utilisation. J'ai déjà vu des utilisateurs jeter l'éponge au sujet de l'extension NoScript parce qu'elle leur a paru trop contraignante, alors plutôt que de les blâmer pour de piètres habitudes de sécurité, je préfère en vouloir aux développeurs et ce projet est une tentative de rectifier ces erreurs qui ont entrainé l'abandon des bonnes habitudes de sécurité chez certaines personnes.
 
 Cette extension est également utile pour comprendre ce qu'effectue en coulisses une page Web dans votre navigateur. Vous pouvez parfaitement voir et décider avec quoi une page Web communique, et restreindre ces différentes communications.
 
@@ -87,6 +73,8 @@ La cellule en haut à gauche de la matrice ("Tout") représente le paramètre gl
 Cette extension est aussi utile si vous souhaitez accélérer votre navigation, en bloquant toutes les requêtes d'images par exemple.
 
 =====
+
+PROBLÈMES (Page en Anglais) : https://github.com/gorhill/uMatrix/issues
 
 CODE SOURCE (Licence GPLv3, page en Anglais) : https://github.com/gorhill/uMatrix .
 
