@@ -21,7 +21,7 @@ You may contribute with documentation: [uMatrix's wiki](https://github.com/gorhi
 
 #### Regarding broken sites
 
-uMatrix does not guarantee that sites will work fine: it is for advanced users who can figure how to un-break sites, because essentially uMatrix is a firewall which works in block-all/allow-exceptionally mode out of the box: it is not unexpected that sites will break.
+uMatrix does not guarantee that sites will work fine: it is for advanced users who can figure how to un-break sites, because essentially uMatrix is a firewall which works in relaxed block-all/allow-exceptionally mode out of the box: it is not unexpected that sites will break.
 
 **So this means do not file issues to report broken sites when the sites are broken because uMatrix does its job as expected.** I will close any such issue without further comment.
 
