@@ -33,18 +33,18 @@
 /******************************************************************************/
 
 // Must be consistent with definitions in matrix.js
-const Pale        = 0x00;
-const Dark        = 0x80;
-const Transparent = 0;
-const Red         = 1;
-const Green       = 2;
-const Gray        = 3;
-const DarkRed     = Dark | Red;
-const PaleRed     = Pale | Red;
-const DarkGreen   = Dark | Green;
-const PaleGreen   = Pale | Green;
-const DarkGray    = Dark | Gray;
-const PaleGray    = Pale | Gray;
+var Pale        = 0x00;
+var Dark        = 0x80;
+var Transparent = 0;
+var Red         = 1;
+var Green       = 2;
+var Gray        = 3;
+var DarkRed     = Dark | Red;
+var PaleRed     = Pale | Red;
+var DarkGreen   = Dark | Green;
+var PaleGreen   = Pale | Green;
+var DarkGray    = Dark | Gray;
+var PaleGray    = Pale | Gray;
 
 var matrixSnapshot = {};
 var groupsSnapshot = [];
