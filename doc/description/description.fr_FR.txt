@@ -1,8 +1,8 @@
-µMatrix : Un parefeu matriciel configurable à la volée, avec de nombreux outils d'amélioration de la vie privée en ligne. Pour utilisateurs avancés.
+uMatrix : Un parefeu matriciel configurable à la volée, avec de nombreux outils d'amélioration de la vie privée en ligne. Pour utilisateurs avancés.
 
-µMatrix vous donne les pleins pouvoirs sur votre navigateur. Vous contrôlez où il se connecte, ce qu'il télécharge, et ce qu'il exécute. Personne d'autre que vous ne prendra de décisions. Vous avez toutes les cartes en main pour protéger votre confidentialité.
+uMatrix vous donne les pleins pouvoirs sur votre navigateur. Vous contrôlez où il se connecte, ce qu'il télécharge, et ce qu'il exécute. Personne d'autre que vous ne prendra de décisions. Vous avez toutes les cartes en main pour protéger votre confidentialité.
 
-Après installation, µMatrix fonctionne en mode "Blocage total/Permissions exceptionnelles", ce qui veut dire que les sites Web ayant besoin de contenus tiers sont susceptibles de ne pas fonctionner correctement. En deux clics, µMatrix peut fonctionner en mode "Autorisation totale/Blocage exceptionnel", qui en principe n'empêchera pas les sites Web de fonctionner. Pour plus d'informations sur ce sujet, consultez cette page en Anglais : https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views .
+Après installation, uMatrix fonctionne en mode "Blocage total/Permissions exceptionnelles", ce qui veut dire que les sites Web ayant besoin de contenus tiers sont susceptibles de ne pas fonctionner correctement. En deux clics, uMatrix peut fonctionner en mode "Autorisation totale/Blocage exceptionnel", qui en principe n'empêchera pas les sites Web de fonctionner. Pour plus d'informations sur ce sujet, consultez cette page en Anglais : https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views .
 
 En ce qui concerne le mythe disant que "les navigateurs basés sur Chromium ne peuvent bloquer du Javascript en toute fiabilité", consultez cette page en Anglais : https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers . Pour résumer ce qui y est dit : Si, le Javascript peut être bloqué en toute confiance au sein d'un navigateur basé sur Chromium.
 
@@ -14,7 +14,7 @@ En ce qui concerne le mythe disant que "les navigateurs basés sur Chromium ne p
 
 * Vous n'avez pas à vous reposer que sur une seule liste prédéfinie de blocage (dans laquelle il manquerait beaucoup d'éléments), en ayant la possibilité de cumuler l'emploi de plusieurs listes de ce genre, vous avez entièrement le contrôle.
 
-* Facilité d'utilisation : µMatrix vous laisse aisément mettre en liste blanche/noire des requêtes réseau provenant d'une page Web, d'après une matrice qui vous permet de manipuler en quelques clics de souris :
+* Facilité d'utilisation : uMatrix vous laisse aisément mettre en liste blanche/noire des requêtes réseau provenant d'une page Web, d'après une matrice qui vous permet de manipuler en quelques clics de souris :
 
 - Les noms de domaine (colonne de gauche)
   * de très spécifique
@@ -32,7 +32,7 @@ En ce qui concerne le mythe disant que "les navigateurs basés sur Chromium ne p
 
 En un clic, vous pouvez mettre en liste noire/blanche une simple cellule, une ligne entière, un ensemble de lignes, une colonne entière, ou toute la matrice.
 
-Le moteur de filtrage de µMatrix utilise une logique de priorité pour évaluer ce qui doit être bloqué/autorisé d'après l'état des cellules (liste noire/blanche). Par exemple, cela vous permet de mettre en liste blanche toute une page Web en un clic, sans avoir à mettre en liste blanche de manière répétitive toute nouvelle donnée apparaissant sur la page.
+Le moteur de filtrage de uMatrix utilise une logique de priorité pour évaluer ce qui doit être bloqué/autorisé d'après l'état des cellules (liste noire/blanche). Par exemple, cela vous permet de mettre en liste blanche toute une page Web en un clic, sans avoir à mettre en liste blanche de manière répétitive toute nouvelle donnée apparaissant sur la page.
 
 Toutes les règles sont contextualisées. Par exemple, vous pouvez bloquer "facebook.com" et "facebook.net" partout sauf lorsque vous visitez une page sur "www.facebook.com". Ainsi Facebook ne pourrait pas définir un profil de vous en se basant sur vos habitudes de navigation.
 
