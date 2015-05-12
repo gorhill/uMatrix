@@ -184,7 +184,7 @@ var collapser = (function() {
         var collapse = response.collapse;
         var placeholders = response.placeholders;
         var i = requests.length;
-        var request, entry, target, tagName;
+        var request, entry, target, tagName, docurl;
         while ( i-- ) {
             request = requests[i];
             if ( pendingRequests.hasOwnProperty(request.id) === false ) {
@@ -211,12 +211,14 @@ var collapser = (function() {
 
             // Special case: iframe
             if ( tagName === 'iframe' ) {
-                target.setAttribute(
-                    'src',
-                    'data:text/html,' + encodeURIComponent(
-                        placeholders.iframe.replace(reURLplaceholder, request.url)
-                    )
-                );
+                docurl = 'data:text/html,' + encodeURIComponent(placeholders.iframe.replace(reURLplaceholder, request.url));
+                // Using contentWindow.location prevent tainting browser
+                // history -- i.e. breaking back button (seen on Chromium).
+                if ( target.contentWindow ) {
+                    target.contentWindow.location.replace(docurl);
+                } else {
+                    target.setAttribute('src', docurl);
+                }
                 continue;
             }
 
