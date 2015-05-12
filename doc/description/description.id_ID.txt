@@ -1,20 +1,20 @@
-µMatrix: firewall tunjuk-dan-klik berbasis matriks, dengan banyak peralatan privasi yang ditingkatkan. Untuk pengguna tingkat lanjut.
+µMatrix: Firewall tunjuk-dan-klik berbasis matriks, dengan banyak perkakas privasi yang ditingkatkan. Untuk pengguna tingkat lanjut.
 
-µMatrix memberikan anda kontrol penuh kemana peramban anda diizinkan terhubung, tipe data apa yang diizinkan untuk diunduh, dan apa yang diizinkan untuk dieksekusi. Tidak seorangpun memutuskan untuk anda: Anda yang memilih. Anda mengontrol penuh privasi anda sendiri.
+µMatrix memberi anda kontrol penuh ke mana peramban anda diizinkan terhubung, tipe data apa yang diizinkan untuk diunduh, dan apa yang diizinkan untuk dieksekusi. Tidak seorangpun memutuskan untuk anda: Anda yang memilih. Anda mengontrol penuh privasi anda sendiri.
 
-Secara bawaan, µMatrix bekerja dalam mode blokir-semua/perbolehkan-beberapa yang agak ketat, artinya situs web yang membutuhkan skrip pihak ketiga besar kemungkinan menjadi "rusak". Dengan dua klik, µMatrix dapat diatur untuk bekerja dalam mode perbolehkan-semua/blokir-beberapa, yang pada umumnya tidak akan membuat rusak situs web. Lihat https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views untuk penjelasan lebih rinci perihal topik ini.
+Secara bawaan, µMatrix bekerja dalam mode blokir-semua/izinkan-sebagian yang agak ketat, artinya situs web yang membutuhkan skrip pihak ketiga besar kemungkinan menjadi "rusak". Dengan dua klik, µMatrix dapat diatur untuk bekerja dalam mode izinkan-semua/blokir-sebagian, yang pada umumnya tidak akan membuat rusak situs web. Lihat https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views untuk penjelasan lebih rinci perihal topik ini.
 
 Mengenai mitos "Peramban barbasis Chromium tidak dapat dengan handal memblokir JavaScript", lihat: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Ringkasnya: Ya, JavaScript dapat diblokir dengan handal di Chromium.
 
-* Lihat SEMUA koneksi asing, yang gagal atau mencoba, tergantung dari apakah mereka diblokir atau diizinkan (anda memutuskan).
+* Lihat SEMUA koneksi asing, yang gagal atau mencoba, tergantung dari apakah mereka diblokir atau diizinkan (anda putuskan).
 
-* Sekali klik untuk mendaftar-putih/hitamkan satu atau banyak permintaan menurut destinasi dan jenis data (permintaan yang diblokir TIDAK AKAN PERNAH meninggalkan peramban anda).
+* Sekali klik untuk mendaftar-putih/hitamkan satu atau banyak kelas permintaan menurut destinasi dan jenis data (permintaan yang diblokir TIDAK AKAN PERNAH meninggalkan peramban anda).
 
-* Pendaftar-hitaman yang efisien: kuki tidak akan meninggalkan peramban anda, JavaScript tidak akan dieksekusi, plugin tidak akan memutar, piksel pelacakan tidak akan diunduh, dll.
+* Pendaftar-hitaman yang efisien: kuki tidak akan meninggalkan peramban anda, JavaScript tidak akan dieksekusi, plugin tidak akan berjalan, piksel pelacakan tidak akan diunduh, dll.
 
-* Anda tidak harus bergantung hanya pada daftar-hitam tertentu (dengan alasan banyak entri yang hilang) selain tidak ada lagi yang dapat diblokir: Anda dalam kontrol penuh.
+* Anda tidak harus bergantung hanya pada daftar-hitam tertentu saja (dengan alasan banyak entri yang hilang) selain tidak ada lagi yang dapat diblokir: Anda dalam kontrol penuh.
 
-* Mudah dalam penggunaan: µMatrix memungkinkan anda dengan mudah mendaftar-putih/hitamkan permintaan jaringan yang berasal dari laman web menurut matriks tunjuk-dan-klik:
+* Mudah dalam penggunaan: µMatrix memungkinkan anda dengan mudah mendaftar-putih/hitamkan permintaan jaringan yang berasal dari halaman web menurut matriks tunjuk-dan-klik:
 
 - nama ranah (kolom kiri)
   * dari sangat spesifik
@@ -24,7 +24,7 @@ Mengenai mitos "Peramban barbasis Chromium tidak dapat dengan handal memblokir J
   * kuki
   * sumber daya terkait CSS (stylesheet dan fon web)
   * gambar
-  * pengaya
+  * plugin
   * skrip
   * XHR (permintaan yang dibuat oleh skrip)
   * frame
@@ -32,21 +32,21 @@ Mengenai mitos "Peramban barbasis Chromium tidak dapat dengan handal memblokir J
 
 Anda dapat mendaftar-hitam/putihkan satu sel, seluruh baris, satu grup dari baris, seluruh kolom, atau seluruh matriks hanya dengan satu klik.
 
-Mesin penyaringan µMatrix mendahulukan penggunaan logika untuk mengevaluasi apa yang diblokir/diizinkan sesuai dengan sel mana yang di daftar-hitam/putih. Sebagai contoh, berikut ini memungkinkan anda mendaftar-putihkan seluruh laman dengan satu klik, tanpa perlu berulang-ulang mendaftar-putihkan data baru apapun yang muncul di halaman.
+Mesin penyaringan µMatrix menggunakan logika tinggi untuk mengevaluasi apa yang diblokir/diizinkan sesuai dengan sel mana yang di daftar-hitam/putih. Sebagai contoh, hal ini memungkinkan anda mendaftar-putihkan seluruh halaman dengan satu klik, tanpa perlu berulang-ulang mendaftar-putihkan setiap data baru yang muncul di halaman.
 
-Mencakup semua aturan. Sebagai contoh, anda dapat memblokir `facebook.com` dan `facebook.net` di manapun kecuali ketika mengunjungi sebuah laman di `www.facebook.com`. Dengan cara ini Facebook tidak akan bisa membangun profil mengenai kebiasaan penjelajahan anda.
+Mencakup semua aturan. Sebagai contoh, anda dapat memblokir `facebook.com` dan `facebook.net` di manapun kecuali ketika mengunjungi sebuah halaman di `www.facebook.com`. Dengan cara ini Facebook tidak akan bisa membangun profil mengenai kebiasaan penjelajahan anda.
 
 Tujuan dari ekstensi ini adalah untuk mengizinkan atau memblokir situs web, sepenuhnya atau sebagian, sesederhana mungkin, sehingga mendorong para pengguna untuk lebih peduli tentang privasi mereka.
 
-Ekstensi ini hadir bersama berkas host pihak ketiga dengan total lebih dari 58,000 nama host yang berbeda (daftar dapat secara selektif dinonaktif/aktifkan sesuai dengan pilihan anda).
+Ekstensi ini hadir bersama berkas hos pihak ketiga dengan total lebih dari 58,000 nama hos yang berbeda (daftar dapat secara selektif dinonaktif/aktifkan sesuai dengan pilihan anda).
 
 Pada akhirnya, Anda dapat memilih bagaimana anda ingin menjelajah internet:
 
-* Daftar-hitamkan semua secara bawaan, dan daftar-putihkan sesuai kebutuhan (mode bawaan).
+* Daftar-hitamkan semua secara baku, dan daftar-putihkan sesuai kebutuhan (mode bawaan).
 
-* Daftar-putihkan semua secara bawaan, dan daftar-hitamkan sesuai kebutuhan.
+* Daftar-putihkan semua secara baku, dan daftar-hitamkan sesuai kebutuhan.
 
-Dengan cara manapun, anda masih diuntungkan dari aturan bawaan daftar-hitam sehingga paling tidak anda tetap mendapatkan perlindungan mendasar dari pelacak, situs malware, dll. Atau anda dapat menonaktifkan semua aturan bawaan daftar-hitam tersebut.
+Dengan cara manapun, anda masih diuntungkan dari aturan bawaan daftar-hitam sehingga paling tidak anda tetap mendapatkan perlindungan mendasar dari pelacak, situs malware, dll. Atau anda dapat menonaktifkan semua aturan bawaan daftar-hitam ini.
 
 Terserah anda.
 
@@ -64,27 +64,27 @@ KUTU, MASALAH, SARAN:
 
 https://github.com/gorhill/uMatrix/issues
 
-Anda sangat diharapkan untuk berkontribusi mengenai pandangan anda mengenai masalah yang belum terselesaikan dan saran, argumen apapun baik membangun/kontra membantu saya memutuskan apa yang diperlukan untuk memperbaiki ekstensi ini.
+Anda sangat diharapkan untuk berkontribusi mengenai pandangan anda mengenai masalah yang ada dan saran/masukan, argumen apapun baik membangun/kontra membantu saya memutuskan apa yang diperlukan untuk memperbaiki ekstensi ini.
 
 Mudah dalam penggunaan adalah tujuan utama. Saya melihat banyak pengguna menyerah menggunakan NoScript pada Firefox karena menurut mereka semakin banyak gangguan yang terjadi, jadi dari pada menyalahkan para pengguna atas kebiasaan keamanan yang buruk, saya memilih menyalahkan pengembang dan proyek ini adalah eksperimen untuk mengatasi masalah yang menyebabkan beberapa pengguna menyerah pada keamanan dasar.
 
-Ekstensi ini juga bermanfaat untuk memahami apa yang laman web lakukan di peramban anda, seringkali tanpa sepengetahuan anda. Anda memiliki kewenangan penuh untuk melihat dan memutuskan dengan siapa sebuah laman web berkomunikasi, dan membatasi komunikasi tersebut hanya untuk kelas obyek spesifik di dalam laman web.
+Ekstensi ini juga bermanfaat untuk memahami apa yang halaman web lakukan di dalam peramban anda, yang seringkali tanpa sepengetahuan anda. Anda memiliki kewenangan penuh untuk melihat dan memutuskan dengan siapa sebuah halaman web berkomunikasi, dan membatasi komunikasi tersebut hanya untuk kelas obyek spesifik di dalam halaman web.
 
-Angka yang muncul pada ikon ekstensi berhubungan dengan jumlah total percobaan permintaan yang berbeda (sukses atau tidak tergantung pada apakah hal tersebut diizinkan atau diblokir) oleh laman web.
+Angka yang muncul pada ikon ekstensi berhubungan dengan jumlah total percobaan permintaan yang berbeda (sukses atau tidak tergantung pada apakah permintaan tersebut diizinkan atau diblokir) oleh halaman web.
 
 Cukup klik pada entri yang sesuai dalam matriks untuk memutihkan, menghitamkan, mengabu-abukan sebuah komponen. Mendaftar-abukan berarti status diblokir atau diizinkan akan diturunkan dari sel lainnya dengan urutan prioritas yang lebih tinggi dalam matriks.
 
-Persegi merah = didaftar-hitamkan dengan efektif, contoh. permintaan dicegah untuk mencapai destinasi yang dinginkan:
+Persegi merah = didaftar-hitamkan secara efektif, contoh. permintaan dicegah untuk mencapai destinasi yang dinginkan:
 * Persegi merah gelap: nama ranah dan/atau jenis permintaan secara spesifik didaftar-hitamkan.
-* Persegi merah pudar: status daftar-hitam diturunkan karena entri berada di daftar abu-abu.
+* Persegi merah pudar: status daftar-hitam adalah turunan karena entri berada di daftar abu-abu.
 
-Persegi hijau = didaftar-putihkan dengan efektif, contoh. permintaan diizinkan untuk mencapai destinasi yang diinginkan:
+Persegi hijau = didaftar-putihkan secara efektif, contoh. permintaan diizinkan untuk mencapai destinasi yang diinginkan:
 * Persegi hijau gelap: nama ranah dan/atau jenis permintaan secara spesifik didaftar-putihkan.
-* Persegi hijau pudar: status daftar-putih diturunkan karena entri berada di daftar abu-abu.
+* Persegi hijau pudar: status daftar-putih adalah turunan karena entri berada di daftar abu-abu.
 
-Sel kiri atas dalam matriks, sel "semua", mewakili pengaturan global bawaan, yang memungkinkan anda memilih apakah mengizinkan atau memblokir semuanya sebagai perilaku/tindakan bawaan. Beberapa memilih mengizinkan semuanya sambil memblokir secukupnya. Preferensi personal saya adalah tentu saja kebalikannya, memblokir semuanya dan mengizinkan secukupnya.
+Sel kiri atas dalam matriks, sel "semua", mewakili pengaturan baku secara global, yang memungkinkan anda memilih apakah mengizinkan atau memblokir semuanya sebagai perilaku/tindakan baku. Beberapa memilih mengizinkan semuanya sambil memblokir sebagian. Preferensi personal saya adalah tentu saja kebalikannya, memblokir semuanya dan mengizinkan sebagian.
 
-Ekstensi ini juga berguna jika anda ingin mempercepat penjelajahan anda, dengan secara global memblokir semua permintaan untuk gambar sebagai contohnya.
+Ekstensi ini juga berguna jika anda ingin mempercepat penjelajahan anda, sebagai contoh dengan secara global memblokir semua permintaan untuk gambar.
 
 =====
 

@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Berkas host",
+    "message":"Berkas hos",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -52,7 +52,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"pengaya",
+    "message":"plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -96,7 +96,7 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} nama host di daftar hitam",
+    "message":"{{count}} nama hos dicekal",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -108,15 +108,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Pemalsuan pengacu",
+    "message":"Pemalsuan perujuk",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Kembalikan semua perubahan sementara",
+    "message":"Kembalikan semua ubahan sementara",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Kunjungi catatan permintaan",
+    "message":"Kunjungi pencatat",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -136,11 +136,11 @@
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"Tajuk <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>pengacu HTTP<\/a> digagalkan: {{count}}",
+    "message":"Tajuk <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>perujuk HTTP<\/a> digagalkan: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Percobaan <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>audit pranala<\/a> digagalkan: {{count}}",
+    "message":"Percobaan <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>pengauditan pranala<\/a> digagalkan: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -204,7 +204,7 @@
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Pengaya",
+    "message":"Plugin",
     "description":""
   },
   "statsPageScripts":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Catatan permintaan",
+    "message":"Pencatat",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -232,11 +232,11 @@
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"permintaan HTTP <b>per halaman<\/b> yang terakhir.",
+    "message":"permintaan HTTP yang terakhir <b>per halaman<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Anda dapat memeriksa rincian terkini permintaan mentah HTTP yang telah dibuat oleh laman web (lihat di bawah).<\/p><p>Hal ini sangat berguna untuk pengguna tingkat lanjut yang ingin menyelidiki secara pasti apa yang laman web lakukan. Tetapi, mencatat permintaan HTTP ini memerlukan tambahan memori, dan jika anda tidak peduli tentang informasi teknis ini, maka memori akan terbuang percuma.<\/p><p>Oleh karena itu, ruas ini memungkinkan anda mengatur jumlah maksimum permintaan HTTP terkini yang akan dicatat untuk pemeriksaan lebih lanjut.<\/p><p>Masukkan &ldquo;<code>0<\/code>&rdquo; untuk mematikan pencatatan terperinci (dan akan berakibat pada berkurangnya penggunaan memori <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>Anda dapat memeriksa rincian terkini permintaan mentah HTTP yang telah dibuat oleh halaman web (lihat di bawah).<\/p><p>Hal ini sangat berguna bagi para pengguna tingkat lanjut yang ingin menyelidiki secara pasti apa yang halaman web telah lakukan. Akan tetapi, mencatat permintaan HTTP ini memerlukan tambahan memori, dan jika anda tidak peduli tentang informasi teknis ini, maka memori terbuang dengan percuma.<\/p><p>Oleh karena itu, ruas ini memungkinkan anda mengatur jumlah maksimum permintaan HTTP terkini yang akan dicatat untuk pemeriksaan lebih lanjut.<\/p><p>Masukkan &ldquo;<code>0<\/code>&rdquo; untuk mematikan pencatatan terperinci (dan berarti berkurangnya penggunaan memori <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -272,7 +272,7 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Ketika matriks ditutup, muat ulang dengan pintar tab berikut:",
+    "message":"Ketika matriks ditutup, muat ulang dengan cerdas tab berikut:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
@@ -288,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Kapanpun anda membuat perubahan pada matriks yang dapat mempengaruhi tampilan dan\/atau perilaku satu atau lebih halaman, <i>uMatrix<\/i> akan memuat ulang laman yang terdampak secara otomatis ketika anda menutup matriks.",
+    "message":"Kapanpun anda membuat perubahan pada matriks yang dapat mempengaruhi tampilan dan\/atau perilaku satu atau lebih halaman, <i>uMatrix<\/i> akan memuat ulang halaman yang terdampak secara otomatis ketika anda menutup matriks.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -304,7 +304,7 @@
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Runtuhkan tempat elemen yang diblok",
+    "message":"Runtuhkan tempat elemen yang diblokir",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
@@ -316,23 +316,23 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Kuki dalam daftar hitam tidak dicegah oleh <i>uMatrix<\/i> untuk masuk ke peramban anda. Namun, mereka dicegah untuk meninggalkan peramban anda, dan ini yang paling penting. Tidak memblokir kuki sebelum mereka masuk ke peramban anda memberikan anda kesempatan mendapatkan informasi bahwa situs tersebut mencoba untuk menggunakan kuki, dan lebih lanjut memeriksa isi kuki tersebut jika anda inginkan.<\/p><p>Setelah kuki dalam daftar hitam ini dicatat oleh <i>uMatrix<\/i>, mereka dapat dibuang dari peramban anda jika anda menginginkannya.<\/p><p><b>Catatan penting:<\/b> Ekstensi dapat membuat permintaan web selama operasi normal ekstensi berjalan. Permintaan ini dapat mengakibatkan beberapa kuki dibuat dalam peramban. Jika nama host dari mana kuki berasal tidak dalam daftar putih, kuki akan dibuang dari peramban oleh <i>uMatrix<\/i> jika opsi berikut dicentang. Jadi, pastikan nama host dengan yang ekstensi berkomunikasi masuk dalam daftar putih.<\/p>",
+    "message":"<p>Kuki dalam daftar hitam tidak dicegah oleh <i>uMatrix<\/i> untuk masuk ke peramban anda. Namun mereka dicegah untuk meninggalkan peramban anda, dan itulah yang terpenting. Tidak memblokir kuki sebelum mereka masuk ke peramban anda memberikan anda kesempatan mendapatkan informasi bahwa situs tersebut mencoba untuk menggunakan kuki, dan lebih lanjut memeriksa isi kuki tersebut jika anda inginkan.<\/p><p>Setelah kuki dalam daftar hitam ini dicatat oleh <i>uMatrix<\/i>, mereka dapat dibuang dari peramban anda jika anda menginginkannya.<\/p><p><b>Catatan penting:<\/b> Ekstensi dapat membuat permintaan web selama operasi normal ekstensi berjalan. Permintaan ini dapat mengakibatkan beberapa kuki dibuat dalam peramban. Jika nama host dari mana kuki berasal tidak dalam daftar putih, kuki akan dibuang dari peramban oleh <i>uMatrix<\/i> jika opsi berikut dicentang. Jadi, pastikan nama host dengan yang ekstensi berkomunikasi masuk dalam daftar putih.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Hapus sesi kuki yang tidak diblokir ",
+    "message":"Hapus kuki sesi yang tidak diblokir ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" menit setelah terakhir mereka digunakan.",
+    "message":" menit setelah terakhir kali mereka digunakan.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Kuki sesi ... dihapus ketika anda mengakhiri sesi peramban. Kuki sesi disimpan di memori sementara dan tidak tinggal setelah peramban ditutup.&rdquo;<\/p><p>Kecuali hal ini <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>mungkin tidak akan terjadi<\/a> pada beberapa peramban. Juga, bagi beberapa, menutup peramban agar kuki sesi dibersihkan mungkin tidak cukup cepat.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Kuki sesi ... dihapus ketika anda mengakhiri sesi peramban. Kuki sesi disimpan di dalam memori sementara dan tidak tinggal setelah peramban ditutup.&rdquo;<\/p><p>Kecuali hal tersebut <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>mungkin tidak akan terjadi<\/a> pada beberapa peramban. Juga, bagi beberapa, menutup peramban agar kuki sesi dibersihkan mungkin tidak cukup cepat.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Hapus muatan <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>penyimpanan lokal<\/a> yang disimpan oleh nama host yang diblokir",
+    "message":"Hapus muatan <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>penyimpanan lokal<\/a> yang disimpan oleh nama hos yang diblokir",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -348,15 +348,15 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Beberapa situs sangat lihai dalam melacak anda, amat sangat sampai meraka akan menggunakan cara-cara tidak baik untuk menghindari tindakan apapun yang anda lakukan agar tidak dilacak.<\/p><p>Beberapa cara-cara ini bergantung<sup style='font-size:smaller'>[1, 2]<\/sup> pada <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tembolok peramban<\/a>, yang muatannya terkadang bertahan lama karena jarang pengguna akan menyempatkan waktu secara berkala membersihkan tembolok peramban mereka.<\/p><p>Ada sedikit ketidaknyamanan untuk membersihkan tembolok peramban secara berkala (kemungkinan adalah anda tidak akan tahu ketika hal tersebut terjadi), dan keuntungannya adalah untuk mencegah pelacak yang menjengkelkan ini melanggar privasi anda.<\/p><p>Centang opsi berikut untuk membuat <i>uMatrix<\/i> melakukannya untuk anda, pada jarak waktu yang anda inginkan.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Mencegah Pelacakan Web melalui Tembolok Web&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Kuki tanpa kuki&rdquo;<\/a><\/p>",
+    "message":"<p>Beberapa situs sangat lihai dalam melacak anda, amat sangat lihai sampai-sampai meraka akan gunakan cara-cara yang tidak baik untuk menghindari apapun tindakan yang anda lakukan agar tidak dilacak.<\/p><p>Beberapa cara-cara ini mengandalkan<sup style='font-size:smaller'>[1, 2]<\/sup> <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tembolok peramban<\/a>, yang muatannya terkadang bertahan lama karena jarang pengguna menyempatkan waktu secara berkala membersihkan tembolok peramban mereka.<\/p><p>Ada sedikit ketidaknyamanan untuk membersihkan tembolok peramban secara berkala (kemungkinan adalah anda tidak akan tahu ketika hal tersebut terjadi), dan keuntungannya adalah untuk mencegah pelacak yang menjengkelkan ini melanggar privasi anda.<\/p><p>Centang opsi berikut untuk membuat <i>uMatrix<\/i> melakukannya untuk anda, pada selang waktu yang anda inginkan.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Mencegah Pelacakan Web melalui Tembolok Web&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Kuki tanpa kuki&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Palsukan <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>pengacu HTTP<\/a> pada permintaan pihak ketiga.",
+    "message":"Palsukan untai <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>perujuk HTTP<\/a> pada permintaan pihak ketiga.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Dari Wikipedia:<\/p><blockquote>Pengacu HTTP adalah sebuah ruas tajuk HTTP yang mengidentifikasi alamat dari laman web yang bertautan dengan sumber daya yang sedang diminta. ... <b>Karena informasi pengacu dapat melanggar privasi, beberapa peramban memperbolehkan pengguna untuk menonaktifkan pengiriman informasi pengacu.<\/b><\/blockquote><p>Jika aturan ini dicentang, <i>uMatrix<\/i> akan memalsukan informasi pengacu HTTP jika nama ranah pengacu HTTP adalah pihak ketiga dari nama ranah jaringan yang diminta.",
+    "message":"<p>Dari Wikipedia:<\/p><blockquote>Perujuk HTTP adalah sebuah ruas tajuk HTTP yang mengidentifikasi alamat dari halaman web yang bertautan dengan sumber daya yang sedang diminta. ... <b>Karena informasi perujuk dapat melanggar privasi, beberapa peramban memperbolehkan pengguna untuk menonaktifkan pengiriman informasi perujuk.<\/b><\/blockquote><p>Jika aturan ini dicentang, <i>uMatrix<\/i> akan memalsukan informasi perujuk HTTP jika nama ranah perujuk HTTP adalah pihak ketiga dari nama ranah jaringan yang diminta.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -364,19 +364,19 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>Dari <a href='https:\/\/developer.mozilla.org\/id\/docs\/Security\/MixedContent'>Jaringan Pengembang Mozilla<\/a>:<\/p><blockquote>Jika laman HTTPS mengandung muatan yang diambil melalui HTTP umum \/ berteks jelas, maka koneksi hanya terenkripsi sebagian: muatan yang tidak terenkripsi tersedia bagi para pengendus jaringan dan dapat diubah oleh serangan orang-ditengah, dan oleh karena itu koneksi menjadi tidak lagi aman. Ketika laman web memperlihatkan perilaku seperti ini, hal ini disebut &ldquo;laman dengan muatan campuran tidak aman&rdquo;.<\/blockquote>",
+    "message":"<p>Dari <a href='https:\/\/developer.mozilla.org\/id\/docs\/Security\/MixedContent'>Jaringan Pengembang Mozilla<\/a>:<\/p><blockquote>Jika halaman HTTPS mengandung muatan yang diambil melalui HTTP umum \/ berteks jelas, maka koneksi hanya terenkripsi sebagian: muatan yang tidak terenkripsi tersedia bagi para pengendus jaringan dan dapat diubah oleh serangan orang-ditengah, dan oleh karena itu koneksi menjadi tidak lagi aman. Ketika halaman web memperlihatkan perilaku seperti ini, hal ini disebut &ldquo;halaman dengan muatan campuran tidak aman&rdquo;.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Blokir semua percobaan <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>audit pranala<\/a>.",
+    "message":"Blokir semua percobaan <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>pengauditan pranala<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Pengauditan pranala adalah mekanisme yang memperbolehkan satu pihak, <b>pihak manapun<\/b>, mendapatkan informasi tentang tautan mana yang pengguna klik pada laman web tertentu. Hal ini pada dasarnya adalah fitur pelacakan: memperbolehkan sebuah situs web, atau pihak ketiga dari situs web tersebut, mendapatkan informasi tentang tautan mana di laman yang mana yang anda klik pada situs web tersebut. Tujuannya adalah untuk melacak aktifitas penjelajahan anda.<\/p>",
+    "message":"<p>Pengauditan pranala adalah mekanisme yang memperbolehkan satu pihak, <b>pihak manapun<\/b>, mendapatkan informasi tentang tautan mana yang pengguna klik pada halaman web tertentu. Hal ini pada dasarnya adalah fitur pelacakan: memperbolehkan sebuah situs web, atau pihak ketiga dari situs web tersebut, mendapatkan informasi tentang tautan mana di halaman yang mana yang anda klik pada situs web tersebut. Tujuannya adalah untuk melacak aktifitas penjelajahan anda.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Palsukan <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> dengan cara memilih acak salah satu yang baru di bawah setiap",
+    "message":"Palsukan untai <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> dengan cara memilih acak salah satu yang baru di bawah setiap",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -384,7 +384,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Menurut <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] peramban anda mengirimkan sebuah tajuk &lsquo;User Agent&rsquo; ke situs web dan menjelaskan secara akurat tentang sistem operasi dan peramban web yang anda gunakan. Informasi tersebut dapat membantu membedakan pengguna internet satu dengan yang lain karena versi sistem operasi dan peramban yang berbeda-beda, seringkali, orang per orang. [...] <b>User Agent menjadi masalah utama privasi yang nyata<\/b>.&rdquo;<p>Opsi ini memungkinkan anda untuk mengatasi masalah privasi yang diangkat oleh EFF.<\/p><p>Anda dapat memberikan senarai user agent anda sendiri. Satu user agent per baris. Baris kosong dan baris yang dimulai dengan &lsquo;#&rsquo; akan diabaikan.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Menurut <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] peramban anda mengirimkan sebuah tajuk &lsquo;User Agent&rsquo; ke situs web dan menjelaskan secara akurat tentang sistem operasi dan peramban web yang anda gunakan. Informasi tersebut dapat membantu membedakan pengguna internet satu dengan yang lain karena versi sistem operasi dan peramban yang berbeda-beda, seringkali, orang per orang. [...] <b>User Agent menjadi masalah utama privasi yang nyata<\/b>.&rdquo;<p>Opsi ini memungkinkan anda untuk mengatasi masalah privasi yang diangkat oleh EFF.<\/p><p>Anda dapat memberikan senarai untai user agent anda sendiri. Satu untai user agent per baris. Baris kosong dan baris yang dimulai dengan &lsquo;#&rsquo; akan diabaikan.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
@@ -440,11 +440,11 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"Semua nama host dalam berkas host dimuat sebagai nama host yang dicekal dalam lingkup global.",
+    "message":"Semua nama hos di dalam berkas hos dimuat sebagai nama hos yang dicekal dalam lingkup global.",
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} nama host yang berbeda diblokir dari:",
+    "message":"{{blockedHostnameCount}} nama hos yang berbeda diblokir dari:",
     "description":""
   },
   "hostsFilesPerFileStats":{
@@ -460,7 +460,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Berkas host yang terbarui otomatis.",
+    "message":"Otobarui berkas hos.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -612,7 +612,7 @@
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Sementara daftar-putihkan ranah laman",
+    "message":"Sementara daftar-putihkan ranah halaman",
     "description":""
   },
   "commandWhitelistAll":{
