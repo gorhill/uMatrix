@@ -4,9 +4,9 @@ Definitely for advanced users.
 
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
-Install [manually](https://github.com/gorhill/uMatrix/blob/master/doc/INSTALL.md) the [latest release](https://github.com/gorhill/uMatrix/releases), or install from:
+Install [manually](https://github.com/gorhill/uMatrix/blob/master/doc/README.md) the [latest release](https://github.com/gorhill/uMatrix/releases), or install from:
+- [Firefox AMO](https://addons.mozilla.org/firefox/addon/umatrix/)
 - [Chrome store](https://chrome.google.com/webstore/detail/µmatrix/ogfcmafjalglgifnmanfmnieipoejdcf)
-- [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/umatrix/)
 - [Opera store](https://addons.opera.com/en-gb/extensions/details/umatrix/)
 
 You may contribute with translation work on Crowdin: [uMatrix on Crowdin](https://crowdin.com/project/umatrix).

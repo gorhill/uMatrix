@@ -1,8 +1,8 @@
-µMatrix: Eine Matrix-basierte Firewall, einfach per Mausklick zu bedienen - und mit vielen Extras, um deine Privatsphäre zu schützen. Für fortgeschrittene Benutzer.
+uMatrix: Eine Matrix-basierte Firewall, einfach per Mausklick zu bedienen - und mit vielen Extras, um deine Privatsphäre zu schützen. Für fortgeschrittene Benutzer.
 
-µMatrix gibt dir volle Kontrolle darüber, womit sich dein Browser verbindet, welche Art von Daten erlaubt sind und was ausgeführt werden darf. Du lässt niemand anderen für dich entscheiden: Du entscheidest. Du hast die volle Kontrolle über deine Privatsphäre.
+uMatrix gibt dir volle Kontrolle darüber, womit sich dein Browser verbindet, welche Art von Daten erlaubt sind und was ausgeführt werden darf. Du lässt niemand anderen für dich entscheiden: Du entscheidest. Du hast die volle Kontrolle über deine Privatsphäre.
 
-Voreingestellt arbeitet µMatrix in einem gelockerten "blockiere alles/erlaube ausnahmsweise"-Modus, was dazu führt, dass viele Webseiten, die Skripte von Drittseiten benötigen, "kaputt" sein werden. Mit zwei Klicks kannst du aber dafür sorgen, dass µMatrix in einem "erlaube alles/blockiere ausnahmsweise"-Modus arbeitet, der normalerweise Webseiten nicht kaputt macht. Details dazu auf https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
+Voreingestellt arbeitet uMatrix in einem gelockerten "blockiere alles/erlaube ausnahmsweise"-Modus, was dazu führt, dass viele Webseiten, die Skripte von Drittseiten benötigen, "kaputt" sein werden. Mit zwei Klicks kannst du aber dafür sorgen, dass uMatrix in einem "erlaube alles/blockiere ausnahmsweise"-Modus arbeitet, der normalerweise Webseiten nicht kaputt macht. Details dazu auf https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
 
 Die Behauptung: "Chromium-basierte Browser können nicht zuverlässig Javascript blockieren" ist ein reiner Mythos, siehe dazu: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Kurz: Doch, Javascript kann sehr wohl zuverlässig in Chromium blockiert werden.
 
@@ -14,7 +14,7 @@ Die Behauptung: "Chromium-basierte Browser können nicht zuverlässig Javascript
 
 * Du musst dich nicht ausschließlich auf irgendeine externe Blacklist (vermutlich mit vielen fehlenden Einträgen) verlassen, die nur unvollständig blockiert: Du selbst hast die volle Kontrolle.
 
-* Bedienungsfreundlich: µMatrix erlaubt es dir auf einfache Art, Netzanfragen einer Webseite in einer klickbaren Matrix zu erlauben (whitelist)/blockieren (blacklist):
+* Bedienungsfreundlich: uMatrix erlaubt es dir auf einfache Art, Netzanfragen einer Webseite in einer klickbaren Matrix zu erlauben (whitelist)/blockieren (blacklist):
 
 - Domain-Namen (linke Spalte)
     * sehr spezifische
@@ -32,7 +32,7 @@ Die Behauptung: "Chromium-basierte Browser können nicht zuverlässig Javascript
 
 Du kannst eine einzelne Zelle erlauben/blockieren, eine ganze Zeile, eine Gruppe von Zeilen, eine ganze Spalte, oder sogar die komplette Matrix mit gerade mal einem Klick.
 
-Das Filtermodul von µMatrix arbeitet nach einer logischen Rangordnung, um zu beurteilen, was blockiert/erlaubt werden soll, je nachdem, welche Zellen blockiert/erlaubt sind. Zum Beispiel erlaubt dir dies, eine komplette Seite zu erlauben, ohne dass du wiederholt neue Daten separat erlauben musst.
+Das Filtermodul von uMatrix arbeitet nach einer logischen Rangordnung, um zu beurteilen, was blockiert/erlaubt werden soll, je nachdem, welche Zellen blockiert/erlaubt sind. Zum Beispiel erlaubt dir dies, eine komplette Seite zu erlauben, ohne dass du wiederholt neue Daten separat erlauben musst.
 
 Alle Regeln beziehen sich auf einen bestimmten Geltungsbereich. Zum Beispiel kannst du `facebook.com` und `facebook.net` überall blockieren, außer wenn du eine Seite auf `www.facebook.com` besuchst. Dadurch wird Facebook nicht in der Lage sein, eine Profil deiner Surfgewohnheiten anzulegen.
 
