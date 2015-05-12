@@ -138,7 +138,10 @@ var onUserSettingsLoaded = function() {
     delete µm.userSettings.popupCollapseSpecificDomains;
     delete µm.userSettings.popupHideBlacklisted;
     // These do not exist anymore:
+    delete µm.smartAutoReload;
     delete µm.userSettings.statsFilters;
+    delete µm.userSettings.subframeColor;
+    delete µm.userSettings.subframeOpacity;
 
     µm.loadHostsFiles(onHostsFilesLoaded);
 };

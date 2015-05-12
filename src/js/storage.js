@@ -200,6 +200,7 @@
         µm.ubiquitousBlacklist.freeze();
         vAPI.storage.set({ 'liveHostsFiles': µm.liveHostsFiles });
         vAPI.messaging.broadcast({ what: 'loadHostsFilesCompleted' });
+        µm.getBytesInUse();
         callback();
     };
 
