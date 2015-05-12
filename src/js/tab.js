@@ -390,10 +390,6 @@ housekeep itself.
 // content has changed.
 
 vAPI.tabs.onNavigation = function(details) {
-    if ( details.frameId !== 0 ) {
-        return;
-    }
-
     // This actually can happen
     var tabId = details.tabId;
     if ( vAPI.isBehindTheSceneTabId(tabId) ) {

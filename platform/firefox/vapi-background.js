@@ -75,6 +75,22 @@ vAPI.app.restart = function() {
 
 /******************************************************************************/
 
+// https://stackoverflow.com/questions/6715571/how-to-get-result-of-console-trace-as-string-in-javascript-with-chrome-or-fire/28118170#28118170
+/*
+function getStackTrace () {
+  var stack;
+  try {
+    throw new Error('');
+  }
+  catch (error) {
+    stack = error.stack || '';
+  }
+  stack = stack.split('\n').map(function (line) { return line.trim(); });
+  return stack.splice(stack[0] == 'Error' ? 2 : 1);
+}
+*/
+/******************************************************************************/
+
 // List of things that needs to be destroyed when disabling the extension
 // Only functions should be added to it
 
@@ -341,14 +357,20 @@ var tabWatcher = {
     onTabClose: function({target}) {
         // target is tab in Firefox, browser in Fennec
         var tabId = vAPI.tabs.getTabId(target);
+        if ( tabId === vAPI.noTabId ) {
+            return;
+        }
         vAPI.tabs.onClosed(tabId);
         delete vAPI.toolbarButton.tabs[tabId];
     },
 
     onTabSelect: function({target}) {
-        vAPI.setIcon(vAPI.tabs.getTabId(target), getOwnerWindow(target));
-        return;
-    },
+        var tabId = vAPI.tabs.getTabId(target);
+        if ( tabId === vAPI.noTabId ) {
+            return;
+        }
+        vAPI.setIcon(tabId, getOwnerWindow(target));
+    }
 };
 
 /******************************************************************************/
@@ -447,17 +469,27 @@ vAPI.tabs.getTabId = function(target) {
         return vAPI.noTabId;
     }
     if ( target.linkedPanel ) {
-        // target is a tab
-        target = target.linkedBrowser;
+        target = target.linkedBrowser; // target is a tab
     }
     if ( target.localName !== 'browser' ) {
         return vAPI.noTabId;
     }
     var tabId = this.stack.get(target);
-    if ( !tabId ) {
-        tabId = '' + this.stackId++;
-        this.stack.set(target, tabId);
+    if ( tabId ) {
+        return tabId;
     }
+    tabId = '' + this.stackId++;
+    this.stack.set(target, tabId);
+
+    // https://github.com/gorhill/uMatrix/issues/189
+    // If a new tabid-tab pair is created, tell the client code about it.
+    if ( this.onNavigation ) {
+        this.onNavigation({
+            tabId: tabId,
+            url: target.currentURI.asciiSpec
+        });
+    }
+
     return tabId;
 };
 
@@ -1332,6 +1364,9 @@ vAPI.net.registerListeners = function() {
     var locationChangedListener = function(e) {
         var details = e.data;
         var browser = e.target;
+
+        // https://github.com/gorhill/uMatrix/issues/189
+        // getTabId will calls onNavigation() if needed.
         var tabId = vAPI.tabs.getTabId(browser);
 
         //console.debug("nsIWebProgressListener: onLocationChange: " + details.url + " (" + details.flags + ")");        
@@ -1339,16 +1374,11 @@ vAPI.net.registerListeners = function() {
         // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
         if ( details.flags & Ci.nsIWebProgressListener.LOCATION_CHANGE_SAME_DOCUMENT ) {
             vAPI.tabs.onUpdated(tabId, {url: details.url}, {
-                frameId: 0,
                 tabId: tabId,
                 url: browser.currentURI.asciiSpec
             });
             return;
         }
-
-        // https://github.com/chrisaljoudi/uBlock/issues/105
-        // Allow any kind of pages
-        vAPI.tabs.onNavigation({ frameId: 0, tabId: tabId, url: details.url });
     };
 
     vAPI.messaging.globalMessageManager.addMessageListener(

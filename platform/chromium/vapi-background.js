@@ -127,7 +127,6 @@ vAPI.tabs.registerListeners = function() {
             return;
         }
         details.tabId = details.tabId.toString();
-        details.frameId = 0;
         onNavigationClient(details);
     };
 
@@ -137,6 +136,7 @@ vAPI.tabs.registerListeners = function() {
     };
 
     var onCommitted = function(details) {
+        // Important: do not call client if not top frame.
         if ( details.frameId !== 0 ) {
             return;
         }
