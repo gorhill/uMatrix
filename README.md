@@ -9,7 +9,9 @@ Install [manually](https://github.com/gorhill/uMatrix/blob/master/doc/README.md)
 - [Chrome store](https://chrome.google.com/webstore/detail/µmatrix/ogfcmafjalglgifnmanfmnieipoejdcf)
 - [Opera store](https://addons.opera.com/en-gb/extensions/details/umatrix/)
 
-You may contribute with translation work on Crowdin: [uMatrix on Crowdin](https://crowdin.com/project/umatrix).
+You may contribute with translation work:
+- For in-app strings, on Crowdin: [uMatrix on Crowdin](https://crowdin.com/project/umatrix).
+- For [description](https://github.com/gorhill/uMatrix/tree/master/doc/description) (to be used in AMO, Chrome store, etc.), submit a pull request. [Reference description is here](https://github.com/gorhill/uMatrix/blob/master/doc/description/description.en_US.txt) (feel free to improve as you wish, I am not a writer).
 
 [HTTP Switchboard's documentation](https://github.com/gorhill/httpswitchboard/wiki) is still relevant, except for [uMatrix's differences with HTTP Switchboard](https://github.com/gorhill/uMatrix/wiki/Changes-from-HTTP-Switchboard).
 
