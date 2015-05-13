@@ -78,7 +78,13 @@ var defaultLocalUserSettings = {
             '<a href="{{url}}" title="{{url}}" target="_blank">&#x2191;</a>{{url}}',
             '</body></html>'
         ].join(''),
-    placeholderImage: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+    placeholderImage: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+};
+
+var rwLocalUserSettings = {
+    placeholderBackground: true,
+    placeholderBorder: true,
+    placeholderImage: true
 };
 
 /******************************************************************************/
@@ -104,9 +110,12 @@ var onAllDone = function() {
         if ( defaultLocalUserSettings.hasOwnProperty(key) === false ) {
             continue;
         }
-        //if ( vAPI.localStorage.getItem(key) === null ) {
+        if (
+            vAPI.localStorage.getItem(key) === null ||
+            rwLocalUserSettings.hasOwnProperty(key) === false
+        ) {
             vAPI.localStorage.setItem(key, defaultLocalUserSettings[key]);
-        //}
+        }
     }
 };
 
