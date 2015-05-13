@@ -315,7 +315,7 @@ function toggleSpecificCollapseState(uelem) {
     var section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed');
     var domain = section.prop('domain');
     var collapsed = section.hasClass('collapsed');
-    var mainCollapseState = getUISetting('popupCollapseDomains');
+    var mainCollapseState = getUISetting('popupCollapseDomains') === true;
     var specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
     if ( collapsed !== mainCollapseState ) {
         specificCollapseStates[domain] = collapsed;
@@ -512,7 +512,7 @@ var createMatrixRow = function() {
 
 function renderMatrixHeaderRow() {
     var matHead = uDom('#matHead.collapsible');
-    matHead.toggleClass('collapsed', getUISetting('popupCollapseDomains'));
+    matHead.toggleClass('collapsed', getUISetting('popupCollapseDomains') === true);
     var cells = matHead.descendants('.matCell');
     cells.at(0)
         .prop('reqType', '*')
