@@ -33,6 +33,7 @@ var oneHour = 60 * oneMinute;
 var oneDay = 24 * oneHour;
 
 /******************************************************************************/
+/******************************************************************************/
 
 var defaultUserAgentStrings = [
     '# http://techblog.willshouse.com/2012/01/03/most-common-user-agents/',
@@ -48,6 +49,54 @@ var defaultUserAgentStrings = [
     ''
 ].join('\n').trim();
 
+/******************************************************************************/
+/******************************************************************************/
+
+var _RequestStats = function() {
+    this.reset();
+};
+
+_RequestStats.prototype.reset = function() {
+    this.all = 
+    this.doc =
+    this.frame =
+    this.script =
+    this.css =
+    this.image =
+    this.plugin =
+    this.xhr =
+    this.other =
+    this.cookie = 0;
+};
+
+/******************************************************************************/
+
+var RequestStats = function() {
+    this.allowed = new _RequestStats();
+    this.blocked = new _RequestStats();
+};
+
+RequestStats.prototype.reset = function() {
+    this.blocked.reset();
+    this.allowed.reset();
+};
+
+RequestStats.prototype.record = function(type, blocked) {
+    // Remember: always test against **false**
+    if ( blocked !== false ) {
+        this.blocked[type] += 1;
+        this.blocked.all += 1;
+    } else {
+        this.allowed[type] += 1;
+        this.allowed.all += 1;
+    }
+};
+
+var requestStatsFactory = function() {
+    return new RequestStats();
+};
+
+/******************************************************************************/
 /******************************************************************************/
 
 return {
@@ -100,7 +149,8 @@ return {
     ubiquitousBlacklist: null,
 
     // various stats
-    requestStats: new WebRequestStats(),
+    requestStatsFactory: requestStatsFactory,
+    requestStats: requestStatsFactory(),
     cookieRemovedCounter: 0,
     localStorageRemovedCounter: 0,
     cookieHeaderFoiledCounter: 0,

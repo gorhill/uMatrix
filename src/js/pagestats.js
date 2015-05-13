@@ -321,7 +321,7 @@ var pageStoreFactory = function(tabContext) {
 /******************************************************************************/
 
 function PageStore(tabContext) {
-    this.requestStats = new WebRequestStats();
+    this.requestStats = µm.requestStatsFactory();
     this.off = false;
     this.init(tabContext);
 }
