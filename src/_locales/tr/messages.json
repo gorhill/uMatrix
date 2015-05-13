@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"İşaret et ve tıkla ile tarayıcınız tarafından yapılan herhangi bir istek sınıfını yasaklayabilir veya izin verebilirsiniz.",
+    "message":"İşaret edip tıklayarak tarayıcının yaptığı herhangi bir istek sınıfı yasaklanabilir veya buna izin verilebilir.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Kara listelenmiş çerezlerin tarayıcınıza girmesi <i>uMatrix<\/i> tarafından önlenmez. Ancak tarayıcınızdan çıkışları önlenir, önemli olan da budur. Çerezlerin tarayıcınıza girişi önlenmeyerek sitenin çerez kullanımı hakkında bilgi sahibi olma fırsatını elde edersiniz ve üstelik dilerseniz içeriklerini de denetleyebilirsiniz.<\/p><p>Bu engellenmiş çerezler bir kere <i>uMatrix<\/i> tarafından raporlandıktan sonra eğer isterseniz tabi tarayıcınızdan kaldırılabilir.<\/p><p><b>Önemli not:<\/b> Eklentiler normal işleyişleri sırasında web isteği yapabilir. Bu istekler tarayıcınızda çerez oluşumuna neden olur. Bu seçenek işaretli ve çerezin geldiği alan adı beyaz listede değilse, bu çerez <i>uMatrix<\/i> tarafından tarayıcınızdan kaldırılacaktır. Bu yüzden eklentilerin iletişim kurduğu alan ad(lar)ının beyaz listede bulunduğundan emin olunuz.<\/p>",
+    "message":"<p>Kara listelenmiş çerezlerin tarayıcınıza girmesi <i>uMatrix<\/i> tarafından önlenmez. Ancak tarayıcınızdan çıkışları önlenir, önemli olan da budur. Çerezlerin tarayıcınıza girişi önlenmeyerek sitenin çerez kullanımı hakkında bilgi sahibi olma fırsatını elde edersiniz ve üstelik dilerseniz içeriklerini de denetleyebilirsiniz.<\/p><p>Bu engellenmiş çerezler bir kere <i>uMatrix<\/i> tarafından raporlandıktan sonra eğer isterseniz tabi tarayıcınızdan kaldırılabilir.<\/p><p><b>Önemli not:<\/b> Eklentiler normal işleyişleri sırasında web isteği yapabilir. Bu istekler tarayıcınızda çerez oluşumuna neden olur. Bu seçenek işaretli ve çerezin geldiği alan adı beyaz listede değilse bu çerez <i>uMatrix<\/i> tarafından tarayıcınızdan kaldırılacaktır. Bu yüzden eklentilerin iletişim kurduğu alan ad(lar)ının beyaz listede bulunduğundan emin olunuz.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -356,7 +356,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Wikipedia'dan:<\/p><blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote><p>Bu ayar işaretliyse, <i>uMatrix<\/i> HTTP başvuran bilgisinin alan adı, istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
+    "message":"<p>Wikipedia'dan:<\/p><blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote><p>Bu ayar işaretliyse <i>uMatrix<\/i>, HTTP başvuran bilgisinin alan adı, istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{

@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Host filer",
+    "message":"Host-filer",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -76,15 +76,15 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"Stäng av\/sätt på matrisfiltrering för detta omfång.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Spara alla tillfälliga ändringar för detta omfång.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"Återställ tillfälliga ändringar i detta omfång.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
@@ -100,35 +100,35 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Strikt HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Förfalskning av user agent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Förfalskning av referrer",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Återställ alla tillfälliga ändringar",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Visa logg",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Visa översiktspanel",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"uMatrix &ndash; Statistik",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Generell statistik",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -144,7 +144,7 @@
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"Lokala cookies borttagna: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
@@ -208,7 +208,7 @@
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Skript",
     "description":""
   },
   "statsPageXHRs":{
@@ -224,11 +224,11 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logger",
+    "message":"Logg",
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Kom ihåg sista",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
@@ -248,11 +248,11 @@
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Utseende",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Textstorlek:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
@@ -260,15 +260,15 @@
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Stor",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Färgblindsanpassat",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"Bekvämlighet",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
@@ -408,7 +408,7 @@
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"Spara",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
@@ -608,7 +608,7 @@
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Revert all temporary changes",
+    "message":"Återställ alla tillfälliga ändringar",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -620,7 +620,7 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Öppna översiktspanel",
     "description":""
   },
   "elapsedOneMinuteAgo":{
@@ -648,7 +648,7 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Översiktspanel",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{

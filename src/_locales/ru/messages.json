@@ -1,14 +1,14 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
-    "message":"Интерактивный блокировщик любых типов запросов браузера. Управляет запретом скриптов, окон IFRAME, плагинов, рекламы и т. д.",
+    "message":"Интерактивный блокировщик любых типов запросов браузера. Позволяет запретить загрузку скриптов, фреймов, плагинов, рекламы и пр.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — Панель",
+    "message":"uMatrix — Панель управления",
     "description":""
   },
   "settingsPageName":{
@@ -16,7 +16,7 @@
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Безопасность",
+    "message":"Приватность",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Сайты",
+    "message":"Списки сайтов",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Вкл\/выкл правил области\nОтклонённые запросы: {{count}}",
+    "message":"Вкл\/выкл фильтрацию запросов для данной области",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -112,19 +112,19 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Отменить все временные изменения",
+    "message":"Отменить все временные правила",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Перейти к журналу запросов",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Панель управления",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; Статистика",
+    "message":"uMatrix &ndash; Статистика",
     "description":""
   },
   "statsPageGenericStats":{
@@ -148,7 +148,7 @@
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"Удалено <a href='http:\/\/diveintohtml5.info\/storage.html'>локальных хранилищ<\/a>: {{count}}",
+    "message":"Очищено <a href='http:\/\/diveintohtml5.info\/storage.html'>локальных хранилищ<\/a>: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Chromium: скрытые запросы",
+    "message":"Скрытые запросы",
     "description":""
   },
   "statsPageOverview":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Список запросов",
+    "message":"Журнал запросов",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; Настройки",
+    "message":"uMatrix &ndash; Настройки",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -288,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Если внесённые изменения влияют на отображение и\/или поведение одной или более веб-страниц, то автоматически обновить их после закрытия панели.",
+    "message":"Если внесённые изменения влияют на отображение и\/или поведение одной или нескольких веб-страниц, <i>uMatrix<\/i> автоматически обновит их после закрытия панели.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -300,15 +300,15 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Показывать количество запросов на иконке",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
+    "message":"Скрывать оставшееся от заблокированных элементов место",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; Безопасность",
+    "message":"uMatrix &ndash; Приватность",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Все файлы cookie сохраняются в браузере. Но запрещённые файлы cookie никогда не покидают его, вот что действительно важно. Сохранение файлов cookie даёт возможность узнать о том, что сайт пытался их использовать и в дальнейшем это позволяет исследовать их содержимое.<\/p><p>Запрещённые файлы cookie могут быть удалены сразу при обнаружении.<\/p><p><b>Важное замечание:<\/b> некоторые расширения посылают веб-запросы. Результатом этих запросов может стать сохранение файлов cookie. Если эта опция включена и сайт, который использует файлы cookie, запрещён, то файлы cookie с этого сайта будут удалены. Следует убедиться, что все сайты, к которым обращается расширение, разрешены.<\/p>",
+    "message":"<p>Все файлы cookie сохраняются в браузере. Однако запрещённые файлы cookie никогда не покидают его — вот что действительно важно. Сохранение файлов cookie даёт возможность узнать о том, что сайт пытался их использовать, и, кроме того, позволяет исследовать их содержимое.<\/p><p>При включении данной опции запрещённые файлы cookie будут удалены сразу при обнаружении.<\/p><p><b>Важное замечание:<\/b> некоторые расширения посылают веб-запросы. Результатом этих запросов может стать сохранение файлов cookie. Если эта опция включена и сайт, который использует файлы cookie, запрещён, то файлы cookie с этого сайта будут удалены. Поэтому следует убедиться, что все сайты, к которым обращается расширение, занесены в белый список.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -324,11 +324,11 @@
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":"минут после последнего использования.",
+    "message":" минут после последнего использования.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Сеансовые файлы cookie [...] удаляются по окончании сеанса браузера. Сеансовые файлы cookie находятся во временной памяти и не сохраняются после закрытия браузера.&rdquo;<\/p><p>Однако, при использовании браузера основанного на Chromium этого <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>может не произойти<\/a>. К тому же, удаление сеансовых файлов cookie может потребоваться и до закрытия браузера.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Сеансовые файлы cookie [...] удаляются по окончании сеанса браузера. Сеансовые файлы cookie находятся во временной памяти и не сохраняются после закрытия браузера.&rdquo;<\/p><p>Однако в некоторых браузерах этого <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>может не произойти<\/a>. Также может возникнуть потребность в удалении сеансовых файлов cookie до закрытия браузера.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -348,7 +348,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые предпринятые меры по защите от отслеживания.<\/p><p>Часть из них использует<sup style='font-size:smaller'>[1, 2]<\/sup> <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэш браузера<\/a>, содержимое которого зачастую неизменно по причине того, что пользователи очищают его нерегулярно.<\/p><p>Регулярная очистка кэша браузера нейтрализует усилия подобных сайтов и скорее всего вы не будете обращать на неё внимание.<\/p><p>Включение этой опции заставит <i>µMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые предпринятые меры по защите от отслеживания.<\/p><p>Одно из таких ухищрений основано<sup style='font-size:smaller'>[1, 2]<\/sup> на использовании <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэша браузера<\/a>, содержимое которого зачастую хранится продолжительное время, потому что пользователи очищают его нерегулярно.<\/p><p>Регулярная очистка кэша предотвращает отслеживание, однако делать это вручную не всегда может быть удобным.<\/p><p>Включение данной опции позволит <i>uMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -356,11 +356,11 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Материал из Википедии:<\/p><blockquote>HTTP referer — это запись заголовка HTTP содержащая адрес текущей веб-страницы. [...] <b>Так как эта информация может нарушать секретность, некоторые браузеры позволяют запрещать её передачу.<\/b><\/blockquote><p>При включении этой опции <i>µMatrix<\/i> будет подменять HTTP referrer, если сайт, указанный в HTTP referrer, является сторонним по отношению к сайту запрашиваемого ресурса.",
+    "message":"<p>Материал из Википедии:<\/p><blockquote>HTTP referer — это заголовок HTTP, который указывает адрес страницы, содержащей ссылку на запрошенный ресурс. [...] <b>Поскольку эта информация может нарушать конфиденциальность, некоторые браузеры позволяют запретить её передачу.<\/b><\/blockquote><p>При включении данной опции <i>uMatrix<\/i> будет подменять заголовок HTTP referrer, если сайт, указанный в HTTP referrer, является сторонним по отношению к запрашиваемому ресурсу.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Только HTTPS: запрещать смешанное содержимое.",
+    "message":"Только HTTPS: запретить смешанное содержимое.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -368,7 +368,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Отключение отсылки запросов для <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>проверки гиперссылок<\/a>.",
+    "message":"Запретить отсылку запросов для <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>проверки гиперссылок<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
@@ -384,11 +384,11 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"Согласно <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] браузер посылает веб-сайту заголовок &lsquo;User Agent&rsquo;, в котором содержится точная информация об операционной системе и веб-браузере. Эта информация позволяет отличать пользователей друг от друга потому, что их версии различаются, часто существенно, от пользователя к пользователю. [...] <b>Строка User Agent становится настоящей проблемой<\/b>.&rdquo;<p>Включение этой опции подменяет строку user agent на случайно выбранную строку из списка через заданный интервал времени.<\/p><p>Вы можете составить собственный список user agent. Одна запись на строку. Пустые строки и начинающиеся с &lsquo;#&rsquo; будут проигнорированы.<\/p>",
+    "message":"Согласно <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] браузер посылает веб-сайту заголовок &lsquo;User Agent&rsquo;, в котором содержится точная информация об используемой операционной системе и браузере. Эта информация позволяет отличать пользователей друг от друга, потому что версии ОС и браузера часто существенно различаются. [...] <b>Строка User Agent становится настоящей проблемой<\/b>.&rdquo;<p>Данная опция позволяет решить проблему конфиденциальности.<\/p><p>Вы можете составить собственный список заголовков user-agent. Одна запись на строку. Пустые строки и строки, начинающиеся с символа &lsquo;#&rsquo;, будут проигнорированы.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Chromium: скрытые запросы",
+    "message":"Скрытые запросы",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -432,7 +432,7 @@
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"Смотри эту страницу для правил синтаксиса.",
+    "message":"Синтаксис правил можно посмотреть на этой странице.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -472,7 +472,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"Один URL на строку. Битые ссылки и комментарии будут пропущены. Комментарии начинаются с &lsquo;#&rsquo;.",
+    "message":"Один URL на строку. Строки, начинающиеся с символа &lsquo;#&rsquo;, будут проигнорированы. Некорректные ссылки будут пропущены.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
@@ -524,7 +524,7 @@
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Предложения:",
+    "message":"Проблемы:",
     "description":""
   },
   "aboutTranslationContributors":{
@@ -532,7 +532,7 @@
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Ваши данные",
+    "message":"Ваши настройки",
     "description":""
   },
   "aboutBackupButton":{
@@ -552,7 +552,7 @@
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"Данные не могут быть прочитаны или ошибочны",
+    "message":"Данные не могут быть прочитаны или содержат ошибки",
     "description":""
   },
   "aboutOr":{
@@ -564,43 +564,43 @@
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Внимание! Это сбросит все ваши ручные настройки. Вы уверены?",
+    "message":"Внимание! Все ваши настройки будут сброшены. Вы уверены, что хотите продолжить?",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"фильтр запросов",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"строка user-agent заменена на: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"кука удалена: {{value}}",
+    "message":"файл cookie удалён: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"кэш браузера очищен",
+    "message":"не удалось удалить файл cookie: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"сбой удаления куки: {{value}}",
+    "message":"кэш браузера очищен",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"обновлён список запрещённых сайтов: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix предотвратил загрузку страницы:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Из-за следующего правила",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Перейти назад",
+    "message":"Назад",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
@@ -608,7 +608,7 @@
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Отменить все изменения",
+    "message":"Отменить все временные правила",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -620,7 +620,7 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Открыть панель",
+    "message":"Открыть панель управления",
     "description":""
   },
   "elapsedOneMinuteAgo":{
@@ -648,15 +648,15 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Панель управления",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Журнал запросов",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
-    "message":"Ошибка сети: невозможно связаться с {{url}}",
+    "message":"Ошибка сети: не удаётся соединиться с {{url}}",
     "description":""
   }
 }
