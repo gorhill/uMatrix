@@ -1,12 +1,11 @@
-µMatrix: Un cortafuegos matricial ajustable mediante clics, con varias herramientas para mejorar su privacidad. Para usuarios avanzados.
+uMatrix: Un cortafuegos matricial ajustable mediante clics, con varias herramientas para mejorar su privacidad. 
+*Para usuarios avanzados*
 
-µMatrix le proporciona control total sobre su navegador, permitiendo decidir que conexiones se establecen, que tipo de datos se descargan y que códigos se ejecutan. Nadie más decide por usted: Usted escoge. Usted está en control total de su privacidad.
+uMatrix le proporciona control total sobre su navegador, permitiéndole decidir que conexiones se establecen, que tipo de datos se descargan y que códigos se ejecutan. Nadie más decide: usted escoge. Usted está en control total de su privacidad.
 
-Por defecto, µMatrix funciona en modo relajado "bloquear todo/permitir excepcionalmente". Esto significa que los sitios que requieren scripts de terceros, posiblemente se muestren con problemas. Con solo dos clics, puede configurar µMatrix para funcionar en modo "permitir todo/bloquear excepcionalmente", lo que hará que usualmente los sitios web se muestren sin problema. Para más detalles sobre el tema consulte https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views (en inglés).
+Por defecto, uMatrix funciona en modo relajado "bloquear todo/permitir excepcionalmente". Esto significa que los sitios que requieren scripts de terceros, posiblemente se muestren con problemas. Con solo dos clics, puede configurar uMatrix para funcionar en modo "permitir todo/bloquear excepcionalmente", lo que hará que usualmente los sitios web se muestren sin problema. Para más detalles sobre el tema, consulte https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views (en inglés).
 
-En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear JavaScript de manera adecuada, vea: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers (en inglés). En resumen: Si, JavaScript puede ser bloqueado de forma segura en Chromium.
-
-* Examine todas las conexiones remotas, fallidas o intentadas, según fueron bloqueadas o permitidas (usted decide).
+* Examine TODAS las conexiones remotas, fallidas o intentadas, según fueron bloqueadas o permitidas (usted decide).
 
 * Con un solo clic añada a su lista de permitidos o a su lista negra, uno o varios tipos de peticiones, según el destino y el tipo de datos (una petición bloqueada NUNCA saldrá del navegador).
 
@@ -14,7 +13,7 @@ En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear 
 
 * No tiene que depender de una sola lista de filtros (probablemente con muchas omisiones) fuera de la cual nada pueda ser bloqueado:  usted controla todo.
 
-* Facilidad de uso: µMatrix le permite agregar fácilmente las peticiones de red que se originen desde una página web a una lista de permitidos/lista negra, mediante clics en la matriz:
+* Facilidad de uso: uMatrix le permite agregar fácilmente las peticiones de red que se originen desde una página web a una lista de permitidos/lista negra, mediante clics en la matriz:
 
 - nombres de dominio (columna izquierda)
   * de muy específico
@@ -32,13 +31,13 @@ En cuanto al mito de que los navegadores basados en Chromium no pueden bloquear 
 
 Puede agregar a la lista negra/lista de permitidos una única celda, una fila completa, un grupo de filas, una columna o toda la matriz, todo con solo un clic.
 
-El motor de filtrado de µMatrix usa lógica de precedencia para evaluar que bloquea o permite, en dependencia de las celdas en lista de permitidos o lista negra. Por ejemplo, puede agregar toda una página a la lista de permitidos con un clic, sin que sea necesario agregar nuevos elementos que puedan aparecer luego en dicha página uno a uno.
+El motor de filtrado de uMatrix usa lógica de precedencia para evaluar que bloquea o permite, en dependencia de las celdas en lista de permitidos o lista negra. Por ejemplo, puede agregar toda una página a la lista de permitidos con un clic, sin que sea necesario agregar nuevos elementos que puedan aparecer luego en dicha página uno a uno.
 
 Todas las reglas se definen para un ámbito. Puede, por ejemplo, bloquear elementos de `facebook.com` y `facebook.net` dondequiera, excepto cuando esté navegando en una página en el sitio`www.facebook.com`. De esta forma, Facebook se verá imposibilitado de crear o reunir un perfil sobre sus hábitos de navegación web.
 
 El objetivo de esta extensión es hacer todo el proceso de permitir o bloquear sitios web tan simple como sea posible, de manera tal que los usuarios  se sientan alentados a preocuparse por su privacidad.
 
-La extensión hace uso de ficheros hosts mantenidos por terceros, con más de 58 000 nombres de dominios diferentes (las listas pueden ser habilitadas/deshabilitadas según su deseo).
+La extensión hace uso de ficheros hosts mantenidos por terceros, con más de 62,000 nombres de dominios diferentes (las listas pueden ser habilitadas/deshabilitadas según su deseo).
 
 Al final, usted decide de que manera navegar por la red:
 
@@ -50,23 +49,9 @@ En cualquier modo, siempre se beneficiará de los filtros ya configurados, que l
 
 Usted elige.
 
-Documentación miscelánea reunida: https://github.com/gorhill/uMatrix/wiki
+Documentación miscelánea reunida: https://github.com/gorhill/uMatrix/wiki (incompleta)
 
 =====
-
-OPINIONES:
-
-Para una una pronta respuesta sobre preguntas o problemas que puedan surgir, use la sección de "OPINIONES", a la derecha. No me es posible responder directamente a los comentarios y revisiones en foros, pero estaré más que feliz de darle una respuesta directa en la sección de Opiniones.
-
-=====
-
-ERRORES, PROBLEMAS, SUGERENCIAS:
-
-https://github.com/gorhill/uMatrix/issues
-
-Es bienvenido a contribuir con sus puntos de vista, sugerencias y argumentos a favor o en contra sobre cualquier tema abierto, que me ayuden a decidir que se necesita para hacer esta extensión mejor.
-
-La facilidad de uso es el objetivo primario. He visto a usuarios desistir en el uso de la extensión NoScript para Firefox porque, según ellos, interfiere demasiado. Así que en vez de culpar a los usuarios acerca de sus pobres hábitos en temas relativos a su privacidad, he preferido culpar a los programadores, intentando resolver mediante este proyecto los problemas que hacen que los usuarios cesen de preocuparse sobre aspectos básicos de su seguridad.
 
 Esta extensión también es útil para entender que hace una página web abierta por el navegador, muchas veces sin su conocimiento. Usted será totalmente capaz de decidir con quien se comunica una página web, y restringir dicha comunicación a determinados tipos de objetos dentro de la página.
 
@@ -87,6 +72,8 @@ La celda superior izquierda en la matriz (celda "todo"), representa la configura
 Esta extensión también puede ser útil si desea aumentar la velocidad de navegación, por ejemplo, bloqueando de manera global todas las peticiones de imágenes.
 
 =====
+
+ERRORES, PROBLEMAS: https://github.com/gorhill/uMatrix/issues
 
 CÓDIGO FUENTE: https://github.com/gorhill/uMatrix (GPLv3)
 
