@@ -77,16 +77,20 @@ vAPI.app.restart = function() {
 
 // https://stackoverflow.com/questions/6715571/how-to-get-result-of-console-trace-as-string-in-javascript-with-chrome-or-fire/28118170#28118170
 /*
-function getStackTrace () {
-  var stack;
-  try {
-    throw new Error('');
-  }
-  catch (error) {
-    stack = error.stack || '';
-  }
-  stack = stack.split('\n').map(function (line) { return line.trim(); });
-  return stack.splice(stack[0] == 'Error' ? 2 : 1);
+function logStackTrace(msg) {
+    var stack;
+    try {
+        throw new Error('');
+    }
+    catch (error) {
+        stack = error.stack || '';
+    }
+    stack = stack.split('\n').map(function(line) { return line.trim(); });
+    stack.shift();
+    if ( msg ) {
+        stack.unshift(msg);
+    }
+    console.log(stack.join('\n'));
 }
 */
 /******************************************************************************/
@@ -323,23 +327,17 @@ var windowWatcher = {
             return;
         }
 
-        var tabContainer;
         var tabBrowser = getTabBrowser(this);
-
-        if ( !tabBrowser ) {
+        if ( !tabBrowser || !tabBrowser.tabContainer ) {
             return;
         }
 
-        if ( tabBrowser.tabContainer ) {
-            // desktop Firefox
-            tabContainer = tabBrowser.tabContainer;
-            vAPI.contextMenu.register(this.document);
-        } else {
-            return;
-        }
+        var tabContainer = tabBrowser.tabContainer;
 
         tabContainer.addEventListener('TabClose', tabWatcher.onTabClose);
         tabContainer.addEventListener('TabSelect', tabWatcher.onTabSelect);
+        tabBrowser.addTabsProgressListener(tabWatcher);
+        vAPI.contextMenu.register(this.document);
 
         // when new window is opened TabSelect doesn't run on the selected tab?
     },
@@ -354,6 +352,8 @@ var windowWatcher = {
 /******************************************************************************/
 
 var tabWatcher = {
+    SAME_DOCUMENT: Ci.nsIWebProgressListener.LOCATION_CHANGE_SAME_DOCUMENT,
+
     onTabClose: function({target}) {
         // target is tab in Firefox, browser in Fennec
         var tabId = vAPI.tabs.getTabId(target);
@@ -370,6 +370,30 @@ var tabWatcher = {
             return;
         }
         vAPI.setIcon(tabId, getOwnerWindow(target));
+    },
+
+    onLocationChange: function(browser, webProgress, request, location, flags) {
+        if ( !webProgress.isTopLevel ) {
+            return;
+        }
+
+        var tabId = vAPI.tabs.getTabId(browser);
+
+        // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
+        if ( flags & this.SAME_DOCUMENT ) {
+            vAPI.tabs.onUpdated(tabId, {url: location.asciiSpec}, {
+                tabId: tabId,
+                url: browser.currentURI.asciiSpec
+            });
+            return;
+        }
+
+        // https://github.com/gorhill/uBlock/issues/105
+        // Allow any kind of pages
+        vAPI.tabs.onNavigation({
+            tabId: tabId,
+            url: location.asciiSpec
+        });
     }
 };
 
@@ -413,6 +437,7 @@ vAPI.tabs = {};
 /******************************************************************************/
 
 vAPI.tabs.registerListeners = function() {
+    // onNavigation and onUpdated handled with tabWatcher.onLocationChange
     // onClosed - handled in tabWatcher.onTabClose
 
     for ( var win of this.getWindows() ) {
@@ -510,13 +535,16 @@ vAPI.tabs.getTabsForIds = function(tabIds) {
             continue;
         }
         if ( tabIds.indexOf(tabId) !== -1 ) {
+            if ( singleTab ) {
+                return tab;
+            }
             tabs.push(tab);
         }
         if ( tabs.length >= tabIds.length ) {
             break;
         }
     }
-    return singleTab ? tabs[0] || null : tabs;
+    return tabs.length !== 0 ? tabs : null;
 };
 
 /******************************************************************************/
@@ -716,7 +744,7 @@ vAPI.tabs.remove = function(tabIds) {
         tabIds = [tabIds];
     }
     var tabs = this.getTabsForIds(tabIds);
-    if ( tabs.length === 0 ) {
+    if ( !tabs ) {
         return;
     }
     for ( var tab of tabs ) {
@@ -1360,40 +1388,9 @@ vAPI.net.registerListeners = function() {
         new Set(this.onBeforeSendHeaders.types) :
         null;
 
-    var locationChangedListenerMessageName = location.host + ':locationChanged';
-    var locationChangedListener = function(e) {
-        var details = e.data;
-        var browser = e.target;
-
-        // https://github.com/gorhill/uMatrix/issues/189
-        // getTabId will calls onNavigation() if needed.
-        var tabId = vAPI.tabs.getTabId(browser);
-
-        //console.debug("nsIWebProgressListener: onLocationChange: " + details.url + " (" + details.flags + ")");        
-
-        // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
-        if ( details.flags & Ci.nsIWebProgressListener.LOCATION_CHANGE_SAME_DOCUMENT ) {
-            vAPI.tabs.onUpdated(tabId, {url: details.url}, {
-                tabId: tabId,
-                url: browser.currentURI.asciiSpec
-            });
-            return;
-        }
-    };
-
-    vAPI.messaging.globalMessageManager.addMessageListener(
-        locationChangedListenerMessageName,
-        locationChangedListener
-    );
-
     httpObserver.register();
 
     cleanupTasks.push(function() {
-        vAPI.messaging.globalMessageManager.removeMessageListener(
-            locationChangedListenerMessageName,
-            locationChangedListener
-        );
-
         httpObserver.unregister();
     });
 };

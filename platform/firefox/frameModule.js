@@ -23,7 +23,7 @@
 
 /******************************************************************************/
 
-this.EXPORTED_SYMBOLS = ['contentObserver', 'LocationChangeListener'];
+this.EXPORTED_SYMBOLS = ['contentObserver'];
 
 const {interfaces: Ci, utils: Cu} = Components;
 const {Services} = Cu.import('resource://gre/modules/Services.jsm', null);
@@ -219,36 +219,6 @@ const contentObserver = {
             docReady({ target: doc, type: 'DOMContentLoaded' });
         }
     }
-};
-
-/******************************************************************************/
-
-const locationChangedMessageName = hostName + ':locationChanged';
-
-const LocationChangeListener = function(docShell) {
-    if (docShell) {
-        docShell.QueryInterface(Ci.nsIInterfaceRequestor);
-
-        this.docShell = docShell.getInterface(Ci.nsIWebProgress);
-        this.messageManager = docShell.getInterface(Ci.nsIContentFrameMessageManager);
-
-        if (this.messageManager && typeof this.messageManager.sendAsyncMessage === 'function') {
-            this.docShell.addProgressListener(this, Ci.nsIWebProgress.NOTIFY_LOCATION);
-        }
-    }
-};
-
-LocationChangeListener.prototype.QueryInterface = XPCOMUtils.generateQI(["nsIWebProgressListener", "nsISupportsWeakReference"]);
-
-LocationChangeListener.prototype.onLocationChange = function(webProgress, request, location, flags) {
-    if ( !webProgress.isTopLevel ) {
-        return;
-    }
-
-    this.messageManager.sendAsyncMessage(locationChangedMessageName, {
-        url: location.asciiSpec,
-        flags: flags,
-    });
 };
 
 /******************************************************************************/

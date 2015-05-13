@@ -21,15 +21,13 @@
 
 /******************************************************************************/
 
-var locationChangeListener; // Keep alive while frameScript is alive
-
 (function() {
 
 'use strict';
 
 /******************************************************************************/
 
-let {contentObserver, LocationChangeListener} = Components.utils.import(
+let {contentObserver} = Components.utils.import(
     Components.stack.filename.replace('Script', 'Module'),
     null
 );
@@ -55,8 +53,6 @@ let onLoadCompleted = function() {
 };
 
 addMessageListener('umatrix-load-completed', onLoadCompleted);
-
-locationChangeListener = new LocationChangeListener(docShell);
 
 /******************************************************************************/
 
