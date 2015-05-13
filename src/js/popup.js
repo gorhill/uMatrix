@@ -279,7 +279,7 @@ function getCollapseState(domain) {
     if ( typeof states === 'object' && states[domain] !== undefined ) {
         return states[domain];
     }
-    return getUISetting('popupCollapseDomains');
+    return getUISetting('popupCollapseDomains') === true;
 }
 
 function toggleCollapseState(elem) {
