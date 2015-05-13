@@ -32,6 +32,8 @@ To record distinct net requests
 
 µMatrix.PageRequestStats = (function() {
 
+'use strict';
+
 /******************************************************************************/
 
 // Caching useful global vars
@@ -222,8 +224,8 @@ var makeRequestKey = function(uri, reqType) {
     var hint = 0x811c9dc5;
     var i = uri.length;
     while ( i-- ) {
-        hint ^= uri.charCodeAt(i);
-        hint += (hint<<1) + (hint<<4) + (hint<<7) + (hint<<8) + (hint<<24);
+        hint ^= uri.charCodeAt(i) | 0;
+        hint += (hint<<1) + (hint<<4) + (hint<<7) + (hint<<8) + (hint<<24) | 0;
         hint >>>= 0;
     }
     var key  = typeToCode[reqType] || 'z';
