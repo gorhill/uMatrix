@@ -446,22 +446,22 @@ body.powerOff .matrix .g4Meta.g4Collapsed ~ .matRow.ro {
 /* Cell coloring for color blind-friendly (hopefully) */
 body.colorblind .t81 {
     color: white;
-    background-color: rgb(0, 19, 110);
+    background-color: #000;
     }
 body.colorblind .t82 {
-    border-color: rgb(255, 194, 57);
+    border-color: #aaa;
     color: black;
-    background-color: rgb(255, 194, 57);
+    background-color: #fff;
     }
 body.colorblind .t1 {
-    border-color: rgba(0, 19, 110, 0.3);
-    color: black;
-    background-color: rgba(0, 19, 110, 0.2);
+    border-color: #333;
+    color: white;
+    background-color: #666;
     }
 body.colorblind .t2 {
-    border-color: rgba(255, 194, 57, 0.3);
+    border-color: #aaa;
     color: black;
-    background-color: rgba(255, 194, 57, 0.2);
+    background-color: #ccc;
     }
 body.colorblind .matCell.p81 {
     background-image: url('../img/permanent-black-small-cb.png');
@@ -519,7 +519,7 @@ body.powerOff #whitelist, body.powerOff #blacklist {
     }
 body.colorblind .rw .matCell.t1 #whitelist:hover,
 body.colorblind .rw .matCell.t2 #whitelist:hover {
-    background-color: rgb(255, 194, 57);
+    background-color: #fff;
     opacity: 0.6;
     }
 .rw .matCell.t2 #whitelist:hover {
@@ -538,7 +538,7 @@ body.colorblind .rw .matCell.t2 #whitelist:hover {
     }
 body.colorblind .rw .matCell.t1 #blacklist:hover,
 body.colorblind .rw .matCell.t2 #blacklist:hover {
-    background-color: rgb(0, 19, 110);
+    background-color: #000;
     opacity: 0.4;
     }
 .rw .matCell.t2 #blacklist:hover {
