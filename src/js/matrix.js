@@ -206,7 +206,7 @@ var extractFirstPartyDesDomain = function(srcHostname, desHostname) {
 Matrix.prototype.reset = function() {
     this.switches = {};
     this.rules = {};
-    this.rootValue = Matrix.GreenIndirect;
+    this.rootValue = Matrix.RedIndirect;
     this.modifiedTime = 0;
 };
 
