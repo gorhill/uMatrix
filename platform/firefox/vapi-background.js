@@ -1245,7 +1245,6 @@ var httpObserver = {
             }
             if ( aWindow ) {
                 return vAPI.tabs.getTabId(aWindow
-                    .QueryInterface(Ci.nsIInterfaceRequestor)
                     .getInterface(Ci.nsIWebNavigation)
                     .QueryInterface(Ci.nsIDocShell)
                     .rootTreeItem
