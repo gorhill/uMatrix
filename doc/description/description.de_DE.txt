@@ -4,8 +4,6 @@ uMatrix gibt dir volle Kontrolle darüber, womit sich dein Browser verbindet, we
 
 Voreingestellt arbeitet uMatrix in einem gelockerten "blockiere alles/erlaube ausnahmsweise"-Modus, was dazu führt, dass viele Webseiten, die Skripte von Drittseiten benötigen, "kaputt" sein werden. Mit zwei Klicks kannst du aber dafür sorgen, dass uMatrix in einem "erlaube alles/blockiere ausnahmsweise"-Modus arbeitet, der normalerweise Webseiten nicht kaputt macht. Details dazu auf https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
 
-Die Behauptung: "Chromium-basierte Browser können nicht zuverlässig Javascript blockieren" ist ein reiner Mythos, siehe dazu: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Kurz: Doch, Javascript kann sehr wohl zuverlässig in Chromium blockiert werden.
-
 * Sehe ALLE Verbindungen, ob fehlgeschlagen oder erfolgreich, je nachdem ob du sie blockiert oder erlaubt hast (deine Entscheidung).
 
 * Erlaube/blockiere mit einem Klick eine oder mehrere Arten von Verbindungsanfragen deines Browsers je nach Ziel und Datentyp (eine blockierte Anfrage wird NIE deinen Browser verlassen).
@@ -54,20 +52,6 @@ Noch unvollständige Dokumentation: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-FEEDBACK:
-
-Bei allen Fragen und Problemen bitte auf "Feedback geben" klicken, um mir die Gelegenheit zu einer Antwort zu geben. Ich kann auf Bewertungen nicht direkt antworten, aber ich werde dir sehr gern direkt im Feedback-Bereich Antwort geben.
-
-=====
-
-FEHLER, PROBLEME, VORSCHLÄGE:
-
-https://github.com/gorhill/uMatrix/issues
-
-Du bist sehr willkommen, deine Ansichten zu offenen Problemen, Vorschlägen und Argumenten zu präsentieren, um mir bei der Entscheidung zu helfen, wie ich diese Erweiterung noch besser machen kann.
-
-Leichte Bedienbarkeit ist das vorrangige Ziel. Ich habe Benutzer erlebt, die bei der Firefox-Erweiterung NoScript aufgegeben haben, weil es ihnen zu viele Steine in den Weg legte. Anstatt diese Benutzer wegen ihrer verbesserungswürdigen Sicherheitsgewohnheiten zu kritisieren, kritisiere ich stattdessen die Entwickler. Dieses Projekt ist ein zaghafter Versuch, die Gründe anzugehen, die dazu führen, dass Benutzer bezüglich grundlegender Sicherheitsmaßnahmen aufgeben.
-
 Diese Erweiterung ist auch nützlich, um zu verstehen, was eine Webseite in deinem Browser macht, oft ohne dein Wissen. Du bist voll in der Lage zu sehen und darüber zu entscheiden, mit wem eine Webseite kommuniziert, und diese Kommunikation auf bestimmte Klassen von Objekten zu beschränken.
 
 Die Zahl, die im Symbol der Erweiterung auftaucht, entspricht der Gesamtzahl der einzelnen versuchten Anfragen der Webseite (ob erfolgreich oder nicht, ist abhängig davon, ob du sie erlaubt oder verboten hast).
@@ -87,6 +71,8 @@ Die Zelle ganz links oben, die "Alle" Zelle repräsentiert die vorgegebene globa
 Diese Erweiterung ist auch nützlich, um das Surfen zu beschleunigen, indem z.B. global alle Anfragen für Bilder blockiert werden können.
 
 =====
+
+FEHLER, PROBLEME: https://github.com/gorhill/uMatrix/issues
 
 QUELLCODE: https://github.com/gorhill/uMatrix (GPLv3)
 

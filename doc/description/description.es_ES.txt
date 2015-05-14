@@ -1,4 +1,5 @@
 uMatrix: Un cortafuegos matricial ajustable mediante clics, con varias herramientas para mejorar su privacidad. 
+
 *Para usuarios avanzados*
 
 uMatrix le proporciona control total sobre su navegador, permitiéndole decidir que conexiones se establecen, que tipo de datos se descargan y que códigos se ejecutan. Nadie más decide: usted escoge. Usted está en control total de su privacidad.
