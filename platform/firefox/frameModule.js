@@ -204,8 +204,14 @@ const contentObserver = {
         let lss = Services.scriptloader.loadSubScript;
         let sandbox = this.initContentScripts(win, true);
 
-        lss(this.contentBaseURI + 'vapi-client.js', sandbox);
-        lss(this.contentBaseURI + 'contentscript-start.js', sandbox);
+        // Can throw with attempts at injecting into non-HTML document.
+        // Example: https://a.pomf.se/avonjf.webm
+        try {
+            lss(this.contentBaseURI + 'vapi-client.js', sandbox);
+            lss(this.contentBaseURI + 'contentscript-start.js', sandbox);
+        } catch (ex) {
+            return; // don't further try to inject anything
+        }
 
         let docReady = (e) => {
             let doc = e.target;
