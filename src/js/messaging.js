@@ -452,17 +452,25 @@ var evaluateURLs = function(tabId, requests) {
 
     //console.debug('messaging.js/contentscript-end.js: processing %d requests', requests.length);
 
+    var pageStore = µm.pageStoreFromTabId(tabId);
     var µmuri = µm.URI;
     var typeMap = tagNameToRequestTypeMap;
-    var request;
+    var request, type;
     var i = requests.length;
     while ( i-- ) {
         request = requests[i];
+        type = typeMap[request.tagName];
         request.blocked = µm.mustBlock(
             rootHostname,
             µmuri.hostnameFromURI(request.url),
-            typeMap[request.tagName]
+            type
         );
+        // https://github.com/gorhill/uMatrix/issues/205
+        // If blocked, the URL must be recorded by the page store, so as to ensure
+        // they are properly reflected in the matrix.
+        if ( request.blocked && pageStore ) {
+            pageStore.recordRequest(type, request.url, true);
+        }
     }
 
     if ( collapse ) {

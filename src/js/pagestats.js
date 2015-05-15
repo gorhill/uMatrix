@@ -373,6 +373,10 @@ PageStore.prototype.dispose = function() {
 /******************************************************************************/
 
 PageStore.prototype.recordRequest = function(type, url, block) {
+    if ( !this.requests.createEntryIfNotExists(url, type, block) ) {
+        return;
+    }
+
     // Count blocked/allowed requests
     this.requestStats.record(type, block);
 
@@ -385,10 +389,6 @@ PageStore.prototype.recordRequest = function(type, url, block) {
         this.perLoadBlockedRequestCount++;
     } else {
         this.perLoadAllowedRequestCount++;
-    }
-
-    if ( !this.requests.createEntryIfNotExists(url, type, block) ) {
-        return;
     }
 
     var hostname = µm.URI.hostnameFromURI(url);

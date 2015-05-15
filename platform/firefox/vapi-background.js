@@ -1086,8 +1086,13 @@ var httpObserver = {
         11: 'xmlhttprequest',
         12: 'object',
         14: 'font',
+        15: 'media',
         16: 'websocket',
         21: 'image'
+    },
+    mimeTypeMap: {
+        'audio': 15,
+        'video': 15
     },
 
     get componentRegistrar() {
@@ -1258,6 +1263,18 @@ var httpObserver = {
             //console.error(ex);
         }
         return vAPI.noTabId;
+    },
+
+    rawtypeFromContentType: function(channel) {
+        var mime = channel.contentType;
+        if ( !mime ) {
+            return 0;
+        }
+        var pos = mime.indexOf('/');
+        if ( pos === -1 ) {
+            pos = mime.length;
+        }
+        return this.mimeTypeMap[mime.slice(0, pos)] || 0;
     },
 
     observe: function(channel, topic) {
