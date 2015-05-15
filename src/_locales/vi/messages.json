@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Di chuyển & click để chặn\/cho phép bất kỳ lớp yêu cầu nào được trình duyệt tạo ra. Dùng nó để chặn script, iframe, quảng cáo, facebook...",
+    "message":"Chỉ cần click để chặn\/cho phép loại yêu cầu của trình duyệt. Dùng để chặn script, iframe, quảng cáo, facebook...",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -112,15 +112,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Hủy các thay đổi tạm thời",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Đến nhật ký",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Đến bảng điều khiển",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{

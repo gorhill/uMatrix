@@ -76,15 +76,15 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Вкл\/выкл фильтрацию запросов для данной области",
+    "message":"Откл\/вкл фильтрацию запросов для данной области",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Утвердить новые правила области",
+    "message":"Утвердить временные правила области",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Отменить новые правила области",
+    "message":"Отменить временные правила области",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Можно узнать подробности последних HTTP-запросов сделанных веб-страницей (смотри ниже).<\/p><p>Продвинутые пользователи имеют возможность изучить действия веб-страниц. Однако, ведение списка запросов увеличивает количество потребляемой памяти. Если техническая информация не востребована, то эту возможность следует отключить.<\/p><p>В этом поле указывается количество последних запросов для дальнейшего изучения.<\/p><p>Значение &ldquo;<code>0<\/code>&rdquo; отключает ведение списка запросов и, как следствие, уменьшает количество потребляемой памяти.<\/p>",
+    "message":"<p>Вы можете узнать подробности о последних HTTP-запросах, сделанных веб-страницей (смотрите ниже).<\/p><p>Это может пригодиться опытным пользователям, которые хотят получить сведения о том, что именно делает страница. Однако ведение журнала запросов увеличивает количество потребляемой памяти. Поэтому, если эта информация вас не интересует, данную возможность следует отключить.<\/p><p>В этом поле указывается количество последних запросов, которые будут журналироваться.<\/p><p>Значение &ldquo;<code>0<\/code>&rdquo; отключает ведение журнала запросов и, как следствие, уменьшает количество потребляемой памяти.<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -264,7 +264,7 @@
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Контрастная цветовая схема",
+    "message":"Цветовая схема для дальтоников",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -292,7 +292,7 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Запрещённые фреймы:&ensp;Цвет",
+    "message":"Заблокированные фреймы:&ensp;Цвет",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
@@ -300,7 +300,7 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Показывать количество запросов на иконке",
+    "message":"Показывать количество обработанных запросов на иконке",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Все файлы cookie сохраняются в браузере. Однако запрещённые файлы cookie никогда не покидают его — вот что действительно важно. Сохранение файлов cookie даёт возможность узнать о том, что сайт пытался их использовать, и, кроме того, позволяет исследовать их содержимое.<\/p><p>При включении данной опции запрещённые файлы cookie будут удалены сразу при обнаружении.<\/p><p><b>Важное замечание:<\/b> некоторые расширения посылают веб-запросы. Результатом этих запросов может стать сохранение файлов cookie. Если эта опция включена и сайт, который использует файлы cookie, запрещён, то файлы cookie с этого сайта будут удалены. Поэтому следует убедиться, что все сайты, к которым обращается расширение, занесены в белый список.<\/p>",
+    "message":"<p>Все файлы cookie сохраняются в браузере. Однако запрещённые файлы cookie никогда не покидают его — вот что действительно важно. Сохранение файлов cookie даёт возможность узнать о том, что сайт пытался их использовать, и, кроме того, позволяет исследовать их содержимое.<\/p><p>При включении данной опции запрещённые файлы cookie будут удалены сразу при обнаружении.<\/p><p><b>Важное замечание:<\/b> некоторые расширения посылают сетевые запросы. Результатом этих запросов может стать сохранение файлов cookie. Если данная опция включена и сайт, который использует файлы cookie, запрещён, то файлы cookie с этого сайта будут удалены. Поэтому следует убедиться, что все сайты, к которым обращается расширение, занесены в белый список.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -324,11 +324,11 @@
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" минут после последнего использования.",
+    "message":"минут после последнего использования.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Сеансовые файлы cookie [...] удаляются по окончании сеанса браузера. Сеансовые файлы cookie находятся во временной памяти и не сохраняются после закрытия браузера.&rdquo;<\/p><p>Однако в некоторых браузерах этого <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>может не произойти<\/a>. Также может возникнуть потребность в удалении сеансовых файлов cookie до закрытия браузера.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Сеансовые файлы cookie... удаляются при завершении сеанса браузера. Они хранятся во временной памяти и не сохраняются после закрытия браузера.&rdquo;<\/p><p>Однако в некоторых браузерах этого <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>может не произойти<\/a>. Кроме того, может возникнуть потребность в удалении сеансовых файлов cookie до закрытия браузера.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -348,7 +348,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые предпринятые меры по защите от отслеживания.<\/p><p>Одно из таких ухищрений основано<sup style='font-size:smaller'>[1, 2]<\/sup> на использовании <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэша браузера<\/a>, содержимое которого зачастую хранится продолжительное время, потому что пользователи очищают его нерегулярно.<\/p><p>Регулярная очистка кэша предотвращает отслеживание, однако делать это вручную не всегда может быть удобным.<\/p><p>Включение данной опции позволит <i>uMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые меры, предпринятые для защиты от отслеживания.<\/p><p>Одно из таких ухищрений основано<sup style='font-size:smaller'>[1, 2]<\/sup> на использовании <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэша браузера<\/a>, содержимое которого зачастую хранится длительное время, потому что пользователи нерегулярно его очищают.<\/p><p>Регулярная очистка кэша предотвращает отслеживание, однако делать это вручную не всегда удобно.<\/p><p>Включение данной опции позволит <i>uMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Проверка гиперссылок - это механизм, позволяющий <b>любой стороне<\/b> собирать информацию о том, какую ссылку выбрал пользователь на определённой веб-странице. Единственное назначение - отслеживание ваших действий.<\/p>",
+    "message":"<p>Проверка гиперссылок — это механизм, позволяющий <b>любой стороне<\/b> получать информацию о том, по каким ссылкам переходил пользователь на каждой конкретной веб-странице. Единственная цель — отслеживание вашей интернет-активности.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -384,7 +384,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"Согласно <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] браузер посылает веб-сайту заголовок &lsquo;User Agent&rsquo;, в котором содержится точная информация об используемой операционной системе и браузере. Эта информация позволяет отличать пользователей друг от друга, потому что версии ОС и браузера часто существенно различаются. [...] <b>Строка User Agent становится настоящей проблемой<\/b>.&rdquo;<p>Данная опция позволяет решить проблему конфиденциальности.<\/p><p>Вы можете составить собственный список заголовков user-agent. Одна запись на строку. Пустые строки и строки, начинающиеся с символа &lsquo;#&rsquo;, будут проигнорированы.<\/p>",
+    "message":"Согласно <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] браузер посылает веб-сайту заголовок &lsquo;User Agent&rsquo;, в котором содержится точная информация об используемой операционной системе и браузере. Эта информация позволяет отличать пользователей друг от друга, потому что версии ОС и браузера часто существенно различаются. [...] <b>Строка User Agent становится настоящей проблемой для тех, кто заботится о своей конфиденциальности<\/b>.&rdquo;<p>Данная опция позволяет решить эту проблему.<\/p><p>Вы можете составить собственный список заголовков user agent. Одна запись на строку. Пустые строки и строки, начинающиеся с символа &lsquo;#&rsquo;, будут проигнорированы.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
@@ -440,15 +440,15 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"Каждый список содержит перечень запрещённых сайтов глобальной области.",
+    "message":"Каждый список содержит перечень сайтов, запрещённых на глобальном уровне.",
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} записей запрещённых сайтов, в том числе:",
+    "message":"{{blockedHostnameCount}} запрещённых сайтов из следующих списков:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} из {{total}}",
+    "message":"{{used}} используется из {{total}}",
     "description":""
   },
   "hostsFilesLastUpdate":{
@@ -476,7 +476,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Разбор",
+    "message":"Обработать",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -484,11 +484,11 @@
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"обновить",
+    "message":"доступно обновление",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"устарел",
+    "message":"список устарел",
     "description":""
   },
   "aboutChangelog":{
@@ -524,7 +524,7 @@
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Проблемы:",
+    "message":"Предложения:",
     "description":""
   },
   "aboutTranslationContributors":{
@@ -548,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Возврат настроек к состоянию на {{time}}.\n\nВы согласны?",
+    "message":"Возврат настроек к состоянию на {{time}}.\n\nВы уверены, что хотите перезаписать существующие настройки?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -564,7 +564,7 @@
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Внимание! Все ваши настройки будут сброшены. Вы уверены, что хотите продолжить?",
+    "message":"Внимание! Все настройки будут сброшены. Вы уверены, что хотите продолжить?",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
@@ -612,7 +612,7 @@
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Временно разрешить сайт страницы",
+    "message":"Временно разрешить загрузку страницы",
     "description":""
   },
   "commandWhitelistAll":{
