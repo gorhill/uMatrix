@@ -1,10 +1,10 @@
-µMatrix: Matris tabanlı işaret et ve tıkla  güvenlik duvarıdır, birçok gizlilik arttırıcı aracıyla birlikte gelir. İleri düzey kullanıcılar için.
+uMatrix: Matris tabanlı işaret et ve tıkla  güvenlik duvarıdır, birçok gizlilik arttırıcı aracıyla birlikte gelir.
 
-µMatrix tarayıcınızın nereye bağlanabileceği, ne tür veri indirebileceği ve yürütebileceği konusunda tam denetimi size verir. Kimse sizin yerinize karar vermez: Siz seçersiniz. Gizliliğinizin tam denetimi sizdedir.
+*İleri düzey kullanıcılar için.*
 
-µMatrix tümünü engelle/istisnalara izin ver modunda çalışır, bunun anlamı 3. taraf betiklere ihtiyaç duyan web sitelerinin muhtemelen "bozuk" olabileceğidir. İki tıklama ile µMatrix genelde siteleri bozmayacak tümüne izin ver/istisnaları engelle moduna ayarlanabilir. Bu konu hakkında daha ayrıntılı bilgi almak için https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views bağlantısına bakın.
+uMatrix tarayıcınızın nereye bağlanabileceği, ne tür veri indirebileceği ve yürütebileceği konusunda tam denetimi size verir. Kimse sizin yerinize karar vermez: Siz seçersiniz. Gizliliğinizin tam denetimi sizdedir.
 
-"Chromium-tabanlı tarayıcılarda güvenilir biçimde JavaScript'ler engellenemez" efsanesiyle ilgili olarak, bakınız: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Sonuç: Evet, JavaScript güvenilir biçimde Chromium'da engellenebilir.
+uMatrix tümünü engelle/istisnalara izin ver modunda çalışır, bunun anlamı 3. taraf betiklere ihtiyaç duyan web sitelerinin muhtemelen "bozuk" olabileceğidir. İki tıklama ile uMatrix genelde siteleri bozmayacak tümüne izin ver/istisnaları engelle moduna ayarlanabilir. Bu konu hakkında daha ayrıntılı bilgi almak için https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views bağlantısına bakın.
 
 * Engellendiğine veya izin verildiğine (sizin seçiminiz) bağlı olarak başarısız veya denenmiş TÜM uzak bağlantıları görün.
 
@@ -14,7 +14,7 @@
 
 * Belirli kara listelere bağlı (birçok eksiği bulunan) kalmak zorunda değilsiniz: Tüm denetim sizde.
 
-* Kullanımı kolay: µMatrix işaret et ve tıkla matrisiyle bir web sitesinden kaynaklanan istekleri kolaylıkla beyaz/kara listeye almanızı sağlar:
+* Kullanımı kolay: uMatrix işaret et ve tıkla matrisiyle bir web sitesinden kaynaklanan istekleri kolaylıkla beyaz/kara listeye almanızı sağlar:
 
 - alan adları (sol sütun)
   * özelden
@@ -32,13 +32,13 @@
 
 Tek hücreyi, tüm satırı, satır gruplarını, tüm sütunu veya tüm matrisi bir tek tıklama ile kara/beyaz listeye alabilirsiniz.
 
-µMatrix'in süzgeç motoru hangi hücrelerin kara/beyaz listede bulunduğuna göre öncelik mantığını kullanarak nelerin engelleneceğine veya nelere izin verileceğine karar verir. Örneğin, bu şekilde sayfada beliren yeni veri türlerine sürekli izin vermenize gerek kalmadan tüm sayfayı beyaz listeye almanıza izin verir.
+uMatrix'in süzgeç motoru hangi hücrelerin kara/beyaz listede bulunduğuna göre öncelik mantığını kullanarak nelerin engelleneceğine veya nelere izin verileceğine karar verir. Örneğin, bu şekilde sayfada beliren yeni veri türlerine sürekli izin vermenize gerek kalmadan tüm sayfayı beyaz listeye almanıza izin verir.
 
 Tüm kurallar kapsamlıdır. Örneğin, `facebook.com` ve `facebook.net` sitelerini `www.facebook.com`dışındaki sitelerde engelleyebilirsiniz. Bu şekilde Facebook gezinti alışkanlıklarınızla ilgili profil oluşturamayacaktır.
 
 Bu eklentinin en basit olarak amacı  web sitelerine izin vererek veya engelleyerek, tümden veya kısmi olarak, kullanıcıların kendi gizliliklerine dikkat etmelerini teşvik etmektir.
 
-Bu eklenti 3. taraf alan dosyalarıyla toplamda 58.000'nin üzerinde farklı alan adıyla birlikte gelir (listeler seçiminize bağlı olarak etkinleştirilebilir veya devre dışı bırakılabilir).
+Bu eklenti 3. taraf alan dosyalarıyla toplamda 62.000'nin üzerinde farklı alan adıyla birlikte gelir (listeler seçime bağlı olarak etkinleştirilebilir veya devre dışı bırakılabilir).
 
 Sonuçta, internette nasıl gezmek istediğinizi seçebilirsiniz:
 
@@ -50,23 +50,9 @@ Her halükarda, önceden ayarlanmış kara listelerden faydalanarak izleyiciler,
 
 Sizin seçiminiz.
 
-Rastgele toplanmış belgeler: https://github.com/gorhill/uMatrix/wiki
+Rastgele toplanmış belgeler: https://github.com/gorhill/uMatrix/wiki (çalışma gerektiriyor)
 
 =====
-
-GERİ BİLDİRİM:
-
-Herhangi bir sorunuz veya sorununuz varsa çabucak cevap verebilmem için sağdaki "Geri Bildirim Gönder" düğmesini kullanın. Yorumlara doğrudan cevap veremiyorum fakat geri bildirim bölümünden seve seve cevap vereceğim.
-
-=====
-
-HATALAR, SORUNLAR, ÖNERİLER:
-
-https://github.com/gorhill/uMatrix/issues
-
-Eklentiyi geliştirmek için açık sorunlara ve önerilere, karar vermem için çeşitli argümanlar üzerine görüşlerinizi bekliyorum.
-
-Kullanım kolaylığı birincil hedeftir. Firefox'un NoScript eklentisi çok uğraş gerektirdiği için bu eklentiyi kullanmaktan vazgeçen kullanıcılar gördüm. Bu kullanıcıları zayıf güvenlik alışkanlıkları olduğu için suçlamak yerine, bu sorunları çözmedikleri için geliştiricileri suçlamayı yeğelerim. Bu proje bazı kullanıcıların temel güvenliklerinden vazgeçmeleri sorununu deneme düzeyinde çözmeyi amaçlar.
 
 Ayrıca bu eklenti bir web sayfasının bilginiz dışında tarayıcınızda ne yapmaya çalıştığını anlamanıza yardımcı olur. Web sayfasının neyle iletişim kurduğunu görmenizi ve web sayfasında kurulan bu iletişimin belirli öğe sınıflarına kısıtlanması üzerine karar vermenizi sağlar.
 
@@ -87,6 +73,8 @@ Matristeki üst sol hücre, "tümü" hücresi, varsayılan genel ayarları temsi
 Bu eklenti ayrıca gezinti hızınızı da arttırmak istiyorsanız kullanışlıdır. Örneğin, genel olarak resim isteklerini engelleyerek.
 
 =====
+
+HATALAR, SORUNLAR: https://github.com/gorhill/uMatrix/issues
 
 KAYNAK KODU: https://github.com/gorhill/uMatrix (GPLv3)
 
