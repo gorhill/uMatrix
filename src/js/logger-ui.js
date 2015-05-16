@@ -281,11 +281,7 @@ var renderLogEntry = function(entry) {
     tr.cells[0].title = time.toLocaleDateString('fullwide', dateOptions);
 
     if ( entry.tab ) {
-        tr.classList.add('tab');
-        var className = classNameFromTabId(entry.tab);
-        if ( className !== '' ) {
-            tr.classList.add(className);
-        }
+        tr.classList.add('tab', classNameFromTabId(entry.tab));
         if ( entry.tab === noTabId ) {
             tr.cells[1].appendChild(createHiddenTextNode('bts'));
         }
@@ -384,11 +380,9 @@ var synchronizeTabIds = function(newTabIds) {
     var select = document.getElementById('pageSelector');
     var selectValue = select.value;
     var tabIds = Object.keys(newTabIds).sort(function(a, b) {
-        var sa = newTabIds[a].title || newTabIds[a].url;
-        var sb = newTabIds[b].title || newTabIds[b].url;
-        return sa.localeCompare(sb);
+        return newTabIds[a].localeCompare(newTabIds[a]);
     });
-    var option, entry;
+    var option;
     for ( var i = 0, j = 2; i < tabIds.length; i++ ) {
         tabId = tabIds[i];
         if ( tabId === noTabId ) {
@@ -400,8 +394,7 @@ var synchronizeTabIds = function(newTabIds) {
             option = document.createElement('option');
             select.appendChild(option);
         }
-        entry = newTabIds[tabId];
-        option.textContent = entry.title || entry.url;
+        option.textContent = newTabIds[tabId];
         option.value = classNameFromTabId(tabId);
         if ( option.value === selectValue ) {
             option.setAttribute('selected', '');
@@ -409,7 +402,7 @@ var synchronizeTabIds = function(newTabIds) {
             option.removeAttribute('selected');
         }
     }
-    for ( ; j < select.options.length; j++ ) {
+    while ( j < select.options.length ) {
         select.removeChild(select.options[j]);
     }
     if ( select.value !== selectValue ) {

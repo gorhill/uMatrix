@@ -909,16 +909,17 @@ var onMessage = function(request, sender, callback) {
     switch ( request.what ) {
         case 'readMany':
             var tabIds = {};
+            var loggerURL = vAPI.getURL('logger-ui.html');
             var pageStore;
             for ( var tabId in µm.pageStores ) {
                 pageStore = µm.pageStoreFromTabId(tabId);
                 if ( pageStore === null ) {
                     continue;
                 }
-                tabIds[tabId] = {
-                    title: pageStore.title,
-                    url: pageStore.pageUrl
-                };
+                if ( pageStore.rawUrl.lastIndexOf(loggerURL, 0) === 0 ) {
+                    continue;
+                }
+                tabIds[tabId] = pageStore.title || pageStore.rawUrl;
             }
             response = {
                 colorBlind: false,

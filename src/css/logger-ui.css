@@ -48,7 +48,7 @@ body {
     vertical-align: middle;
     }
 #pageSelector {
-    max-width: 28em;
+    width: 28em;
     padding: 0.2em 0;
     }
 body #compactViewToggler.button:before {
