@@ -79,9 +79,5 @@
         "webRequestBlocking",
         "http://*/*",
         "https://*/*"
-    ],
-    "web_accessible_resources": [
-        "css/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf",
-        "css/noop.css"
     ]
 }
