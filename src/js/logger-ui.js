@@ -64,6 +64,15 @@ var dateOptions = {
 
 /******************************************************************************/
 
+// Adjust top padding of content table, to match that of toolbar height.
+
+document.getElementById('content').style.setProperty(
+    'margin-top',
+    document.getElementById('toolbar').offsetHeight + 'px'
+);
+
+/******************************************************************************/
+
 var escapeHTML = function(s) {
     return s.replace(reEscapeLeftBracket, '&lt;')
             .replace(reEscapeRightBracket, '&gt;');
@@ -71,6 +80,18 @@ var escapeHTML = function(s) {
 
 var reEscapeLeftBracket = /</g;
 var reEscapeRightBracket = />/g;
+
+/******************************************************************************/
+
+var classNameFromTabId = function(tabId) {
+    if ( tabId === noTabId ) {
+        return 'tab_bts';
+    }
+    if ( tabId !== '' ) {
+        return 'tab_' + tabId;
+    }
+    return '';
+};
 
 /******************************************************************************/
 
@@ -261,11 +282,12 @@ var renderLogEntry = function(entry) {
 
     if ( entry.tab ) {
         tr.classList.add('tab');
+        var className = classNameFromTabId(entry.tab);
+        if ( className !== '' ) {
+            tr.classList.add(className);
+        }
         if ( entry.tab === noTabId ) {
-            tr.classList.add('tab_bts');
             tr.cells[1].appendChild(createHiddenTextNode('bts'));
-        } else if ( entry.tab !== '' ) {
-            tr.classList.add('tab_' + entry.tab);
         }
     }
     if ( entry.cat !== '' ) {
@@ -329,6 +351,81 @@ var renderLogEntries = function(response) {
 
 /******************************************************************************/
 
+var synchronizeTabIds = function(newTabIds) {
+    var oldTabIds = allTabIds;
+
+    // Neuter rows for which a tab does not exist anymore
+    // TODO: sort to avoid using indexOf
+
+    var autoDeleteVoidRows = !!vAPI.localStorage.getItem('loggerAutoDeleteVoidRows');
+    var rowVoided = false;
+    var trs;
+    for ( var tabId in oldTabIds ) {
+        if ( oldTabIds.hasOwnProperty(tabId) === false ) {
+            continue;
+        }
+        if ( newTabIds.hasOwnProperty(tabId) ) {
+            continue;
+        }
+        // Mark or remove voided rows
+        trs = uDom('.tab_' + tabId);
+        if ( autoDeleteVoidRows ) {
+            toJunkyard(trs);
+        } else {
+            trs.removeClass('canMtx');
+            rowVoided = true;
+        }
+        // Remove popup if it is currently bound to a removed tab.
+        if ( tabId === popupManager.tabId ) {
+            popupManager.toggleOff();
+        }
+    }
+
+    var select = document.getElementById('pageSelector');
+    var selectValue = select.value;
+    var tabIds = Object.keys(newTabIds).sort(function(a, b) {
+        var sa = newTabIds[a].title || newTabIds[a].url;
+        var sb = newTabIds[b].title || newTabIds[b].url;
+        return sa.localeCompare(sb);
+    });
+    var option, entry;
+    for ( var i = 0, j = 2; i < tabIds.length; i++ ) {
+        tabId = tabIds[i];
+        if ( tabId === noTabId ) {
+            continue;
+        }
+        option = select.options[j];
+        j += 1;
+        if ( !option ) {
+            option = document.createElement('option');
+            select.appendChild(option);
+        }
+        entry = newTabIds[tabId];
+        option.textContent = entry.title || entry.url;
+        option.value = classNameFromTabId(tabId);
+        if ( option.value === selectValue ) {
+            option.setAttribute('selected', '');
+        } else {
+            option.removeAttribute('selected');
+        }
+    }
+    for ( ; j < select.options.length; j++ ) {
+        select.removeChild(select.options[j]);
+    }
+    if ( select.value !== selectValue ) {
+        select.selectedIndex = 0;
+        select.value = '';
+        select.options[0].setAttribute('selected', '');
+        pageSelectorChanged();
+    }
+
+    allTabIds = newTabIds;
+
+    return rowVoided;
+};
+
+/******************************************************************************/
+
 var truncateLog = function(size) {
     if ( size === 0 ) {
         size = 5000;
@@ -356,28 +453,7 @@ var onLogBufferRead = function(response) {
 
     // Neuter rows for which a tab does not exist anymore
     // TODO: sort to avoid using indexOf
-    var autoDeleteVoidRows = vAPI.localStorage.getItem('loggerAutoDeleteVoidRows');
-    var rowVoided = false, trs;
-    for ( var tabId in allTabIds ) {
-        if ( allTabIds.hasOwnProperty(tabId) === false ) {
-            continue;
-        }
-        if ( response.tabIds.hasOwnProperty(tabId) ) {
-            continue;
-        }
-        trs = uDom('.tab_' + tabId);
-        if ( autoDeleteVoidRows ) {
-            toJunkyard(trs);
-        } else {
-            trs.removeClass('canMtx');
-            rowVoided = true;
-        }
-        if ( tabId === popupManager.tabId ) {
-            popupManager.toggleOff();
-        }
-    }
-    allTabIds = response.tabIds;
-
+    var rowVoided = synchronizeTabIds(response.tabIds);
     renderLogEntries(response);
 
     if ( rowVoided ) {
@@ -404,6 +480,41 @@ var onLogBufferRead = function(response) {
 
 var readLogBuffer = function() {
     messager.send({ what: 'readMany' }, onLogBufferRead);
+};
+
+/******************************************************************************/
+
+var pageSelectorChanged = function() {
+    var style = document.getElementById('tabFilterer');
+    var tabClass = document.getElementById('pageSelector').value;
+    var sheet = style.sheet;
+    while ( sheet.cssRules.length !== 0 )  {
+        sheet.deleteRule(0);
+    }
+    if ( tabClass !== '' ) {
+        sheet.insertRule(
+            '#content table tr:not(.' + tabClass + ') { display: none; }',
+            0
+        );
+    }
+    uDom('#refresh').toggleClass(
+        'disabled',
+        tabClass === '' || tabClass === 'tab_bts'
+    );
+};
+
+/******************************************************************************/
+
+var refreshTab = function() {
+    var tabClass = document.getElementById('pageSelector').value;
+    var matches = tabClass.match(/^tab_(.+)$/);
+    if ( matches === null ) {
+        return;
+    }
+    if ( matches[1] === 'bts' ) {
+        return;
+    }
+    messager.send({ what: 'forceReloadTab', tabId: matches[1] });
 };
 
 /******************************************************************************/
@@ -675,7 +786,7 @@ var popupManager = (function() {
         popupObserver = new MutationObserver(resizePopup);
         container.appendChild(popup);
 
-        style = document.querySelector('#content > style');
+        style = document.getElementById('popupFilterer');
         style.textContent = styleTemplate.replace('{{tabId}}', localTabId);
 
         document.body.classList.add('popupOn');
@@ -727,6 +838,8 @@ var popupManager = (function() {
 uDom.onLoad(function() {
     readLogBuffer();
 
+    uDom('#pageSelector').on('change', pageSelectorChanged);
+    uDom('#refresh').on('click', refreshTab);
     uDom('#compactViewToggler').on('click', toggleCompactView);
     uDom('#clean').on('click', cleanBuffer);
     uDom('#clear').on('click', clearBuffer);

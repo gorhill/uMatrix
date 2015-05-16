@@ -390,14 +390,19 @@ var contentScriptSummaryHandler = function(tabId, details) {
     if ( !details || !details.locationURL ) {
         return;
     }
-    if ( details.inlineScript !== true ) {
-        return;
-    }
 
-    // scripts
     // https://github.com/gorhill/httpswitchboard/issues/25
     var pageStore = µm.pageStoreFromTabId(tabId);
     if ( pageStore === null ) {
+        return;
+    }
+
+    if ( details.title ) {
+        pageStore.title = details.title;
+    }
+
+    // scripts
+    if ( details.inlineScript !== true ) {
         return;
     }
 
@@ -904,10 +909,16 @@ var onMessage = function(request, sender, callback) {
     switch ( request.what ) {
         case 'readMany':
             var tabIds = {};
+            var pageStore;
             for ( var tabId in µm.pageStores ) {
-                if ( µm.pageStores.hasOwnProperty(tabId) ) {
-                    tabIds[tabId] = true;
+                pageStore = µm.pageStoreFromTabId(tabId);
+                if ( pageStore === null ) {
+                    continue;
                 }
+                tabIds[tabId] = {
+                    title: pageStore.title,
+                    url: pageStore.pageUrl
+                };
             }
             response = {
                 colorBlind: false,

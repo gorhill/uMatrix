@@ -336,6 +336,7 @@ PageStore.prototype.init = function(tabContext) {
     this.pageUrl = tabContext.normalURL;
     this.pageHostname = tabContext.rootHostname;
     this.pageDomain =  tabContext.rootDomain;
+    this.title = '';
     this.requests = µm.PageRequestStats.factory();
     this.domains = {};
     this.allHostnamesString = ' ';
@@ -357,6 +358,7 @@ PageStore.prototype.dispose = function() {
     this.pageUrl = '';
     this.pageHostname = '';
     this.pageDomain = '';
+    this.title = '';
     this.domains = {};
     this.allHostnamesString = ' ';
 
