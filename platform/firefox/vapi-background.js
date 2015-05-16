@@ -1578,6 +1578,7 @@ vAPI.toolbarButton.onBeforeCreated = function(doc) {
         .appendChild(panel)
         .appendChild(iframe);
 
+    var scrollBarWidth = 0;
     var updateTimer = null;
     var delayedResize = function() {
         if ( updateTimer ) {
@@ -1591,18 +1592,22 @@ vAPI.toolbarButton.onBeforeCreated = function(doc) {
         panel.parentNode.style.maxWidth = 'none';
         // We set a limit for height
         var height = Math.min(body.clientHeight, 600);
-        var width = body.clientWidth;
         // https://github.com/chrisaljoudi/uBlock/issues/730
         // Voodoo programming: this recipe works
         panel.style.setProperty('height', height + 'px');
         iframe.style.setProperty('height', height + 'px');
         // Adjust width for presence/absence of vertical scroll bar which may
         // have appeared as a result of last operation.
+        var contentWindow = iframe.contentWindow;
+        var width = body.clientWidth;
+        if ( contentWindow.scrollMaxY !== 0 ) {
+            width += scrollBarWidth;
+        }
         panel.style.setProperty('width', width + 'px');
-        var cw = panel.clientWidth;
-        var dw = iframe.contentWindow.document.documentElement.clientWidth;
-        if ( cw !== dw ) {
-            width = 2 * cw - dw;
+        // scrollMaxX should always be zero once we know the scrollbar width
+        if ( contentWindow.scrollMaxX !== 0 ) {
+            scrollBarWidth = contentWindow.scrollMaxX;
+            width += scrollBarWidth;
             panel.style.setProperty('width', width + 'px');
         }
         if ( iframe.clientHeight !== height || panel.clientWidth !== width ) {
