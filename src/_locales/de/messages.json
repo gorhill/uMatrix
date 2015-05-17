@@ -571,6 +571,10 @@
     "message":"Filter-Ausdrücke",
     "description":"Appears in the input filed where filter expressions are entered"
   },
+  "loggerMaxEntriesTip":{
+    "message":"Maximum number of entries",
+    "description":"Appears as a tooltip when hovering the input field"
+  },
   "loggerEntryUserAgentSpoofing":{
     "message":"Verschleiere den User-Agent mit: {{value}}",
     "description":"An entry for when a new user agent string is selected"
