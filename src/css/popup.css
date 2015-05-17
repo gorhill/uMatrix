@@ -85,12 +85,6 @@ body.tScopeSite .scopeRel:not(.disabled) {
     color: #a00;
     }
 
-body[dir="ltr"] #buttonMtxSwitches + .dropdown-menu {
-    left: -80%;
-    }
-body[dir="rtl"] #buttonMtxSwitches + .dropdown-menu {
-    right: -80%;
-    }
 #mtxSwitches > li  {
     color: #888;
     }
@@ -113,15 +107,21 @@ body[dir="rtl"] #mtxSwitches > li:before {
     color: #000;
     content: '\f205';
     }
+
+#extras + .dropdown-menu .dropdown-menu-entry:before {
+    font: 110% FontAwesome;
+    } 
+body[dir="ltr"] #extras + .dropdown-menu .dropdown-menu-entry:before {
+    padding-right: 0.5em;
+    } 
+body[dir="rtl"] #extras + .dropdown-menu .dropdown-menu-entry:before {
+    padding-left: 0.5em;
+    } 
 #buttonRevertAll:before {
     content: '\f122';
-    font: 110% FontAwesome;
-    padding-right: 0.5em;
     }
 [data-i18n="matrixDashboardMenuEntry"]:before {
     content: '\f085';
-    font: 110% FontAwesome;
-    padding-right: 0.5em;
     }
 
 .dropdown-menu {
@@ -157,11 +157,6 @@ body[dir="rtl"] #mtxSwitches > li:before {
 .dropdown-menu > ul > li.dropdown-menu-entry-divider {
     border-top: 1px solid #ccc;
     margin: 0.5em 0;
-    }
-.dropdown-menu > ul > li.dropdown-menu-entry > .fa {
-    color: #aaa;
-    font-size: 110%;
-    margin-right: 0.5em;
     }
 .dropdown-menu.show {
     display: block;
@@ -333,9 +328,15 @@ body.tScopeSite #scopeCell {
     font-weight: normal;
     }
 
+/* RFC 3987 Internationalized Resource Identifiers (IRIs) -- 4.4 */
 .matrix .matRow > .matCell:first-child {
-    width: 16em;
+    direction: ltr;
     text-align: right;
+    unicode-bidi: embed;
+    width: 16em;
+    }
+.matrix .matGroup.g4 .matRow.ro > .matCell:first-child {
+    direction: inherit;
     }
 .matrix .matRow.l2 > .matCell:first-child {
     margin-left: 1px;
