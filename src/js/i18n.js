@@ -30,6 +30,8 @@
 
 /******************************************************************************/
 
+var text;
+
 var nodeList = document.querySelectorAll('[data-i18n]');
 var i = nodeList.length;
 var node;
@@ -50,6 +52,13 @@ i = nodeList.length;
 while ( i-- ) {
     node = nodeList[i];
     node.setAttribute('data-tip', vAPI.i18n(node.getAttribute('data-i18n-tip')));
+}
+nodeList = document.querySelectorAll('[title]');
+i = nodeList.length;
+while ( i-- ) {
+    node = nodeList[i];
+    text = node.getAttribute('title');
+    node.setAttribute('title', vAPI.i18n(text) || text);
 }
 
 nodeList = document.querySelectorAll('input[placeholder]');
