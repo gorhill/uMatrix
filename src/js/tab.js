@@ -481,6 +481,8 @@ vAPI.tabs.registerListeners();
         if ( context === 'updated' && pageStore.pageHostname === tabContext.rootHostname ) {
             pageStore.rawURL = tabContext.rawURL;
             pageStore.normalURL = normalURL;
+            this.updateTitle(tabId);
+            this.pageStoresToken = Date.now();
             return pageStore;
         }
 
@@ -494,6 +496,8 @@ vAPI.tabs.registerListeners();
         pageStore = this.PageStore.factory(tabContext);
     }
     this.pageStores[tabId] = pageStore;
+    this.updateTitle(tabId);
+    this.pageStoresToken = Date.now();
 
     // console.debug('tab.js > bindTabToPageStats(): dispatching traffic in tab id %d to page store "%s"', tabId, pageUrl);
 
@@ -513,6 +517,7 @@ vAPI.tabs.registerListeners();
         return;
     }
     delete this.pageStores[tabId];
+    this.pageStoresToken = Date.now();
 
     if ( pageStore.incinerationTimer ) {
         clearTimeout(pageStore.incinerationTimer);
@@ -615,6 +620,64 @@ vAPI.tabs.registerListeners();
 µm.forceReload = function(tabId) {
     vAPI.tabs.reload(tabId, { bypassCache: true });
 };
+
+/******************************************************************************/
+
+µm.updateTitle = (function() {
+    var tabIdToTimer = Object.create(null);
+    var tabIdToTryCount = Object.create(null);
+    var delay = 499;
+
+    var tryNoMore = function(tabId) {
+        delete tabIdToTryCount[tabId];
+    };
+
+    var tryAgain = function(tabId) {
+        var count = tabIdToTryCount[tabId];
+        if ( count === undefined ) {
+            return false;
+        }
+        if ( count === 1 ) {
+            delete tabIdToTryCount[tabId];
+            return false;
+        }
+        tabIdToTryCount[tabId] = count - 1;
+        tabIdToTimer[tabId] = vAPI.setTimeout(updateTitle.bind(µb, tabId), delay);
+        return true;
+    };
+
+    var onTabReady = function(tabId, tab) {
+        if ( !tab ) {
+            return tryNoMore(tabId);
+        }
+        var pageStore = this.pageStoreFromTabId(tabId);
+        if ( pageStore === null ) {
+            return tryNoMore(tabId);
+        }
+        if ( !tab.title && tryAgain(tabId) ) {
+            return;
+        }
+        tryNoMore(tabId);
+        pageStore.title = tab.title || tab.url || '';
+        this.pageStoresToken = Date.now();
+    };
+
+    var updateTitle = function(tabId) {
+        delete tabIdToTimer[tabId];
+        vAPI.tabs.get(tabId, onTabReady.bind(this, tabId));
+    };
+
+    return function(tabId) {
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+            return;
+        }
+        if ( tabIdToTimer[tabId] ) {
+            clearTimeout(tabIdToTimer[tabId]);
+        }
+        tabIdToTimer[tabId] = vAPI.setTimeout(updateTitle.bind(this, tabId), delay);
+        tabIdToTryCount[tabId] = 5;
+    };
+})();
 
 /******************************************************************************/
 

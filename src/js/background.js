@@ -140,6 +140,7 @@ return {
     // urls stats are kept on the back burner while waiting to be reactivated
     // in a tab or another.
     pageStores: {},
+    pageStoresToken: 0,
     pageStoreCemetery: {},
 
     // page url => permission scope

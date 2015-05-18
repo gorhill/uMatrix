@@ -445,20 +445,13 @@ var nodeListsAddedHandler = function(nodeLists) {
         what: 'contentScriptSummary',
         locationURL: window.location.href,
         inlineScript: false,
-        mustReport: true,
-        title: ''
+        mustReport: true
     };
     // https://github.com/gorhill/httpswitchboard/issues/25
     // &
     // Looks for inline javascript also in at least one a[href] element.
     // https://github.com/gorhill/httpswitchboard/issues/131
     hasInlineScript(document.querySelectorAll('a[href^="javascript:"],script'), summary);
-
-    if ( window === window.top ) {
-        if ( document.title ) {
-            summary.title = document.title.trim();
-        }
-    }
 
     //console.debug('contentscript-end.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
 

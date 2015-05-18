@@ -391,18 +391,14 @@ var contentScriptSummaryHandler = function(tabId, details) {
         return;
     }
 
-    // https://github.com/gorhill/httpswitchboard/issues/25
-    var pageStore = µm.pageStoreFromTabId(tabId);
-    if ( pageStore === null ) {
+    // scripts
+    if ( details.inlineScript !== true ) {
         return;
     }
 
-    if ( details.title ) {
-        pageStore.title = details.title;
-    }
-
-    // scripts
-    if ( details.inlineScript !== true ) {
+    // https://github.com/gorhill/httpswitchboard/issues/25
+    var pageStore = µm.pageStoreFromTabId(tabId);
+    if ( pageStore === null ) {
         return;
     }
 
@@ -907,31 +903,32 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
-        case 'readMany':
-            var tabIds = {};
-            var loggerURL = vAPI.getURL('logger-ui.html');
-            var pageStore;
-            for ( var tabId in µm.pageStores ) {
-                pageStore = µm.pageStoreFromTabId(tabId);
-                if ( pageStore === null ) {
-                    continue;
-                }
-                if ( pageStore.rawUrl.lastIndexOf(loggerURL, 0) === 0 ) {
-                    continue;
-                }
-                tabIds[tabId] = pageStore.title || pageStore.rawUrl;
+    case 'readMany':
+        var tabIds = {};
+        var loggerURL = vAPI.getURL('logger-ui.html');
+        var pageStore;
+        for ( var tabId in µm.pageStores ) {
+            pageStore = µm.pageStoreFromTabId(tabId);
+            if ( pageStore === null ) {
+                continue;
             }
-            response = {
-                colorBlind: false,
-                entries: µm.logger.readAll(),
-                maxLoggedRequests: µm.userSettings.maxLoggedRequests,
-                noTabId: vAPI.noTabId,
-                tabIds: tabIds
-            };
-            break;
+            if ( pageStore.rawUrl.lastIndexOf(loggerURL, 0) === 0 ) {
+                continue;
+            }
+            tabIds[tabId] = pageStore.title || pageStore.rawUrl;
+        }
+        response = {
+            colorBlind: false,
+            entries: µm.logger.readAll(),
+            maxLoggedRequests: µm.userSettings.maxLoggedRequests,
+            noTabId: vAPI.noTabId,
+            tabIds: tabIds,
+            tabIdsToken: µm.pageStoresToken
+        };
+        break;
 
-        default:
-            return vAPI.messaging.UNHANDLED;
+    default:
+        return vAPI.messaging.UNHANDLED;
     }
 
     callback(response);
