@@ -48,7 +48,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"Img",
+    "message":"Image",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -72,11 +72,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"Aucune activité réseau n'a été pour l'instant observée sur cet onglet.",
+    "message":"Aucune activité réseau n'a été observée sur cet onglet pour l'instant.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Activer\/Désactiver les filtres matriciels pour le contexte actuel. Nombre de requêtes bloquées via les filtres matriciels : {{count}}",
+    "message":"Désactiver\/Activer les filtres matriciels pour le contexte actuel",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -488,7 +488,7 @@
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"Version du fichier périmée",
+    "message":"Potentiellement obsolète",
     "description":""
   },
   "aboutChangelog":{
@@ -572,7 +572,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Nombre maximum d'entrées",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{

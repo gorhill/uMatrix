@@ -72,7 +72,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No se ha detectado tráfico de red en la pestaña hasta el momento.",
+    "message":"No se ha detectado tráfico de red en esta pestaña hasta el momento.",
     "description":""
   },
   "matrixMtxButtonTip":{
@@ -572,7 +572,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Número máximo de registros",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
