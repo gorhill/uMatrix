@@ -642,7 +642,7 @@ vAPI.tabs.registerListeners();
             return false;
         }
         tabIdToTryCount[tabId] = count - 1;
-        tabIdToTimer[tabId] = vAPI.setTimeout(updateTitle.bind(µb, tabId), delay);
+        tabIdToTimer[tabId] = vAPI.setTimeout(updateTitle.bind(µm, tabId), delay);
         return true;
     };
 
