@@ -41,6 +41,12 @@ self.vAPI = self.vAPI || {};
 
 /******************************************************************************/
 
+vAPI.setTimeout = vAPI.setTimeout || function(callback, delay) {
+    return setTimeout(function() { callback(); }, delay);
+};
+
+/******************************************************************************/
+
 // http://www.w3.org/International/questions/qa-scripts#directions
 
 var setScriptDirection = function(language) {
@@ -149,12 +155,6 @@ vAPI.localStorage = {
     clear: function() {
         this.PB.deleteBranch('');
     }
-};
-
-/******************************************************************************/
-
-vAPI.setTimeout = vAPI.setTimeout || function(callback, delay) {
-    setTimeout(function() { callback(); }, delay);
 };
 
 /******************************************************************************/
