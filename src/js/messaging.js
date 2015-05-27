@@ -413,6 +413,11 @@ var contentScriptSummaryHandler = function(tabId, details) {
     var url = frameURL + '{inline_script}';
     pageStore.recordRequest('script', url, inlineScriptBlocked);
     µm.logger.writeOne(tabId, 'net', pageHostname, url, 'script', inlineScriptBlocked);
+
+    // https://github.com/gorhill/uMatrix/issues/225
+    // A good place to force an update of the page title, as at this point
+    // the DOM has been loaded.
+    µm.updateTitle(tabId);
 };
 
 /******************************************************************************/
