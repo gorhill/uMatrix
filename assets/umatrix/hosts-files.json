@@ -17,7 +17,7 @@
         },
     "hosts-file.net/ad-servers": {
         "title": "hpHosts’s Ad and tracking servers",
-        "homeURL": "http://hosts-file.net/.%5Cad_servers.txt"
+        "homeURL": "http://hosts-file.net/ad_servers.txt"
         },
     "someonewhocares.org/hosts/hosts": {
         "title": "Dan Pollock’s hosts file",

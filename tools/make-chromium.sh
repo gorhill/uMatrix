@@ -2,8 +2,8 @@
 #
 # This script assumes a linux environment
 
-echo "*** µMatrix(Chromium): Creating package"
-echo "*** µMatrix(Chromium): Copying files"
+echo "*** uMatrix(Chromium): Creating package"
+echo "*** uMatrix(Chromium): Copying files"
 
 DES=./dist/build/uMatrix.chromium
 rm -rf $DES
@@ -19,10 +19,10 @@ cp    ./platform/chromium/manifest.json $DES/
 cp    LICENSE.txt                       $DES/
 
 if [ "$1" = all ]; then
-    echo "*** µMatrix.chromium: Creating package..."
+    echo "*** uMatrix.chromium: Creating package..."
     pushd $(dirname $DES/)
     zip uMatrix.chromium.zip -qr $(basename $DES/)/*
     popd
 fi
 
-echo "*** µMatrix(Chromium): Package done."
+echo "*** uMatrix(Chromium): Package done."

@@ -4,7 +4,7 @@
 
 TEMPFILE=/tmp/umatrix-asset
 
-echo "*** µMatrix: updating remote assets..."
+echo "*** uMatrix: updating remote assets..."
 
 THIRDPARTY_REMOTEURLS=(
     'http://mirror1.malwaredomains.com/files/immortal_domains.txt'

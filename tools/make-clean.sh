@@ -2,6 +2,6 @@
 #
 # This script assumes a linux environment
 
-echo "*** µMatrix(Chromium): Cleaning."
+echo "*** uMatrix(Chromium): Cleaning."
 rm -R ./dist/*
-echo "*** µMatrix(Chromium): Cleaned."
+echo "*** uMatrix(Chromium): Cleaned."
