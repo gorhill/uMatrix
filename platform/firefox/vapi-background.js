@@ -129,53 +129,66 @@ window.addEventListener('unload', function() {
 
 /******************************************************************************/
 
-var SQLite = {
-    db: null,
+// API matches that of chrome.storage.local:
+//   https://developer.chrome.com/extensions/storage
 
-    open: function() {
+vAPI.storage = (function() {
+    var db = null;
+
+    var close = function() {
+        if ( db === null ) {
+            return;
+        }
+        db.createAsyncStatement('VACUUM').executeAsync();
+        db.asyncClose();
+        db = null;
+    };
+
+    var open = function() {
+        if ( db !== null ) {
+            return db;
+        }
+
+        // Create path
         var path = Services.dirsvc.get('ProfD', Ci.nsIFile);
         path.append('extension-data');
-
         if ( !path.exists() ) {
             path.create(Ci.nsIFile.DIRECTORY_TYPE, parseInt('0774', 8));
         }
-
         if ( !path.isDirectory() ) {
             throw Error('Should be a directory...');
         }
-
         path.append(location.host + '.sqlite');
-        this.db = Services.storage.openDatabase(path);
-        this.db.executeSimpleSQL(
-            'CREATE TABLE IF NOT EXISTS settings' +
-            '(name TEXT PRIMARY KEY NOT NULL, value TEXT);'
-        );
 
-        cleanupTasks.push(function() {
-            // VACUUM somewhere else, instead on unload?
-            SQLite.run('VACUUM');
-            SQLite.db.asyncClose();
-        });
-    },
-
-    run: function(query, values, callback) {
-        if ( !this.db ) {
-            this.open();
+        // Open database
+        try {
+            db = Services.storage.openDatabase(path);
+            if ( db.connectionReady === false ) {
+                db.asyncClose();
+                db = null;
+            }
+        } catch (ex) {
         }
 
+        if ( db === null ) {
+            return null;
+        }
+
+        // Database was opened, register cleanup task
+        cleanupTasks.push(close);
+
+        // Setup database
+        db.createAsyncStatement('CREATE TABLE IF NOT EXISTS settings(name TEXT PRIMARY KEY NOT NULL, value TEXT);')
+          .executeAsync();
+
+        return db;
+    };
+
+    // Execute a query
+    var runStatement = function(stmt, callback) {
         var result = {};
 
-        query = this.db.createAsyncStatement(query);
-
-        if ( Array.isArray(values) && values.length ) {
-            var i = values.length;
-
-            while ( i-- ) {
-                query.bindByIndex(i, values[i]);
-            }
-        }
-
-        query.executeAsync({
+        stmt.executeAsync({
             handleResult: function(rows) {
                 if ( !rows || typeof callback !== 'function' ) {
                     return;
@@ -196,122 +209,161 @@ var SQLite = {
             },
             handleError: function(error) {
                 console.error('SQLite error ', error.result, error.message);
+                // Caller expects an answer regardless of failure.
+                if ( typeof callback === 'function' ) {
+                    callback(null);
+                }
             }
         });
-    }
-};
+    };
 
-/******************************************************************************/
-
-vAPI.storage = {
-    QUOTA_BYTES: 100 * 1024 * 1024,
-
-    sqlWhere: function(col, params) {
-        if ( params > 0 ) {
-            params = new Array(params + 1).join('?, ').slice(0, -2);
-            return ' WHERE ' + col + ' IN (' + params + ')';
+    var bindNames = function(stmt, names) {
+        if ( Array.isArray(names) === false || names.length === 0 ) {
+            return;
         }
+        var params = stmt.newBindingParamsArray();
+        var i = names.length, bp;
+        while ( i-- ) {
+            bp = params.newBindingParams();
+            bp.bindByName('name', names[i]);
+            params.addParams(bp);
+        }
+        stmt.bindParameters(params);
+    };
 
-        return '';
-    },
+    var clear = function(callback) {
+        if ( open() === null ) {
+            if ( typeof callback === 'function' ) {
+                callback();
+            }
+            return;
+        }
+        runStatement(db.createAsyncStatement('DELETE FROM settings; VACUUM;'), callback);
+    };
 
-    get: function(details, callback) {
+    var getBytesInUse = function(keys, callback) {
         if ( typeof callback !== 'function' ) {
             return;
         }
 
-        var values = [], defaults = false;
-
-        if ( details !== null ) {
-            if ( Array.isArray(details) ) {
-                values = details;
-            } else if ( typeof details === 'object' ) {
-                defaults = true;
-                values = Object.keys(details);
-            } else {
-                values = [details.toString()];
-            }
+        if ( open() === null ) {
+            callback(0);
+            return;
         }
 
-        SQLite.run(
-            'SELECT * FROM settings' + this.sqlWhere('name', values.length),
-            values,
-            function(result) {
-                var key;
+        var stmt;
+        if ( Array.isArray(keys) ) {
+            stmt = db.createAsyncStatement('SELECT "size" AS size, SUM(LENGTH(value)) FROM settings WHERE name = :name');
+            bindNames(keys);
+        } else {
+            stmt = db.createAsyncStatement('SELECT "size" AS size, SUM(LENGTH(value)) FROM settings');
+        }
 
-                for ( key in result ) {
-                    result[key] = JSON.parse(result[key]);
+        runStatement(stmt, function(result) {
+            callback(result.size);
+        });
+    };
+
+    var read = function(details, callback) {
+        if ( typeof callback !== 'function' ) {
+            return;
+        }
+
+        var prepareResult = function(result) {
+            var key;
+            for ( key in result ) {
+                if ( result.hasOwnProperty(key) === false ) {
+                    continue;
                 }
-
-                if ( defaults ) {
-                    for ( key in details ) {
-                        if ( result[key] === undefined ) {
-                            result[key] = details[key];
-                        }
+                result[key] = JSON.parse(result[key]);
+            }
+            if ( typeof details === 'object' && details !== null ) {
+                for ( key in details ) {
+                    if ( result.hasOwnProperty(key) === false ) {
+                        result[key] = details[key];
                     }
                 }
-
-                callback(result);
             }
-        );
-    },
+            callback(result);
+        };
 
-    set: function(details, callback) {
-        var key, values = [], placeholders = [];
+        if ( open() === null ) {
+            prepareResult({});
+            return;
+        }
 
-        for ( key in details ) {
-            if ( !details.hasOwnProperty(key) ) {
+        var names = [];
+        if ( details !== null ) {
+            if ( Array.isArray(details) ) {
+                names = details;
+            } else if ( typeof details === 'object' ) {
+                names = Object.keys(details);
+            } else {
+                names = [details.toString()];
+            }
+        }
+
+        var stmt;
+        if ( names.length === 0 ) {
+            stmt = db.createAsyncStatement('SELECT * FROM settings');
+        } else {
+            stmt = db.createAsyncStatement('SELECT * FROM settings WHERE name = :name');
+            bindNames(stmt, names);
+        }
+
+        runStatement(stmt, prepareResult);
+    };
+
+    var remove = function(keys, callback) {
+        if ( open() === null ) {
+            if ( typeof callback === 'function' ) {
+                callback();
+            }
+            return;
+        }
+        var stmt = db.createAsyncStatement('DELETE FROM settings WHERE name = :name');
+        bindNames(stmt, typeof keys === 'string' ? [keys] : keys);
+        runStatement(stmt, callback);
+    };
+
+    var write = function(details, callback) {
+        if ( open() === null ) {
+            if ( typeof callback === 'function' ) {
+                callback();
+            }
+            return;
+        }
+
+        var stmt = db.createAsyncStatement('INSERT OR REPLACE INTO settings (name, value) VALUES(:name, :value)');
+        var params = stmt.newBindingParamsArray(), bp;
+        for ( var key in details ) {
+            if ( details.hasOwnProperty(key) === false ) {
                 continue;
             }
-            values.push(key);
-            values.push(JSON.stringify(details[key]));
-            placeholders.push('?, ?');
+            bp = params.newBindingParams();
+            bp.bindByName('name', key);
+            bp.bindByName('value', JSON.stringify(details[key]));
+            params.addParams(bp);
         }
-
-        if ( !values.length ) {
+        if ( params.length === 0 ) {
             return;
         }
 
-        SQLite.run(
-            'INSERT OR REPLACE INTO settings (name, value) SELECT ' +
-                placeholders.join(' UNION SELECT '),
-            values,
-            callback
-        );
-    },
+        stmt.bindParameters(params);
+        runStatement(stmt, callback);
+    };
 
-    remove: function(keys, callback) {
-        if ( typeof keys === 'string' ) {
-            keys = [keys];
-        }
-
-        SQLite.run(
-            'DELETE FROM settings' + this.sqlWhere('name', keys.length),
-            keys,
-            callback
-        );
-    },
-
-    clear: function(callback) {
-        SQLite.run('DELETE FROM settings');
-        SQLite.run('VACUUM', null, callback);
-    },
-
-    getBytesInUse: function(keys, callback) {
-        if ( typeof callback !== 'function' ) {
-            return;
-        }
-
-        SQLite.run(
-            'SELECT "size" AS size, SUM(LENGTH(value)) FROM settings' +
-                this.sqlWhere('name', Array.isArray(keys) ? keys.length : 0),
-            keys,
-            function(result) {
-                callback(result.size);
-            }
-        );
-    }
-};
+    // Export API
+    var api = {
+        QUOTA_BYTES: 100 * 1024 * 1024,
+        clear: clear,
+        get: read,
+        getBytesInUse: getBytesInUse,
+        remove: remove,
+        set: write
+    };
+    return api;
+})();
 
 /******************************************************************************/
 
