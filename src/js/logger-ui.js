@@ -541,14 +541,17 @@ var rowFilterer = (function() {
     var parseInput = function() {
         filters = [];
 
-        var rawPart, not, hardBeg, hardEnd, reStr;
+        var rawPart, hardBeg, hardEnd;
         var raw = uDom('#filterInput').val().trim();
         var rawParts = raw.split(/\s+/);
-        var i = rawParts.length;
-        while ( i-- ) {
+        var reStr, reStrs = [], not = false;
+        var n = rawParts.length;
+        for ( var i = 0; i < n; i++ ) {
             rawPart = rawParts[i];
-            not = rawPart.charAt(0) === '!';
-            if ( not ) {
+            if ( rawPart.charAt(0) === '!' ) {
+                if ( reStrs.length === 0 ) {
+                    not = true;
+                }
                 rawPart = rawPart.slice(1);
             }
             hardBeg = rawPart.charAt(0) === '|';
@@ -563,18 +566,25 @@ var rowFilterer = (function() {
                 continue;
             }
             // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
-            reStr = rawPart.replace(/[.+?^${}()|[\]\\]/g, '\\$&')
-                           .replace(/\*/g, '.*');
+            reStr = rawPart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             if ( hardBeg ) {
                 reStr = '(?:^|\\s)' + reStr;
             }
             if ( hardEnd ) {
                 reStr += '(?:\\s|$)';
             }
+            reStrs.push(reStr);
+            if ( i < (n - 1) && rawParts[i + 1] === '||' ) {
+                i += 1;
+                continue;
+            }
+            reStr = reStrs.length === 1 ? reStrs[0] : reStrs.join('|');
             filters.push({
                 re: new RegExp(reStr, 'i'),
                 r: !not
             });
+            reStrs = [];
+            not = false;
         }
     };
 
