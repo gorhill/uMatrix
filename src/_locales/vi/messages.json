@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Chỉ cần click để chặn\/cho phép loại yêu cầu của trình duyệt. Dùng để chặn script, iframe, quảng cáo, facebook...",
+    "message":"Chỉ cần click để chặn\/cho phép mọi loại yêu cầu của trình duyệt. Dùng để chặn script, iframe, quảng cáo, facebook,...",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -12,7 +12,7 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Cấu hình",
+    "message":"Cài đặt",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
@@ -152,7 +152,7 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Bộ đệm trình duyệt đã xoá: {{count}}",
+    "message":"Bộ nhớ đệm trình duyệt đã xoá: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
@@ -468,7 +468,7 @@
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Dọn tất cả bộ đệm",
+    "message":"Dọn tất cả bộ nhớ đệm",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -480,7 +480,7 @@
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"dọn bộ đệm",
+    "message":"dọn bộ nhớ đệm",
     "description":""
   },
   "hostsFilesExternalListNew":{
@@ -596,19 +596,19 @@
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix đã chặn truy cập trang này:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Bởi vì các luật sau",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Trở về",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Đóng",
     "description":"English: Close"
   },
   "commandRevertAll":{
@@ -628,11 +628,11 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"một phút trước",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"phút trước",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
@@ -640,19 +640,19 @@
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"giờ trước",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"một ngày trước",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"ngày trước",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Bảng điều khiển",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{

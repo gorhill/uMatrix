@@ -36,19 +36,19 @@
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"wszystkie",
+    "message":"wszystko",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"ciasteczko",
+    "message":"ciastko",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"CSS",
+    "message":"styl",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"obrazek",
+    "message":"obraz",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -88,7 +88,7 @@
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Przeładuj stronę.",
+    "message":"Odśwież stronę.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -96,19 +96,19 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"Zablokowane domeny: {{count}}",
+    "message":"{{count}} zablokowanych hostów",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Wyłącznie HTTPS",
+    "message":"Ścisły HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"Podmiana user-agenta",
+    "message":"Fałszowanie nagłówka User-Agent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Podmiana referera",
+    "message":"Fałszowanie referrera",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Przejdź do dziennika żądań",
+    "message":"Przejdź do dziennika",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Powstrzymane próby <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>pingowania linków<\/a>: {{count}}",
+    "message":"Powstrzymane próby <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -176,11 +176,11 @@
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Dozwolone",
+    "message":"Dozwolony",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Zablokowane",
+    "message":"Zablokowany",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
@@ -200,7 +200,7 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Grafika",
+    "message":"Obrazy",
     "description":""
   },
   "statsPagePlugins":{
@@ -212,7 +212,7 @@
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRy",
+    "message":"XHR",
     "description":""
   },
   "statsPageFrames":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Dziennik żądań",
+    "message":"Dziennik",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -232,15 +232,15 @@
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"Żądań HTTP <b>na stronę<\/b>.",
+    "message":"żądań HTTP <b>na stronę<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>Możesz przejrzeć szczegóły ostatnich żądań HTTP wykonanych do tej witryny (zobacz niżej).<\/p><p>Jest to przydatne dla zaawansowanych użytkowników, którzy chcieliby zobaczyć co dokładnie jest pobierane. Jednakże logowanie żądań HTTP wymaga pamięci, więc jeśli nie zależy ci na tej (technicznej) informacji, pamięć jest po prostu marnowana.<\/p><p>Stąd to pole, które pozwoli ci dostosować ilość ostatnich żądań HTTP które zostaną zachowane w logu.<\/p><p>Wprowadź &ldquo;<code>0<\/code>&rdquo; aby wyłączyć szczegółowy log (i dzięki temu zmniejszyć użycie pamięci przez <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Odświerz",
+    "message":"Odśwież",
     "description":""
   },
   "settingsPageTitle":{
@@ -248,7 +248,7 @@
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Zachowanie",
+    "message":"Wygląd",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
@@ -256,7 +256,7 @@
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normaly",
+    "message":"Normalny",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
@@ -272,7 +272,7 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Kiedy okno uMatrix zostanie zamknięte, inteligentnie odśwież następujące karty:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
@@ -288,11 +288,11 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>uMatrix<\/i> will reload affected pages automatically when you close the matrix.",
+    "message":"Kiedy wprowadzasz w matrycy zmiany, które mogą wpływać na wyświetlanie lub zachowanie jednej lub kilku stron, <i>uMatrix<\/i> odświeży te strony automatycznie, kiedy okno zostanie zamknięte.",
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Zablokowane ramki:&ensp;Kolor",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
@@ -300,11 +300,11 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Pokaż liczbę odrębnych żądań na ikonie",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
+    "message":"Ukryj pozostałości zablokowanych elementów",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p><i>uMatrix<\/i>nie zapobiega dostawaniu się ciasteczek z czarnej listy do twojej przeglądarki. Jednakże zapobiega opuszczaniu jej przez nie, co ostatecznie się liczy. Nieblokowanie ciasteczek zanim dotrą do twojej przeglądarki, daje możliwość poinformowania cię gdy strona próbuje używać ciastek, a nawet pozwala przejrzeć ich zawartość gdy tego chcesz.<\/p><p>Kiedy te czarnolistowane ciasteczka zostaną sklasyfikowane przez <i>uMatrix<\/i>, mogą, jeśli sobie tego życzysz, zostać usunięte z przeglądarki.<\/p><p><b>Ważna informacja:<\/b> Rozszerzenia mogą wykonywać żądania sieciowe podczas ich normalnej pracy. Te żądania mogą spowodować zapisanie ciasteczek w przeglądarce. Jeśli nazwa hosta z której pochodzi ciasteczko nie jest na białej liście, ciasteczko zostanie usunięte z przeglądarki przez <i>uMatrix<\/i> jeśli ta opcja jest zaznaczona. Upewnij się, że nazwy hostów z którymi komunikuje się rozszerzenie są na białej liście.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -328,15 +328,15 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C [ang.]<\/a>: &ldquo;Ciasteczko sesyjne ... jest usuwane kiedy kończysz sesję przeglądarki. Ciasteczko sesyjne przechowywane jest w pamięci tymczasowej i nie jest zachowywane po zamknięciu przeglądarki.&rdquo;<\/p><p>Poza tym, że <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>nie zawsze to  działa<\/a> w niektórych przeglądarkach. Również, dla niektórych użytkowników, zamknięcie przeglądarki by usunąć ciasteczka może nie być wystarczająco szybkie.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+    "message":"Usuwaj zawartość <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> ustawioną przez zablokowane hosty",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
+    "message":"Do zrobienia",
     "description":""
   },
   "privacyClearCachePrompt1":{
@@ -348,35 +348,35 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Niektóre witryny internetowe są tak zdecydowane by cię śledzić, że używają niezbyt ładnych trików aby obejść jakiekolwiek zabezpieczenia zastosujesz, by nie być śledzonym.<\/p><p>Kilka z tych trików<sup style='font-size:smaller'>[1, 2]<\/sup> opiera się na wykorzystaniu <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>pamięci podręcznej przeglądarki [ang.]<\/a>, której zawartość jest często dostępna przez bardzo długo, ponieważ użytkownicy rzadko ją usuwają.<\/p><p>Wady regularnego czyszczenia pamięci podręcznej są niewielkie (prawdopodobnie nie zauważysz, gdy to się stanie), a zaletą jest zapobieganie tym nieznośnym szpiegom naruszania twojej prywatności.<\/p><p>Zaznacz tą opcję by <i>uMatrix<\/i> robił to za ciebie, z częstotliwością jaką sobie życzysz.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Zapobieganie śledzeniu z wykorzystaniem pamięci podręcznej przeglądarki&rdquo; [ang.]<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Bezciasteczkowe ciasteczka&rdquo;[ang.]<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+    "message":"Fałszuj nagłówek <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> dla domen zewnętrznych.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>From Wikipedia:<\/p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote><p>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+    "message":"<p>Z Wikipedii [ang.]:<\/p><blockquote>HTTP referer jest nagłówkiem HTTP który identyfikuje adres strony która linkuje do zasobu będącego wywoływanym. ... <b>Ponieważ informacje o stronie odsyłającej mogą zagrażać prywatności, niektóre przeglądarki pozwalają na wyłączenie wysyłania tej informacji.<\/b><\/blockquote><p>Jeśli ta opcja jest zaznaczona, <i>uMatrix<\/i> będzie fałszował informację o refererze jeśli domena referera jest inna niż domena żądania sieciowego.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Ścisły HTTPS: blokuj mieszaną zawartość.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>Z <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network [ang.]<\/a>:<\/p><blockquote>Jeżeli strona HTTPS zawiera elementy pobrane przez zwykły, nie szyfrowany protokół HTTP, połączenie szyfrowane jest tylko częściowo: elementy nieszyfrowane są podatne na podsłuch i mogą być zmodyfikowane w ataku man-in-the-middle, i dlatego połączenie nie jest już bezpieczne.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Block all <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+    "message":"Blokuj wszystkie próby <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+    "message":"<p>Audytowanie linków to mechanizm wysyłający informację o linkach klikniętych przez użytkownika na stronie internetowej. Jest to funkcja przeznaczona głównie do śledzenia: pozwala witrynie internetowej lub dowolnej stronie trzeciej, być informowanym o linkach jakie kliknąłeś na stronie internetowej. Jedynym celem jest śledzenie twojej aktywności w sieci.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+    "message":"Fałszuj nagłówek <a href='https:\/\/pl.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> wybierając losowo jeden z poniższej listy",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -384,11 +384,11 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Według <i>Electronic Frontier Foundation<\/i>[ang.]<\/a>: &ldquo;[...] twoja przeglądarka wysyła do witryny internetowej nagłówek &lsquo;User Agent&rsquo; mówiący dokładnie jakiej wersji przeglądarki i systemu operacyjnego używasz. Ta informacja może pomóc odróżnić poszczególnych użytkowników Internetu, ponieważ wersje [systemu i przeglądarki] różnią się, często znacząco, od użytkownika do użytkownika. [...] <b>nagłówek User Agent staje się realnym problemem prywatności<\/b>.&rdquo;<p>Ta opcja pozwala ci odnieść się do problemu podniesionego przez EFF.<\/p><p>Możesz podać swoją własną listę nagłówków User Agent. Jeden ja linię. Puste linie i linie zaczynające się od &lsquo;#&rsquo; będą zignorowane.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Behind-the-scene requests",
+    "message":"Ukryte żądania",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -420,7 +420,7 @@
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Anuluj",
+    "message":"Odrzuć",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
@@ -428,31 +428,31 @@
     "description":""
   },
   "userRulesExport":{
-    "message":"Eksport do pliku...",
+    "message":"Eksportuj do pliku...",
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Składnię reguł znajdziesz tutaj.",
     "description":""
   },
   "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
+    "message":"umatrix-moje-reguly.txt",
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+    "message":"Wszystkie nazwy hostów z plików hosts są traktowane jako czarno-listowane globalnie.",
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} distinct blocked hostnames from:",
+    "message":"{{blockedHostnameCount}} blokowanych unikalnych hostów  z:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"użytych {{used}} z {{total}}",
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"Ostatnia aktualizacja: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
@@ -460,7 +460,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Automatycznie aktualizuj pliki hosts.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -468,43 +468,43 @@
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"Przeczyść całą pamięć podręczną",
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+    "message":"Jeden URL na linię. Linie zaczynające się od &lsquo;#&rsquo; będą traktowane jak komentarz. Niepoprawne URLe będą ignorowane.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Przetwórz",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"wyczyść pamięć podręczną",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"Dostępna jest nowa wersja",
+    "message":"dostępna nowsza wersja",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"nieaktualna",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Historia zmian<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"Wykorzystana pamięć: {{storageUsed}} bajtów",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentacja<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Uprawnienia<\/a>",
     "description":""
   },
   "aboutCode":{
@@ -540,7 +540,7 @@
     "description":""
   },
   "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
+    "message":"umatrix-kopia-zapasowa.txt",
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
@@ -568,19 +568,19 @@
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"filtruj wpisy dziennika",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Maksymalna ilość wpisów",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"fałszowanie user agenta ciągiem: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"ciastko usunięte: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
@@ -592,27 +592,27 @@
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"zaktualizowano: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix nie pozwolił załadować się następującej stronie:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Z powodu tej reguły",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Wstecz",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Zamknij",
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Usuń wszystkie tymczasowe zmiany",
+    "message":"Cofnij wszystkie tymczasowe zmiany",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -628,35 +628,35 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"minutę temu",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"{{value}} minut temu",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"godzinę temu",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"{{value}} godzin temu",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"dzień temu",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"{{value}} dni temu",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Kokpit",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Dziennik żądań",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{

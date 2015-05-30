@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"お使いのブラウザにおいて、ポイントしクリックすることでいくつかのクラス要求を不許可\/許可することができます。スクリプト、iframes、広告、Facebookなどをブロックするために使用します。",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -12,23 +12,23 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"設定",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"プライバシー",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"統計",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Myルール",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"ホストファイル",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -36,27 +36,27 @@
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"全て",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"Cookie",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"css",
+    "message":"CSS",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"画像",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"Plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"スクリプト",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,39 +64,39 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"Frame",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"その他",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"今のところ、このタブ上のネットワークトラフィックを検出できません。",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"このスコープでのMatrixフィルタの有効\/無効を切り替える",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"このスコープの一時的な変更を全て保存します。",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"このスコープの一時的な変更を元に戻します。",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"このページを再読み込みします。",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"ファーストパーティ",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}}ブラックリストに載ったhost名",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -104,15 +104,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"User agentの偽装",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"リファラーの偽装",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"一時的な変更を全て元に戻します",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
@@ -128,7 +128,7 @@
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"一般的な統計",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -144,7 +144,7 @@
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"削除されたローカルcookie: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
@@ -152,43 +152,43 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"クリアされたブラウザキャッシュ: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"詳細な統計",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"全て",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Behind the scene",
+    "message":"隠された要求",
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"概要",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"リクエスト",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"許可",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"ブロック中",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"全て",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"ページ",
     "description":""
   },
   "statsPageCookies":{
@@ -200,7 +200,7 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"画像",
     "description":""
   },
   "statsPagePlugins":{
@@ -208,7 +208,7 @@
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"スクリプト",
     "description":""
   },
   "statsPageXHRs":{
@@ -216,11 +216,11 @@
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"フレーム",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"その他",
     "description":""
   },
   "statsPageDetailed":{
@@ -228,7 +228,7 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"最後の記録",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
@@ -236,23 +236,23 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>あなたはWebページ（下記参照）による最新のHTTPリクエストの詳細を調べることができます。<\/p><p>これは、Webページが何を行ってきたか正確に調べたい上級ユーザーに特に便利です。しかし、これらのHTTP要求をログに記録するには多くのメモリーを必要です。もしあなたがこの技術情報を気にしない場合、メモリーが浪費されています。<\/p><p>したがって、このフィールドではログに記録される最新のHTTPリクエスト最大数を調整することができます。<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"再読み込み",
     "description":""
   },
   "settingsPageTitle":{
-    "message":"uMatrix &ndash; Settings",
+    "message":"uMatrix &ndash; 設定",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"外観",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"文字の大きさ：",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
@@ -268,39 +268,39 @@
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"利便性",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Matrixを閉じたとき、これらのタブを再読み込みします:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"無し",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"現在",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"全て",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>uMatrix<\/i> will reload affected pages automatically when you close the matrix.",
+    "message":"ディスプレイか、もしくは1ページ以上に影響を与える可能性があるmatrixを変更するたびに、<i>uMatrix<\/i>は、自動的に影響を受けたページをリロードします。",
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"ブロック中のframe:&ensp;Color",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"不透明度",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"アイコン上で各要求の数を表示します",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
@@ -308,11 +308,11 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
-    "message":"uMatrix &ndash; Privacy",
+    "message":"uMatrix &ndash; プライバシー",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Delete blocked cookies.",
+    "message":"ブロックされたCookieを削除します。",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -320,11 +320,11 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"ブロックしていないセッションのCookieを削除します。 ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" 分前に使用された。",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -340,11 +340,11 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"ブラウザのキャッシュを全てクリア",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"分。",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -360,7 +360,7 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Strict HTTPS: 混在したコンテンツを禁止。",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -380,7 +380,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"分。",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -388,7 +388,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Behind-the-scene requests",
+    "message":"バックグラウンドのリクエスト",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -396,19 +396,19 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"永続的なルール",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"一時的なルール",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"戻す",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"承認する",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
@@ -420,19 +420,19 @@
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"廃棄",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"ファイルからインポート...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"ファイルへのエクスポート...",
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"ルールの構文については、このページを参照してください。",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -440,7 +440,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+    "message":"hostsファイル内の全てのhost名は、グローバルスコープのブラックリストに載ったhost名としてロードされます。",
     "description":""
   },
   "hostsFilesStats":{
@@ -448,27 +448,27 @@
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"{{total}}の内{{used}}使用中",
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"最終更新日: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"変更を適用する",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"自動でhosts fileｓを更新する。",
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"今すぐアップデート",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"全てのキャッシュをクリア",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -476,19 +476,19 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"分析する",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"キャッシュのクリア",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"新しいバージョンが利用可能",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"時代遅れの",
     "description":""
   },
   "aboutChangelog":{
@@ -512,11 +512,11 @@
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"不具合と問題",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"投稿者",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
@@ -524,11 +524,11 @@
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"問題点:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"翻訳:",
     "description":""
   },
   "aboutUserDataHeader":{
@@ -536,7 +536,7 @@
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"ファイルにバックアップ...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -544,27 +544,27 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"ファイルからの復元...",
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"All your settings will be overwritten using data backed up on {{time}}, and uMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+    "message":"全ての設定は{{time}}のバックアップデータで上書きされ、uMatrixが再起動します。\n\nバックアップデータで上書きしますか？",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"The data could not be read or is invalid",
+    "message":"データの読み出すことができないか、無効です",
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... か ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"初期設定に戻す",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Caution! this will remove all your custom settings. Are you sure you want to proceed?",
+    "message":"Caution! これは、全てのカスタム設定を削除します。続行してもよろしいですか？",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
@@ -572,11 +572,11 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"エントリ最大数",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"偽装しているuser agent: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
@@ -588,7 +588,7 @@
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"ブラウザのキャッシュが削除されました",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
@@ -596,59 +596,59 @@
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrixは次のページの読み込みを防止しています：",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"以下のルールに従う",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"戻る",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"閉じる",
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Revert all temporary changes",
+    "message":"一時的な変更を全て元に戻します",
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Temporarily whitelist page domain",
+    "message":"一時的なページドメインのホワイトリスト",
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Temporarily whitelist all",
+    "message":"一時的に全てホワイトリストに登録",
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Dashboardを開く",
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"１分前",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"{{value}}分前",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"1時間前",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"{{value}}時間前",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"前日",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"{{value}}日前",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
@@ -660,7 +660,7 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
-    "message":"Network error: Unable to connect to {{url}}",
+    "message":"ネットワークエラー: {{url}}に接続できません",
     "description":""
   }
 }

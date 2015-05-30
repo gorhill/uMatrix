@@ -72,23 +72,23 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Deocamdată nu a fost detectat trafic pentru această filă.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"Dezactivează\/activează filtrarea matriceală pentru acest context.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Salvează toate modificările temporare pentru acest context.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"Anulează modificările temporare pentru acest context.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Reîncarcă pagina.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -96,31 +96,31 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}} gazde blocate",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"HTTPS strict",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Alterare User-agent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Alterare referent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Elimină toate modificările temporare",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Mergi la jurnal",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Mergi la panoul de control",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -144,7 +144,7 @@
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"Cookie-uri locale șterse: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
@@ -156,7 +156,7 @@
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Statistici detaliate",
     "description":""
   },
   "statsPageDetailedAllPages":{
@@ -168,11 +168,11 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Privire de ansamblu",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Cereri",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
@@ -192,7 +192,7 @@
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Cookie",
     "description":""
   },
   "statsPageCSS":{
@@ -200,11 +200,11 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Imagini",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Module",
     "description":""
   },
   "statsPageScripts":{
@@ -212,19 +212,19 @@
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Cadre",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Altele",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logger",
+    "message":"Jurnal",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -264,7 +264,7 @@
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Accesibil pentru daltonism",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -276,7 +276,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"Nimic",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
@@ -284,7 +284,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Tot",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -292,7 +292,7 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Cadre blocate:&ensp;Culoare",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
@@ -388,7 +388,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Behind-the-scene requests",
+    "message":"Cereri în spatele scenei",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -404,11 +404,11 @@
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Înlătură",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"Aplică",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
@@ -432,11 +432,11 @@
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Vizitează această pagină pentru sintaxa regulilor.",
     "description":""
   },
   "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
+    "message":"regulile-mele-umatrix.txt",
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
@@ -456,11 +456,11 @@
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Aplică modificările",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Actualizează automat fișierele de gazde.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -476,7 +476,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Analizează",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -484,31 +484,31 @@
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"o nouă versiune disponibilă",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"învechit",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Jurnalul de modificări<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"Spațiu de stocare utilizat: {{storageUsed}} octeți",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentație<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permisiuni<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Cod sursă (GPLv3)",
     "description":""
   },
   "aboutIssues":{
@@ -516,11 +516,11 @@
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Contribuitori",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Cod:",
     "description":""
   },
   "aboutIssueContributors":{
@@ -528,11 +528,11 @@
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Traduceri:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"Datele tale",
     "description":""
   },
   "aboutBackupButton":{
@@ -604,11 +604,11 @@
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Înapoi",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Închide",
     "description":"English: Close"
   },
   "commandRevertAll":{
@@ -624,31 +624,31 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Deschide panoul de control",
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"acum un minut",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"acum {{value}} minute",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"acum o oră",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"acum {{value}} ore",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"acum o zi",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"acum {{value}} zile",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
@@ -656,7 +656,7 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Jurnal",
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
