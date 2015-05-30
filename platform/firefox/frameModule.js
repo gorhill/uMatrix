@@ -192,6 +192,13 @@ const contentObserver = {
             return;
         }
 
+        // https://github.com/gorhill/uBlock/issues/260
+        // TODO: We may have to skip more types, for now let's be
+        // conservative, i.e. let's not test against `text/html`.
+        if ( doc.contentType.lastIndexOf('image/', 0) === 0 ) {
+            return;
+        }
+
         if ( loc.protocol !== 'http:' && loc.protocol !== 'https:' && loc.protocol !== 'file:' ) {
             if ( loc.protocol === 'chrome:' && loc.host === hostName ) {
                 this.initContentScripts(win);

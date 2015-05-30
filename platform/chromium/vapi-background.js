@@ -42,6 +42,27 @@ var noopFunc = function(){};
 
 /******************************************************************************/
 
+// https://github.com/gorhill/uMatrix/issues/234
+// https://developer.chrome.com/extensions/privacy#property-network
+chrome.privacy.network.networkPredictionEnabled.set({
+    value: false
+});
+
+// rhill 2013-12-07:
+// Tell Chromium to allow all javascript: µMatrix will control whether
+// javascript execute through `Content-Policy-Directive` and webRequest.
+//   https://github.com/gorhill/httpswitchboard/issues/74
+chrome.contentSettings.javascript.set({
+    primaryPattern: 'https://*/*',
+    setting: 'allow'
+});
+chrome.contentSettings.javascript.set({
+    primaryPattern: 'http://*/*',
+    setting: 'allow'
+});
+
+/******************************************************************************/
+
 vAPI.app = {
     name: manifest.name,
     version: manifest.version
@@ -679,20 +700,6 @@ vAPI.net.registerListeners = function() {
     };
     // <<<<<<<<
     // End of: Normalizing request types
-
-
-    // rhill 2013-12-07:
-    // Tell Chromium to allow all javascript: µMatrix will control whether
-    // javascript execute through `Content-Policy-Directive` and webRequest.
-    //   https://github.com/gorhill/httpswitchboard/issues/74
-    chrome.contentSettings.javascript.set({
-        primaryPattern: 'https://*/*',
-        setting: 'allow'
-    });
-    chrome.contentSettings.javascript.set({
-        primaryPattern: 'http://*/*',
-        setting: 'allow'
-    });
 
     // Network event handlers
     // >>>>>>>>

@@ -71,6 +71,7 @@
         "browsingData",
         "contentSettings",
         "cookies",
+        "privacy",
         "storage",
         "tabs",
         "unlimitedStorage",

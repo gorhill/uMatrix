@@ -625,6 +625,9 @@ vAPI.tabs.getAll = function(callback) {
             continue;
         }
         for ( tab of tabBrowser.tabs ) {
+            if ( tab.hasAttribute('pending') ) {
+                continue;
+            }
             tabs.push({
                 id: this.getTabId(tab),
                 url: getBrowserForTab(tab).currentURI.asciiSpec
@@ -1895,6 +1898,9 @@ vAPI.lastError = function() {
 vAPI.onLoadAllCompleted = function() {
     for ( var tab of this.tabs.getAllSync() ) {
         // We're insterested in only the tabs that were already loaded
+        if ( tab.hasAttribute('pending') ) {
+            continue;
+        }
         getBrowserForTab(tab).messageManager.sendAsyncMessage(
             location.host + '-load-completed'
         );
