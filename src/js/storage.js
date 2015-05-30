@@ -95,6 +95,15 @@
     var redirections = {};
     var µm = this;
 
+    var fixLocation = function(location) {
+        // https://github.com/chrisaljoudi/uBlock/issues/418
+        // We now support built-in external filter lists
+        if ( /^https?:/.test(location) === false ) {
+            location = 'assets/thirdparties/' + location;
+        }
+        return location;
+    };
+
     // selected lists
     var onSelectedHostsFilesLoaded = function(store) {
         var lists = store.liveHostsFiles;
@@ -139,11 +148,7 @@
                 continue;
             }
             hostsFileEntry = locations[location];
-            availableHostsFiles['assets/thirdparties/' + location] = hostsFileEntry;
-            if ( hostsFileEntry.old !== undefined ) {
-                redirections[hostsFileEntry.old] = location;
-                delete hostsFileEntry.old;
-            }
+            availableHostsFiles[fixLocation(location)] = hostsFileEntry;
         }
 
         // Now get user's selection of lists
