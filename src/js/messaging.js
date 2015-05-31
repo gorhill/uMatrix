@@ -522,16 +522,6 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
-    case 'checkScriptBlacklisted':
-        response = {
-            scriptBlacklisted: µm.mustBlock(
-                µm.scopeFromURL(request.url),
-                µm.hostnameFromURL(request.url),
-                'script'
-            )
-        };
-        break;
-
     case 'contentScriptHasLocalStorage':
         response = contentScriptLocalStorageHandler(tabId, request.url);
         break;

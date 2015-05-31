@@ -69,35 +69,6 @@ vAPI.shutdown.add(function() {
 /******************************************************************************/
 /******************************************************************************/
 
-// Unrendered noscript (because CSP) workaround
-
-// Executed once.
-
-(function() {
-    var checkScriptBlacklistedHandler = function(response) {
-        if ( !response.scriptBlacklisted ) {
-            return;
-        }
-        var scripts = document.querySelectorAll('noscript');
-        var i = scripts.length;
-        var realNoscript, fakeNoscript;
-        while ( i-- ) {
-            realNoscript = scripts[i];
-            fakeNoscript = document.createElement('div');
-            fakeNoscript.innerHTML = '<!-- uMatrix NOSCRIPT tag replacement: see <https://github.com/gorhill/httpswitchboard/issues/177> -->\n' + realNoscript.textContent;
-            realNoscript.parentNode.replaceChild(fakeNoscript, realNoscript);
-        }
-    };
-
-    localMessager.send({
-            what: 'checkScriptBlacklisted',
-            url: window.location.href
-    }, checkScriptBlacklistedHandler);
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
 // Executed only once.
 
 (function() {
