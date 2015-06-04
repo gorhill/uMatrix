@@ -141,6 +141,7 @@ RowSnapshot.counts = (function() {
 var matrixSnapshot = function(pageStore, details) {
     var µmuser = µm.userSettings;
     var r = {
+        appVersion: vAPI.app.version,
         blockedCount: pageStore.requestStats.blocked.all,
         diff: [],
         domain: pageStore.pageDomain,

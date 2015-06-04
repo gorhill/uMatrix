@@ -951,6 +951,13 @@ var makeMenu = function() {
 
     renderMatrixHeaderRow();
 
+    // Manually adjust the position of the main matrix according to the height
+    // of the toolbar/matrix header.
+    document.querySelector('.paneContent').style.setProperty(
+        'padding-top',
+        document.querySelector('.paneHead').clientHeight + 'px'
+    );
+
     startMatrixUpdate();
     makeMatrixGroup0(groupStats[0]);
     makeMatrixGroup1(groupStats[1]);
@@ -970,6 +977,7 @@ var makeMenu = function() {
 function initMenuEnvironment() {
     uDom('body').css('font-size', getUserSetting('displayTextSize'));
     uDom('body').toggleClass('colorblind', getUserSetting('colorBlindFriendly') === true);
+    uDom('#version').text(matrixSnapshot.appVersion || '');
 
     var prettyNames = matrixHeaderPrettyNames;
     var keys = Object.keys(prettyNames);

@@ -13,15 +13,18 @@ body {
 *:focus {
     outline: none;
     }
+a {
+    color: inherit;
+    text-decoration: none;
+    }
 
 .paneHead {
+    background-color: white;
+    left:0;
     padding: 0;
     position: fixed;
-    top: 0;
-    height: 5.5em;
-    left:0;
     right: 0;
-    background-color: white;
+    top: 0;
     z-index: 10;
     }
 .paneContent {
@@ -29,16 +32,35 @@ body {
     }
 
 
-.toolbar {
-    margin: 0;
+.paneHead > a:first-child {
+    background-color: #444;
     border: 0;
-    padding: 0;
-    padding-bottom: 0.25em;
+    border-bottom: 1px solid white;
+    color: #bbb;
+    cursor: pointer;
+    display: block;
+    font-family: sans-serif;
+    line-height: 12px;
+    margin: 0;
+    padding: 02px 0;
+    text-align: center;
+    }
+#version {
+    font-size: 10px;
+    font-weight: normal;
+    }
+
+.toolbar {
+    border: 0;
     display: inline-block;
-    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    position: relative;
     vertical-align: top;
+    white-space: nowrap;
+    }
+.toolbar.alignRight {
     position: absolute;
-    top: 0;
     }
 
 body[dir="ltr"] .toolbar.alignLeft,
@@ -106,22 +128,6 @@ body[dir="rtl"] #mtxSwitches > li:before {
 #mtxSwitches > li.switchTrue:before {
     color: #000;
     content: '\f205';
-    }
-
-#extras + .dropdown-menu .dropdown-menu-entry:before {
-    font: 110% FontAwesome;
-    } 
-body[dir="ltr"] #extras + .dropdown-menu .dropdown-menu-entry:before {
-    padding-right: 0.5em;
-    } 
-body[dir="rtl"] #extras + .dropdown-menu .dropdown-menu-entry:before {
-    padding-left: 0.5em;
-    } 
-#buttonRevertAll:before {
-    content: '\f122';
-    }
-[data-i18n="matrixDashboardMenuEntry"]:before {
-    content: '\f085';
     }
 
 .dropdown-menu {
@@ -306,17 +312,13 @@ body.tScopeSite #scopeCell {
     padding: 6px 1px 3px 1px;
     display: inline-block;
     box-sizing: content-box;
-    width: 2.4em;
+    width: 2.6em;
     white-space: nowrap;
     text-align: center;
     line-height: 110%;
     position: relative;
     }
 
-.paneHead #matHead {
-    position: absolute;
-    bottom: 3px;
-    }
 .paneHead .matCell:nth-child(2) {
     letter-spacing: -0.3px;
     }
