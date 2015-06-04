@@ -96,7 +96,7 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} kara listelenmiş alan",
+    "message":"{{count}} alan adı kara listede",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hiperbağlaç denetim<\/a> girişimi önlendi: {{count}}",
+    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Köprü denetim<\/a> girişimi önlendi: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -176,7 +176,7 @@
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"İzin verildi",
+    "message":"İzin verilen",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
@@ -368,11 +368,11 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Tüm <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hiperbağlaç denetim<\/a> girişimlerini engelle.",
+    "message":"Tüm <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>köprü denetim<\/a> girişimlerini engelle.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hiperbağlaç denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü tarafın o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
+    "message":"<p>Köprü denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü tarafın o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -468,7 +468,7 @@
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Önbellekleri temizle",
+    "message":"Tüm önbellekleri temizle",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -548,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Tüm ayarlarınızın üzerine {{time}} zamanında alınan yedek yazılacak ve uMatrix yeniden başlatılacak.\n\nYedeklenmiş veri kullanılarak ayarlarınızın üzerine yazılsın mı?",
+    "message":"{{time}} zamanında yedeklenmiş veri kullanılarak tüm ayarlarınızın üzerine yazılacak ve uMatrix yeniden başlayacak.\n\nYedeklenmiş veri kullanılarak ayarlarınızın üzerine yazılsın mı?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -628,7 +628,7 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"dakika önce",
+    "message":"bir dakika önce",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
@@ -636,7 +636,7 @@
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"saat önce",
+    "message":"bir saat önce",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
@@ -644,7 +644,7 @@
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"gün önce",
+    "message":"bir gün önce",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
@@ -660,7 +660,7 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "errorCantConnectTo":{
-    "message":"Ağ hatası: {{url}} sitesine bağlanılamıyor",
+    "message":"Ağ hatası: {{url}} adresine bağlanılamıyor",
     "description":""
   }
 }

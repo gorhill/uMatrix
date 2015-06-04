@@ -1,10 +1,10 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
-    "message":"Peg og klik for at forbyde\/tillade din browser, at foretage bestemte former for forespørgelser til internettet. Brug det til at blokere scripts, iframes, ads, facebook, etc.",
+    "message":"Peg og klik for at forbyde\/tillade bestemte former for anmodninger. Brug det til at blokere scripts, iframes, ads, facebook, etc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts fil",
+    "message":"Hosts filer",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -64,7 +64,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"ramme",
+    "message":"frame",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
@@ -104,11 +104,11 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"Bruger agent spoofing",
+    "message":"Forfalsking af bruger agent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Forfalsking af referrer",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Baggrundstrafik",
+    "message":"Baggrunds anmodninger",
     "description":""
   },
   "statsPageOverview":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p>Sortlistede cookies bliver ikke forhindret af <i>uMatrix<\/i> i at trænge ind i din browser. Derimod bliver de forhindret i at forlade din browser igen, hvilket faktisk er det vigtige. Ved ikke at blokere cookies inden de trænger ind i din browser, gør det muligt for brugeren at undersøge indeholdet og antallet af de cookies diverse hjemmesider placerer i din browser.<\/p><p>Når disse sortlistede cookies er blevet undersøgt af <i>uMatrix<\/i>, kan de blive slettet, hvis brugeren ønsker det.<\/p><p><b>Vigtih note:<\/b> Extensions kan benytte sig af cookies i deres helt legale webkommunikation. Hvis det hostnavn som en extension forsøger at kommunikere med ikke er hvidlistet, vil disse cookies blive fjernet fra din browser af <i>uMatrix<\/i> hvis denne indstilling er valgt. Du skal derfor være sikker på, at dette hostnavn(e) er hvidlistede.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -328,7 +328,7 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>:&ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Forvent at dette <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>ikke altid sker<\/a> i alle browsere. For nogen kan det også være et problem, at man skal lukke sin browser helt før disse cookies slettes.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
@@ -348,15 +348,15 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Nogle hjemmesider er meget opsatte på at tracke din færden på internettet, faktisk så meget at de er villige til at benytte sig af ikke-så-flinke metoder til at omgå de tiltag du tager for at beskytte dig selv mod tracking.<\/p><p>Nogle af disse metoder benytter sig af<sup style='font-size:smaller'>[1, 2]<\/sup> af din <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browsers cache<\/a>, hvis indhold ofte bliver gemt meget længe, og ydermere er der nogle brugere der ikke sletter deres browers cache ofte.<\/p><p>Der er ikke rigtigt nogen negative effekter ved at slette din browers cache ofte (højst sandsynligt vil du ikke opdage det), men derimod er gevinsten stor ift. at stoppe trackers fra at invadere dit privatliv.<\/p><p>Vælg denne indstilling, hvis du vil have <i>uMatrix<\/i> til at slette din browsers cache for dig, så ofte du ønsker det.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string fra tredjeparts forespørgsler.",
+    "message":"Forfalsk<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string fra tredjeparts forespørgsler.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>From Wikipedia:<\/p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote><p>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+    "message":"<p>Fra Wikipedia:<\/p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote><p>Hvis denne indstilling vælges, <i>vil uMatrix<\/i> forfalske den information som HTTP referreren indeholder, hvis netanmodningen om HTTP referreren kommer fra en tredjepart.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -364,7 +364,7 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>Fra <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -372,11 +372,11 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+    "message":"<p>Hyperlink overvågning er en mekanisme der gør det muligt for første eller <b>tredjepart<\/b>, at indsamle data om hvilke brugeren klikker på en hjemmeside. Det er altså tale om en tracking funktion, der gør informerer første eller tredjepart om, hvilke links en bruger vælger at klikke på under sit besøg på en hvilken som helst hjemmeside. Det eneste formål med hyperlink overvågning er altså, at tracke din browser aktivitet.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string ved at vælge tilfældigt blandt nedenstående hvert",
+    "message":"Forfalsk<a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string ved at vælge tilfældigt blandt nedenstående hvert",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -384,7 +384,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Ifølge the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>Denne indstilling tillader dig at imødegå dette privacy problem som bliver fremført af EFF.<\/p><p>Du kan tilføje din egen liste af bruger agent strings. En string per linje. Blanke linje og linjer præfikset med &lsquo;#&rsquo; vil blive ignoreret.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
@@ -576,7 +576,7 @@
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing bruger agent med: {{value}}",
+    "message":"Forfalsk bruger agent med: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{

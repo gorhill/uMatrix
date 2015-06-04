@@ -4,43 +4,43 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"Osoita & klikkaa estääksesi\/salliaksesi mitä tahansa selaimesi tekemiä luokan pyyntöjä. Käytä sitä komentosarjojen, iframesin, mainosten, facebookin -estämiseen jne.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — Hallintapaneeli",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Asetukset",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Yksityisyys",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Tilastot",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Omat säännöt",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Host tiedostot",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Tietoja",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"kaikki",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"keksi",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,15 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"kuva",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"lisäosa",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"komentosarja",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,43 +64,43 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"kehys",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"muut",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Ei dataliikennettä havaittu tällä välilehdellä vielä.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"Poista käytöstä\/ota käyttöön matrix suodatus tälle alueelle.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Tallenna kaikki väliaikaiset muutokset tälle alueelle.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"Palauta tilapäiset muutoksia tälle alueelle.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Lataa sivu uudelleen.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"1. osapuoli",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}} mustalistatut isäntänimet",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Tiukka HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
@@ -160,7 +160,7 @@
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Kaikki",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -184,7 +184,7 @@
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Kaikki",
     "description":""
   },
   "statsPagePages":{
