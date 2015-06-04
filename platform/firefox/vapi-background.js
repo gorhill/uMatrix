@@ -129,6 +129,41 @@ window.addEventListener('unload', function() {
 
 /******************************************************************************/
 
+vAPI.browserSettings = {
+
+    setBool: function(branch, setting, value) {
+        try {
+            Services.prefs
+                    .getBranch(branch + '.')
+                    .setBoolPref(setting, value);
+        } catch (ex) {
+        }
+    },
+
+    set: function(details) {
+        for ( var setting in details ) {
+            if ( details.hasOwnProperty(setting) === false ) {
+                continue;
+            }
+            switch ( setting ) {
+            case 'prefetching':
+                this.setBool('network', 'prefetch-next', !!details[setting]);
+                break;
+
+            case 'hyperlinkAuditing':
+                this.setBool('browser', 'send_pings', !!details[setting]);
+                this.setBool('beacon', 'enabled', !!details[setting]);
+                break;
+
+            default:
+                break;
+            }
+        }
+    }
+};
+
+/******************************************************************************/
+
 // API matches that of chrome.storage.local:
 //   https://developer.chrome.com/extensions/storage
 
@@ -392,86 +427,17 @@ vAPI.storage = (function() {
 
 /******************************************************************************/
 
-var windowWatcher = {
-    onReady: function(e) {
-        if ( e ) {
-            this.removeEventListener(e.type, windowWatcher.onReady);
-        }
-
-        var wintype = this.document.documentElement.getAttribute('windowtype');
-
-        if ( wintype !== 'navigator:browser' ) {
-            return;
-        }
-
-        var tabBrowser = getTabBrowser(this);
-        if ( !tabBrowser || !tabBrowser.tabContainer ) {
-            return;
-        }
-
-        var tabContainer = tabBrowser.tabContainer;
-
-        tabContainer.addEventListener('TabClose', tabWatcher.onTabClose);
-        tabContainer.addEventListener('TabSelect', tabWatcher.onTabSelect);
-        tabBrowser.addTabsProgressListener(tabWatcher);
-        vAPI.contextMenu.register(this.document);
-
-        // when new window is opened TabSelect doesn't run on the selected tab?
-    },
-
-    observe: function(win, topic) {
-        if ( topic === 'domwindowopened' ) {
-            win.addEventListener('DOMContentLoaded', this.onReady);
-        }
-    }
+var getTabBrowser = function(win) {
+    return win.gBrowser || null;
 };
 
 /******************************************************************************/
 
-var tabWatcher = {
-    SAME_DOCUMENT: Ci.nsIWebProgressListener.LOCATION_CHANGE_SAME_DOCUMENT,
-
-    onTabClose: function({target}) {
-        // target is tab in Firefox, browser in Fennec
-        var tabId = vAPI.tabs.getTabId(target);
-        if ( tabId === vAPI.noTabId ) {
-            return;
-        }
-        vAPI.tabs.onClosed(tabId);
-        delete vAPI.toolbarButton.tabs[tabId];
-    },
-
-    onTabSelect: function({target}) {
-        var tabId = vAPI.tabs.getTabId(target);
-        if ( tabId === vAPI.noTabId ) {
-            return;
-        }
-        vAPI.setIcon(tabId, getOwnerWindow(target));
-    },
-
-    onLocationChange: function(browser, webProgress, request, location, flags) {
-        if ( !webProgress.isTopLevel ) {
-            return;
-        }
-
-        var tabId = vAPI.tabs.getTabId(browser);
-
-        // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
-        if ( flags & this.SAME_DOCUMENT ) {
-            vAPI.tabs.onUpdated(tabId, {url: location.asciiSpec}, {
-                tabId: tabId,
-                url: browser.currentURI.asciiSpec
-            });
-            return;
-        }
-
-        // https://github.com/gorhill/uBlock/issues/105
-        // Allow any kind of pages
-        vAPI.tabs.onNavigation({
-            tabId: tabId,
-            url: location.asciiSpec
-        });
+var getOwnerWindow = function(target) {
+    if ( target.ownerDocument ) {
+        return target.ownerDocument.defaultView;
     }
+    return null;
 };
 
 /******************************************************************************/
@@ -484,185 +450,47 @@ vAPI.noTabId = '-1';
 
 /******************************************************************************/
 
-var getTabBrowser = function(win) {
-    return win.gBrowser || null;
-};
-
-/******************************************************************************/
-
-var getBrowserForTab = function(tab) {
-    if ( !tab ) {
-        return null;
-    }
-    return tab.linkedBrowser || null;
-};
-
-/******************************************************************************/
-
-var getOwnerWindow = function(target) {
-    if ( target.ownerDocument ) {
-        return target.ownerDocument.defaultView;
-    }
-
-    return null;
-};
-
-/******************************************************************************/
-
 vAPI.tabs = {};
 
 /******************************************************************************/
 
 vAPI.tabs.registerListeners = function() {
-    // onNavigation and onUpdated handled with tabWatcher.onLocationChange
-    // onClosed - handled in tabWatcher.onTabClose
-
-    for ( var win of this.getWindows() ) {
-        windowWatcher.onReady.call(win);
-    }
-
-    Services.ww.registerNotification(windowWatcher);
-
-    cleanupTasks.push(function() {
-        Services.ww.unregisterNotification(windowWatcher);
-
-        for ( var win of vAPI.tabs.getWindows() ) {
-            vAPI.contextMenu.unregister(win.document);
-            win.removeEventListener('DOMContentLoaded', windowWatcher.onReady);
-
-            var tabContainer;
-            var tabBrowser = getTabBrowser(win);
-            if ( !tabBrowser ) {
-                continue;
-            }
-
-            if ( tabBrowser.tabContainer ) {
-                tabContainer = tabBrowser.tabContainer;
-                tabBrowser.removeTabsProgressListener(tabWatcher);
-            }
-
-            tabContainer.removeEventListener('TabClose', tabWatcher.onTabClose);
-            tabContainer.removeEventListener('TabSelect', tabWatcher.onTabSelect);
-
-            // Close extension tabs
-            for ( var tab of tabBrowser.tabs ) {
-                var browser = getBrowserForTab(tab);
-                if ( browser === null ) {
-                    continue;
-                }
-                var URI = browser.currentURI;
-                if ( URI.schemeIs('chrome') && URI.host === location.host ) {
-                    vAPI.tabs._remove(tab, getTabBrowser(win));
-                }
-            }
-        }
-    });
-};
-
-/******************************************************************************/
-
-vAPI.tabs.stack = new WeakMap();
-vAPI.tabs.stackId = 1;
-
-/******************************************************************************/
-
-vAPI.tabs.getTabId = function(target) {
-    if ( !target ) {
-        return vAPI.noTabId;
-    }
-    if ( target.linkedPanel ) {
-        target = target.linkedBrowser; // target is a tab
-    }
-    if ( target.localName !== 'browser' ) {
-        return vAPI.noTabId;
-    }
-    var tabId = this.stack.get(target);
-    if ( tabId ) {
-        return tabId;
-    }
-    tabId = '' + this.stackId++;
-    this.stack.set(target, tabId);
-
-    // https://github.com/gorhill/uMatrix/issues/189
-    // If a new tabid-tab pair is created, tell the client code about it.
-    if ( this.onNavigation ) {
-        this.onNavigation({
-            tabId: tabId,
-            url: target.currentURI.asciiSpec
-        });
-    }
-
-    return tabId;
-};
-
-/******************************************************************************/
-
-// If tabIds is an array, then an array of tabs will be returned,
-// otherwise a single tab
-
-vAPI.tabs.getTabsForIds = function(tabIds) {
-    var tabs = [];
-    var singleTab = !Array.isArray(tabIds);
-    if ( singleTab ) {
-        tabIds = [tabIds];
-    }
-    for ( var tab of this.getAllSync() ) {
-        var tabId = this.stack.get(getBrowserForTab(tab));
-        if ( !tabId ) {
-            continue;
-        }
-        if ( tabIds.indexOf(tabId) !== -1 ) {
-            if ( singleTab ) {
-                return tab;
-            }
-            tabs.push(tab);
-        }
-        if ( tabs.length >= tabIds.length ) {
-            break;
-        }
-    }
-    return tabs.length !== 0 ? tabs : null;
+    tabWatcher.start();
 };
 
 /******************************************************************************/
 
 vAPI.tabs.get = function(tabId, callback) {
-    var tab, win;
+    var browser;
 
     if ( tabId === null ) {
-        win = Services.wm.getMostRecentWindow('navigator:browser');
-        tab = getTabBrowser(win).selectedTab;
-        tabId = this.getTabId(tab);
+        browser = tabWatcher.currentBrowser();
+        tabId = tabWatcher.tabIdFromTarget(browser);
     } else {
-        tab = this.getTabsForIds(tabId);
-        if ( tab ) {
-            win = getOwnerWindow(tab);
-        }
+        browser = tabWatcher.browserFromTabId(tabId);
     }
 
     // For internal use
     if ( typeof callback !== 'function' ) {
-        return tab;
+        return browser;
     }
 
-    if ( !tab ) {
+    if ( !browser ) {
         callback();
         return;
     }
 
-    var windows = this.getWindows();
-    var browser = getBrowserForTab(tab);
+    var win = getOwnerWindow(browser);
     var tabBrowser = getTabBrowser(win);
-    var tabIndex = tabBrowser.browsers.indexOf(browser);
-    var tabTitle = tab.label;
+    var windows = this.getWindows();
 
     callback({
         id: tabId,
-        index: tabIndex,
+        index: tabWatcher.indexFromTarget(browser),
         windowId: windows.indexOf(win),
-        active: tab === tabBrowser.selectedTab,
+        active: browser === tabBrowser.selectedBrowser,
         url: browser.currentURI.asciiSpec,
-        title: tabTitle
+        title: browser.contentTitle
     });
 };
 
@@ -693,24 +521,22 @@ vAPI.tabs.getAllSync = function(window) {
 /******************************************************************************/
 
 vAPI.tabs.getAll = function(callback) {
-    var tabs = [];
-    var win, tab;
+    var tabs = [], tab;
 
-    for ( win of this.getWindows() ) {
-        var tabBrowser = getTabBrowser(win);
-        if ( tabBrowser === null ) {
+    for ( var browser of tabWatcher.browsers() ) {
+        tab = tabWatcher.tabFromBrowser(browser);
+        if ( tab === null ) {
             continue;
         }
-        for ( tab of tabBrowser.tabs ) {
-            if ( tab.hasAttribute('pending') ) {
-                continue;
-            }
-            tabs.push({
-                id: this.getTabId(tab),
-                url: getBrowserForTab(tab).currentURI.asciiSpec
-            });
+        if ( tab.hasAttribute('pending') ) {
+            continue;
         }
+        tabs.push({
+            id: tabWatcher.tabIdFromTarget(browser),
+            url: browser.currentURI.asciiSpec
+        });
     }
+
     callback(tabs);
 };
 
@@ -749,13 +575,13 @@ vAPI.tabs.open = function(details) {
         details.url = vAPI.getURL(details.url);
     }
 
-    var win, tab, tabBrowser;
+    var tab;
 
     if ( details.select ) {
         var URI = Services.io.newURI(details.url, null, null);
 
         for ( tab of this.getAllSync() ) {
-            var browser = getBrowserForTab(tab);
+            var browser = tabWatcher.browserFromTarget(tab);
 
             // Or simply .equals if we care about the fragment
             if ( URI.equalsExceptRef(browser.currentURI) === false ) {
@@ -772,15 +598,15 @@ vAPI.tabs.open = function(details) {
     }
 
     if ( details.tabId ) {
-        tab = this.getTabsForIds(details.tabId);
+        tab = tabWatcher.browserFromTabId(details.tabId);
         if ( tab ) {
-            getBrowserForTab(tab).loadURI(details.url);
+            tabWatcher.browserFromTarget(tab).loadURI(details.url);
             return;
         }
     }
 
-    win = Services.wm.getMostRecentWindow('navigator:browser');
-    tabBrowser = getTabBrowser(win);
+    var win = Services.wm.getMostRecentWindow('navigator:browser');
+    var tabBrowser = getTabBrowser(win);
 
     if ( details.index === -1 ) {
         details.index = tabBrowser.browsers.indexOf(tabBrowser.selectedBrowser) + 1;
@@ -805,9 +631,9 @@ vAPI.tabs.replace = function(tabId, url) {
         targetURL = vAPI.getURL(targetURL);
     }
 
-    var tab = this.getTabsForIds(tabId);
-    if ( tab ) {
-        getBrowserForTab(tab).loadURI(targetURL);
+    var browser = tabWatcher.browserFromTabId(tabId);
+    if ( browser ) {
+        browser.loadURI(targetURL);
     }
 };
 
@@ -820,50 +646,46 @@ vAPI.tabs._remove = function(tab, tabBrowser) {
 /******************************************************************************/
 
 vAPI.tabs.remove = function(tabIds) {
-    if ( !Array.isArray(tabIds) ) {
-        tabIds = [tabIds];
-    }
-    var tabs = this.getTabsForIds(tabIds);
-    if ( !tabs ) {
+    var browser = tabWatcher.browserFromTabId(tabId);
+    if ( !browser ) {
         return;
     }
-    for ( var tab of tabs ) {
-        this._remove(tab, getTabBrowser(getOwnerWindow(tab)));
+    var tab = tabWatcher.tabFromBrowser(browser);
+    if ( !tab ) {
+        return;
     }
+    this._remove(tab, getTabBrowser(getOwnerWindow(browser)));
 };
 
 /******************************************************************************/
 
 vAPI.tabs.reload = function(tabId) {
-    var tab = this.get(tabId);
-
-    if ( !tab ) {
+    var browser = tabWatcher.browserFromTabId(tabId);
+    if ( !browser ) {
         return;
     }
 
-    getBrowserForTab(tab).webNavigation.reload(
-        Ci.nsIWebNavigation.LOAD_FLAGS_BYPASS_CACHE
-    );
+    browser.webNavigation.reload(Ci.nsIWebNavigation.LOAD_FLAGS_BYPASS_CACHE);
 };
 
 /******************************************************************************/
 
 vAPI.tabs.select = function(tab) {
-    tab = typeof tab === 'object' ? tab : this.get(tab);
-
+    if ( typeof tab !== 'object' ) {
+        tab = tabWatcher.tabFromBrowser(tabWatcher.browserFromTabId(tab));
+    }
     if ( !tab ) {
         return;
     }
 
-    getTabBrowser(getOwnerWindow(tab)).selectedTab = tab;
+    var tabBrowser = getTabBrowser(getOwnerWindow(tab)).selectedTab = tab;
 };
 
 /******************************************************************************/
 
 vAPI.tabs.injectScript = function(tabId, details, callback) {
-    var tab = this.get(tabId);
-
-    if ( !tab ) {
+    var browser = tabWatcher.browserFromTabId(tabId);
+    if ( !browser ) {
         return;
     }
 
@@ -872,7 +694,7 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
     }
 
     details.file = vAPI.getURL(details.file);
-    getBrowserForTab(tab).messageManager.sendAsyncMessage(
+    browser.messageManager.sendAsyncMessage(
         location.host + ':broadcast',
         JSON.stringify({
             broadcast: true,
@@ -891,6 +713,309 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
 
 /******************************************************************************/
 
+// Firefox:
+//   https://developer.mozilla.org/en-US/Add-ons/Code_snippets/Tabbed_browser
+//
+// browser --> ownerDocument --> defaultView --> gBrowser --> browsers --+
+//    ^                                                                  |
+//    |                                                                  |
+//    +-------------------------------------------------------------------
+//
+// browser (browser)
+//   contentTitle
+//   currentURI
+//   ownerDocument (XULDocument)
+//     defaultView (ChromeWindow)
+//     gBrowser (tabbrowser OR browser)
+//       browsers (browser)
+//       selectedBrowser
+//       selectedTab
+//       tabs (tab.tabbrowser-tab)
+//
+// Fennec: (what I figured so far)
+//
+//   tab --> browser     windows --> window --> BrowserApp --> tabs --+
+//    ^      window                                                   |
+//    |                                                               |
+//    +---------------------------------------------------------------+
+//
+// tab
+//   browser
+// [manual search to go back to tab from list of windows]
+
+var tabWatcher = (function() {
+    // TODO: find out whether we need a janitor to take care of stale entries.
+    var browserToTabIdMap = new Map();
+    var tabIdToBrowserMap = new Map();
+    var tabIdGenerator = 1;
+
+    var indexFromBrowser = function(browser) {
+        var win = getOwnerWindow(browser);
+        if ( !win ) {
+            return -1;
+        }
+        var tabbrowser = getTabBrowser(win);
+        if ( !tabbrowser ) {
+            return -1;
+        }
+        // This can happen, for example, the `view-source:` window, there is
+        // no tabbrowser object, the browser object sits directly in the
+        // window.
+        if ( tabbrowser === browser ) {
+            return 0;
+        }
+        // Fennec
+        // https://developer.mozilla.org/en-US/Add-ons/Firefox_for_Android/API/BrowserApp
+        if ( vAPI.fennec ) {
+            return tabbrowser.tabs.indexOf(tabbrowser.getTabForBrowser(browser));
+        }
+        return tabbrowser.browsers.indexOf(browser);
+    };
+
+    var indexFromTarget = function(target) {
+        return indexFromBrowser(browserFromTarget(target));
+    };
+
+    var tabFromBrowser = function(browser) {
+        var i = indexFromBrowser(browser);
+        if ( i === -1 ) {
+            return null;
+        }
+        var win = getOwnerWindow(browser);
+        if ( !win ) {
+            return null;
+        }
+        var tabbrowser = getTabBrowser(win);
+        if ( !tabbrowser ) {
+            return null;
+        }
+        if ( !tabbrowser.tabs || i >= tabbrowser.tabs.length ) {
+            return null;
+        }
+        return tabbrowser.tabs[i];
+    };
+
+    var browserFromTarget = function(target) {
+        if ( !target ) {
+            return null;
+        }
+        if ( vAPI.fennec ) {
+            if ( target.browser ) {         // target is a tab
+                target = target.browser;
+            }
+        } else if ( target.linkedPanel ) {  // target is a tab
+            target = target.linkedBrowser;
+        }
+        if ( target.localName !== 'browser' ) {
+            return null;
+        }
+        return target;
+    };
+
+    var tabIdFromTarget = function(target) {
+        var browser = browserFromTarget(target);
+        if ( browser === null ) {
+            return vAPI.noTabId;
+        }
+        var tabId = browserToTabIdMap.get(browser);
+        if ( tabId === undefined ) {
+            tabId = '' + tabIdGenerator++;
+            browserToTabIdMap.set(browser, tabId);
+            tabIdToBrowserMap.set(tabId, browser);
+        }
+        return tabId;
+    };
+
+    var browserFromTabId = function(tabId) {
+        var browser = tabIdToBrowserMap.get(tabId);
+        if ( browser === undefined ) {
+            return null;
+        }
+        // Verify that the browser is still live
+        if ( indexFromBrowser(browser) !== -1 ) {
+            return browser;
+        }
+        removeBrowserEntry(tabId, browser);
+        return null;
+    };
+
+    var currentBrowser = function() {
+        var win = Services.wm.getMostRecentWindow('navigator:browser');
+        return browserFromTarget(getTabBrowser(win).selectedTab);
+    };
+
+    var removeBrowserEntry = function(tabId, browser) {
+        if ( tabId && tabId !== vAPI.noTabId ) {
+            vAPI.tabs.onClosed(tabId);
+            delete vAPI.toolbarButton.tabs[tabId];
+            tabIdToBrowserMap.delete(tabId);
+        }
+        if ( browser ) {
+            browserToTabIdMap.delete(browser);
+        }
+    };
+
+    // https://developer.mozilla.org/en-US/docs/Web/Events/TabOpen
+    var onOpen = function({target}) {
+        var tabId = tabIdFromTarget(target);
+        var browser = browserFromTabId(tabId);
+        vAPI.tabs.onNavigation({
+            frameId: 0,
+            tabId: tabId,
+            url: browser.currentURI.asciiSpec,
+        });
+    };
+
+    // https://developer.mozilla.org/en-US/docs/Web/Events/TabShow
+    var onShow = function({target}) {
+        tabIdFromTarget(target);
+    };
+
+    // https://developer.mozilla.org/en-US/docs/Web/Events/TabClose
+    var onClose = function({target}) {
+        // target is tab in Firefox, browser in Fennec
+        var browser = browserFromTarget(target);
+        var tabId = browserToTabIdMap.get(browser);
+        removeBrowserEntry(tabId, browser);
+    };
+
+    // https://developer.mozilla.org/en-US/docs/Web/Events/TabSelect
+    var onSelect = function({target}) {
+        vAPI.setIcon(tabIdFromTarget(target), getOwnerWindow(target));
+    };
+
+    var onWindowLoad = function(ev) {
+        if ( ev ) {
+            this.removeEventListener(ev.type, onWindowLoad);
+        }
+
+        var wintype = this.document.documentElement.getAttribute('windowtype');
+        if ( wintype !== 'navigator:browser' ) {
+            return;
+        }
+
+        var tabBrowser = getTabBrowser(this);
+        if ( !tabBrowser ) {
+            return;
+        }
+
+        var tabContainer;
+        if ( tabBrowser.deck ) {
+            // Fennec
+            tabContainer = tabBrowser.deck;
+        } else if ( tabBrowser.tabContainer ) {
+            // desktop Firefox
+            tabContainer = tabBrowser.tabContainer;
+            vAPI.contextMenu.register(this.document);
+        } else {
+            return;
+        }
+        tabContainer.addEventListener('TabOpen', onOpen);
+        tabContainer.addEventListener('TabShow', onShow);
+        tabContainer.addEventListener('TabClose', onClose);
+        tabContainer.addEventListener('TabSelect', onSelect);
+
+        // when new window is opened TabSelect doesn't run on the selected tab?
+    };
+
+    var onWindowUnload = function() {
+        vAPI.contextMenu.unregister(this.document);
+        this.removeEventListener('DOMContentLoaded', onWindowLoad);
+
+        var tabBrowser = getTabBrowser(this);
+        if ( !tabBrowser ) {
+            return;
+        }
+
+        var tabContainer = null;
+        if ( tabBrowser.deck ) {
+            // Fennec
+            tabContainer = tabBrowser.deck;
+        } else if ( tabBrowser.tabContainer ) {
+            tabContainer = tabBrowser.tabContainer;
+        }
+        if ( tabContainer ) {
+            tabContainer.removeEventListener('TabOpen', onOpen);
+            tabContainer.removeEventListener('TabShow', onShow);
+            tabContainer.removeEventListener('TabClose', onClose);
+            tabContainer.removeEventListener('TabSelect', onSelect);
+        }
+
+        // Close extension tabs
+        var browser, URI, tabId;
+        for ( var tab of tabBrowser.tabs ) {
+            browser = tabWatcher.browserFromTarget(tab);
+            if ( browser === null ) {
+                continue;
+            }
+            URI = browser.currentURI;
+            if ( URI.schemeIs('chrome') && URI.host === location.host ) {
+                vAPI.tabs._remove(tab, getTabBrowser(this));
+            }
+            browser = browserFromTarget(tab);
+            tabId = browserToTabIdMap.get(browser);
+            if ( tabId !== undefined ) {
+                tabIdToBrowserMap.delete(tabId);
+            }
+            browserToTabIdMap.delete(browser);
+        }
+    };
+
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIWindowWatcher
+    var windowWatcher = {
+        observe: function(win, topic) {
+            if ( topic === 'domwindowopened' ) {
+                win.addEventListener('DOMContentLoaded', onWindowLoad);
+            }
+        }
+    };
+
+    // Initialize map with existing active tabs
+    var start = function() {
+        var tabBrowser, tab;
+        for ( var win of vAPI.tabs.getWindows() ) {
+            onWindowLoad.call(win);
+            tabBrowser = getTabBrowser(win);
+            if ( tabBrowser === null ) {
+                continue;
+            }
+            for ( tab of tabBrowser.tabs ) {
+                if ( vAPI.fennec || !tab.hasAttribute('pending') ) {
+                    tabIdFromTarget(tab);
+                }
+            }
+        }
+
+        Services.ww.registerNotification(windowWatcher);
+    };
+
+    var stop = function() {
+        Services.ww.unregisterNotification(windowWatcher);
+
+        for ( var win of vAPI.tabs.getWindows() ) {
+            onWindowUnload.call(win);
+        }
+
+        browserToTabIdMap.clear();
+        tabIdToBrowserMap.clear();
+    };
+
+    cleanupTasks.push(stop);
+
+    return {
+        browsers: function() { return browserToTabIdMap.keys(); },
+        browserFromTabId: browserFromTabId,
+        browserFromTarget: browserFromTarget,
+        currentBrowser: currentBrowser,
+        indexFromTarget: indexFromTarget,
+        start: start,
+        tabFromBrowser: tabFromBrowser,
+        tabIdFromTarget: tabIdFromTarget
+    };
+})();
+
+/******************************************************************************/
+
 vAPI.setIcon = function(tabId, iconId, badge) {
     // If badge is undefined, then setIcon was called from the TabSelect event
     var win;
@@ -899,7 +1024,7 @@ vAPI.setIcon = function(tabId, iconId, badge) {
     } else {
         win = Services.wm.getMostRecentWindow('navigator:browser');
     }
-    var curTabId = vAPI.tabs.getTabId(getTabBrowser(win).selectedTab);
+    var curTabId = tabWatcher.tabIdFromTarget(getTabBrowser(win).selectedTab);
     var tb = vAPI.toolbarButton;
 
     // from 'TabSelect' event
@@ -963,7 +1088,7 @@ vAPI.messaging.onMessage = function({target, data}) {
 
     var sender = {
         tab: {
-            id: vAPI.tabs.getTabId(target)
+            id: tabWatcher.tabIdFromTarget(target)
         }
     };
 
@@ -1314,7 +1439,7 @@ var httpObserver = {
                         .notificationCallbacks
                         .getInterface(Ci.nsILoadContext);
                 if ( loadContext.topFrameElement ) {
-                    return vAPI.tabs.getTabId(loadContext.topFrameElement);
+                    return tabWatcher.tabIdFromTarget(loadContext.topFrameElement);
                 }
                 aWindow = loadContext.associatedWindow;
             } catch (ex) {
@@ -1330,7 +1455,8 @@ var httpObserver = {
                     .associatedWindow;
             }
             if ( aWindow ) {
-                return vAPI.tabs.getTabId(aWindow
+                return tabWatcher.tabIdFromTarget(
+                    aWindow
                     .getInterface(Ci.nsIWebNavigation)
                     .QueryInterface(Ci.nsIDocShell)
                     .rootTreeItem
@@ -1891,7 +2017,7 @@ vAPI.contextMenu.create = function(details, callback) {
         }
 
         callback(details, {
-            id: vAPI.tabs.getTabId(gContextMenu.browser),
+            id: tabWatcher.tabIdFromTarget(gContextMenu.browser),
             url: gContextMenu.browser.currentURI.asciiSpec
         });
     };
@@ -1924,7 +2050,7 @@ var optionsObserver = {
         Services.obs.addObserver(this, 'addon-options-displayed', false);
         cleanupTasks.push(this.unregister.bind(this));
 
-        var browser = getBrowserForTab(vAPI.tabs.get(null));
+        var browser = tabWatcher.currentBrowser();
         if ( browser && browser.currentURI && browser.currentURI.spec === 'about:addons' ) {
             this.observe(browser.contentDocument, 'addon-enabled', this.addonId);
         }
@@ -1973,12 +2099,8 @@ vAPI.lastError = function() {
 // the web pages before uBlock was ready.
 
 vAPI.onLoadAllCompleted = function() {
-    for ( var tab of this.tabs.getAllSync() ) {
-        // We're insterested in only the tabs that were already loaded
-        if ( tab.hasAttribute('pending') ) {
-            continue;
-        }
-        getBrowserForTab(tab).messageManager.sendAsyncMessage(
+    for ( var browser of tabWatcher.browsers() ) {
+        browser.messageManager.sendAsyncMessage(
             location.host + '-load-completed'
         );
     }
