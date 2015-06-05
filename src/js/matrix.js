@@ -78,6 +78,7 @@ var stateToNameMap = {
 var nameToStateMap = {
       'block': 1,
       'allow': 2,
+       'noop': 2,
     'inherit': 3
 };
 
