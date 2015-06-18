@@ -95,16 +95,60 @@ var processUserRules = function(response) {
 
 /******************************************************************************/
 
+// https://github.com/chrisaljoudi/uBlock/issues/757
+// Support RequestPolicy rule syntax
+
 var fromRequestPolicy = function(content) {
-    // https://github.com/chrisaljoudi/uBlock/issues/757
-    // Support RequestPolicy rule syntax
     var matches = /\[origins-to-destinations\]([^\[]+)/.exec(content);
     if ( matches === null || matches.length !== 2 ) {
-        return content;
+        return '';
     }
     return matches[1].trim()
                      .replace(/\|/g, ' ')
                      .replace(/\n/g, ' * allow\n');
+};
+
+/******************************************************************************/
+
+// https://github.com/gorhill/uMatrix/issues/270
+
+var fromNoScript = function(content) {
+    var noscript = null;
+    try {
+        noscript = JSON.parse(content);
+    } catch (e) {
+    }
+    if (
+        noscript === null ||
+        typeof noscript !== 'object' ||
+        typeof noscript.prefs !== 'object' ||
+        typeof noscript.prefs.clearClick === undefined ||
+        typeof noscript.whitelist !== 'string' ||
+        typeof noscript.V !== 'string'
+    ) {
+        return '';
+    }
+    var out = {};
+    var reBad = /[a-z]+:\w*$/;
+    var reURL = /[a-z]+:\/\/([0-9a-z.-]+)/;
+    var directives = noscript.whitelist.split(/\s+/);
+    var i = directives.length;
+    var directive, matches;
+    while ( i-- ) {
+        directive = directives[i].trim();
+        if ( directive === '' ) {
+            continue;
+        }
+        if ( reBad.test(directive) ) {
+            continue;
+        }
+        matches = reURL.exec(directive);
+        if ( matches !== null ) {
+            directive = matches[1];
+        }
+        out['* ' + directive + ' script allow'] = true;
+    }
+    return Object.keys(out).join('\n');
 };
 
 /******************************************************************************/
@@ -115,6 +159,12 @@ function handleImportFilePicker() {
             return;
         }
         var result = fromRequestPolicy(this.result);
+        if ( result === '' ) {
+            result = fromNoScript(this.result);
+            if ( result === '' ) {
+                result = this.result;
+            }
+        }
         var request = {
             'what': 'setUserRules',
             'temporaryRules': rulesFromHTML('#diff .right li') + '\n' + result
