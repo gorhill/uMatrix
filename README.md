@@ -11,6 +11,10 @@ Install [manually](https://github.com/gorhill/uMatrix/blob/master/doc/README.md)
 - [Chrome store](https://chrome.google.com/webstore/detail/µmatrix/ogfcmafjalglgifnmanfmnieipoejdcf)
 - [Opera store](https://addons.opera.com/en-gb/extensions/details/umatrix/)
 
+#### First time using uMatrix? 
+Visit the [First-timer's Walkthrough](https://github.com/gorhill/uMatrix/wiki/Very-bare-walkthrough-for-first-time-users) for a quick introduction. Remember to check [uMatrix's wiki](https://github.com/gorhill/uMatrix/wiki) for more information before submitting an issue!
+
+#### Contributing
 You may contribute with translation work:
 - For in-app strings, on Crowdin: [uMatrix on Crowdin](https://crowdin.com/project/umatrix).
 - For [description](https://github.com/gorhill/uMatrix/tree/master/doc/description) (to be used in AMO, Chrome store, etc.), submit a pull request. [Reference description is here](https://github.com/gorhill/uMatrix/blob/master/doc/description/description.txt) (feel free to improve as you wish, I am not a writer).
