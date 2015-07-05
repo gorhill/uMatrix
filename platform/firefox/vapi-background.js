@@ -645,7 +645,7 @@ vAPI.tabs._remove = function(tab, tabBrowser) {
 
 /******************************************************************************/
 
-vAPI.tabs.remove = function(tabIds) {
+vAPI.tabs.remove = function(tabId) {
     var browser = tabWatcher.browserFromTabId(tabId);
     if ( !browser ) {
         return;
@@ -841,7 +841,13 @@ var tabWatcher = (function() {
 
     var currentBrowser = function() {
         var win = Services.wm.getMostRecentWindow('navigator:browser');
-        return browserFromTarget(getTabBrowser(win).selectedTab);
+        // https://github.com/gorhill/uBlock/issues/399
+        // getTabBrowser() can return null at browser launch time.
+        var tabBrowser = getTabBrowser(win);
+        if ( tabBrowser === null ) {
+            return null;
+        }
+        return browserFromTarget(tabBrowser.selectedTab);
     };
 
     var removeBrowserEntry = function(tabId, browser) {
@@ -900,11 +906,7 @@ var tabWatcher = (function() {
         }
 
         var tabContainer;
-        if ( tabBrowser.deck ) {
-            // Fennec
-            tabContainer = tabBrowser.deck;
-        } else if ( tabBrowser.tabContainer ) {
-            // desktop Firefox
+        if ( tabBrowser.tabContainer ) {
             tabContainer = tabBrowser.tabContainer;
             vAPI.contextMenu.register(this.document);
         } else {
@@ -928,10 +930,7 @@ var tabWatcher = (function() {
         }
 
         var tabContainer = null;
-        if ( tabBrowser.deck ) {
-            // Fennec
-            tabContainer = tabBrowser.deck;
-        } else if ( tabBrowser.tabContainer ) {
+        if ( tabBrowser.tabContainer ) {
             tabContainer = tabBrowser.tabContainer;
         }
         if ( tabContainer ) {
@@ -941,7 +940,6 @@ var tabWatcher = (function() {
             tabContainer.removeEventListener('TabSelect', onSelect);
         }
 
-        // Close extension tabs
         var browser, URI, tabId;
         for ( var tab of tabBrowser.tabs ) {
             browser = tabWatcher.browserFromTarget(tab);
@@ -949,12 +947,14 @@ var tabWatcher = (function() {
                 continue;
             }
             URI = browser.currentURI;
+            // Close extension tabs
             if ( URI.schemeIs('chrome') && URI.host === location.host ) {
                 vAPI.tabs._remove(tab, getTabBrowser(this));
             }
             browser = browserFromTarget(tab);
             tabId = browserToTabIdMap.get(browser);
             if ( tabId !== undefined ) {
+                removeBrowserEntry(tabId, browser);
                 tabIdToBrowserMap.delete(tabId);
             }
             browserToTabIdMap.delete(browser);
@@ -966,6 +966,11 @@ var tabWatcher = (function() {
         observe: function(win, topic) {
             if ( topic === 'domwindowopened' ) {
                 win.addEventListener('DOMContentLoaded', onWindowLoad);
+                return;
+            }
+            if ( topic === 'domwindowclosed' ) {
+                onWindowUnload.call(win);
+                return;
             }
         }
     };
