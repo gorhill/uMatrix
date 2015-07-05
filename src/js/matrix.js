@@ -188,18 +188,10 @@ var extractFirstPartyDesDomain = function(srcHostname, desHostname) {
     if ( srcHostname === '*' || desHostname === '*' || desHostname === '1st-party' ) {
         return '';
     }
-    var desDomain = µm.URI.domainFromHostname(desHostname);
-    if ( desDomain === '' ) {
-        return '';
-    }
-    var pos = srcHostname.length - desDomain.length;
-    if ( pos < 0 || srcHostname.slice(pos) !== desDomain ) {
-        return '';
-    }
-    if ( pos !== 0 && srcHostname.charAt(pos - 1) !== '.' ) {
-        return '';
-    }
-    return desDomain;
+    var µmuri = µm.URI;
+    var srcDomain = µmuri.domainFromHostname(srcHostname) || srcHostname;
+    var desDomain = µmuri.domainFromHostname(desHostname) || desHostname;
+    return desDomain === srcDomain ? desDomain : '';
 };
 
 /******************************************************************************/
@@ -441,8 +433,8 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
             }
         }
 
-        // 1st-party specific-type cell: it's a special row, it exists only in
-        // global scope.
+        // 1st-party specific-type cell: it's a special row, looked up only
+        // when destination is 1st-party to source.
         r = this.evaluateCellZ(srcHostname, '1st-party', type);
         if ( r === 1 ) { return Matrix.RedIndirect; }
         if ( r === 2 ) { return Matrix.GreenIndirect; }
