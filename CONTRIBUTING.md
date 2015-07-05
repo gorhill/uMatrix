@@ -10,7 +10,7 @@
     - Never assume an important step is "obvious".
 1. Every single step, in order, must be provided, with **ALL** relevant details.
 1. Screenshots are nice, but use common sense: I can't cut and paste important text information from screenshots.
-    - Regarding screenshots: common sense, common sense, common sense. Too much of a thing can easily end up as noise.
+    - Regarding screenshots: common sense. Too much of a thing can easily end up as noise.
 1. Open source quality software comes from contributors carefully **crafting** code: conversely, issues must also be carefully **crafted**.
     - In other words: you benefit from the carefully crafted code, return the favor by **carefully** crafting issues/bug reports.
 1. If your mindset is that your time is more precious than that of my time, refrain from filing issues.
