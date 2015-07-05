@@ -12,7 +12,7 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Configurações",
+    "message":"Definições",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
@@ -24,7 +24,7 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"As Minhas Regras",
+    "message":"As minhas regras",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -356,7 +356,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Do Wikipedia: <\/p><blockquote>O HTTP referrer é um campo de cabeçalho HTTP que identifica o endereço da página web que liga ao recurso sendo solicitado. Pela verificação do referer, a nova página web pode ver de onde a requisição se originou. ...<b>Pelo facto desta informação poder violar a privacidade, alguns browsers deixam que o utilizador desactive o envio da informação do referrer. <\/b><\/blockquote><p>Se esta opção estiver seleccionada, <i>uMatrix<\/i> irá falsificar a informação do HTTP referrer, se o nome do domínio do mesmo for parte de um domínio de terceiros, relativamente ao nome do domínio do pedido (net request) original.",
+    "message":"<p>Do Wikipedia: <\/p><blockquote>O HTTP referrer é um campo de cabeçalho HTTP que identifica o endereço da página web que liga ao recurso sendo solicitado. Pela verificação do referer, a nova página web pode ver de onde a requisição se originou. ...<b>Pelo facto desta informação poder violar a privacidade, alguns browsers deixam que o utilizador desactive o envio da informação do referrer. <\/b><\/blockquote><p>Se esta opção estiver seleccionada, <i>uMatrix<\/i> irá falsificar a informação do HTTP referrer, se o nome do domínio do mesmo for parte de um domínio de terceiros, relativamente ao nome do domínio do pedido original.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -384,7 +384,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>De acordo com a <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] o seu browser manda um &lsquo;User Agent&rsquo; header para o site, que diz precisamente qual o sistema operativo e browser que está a usar. Esta informação pode ajudar a dinstinguir utilizadores da internet um do outro, pois essas versões diferem, por vezes considerávelmente, de uma pessoa para outra. [...] <b>a string do User-Agent torna-se um verdadeiro problema de privacidade.<\/b>.&rdquo;<p>Esta opção permite que corrija o problema de privacidade abordado pela EFF.<\/p><p>Pode fornecer a sua própria lista de strings de User-Agent. Uma por linha. Linhas em branco e linhas prefixadas por &lsquo;#&rsquo; serão ignoradas.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>De acordo com a <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] o seu browser manda um &lsquo;User Agent&rsquo; header para o site, que diz precisamente qual o sistema operativo e browser que está a usar. Esta informação pode ajudar a dinstinguir utilizadores da internet um do outro, pois essas versões diferem, por vezes considerávelmente, de uma pessoa para outra. [...] <b>a string do User-Agent torna-se um verdadeiro problema de privacidade.<\/b>.&rdquo;<p>Esta opção permite que corrija o problema de privacidade abordado pela EFF.<\/p><p>Pode fornecer a sua própria lista de strings de user-agent. Uma por linha. Linhas em branco e linhas prefixadas por &lsquo;#&rsquo; serão ignoradas.<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{

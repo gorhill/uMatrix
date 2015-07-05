@@ -4,11 +4,11 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"Beslis zelf welke content geladen mag worden door je browser. Blokker javascript, iframes, advertenties, facebook en meer.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — Instellingen",
     "description":""
   },
   "settingsPageName":{
@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Host bestanden",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -220,11 +220,11 @@
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Overig",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logger",
+    "message":"Logs",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -240,7 +240,7 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Herladen",
     "description":""
   },
   "settingsPageTitle":{

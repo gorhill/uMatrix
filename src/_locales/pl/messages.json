@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Kokpit",
+    "message":"uMatrix — Panel sterowania",
     "description":""
   },
   "settingsPageName":{
@@ -40,19 +40,19 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"ciastko",
+    "message":"ciasteczko",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"styl",
+    "message":"css",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"obraz",
+    "message":"obrazek",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"wtyczka",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -88,11 +88,11 @@
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Odśwież stronę.",
+    "message":"Przeładuj stronę.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"aktualna domena",
+    "message":"ta domena",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
@@ -100,7 +100,7 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Ścisły HTTPS",
+    "message":"Rygorystyczny HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
@@ -120,7 +120,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Przejdź do kokpitu",
+    "message":"Przejdź do panelu sterowania",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -132,11 +132,11 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"Powstrzymane nagłówki HTTP <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_cookie'>cookie<\/a>: {{count}}",
+    "message":"Powstrzymane nagłówki <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_cookie'>ciasteczek<\/a>: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"Powstrzymane nagłówki HTTP <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_referer'>referer<\/a>: {{count}}",
+    "message":"Powstrzymane nagłówki <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a>: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -144,7 +144,7 @@
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Usuniętych ciasteczek : {{count}}",
+    "message":"Usuniętych lokalnych ciasteczek: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
@@ -204,7 +204,7 @@
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Pluginy",
+    "message":"Wtyczki",
     "description":""
   },
   "statsPageScripts":{
@@ -212,7 +212,7 @@
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHR",
+    "message":"XHRy",
     "description":""
   },
   "statsPageFrames":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Możesz przejrzeć szczegóły ostatnich żądań HTTP wykonanych do tej witryny (zobacz niżej).<\/p><p>Jest to przydatne dla zaawansowanych użytkowników, którzy chcieliby zobaczyć co dokładnie jest pobierane. Jednakże logowanie żądań HTTP wymaga pamięci, więc jeśli nie zależy ci na tej (technicznej) informacji, pamięć jest po prostu marnowana.<\/p><p>Stąd to pole, które pozwoli ci dostosować ilość ostatnich żądań HTTP które zostaną zachowane w logu.<\/p><p>Wprowadź &ldquo;<code>0<\/code>&rdquo; aby wyłączyć szczegółowy log (i dzięki temu zmniejszyć użycie pamięci przez <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>Możesz kontrolować szczegóły ostatnich żądań HTTP, które zostały wykonane przez daną stronę (zobacz niżej).<\/p><p>Jest to przydatne dla zaawansowanych użytkowników, którzy chcieliby zobaczyć co dokładnie jest pobierane. Jednakże rejestrowanie żądań HTTP wymaga pamięci RAM, więc jeśli nie zależy Ci na tej technicznej informacji, pamięć jest po prostu marnowana.<\/p><p>Stąd to pole, które pozwoli Ci dostosować ilość ostatnich żądań HTTP które zostaną zarejestrowane.<\/p><p>Wpisz &ldquo;<code>0<\/code>&rdquo;, aby wyłączyć szczegółowe rejestrowanie (dzięki temu zmniejszysz użycie pamięci RAM przez <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -300,11 +300,11 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Pokaż liczbę odrębnych żądań na ikonie",
+    "message":"Pokaż liczbę odrębnych żądań na ikonie rozszerzenia",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Ukryj pozostałości zablokowanych elementów",
+    "message":"Ukryj pozostałości po zablokowanych elementach",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "privacyPageTitle":{
@@ -624,7 +624,7 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Otwórz kokpit",
+    "message":"Otwórz panel sterowania",
     "description":""
   },
   "elapsedOneMinuteAgo":{
@@ -652,7 +652,7 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Kokpit",
+    "message":"Panel sterowania",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{

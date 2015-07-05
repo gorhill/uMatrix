@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Bí mật của Chromium",
+    "message":"Yêu cầu ẩn",
     "description":""
   },
   "statsPageOverview":{
@@ -300,7 +300,7 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Hiển thị số lượng yêu cầu riêng biệt trên biểu tượng",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+    "message":"Ngẫu nhiên giả mạo chuỗi <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>Nhận dạng trình duyệt<\/a> bằng cách chọn mục dưới đây mỗi",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -388,7 +388,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Behind-the-scene requests",
+    "message":"Yêu cầu ẩn",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -452,7 +452,7 @@
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"Cập nhật: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
@@ -568,31 +568,31 @@
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"diễn tả bộ lọc",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Số mục tối đa",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"giả mạo nhận diện trình duyệt với: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"đã xoá cookie: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"không thể xoá cookie: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"đã xoá bộ đệm trình duyệt",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"đã cập nhật tài nguyên: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
@@ -636,7 +636,7 @@
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"một giờ trước",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{

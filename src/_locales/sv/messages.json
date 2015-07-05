@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Klicka runt för att förbjuda och tillåta förfrågningsklasser som din webbläsare skapat. Använd det för att blockera skript, annonser, Facebook, med mera.",
+    "message":"Klicka runt för att förbjuda eller tillåta förfrågningsklasser din webbläsare skapat. Använd detta för att blockera skript, annonser, Facebook, med mera.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -52,7 +52,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"tillägg",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -72,15 +72,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"Ingen nättrafik har upptäckts för den här fliken hittills.",
+    "message":"Ingen nättrafik har hittills upptäckts för den här fliken.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Stäng av\/sätt på matrisfiltrering för detta omfång.",
+    "message":"Stäng av\/sätt på matrisfiltrering i detta omfång.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Spara alla tillfälliga ändringar för detta omfång.",
+    "message":"Spara tillfälliga ändringar för detta omfång.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
@@ -104,11 +104,11 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"Förfalskning av user agent",
+    "message":"Förvanskning av användaragent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Förfalskning av referrer",
+    "message":"Hänvisningsförvanskning",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
@@ -352,7 +352,7 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Vilseled <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-hänvisningssträngen<\/a> för tredjepartsförfrågningar.",
+    "message":"Ange vilseledande <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-hänvisning<\/a> för tredjepartsförfrågningar.",
     "description":""
   },
   "privacyProcessRefererHelp":{
