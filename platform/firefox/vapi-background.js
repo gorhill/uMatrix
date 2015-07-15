@@ -2181,6 +2181,7 @@ vAPI.cookies.CookieEntry = function(ffCookie) {
 
 vAPI.cookies.start = function() {
     Services.obs.addObserver(this, 'cookie-changed', false);
+    Services.obs.addObserver(this, 'private-cookie-changed', false);
     cleanupTasks.push(this.stop.bind(this));
 };
 
@@ -2188,14 +2189,15 @@ vAPI.cookies.start = function() {
 
 vAPI.cookies.stop = function() {
     Services.obs.removeObserver(this, 'cookie-changed');
+    Services.obs.removeObserver(this, 'private-cookie-changed');
 };
 
 /******************************************************************************/
 
 vAPI.cookies.observe = function(subject, topic, reason) {
-    if ( topic !== 'cookie-changed' ) {
-        return;
-    }
+    //if ( topic !== 'cookie-changed' && topic !== 'private-cookie-changed' ) {
+    //    return;
+    //}
     if ( reason === 'deleted' || subject instanceof Ci.nsICookie2 === false ) {
         return;
     }
