@@ -198,7 +198,7 @@ var startImportFilePicker = function() {
 
 function exportUserRulesToFile() {
     vAPI.download({
-        'url': 'data:text/plain,' + encodeURIComponent(rulesFromHTML('#diff .left li')),
+        'url': 'data:text/plain,' + encodeURIComponent(rulesFromHTML('#diff .left li') + '\n'),
         'filename': uDom('[data-i18n="userRulesDefaultFileName"]').text()
     });
 }
