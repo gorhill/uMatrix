@@ -890,6 +890,45 @@ var tabWatcher = (function() {
         vAPI.setIcon(tabIdFromTarget(target), getOwnerWindow(target));
     };
 
+    var locationChangedMessageName = location.host + ':locationChanged';
+
+    var onLocationChanged = function(e) {
+        var vapi = vAPI;
+        var details = e.data;
+
+        // Ignore notifications related to our popup
+        if ( details.url.lastIndexOf(vapi.getURL('popup.html'), 0) === 0 ) {
+            return;
+        }
+
+        var browser = e.target;
+        var tabId = tabIdFromTarget(browser);
+
+        if ( tabId === vapi.noTabId ) {
+            return;
+        }
+
+        //console.debug("nsIWebProgressListener: onLocationChange: " + details.url + " (" + details.flags + ")");        
+
+        // LOCATION_CHANGE_SAME_DOCUMENT = "did not load a new document"
+        if ( details.flags & Ci.nsIWebProgressListener.LOCATION_CHANGE_SAME_DOCUMENT ) {
+            vapi.tabs.onUpdated(tabId, {url: details.url}, {
+                frameId: 0,
+                tabId: tabId,
+                url: browser.currentURI.asciiSpec
+            });
+            return;
+        }
+
+        // https://github.com/chrisaljoudi/uBlock/issues/105
+        // Allow any kind of pages
+        vapi.tabs.onNavigation({
+            frameId: 0,
+            tabId: tabId,
+            url: details.url,
+        });
+    };
+
     var onWindowLoad = function(ev) {
         if ( ev ) {
             this.removeEventListener(ev.type, onWindowLoad);
@@ -899,19 +938,16 @@ var tabWatcher = (function() {
         if ( wintype !== 'navigator:browser' ) {
             return;
         }
-
         var tabBrowser = getTabBrowser(this);
         if ( !tabBrowser ) {
             return;
         }
-
-        var tabContainer;
-        if ( tabBrowser.tabContainer ) {
-            tabContainer = tabBrowser.tabContainer;
-            vAPI.contextMenu.register(this.document);
-        } else {
+        var tabContainer = tabBrowser.tabContainer;
+        if ( !tabContainer ) {
             return;
         }
+
+        vAPI.contextMenu.register(this.document);
         tabContainer.addEventListener('TabOpen', onOpen);
         tabContainer.addEventListener('TabShow', onShow);
         tabContainer.addEventListener('TabClose', onClose);
@@ -991,10 +1027,20 @@ var tabWatcher = (function() {
             }
         }
 
+        vAPI.messaging.globalMessageManager.addMessageListener(
+            locationChangedMessageName,
+            onLocationChanged
+        );
+
         Services.ww.registerNotification(windowWatcher);
     };
 
     var stop = function() {
+        vAPI.messaging.globalMessageManager.removeMessageListener(
+            locationChangedMessageName,
+            onLocationChanged
+        );
+
         Services.ww.unregisterNotification(windowWatcher);
 
         for ( var win of vAPI.tabs.getWindows() ) {

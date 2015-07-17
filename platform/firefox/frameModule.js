@@ -19,11 +19,13 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global Components */
+
 'use strict';
 
 /******************************************************************************/
 
-this.EXPORTED_SYMBOLS = ['contentObserver'];
+this.EXPORTED_SYMBOLS = ['contentObserver', 'LocationChangeListener'];
 
 const {interfaces: Ci, utils: Cu} = Components;
 const {Services} = Cu.import('resource://gre/modules/Services.jsm', null);
@@ -232,6 +234,41 @@ const contentObserver = {
             docReady({ target: doc, type: 'DOMContentLoaded' });
         }
     }
+};
+
+/******************************************************************************/
+
+const locationChangedMessageName = hostName + ':locationChanged';
+
+const LocationChangeListener = function(docShell) {
+    if ( !docShell ) {
+        return;
+    }
+
+    var requestor = docShell.QueryInterface(Ci.nsIInterfaceRequestor);
+    var ds = requestor.getInterface(Ci.nsIWebProgress);
+    var mm = requestor.getInterface(Ci.nsIContentFrameMessageManager);
+
+    if ( ds && mm && typeof mm.sendAsyncMessage === 'function' ) {
+        this.docShell = ds;
+        this.messageManager = mm;
+        ds.addProgressListener(this, Ci.nsIWebProgress.NOTIFY_LOCATION);
+    }
+};
+
+LocationChangeListener.prototype.QueryInterface = XPCOMUtils.generateQI([
+    'nsIWebProgressListener',
+    'nsISupportsWeakReference'
+]);
+
+LocationChangeListener.prototype.onLocationChange = function(webProgress, request, location, flags) {
+    if ( !webProgress.isTopLevel ) {
+        return;
+    }
+    this.messageManager.sendAsyncMessage(locationChangedMessageName, {
+        url: location.asciiSpec,
+        flags: flags,
+    });
 };
 
 /******************************************************************************/
