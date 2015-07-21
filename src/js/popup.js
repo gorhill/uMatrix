@@ -482,7 +482,7 @@ var createMatrixGroup = function() {
     if ( group ) {
         return uDom(group).removeClass().addClass('matGroup');
     }
-    return uDom('<div>').addClass('matGroup');
+    return uDom(document.createElement('div')).addClass('matGroup');
 };
 
 var createMatrixSection = function() {
@@ -490,7 +490,7 @@ var createMatrixSection = function() {
     if ( section ) {
         return uDom(section).removeClass().addClass('matSection');
     }
-    return uDom('<div>').addClass('matSection');
+    return uDom(document.createElement('div')).addClass('matSection');
 };
 
 var createMatrixRow = function() {

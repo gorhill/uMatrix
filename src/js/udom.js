@@ -58,9 +58,6 @@ var DOMListFactory = function(selector, context) {
     var r = new DOMList();
     if ( typeof selector === 'string' ) {
         selector = selector.trim();
-        if ( selector.charAt(0) === '<' ) {
-            return addHTMLToList(r, selector);
-        }
         if ( selector !== '' ) {
             return addSelectorToList(r, selector, context);
         }
@@ -81,6 +78,16 @@ var DOMListFactory = function(selector, context) {
 
 DOMListFactory.onLoad = function(callback) {
     window.addEventListener('load', callback);
+};
+
+/******************************************************************************/
+
+DOMListFactory.nodeFromId = function(id) {
+    return document.getElementById(id);
+};
+
+DOMListFactory.nodeFromSelector = function(selector) {
+    return document.querySelector(selector);
 };
 
 /******************************************************************************/
@@ -121,51 +128,6 @@ var addSelectorToList = function(list, selector, context) {
         list.nodes.push(r[i]);
     }
     return list;
-};
-
-/******************************************************************************/
-
-var pTagOfChildTag = {
-    'tr': 'table',
-    'option': 'select'
-};
-
-// TODO: documentFragment
-
-var addHTMLToList = function(list, html) {
-    var matches = html.match(/^<([a-z]+)/);
-    if ( !matches || matches.length !== 2 ) {
-        return this;
-    }
-    var cTag = matches[1];
-    var pTag = pTagOfChildTag[cTag] || 'div';
-    var p = document.createElement(pTag);
-    vAPI.insertHTML(p, html);
-    // Find real parent
-    var c = p.querySelector(cTag);
-    p = c.parentNode;
-    while ( p.firstChild ) {
-        list.nodes.push(p.removeChild(p.firstChild));
-    }
-    return list;
-};
-
-/******************************************************************************/
-
-var isChildOf = function(child, parent) {
-    return child !== null && parent !== null && child.parentNode === parent;
-};
-
-/******************************************************************************/
-
-var isDescendantOf = function(descendant, ancestor) {
-    while ( descendant.parentNode !== null ) {
-        if ( descendant.parentNode === ancestor ) {
-            return true;
-        }
-        descendant = descendant.parentNode;
-    }
-    return false;
 };
 
 /******************************************************************************/
@@ -555,8 +517,14 @@ DOMList.prototype.css = function(prop, value) {
     if ( value === undefined ) {
         return i ? this.nodes[0].style[prop] : undefined;
     }
+    if ( value !== '' ) {
     while ( i-- ) {
-        this.nodes[i].style[prop] = value;
+            this.nodes[i].style.setProperty(prop, value);
+        }
+        return this;
+    }
+    while ( i-- ) {
+        this.nodes[i].style.removeProperty(prop);
     }
     return this;
 };
