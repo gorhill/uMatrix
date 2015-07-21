@@ -128,12 +128,17 @@ vAPI.closePopup = function() {
 // experience.
 
 vAPI.localStorage = {
-    PB: Services.prefs.getBranch('extensions.' + location.host + '.'),
+    pbName: '',
+    pb: null,
     str: Components.classes['@mozilla.org/supports-string;1']
-        .createInstance(Components.interfaces.nsISupportsString),
+                   .createInstance(Components.interfaces.nsISupportsString),
+    init: function(pbName) {
+        this.pbName = pbName;
+        this.pb = Services.prefs.getBranch(pbName);
+    },
     getItem: function(key) {
         try {
-            return this.PB.getComplexValue(
+            return this.pb.getComplexValue(
                 key,
                 Components.interfaces.nsISupportsString
             ).data;
@@ -143,19 +148,34 @@ vAPI.localStorage = {
     },
     setItem: function(key, value) {
         this.str.data = value;
-        this.PB.setComplexValue(
+        this.pb.setComplexValue(
             key,
             Components.interfaces.nsISupportsString,
             this.str
         );
     },
+    getBool: function(key) {
+        try {
+            return this.pb.getBoolPref(key);
+        } catch (ex) {
+            return null;
+        }
+    },
+    setBool: function(key, value) {
+        this.pb.setBoolPref(key, value);
+    },
+    setDefaultBool: function(key, defaultValue) {
+        Services.prefs.getDefaultBranch(this.pbName).setBoolPref(key, defaultValue);
+    },
     removeItem: function(key) {
-        this.PB.clearUserPref(key);
+        this.pb.clearUserPref(key);
     },
     clear: function() {
-        this.PB.deleteBranch('');
+        this.pb.deleteBranch('');
     }
 };
+
+vAPI.localStorage.init('extensions.' + location.host + '.');
 
 /******************************************************************************/
 

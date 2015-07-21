@@ -38,13 +38,27 @@ const hostName = Services.io.newURI(Components.stack.filename, null, null).host;
 /******************************************************************************/
 
 const getMessageManager = function(win) {
-    return win
+    let iface = win
         .QueryInterface(Ci.nsIInterfaceRequestor)
         .getInterface(Ci.nsIDocShell)
         .sameTypeRootTreeItem
         .QueryInterface(Ci.nsIDocShell)
-        .QueryInterface(Ci.nsIInterfaceRequestor)
-        .getInterface(Ci.nsIContentFrameMessageManager);
+        .QueryInterface(Ci.nsIInterfaceRequestor);
+
+    try {
+        return iface.getInterface(Ci.nsIContentFrameMessageManager);
+    } catch (ex) {
+        // This can throw. It appears `shouldLoad` can be called *after*  a
+        // tab has been closed. For example, a case where this happens all
+        // the time (FF38):
+        // - Open twitter.com (assuming you have an account and are logged in)
+        // - Close twitter.com
+        // There will be an exception raised when `shouldLoad` is called
+        // to process a XMLHttpRequest with URL `https://twitter.com/i/jot`
+        // fired from `https://twitter.com/`, *after*  the tab is closed.
+        // In such case, `win` is `about:blank`.
+    }
+    return null;
 };
 
 /******************************************************************************/
@@ -56,6 +70,7 @@ const contentObserver = {
     ACCEPT: Ci.nsIContentPolicy.ACCEPT,
     MAIN_FRAME: Ci.nsIContentPolicy.TYPE_DOCUMENT,
     contentBaseURI: 'chrome://' + hostName + '/content/js/',
+    cpMessageName: hostName + ':shouldLoad',
     uniqueSandboxId: 1,
 
     get componentRegistrar() {
@@ -113,6 +128,51 @@ const contentObserver = {
 
     // https://bugzil.la/612921
     shouldLoad: function(type, location, origin, context) {
+        if ( Services === undefined ) {
+            return this.ACCEPT;
+        }
+
+        if ( !context ) {
+            return this.ACCEPT;
+        }
+
+        if ( !location.schemeIs('http') && !location.schemeIs('https') ) {
+            return this.ACCEPT;
+        }
+
+        var contextWindow;
+        if ( type === this.MAIN_FRAME ) {
+            contextWindow = context.contentWindow || context;
+        } else if ( type === this.SUB_FRAME ) {
+            contextWindow = context.contentWindow;
+        } else {
+            contextWindow = (context.ownerDocument || context).defaultView;
+        }
+
+        // The context for the toolbar popup is an iframe element here,
+        // so check context.top instead of context
+        if ( !contextWindow.top || !contextWindow.location ) {
+            return this.ACCEPT;
+        }
+
+        let messageManager = getMessageManager(contextWindow);
+        if ( messageManager === null ) {
+            return this.ACCEPT;
+        }
+
+        let details = {
+            rawType: type,
+            url: location.asciiSpec
+        };
+
+        if ( typeof messageManager.sendRpcMessage === 'function' ) {
+            // https://bugzil.la/1092216
+            messageManager.sendRpcMessage(this.cpMessageName, details);
+        } else {
+            // Compatibility for older versions
+            messageManager.sendSyncMessage(this.cpMessageName, details);
+        }
+
         return this.ACCEPT;
     },
 

@@ -929,6 +929,30 @@ var tabWatcher = (function() {
         });
     };
 
+    var attachToTabBrowser = function(window) {
+        var tabBrowser = getTabBrowser(window);
+        if ( !tabBrowser ) {
+            return false;
+        }
+
+        var tabContainer = tabBrowser.tabContainer;
+        if ( !tabContainer ) {
+            return true;
+        }
+        vAPI.contextMenu.register(window.document);
+
+        if ( typeof vAPI.toolbarButton.attachToNewWindow === 'function' ) {
+            vAPI.toolbarButton.attachToNewWindow(window);
+        }
+
+        tabContainer.addEventListener('TabOpen', onOpen);
+        tabContainer.addEventListener('TabShow', onShow);
+        tabContainer.addEventListener('TabClose', onClose);
+        tabContainer.addEventListener('TabSelect', onSelect);
+
+        return true;
+    };
+
     var onWindowLoad = function(ev) {
         if ( ev ) {
             this.removeEventListener(ev.type, onWindowLoad);
@@ -938,22 +962,13 @@ var tabWatcher = (function() {
         if ( wintype !== 'navigator:browser' ) {
             return;
         }
-        var tabBrowser = getTabBrowser(this);
-        if ( !tabBrowser ) {
-            return;
-        }
-        var tabContainer = tabBrowser.tabContainer;
-        if ( !tabContainer ) {
-            return;
-        }
 
-        vAPI.contextMenu.register(this.document);
-        tabContainer.addEventListener('TabOpen', onOpen);
-        tabContainer.addEventListener('TabShow', onShow);
-        tabContainer.addEventListener('TabClose', onClose);
-        tabContainer.addEventListener('TabSelect', onSelect);
-
-        // when new window is opened TabSelect doesn't run on the selected tab?
+        // On some platforms, the tab browser isn't immediately available,
+        // try waiting a bit if this happens.
+        var win = this;
+        if ( attachToTabBrowser(win) === false ) {
+            vAPI.setTimeout(attachToTabBrowser.bind(null, win), 250);
+        }
     };
 
     var onWindowUnload = function() {
@@ -1381,6 +1396,8 @@ var httpObserver = {
     },
 
     register: function() {
+        this.pendingRingBufferInit();
+
         // https://developer.mozilla.org/en/docs/Observer_Notifications#HTTP_requests
         Services.obs.addObserver(this, 'http-on-opening-request', true);
         Services.obs.addObserver(this, 'http-on-modify-request', true);
@@ -1425,8 +1442,81 @@ var httpObserver = {
         );
     },
 
-    handleRequest: function(channel, URI, tabId, rawtype) {
-        var type = this.typeMap[rawtype] || 'other';
+    PendingRequest: function() {
+        this.rawType = 0;
+        this.tabId = 0;
+        this._key = ''; // key is url, from URI.spec
+    },
+
+    // If all work fine, this map should not grow indefinitely. It can have
+    // stale items in it, but these will be taken care of when entries in
+    // the ring buffer are overwritten.
+    pendingURLToIndex: new Map(),
+    pendingWritePointer: 0,
+    pendingRingBuffer: new Array(32),
+    pendingRingBufferInit: function() {
+        // Use and reuse pre-allocated PendingRequest objects = less memory
+        // churning.
+        var i = this.pendingRingBuffer.length;
+        while ( i-- ) {
+            this.pendingRingBuffer[i] = new this.PendingRequest();
+        }
+    },
+
+    createPendingRequest: function(url) {
+        var bucket;
+        var i = this.pendingWritePointer;
+        this.pendingWritePointer = i + 1 & 31;
+        var preq = this.pendingRingBuffer[i];
+        // Cleanup unserviced pending request
+        if ( preq._key !== '' ) {
+            bucket = this.pendingURLToIndex.get(preq._key);
+            if ( Array.isArray(bucket) ) {
+                // Assuming i in array
+                var pos = bucket.indexOf(i);
+                bucket.splice(pos, 1);
+                if ( bucket.length === 1 ) {
+                    this.pendingURLToIndex.set(preq._key, bucket[0]);
+                }
+            } else if ( typeof bucket === 'number' ) {
+                // Assuming bucket === i
+                this.pendingURLToIndex.delete(preq._key);
+            }
+        }
+        // Would be much simpler if a url could not appear more than once.
+        bucket = this.pendingURLToIndex.get(url);
+        if ( bucket === undefined ) {
+            this.pendingURLToIndex.set(url, i);
+        } else if ( Array.isArray(bucket) ) {
+            bucket = bucket.push(i);
+        } else {
+            bucket = [bucket, i];
+        }
+        preq._key = url;
+        return preq;
+    },
+
+    lookupPendingRequest: function(url) {
+        var i = this.pendingURLToIndex.get(url);
+        if ( i === undefined ) {
+            return null;
+        }
+        if ( Array.isArray(i) ) {
+            var bucket = i;
+            i = bucket.shift();
+            if ( bucket.length === 1 ) {
+                this.pendingURLToIndex.set(url, bucket[0]);
+            }
+        } else {
+            this.pendingURLToIndex.delete(url);
+        }
+        var preq = this.pendingRingBuffer[i];
+        preq._key = ''; // mark as "serviced"
+        return preq;
+    },
+
+    handleRequest: function(channel, URI, tabId, rawType) {
+        var type = this.typeMap[rawType] || 'other';
         var onBeforeRequest = vAPI.net.onBeforeRequest;
         if ( onBeforeRequest.types && onBeforeRequest.types.has(type) === false ) {
             return false;
@@ -1448,8 +1538,8 @@ var httpObserver = {
         return true;
     },
 
-    handleRequestHeaders: function(channel, URI, tabId, rawtype) {
-        var type = this.typeMap[rawtype] || 'other';
+    handleRequestHeaders: function(channel, URI, tabId, rawType) {
+        var type = this.typeMap[rawType] || 'other';
         var onBeforeSendHeaders = vAPI.net.onBeforeSendHeaders;
         if ( onBeforeSendHeaders.types && onBeforeSendHeaders.types.has(type) === false ) {
             return;
@@ -1541,7 +1631,7 @@ var httpObserver = {
         }
 
         var URI = channel.URI;
-        var channelData, tabId, rawtype;
+        var channelData;
 
         if (
             topic === 'http-on-examine-response' ||
@@ -1598,10 +1688,18 @@ var httpObserver = {
         }
 
         // http-on-opening-request
-        tabId = this.tabIdFromChannel(channel);
-        rawtype = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
+        var tabId, rawType;
+        var pendingRequest = this.lookupPendingRequest(URI.asciiSpec);
 
-        if ( this.handleRequest(channel, URI, tabId, rawtype) === true ) {
+        if ( pendingRequest !== null ) {
+            tabId = pendingRequest.tabId;
+            rawType = pendingRequest.rawType;
+        } else {
+            tabId = this.tabIdFromChannel(channel);
+            rawType = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
+        }
+
+        if ( this.handleRequest(channel, URI, tabId, rawType) ) {
             return;
         }
 
@@ -1610,7 +1708,7 @@ var httpObserver = {
         }
 
         // Carry data for behind-the-scene redirects
-        channel.setProperty(this.REQDATAKEY, [tabId, rawtype]);
+        channel.setProperty(this.REQDATAKEY, [tabId, rawType]);
     },
 
     // contentPolicy.shouldLoad doesn't detect redirects, this needs to be used
@@ -1662,13 +1760,31 @@ vAPI.net.registerListeners = function() {
         new Set(this.onBeforeSendHeaders.types) :
         null;
 
+    var shouldLoadListenerMessageName = location.host + ':shouldLoad';
+    var shouldLoadListener = function(e) {
+        var details = e.data;
+        var pendingReq = httpObserver.createPendingRequest(details.url);
+        pendingReq.rawType = details.rawType;
+        pendingReq.tabId = tabWatcher.tabIdFromTarget(e.target);
+    };
+
+    vAPI.messaging.globalMessageManager.addMessageListener(
+        shouldLoadListenerMessageName,
+        shouldLoadListener
+    );
+
     httpObserver.register();
 
     cleanupTasks.push(function() {
+        vAPI.messaging.globalMessageManager.removeMessageListener(
+            shouldLoadListenerMessageName,
+            shouldLoadListener
+        );
         httpObserver.unregister();
     });
 };
 
+/******************************************************************************/
 /******************************************************************************/
 
 vAPI.toolbarButton = {
@@ -1677,38 +1793,409 @@ vAPI.toolbarButton = {
     viewId: location.host + '-panel',
     label: vAPI.app.name,
     tooltiptext: vAPI.app.name,
-    tabs: {/*tabId: {badge: 0, img: boolean}*/}
+    tabs: {/*tabId: {badge: 0, img: boolean}*/},
+    init: null,
+    codePath: ''
 };
 
 /******************************************************************************/
 
-// Toolbar button UI for desktop Firefox
-vAPI.toolbarButton.init = function() {
-    var CustomizableUI;
-    try {
-        CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
-    } catch (ex) {
+// Non-Fennec: common code paths.
+
+(function() {
+    if ( vAPI.fennec ) {
         return;
     }
 
-    this.defaultArea = CustomizableUI.AREA_NAVBAR;
-    this.styleURI = [
-        '#' + this.id + ' {',
-            'list-style-image: url(',
-                vAPI.getURL('img/browsericons/icon19-off.png'),
-            ');',
-        '}',
-        '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
-            'width: 160px;',
-            'height: 290px;',
-            'overflow: hidden !important;',
-        '}'
-    ];
+    var tbb = vAPI.toolbarButton;
 
-    var platformVersion = Services.appinfo.platformVersion;
+    tbb.onViewShowing = function({target}) {
+        target.firstChild.setAttribute('src', vAPI.getURL('popup.html'));
+    };
 
-    if ( Services.vc.compare(platformVersion, '36.0') < 0 ) {
-        this.styleURI.push(
+    tbb.onViewHiding = function({target}) {
+        target.parentNode.style.maxWidth = '';
+        target.firstChild.setAttribute('src', 'about:blank');
+    };
+
+    tbb.updateState = function(win, tabId) {
+        var button = win.document.getElementById(this.id);
+
+        if ( !button ) {
+            return;
+        }
+
+        var icon = this.tabs[tabId];
+        button.setAttribute('badge', icon && icon.badge || '');
+        button.classList.toggle('off', !icon || !icon.img);
+
+        var iconId = icon && icon.img ? icon.img : 'off';
+        icon = 'url(' + vAPI.getURL('img/browsericons/icon19-' + iconId + '.png') + ')';
+        button.style.listStyleImage = icon;
+    };
+
+    tbb.populatePanel = function(doc, panel) {
+        panel.setAttribute('id', this.viewId);
+
+        var iframe = doc.createElement('iframe');
+        iframe.setAttribute('type', 'content');
+
+        panel.appendChild(iframe);
+
+        var toPx = function(pixels) {
+            return pixels.toString() + 'px';
+        };
+
+        var scrollBarWidth = 0;
+        var resizeTimer = null;
+
+        var resizePopupDelayed = function(attempts) {
+            if ( resizeTimer !== null ) {
+                return;
+            }
+
+            // Sanity check
+            attempts = (attempts || 0) + 1;
+            if ( attempts > 1/*000*/ ) {
+                console.error('uMatrix> resizePopupDelayed: giving up after too many attempts');
+                return;
+            }
+
+            resizeTimer = vAPI.setTimeout(resizePopup, 10, attempts);
+        };
+
+        var resizePopup = function(attempts) {
+            resizeTimer = null;
+            var body = iframe.contentDocument.body;
+            panel.parentNode.style.maxWidth = 'none';
+
+            // We set a limit for height
+            var height = Math.min(body.clientHeight, 600);
+
+            // https://github.com/chrisaljoudi/uBlock/issues/730
+            // Voodoo programming: this recipe works
+            panel.style.setProperty('height', height + 'px');
+            iframe.style.setProperty('height', height + 'px');
+
+            // Adjust width for presence/absence of vertical scroll bar which may
+            // have appeared as a result of last operation.
+            var contentWindow = iframe.contentWindow;
+            var width = body.clientWidth;
+            if ( contentWindow.scrollMaxY !== 0 ) {
+                width += scrollBarWidth;
+            }
+            panel.style.setProperty('width', width + 'px');
+
+            // scrollMaxX should always be zero once we know the scrollbar width
+            if ( contentWindow.scrollMaxX !== 0 ) {
+                scrollBarWidth = contentWindow.scrollMaxX;
+                width += scrollBarWidth;
+                panel.style.setProperty('width', width + 'px');
+            }
+
+            if ( iframe.clientHeight !== height || panel.clientWidth !== width ) {
+                resizePopupDelayed(attempts);
+                return;
+            }
+        };
+
+        var onPopupReady = function() {
+            var win = this.contentWindow;
+
+            if ( !win || win.location.host !== location.host ) {
+                return;
+            }
+
+            if ( typeof tbb.onBeforePopupReady === 'function' ) {
+                tbb.onBeforePopupReady.call(this);
+            }
+
+            new win.MutationObserver(resizePopupDelayed).observe(win.document.body, {
+                attributes: true,
+                characterData: true,
+                subtree: true
+            });
+
+            resizePopupDelayed();
+        };
+
+        iframe.addEventListener('load', onPopupReady, true);
+    };
+})();
+
+/******************************************************************************/
+
+// Firefox 28 and less
+
+(function() {
+    var tbb = vAPI.toolbarButton;
+    if ( tbb.init !== null ) {
+        return;
+    }
+    var CustomizableUI = null;
+    var forceLegacyToolbarButton = vAPI.localStorage.getBool('forceLegacyToolbarButton');
+    if ( !forceLegacyToolbarButton ) {
+        try {
+            CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
+        } catch (ex) {
+        }
+    }
+    if ( CustomizableUI !== null ) {
+        return;
+    }
+
+    tbb.codePath = 'legacy';
+    tbb.id = 'umatrix-legacy-button';   // NOTE: must match legacy-toolbar-button.css
+    tbb.viewId = tbb.id + '-panel';
+
+    var sss = null;
+    var styleSheetUri = null;
+
+    var addLegacyToolbarButton = function(window) {
+        var document = window.document;
+
+        var toolbox = document.getElementById('navigator-toolbox') || document.getElementById('mail-toolbox');
+        if ( !toolbox ) {
+            return;
+        }
+
+        // palette might take a little longer to appear on some platforms,
+        // give it a small delay and try again.
+        var palette = toolbox.palette;
+        if ( !palette ) {
+            vAPI.setTimeout(function() {
+                if ( toolbox.palette ) {
+                    addLegacyToolbarButton(window);
+                }
+            }, 250);
+            return;
+        }
+
+        var toolbarButton = document.createElement('toolbarbutton');
+        toolbarButton.setAttribute('id', tbb.id);
+        // type = panel would be more accurate, but doesn't look as good
+        toolbarButton.setAttribute('type', 'menu');
+        toolbarButton.setAttribute('removable', 'true');
+        toolbarButton.setAttribute('class', 'toolbarbutton-1 chromeclass-toolbar-additional');
+        toolbarButton.setAttribute('label', tbb.label);
+        toolbarButton.setAttribute('tooltiptext', tbb.label);
+
+        var toolbarButtonPanel = document.createElement('panel');
+        // NOTE: Setting level to parent breaks the popup for PaleMoon under
+        // linux (mouse pointer misaligned with content). For some reason.
+        // toolbarButtonPanel.setAttribute('level', 'parent');
+        tbb.populatePanel(document, toolbarButtonPanel);
+        toolbarButtonPanel.addEventListener('popupshowing', tbb.onViewShowing);
+        toolbarButtonPanel.addEventListener('popuphiding', tbb.onViewHiding);
+        toolbarButton.appendChild(toolbarButtonPanel);
+
+        palette.appendChild(toolbarButton);
+
+        tbb.closePopup = function() {
+            toolbarButtonPanel.hidePopup();
+        };
+
+        // No button yet so give it a default location. If forcing the button,
+        // just put in in the palette rather than on any specific toolbar (who
+        // knows what toolbars will be available or visible!)
+        var toolbar;
+        if ( !vAPI.localStorage.getBool('legacyToolbarButtonAdded') ) {
+            vAPI.localStorage.setBool('legacyToolbarButtonAdded', 'true');
+            toolbar = document.getElementById('nav-bar');
+            if ( toolbar === null ) {
+                return;
+            }
+            // https://github.com/gorhill/uBlock/issues/264
+            // Find a child customizable palette, if any.
+            toolbar = toolbar.querySelector('.customization-target') || toolbar;
+            toolbar.appendChild(toolbarButton);
+            toolbar.setAttribute('currentset', toolbar.currentSet);
+            document.persist(toolbar.id, 'currentset');
+            return;
+        }
+
+        // Find the place to put the button
+        var toolbars = toolbox.externalToolbars.slice();
+        for ( var child of toolbox.children ) {
+            if ( child.localName === 'toolbar' ) {
+                toolbars.push(child);
+            }
+        }
+
+        for ( toolbar of toolbars ) {
+            var currentsetString = toolbar.getAttribute('currentset');
+            if ( !currentsetString ) {
+                continue;
+            }
+            var currentset = currentsetString.split(',');
+            var index = currentset.indexOf(tbb.id);
+            if ( index === -1 ) {
+                continue;
+            }
+            // Found our button on this toolbar - but where on it?
+            var before = null;
+            for ( var i = index + 1; i < currentset.length; i++ ) {
+                before = document.getElementById(currentset[i]);
+                if ( before === null ) {
+                    continue;
+                }
+                toolbar.insertItem(tbb.id, before);
+                break;
+            }
+            if ( before === null ) {
+                toolbar.insertItem(tbb.id);
+            }
+        }
+    };
+
+    var onPopupCloseRequested = function({target}) {
+        if ( typeof tbb.closePopup === 'function' ) {
+            tbb.closePopup(target);
+        }
+    };
+
+    var shutdown = function() {
+        for ( var win of vAPI.tabs.getWindows() ) {
+            var toolbarButton = win.document.getElementById(tbb.id);
+            if ( toolbarButton ) {
+                toolbarButton.parentNode.removeChild(toolbarButton);
+            }
+        }
+        if ( sss === null ) {
+            return;
+        }
+        if ( sss.sheetRegistered(styleSheetUri, sss.AUTHOR_SHEET) ) {
+            sss.unregisterSheet(styleSheetUri, sss.AUTHOR_SHEET);
+        }
+        sss = null;
+        styleSheetUri = null;
+
+        vAPI.messaging.globalMessageManager.removeMessageListener(
+            location.host + ':closePopup',
+            onPopupCloseRequested
+        );
+    };
+
+    tbb.attachToNewWindow = function(win) {
+        addLegacyToolbarButton(win);
+    };
+
+    tbb.init = function() {
+        vAPI.messaging.globalMessageManager.addMessageListener(
+            location.host + ':closePopup',
+            onPopupCloseRequested
+        );
+
+        sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
+        styleSheetUri = Services.io.newURI(vAPI.getURL("css/legacy-toolbar-button.css"), null, null);
+
+        // Register global so it works in all windows, including palette
+        if ( !sss.sheetRegistered(styleSheetUri, sss.AUTHOR_SHEET) ) {
+            sss.loadAndRegisterSheet(styleSheetUri, sss.AUTHOR_SHEET);
+        }
+
+        cleanupTasks.push(shutdown);
+    };
+})();
+
+/******************************************************************************/
+
+// Firefox Australis < 36.
+
+(function() {
+    var tbb = vAPI.toolbarButton;
+    if ( tbb.init !== null ) {
+        return;
+    }
+    if ( Services.vc.compare(Services.appinfo.platformVersion, '36.0') >= 0 ) {
+        return null;
+    }
+    if ( vAPI.localStorage.getBool('forceLegacyToolbarButton') ) {
+        return null;
+    }
+    var CustomizableUI = null;
+    try {
+        CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
+    } catch (ex) {
+    }
+    if ( CustomizableUI === null ) {
+        return;
+    }
+    tbb.codePath = 'australis';
+    tbb.CustomizableUI = CustomizableUI;
+    tbb.defaultArea = CustomizableUI.AREA_NAVBAR;
+
+    var styleURI = null;
+
+    var onPopupCloseRequested = function({target}) {
+        if ( typeof tbb.closePopup === 'function' ) {
+            tbb.closePopup(target);
+        }
+    };
+
+    var shutdown = function() {
+        CustomizableUI.destroyWidget(tbb.id);
+
+        for ( var win of vAPI.tabs.getWindows() ) {
+            var panel = win.document.getElementById(tbb.viewId);
+            panel.parentNode.removeChild(panel);
+            win.QueryInterface(Ci.nsIInterfaceRequestor)
+               .getInterface(Ci.nsIDOMWindowUtils)
+               .removeSheet(styleURI, 1);
+        }
+
+        vAPI.messaging.globalMessageManager.removeMessageListener(
+            location.host + ':closePopup',
+            onPopupCloseRequested
+        );
+    };
+
+    tbb.onBeforeCreated = function(doc) {
+        var panel = doc.createElement('panelview');
+
+        this.populatePanel(doc, panel);
+
+        doc.getElementById('PanelUI-multiView').appendChild(panel);
+
+        doc.defaultView.QueryInterface(Ci.nsIInterfaceRequestor)
+            .getInterface(Ci.nsIDOMWindowUtils)
+            .loadSheet(styleURI, 1);
+    };
+
+    tbb.onBeforePopupReady = function() {
+        // https://github.com/gorhill/uBlock/issues/83
+        // Add `portrait` class if width is constrained.
+        try {
+            this.contentDocument.body.classList.toggle(
+                'portrait',
+                CustomizableUI.getWidget(tbb.id).areaType === CustomizableUI.TYPE_MENU_PANEL
+            );
+        } catch (ex) {
+            /* noop */
+        }
+    };
+
+    tbb.init = function() {
+        vAPI.messaging.globalMessageManager.addMessageListener(
+            location.host + ':closePopup',
+            onPopupCloseRequested
+        );
+        var style = [
+            '#' + this.id + '.off {',
+                'list-style-image: url(',
+                    vAPI.getURL('img/browsericons/icon19-off.png'),
+                ');',
+            '}',
+            '#' + this.id + ' {',
+                'list-style-image: url(',
+                    vAPI.getURL('img/browsericons/icon19.png'),
+                ');',
+            '}',
+            '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
+                'width: 160px;',
+                'height: 290px;',
+                'overflow: hidden !important;',
+            '}',
             '#' + this.id + '[badge]:not([badge=""])::after {',
                 'position: absolute;',
                 'margin-left: -16px;',
@@ -1720,216 +2207,226 @@ vAPI.toolbarButton.init = function() {
                 'background: #000;',
                 'content: attr(badge);',
             '}'
+        ];
+
+        styleURI = Services.io.newURI(
+            'data:text/css,' + encodeURIComponent(style.join('')),
+            null,
+            null
         );
-    } else {
-        this.CUIEvents = {};
-        var updateBadge = function() {
-            var wId = vAPI.toolbarButton.id;
-            var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
 
-            for ( var win of vAPI.tabs.getWindows() ) {
-                var button = win.document.getElementById(wId);
-                if ( buttonInPanel ) {
-                    button.classList.remove('badged-button');
-                    continue;
-                }
-                if ( button === null ) {
-                    continue;
-                }
-                button.classList.add('badged-button');
-            }
-
-            if ( buttonInPanel ) {
-                return;
-            }
-
-            // Anonymous elements need some time to be reachable
-            vAPI.setTimeout(this.updateBadgeStyle, 250);
-        }.bind(this.CUIEvents);
-        this.CUIEvents.onCustomizeEnd = updateBadge;
-        this.CUIEvents.onWidgetUnderflow = updateBadge;
-
-        this.CUIEvents.updateBadgeStyle = function() {
-            var css = [
-                'background: #000',
-                'color: #fff'
-            ].join(';');
-
-            for ( var win of vAPI.tabs.getWindows() ) {
-                var button = win.document.getElementById(vAPI.toolbarButton.id);
-                if ( button === null ) {
-                    continue;
-                }
-                var badge = button.ownerDocument.getAnonymousElementByAttribute(
-                    button,
-                    'class',
-                    'toolbarbutton-badge'
-                );
-                if ( !badge ) {
-                    return;
-                }
-
-                badge.style.cssText = css;
-            }
+        this.closePopup = function(tabBrowser) {
+            CustomizableUI.hidePanelForNode(
+                tabBrowser.ownerDocument.getElementById(this.viewId)
+            );
         };
 
-        this.onCreated = function(button) {
-            button.setAttribute('badge', '');
-            vAPI.setTimeout(updateBadge, 250);
-        };
+        CustomizableUI.createWidget(this);
 
-        CustomizableUI.addListener(this.CUIEvents);
+        cleanupTasks.push(shutdown);
+    };
+})();
+
+/******************************************************************************/
+
+// Firefox Australis >= 36.
+
+(function() {
+    var tbb = vAPI.toolbarButton;
+    if ( tbb.init !== null ) {
+        return;
     }
+    if ( Services.vc.compare(Services.appinfo.platformVersion, '36.0') < 0 ) {
+        return null;
+    }
+    if ( vAPI.localStorage.getBool('forceLegacyToolbarButton') ) {
+        return null;
+    }
+    var CustomizableUI = null;
+    try {
+        CustomizableUI = Cu.import('resource:///modules/CustomizableUI.jsm', null).CustomizableUI;
+    } catch (ex) {
+    }
+    if ( CustomizableUI === null ) {
+        return null;
+    }
+    tbb.codePath = 'australis';
+    tbb.CustomizableUI = CustomizableUI;
+    tbb.defaultArea = CustomizableUI.AREA_NAVBAR;
 
-    this.styleURI = Services.io.newURI(
-        'data:text/css,' + encodeURIComponent(this.styleURI.join('')),
-        null,
-        null
-    );
+    var CUIEvents = {};
 
-    this.closePopup = function({target}) {
-        CustomizableUI.hidePanelForNode(
-            target.ownerDocument.getElementById(vAPI.toolbarButton.viewId)
-        );
+    var badgeCSSRules = [
+        'background: #000',
+        'color: #fff'
+    ].join(';');
+
+    var updateBadgeStyle = function() {
+        for ( var win of vAPI.tabs.getWindows() ) {
+            var button = win.document.getElementById(tbb.id);
+            if ( button === null ) {
+                continue;
+            }
+            var badge = button.ownerDocument.getAnonymousElementByAttribute(
+                button,
+                'class',
+                'toolbarbutton-badge'
+            );
+            if ( !badge ) {
+                continue;
+            }
+
+            badge.style.cssText = badgeCSSRules;
+        }
     };
 
-    CustomizableUI.createWidget(this);
-    vAPI.messaging.globalMessageManager.addMessageListener(
-        location.host + ':closePopup',
-        this.closePopup
-    );
-
-    cleanupTasks.push(function() {
-        if ( this.CUIEvents ) {
-            CustomizableUI.removeListener(this.CUIEvents);
-        }
-
-        CustomizableUI.destroyWidget(this.id);
-        vAPI.messaging.globalMessageManager.removeMessageListener(
-            location.host + ':closePopup',
-            this.closePopup
-        );
+    var updateBadge = function() {
+        var wId = tbb.id;
+        var buttonInPanel = CustomizableUI.getWidget(wId).areaType === CustomizableUI.TYPE_MENU_PANEL;
 
         for ( var win of vAPI.tabs.getWindows() ) {
-            var panel = win.document.getElementById(this.viewId);
+            var button = win.document.getElementById(wId);
+            if ( button === null ) {
+                continue;
+            }
+            if ( buttonInPanel ) {
+                button.classList.remove('badged-button');
+                continue;
+            }
+            button.classList.add('badged-button');
+        }
+
+        if ( buttonInPanel ) {
+            return;
+        }
+
+        // Anonymous elements need some time to be reachable
+        vAPI.setTimeout(updateBadgeStyle, 250);
+    }.bind(CUIEvents);
+
+    // https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/CustomizableUI.jsm#Listeners
+    CUIEvents.onCustomizeEnd = updateBadge;
+    CUIEvents.onWidgetAdded = updateBadge;
+    CUIEvents.onWidgetUnderflow = updateBadge;
+
+    var onPopupCloseRequested = function({target}) {
+        if ( typeof tbb.closePopup === 'function' ) {
+            tbb.closePopup(target);
+        }
+    };
+
+    var shutdown = function() {
+        CustomizableUI.removeListener(CUIEvents);
+        CustomizableUI.destroyWidget(tbb.id);
+
+        for ( var win of vAPI.tabs.getWindows() ) {
+            var panel = win.document.getElementById(tbb.viewId);
             panel.parentNode.removeChild(panel);
             win.QueryInterface(Ci.nsIInterfaceRequestor)
                 .getInterface(Ci.nsIDOMWindowUtils)
-                .removeSheet(this.styleURI, 1);
-        }
-    }.bind(this));
-
-    this.init = null;
-};
-
-/******************************************************************************/
-
-vAPI.toolbarButton.onBeforeCreated = function(doc) {
-    var panel = doc.createElement('panelview');
-    panel.setAttribute('id', this.viewId);
-
-    var iframe = doc.createElement('iframe');
-    iframe.setAttribute('type', 'content');
-    iframe.setAttribute('overflow-x', 'hidden');
-
-    doc.getElementById('PanelUI-multiView')
-        .appendChild(panel)
-        .appendChild(iframe);
-
-    var scrollBarWidth = 0;
-    var updateTimer = null;
-    var delayedResize = function() {
-        if ( updateTimer ) {
-            return;
-        }
-        updateTimer = vAPI.setTimeout(resizePopup, 10);
-    };
-    var resizePopup = function() {
-        updateTimer = null;
-        var body = iframe.contentDocument.body;
-        panel.parentNode.style.maxWidth = 'none';
-        // We set a limit for height
-        var height = Math.min(body.clientHeight, 600);
-        // https://github.com/chrisaljoudi/uBlock/issues/730
-        // Voodoo programming: this recipe works
-        panel.style.setProperty('height', height + 'px');
-        iframe.style.setProperty('height', height + 'px');
-        // Adjust width for presence/absence of vertical scroll bar which may
-        // have appeared as a result of last operation.
-        var contentWindow = iframe.contentWindow;
-        var width = body.clientWidth;
-        if ( contentWindow.scrollMaxY !== 0 ) {
-            width += scrollBarWidth;
-        }
-        panel.style.setProperty('width', width + 'px');
-        // scrollMaxX should always be zero once we know the scrollbar width
-        if ( contentWindow.scrollMaxX !== 0 ) {
-            scrollBarWidth = contentWindow.scrollMaxX;
-            width += scrollBarWidth;
-            panel.style.setProperty('width', width + 'px');
-        }
-        if ( iframe.clientHeight !== height || panel.clientWidth !== width ) {
-            delayedResize();
-            return;
-        }
-    };
-    var onPopupReady = function() {
-        var win = this.contentWindow;
-
-        if ( !win || win.location.host !== location.host ) {
-            return;
+                .removeSheet(styleURI, 1);
         }
 
-        new win.MutationObserver(delayedResize).observe(win.document.body, {
-            attributes: true,
-            characterData: true,
-            subtree: true
-        });
 
-        delayedResize();
+        vAPI.messaging.globalMessageManager.removeMessageListener(
+            location.host + ':closePopup',
+            onPopupCloseRequested
+        );
     };
 
-    iframe.addEventListener('load', onPopupReady, true);
+    var styleURI = null;
 
-    doc.defaultView.QueryInterface(Ci.nsIInterfaceRequestor)
-        .getInterface(Ci.nsIDOMWindowUtils)
-        .loadSheet(this.styleURI, 1);
-};
+    tbb.onBeforeCreated = function(doc) {
+        var panel = doc.createElement('panelview');
+
+        this.populatePanel(doc, panel);
+
+        doc.getElementById('PanelUI-multiView').appendChild(panel);
+
+        doc.defaultView.QueryInterface(Ci.nsIInterfaceRequestor)
+            .getInterface(Ci.nsIDOMWindowUtils)
+            .loadSheet(styleURI, 1);
+    };
+
+    tbb.onCreated = function(button) {
+        button.setAttribute('badge', '');
+        vAPI.setTimeout(updateBadge, 250);
+    };
+
+    tbb.onBeforePopupReady = function() {
+        // https://github.com/gorhill/uBlock/issues/83
+        // Add `portrait` class if width is constrained.
+        try {
+            this.contentDocument.body.classList.toggle(
+                'portrait',
+                CustomizableUI.getWidget(tbb.id).areaType === CustomizableUI.TYPE_MENU_PANEL
+            );
+        } catch (ex) {
+            /* noop */
+        }
+    };
+
+    tbb.closePopup = function(tabBrowser) {
+        CustomizableUI.hidePanelForNode(
+            tabBrowser.ownerDocument.getElementById(tbb.viewId)
+        );
+    };
+
+    tbb.init = function() {
+        vAPI.messaging.globalMessageManager.addMessageListener(
+            location.host + ':closePopup',
+            onPopupCloseRequested
+        );
+
+        CustomizableUI.addListener(CUIEvents);
+
+        var style = [
+            '#' + this.id + '.off {',
+                'list-style-image: url(',
+                    vAPI.getURL('img/browsericons/icon19-off.png'),
+                ');',
+            '}',
+            '#' + this.id + ' {',
+                'list-style-image: url(',
+                    vAPI.getURL('img/browsericons/icon19.png'),
+                ');',
+            '}',
+            '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
+                'width: 160px;',
+                'height: 290px;',
+                'overflow: hidden !important;',
+            '}'
+        ];
+
+        styleURI = Services.io.newURI(
+            'data:text/css,' + encodeURIComponent(style.join('')),
+            null,
+            null
+        );
+
+        CustomizableUI.createWidget(this);
+
+        cleanupTasks.push(shutdown);
+    };
+})();
 
 /******************************************************************************/
 
-vAPI.toolbarButton.onViewShowing = function({target}) {
-    target.firstChild.setAttribute('src', vAPI.getURL('popup.html'));
-};
+// No toolbar button.
 
-/******************************************************************************/
-
-vAPI.toolbarButton.onViewHiding = function({target}) {
-    target.parentNode.style.maxWidth = '';
-    target.firstChild.setAttribute('src', 'about:blank');
-};
-
-/******************************************************************************/
-
-vAPI.toolbarButton.updateState = function(win, tabId) {
-    var button = win.document.getElementById(this.id);
-
-    if ( !button ) {
-        return;
+(function() {
+    // Just to ensure the number of cleanup tasks is as expected: toolbar
+    // button code is one single cleanup task regardless of platform.
+    if ( vAPI.toolbarButton.init === null ) {
+        cleanupTasks.push(function(){});
     }
-
-    var icon = this.tabs[tabId];
-    button.setAttribute('badge', icon && icon.badge || '');
-
-    var iconId = icon && icon.img ? icon.img : 'off';
-    icon = 'url(' + vAPI.getURL('img/browsericons/icon19-' + iconId + '.png') + ')';
-
-    button.style.listStyleImage = icon;
-};
+})();
 
 /******************************************************************************/
 
-vAPI.toolbarButton.init();
+if ( vAPI.toolbarButton.init !== null ) {
+    vAPI.toolbarButton.init();
+}
 
 /******************************************************************************/
 /******************************************************************************/
@@ -2023,6 +2520,9 @@ vAPI.contextMenu.unregister = function(doc) {
     }
 
     var menuitem = doc.getElementById(this.menuItemId);
+    if ( menuitem === null ) {
+        return;
+    }
     var contextMenu = menuitem.parentNode;
     menuitem.removeEventListener('command', this.onCommand);
     contextMenu.removeEventListener('popupshowing', this.displayMenuItem);

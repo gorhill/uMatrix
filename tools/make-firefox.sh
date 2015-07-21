@@ -15,6 +15,7 @@ cp    ./platform/firefox/vapi-*.js      $DES/js/
 cp    ./platform/firefox/bootstrap.js   $DES/
 cp    ./platform/firefox/frame*.js      $DES/
 cp -R ./platform/chromium/img           $DES/
+cp    ./platform/firefox/css/*          $DES/css/
 cp    ./platform/firefox/chrome.manifest $DES/
 cp    ./platform/firefox/install.rdf    $DES/
 cp    ./platform/firefox/*.xul          $DES/
