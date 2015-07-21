@@ -41,8 +41,8 @@ self.vAPI = self.vAPI || {};
 
 /******************************************************************************/
 
-vAPI.setTimeout = vAPI.setTimeout || function(callback, delay) {
-    return setTimeout(function() { callback(); }, delay);
+vAPI.setTimeout = vAPI.setTimeout || function(callback, delay, extra) {
+    return setTimeout(function(a) { callback(a); }, delay, extra);
 };
 
 /******************************************************************************/
