@@ -46,6 +46,7 @@ const {Services} = Cu.import('resource://gre/modules/Services.jsm', null);
 
 var vAPI = self.vAPI = self.vAPI || {};
 vAPI.firefox = true;
+vAPI.firefoxPre35 = Services.vc.compare(Services.appinfo.platformVersion, '35.0') < 0;
 
 /******************************************************************************/
 
@@ -1883,18 +1884,25 @@ vAPI.net.registerListeners = function() {
         pendingReq.tabId = tabWatcher.tabIdFromTarget(e.target);
     };
 
-    vAPI.messaging.globalMessageManager.addMessageListener(
-        shouldLoadListenerMessageName,
-        shouldLoadListener
-    );
+    // https://github.com/gorhill/uMatrix/issues/200
+    // We need this only for Firefox 34 and less: the tab id is derived from
+    // the origin of the message.
+    if ( vAPI.firefoxPre35 ) {
+        vAPI.messaging.globalMessageManager.addMessageListener(
+            shouldLoadListenerMessageName,
+            shouldLoadListener
+        );
+    }
 
     httpObserver.register();
 
     cleanupTasks.push(function() {
-        vAPI.messaging.globalMessageManager.removeMessageListener(
-            shouldLoadListenerMessageName,
-            shouldLoadListener
-        );
+        if ( vAPI.firefoxPre35 ) {
+            vAPI.messaging.globalMessageManager.removeMessageListener(
+                shouldLoadListenerMessageName,
+                shouldLoadListener
+            );
+        }
         httpObserver.unregister();
     });
 };

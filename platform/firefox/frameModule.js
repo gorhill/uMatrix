@@ -72,6 +72,7 @@ const contentObserver = {
     contentBaseURI: 'chrome://' + hostName + '/content/js/',
     cpMessageName: hostName + ':shouldLoad',
     uniqueSandboxId: 1,
+    firefoxPost34: Services.vc.compare(Services.appinfo.platformVersion, '35.0') >= 0,
 
     get componentRegistrar() {
         return Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
@@ -126,13 +127,10 @@ const contentObserver = {
         );
     },
 
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy
     // https://bugzil.la/612921
     shouldLoad: function(type, location, origin, context) {
-        if ( Services === undefined ) {
-            return this.ACCEPT;
-        }
-
-        if ( !context ) {
+        if ( this.firefoxPost34 || Services === undefined || !context ) {
             return this.ACCEPT;
         }
 
