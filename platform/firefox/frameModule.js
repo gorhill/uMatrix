@@ -72,7 +72,7 @@ const contentObserver = {
     contentBaseURI: 'chrome://' + hostName + '/content/js/',
     cpMessageName: hostName + ':shouldLoad',
     uniqueSandboxId: 1,
-    firefoxPost34: Services.vc.compare(Services.appinfo.platformVersion, '35.0') >= 0,
+    firefoxPre35: Services.vc.compare(Services.appinfo.platformVersion, '35.0') < 0,
 
     get componentRegistrar() {
         return Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
@@ -101,36 +101,40 @@ const contentObserver = {
     register: function() {
         Services.obs.addObserver(this, 'document-element-inserted', true);
 
-        this.componentRegistrar.registerFactory(
-            this.classID,
-            this.classDescription,
-            this.contractID,
-            this
-        );
-        this.categoryManager.addCategoryEntry(
-            'content-policy',
-            this.contractID,
-            this.contractID,
-            false,
-            true
-        );
+        if ( this.firefoxPre35 ) {
+            this.componentRegistrar.registerFactory(
+                this.classID,
+                this.classDescription,
+                this.contractID,
+                this
+            );
+            this.categoryManager.addCategoryEntry(
+                'content-policy',
+                this.contractID,
+                this.contractID,
+                false,
+                true
+            );
+        }
     },
 
     unregister: function() {
         Services.obs.removeObserver(this, 'document-element-inserted');
 
-        this.componentRegistrar.unregisterFactory(this.classID, this);
-        this.categoryManager.deleteCategoryEntry(
-            'content-policy',
-            this.contractID,
-            false
-        );
+        if ( this.firefoxPre35 ) {
+            this.componentRegistrar.unregisterFactory(this.classID, this);
+            this.categoryManager.deleteCategoryEntry(
+                'content-policy',
+                this.contractID,
+                false
+            );
+        }
     },
 
     // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy
     // https://bugzil.la/612921
     shouldLoad: function(type, location, origin, context) {
-        if ( this.firefoxPost34 || Services === undefined || !context ) {
+        if ( Services === undefined || !context ) {
             return this.ACCEPT;
         }
 
