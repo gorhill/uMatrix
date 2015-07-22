@@ -282,7 +282,8 @@ var renderLogEntry = function(entry) {
     tr.cells[0].title = time.toLocaleDateString('fullwide', dateOptions);
 
     if ( entry.tab ) {
-        tr.classList.add('tab', classNameFromTabId(entry.tab));
+        tr.classList.add('tab');
+        tr.classList.add(classNameFromTabId(entry.tab));
         if ( entry.tab === noTabId ) {
             tr.cells[1].appendChild(createHiddenTextNode('bts'));
         }

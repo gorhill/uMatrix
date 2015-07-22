@@ -274,6 +274,7 @@ body .toolbar button#scopeCell {
     border: 1px dotted rgba(0,0,0,0.2);
     padding: 6px 1px 3px 1px;
     box-sizing: content-box;
+    -moz-box-sizing: content-box;
     width: 16em;
     height: 1.5em;
     white-space: nowrap;
