@@ -108,6 +108,10 @@ var cleanupTasks = [];
 var expectedNumberOfCleanups = 7;
 
 window.addEventListener('unload', function() {
+    if ( typeof vAPI.app.onShutdown === 'function' ) {
+        vAPI.app.onShutdown();
+    }
+
     for ( var cleanup of cleanupTasks ) {
         cleanup();
     }
@@ -129,38 +133,132 @@ window.addEventListener('unload', function() {
 
 /******************************************************************************/
 
+// For now, only booleans.
+
 vAPI.browserSettings = {
+    originalValues: {},
+
+    rememberOriginalValue: function(branch, setting) {
+        var key = branch + '.' + setting;
+        if ( this.originalValues.hasOwnProperty(key) ) {
+            return;
+        }
+        var hasUserValue = false;
+        try {
+            hasUserValue = Services.prefs.getBranch(branch + '.').prefHasUserValue(setting);
+        } catch (ex) {
+        }
+        this.originalValues[key] = hasUserValue ? this.getBool(branch, setting) : undefined;
+    },
+
+    clear: function(branch, setting) {
+        var key = branch + '.' + setting;
+        // Value was not overriden -- nothing to restore
+        if ( this.originalValues.hasOwnProperty(key) === false ) {
+            return;
+        }
+        var value = this.originalValues[key];
+        // https://github.com/gorhill/uBlock/issues/292#issuecomment-109621979
+        // Forget the value immediately, it may change outside of
+        // uBlock control.
+        delete this.originalValues[key];
+        // Original value was a default one
+        if ( value === undefined ) {
+            try {
+                Services.prefs.getBranch(branch + '.').clearUserPref(setting);
+            } catch (ex) {
+            }
+            return;
+        }
+        // Current value is same as original
+        if ( this.getBool(branch, setting) === value ) {
+            return;
+        }
+        // Reset to original value
+        try {
+            Services.prefs.getBranch(branch + '.').setBoolPref(setting, value);
+        } catch (ex) {
+        }
+    },
+
+    getBool: function(branch, setting) {
+        try {
+            return Services.prefs.getBranch(branch + '.').getBoolPref(setting);
+        } catch (ex) {
+        }
+        return undefined;
+    },
 
     setBool: function(branch, setting, value) {
         try {
-            Services.prefs
-                    .getBranch(branch + '.')
-                    .setBoolPref(setting, value);
+            Services.prefs.getBranch(branch + '.').setBoolPref(setting, value);
         } catch (ex) {
         }
     },
 
     set: function(details) {
+        var value;
         for ( var setting in details ) {
             if ( details.hasOwnProperty(setting) === false ) {
                 continue;
             }
             switch ( setting ) {
             case 'prefetching':
-                this.setBool('network', 'prefetch-next', !!details[setting]);
+                this.rememberOriginalValue('network', 'prefetch-next');
+                value = !!details[setting];
+                // https://github.com/gorhill/uBlock/issues/292
+                // "true" means "do not disable", i.e. leave entry alone
+                if ( value === true ) {
+                    this.clear('network', 'prefetch-next');
+                } else {
+                    this.setBool('network', 'prefetch-next', false);
+                }
                 break;
 
             case 'hyperlinkAuditing':
-                this.setBool('browser', 'send_pings', !!details[setting]);
-                this.setBool('beacon', 'enabled', !!details[setting]);
+                this.rememberOriginalValue('browser', 'send_pings');
+                this.rememberOriginalValue('beacon', 'enabled');
+                value = !!details[setting];
+                // https://github.com/gorhill/uBlock/issues/292
+                // "true" means "do not disable", i.e. leave entry alone
+                if ( value === true ) {
+                    this.clear('browser', 'send_pings');
+                    this.clear('beacon', 'enabled');
+                } else {
+                    this.setBool('browser', 'send_pings', false);
+                    this.setBool('beacon', 'enabled', false);
+                }
+                break;
+
+            case 'webrtcIPAddress':
+                this.rememberOriginalValue('media.peerconnection', 'enabled');
+                value = !!details[setting];
+                if ( value === true ) {
+                    this.clear('media.peerconnection', 'enabled');
+                } else {
+                    this.setBool('media.peerconnection', 'enabled', false);
+                }
                 break;
 
             default:
                 break;
             }
         }
+    },
+
+    restoreAll: function() {
+        var pos;
+        for ( var key in this.originalValues ) {
+            if ( this.originalValues.hasOwnProperty(key) === false ) {
+                continue;
+            }
+            pos = key.lastIndexOf('.');
+            this.clear(key.slice(0, pos), key.slice(pos + 1));
+        }
     }
 };
+
+cleanupTasks.push(vAPI.browserSettings.restoreAll.bind(vAPI.browserSettings));
 
 /******************************************************************************/
 
@@ -608,6 +706,18 @@ vAPI.tabs.open = function(details) {
     var win = Services.wm.getMostRecentWindow('navigator:browser');
     var tabBrowser = getTabBrowser(win);
 
+    // Open in a standalone window
+    if ( details.popup === true ) {
+        Services.ww.openWindow(
+            self,
+            details.url,
+            null,
+            'menubar=no,toolbar=no,location=no,resizable=yes',
+            null
+        );
+        return;
+    }
+
     if ( details.index === -1 ) {
         details.index = tabBrowser.browsers.indexOf(tabBrowser.selectedBrowser) + 1;
     }
@@ -678,7 +788,12 @@ vAPI.tabs.select = function(tab) {
         return;
     }
 
-    var tabBrowser = getTabBrowser(getOwnerWindow(tab)).selectedTab = tab;
+    // https://github.com/gorhill/uBlock/issues/470
+    var win = getOwnerWindow(tab);
+    win.focus();
+
+    var tabBrowser = getTabBrowser(win);
+    tabBrowser.selectedTab = tab;
 };
 
 /******************************************************************************/
@@ -2180,6 +2295,7 @@ vAPI.toolbarButton = {
             location.host + ':closePopup',
             onPopupCloseRequested
         );
+
         var style = [
             '#' + this.id + '.off {',
                 'list-style-image: url(',
@@ -2388,7 +2504,7 @@ vAPI.toolbarButton = {
             '}',
             '#' + this.id + ' {',
                 'list-style-image: url(',
-                    vAPI.getURL('img/browsericons/icon19.png'),
+                    vAPI.getURL('img/browsericons/icon19-19.png'),
                 ');',
             '}',
             '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
