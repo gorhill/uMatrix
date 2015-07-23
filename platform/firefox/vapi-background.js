@@ -2022,6 +2022,15 @@ vAPI.toolbarButton = {
             }
         };
 
+        var onResizeRequested = function() {
+            var body = iframe.contentDocument.body;
+            if ( body.getAttribute('data-resize-popup') !== 'true' ) {
+                return;
+            }
+            body.removeAttribute('data-resize-popup');
+            resizePopupDelayed();
+        };
+
         var onPopupReady = function() {
             var win = this.contentWindow;
 
@@ -2033,16 +2042,14 @@ vAPI.toolbarButton = {
                 tbb.onBeforePopupReady.call(this);
             }
 
-            new win.MutationObserver(resizePopupDelayed).observe(win.document.body, {
+            var mutationObserver = new win.MutationObserver(onResizeRequested);
+            mutationObserver.observe(win.document.body, {
                 attributes: true,
-                characterData: true,
-                subtree: true
+                attributeFilter: [ 'data-resize-popup' ]
             });
-
-            resizePopupDelayed();
         };
 
-        iframe.addEventListener('load', onPopupReady, true);
+        iframe.addEventListener('DOMContentLoaded', onPopupReady, true);
     };
 })();
 

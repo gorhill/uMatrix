@@ -81,6 +81,10 @@ vAPI.closePopup = function() {
     window.open('','_self').close();
 };
 
+vAPI.resizePopup = function() {
+    // Nothing to do: chromium API takes care to resize the popup
+};
+
 /******************************************************************************/
 
 // A localStorage-like object which should be accessible from the
