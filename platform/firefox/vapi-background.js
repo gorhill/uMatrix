@@ -2042,6 +2042,8 @@ vAPI.toolbarButton = {
                 tbb.onBeforePopupReady.call(this);
             }
 
+            resizePopupDelayed();
+
             var body = win.document.body;
             body.removeAttribute('data-resize-popup');
             var mutationObserver = new win.MutationObserver(onResizeRequested);
