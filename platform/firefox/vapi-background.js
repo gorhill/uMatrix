@@ -1997,8 +1997,8 @@ vAPI.toolbarButton = {
 
             // https://github.com/chrisaljoudi/uBlock/issues/730
             // Voodoo programming: this recipe works
-            panel.style.setProperty('height', height + 'px');
-            iframe.style.setProperty('height', height + 'px');
+            panel.style.setProperty('height', toPx(height));
+            iframe.style.setProperty('height', toPx(height));
 
             // Adjust width for presence/absence of vertical scroll bar which may
             // have appeared as a result of last operation.
@@ -2007,13 +2007,13 @@ vAPI.toolbarButton = {
             if ( contentWindow.scrollMaxY !== 0 ) {
                 width += scrollBarWidth;
             }
-            panel.style.setProperty('width', width + 'px');
+            panel.style.setProperty('width', toPx(width));
 
             // scrollMaxX should always be zero once we know the scrollbar width
             if ( contentWindow.scrollMaxX !== 0 ) {
                 scrollBarWidth = contentWindow.scrollMaxX;
                 width += scrollBarWidth;
-                panel.style.setProperty('width', width + 'px');
+                panel.style.setProperty('width', toPx(width));
             }
 
             if ( iframe.clientHeight !== height || panel.clientWidth !== width ) {
@@ -2042,14 +2042,16 @@ vAPI.toolbarButton = {
                 tbb.onBeforePopupReady.call(this);
             }
 
+            var body = win.document.body;
+            body.removeAttribute('data-resize-popup');
             var mutationObserver = new win.MutationObserver(onResizeRequested);
-            mutationObserver.observe(win.document.body, {
+            mutationObserver.observe(body, {
                 attributes: true,
                 attributeFilter: [ 'data-resize-popup' ]
             });
         };
 
-        iframe.addEventListener('DOMContentLoaded', onPopupReady, true);
+        iframe.addEventListener('load', onPopupReady, true);
     };
 })();
 

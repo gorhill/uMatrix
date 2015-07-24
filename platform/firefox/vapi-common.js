@@ -120,10 +120,6 @@ vAPI.closePopup = function() {
     sendAsyncMessage(location.host + ':closePopup');
 };
 
-vAPI.resizePopup = function() {
-    document.body.setAttribute('data-resize-popup', 'true');
-};
-
 /******************************************************************************/
 
 // A localStorage-like object which should be accessible from the

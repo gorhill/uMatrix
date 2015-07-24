@@ -288,7 +288,7 @@ function toggleCollapseState(elem) {
     } else {
         toggleSpecificCollapseState(elem);
     }
-    vAPI.resizePopup();
+    resizePopup();
 }
 
 function toggleMainCollapseState(uelem) {
@@ -369,7 +369,6 @@ function updateMatrixColors() {
         cell = cells.nodeAt(i);
         cell.className = 'matCell ' + getCellClass(cell.hostname, cell.reqType);
     }
-    vAPI.resizePopup();
 }
 
 /******************************************************************************/
@@ -395,7 +394,6 @@ function updateMatrixBehavior() {
         }
         section.toggleClass('collapsible', subdomainRows.filter('.collapsible').length > 0);
     }
-    vAPI.resizePopup();
 }
 
 /******************************************************************************/
@@ -478,7 +476,7 @@ var endMatrixUpdate = function() {
     updateMatrixBehavior();
     matrixList.css('display', '');
     matrixList.appendTo('.paneContent');
-    vAPI.resizePopup();
+    resizePopup();
 };
 
 var createMatrixGroup = function() {
@@ -1220,6 +1218,11 @@ var onMatrixSnapshotReady = function(response) {
     // TODO:
 };
 
+/******************************************************************************/
+
+var resizePopup = function() {
+    document.body.setAttribute('data-resize-popup', 'true');
+};
 
 /******************************************************************************/
 
@@ -1367,7 +1370,7 @@ uDom('#matList').on('click', '.g4Meta', function() {
         .toggleClass('g4Collapsed')
         .hasClass('g4Collapsed');
     setUISetting('popupHideBlacklisted', collapsed);
-    vAPI.resizePopup();
+    resizePopup();
 });
 
 /******************************************************************************/

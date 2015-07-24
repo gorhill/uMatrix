@@ -313,6 +313,7 @@ body.tScopeSite #scopeCell {
     padding: 6px 1px 3px 1px;
     display: inline-block;
     box-sizing: content-box;
+    -moz-box-sizing: content-box;
     width: 2.6em;
     white-space: nowrap;
     text-align: center;

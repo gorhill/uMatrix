@@ -761,11 +761,22 @@ var popupManager = (function() {
         container.classList.toggle('hide');
     };
 
+    var onResizeRequested = function() {
+        var popupBody = popup.contentWindow.document.body;
+        if ( popupBody.getAttribute('data-resize-popup') !== 'true' ) {
+            return;
+        }
+        popupBody.removeAttribute('data-resize-popup');
+        resizePopup();
+    };
+
     var onLoad = function() {
         resizePopup();
-        popupObserver.observe(popup.contentDocument.body, {
-            subtree: true,
-            attributes: true
+        var popupBody = popup.contentDocument.body;
+        popupBody.removeAttribute('data-resize-popup');
+        popupObserver.observe(popupBody, {
+            attributes: true,
+            attributesFilter: [ 'data-resize-popup' ]
         });
     };
 
@@ -788,7 +799,7 @@ var popupManager = (function() {
         popup = document.createElement('iframe');
         popup.addEventListener('load', onLoad);
         popup.setAttribute('src', 'popup.html?tabId=' + realTabId);
-        popupObserver = new MutationObserver(resizePopup);
+        popupObserver = new MutationObserver(onResizeRequested);
         container.appendChild(popup);
 
         style = document.getElementById('popupFilterer');
