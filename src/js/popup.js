@@ -369,6 +369,7 @@ function updateMatrixColors() {
         cell = cells.nodeAt(i);
         cell.className = 'matCell ' + getCellClass(cell.hostname, cell.reqType);
     }
+    resizePopup();
 }
 
 /******************************************************************************/
@@ -476,7 +477,6 @@ var endMatrixUpdate = function() {
     updateMatrixBehavior();
     matrixList.css('display', '');
     matrixList.appendTo('.paneContent');
-    resizePopup();
 };
 
 var createMatrixGroup = function() {
@@ -970,6 +970,7 @@ var makeMenu = function() {
 
     initScopeCell();
     updateMatrixButtons();
+    resizePopup();
 };
 
 /******************************************************************************/
@@ -1285,6 +1286,9 @@ var matrixSnapshotPoller = (function() {
 
     var pollAsync = function() {
         if ( timer !== null ) {
+            return;
+        }
+        if ( document.defaultView === null ) {
             return;
         }
         timer = vAPI.setTimeout(poll, 1414);

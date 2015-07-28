@@ -1970,27 +1970,40 @@ vAPI.toolbarButton = {
         };
 
         var scrollBarWidth = 0;
+        var popupCommittedWidth = 0;
+        var popupCommittedHeight = 0;
         var resizeTimer = null;
 
         var resizePopupDelayed = function(attempts) {
             if ( resizeTimer !== null ) {
-                return;
+                return false;
             }
 
             // Sanity check
             attempts = (attempts || 0) + 1;
             if ( attempts > 1/*000*/ ) {
-                console.error('uMatrix> resizePopupDelayed: giving up after too many attempts');
-                return;
+                //console.error('uMatrix> resizePopupDelayed: giving up after too many attempts');
+                return false;
             }
 
             resizeTimer = vAPI.setTimeout(resizePopup, 10, attempts);
+            return true;
         };
 
         var resizePopup = function(attempts) {
             resizeTimer = null;
-            var body = iframe.contentDocument.body;
+
             panel.parentNode.style.maxWidth = 'none';
+            var body = iframe.contentDocument.body;
+
+            // https://github.com/gorhill/uMatrix/issues/301
+            // Don't resize if committed size did not change.
+            if (
+                popupCommittedWidth === body.clientWidth &&
+                popupCommittedHeight === body.clientHeight
+            ) {
+                return;
+            }
 
             // We set a limit for height
             var height = Math.min(body.clientHeight, 600);
@@ -2017,9 +2030,15 @@ vAPI.toolbarButton = {
             }
 
             if ( iframe.clientHeight !== height || panel.clientWidth !== width ) {
-                resizePopupDelayed(attempts);
-                return;
+                if ( resizePopupDelayed(attempts) ) {
+                    return;
+                }
+                // resizePopupDelayed won't be called again, so commit
+                // dimentsions.
             }
+
+            popupCommittedWidth = body.clientWidth;
+            popupCommittedHeight = body.clientHeight;
         };
 
         var onResizeRequested = function() {
