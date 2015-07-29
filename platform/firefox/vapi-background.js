@@ -1931,8 +1931,11 @@ vAPI.toolbarButton = {
     }
 
     var tbb = vAPI.toolbarButton;
+    var popupCommittedWidth = 0;
+    var popupCommittedHeight = 0;
 
     tbb.onViewShowing = function({target}) {
+        popupCommittedWidth = popupCommittedHeight = 0;
         target.firstChild.setAttribute('src', vAPI.getURL('popup.html'));
     };
 
@@ -1970,8 +1973,6 @@ vAPI.toolbarButton = {
         };
 
         var scrollBarWidth = 0;
-        var popupCommittedWidth = 0;
-        var popupCommittedHeight = 0;
         var resizeTimer = null;
 
         var resizePopupDelayed = function(attempts) {
