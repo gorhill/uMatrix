@@ -208,7 +208,7 @@
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Scripturi",
     "description":""
   },
   "statsPageXHRs":{
@@ -232,7 +232,7 @@
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"Cereri HTTP <b>per pagină<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -240,7 +240,7 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Reîncarcă",
     "description":""
   },
   "settingsPageTitle":{
@@ -536,7 +536,7 @@
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Salvează în fișier...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -556,7 +556,7 @@
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... sau ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
