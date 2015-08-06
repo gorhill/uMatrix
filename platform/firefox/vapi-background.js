@@ -688,6 +688,11 @@ vAPI.tabs.open = function(details) {
             }
 
             this.select(tab);
+
+            // Update URL if fragment is different
+            if ( URI.equals(browser.currentURI) === false ) {
+                browser.loadURI(URI.asciiSpec);
+            }
             return;
         }
     }
@@ -1096,10 +1101,9 @@ var tabWatcher = (function() {
             return;
         }
 
-        var tabContainer = null;
-        if ( tabBrowser.tabContainer ) {
-            tabContainer = tabBrowser.tabContainer;
-        }
+        // https://github.com/gorhill/uBlock/issues/574
+        // To keep in mind: not all browser windows are tab containers.
+        var tabContainer = tabBrowser.tabContainer;
         if ( tabContainer ) {
             tabContainer.removeEventListener('TabOpen', onOpen);
             tabContainer.removeEventListener('TabShow', onShow);
@@ -1107,8 +1111,20 @@ var tabWatcher = (function() {
             tabContainer.removeEventListener('TabSelect', onSelect);
         }
 
+        // https://github.com/gorhill/uBlock/issues/574
+        // To keep in mind: not all windows are tab containers,
+        // sometimes the window IS the tab.
+        var tabs;
+        if ( tabBrowser.tabs ) {
+            tabs = tabBrowser.tabs;
+        } else if ( tabBrowser.localName === 'browser' ) {
+            tabs = [tabBrowser];
+        } else {
+            tabs = [];
+        }
+
         var browser, URI, tabId;
-        for ( var tab of tabBrowser.tabs ) {
+        for ( var tab of tabs ) {
             browser = tabWatcher.browserFromTarget(tab);
             if ( browser === null ) {
                 continue;
