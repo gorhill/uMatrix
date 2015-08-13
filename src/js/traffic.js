@@ -225,22 +225,55 @@ var onBeforeSendHeadersHandler = function(details) {
 /******************************************************************************/
 
 var foilRefererHeaders = function(µm, toHostname, details) {
-    var referer = details.requestHeaders.getHeader('referer');
-    if ( referer === '' ) {
-        return;
-    }
+    var foiled = false;
     var µmuri = µm.URI;
-    if ( µmuri.domainFromHostname(toHostname) === µmuri.domainFromURI(referer) ) {
-        return;
+    var scheme = '';
+    var toDomain = '';
+
+    var referer = details.requestHeaders.getHeader('referer');
+    if ( referer !== '' ) {
+        toDomain = toDomain || µmuri.domainFromHostname(toHostname);
+        if ( toDomain !== µmuri.domainFromURI(referer) ) {
+            scheme = scheme || µmuri.schemeFromURI(details.url);
+            //console.debug('foilRefererHeaders()> foiled referer for "%s"', details.url);
+            //console.debug('\treferrer "%s"', header.value);
+            // https://github.com/gorhill/httpswitchboard/issues/222#issuecomment-44828402
+            details.requestHeaders.setHeader(
+                'referer',
+                scheme + '://' + toHostname + '/'
+            );
+            foiled = true;
+        }
     }
-    //console.debug('foilRefererHeaders()> foiled referer for "%s"', details.url);
-    //console.debug('\treferrer "%s"', header.value);
-    // https://github.com/gorhill/httpswitchboard/issues/222#issuecomment-44828402
-    details.requestHeaders.setHeader(
-        'referer',
-        µmuri.schemeFromURI(details.url) + '://' + toHostname + '/'
-    );
-    µm.refererHeaderFoiledCounter++;
+
+    // https://github.com/gorhill/uMatrix/issues/320
+    // http://tools.ietf.org/html/rfc6454#section-7.3
+    //   "The user agent MAY include an Origin header field in any HTTP
+    //   "request.
+    //   "The user agent MUST NOT include more than one Origin header field in
+    //   "any HTTP request.
+    //   "Whenever a user agent issues an HTTP request from a "privacy-
+    //   "sensitive" context, the user agent MUST send the value "null" in the
+    //   "Origin header field."
+
+    var origin = details.requestHeaders.getHeader('origin');
+    if ( origin !== '' && origin !== 'null' ) {
+        toDomain = toDomain || µmuri.domainFromHostname(toHostname);
+        if ( toDomain !== µmuri.domainFromURI(origin) ) {
+            scheme = scheme || µmuri.schemeFromURI(details.url);
+            //console.debug('foilRefererHeaders()> foiled origin for "%s"', details.url);
+            //console.debug('\torigin "%s"', header.value);
+            details.requestHeaders.setHeader(
+                'origin',
+                scheme + '://' + toHostname
+            );
+            foiled = true;
+        }
+    }
+
+    if ( foiled ) {
+        µm.refererHeaderFoiledCounter++;
+    }
 };
 
 /******************************************************************************/
@@ -285,15 +318,94 @@ var onHeadersReceived = function(details) {
         return;
     }
 
-    // If javascript not allowed, say so through a `Content-Security-Policy`
-    // directive. We block only inline-script tags, all the external javascript
-    // will be blocked by our request handler.
-    details.responseHeaders.push({
+    // If javascript is not allowed, say so through a `Content-Security-Policy`
+    // directive.
+    // We block only inline-script tags, all the external javascript will be
+    // blocked by our request handler.
+
+    // https://github.com/gorhill/uMatrix/issues/129
+    // https://github.com/gorhill/uMatrix/issues/320
+    //   Modernize CSP injection:
+    //   - Do not overwrite blindly possibly already present CSP header
+    //   - Add CSP directive to block inline script ONLY if needed
+    //   - If we end up modifying the an existing CSP, strip out `report-uri`
+    //     to prevent spurious CSP violations.
+
+    var headers = details.responseHeaders;
+
+    // Is there a CSP header present?
+    // If not, inject a script-src CSP directive to prevent inline javascript
+    // from executing.
+    var i = headerIndexFromName('content-security-policy', headers);
+    if ( i === -1 ) {
+        headers.push({
+            'name': 'Content-Security-Policy',
+            'value': "script-src 'unsafe-eval' *"
+        });
+        return { responseHeaders: headers };
+    }
+
+    // A CSP header is already present.
+    // Remove the CSP header, we will re-inject it after processing it.
+    // TODO: We are currently forced to add the CSP header at the end of the
+    //       headers array, because this is what the platform specific code
+    //       expect (Firefox).
+    var csp = headers.splice(i, 1)[0].value.trim();
+
+    // Is there a script-src directive in the CSP header?
+    // If not, we simply need to append our script-src directive.
+    // https://github.com/gorhill/uMatrix/issues/320
+    //   Since we are modifying an existing CSP header, we need to strip out
+    //   'report-uri' if it is present, to prevent spurious reporting of CSP
+    //   violation, and thus the leakage of information to the remote site.
+    var matches = reScriptsrc.exec(csp);
+    if ( matches === null ) {
+        headers.push({
+            'name': 'Content-Security-Policy',
+            'value': cspStripReporturi(csp + "; script-src 'unsafe-eval' *")
+        });
+        return { responseHeaders: headers };
+    }
+
+    // A `script-src' directive is already present. Extract it.
+    var scriptsrc = matches[0];
+
+    // Is there at least one 'unsafe-inline' or 'nonce-' token in the
+    // script-src?
+    // If not we have no further processing to perform: inline scripts are
+    // already forbidden by the site.
+    if ( reUnsafeinline.test(scriptsrc) === false ) {
+        headers.push({
+            'name': 'Content-Security-Policy',
+            'value': csp
+        });
+        return { responseHeaders: headers };
+    }
+
+    // There are tokens enabling inline script tags in the script-src
+    // directive, so we have to strip them out.
+    // Strip out whole script-src directive, remove the offending tokens
+    // from it, then append the resulting script-src directive to the original
+    // CSP header.
+    // https://github.com/gorhill/uMatrix/issues/320
+    //   Since we are modifying an existing CSP header, we need to strip out
+    //   'report-uri' if it is present, to prevent spurious reporting of CSP
+    //   violation, and thus the leakage of information to the remote site.
+    headers.push({
         'name': 'Content-Security-Policy',
-        'value': "script-src 'unsafe-eval' *"
+        'value': cspStripReporturi(csp.replace(reScriptsrc, '') +
+                 scriptsrc.replace(reUnsafeinline, ''))
     });
-    return { responseHeaders: details.responseHeaders };
+    return { responseHeaders: headers };
 };
+
+var cspStripReporturi = function(csp) {
+    return csp.replace(reReporturi, '');
+};
+
+var reReporturi = /report-uri[^;]*;\s*/;
+var reScriptsrc = /script-src[^;]*;\s*/;
+var reUnsafeinline = /'unsafe-inline'\s*|'nonce-[^']+'\s*/g;
 
 /******************************************************************************/
 
