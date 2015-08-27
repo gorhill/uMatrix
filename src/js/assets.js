@@ -20,7 +20,6 @@
 */
 
 /* global vAPI, µMatrix, YaMD5 */
-/* jshint boss: true */
 
 /*******************************************************************************
 
@@ -449,14 +448,14 @@ var getRepoMetadata = function(callback) {
     };
 
     var onLocalChecksumsLoaded = function(details) {
-        if ( localChecksums = validateChecksums(details) ) {
+        if ( (localChecksums = validateChecksums(details)) ) {
             parseChecksums(localChecksums, 'local');
         }
         checksumsReceived();
     };
 
     var onRepoChecksumsLoaded = function(details) {
-        if ( repoChecksums = validateChecksums(details) ) {
+        if ( (repoChecksums = validateChecksums(details)) ) {
             parseChecksums(repoChecksums, 'repo');
         }
         checksumsReceived();
@@ -1011,7 +1010,10 @@ exports.get = function(path, callback) {
         }
 
         // Asset is repo copy of external content
-        if ( stringIsNotEmpty(homeURLs[path]) ) {
+        if (
+            homeURLs.hasOwnProperty(path) &&
+            stringIsNotEmpty(homeURLs[path])
+        ) {
             readRepoCopyAsset(path, callback);
             return;
         }
@@ -1056,8 +1058,10 @@ exports.metadata = function(callback) {
                 continue;
             }
             entry = out[path];
-            entry.cacheObsolete = stringIsNotEmpty(homeURLs[path]) &&
-                                  cacheIsObsolete(entry.lastModified);
+            entry.cacheObsolete =
+                homeURLs.hasOwnProperty(path) &&
+                stringIsNotEmpty(homeURLs[path]) &&
+                cacheIsObsolete(entry.lastModified || 0);
         }
         callback(out);
     };

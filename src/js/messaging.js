@@ -20,7 +20,6 @@
 */
 
 /* global µMatrix, vAPI */
-/* jshint boss: true */
 
 /******************************************************************************/
 /******************************************************************************/
@@ -88,6 +87,9 @@ function onMessage(request, sender, callback) {
         break;
 
     case 'userSettings':
+        if ( request.hasOwnProperty('value') === false ) {
+            request.value = undefined;
+        }
         response = µm.changeUserSettings(request.name, request.value);
         break;
 

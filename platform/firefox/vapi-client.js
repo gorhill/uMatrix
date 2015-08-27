@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* jshint boss: true, esnext: true */
+/* jshint esnext: true */
 /* global addMessageListener, removeMessageListener, sendAsyncMessage */
 
 // For non background pages
@@ -55,7 +55,7 @@ vAPI.shutdown = (function() {
     var exec = function() {
         //console.debug('Shutting down...');
         var job;
-        while ( job = jobs.pop() ) {
+        while ( (job = jobs.pop()) ) {
             job();
         }
     };
@@ -76,7 +76,7 @@ var messagingConnector = function(response) {
     var channels = vAPI.messaging.channels;
     var channel, listener;
 
-    if ( response.broadcast === true && !response.channelName ) {
+    if ( response.broadcast && !response.channelName ) {
         for ( channel in channels ) {
             if ( channels.hasOwnProperty(channel) === false ) {
                 continue;
@@ -121,7 +121,7 @@ vAPI.messaging = {
 
         this.channels.vAPI = {
             listener: function(msg) {
-                if ( msg.cmd === 'injectScript' ) {
+                if ( typeof msg.cmd === 'string' && msg.cmd === 'injectScript' ) {
                     var details = msg.details;
                     if ( !details.allFrames && window !== window.top ) {
                         return;

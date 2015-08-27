@@ -19,7 +19,6 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* jshint boss: true */
 /* global chrome, µMatrix, punycode, publicSuffixList */
 
 /******************************************************************************/
@@ -111,7 +110,7 @@
         var oldLocation, newLocation;
         var availableEntry, storedEntry;
 
-        while ( oldLocation = locations.pop() ) {
+        while ( (oldLocation = locations.pop()) ) {
             newLocation = redirections[oldLocation] || oldLocation;
             availableEntry = availableHostsFiles[newLocation];
             if ( availableEntry === undefined ) {
@@ -119,7 +118,7 @@
             }
             storedEntry = lists[oldLocation] || {};
             availableEntry.off = storedEntry.off || false;
-            µm.assets.setHomeURL(newLocation, availableEntry.homeURL);
+            µm.assets.setHomeURL(newLocation, availableEntry.homeURL || '');
             if ( storedEntry.entryCount !== undefined ) {
                 availableEntry.entryCount = storedEntry.entryCount;
             }
@@ -225,7 +224,7 @@
 
         // Load all hosts file which are not disabled.
         var location;
-        while ( location = locations.pop() ) {
+        while ( (location = locations.pop()) ) {
             if ( hostsFiles[location].off ) {
                 hostsFileLoadCount -= 1;
                 continue;

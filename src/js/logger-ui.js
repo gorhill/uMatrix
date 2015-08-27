@@ -19,7 +19,6 @@
     Home: https://github.com/gorhill/sessbench
 */
 
-/* jshint boss: true */
 /* global vAPI, uDom */
 
 /******************************************************************************/
@@ -205,7 +204,7 @@ var createRow = function(layout) {
         td.setAttribute('colspan', span);
     }
     index += 1;
-    while ( td = tr.cells[index] ) {
+    while ( (td = tr.cells[index]) ) {
         tdJunkyard.push(tr.removeChild(td));
     }
     return tr;

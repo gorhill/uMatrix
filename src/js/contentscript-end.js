@@ -20,7 +20,7 @@
 */
 
 /* global vAPI */
-/* jshint multistr: true, boss: true */
+/* jshint multistr: true */
 
 /******************************************************************************/
 /******************************************************************************/
@@ -344,7 +344,7 @@ var collapser = (function() {
 var hasInlineScript = function(nodeList, summary) {
     var i = 0;
     var node, text;
-    while ( node = nodeList.item(i++) ) {
+    while ( (node = nodeList.item(i++)) ) {
         if ( node.nodeType !== 1 ) {
             continue;
         }

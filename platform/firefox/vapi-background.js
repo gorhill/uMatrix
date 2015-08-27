@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* jshint bitwise: false, boss: true, esnext: true */
+/* jshint bitwise: false, esnext: true */
 /* global self, Components, punycode, µBlock */
 
 // For background page
@@ -355,7 +355,7 @@ vAPI.storage = (function() {
 
                 var row;
 
-                while ( row = rows.getNextRow() ) {
+                while ( (row = rows.getNextRow()) ) {
                     // we assume that there will be two columns, since we're
                     // using it only for preferences
                     result[row.getResultByIndex(0)] = row.getResultByIndex(1);
@@ -713,7 +713,7 @@ vAPI.tabs.open = function(details) {
     var tabBrowser = getTabBrowser(win);
 
     // Open in a standalone window
-    if ( details.popup === true ) {
+    if ( details.popup ) {
         Services.ww.openWindow(
             self,
             details.url,
