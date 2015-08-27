@@ -40,7 +40,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"Cookie",
+    "message":"cookie",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -100,7 +100,7 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"严格HTTPS策略",
+    "message":"严格 HTTPS 策略",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{

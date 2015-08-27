@@ -160,7 +160,7 @@
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Tutto",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -300,7 +300,7 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Mostra il numero di richieste sull'icona",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
@@ -320,7 +320,7 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"Elimina i cookie di sessione non bloccati ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
@@ -340,11 +340,11 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Elimina la cache del browser ogni",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"minuti.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -380,7 +380,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"minuti.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -452,7 +452,7 @@
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"Ultimo aggiornamento: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
@@ -572,7 +572,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Numero massimo di voci",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
@@ -580,7 +580,7 @@
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"cookie eliminato: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
@@ -600,15 +600,15 @@
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"A causa della regola seguente",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Torna indietro",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Chiudi",
     "description":"English: Close"
   },
   "commandRevertAll":{
@@ -628,7 +628,7 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"un minuto fa",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
@@ -636,23 +636,23 @@
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"un'ora fa",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"{{value}} ore fa",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"un giorno fa",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"{{value}} giorni fa",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Pannello di controllo",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{

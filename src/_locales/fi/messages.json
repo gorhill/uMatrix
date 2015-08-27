@@ -112,15 +112,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Kumoa kaikki väliaikaiset muutokset",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Siirry lokiin",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Siirry hallintapaneeliin",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -128,7 +128,7 @@
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Yleiset tilastot",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -156,7 +156,7 @@
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Yksityiskohtaiset tilastot",
     "description":""
   },
   "statsPageDetailedAllPages":{
@@ -168,7 +168,7 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Yhteenveto",
     "description":""
   },
   "statsPageRequests":{
@@ -176,11 +176,11 @@
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Sallittu",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Estetty",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
@@ -188,11 +188,11 @@
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Sivut",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Evästeet",
     "description":""
   },
   "statsPageCSS":{
@@ -204,11 +204,11 @@
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Laajennukset",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Komentosarjat",
     "description":""
   },
   "statsPageXHRs":{
@@ -220,7 +220,7 @@
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Muut",
     "description":""
   },
   "statsPageDetailed":{
@@ -240,7 +240,7 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Päivitä",
     "description":""
   },
   "settingsPageTitle":{
@@ -248,19 +248,19 @@
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Ulkoasu",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Tekstikoko:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Normaali",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Suuri",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
@@ -276,15 +276,15 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"Ei mitään",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"Nykyinen",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Kaikki",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -296,7 +296,7 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Läpinäkyvyys",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
@@ -412,23 +412,23 @@
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Muokkaa",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Tallenna",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Hylkää",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Tuo tiedostosta...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Vie tiedostoon...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -456,7 +456,7 @@
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Käytä muutoksia",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
@@ -464,7 +464,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Päivitä nyt",
     "description":""
   },
   "hostsFilesPurgeAll":{
@@ -476,7 +476,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Parsi",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -484,7 +484,7 @@
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"uusi versio saatavilla",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
@@ -508,35 +508,35 @@
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Lähdekoodi (GPLv3)",
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"Bugit ja ongelmat",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Kehittäjät ja avustajat",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Koodi:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"Ongelmat:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Käännökset:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"Tietosi",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Varmuuskopioi tiedostoon...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -544,7 +544,7 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Palauta tiedostosta...",
     "description":""
   },
   "aboutRestoreConfirm":{
@@ -604,7 +604,7 @@
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Palaa",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
