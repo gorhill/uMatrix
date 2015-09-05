@@ -24,11 +24,11 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"Правила",
+    "message":"Мои правила",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Списки сайтов",
+    "message":"Файлы хостов",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -72,7 +72,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"Нет сетевой активности.",
+    "message":"Нет сетевой активности на этой вкладке.",
     "description":""
   },
   "matrixMtxButtonTip":{
@@ -80,23 +80,23 @@
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Утвердить временные правила области",
+    "message":"Сохранить все временные изменения в этой области.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Отменить временные правила области",
+    "message":"Отменить временные изменения для этой области.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Обновить текущую страницу",
+    "message":"Перезагрузить страницу.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"текущий сайт",
+    "message":"главный домен",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"запрещённые сайты: {{count}}",
+    "message":"{{count}} хостов в черном списке",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -112,7 +112,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Отменить все временные правила",
+    "message":"Отменить все временные изменения",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
@@ -120,7 +120,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Панель управления",
+    "message":"Перейти в панель управления",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -152,7 +152,7 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Кэш браузера очищен {{count}} раз(а)",
+    "message":"Очищено кэшей браузера: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
@@ -228,15 +228,15 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Выводить",
+    "message":"Запоминать последние",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"записей <b>на страницу<\/b>.",
+    "message":"HTTP запросов <b>на страницу<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Вы можете узнать подробности о последних HTTP-запросах, сделанных веб-страницей (смотрите ниже).<\/p><p>Это может пригодиться опытным пользователям, которые хотят получить сведения о том, что именно делает страница. Однако ведение журнала запросов увеличивает количество потребляемой памяти. Поэтому, если эта информация вас не интересует, данную возможность следует отключить.<\/p><p>В этом поле указывается количество последних запросов, которые будут журналироваться.<\/p><p>Значение &ldquo;<code>0<\/code>&rdquo; отключает ведение журнала запросов и, как следствие, уменьшает количество потребляемой памяти.<\/p>",
+    "message":"<p>Вы можете детально изучить последние необработанные HTTP запросы, которые были сделаны веб-страницей (см. ниже).<\/p><p>Это особенно полезно для продвинутых пользователей, которые хотят узнать, что конкретно делала веб-страница. Однако журналирование этих HTTP запросов увеличивает потребление памяти, и если вас не интересует эта техническая информация, то это - трата памяти.<\/p><p>Это поле позволяет вам настроить максимальное число последних HTTP запросов, которые будут храниться в журнале для последующего изучения.<\/p><p>Введите &ldquo;<code>0<\/code>&rdquo; чтобы отключить журналирование (и соответственно уменьшить потребление памяти <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -252,7 +252,7 @@
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Размер шрифта:",
+    "message":"Размер текста:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
@@ -272,23 +272,23 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Обновлять вкладки после закрытия панели:",
+    "message":"Когда матрица закроется, обновить эти вкладки:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"ни одной",
+    "message":"(Пусто)",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"текущую",
+    "message":"Текущая версия",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"все",
+    "message":"Все",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Если внесённые изменения влияют на отображение и\/или поведение одной или нескольких веб-страниц, <i>uMatrix<\/i> автоматически обновит их после закрытия панели.",
+    "message":"Когда вы вносите изменения в матрицу запросов, которые могут повлиять на отображение и\/или поведение одной или нескольких страниц, <i>uMatrix<\/i> перезагрузит эти страницы автоматически, когда вы закроете панель.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -296,35 +296,39 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Затенение",
+    "message":"Непрозрачность",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Показывать количество обработанных запросов на иконке",
+    "message":"Показывать число отдельных запросов на иконке",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
     "message":"Скрывать оставшееся от заблокированных элементов место",
     "description":"English: Collapse placeholder of blocked elements"
   },
+  "settingsCloudStorageEnabled":{
+    "message":"Enable cloud storage support",
+    "description":""
+  },
   "privacyPageTitle":{
     "message":"uMatrix &ndash; Приватность",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Удалять запрещённые файлы cookie.",
+    "message":"Удалять заблокированные куки.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Все файлы cookie сохраняются в браузере. Однако запрещённые файлы cookie никогда не покидают его — вот что действительно важно. Сохранение файлов cookie даёт возможность узнать о том, что сайт пытался их использовать, и, кроме того, позволяет исследовать их содержимое.<\/p><p>При включении данной опции запрещённые файлы cookie будут удалены сразу при обнаружении.<\/p><p><b>Важное замечание:<\/b> некоторые расширения посылают сетевые запросы. Результатом этих запросов может стать сохранение файлов cookie. Если данная опция включена и сайт, который использует файлы cookie, запрещён, то файлы cookie с этого сайта будут удалены. Поэтому следует убедиться, что все сайты, к которым обращается расширение, занесены в белый список.<\/p>",
+    "message":"<p>Запрещенные куки не блокируются <i>uMatrix<\/i> при входе в ваш браузер. Однако их передача из браузера предотвращается - вот что действительно важно. Неблокировка куки файлов до того, как они сохраняются браузером дает вам возможность узнать, что сайт пытался использовать куки, и потом изучить их содержимое, если вы хотите.<\/p><p>Как только эти запрещенные куки составлены <i>uMatrix<\/i>, они могут быть удалены из браузера, по вашему желанию.<\/p><p><b>Важное замечание:<\/b> Расширения могут осуществлять веб-запросы во время своей обычной работы. Эти запросы могут порождать создание куки файлов в браузере. Если имя хоста (сайта), от которого создается куки не в белом списке, то <i>uMatrix<\/i> удалит эти куки из браузера, если эта опция включена. Поэтому убедитесь, что имена хостов (сайтов) с которыми соединяется расширение добавлено в белый список.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Удалять сеансовые файлы cookie через",
+    "message":"Удалять незаблокированные сессионные куки через ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":"минут после последнего использования.",
+    "message":" минут после последнего использования.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -336,7 +340,7 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"Список заданий",
+    "message":"Планируется сделать",
     "description":""
   },
   "privacyClearCachePrompt1":{
@@ -368,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Запретить отсылку запросов для <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>проверки гиперссылок<\/a>.",
+    "message":"Блокировать все попытки <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудита гиперссылок<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
@@ -376,7 +380,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Менять строку <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a> каждые",
+    "message":"Подменять строку <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a>, случайно выбирая из расположенных снизу, каждые",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -420,7 +424,7 @@
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Отклонить",
+    "message":"Сбросить",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
@@ -428,7 +432,7 @@
     "description":""
   },
   "userRulesExport":{
-    "message":"Сохранить как...",
+    "message":"Экспорт в файл...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -444,11 +448,11 @@
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} запрещённых сайтов из следующих списков:",
+    "message":"{{blockedHostnameCount}} отдельных хостов заблокировано из:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} используется из {{total}}",
+    "message":"{{used}} использовано из {{total}}",
     "description":""
   },
   "hostsFilesLastUpdate":{
@@ -464,11 +468,11 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Обновить",
+    "message":"Обновить сейчас",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Удалить обновления",
+    "message":"Очистить все кэши",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -480,11 +484,11 @@
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"удалить обновление",
+    "message":"очистить кэш",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"доступно обновление",
+    "message":"доступна новая версия",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
@@ -512,7 +516,7 @@
     "description":""
   },
   "aboutIssues":{
-    "message":"Ошибки и предложения",
+    "message":"Баги и проблемы",
     "description":""
   },
   "aboutContributors":{
@@ -520,23 +524,23 @@
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Программисты:",
+    "message":"Код:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Предложения:",
+    "message":"Проблемы:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"﻿Перевод:",
+    "message":"﻿Переводы:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Ваши настройки",
+    "message":"Ваши данные",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Сохранить как...",
+    "message":"Сделать резервный файл...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -544,11 +548,11 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Загрузить из файла...",
+    "message":"Восстановить из файла...",
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Возврат настроек к состоянию на {{time}}.\n\nВы уверены, что хотите перезаписать существующие настройки?",
+    "message":"Все ваши настройки будут перезаписаны резервными данными от {{time}}, и uMatrix перезагрузится.\n\nИзменить все настройки, используя эту резервную копию?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -560,31 +564,31 @@
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Сброс настроек",
+    "message":"Сброс до настроек по умолчанию",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Внимание! Все настройки будут сброшены. Вы уверены, что хотите продолжить?",
+    "message":"Внимание! Это сбросит все ваши ручные настройки. Вы уверены, что хотите продолжить?",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"фильтр запросов",
+    "message":"фильтровать выражение(я)",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Максимальное количество записей",
+    "message":"Максимальное число записей",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"строка user-agent заменена на: {{value}}",
+    "message":"строка user-agent подменена на: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"файл cookie удалён: {{value}}",
+    "message":"куки удален: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"не удалось удалить файл cookie: {{value}}",
+    "message":"не удалось удалить куки: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
@@ -592,11 +596,11 @@
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"обновлён список запрещённых сайтов: {{value}}",
+    "message":"актив обновлен: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix предотвратил загрузку страницы:",
+    "message":"uMatrix предотвратил загрузку следующей страницы:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
@@ -612,7 +616,7 @@
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Отменить все временные правила",
+    "message":"Отменить все временные изменения",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -620,7 +624,7 @@
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Временно разрешить всё",
+    "message":"Временно добавить все в белый список",
     "description":""
   },
   "commandOpenDashboard":{
@@ -659,8 +663,32 @@
     "message":"Журнал запросов",
     "description":"Appears in Firefox's add-on preferences"
   },
+  "cloudPush":{
+    "message":"Export to cloud storage",
+    "description":"tooltip"
+  },
+  "cloudPull":{
+    "message":"Import from cloud storage",
+    "description":"tooltip"
+  },
+  "cloudNoData":{
+    "message":"...\n...",
+    "description":""
+  },
+  "cloudDeviceNamePrompt":{
+    "message":"This device name:",
+    "description":"used as a prompt for the user to provide a custom device name"
+  },
+  "genericSubmit":{
+    "message":"Submit",
+    "description":"for generic 'submit' buttons"
+  },
+  "genericRevert":{
+    "message":"Revert",
+    "description":"for generic 'revert' buttons"
+  },
   "errorCantConnectTo":{
-    "message":"Ошибка сети: не удаётся соединиться с {{url}}",
+    "message":"Ошибка сети: Не удается соединиться с {{url}}",
     "description":""
   }
 }
