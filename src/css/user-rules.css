@@ -17,6 +17,7 @@ div > p:last-child {
     margin: 0;
     padding: 0;
     position: relative;
+    vertical-align: top;
     white-space: normal;
     width: calc(50% - 2px);
     }

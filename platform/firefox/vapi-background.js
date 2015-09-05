@@ -2851,6 +2851,125 @@ vAPI.punycodeURL = function(url) {
 /******************************************************************************/
 /******************************************************************************/
 
+vAPI.cloud = (function() {
+    var extensionBranchPath = 'extensions.' + location.host;
+    var cloudBranchPath = extensionBranchPath + '.cloudStorage';
+
+    // https://github.com/gorhill/uBlock/issues/80#issuecomment-132081658
+    //   We must use get/setComplexValue in order to properly handle strings
+    //   with unicode characters.
+    var iss = Ci.nsISupportsString;
+    var argstr = Components.classes['@mozilla.org/supports-string;1']
+                           .createInstance(iss);
+
+    var options = {
+        defaultDeviceName: '',
+        deviceName: ''
+    };
+
+    // User-supplied device name.
+    try {
+        options.deviceName = Services.prefs
+                                     .getBranch(extensionBranchPath + '.')
+                                     .getComplexValue('deviceName', iss)
+                                     .data;
+    } catch(ex) {
+    }
+
+    var getDefaultDeviceName = function() {
+        var name = '';
+        try {
+            name = Services.prefs
+                           .getBranch('services.sync.client.')
+                           .getComplexValue('name', iss)
+                           .data;
+        } catch(ex) {
+        }
+
+        return name || window.navigator.platform || window.navigator.oscpu;
+    };
+
+    var start = function(dataKeys) {
+        var extensionBranch = Services.prefs.getBranch(extensionBranchPath + '.');
+        var syncBranch = Services.prefs.getBranch('services.sync.prefs.sync.');
+
+        // Mark config entries as syncable
+        argstr.data = '';
+        var dataKey;
+        for ( var i = 0; i < dataKeys.length; i++ ) {
+            dataKey = dataKeys[i];
+            if ( extensionBranch.prefHasUserValue('cloudStorage.' + dataKey) === false ) {
+                extensionBranch.setComplexValue('cloudStorage.' + dataKey, iss, argstr);
+            }
+            syncBranch.setBoolPref(cloudBranchPath + '.' + dataKey, true);
+        }
+    };
+
+    var push = function(datakey, data, callback) {
+        var branch = Services.prefs.getBranch(cloudBranchPath + '.');
+        var bin = {
+            'source': options.deviceName || getDefaultDeviceName(),
+            'tstamp': Date.now(),
+            'data': data,
+            'size': 0
+        };
+        bin.size = JSON.stringify(bin).length;
+        argstr.data = JSON.stringify(bin);
+        branch.setComplexValue(datakey, iss, argstr);
+        if ( typeof callback === 'function' ) {
+            callback();
+        }
+    };
+
+    var pull = function(datakey, callback) {
+        var result = null;
+        var branch = Services.prefs.getBranch(cloudBranchPath + '.');
+        try {
+            var json = branch.getComplexValue(datakey, iss).data;
+            if ( typeof json === 'string' ) {
+                result = JSON.parse(json);
+            }
+        } catch(ex) {
+        }
+        callback(result);
+    };
+
+    var getOptions = function(callback) {
+        if ( typeof callback !== 'function' ) {
+            return;
+        }
+        options.defaultDeviceName = getDefaultDeviceName();
+        callback(options);
+    };
+
+    var setOptions = function(details, callback) {
+        if ( typeof details !== 'object' || details === null ) {
+            return;
+        }
+
+        var branch = Services.prefs.getBranch(extensionBranchPath + '.');
+
+        if ( typeof details.deviceName === 'string' ) {
+            argstr.data = details.deviceName;
+            branch.setComplexValue('deviceName', iss, argstr);
+            options.deviceName = details.deviceName;
+        }
+
+        getOptions(callback);
+    };
+
+    return {
+        start: start,
+        push: push,
+        pull: pull,
+        getOptions: getOptions,
+        setOptions: setOptions
+    };
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
 vAPI.browserData = {};
 
 /******************************************************************************/

@@ -314,7 +314,10 @@
         "message": "Collapse placeholder of blocked elements",
         "description": "English: Collapse placeholder of blocked elements"
     },
-
+    "settingsCloudStorageEnabled" : {
+        "message": "Enable cloud storage support",
+        "description": ""
+    },
 
     "privacyPageTitle" : {
         "message": "uMatrix &ndash; Privacy",
@@ -678,6 +681,31 @@
     "showLoggerButton":{
         "message":"Logger",
         "description":"Appears in Firefox's add-on preferences"
+    },
+
+    "cloudPush": {
+        "message": "Export to cloud storage",
+        "description": "tooltip"
+    },
+    "cloudPull": {
+        "message": "Import from cloud storage",
+        "description": "tooltip"
+    },
+    "cloudNoData": {
+        "message": "...\n...",
+        "description": ""
+    },
+    "cloudDeviceNamePrompt": {
+        "message": "This device name:",
+        "description": "used as a prompt for the user to provide a custom device name"
+    },
+    "genericSubmit": {
+        "message": "Submit",
+        "description": "for generic 'submit' buttons"
+    },
+    "genericRevert": {
+        "message": "Revert",
+        "description": "for generic 'revert' buttons"
     },
 
     "errorCantConnectTo":{

@@ -104,6 +104,7 @@ return {
         autoUpdate: false,
         clearBrowserCache: true,
         clearBrowserCacheAfter: 60,
+        cloudStorageEnabled: false,
         collapseBlocked: false,
         colorBlindFriendly: false,
         deleteCookies: false,

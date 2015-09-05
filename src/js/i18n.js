@@ -19,6 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* global vAPI, uDom */
+
 /******************************************************************************/
 
 // This file should always be included at the end of the `body` tag, so as
@@ -30,46 +32,32 @@
 
 /******************************************************************************/
 
-var text;
+// Helper to deal with the i18n'ing of HTML files.
+vAPI.i18n.render = function(context) {
+    uDom('[data-i18n]', context).forEach(function(elem) {
+        elem.html(vAPI.i18n(elem.attr('data-i18n')));
+    });
 
-var nodeList = document.querySelectorAll('[data-i18n]');
-var i = nodeList.length;
-var node;
-while ( i-- ) {
-    node = nodeList[i];
-    vAPI.insertHTML(node, vAPI.i18n(node.getAttribute('data-i18n')));
-}
+    uDom('[title]', context).forEach(function(elem) {
+        var title = vAPI.i18n(elem.attr('title'));
+        if ( title ) {
+            elem.attr('title', title);
+        }
+    });
 
-// copy text of <h1> if any to document title
-node = document.querySelector('h1');
-if ( node !== null ) {
-    document.title = node.textContent;
-}
+    uDom('[placeholder]', context).forEach(function(elem) {
+        elem.attr('placeholder', vAPI.i18n(elem.attr('placeholder')));
+    });
 
-// Tool tips
-nodeList = document.querySelectorAll('[data-i18n-tip]');
-i = nodeList.length;
-while ( i-- ) {
-    node = nodeList[i];
-    node.setAttribute('data-tip', vAPI.i18n(node.getAttribute('data-i18n-tip')));
-}
-nodeList = document.querySelectorAll('[title]');
-i = nodeList.length;
-while ( i-- ) {
-    node = nodeList[i];
-    text = node.getAttribute('title');
-    node.setAttribute('title', vAPI.i18n(text) || text);
-}
+    uDom('[data-i18n-tip]', context).forEach(function(elem) {
+        elem.attr(
+            'data-tip',
+            vAPI.i18n(elem.attr('data-i18n-tip')).replace(/<br>/g, '\n').replace(/\n{3,}/g, '\n\n')
+        );
+    });
+};
 
-nodeList = document.querySelectorAll('input[placeholder]');
-i = nodeList.length;
-while ( i-- ) {
-    node = nodeList[i];
-    node.setAttribute(
-        'placeholder',
-        vAPI.i18n(node.getAttribute('placeholder')) || ''
-    );
-}
+vAPI.i18n.render();
 
 /******************************************************************************/
 

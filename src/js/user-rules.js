@@ -59,13 +59,17 @@ var processUserRules = function(response) {
     i = rules.length;
     while ( i-- ) {
         rule = rules[i].trim();
-        permanentRules[rule] = allRules[rule] = true;
+        if ( rule.length !== 0 ) {
+            permanentRules[rule] = allRules[rule] = true;
+        }
     }
     rules = response.temporaryRules.split(/\n+/);
     i = rules.length;
     while ( i-- ) {
         rule = rules[i].trim();
-        temporaryRules[rule] = allRules[rule] = true;
+        if ( rule.length !== 0 ) {
+            temporaryRules[rule] = allRules[rule] = true;
+        }
     }
     rules = Object.keys(allRules).sort(directiveSort);
     for ( i = 0; i < rules.length; i++ ) {
@@ -78,7 +82,7 @@ var processUserRules = function(response) {
         } else if ( onLeft ) {
             permanentList.push('<li>', rule);
             temporaryList.push('<li class="notRight toRemove">', rule);
-        } else {
+        } else if ( onRight ) {
             permanentList.push('<li>&nbsp;');
             temporaryList.push('<li class="notLeft">', rule);
         }
@@ -153,7 +157,7 @@ var fromNoScript = function(content) {
 
 /******************************************************************************/
 
-function handleImportFilePicker() {
+var handleImportFilePicker = function() {
     var fileReaderOnLoadHandler = function() {
         if ( typeof this.result !== 'string' || this.result === '' ) {
             return;
@@ -181,7 +185,7 @@ function handleImportFilePicker() {
     var fr = new FileReader();
     fr.onload = fileReaderOnLoadHandler;
     fr.readAsText(file);
-}
+};
 
 /******************************************************************************/
 
@@ -275,6 +279,26 @@ var temporaryRulesToggler = function(ev) {
     var request = {
         'what': 'setUserRules',
         'temporaryRules': rulesFromHTML('#diff .right li')
+    };
+    messager.send(request, processUserRules);
+};
+
+/******************************************************************************/
+
+self.cloud.onPush = function() {
+    return rulesFromHTML('#diff .left li');
+};
+
+self.cloud.onPull = function(data, append) {
+    if ( typeof data !== 'string' ) {
+        return;
+    }
+    if ( append ) {
+        data = rulesFromHTML('#diff .right li') + '\n' + data;
+    }
+    var request = {
+        'what': 'setUserRules',
+        'temporaryRules': data
     };
     messager.send(request, processUserRules);
 };
