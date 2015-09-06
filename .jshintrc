@@ -1,0 +1,6 @@
+{
+	"browser": true,
+	"esnext": true,
+	"globals": {
+	}
+}
