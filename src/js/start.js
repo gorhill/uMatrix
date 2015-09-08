@@ -117,6 +117,10 @@ var onAllDone = function() {
             vAPI.localStorage.setItem(key, defaultLocalUserSettings[key]);
         }
     }
+
+    vAPI.cloud.start([
+        'myRulesPane'
+    ]);
 };
 
 var onTabsReady = function(tabs) {
