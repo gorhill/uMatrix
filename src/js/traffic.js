@@ -403,8 +403,8 @@ var cspStripReporturi = function(csp) {
     return csp.replace(reReporturi, '');
 };
 
-var reReporturi = /report-uri[^;]*;\s*/;
-var reScriptsrc = /script-src[^;]*;\s*/;
+var reReporturi = /report-uri[^;]*;?\s*/;
+var reScriptsrc = /script-src[^;]*;?\s*/;
 var reUnsafeinline = /'unsafe-inline'\s*|'nonce-[^']+'\s*/g;
 
 /******************************************************************************/
