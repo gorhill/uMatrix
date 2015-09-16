@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Enable cloud storage support",
+    "message":"Fungsikan dukungan penyimpanan awan",
     "description":""
   },
   "privacyPageTitle":{
@@ -664,11 +664,11 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"Ekspor ke penyimpanan awan",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"Impor dari penyimpanan awan",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -676,15 +676,15 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Nama perangkat ini:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"Kirim",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Kembalikan",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{

@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Enable cloud storage support",
+    "message":"Включить поддержку облачного хоанилища",
     "description":""
   },
   "privacyPageTitle":{
@@ -664,11 +664,11 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"Экспорт в облачное хранилище",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"Импорт из облачного хранилища",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -676,15 +676,15 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Имя этого устройства:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"Принять",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Вернуть",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
