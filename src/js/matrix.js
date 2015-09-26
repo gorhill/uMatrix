@@ -26,6 +26,8 @@
 
 µMatrix.Matrix = (function() {
 
+'use strict';
+
 /******************************************************************************/
 
 var µm = µMatrix;
@@ -167,13 +169,22 @@ var toBroaderHostname = function(hostname) {
         return '';
     }
     if ( isIPAddress(hostname) ) {
-        return '*';
+        return toBroaderIPAddress(hostname);
     }
     var pos = hostname.indexOf('.');
     if ( pos === -1 ) {
         return '*';
     }
     return hostname.slice(pos + 1);
+};
+
+var toBroaderIPAddress = function(ipaddress) {
+    // Can't broaden IPv6 (for now)
+    if ( ipaddress.charAt(0) === '[' ) {
+        return '*';
+    }
+    var pos = ipaddress.lastIndexOf('.');
+    return pos !== -1 ? ipaddress.slice(0, pos) : '*';
 };
 
 Matrix.toBroaderHostname = toBroaderHostname;
