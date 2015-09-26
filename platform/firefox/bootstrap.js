@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global ADDON_UNINSTALL, APP_SHUTDOWN, APP_STARTUP */
+/* global ADDON_UNINSTALL, APP_SHUTDOWN */
 /* exported startup, shutdown, install, uninstall */
 
 'use strict';
@@ -46,7 +46,7 @@ const restartListener = {
 
 /******************************************************************************/
 
-function startup(data, reason) {
+function startup(data/*, reason*/) {
     if ( data !== undefined ) {
         version = data.version;
     }
@@ -84,7 +84,13 @@ function startup(data, reason) {
         );
     };
 
-    if ( reason !== APP_STARTUP ) {
+    var ready = false;
+    try {
+        ready = appShell.hiddenDOMWindow &&
+                appShell.hiddenDOMWindow.document;
+    } catch (ex) {
+    }
+    if ( ready ) {
         onReady();
         return;
     }
@@ -99,7 +105,7 @@ function startup(data, reason) {
             }
 
             try {
-                appShell.hiddenDOMWindow;
+                void appShell.hiddenDOMWindow;
             } catch (ex) {
                 return;
             }
