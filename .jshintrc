@@ -1,6 +1,12 @@
 {
 	"browser": true,
 	"esnext": true,
+	"globalstrict": true,
 	"globals": {
+		"self": false,
+		"vAPI": false,
+		"chrome": false,
+		"safari": false,
+		"Components": false // global variable in Firefox
 	}
 }
