@@ -1,6 +1,6 @@
 {
   "extName":{
-    "message":"uMatrix",
+    "message":"യുമാട്രിക്സ്‌",
     "description":""
   },
   "extShortDesc":{
@@ -8,223 +8,223 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"യുമാട്രിക്സ്‌ — ഡാഷ്ബോര്‍ഡ്",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"സെറ്റിംഗ്സ്",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"പ്രൈവസി",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"സ്റ്ററ്റിസ്റ്റിക്സ്‌",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"എന്‍റെ നിയമങ്ങള്‍",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"ഹോസ്റ്റ് ഫയലുകള്‍",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"യുമാട്രിക്സിനെ കുറിച്ച്",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"എല്ലാം",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"കുക്കി",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"css",
+    "message":"സിഎസ്എസ്‌",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"ചിത്രം",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"പ്ലഗ്ഗിന്‍",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"സ്ക്രിപ്റ്റ്",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
-    "message":"XHR",
+    "message":"എക്സ്‌എച്ച്ആര്‍",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"ഫ്രെയിം",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"മറ്റുള്ളവ",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"ഈ ടാബില്‍ ഇതുവരെ ഒരു ഗതാഗതവും ഉണ്ടായിട്ടില്ല.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"ഈ സ്കോപ്പില്‍ മാട്രിക്സ്‌ ഫില്‍ട്ടറിംഗ് എനേബിള്‍\/ഡിസേബിള്‍ ചെയ്യുക.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"ഈ സ്കോപ്പിലെ എല്ലാ താത്കാലിക മാറ്റങ്ങളും സൂക്ഷിക്കുക.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"ഈ സ്കോപ്പിലെ എല്ലാ താത്കാലിക മാറ്റങ്ങളും ഉപേക്ഷിക്കുക.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"പേജ്‌ ഒന്നു കൂടി ലോഡ് ചെയ്യുക.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"ഒന്നാം കക്ഷി",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}} കരിംപട്ടികയില്‍ ഉള്ള ഹോസ്റ്റുകള്‍",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"സ്ട്രിക്റ്റ് എച്ച്ടിടിപിഎസ്",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"യൂസര്‍ ഏജന്റ്റ് അനുകരിക്കുക",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"റഫറര്‍ അനുകരണം",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"എല്ലാ താത്കാലിക മാറ്റങ്ങളും ഉപേക്ഷിക്കുക",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"ലോഗ്ഗറിലേക്ക് പോകുക",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"ഡാഷ്ബോര്‍ഡിലേക്ക് പോകുക",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"യുമാട്രിക്സ്‌ &ndash; സ്റ്ററ്റിസ്റ്റിക്സ്‌",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"ജനറിക്ക് സ്റ്ററ്റിസ്റ്റിക്സ്‌",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>എച്ച്റ്റിറ്റിപി കുക്കി<\/a> തടഞ്ഞ ഹെഡറുകള്‍: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers foiled: {{count}}",
+    "message":"തടഞ്ഞ <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>എച്ച്റ്റിറ്റിപി<\/a> ഹെഡറുകള്‍:{{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> attempts foiled: {{count}}",
+    "message":"തടഞ്ഞ <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>ഹൈപ്പര്‍ലിങ്ക് ഓടിറ്റിംഗ്<\/a> ശ്രമങ്ങള്‍: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"തുടച്ചുനീക്കിയ ലോക്കല്‍ കുക്കികള്‍: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+    "message":"കാലിയാക്കപ്പെട്ട<a href='http:\/\/diveintohtml5.info\/storage.html'>ലോക്കല്‍ സ്റ്റോറെജ്<\/a>:{{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"ക്ലിയര്‍ ചെയ്യപ്പെട്ട ബ്രൌസര്‍ കാഷ്: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"വിശദമായ സ്റ്ററ്റിസ്റ്റിക്സ്‌",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"എല്ലാം",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Behind the scene",
+    "message":"സീനിനു പിന്നില്‍",
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"ഓവര്‍വ്യൂ",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"അപേക്ഷകള്‍",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"അനുവദനീയമായവ",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"തടഞ്ഞിരിക്കുന്നവ",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"എല്ലാം",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"പേജുകള്‍",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"കുക്കികള്‍",
     "description":""
   },
   "statsPageCSS":{
-    "message":"CSS",
+    "message":"സിഎസ്എസ്",
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"ചിത്രങ്ങള്‍",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"പ്ലഗ്ഗിന്നുകള്‍",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"സ്ക്രിപ്റ്റുകള്‍",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"എക്സ്‌എച്ച്ആറുകള്‍",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"ഫ്രെയിമുകള്‍",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"മറ്റുള്ളവ",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logger",
+    "message":"ലോഗ്ഗര്‍",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -276,15 +276,15 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"ഒന്നും അല്ല",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"ഇപ്പോഴത്തെത്",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"എല്ലാം",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -296,7 +296,7 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"ഒപ്പാസിറ്റി",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
@@ -340,7 +340,7 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
+    "message":"ചെയ്യാനുള്ളവ",
     "description":""
   },
   "privacyClearCachePrompt1":{
@@ -348,7 +348,7 @@
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"മിനിറ്റുകള്‍.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -384,7 +384,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"മിനിട്ടുകള്‍.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -400,35 +400,35 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"സ്ഥിര നിയമങ്ങള്‍",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"താത്കാലിക നിയമങ്ങള്‍",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"റിവേര്‍ട്ട്",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"കമ്മിറ്റ്",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"എഡിറ്റ്‌",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"സൂക്ഷിക്കുക",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"കളയുക",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"ഫയലില്‍ നിന്നും ഇമ്പോര്‍ട്ട് ചെയ്യുക...",
     "description":""
   },
   "userRulesExport":{
@@ -480,23 +480,23 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"പാര്‍സ് ചെയ്യുക",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"കാഷ് നശിപ്പിക്കുക",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"പുതിയ വെര്‍ഷന്‍ ലഭ്യമാണ്",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"കാലഹരണപ്പെട്ടത്",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>മാറ്റത്തിന്റെ കുറിപ്പുകള്‍<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
@@ -508,39 +508,39 @@
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>അനുവാദങ്ങള്‍<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"സോര്‍സ് കോഡ് (ജിപിഎല്‍ വി3)",
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"ബഗ്ഗുകളും പ്രശ്നങ്ങളും",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"സംഭാവന ചെയ്തവര്‍",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"കോഡ്:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"പ്രശ്നങ്ങള്‍:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"പരിഭാഷകള്‍:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"നിങ്ങളുടെ ഡാറ്റ",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"ഫയലിലേക്ക് ബാക്ക്‌ അപ് ചെയ്യുക...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -548,7 +548,7 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"ഫയലില്‍ നിന്നും റീസ്റ്റോര്‍ ചെയ്യുക...",
     "description":""
   },
   "aboutRestoreConfirm":{
@@ -560,11 +560,11 @@
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... അല്ലെങ്കില്‍ ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"ഡീഫാള്‍ട്ട് സെറ്റിംഗ്സിലേക്ക് റീസ്റ്റോര്‍ ചെയ്യുക",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
@@ -608,11 +608,11 @@
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"പിന്നിലേക്ക്‌ പോകുക",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"അടയ്ക്കുക",
     "description":"English: Close"
   },
   "commandRevertAll":{
@@ -628,47 +628,47 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"ഡാഷ്ബോര്‍ഡ് തുറക്കുക",
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"ഒരു മിനിറ്റ് മുന്‍പ്",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"{{value}} മിനിറ്റുകള്‍ മുന്‍പ്",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"ഒരു മണിക്കൂര്‍ മുന്‍പ്",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"{{value}} മണിക്കൂറുകള്‍ മുന്‍പ്",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"ഒരു ദിവസം മുന്‍പ്",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"{{value}} ദിവസങ്ങള്‍ക്ക്മുന്‍പ്",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"ഡാഷ്ബോര്‍ഡ്",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"ലോഗ്ഗര്‍",
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"ക്ലൌഡ് സ്റ്റോറേജിലേക്ക് എക്സ്പോര്‍ട്ട്‌ ചെയ്യുക",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"ക്ലൌഡ് സ്റ്റോറേജില്‍ നിന്ന് ഇമ്പോര്‍ട്ട് ചെയ്യുക",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -676,19 +676,19 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"ഈ ഉപകരണത്തിന്‍റെ പേര്:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"സബ്മിറ്റ്",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"റിവേര്‍ട്ട്",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
-    "message":"Network error: Unable to connect to {{url}}",
+    "message":"നെറ്റ്‌വര്‍ക്ക് പ്രശ്നം: {{url}} ലേക്ക് കണക്റ്റ് ചെയ്യാന്‍ ഒക്കുന്നില്ല",
     "description":""
   }
 }

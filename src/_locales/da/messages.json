@@ -676,7 +676,7 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Denne enheds navn:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
@@ -684,7 +684,7 @@
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Gendan",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
