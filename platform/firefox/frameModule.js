@@ -102,34 +102,33 @@ var contentObserver = {
     register: function() {
         Services.obs.addObserver(this, 'document-element-inserted', true);
 
-        if ( this.firefoxPre35 ) {
-            this.componentRegistrar.registerFactory(
-                this.classID,
-                this.classDescription,
-                this.contractID,
-                this
-            );
-            this.categoryManager.addCategoryEntry(
-                'content-policy',
-                this.contractID,
-                this.contractID,
-                false,
-                true
-            );
-        }
+        this.componentRegistrar.registerFactory(
+            this.classID,
+            this.classDescription,
+            this.contractID,
+            this
+        );
+        this.categoryManager.addCategoryEntry(
+            'content-policy',
+            this.contractID,
+            this.contractID,
+            false,
+            true
+        );
     },
 
     unregister: function() {
         Services.obs.removeObserver(this, 'document-element-inserted');
 
-        if ( this.firefoxPre35 ) {
-            this.componentRegistrar.unregisterFactory(this.classID, this);
-            this.categoryManager.deleteCategoryEntry(
-                'content-policy',
-                this.contractID,
-                false
-            );
-        }
+        this.componentRegistrar.unregisterFactory(
+            this.classID,
+            this
+        );
+        this.categoryManager.deleteCategoryEntry(
+            'content-policy',
+            this.contractID,
+            false
+        );
     },
 
     // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy

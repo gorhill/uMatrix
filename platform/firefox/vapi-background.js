@@ -1820,15 +1820,21 @@ var httpObserver = {
         }
 
         // http-on-opening-request
-        var tabId, rawType;
+        var tabId;
         var pendingRequest = this.lookupPendingRequest(URI.asciiSpec);
+        var rawType = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
 
         if ( pendingRequest !== null ) {
             tabId = pendingRequest.tabId;
-            rawType = pendingRequest.rawType;
+            // https://github.com/gorhill/uBlock/issues/654
+            // Use the request type from the HTTP observer point of view.
+            if ( rawType !== 1 ) {
+                pendingRequest.rawType = rawType;
+            } else {
+                rawType = pendingRequest.rawType;
+            }
         } else {
             tabId = this.tabIdFromChannel(channel);
-            rawType = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
         }
 
         if ( this.handleRequest(channel, URI, tabId, rawType) ) {
@@ -1900,25 +1906,18 @@ vAPI.net.registerListeners = function() {
         pendingReq.tabId = tabWatcher.tabIdFromTarget(e.target);
     };
 
-    // https://github.com/gorhill/uMatrix/issues/200
-    // We need this only for Firefox 34 and less: the tab id is derived from
-    // the origin of the message.
-    if ( vAPI.firefoxPre35 ) {
-        vAPI.messaging.globalMessageManager.addMessageListener(
-            shouldLoadListenerMessageName,
-            shouldLoadListener
-        );
-    }
+    vAPI.messaging.globalMessageManager.addMessageListener(
+        shouldLoadListenerMessageName,
+        shouldLoadListener
+    );
 
     httpObserver.register();
 
     cleanupTasks.push(function() {
-        if ( vAPI.firefoxPre35 ) {
-            vAPI.messaging.globalMessageManager.removeMessageListener(
-                shouldLoadListenerMessageName,
-                shouldLoadListener
-            );
-        }
+        vAPI.messaging.globalMessageManager.removeMessageListener(
+            shouldLoadListenerMessageName,
+            shouldLoadListener
+        );
         httpObserver.unregister();
     });
 };
