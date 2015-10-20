@@ -4,7 +4,7 @@ uMatrix gibt dir volle Kontrolle darüber, womit sich dein Browser verbindet, we
 
 Voreingestellt arbeitet uMatrix in einem gelockerten "blockiere alles/erlaube ausnahmsweise"-Modus, was dazu führt, dass viele Webseiten, die Skripte von Drittseiten benötigen, "kaputt" sein werden. Mit zwei Klicks kannst du aber dafür sorgen, dass uMatrix in einem "erlaube alles/blockiere ausnahmsweise"-Modus arbeitet, der normalerweise Webseiten nicht kaputt macht. Details dazu auf https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
 
-* Sehe ALLE Verbindungen, ob fehlgeschlagen oder erfolgreich, je nachdem ob du sie blockiert oder erlaubt hast (deine Entscheidung).
+* Sieh ALLE Verbindungen, ob fehlgeschlagen oder erfolgreich, je nachdem ob du sie blockiert oder erlaubt hast (deine Entscheidung).
 
 * Erlaube/blockiere mit einem Klick eine oder mehrere Arten von Verbindungsanfragen deines Browsers je nach Ziel und Datentyp (eine blockierte Anfrage wird NIE deinen Browser verlassen).
 
