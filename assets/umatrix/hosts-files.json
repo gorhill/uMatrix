@@ -1,11 +1,11 @@
 {
     "mirror1.malwaredomains.com/files/immortal_domains.txt": {
         "title": "Long-lived malware domains",
-        "homeURL": "https://malwaredomains.lehigh.edu/files/immortal_domains.txt"
+        "homeURL": "http://malwaredomains.lehigh.edu/files/immortal_domains.txt"
         },
     "mirror1.malwaredomains.com/files/justdomains": {
         "title": "Malware domains",
-        "homeURL": "https://malwaredomains.lehigh.edu/files/justdomains"
+        "homeURL": "http://malwaredomains.lehigh.edu/files/justdomains"
         },
     "pgl.yoyo.org/as/serverlist": {
         "title": "Peter Lowe’s Ad server list",
