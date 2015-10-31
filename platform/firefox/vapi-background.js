@@ -1765,10 +1765,7 @@ var httpObserver = {
         var URI = channel.URI;
         var channelData;
 
-        if (
-            topic === 'http-on-examine-response' ||
-            topic === 'http-on-examine-cached-response'
-        ) {
+        if ( topic.lastIndexOf('http-on-examine-', 0) === 0 ) {
             channelData = this.channelDataFromChannel(channel);
             if ( channelData === null ) {
                 return;
