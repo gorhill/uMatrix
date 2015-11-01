@@ -28,6 +28,8 @@
 
 µMatrix.webRequest = (function() {
 
+'use strict';
+
 /******************************************************************************/
 
 // Intercept and filter web requests according to white and black lists.
@@ -256,20 +258,23 @@ var foilRefererHeaders = function(µm, toHostname, details) {
     //   "sensitive" context, the user agent MUST send the value "null" in the
     //   "Origin header field."
 
-    var origin = details.requestHeaders.getHeader('origin');
-    if ( origin !== '' && origin !== 'null' ) {
-        toDomain = toDomain || µmuri.domainFromHostname(toHostname);
-        if ( toDomain !== µmuri.domainFromURI(origin) ) {
-            scheme = scheme || µmuri.schemeFromURI(details.url);
-            //console.debug('foilRefererHeaders()> foiled origin for "%s"', details.url);
-            //console.debug('\torigin "%s"', header.value);
-            details.requestHeaders.setHeader(
-                'origin',
-                scheme + '://' + toHostname
-            );
-            foiled = true;
-        }
-    }
+    // https://github.com/gorhill/uMatrix/issues/358
+    // Do not spoof `Origin` header for the time being. This will be revisited.
+
+    //var origin = details.requestHeaders.getHeader('origin');
+    //if ( origin !== '' && origin !== 'null' ) {
+    //    toDomain = toDomain || µmuri.domainFromHostname(toHostname);
+    //    if ( toDomain !== µmuri.domainFromURI(origin) ) {
+    //        scheme = scheme || µmuri.schemeFromURI(details.url);
+    //        //console.debug('foilRefererHeaders()> foiled origin for "%s"', details.url);
+    //        //console.debug('\torigin "%s"', header.value);
+    //        details.requestHeaders.setHeader(
+    //            'origin',
+    //            scheme + '://' + toHostname
+    //        );
+    //        foiled = true;
+    //    }
+    //}
 
     if ( foiled ) {
         µm.refererHeaderFoiledCounter++;
