@@ -4,6 +4,8 @@
 
 Definitely for advanced users.
 
+Keep Github issues for bugs. User support is [Mozilla's add-on-support](https://discourse.mozilla-community.org/t/support-umatrix/5131).
+
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
 Install [manually](https://github.com/gorhill/uMatrix/blob/master/doc/README.md) the [latest release](https://github.com/gorhill/uMatrix/releases), or install from:
