@@ -1,8 +1,8 @@
-**Regarding the new required Chromium permission as of 0.9.1.2**: [About the required permissions: change your privacy related settings](https://github.com/gorhill/uMatrix/releases/tag/0.9.1.2).
-
 ## uMatrix<br>[<img src="https://travis-ci.org/gorhill/uMatrix.svg?branch=master" height="16">](https://travis-ci.org/gorhill/uMatrix)
 
 Definitely for advanced users.
+
+Keep Github issues for bugs. User support is [Mozilla's add-on-support](https://discourse.mozilla-community.org/t/support-umatrix/5131).
 
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
