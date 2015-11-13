@@ -46,7 +46,8 @@ const {Services} = Cu.import('resource://gre/modules/Services.jsm', null);
 
 var vAPI = self.vAPI = self.vAPI || {};
 vAPI.firefox = true;
-vAPI.firefoxPre35 = Services.vc.compare(Services.appinfo.platformVersion, '35.0') < 0;
+vAPI.modernFirefox = Services.appinfo.ID === '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}' &&
+                     Services.vc.compare(Services.appinfo.platformVersion, '45.0') >= 0;
 
 /******************************************************************************/
 
@@ -1819,7 +1820,18 @@ var httpObserver = {
         // http-on-opening-request
         var tabId;
         var pendingRequest = this.lookupPendingRequest(URI.asciiSpec);
-        var rawType = channel.loadInfo && channel.loadInfo.contentPolicyType || 1;
+        var rawType = 1;
+        var loadInfo = channel.loadInfo;
+
+        // https://github.com/gorhill/uMatrix/issues/390#issuecomment-155717004
+        if ( loadInfo ) {
+            rawType = loadInfo.externalContentPolicyType !== undefined ?
+                loadInfo.externalContentPolicyType :
+                loadInfo.contentPolicyType;
+            if ( !rawType ) {
+                rawType = 1;
+            }
+        }
 
         if ( pendingRequest !== null ) {
             tabId = pendingRequest.tabId;
@@ -1903,18 +1915,26 @@ vAPI.net.registerListeners = function() {
         pendingReq.tabId = tabWatcher.tabIdFromTarget(e.target);
     };
 
-    vAPI.messaging.globalMessageManager.addMessageListener(
-        shouldLoadListenerMessageName,
-        shouldLoadListener
-    );
+    // https://github.com/gorhill/uMatrix/issues/200
+    // We need this only for Firefox 34 and less: the tab id is derived from
+    // the origin of the message.
+    if ( !vAPI.modernFirefox ) {
+        vAPI.messaging.globalMessageManager.addMessageListener(
+            shouldLoadListenerMessageName,
+            shouldLoadListener
+        );
+    }
 
     httpObserver.register();
 
     cleanupTasks.push(function() {
-        vAPI.messaging.globalMessageManager.removeMessageListener(
-            shouldLoadListenerMessageName,
-            shouldLoadListener
-        );
+        if ( !vAPI.modernFirefox ) {
+            vAPI.messaging.globalMessageManager.removeMessageListener(
+                shouldLoadListenerMessageName,
+                shouldLoadListener
+            );
+        }
+
         httpObserver.unregister();
     });
 };

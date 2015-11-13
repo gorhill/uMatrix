@@ -73,7 +73,8 @@ var contentObserver = {
     contentBaseURI: 'chrome://' + hostName + '/content/js/',
     cpMessageName: hostName + ':shouldLoad',
     uniqueSandboxId: 1,
-    firefoxPre35: Services.vc.compare(Services.appinfo.platformVersion, '35.0') < 0,
+    modernFirefox: Services.appinfo.ID === '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}' &&
+                   Services.vc.compare(Services.appinfo.platformVersion, '45.0') >= 0,
 
     get componentRegistrar() {
         return Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
@@ -102,33 +103,37 @@ var contentObserver = {
     register: function() {
         Services.obs.addObserver(this, 'document-element-inserted', true);
 
-        this.componentRegistrar.registerFactory(
-            this.classID,
-            this.classDescription,
-            this.contractID,
-            this
-        );
-        this.categoryManager.addCategoryEntry(
-            'content-policy',
-            this.contractID,
-            this.contractID,
-            false,
-            true
-        );
+        if ( !this.modernFirefox ) {
+            this.componentRegistrar.registerFactory(
+                this.classID,
+                this.classDescription,
+                this.contractID,
+                this
+            );
+            this.categoryManager.addCategoryEntry(
+                'content-policy',
+                this.contractID,
+                this.contractID,
+                false,
+                true
+            );
+        }
     },
 
     unregister: function() {
         Services.obs.removeObserver(this, 'document-element-inserted');
 
-        this.componentRegistrar.unregisterFactory(
-            this.classID,
-            this
-        );
-        this.categoryManager.deleteCategoryEntry(
-            'content-policy',
-            this.contractID,
-            false
-        );
+        if ( !this.modernFirefox ) {
+            this.componentRegistrar.unregisterFactory(
+                this.classID,
+                this
+            );
+            this.categoryManager.deleteCategoryEntry(
+                'content-policy',
+                this.contractID,
+                false
+            );
+        }
     },
 
     // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy
