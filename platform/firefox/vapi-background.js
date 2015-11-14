@@ -47,7 +47,7 @@ const {Services} = Cu.import('resource://gre/modules/Services.jsm', null);
 var vAPI = self.vAPI = self.vAPI || {};
 vAPI.firefox = true;
 vAPI.modernFirefox = Services.appinfo.ID === '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}' &&
-                     Services.vc.compare(Services.appinfo.platformVersion, '45.0') >= 0;
+                     Services.vc.compare(Services.appinfo.platformVersion, '44') > 0;
 
 /******************************************************************************/
 
