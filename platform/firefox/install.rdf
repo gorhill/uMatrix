@@ -20,7 +20,7 @@
             <r:Description>
                 <id>{{ec8030f7-c20a-464f-9b0e-13a3a9e97384}}</id>
                 <minVersion>24.0</minVersion>
-                <maxVersion>44.*</maxVersion>
+                <maxVersion>45.*</maxVersion>
             </r:Description>
         </targetApplication>
 
@@ -29,7 +29,7 @@
             <r:Description>
                 <id>{{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}}</id>
                 <minVersion>2.21</minVersion>
-                <maxVersion>2.38.*</maxVersion>
+                <maxVersion>2.39.*</maxVersion>
             </r:Description>
         </targetApplication>
 
@@ -38,7 +38,7 @@
             <r:Description>
                 <id>{{8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}}</id>
                 <minVersion>25.0</minVersion>
-                <maxVersion>25.*</maxVersion>
+                <maxVersion>26.*</maxVersion>
             </r:Description>
         </targetApplication>
     </r:Description>
