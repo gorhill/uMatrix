@@ -92,11 +92,11 @@
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"главный домен",
+    "message":"текущий сайт",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} хостов в черном списке",
+    "message":"запрещённые сайты: {{count}}",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Включить поддержку облачного хоанилища",
+    "message":"Включить поддержку облачного хранилища",
     "description":""
   },
   "privacyPageTitle":{
