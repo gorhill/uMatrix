@@ -43,11 +43,11 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
     var tabContext = µm.tabContextManager.mustLookup(tabId);
     var rootHostname = tabContext.rootHostname;
-    var pageStore = µm.bindTabToPageStats(tabId);
 
     // Disallow request as per matrix?
     var block = µm.mustBlock(rootHostname, details.hostname, 'doc');
 
+    var pageStore = µm.pageStoreFromTabId(tabId);
     pageStore.recordRequest('doc', requestURL, block);
     µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, 'doc', block);
 
@@ -307,11 +307,7 @@ var onHeadersReceived = function(details) {
     // https://github.com/gorhill/uMatrix/issues/145
     // Check if the main_frame is a download
     if ( requestType === 'doc' ) {
-        if ( headerValue(details.responseHeaders, 'content-type').lastIndexOf('application/x-', 0) === 0 ) {
-            µm.tabContextManager.unpush(tabId, requestURL);
-        } else {
-            µm.tabContextManager.push(tabId, requestURL);
-        }
+        µm.tabContextManager.push(tabId, requestURL);
     }
 
     var tabContext = µm.tabContextManager.lookup(tabId);

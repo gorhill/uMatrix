@@ -129,11 +129,7 @@ var onTabsReady = function(tabs) {
     // console.debug('start.js > binding %d tabs', i);
     while ( i-- ) {
         tab = tabs[i];
-        µm.tabContextManager.commit(tab.id, tab.url);
-        // https://github.com/gorhill/uMatrix/issues/56
-        // We must unbind first to flush out potentially bad domain names.
-        µm.unbindTabFromPageStats(tab.id);
-        µm.bindTabToPageStats(tab.id);
+        µm.tabContextManager.push(tab.id, tab.url, 'newURL');
     }
 
     onAllDone();

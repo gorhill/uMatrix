@@ -150,7 +150,15 @@ housekeep itself.
     var mostRecentRootDocURL = '';
     var mostRecentRootDocURLTimestamp = 0;
 
-    var gcPeriod = 10 * 60 * 1000;
+    var gcPeriod = 31 * 60 * 1000; // every 31 minutes
+
+    // A pushed entry is removed from the stack unless it is committed with
+    // a set time.
+    var StackEntry = function(url, commit) {
+        this.url = url;
+        this.committed = commit;
+        this.tstamp = Date.now();
+    };
 
     var TabContext = function(tabId) {
         this.tabId = tabId;
@@ -161,9 +169,8 @@ housekeep itself.
         this.rootHostname =
         this.rootDomain = '';
         this.secure = false;
-        this.timer = null;
-        this.onTabCallback = null;
-        this.onTimerCallback = null;
+        this.commitTimer = null;
+        this.gcTimer = null;
 
         tabContexts[tabId] = this;
     };
@@ -172,119 +179,122 @@ housekeep itself.
         if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
             return;
         }
-        if ( this.timer !== null ) {
-            clearTimeout(this.timer);
-            this.timer = null;
+        if ( this.gcTimer !== null ) {
+            clearTimeout(this.gcTimer);
+            this.gcTimer = null;
         }
         delete tabContexts[this.tabId];
     };
 
     TabContext.prototype.onTab = function(tab) {
         if ( tab ) {
-            this.timer = vAPI.setTimeout(this.onTimerCallback, gcPeriod);
+            this.gcTimer = vAPI.setTimeout(this.onGC.bind(this), gcPeriod);
         } else {
             this.destroy();
         }
     };
 
-    TabContext.prototype.onTimer = function() {
-        this.timer = null;
+    TabContext.prototype.onGC = function() {
+        this.gcTimer = null;
         if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
             return;
         }
-        vAPI.tabs.get(this.tabId, this.onTabCallback);
+        vAPI.tabs.get(this.tabId, this.onTab.bind(this));
+    };
+
+    // https://github.com/gorhill/uBlock/issues/248
+    // Stack entries have to be committed to stick. Non-committed stack
+    // entries are removed after a set delay.
+    TabContext.prototype.onCommit = function() {
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
+            return;
+        }
+        this.commitTimer = null;
+        // Remove uncommitted entries at the top of the stack.
+        var i = this.stack.length;
+        while ( i-- ) {
+            if ( this.stack[i].committed ) {
+                break;
+            }
+        }
+        // https://github.com/gorhill/uBlock/issues/300
+        // If no committed entry was found, fall back on the bottom-most one
+        // as being the committed one by default.
+        if ( i === -1 && this.stack.length !== 0 ) {
+            this.stack[0].committed = true;
+            i = 0;
+        }
+        i += 1;
+        if ( i < this.stack.length ) {
+            this.stack.length = i;
+            this.update();
+            µm.bindTabToPageStats(this.tabId, 'newURL');
+        }
     };
 
     // This takes care of orphanized tab contexts. Can't be started for all
     // contexts, as the behind-the-scene context is permanent -- so we do not
-    // want to slush it.
+    // want to flush it.
     TabContext.prototype.autodestroy = function() {
         if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
             return;
         }
-        this.onTabCallback = this.onTab.bind(this);
-        this.onTimerCallback = this.onTimer.bind(this);
-        this.timer = vAPI.setTimeout(this.onTimerCallback, gcPeriod);
+        this.gcTimer = vAPI.setTimeout(this.onGC.bind(this), gcPeriod);
     };
 
-    // Update just force all properties to be updated to match the most current
+    // Update just force all properties to be updated to match the most recent
     // root URL.
     TabContext.prototype.update = function() {
         if ( this.stack.length === 0 ) {
-            this.rawURL =
-            this.normalURL =
-            this.scheme =
-            this.rootHostname =
-            this.rootDomain = '';
-        } else {
-            this.rawURL = this.stack[this.stack.length - 1];
-            this.normalURL = µm.normalizePageURL(this.tabId, this.rawURL);
-            this.scheme = µm.URI.schemeFromURI(this.rawURL);
-            this.rootHostname = µm.URI.hostnameFromURI(this.normalURL);
-            this.rootDomain = µm.URI.domainFromHostname(this.rootHostname) || this.rootHostname;
+            this.rawURL = this.normalURL = this.scheme =
+            this.rootHostname = this.rootDomain = '';
+            this.secure = false;
+            return;
         }
+        this.rawURL = this.stack[this.stack.length - 1].url;
+        this.normalURL = µm.normalizePageURL(this.tabId, this.rawURL);
+        this.scheme = µm.URI.schemeFromURI(this.rawURL);
+        this.rootHostname = µm.URI.hostnameFromURI(this.normalURL);
+        this.rootDomain = µm.URI.domainFromHostname(this.rootHostname) || this.rootHostname;
         this.secure = µm.URI.isSecureScheme(this.scheme);
     };
 
     // Called whenever a candidate root URL is spotted for the tab.
-    TabContext.prototype.push = function(url) {
+    TabContext.prototype.push = function(url, context) {
         if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
             return;
         }
+        var committed = context !== undefined;
         var count = this.stack.length;
-        if ( count !== 0 && this.stack[count - 1] === url ) {
+        var topEntry = this.stack[count - 1];
+        if ( topEntry && topEntry.url === url ) {
+            if ( committed ) {
+                topEntry.committed = true;
+            }
             return;
         }
-        this.stack.push(url);
-        this.update();
-    };
-
-    // Called when a former push is a false positive:
-    //   https://github.com/chrisaljoudi/uBlock/issues/516
-    TabContext.prototype.unpush = function(url) {
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
+        if ( this.commitTimer !== null ) {
+            clearTimeout(this.commitTimer);
         }
-        // We are not going to unpush if there is no other candidate, the
-        // point of unpush is to make space for a better candidate.
-        if ( this.stack.length === 1 ) {
-            return;
-        }
-        var pos = this.stack.indexOf(url);
-        if ( pos === -1 ) {
-            return;
-        }
-        this.stack.splice(pos, 1);
-        if ( this.stack.length === 0 ) {
-            this.destroy();
-            return;
-        }
-        if ( pos !== this.stack.length ) {
-            return;
+        if ( committed ) {
+            this.stack = [new StackEntry(url, true)];
+        } else {
+            this.stack.push(new StackEntry(url));
+            this.commitTimer = vAPI.setTimeout(this.onCommit.bind(this), 1000);
         }
         this.update();
-    };
-
-    // This tells that the url is definitely the one to be associated with the
-    // tab, there is no longer any ambiguity about which root URL is really
-    // sitting in which tab.
-    TabContext.prototype.commit = function(url) {
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
-        }
-        this.stack = [url];
-        this.update();
+        µm.bindTabToPageStats(this.tabId, context);
     };
 
     // These are to be used for the API of the tab context manager.
 
-    var push = function(tabId, url) {
+    var push = function(tabId, url, context) {
         var entry = tabContexts[tabId];
         if ( entry === undefined ) {
             entry = new TabContext(tabId);
             entry.autodestroy();
         }
-        entry.push(url);
+        entry.push(url, context);
         mostRecentRootDocURL = url;
         mostRecentRootDocURLTimestamp = Date.now();
         return entry;
@@ -326,23 +336,6 @@ housekeep itself.
         return tabContexts[vAPI.noTabId];
     };
 
-    var commit = function(tabId, url) {
-        var entry = tabContexts[tabId];
-        if ( entry === undefined ) {
-            entry = push(tabId, url);
-        } else {
-            entry.commit(url);
-        }
-        return entry;
-    };
-
-    var unpush = function(tabId, url) {
-        var entry = tabContexts[tabId];
-        if ( entry !== undefined ) {
-            entry.unpush(url);
-        }
-    };
-
     var lookup = function(tabId) {
         return tabContexts[tabId] || null;
     };
@@ -350,87 +343,47 @@ housekeep itself.
     // Behind-the-scene tab context
     (function() {
         var entry = new TabContext(vAPI.noTabId);
-        entry.stack.push('');
+        entry.stack.push(new StackEntry('', true));
         entry.rawURL = '';
         entry.normalURL = µm.normalizePageURL(entry.tabId);
         entry.rootHostname = µm.URI.hostnameFromURI(entry.normalURL);
         entry.rootDomain = µm.URI.domainFromHostname(entry.rootHostname) || entry.rootHostname;
     })();
 
-    // Context object, typically to be used to feed filtering engines.
-    var Context = function(tabId) {
-        var tabContext = lookup(tabId);
-        this.rootHostname = tabContext.rootHostname;
-        this.rootDomain = tabContext.rootDomain;
-        this.pageHostname = 
-        this.pageDomain =
-        this.requestURL =
-        this.requestHostname =
-        this.requestDomain = '';
+    vAPI.tabs.onNavigation = function(details) {
+        var tabId = details.tabId;
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+            return;
+        }
+        push(tabId, details.url, 'newURL');
     };
 
-    var createContext = function(tabId) {
-        return new Context(tabId);
+    vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
+        if ( typeof tab.url !== 'string' || tab.url === '' ) {
+            return;
+        }
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+            return;
+        }
+        if ( changeInfo.url ) {
+            push(tabId, changeInfo.url, 'updateURL');
+        }
+    };
+
+    vAPI.tabs.onClosed = function(tabId) {
+        µm.unbindTabFromPageStats(tabId);
+        var entry = tabContexts[tabId];
+        if ( entry instanceof TabContext ) {
+            entry.destroy();
+        }
     };
 
     return {
         push: push,
-        unpush: unpush,
-        commit: commit,
         lookup: lookup,
-        mustLookup: mustLookup,
-        createContext: createContext
+        mustLookup: mustLookup
     };
 })();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// When the DOM content of root frame is loaded, this means the tab
-// content has changed.
-
-vAPI.tabs.onNavigation = function(details) {
-    // This actually can happen
-    var tabId = details.tabId;
-    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-        return;
-    }
-
-    //console.log('vAPI.tabs.onNavigation: %s %s %o', details.url, details.transitionType, details.transitionQualifiers);
-
-    µm.tabContextManager.commit(tabId, details.url);
-    µm.bindTabToPageStats(tabId, 'commit');
-};
-
-/******************************************************************************/
-
-// It may happen the URL in the tab changes, while the page's document
-// stays the same (for instance, Google Maps). Without this listener,
-// the extension icon won't be properly refreshed.
-
-vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
-    if ( !tab.url || tab.url === '' ) {
-        return;
-    }
-
-    // This actually can happen
-    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-        return;
-    }
-
-    if ( changeInfo.url ) {
-        µm.tabContextManager.commit(tabId, changeInfo.url);
-        µm.bindTabToPageStats(tabId, 'updated');
-    }
-};
-
-/******************************************************************************/
-
-vAPI.tabs.onClosed = function(tabId) {
-    µm.unbindTabFromPageStats(tabId);
-};
-
-/******************************************************************************/
 
 vAPI.tabs.registerListeners();
 
@@ -466,19 +419,13 @@ vAPI.tabs.registerListeners();
             return pageStore;
         }
 
-        // Do not change anything if it's weak binding -- typically when
-        // binding from network request handler.
-        if ( context === 'weak' ) {
-            return pageStore;
-        }
-
         // https://github.com/gorhill/uMatrix/issues/37
         // Just rebind whenever possible: the URL changed, but the document
         // maybe is the same.
         // Example: Google Maps, Github
         // https://github.com/gorhill/uMatrix/issues/72
         // Need to double-check that the new scope is same as old scope
-        if ( context === 'updated' && pageStore.pageHostname === tabContext.rootHostname ) {
+        if ( context === 'updateURL' && pageStore.pageHostname === tabContext.rootHostname ) {
             pageStore.rawURL = tabContext.rawURL;
             pageStore.normalURL = normalURL;
             this.updateTitle(tabId);
@@ -516,6 +463,7 @@ vAPI.tabs.registerListeners();
     if ( pageStore === null ) {
         return;
     }
+
     delete this.pageStores[tabId];
     this.pageStoresToken = Date.now();
 
