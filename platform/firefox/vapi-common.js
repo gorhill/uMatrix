@@ -19,7 +19,6 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* jshint esnext: true */
 /* global sendAsyncMessage */
 
 // For background page or non-background pages
@@ -37,7 +36,7 @@ const {Services} = Components.utils.import(
     null
 );
 
-self.vAPI = self.vAPI || {};
+var vAPI = self.vAPI = self.vAPI || {};
 
 /******************************************************************************/
 
@@ -75,6 +74,9 @@ vAPI.insertHTML = (function() {
     const parser = Components.classes['@mozilla.org/parserutils;1']
         .getService(Components.interfaces.nsIParserUtils);
 
+    // https://github.com/gorhill/uBlock/issues/845
+    // Apparently dashboard pages execute with `about:blank` principal.
+
     return function(node, html) {
         while ( node.firstChild ) {
             node.removeChild(node.firstChild);
@@ -84,7 +86,7 @@ vAPI.insertHTML = (function() {
             html,
             parser.SanitizerAllowStyle,
             false,
-            Services.io.newURI(document.baseURI, null, null),
+            Services.io.newURI('about:blank', null, null),
             document.documentElement
         ));
     };
