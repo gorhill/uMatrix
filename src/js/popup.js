@@ -960,6 +960,11 @@ var makeMenu = function() {
         document.querySelector('.paneHead').clientHeight + 'px'
     );
 
+    // Make the header scroll with the window.
+    window.onscroll = function () {
+        document.querySelector('.paneHead').style.left = "-" + window.scrollX + "px";
+    };
+
     startMatrixUpdate();
     makeMatrixGroup0(groupStats[0]);
     makeMatrixGroup1(groupStats[1]);
