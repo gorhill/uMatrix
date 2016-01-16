@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"hosts文件",
+    "message":"Hosts 文件",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -72,7 +72,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"至今未监测到此标签页下的网络流量。",
+    "message":"暂时未监测到此标签页下的网络流量。",
     "description":""
   },
   "matrixMtxButtonTip":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>您可以查看网络页面所发出的最近原始 HTTP 请求的细节（见下）。<\/p><p>这对于想要检测网络页面的确切行为的高级用户尤为实用。但记录 HTTP 的请求日志会消耗内存，如果您并不在意这些技术细节，内存便等同于被浪费。<\/p><p>此区域将允许您调整为了进一步检测而被记录的最近 HTTP 请求的最大数。<\/p><p>输入“<code>0<\/code>”将关闭详细日志（从而减少 <i>µMatrix<\/i> 的内存占用）。<\/p>",
+    "message":"<p>您可以查看最近网页所发出的原始 HTTP 请求的细节（见下）。<\/p><p>这对于想要检测网页确切行为的高级用户尤为实用。但记录 HTTP 请求会消耗内存，如果您并不在意这些技术细节，内存便等同于被浪费。<\/p><p>此区域将允许您调整最多保留多少最近的 HTTP 请求，以便您进一步审查。<\/p><p>输入 &ldquo;<code>0<\/code>&rdquo; 将关闭详细日志（从而减少 <i>uMatrix<\/i> 的内存占用）。<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -244,7 +244,7 @@
     "description":""
   },
   "settingsPageTitle":{
-    "message":"µMatrix &ndash; 设置",
+    "message":"uMatrix &ndash; 设置",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
@@ -288,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"任何时候当您做出可能影响一个或多个页面的显示或行为的变更时，<i>µMatrix<\/i> 将在您关闭 matrix 时自动重载受影响的页面。",
+    "message":"任何时候当您做出可能影响一个或多个页面的显示或行为的变更时，<i>uMatrix<\/i> 将在您关闭 matrix 时自动重载受影响的页面。",
     "description":""
   },
   "settingsSubframeColor":{
@@ -300,19 +300,19 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"在图标上显示不同请求的数量",
+    "message":"在图标上显示不重复请求的数量",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"解除已屏蔽元素的占位符",
+    "message":"隐藏已屏蔽元素的占位符",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"启用云存储支持",
+    "message":"允许上传设置至您的浏览器账户",
     "description":""
   },
   "privacyPageTitle":{
-    "message":"µMatrix &ndash; 隐私",
+    "message":"uMatrix &ndash; 隐私",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -320,7 +320,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p><i>µMatrix<\/i>并未阻止黑名单中的 Cookie 进入您的浏览器，而是阻止它们离开您的浏览器，后者才是真正有意义的。不在 Cookie 进入您的浏览器之前屏蔽它们，将使得您有机会得知一个网站正尝试使用 Cookie，以便您在有需求的情况下进一步查看它们。<\/p><p>一旦黑名单中的 Cookie被<i>µMatrix<\/i> 所计入，如果您愿意，它们将能够被移除出您的浏览器。<\/p><p><b>重要提示：<\/b>浏览器扩展在正常的运作过程中可以发出网络请求，这些请求可能会在浏览器中生成 Cookie。如果 Cookie 的来源站点不在白名单中，那么在开启此选项时，<i>µMatrix<\/i> 将从浏览器中移除这些 Cookie。请确保浏览器扩展所通信的站点位于白名单中。<\/p>",
+    "message":"<p><i>uMatrix<\/i>并不阻止黑名单中的 Cookie 进入您的浏览器，而是阻止它们离开您的浏览器，后者才是真正有意义的。不在 Cookie 进入您的浏览器之前屏蔽它们，将使得您有机会得知一个网站正尝试使用 Cookie，以便您在有需求的情况下进一步查看它们。<\/p><p>一旦黑名单中的 Cookie被<i>uMatrix<\/i> 所计入，如果您愿意，它们将能够被移除出您的浏览器。<\/p><p><b>重要提示：<\/b>浏览器扩展在正常的运作过程中可以发出网络请求，这些请求可能会在浏览器中生成 Cookie。如果 Cookie 的来源站点不在白名单中，那么在开启此选项时，<i>uMatrix<\/i> 将从浏览器中移除这些 Cookie。请确保浏览器扩展所通信的站点位于白名单中。<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -332,11 +332,11 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>：&ldquo;一个会话 Cookie，将会在您结束浏览器会话时被清除。会话 Cookie 被存储于临时内存中，浏览器关闭后将不再保留。&rdquo;<\/p><p>不过在使用某些浏览器时，这一行为<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>有可能并不会发生<\/a>。另外，对某些人而言，必须在浏览器关闭后才能清除会话 Cookie 可能有些过迟。<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>：&ldquo;一段会话 Cookie……将在您结束浏览器会话时被清除。会话 Cookie 被存储于临时内存中，浏览器关闭后将不再保留。&rdquo;<\/p><p>不过在使用某些浏览器时，这一行为<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>有可能并不会发生<\/a>。另外，对某些人而言，必须在浏览器关闭后才能清除会话 Cookie 可能有些过迟。<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"基于屏蔽的站点删除<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8'>本地存储<\/a>内容",
+    "message":"同时删除被屏蔽站点的<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8'>本地存储<\/a>内容",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -352,11 +352,11 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>某些网站特别热衷于追踪，为了绕过您所施行的一切不被追踪的办法，他们甚至会采用某些不太光彩的手段。<\/p><p>这些手段中的一部分依赖<sup style='font-size:smaller'>[1, 2]<\/sup>于<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>浏览器缓存<\/a>，因为很少有用户会定期花时间清理他们的浏览器缓存，这些缓存内容通常会长期留存。<\/p><p>定期清理浏览器缓存并不会带来多少麻烦（您很可能根本不会注意到它的发生），而它的好处则是可以阻止这些无处不在的追踪器侵扰您的隐私。<\/p><p>勾选这个选项可以使 <i>µMatrix<\/i> 在您所期望的间隔内为您完成这项工作。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;阻止利用浏览器缓存进行网络追踪&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>某些网站特别热衷于追踪，为了绕过您所施行的一切不被追踪的办法，他们甚至会采用某些不太光彩的手段。<\/p><p>这些手段中的一部分依赖<sup style='font-size:smaller'>[1, 2]<\/sup>于<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>浏览器缓存<\/a>，因为很少有用户会定期花时间清理他们的浏览器缓存，这些缓存内容通常会长期留存。<\/p><p>定期清理浏览器缓存并不会带来多少麻烦（您很可能根本不会注意到它的发生），而它的好处则是可以阻止这些无处不在的追踪器侵扰您的隐私。<\/p><p>勾选这个选项可以使 <i>uMatrix<\/i> 在您所期望的间隔内为您完成这项工作。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;阻止利用浏览器缓存进行网络追踪&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"从非白名单站点的请求中移除第三方<a href='http:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP来源地址<\/a>信息。",
+    "message":"对第三方请求伪装<a href='http:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP来源地址<\/a>信息。",
     "description":""
   },
   "privacyProcessRefererHelp":{

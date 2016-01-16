@@ -68,7 +68,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"andere",
+    "message":"Andere",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -96,7 +96,7 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} Hostnamen auf der Blacklist",
+    "message":"{{count}} Hostname(n) auf der Blacklist",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -108,7 +108,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer-Spoofing",
+    "message":"Referrer verschleiern",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Gehe zu den protokollierten Anfragen",
+    "message":"Gehe zum Protokoll",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -276,7 +276,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"keine",
+    "message":"Keine",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
@@ -284,11 +284,11 @@
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"alle",
+    "message":"Alle",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Immer wenn du Änderungen in der Matrix durchführst, die die Anzeige und \/oder das Verhalten einer oder mehrerer Seiten beeinflusst, wird <i>µMatrix<\/i> die betroffenen Seiten automatisch neu laden, sobald du die Matrix schließt.",
+    "message":"Immer wenn du Änderungen in der Matrix durchführst, die die Anzeige und\/oder das Verhalten einer oder mehrerer Seiten beeinflusst, wird <i>uMatrix<\/i> die betroffenen Seiten automatisch neu laden, sobald du die Matrix schließt.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -332,11 +332,11 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Ein Sitzungscookie ... wird gelöscht, wenn die Browsersitzung beendet wird. Das Sitzungscookie wird temporär gespeichert und nicht behalten, wenn der Browser geschlossen ist.&rdquo;<\/p><p>Nur dass das möglicherweise bei einigen Browsern tatsächlich <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>nicht passiert<\/a>. Außerdem bevorzugen es manche Benutzer, Sitzungscookies loszuwerden, bevor sie den Browser schließen.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Ein Sitzungscookie ... wird gelöscht, wenn die Browsersitzung beendet wird. Das Sitzungscookie wird temporär gespeichert und nicht behalten, nachdem der Browser geschlossen wurde.&rdquo;<\/p><p>Nur ist das möglicherweise bei einigen Browsern <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>nicht der Fall<\/a>. Außerdem bevorzugen es manche Benutzer, Sitzungscookies loszuwerden, bevor sie den Browser schließen.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Lösche den Inhalt des <a href='http:\/\/de.wikipedia.org\/wiki\/Web_Storage'>Local Storage<\/a> von blockierten Hostnamen",
+    "message":"Lösche <a href='http:\/\/de.wikipedia.org\/wiki\/Web_Storage'>Lokaler Speicher-Inhalt (Local Storage)<\/a> für blockierte Hostnamen",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink Auditing ist ein Mechanismus, der es <b>allen<\/b> beteiligten Parteien erlaubt herauszufinden, auf welchen Link ein Benutzer auf einer bestimmten Webseite klickt. Im Grunde ist es eine Tracking-Funktion: Es erlaubt einer Webseite oder auch Drittparteien auf dieser Webseite, sich darüber zu informieren, auf welche Links du auf eine dieser Seiten geklickt hast. Der einzige Zweck besteht darin, deine Browsing-Aktivitätten zu verfolgen.<\/p>",
+    "message":"<p>Hyperlink-Auditing ist ein Mechanismus, der es <b>allen beteiligten Parteien<\/b> erlaubt herauszufinden, auf welchen Link ein Benutzer auf einer bestimmten Webseite klickt. Im Grunde ist es eine Tracking-Funktion: Es erlaubt einer Webseite oder auch Drittparteien auf dieser Webseite, sich darüber zu informieren, auf welche Links du auf eine dieser Seiten geklickt hast. Der einzige Zweck besteht darin, deine Browsing-Aktivitäten zu verfolgen.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -444,7 +444,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"Alle Hostnamen aus einer der Hosts-Dateien werden im Globalen Geltungsbereich als Hostnamen geladen, die auf der Blacklist stehen.",
+    "message":"Alle Hostnamen einer Hosts-Datei werden als geblacklistete Hostnamen im globalen Geltungsbereich geladen.",
     "description":""
   },
   "hostsFilesStats":{
@@ -456,7 +456,7 @@
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Letztes Update: {{ago}}",
+    "message":"Letzte Aktualisierung: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
@@ -540,7 +540,7 @@
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup in eine Datei...",
+    "message":"Sicherung in eine Datei...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -548,15 +548,15 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Aus einer Datei wiederherstellen...",
+    "message":"Wiederherstellung aus einer Datei...",
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"Alle deine Einstellungen werden überschrieben mit Daten gesichert am {{time}}, und µMatrix wird neu starten.\n\nSollen alle existierenden Daten mit Backup-Daten überschrieben werden?",
+    "message":"Alle deine Einstellungen werden überschrieben mit Sicherungs-Daten vom {{time}}, und uMatrix wird neu gestartet.\n\nSollen alle existierenden Einstellungen mit Sicherungs-Daten überschrieben werden?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"Die Daten konnten nicht gelesen werden oder waren ungültig",
+    "message":"Die Daten konnten nicht gelesen werden oder sind ungültig",
     "description":""
   },
   "aboutOr":{
@@ -568,7 +568,7 @@
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Vorsicht! Dies wird alle deine individuellen Einstellungen entfernen. Bist du sicher, dass du weitermachen willst?",
+    "message":"Vorsicht! Dies wird alle deine individuellen Einstellungen entfernen. Bist du sicher, dass du fortfahren willst?",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
@@ -600,7 +600,7 @@
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix hat das Laden der folgende Seite verhindert:",
+    "message":"uMatrix hat das Laden der folgenden Seite verhindert:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
