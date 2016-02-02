@@ -104,7 +104,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agentの偽装",
+    "message":"User agent spoofing",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{

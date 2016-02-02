@@ -4,27 +4,27 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"قم بالاشارة ثم انقر لكي تقوم بسماح او منع اي اتصال يجري عن طريق المتصفح. يمكنك منع السكربتات، أطر، اعلانات، موقع مثل الفيسبوك، الخ.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — لوحة التحكم",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"الإعدادات",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"خصوصية",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"الإحصائيات",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"قواعدي",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -32,31 +32,31 @@
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"حول البرنامج",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"الكل",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"كوكي",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"css",
+    "message":"ستايل",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"الصُورَة",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"إضافة",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"سكربت",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,31 +64,31 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"إطار",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"أخرى",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"لم يحدث اي اتصال بهذا التبويب حتى الآن.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"تعطيل \/ تمكين ميزة التصفيه لهذا النطاق.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"حفظ جميع التغييرات المؤقتة لهذا النطاق.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"الرجوع عن التغييرات المؤقتة لهذا النطاق.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"إعادة تحميل الصفحة.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -160,7 +160,7 @@
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"الكل",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -184,11 +184,11 @@
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"الكل",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"الصفحات",
     "description":""
   },
   "statsPageCookies":{
@@ -196,11 +196,11 @@
     "description":""
   },
   "statsPageCSS":{
-    "message":"CSS",
+    "message":"ستايل",
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"الصُوَرْ",
     "description":""
   },
   "statsPagePlugins":{
@@ -648,7 +648,7 @@
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"منذ يوم",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{

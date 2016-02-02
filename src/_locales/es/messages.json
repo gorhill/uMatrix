@@ -84,7 +84,7 @@
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revertir cambios temporales para este ámbito.",
+    "message":"Deshacer cambios temporales para este ámbito.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
@@ -112,7 +112,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revertir todos los cambios temporales",
+    "message":"Deshacer todos los cambios temporales",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Activar soporte de almacenamiento en la nube",
+    "message":"Habilitar soporte de almacenamiento en la nube",
     "description":""
   },
   "privacyPageTitle":{
@@ -408,7 +408,7 @@
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revertir",
+    "message":"Deshacer",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
@@ -616,7 +616,7 @@
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Revertir todos los cambios temporales",
+    "message":"Deshacer todos los cambios temporales",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -668,7 +668,7 @@
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Importar del almacenamiento en la nube",
+    "message":"Importar desde almacenamiento en la nube",
     "description":"tooltip"
   },
   "cloudNoData":{
