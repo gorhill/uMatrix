@@ -1,93 +1,81 @@
-µMatrix: A point-and-click matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+uMatrix: een contextafhankelijke en matrix-gebaseerde firewall, met vele functies ter verbetering van uw privacy.
 
-µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
+*Voor gevorderde gebruikers.*
 
-Out of the box, µMatrix works in relax block-all/allow-exceptionally mode, meaning web sites which require 3rd-party scripts are likely to be "broken". With two clicks, µMatrix can be set to work in allow-all/block-exceptionally mode, which generally will not break web sites. See https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
+uMatrix geeft volledige controle over welke verbindingen uw browser mag maken, welk type gegevens de browser mag downloaden, en wat erin mag worden uitgevoerd. Niemand anders beslist het: het is uw keuze. U hebt de volledige controle over uw privacy.
 
-Regarding the myth that "Chromium-based browsers can't reliably block javascript", see: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Summary: Yes, javascript can be blocked reliably in Chromium.
+Direct na installatie werkt uMatrix in de modus alles-blokkeren/bij-uitzondering-blokkeren, wat inhoudt dat websites die scripts van derden nodig hebben waarschijnlijk niet goed worden weergegeven. Met twee muisklikken kan uMatrix worden ingesteld om in de modus alles-toestaan/bij-uitzondering-blokkeren te werken, waarmee websites doorgaans wel goed worden weergegeven. Zie https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views voor meer details over dit onderwerp.
 
-* See ALL the remote connections, failed or attempted, depending on whether they were blocked or allowed (you decide).
+* Bekijk ALLE externe verbindingen, mislukte of gepoogde, afhankelijk van of deze werden geblokkeerd of toegestaan (u beslist).
 
-* A single-click to whitelist/blacklist one or multiple classes of requests according to the destination and type of data (a blocked request will NEVER leave your browser).
+* Eén muisklik voor het whitelisten/blacklisten van een of meer aanvraagklassen volgens de bestemming en het type gegevens (een geblokkeerde aanvraag zal uw browser NOOIT verlaten).
 
-* Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
+* Efficiënt blacklisten: cookies verlaten uw browser niet, JavaScript wordt niet uitgevoerd, plug-ins worden niet afgespeeld, trackingpixels worden niet gedownload, etc.
 
-* You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
+* U hoeft niet slechts op één bepaalde beheerde blacklist (betwistbaar met veel ontbrekende vermeldingen) te vertrouwen waarbuiten niets anders kan worden geblokkeerd: u hebt de volledige controle.
 
-* Ease of use: µMatrix lets you easily whitelist/blacklist net requests which originate from within a web page according to a point-and-click matrix:
+* Gebruikersgemak: met uMatrix kunt u eenvoudig netwerkaanvragen die van een webpagina afkomstig zijn whitelisten/blacklisten, volgens een matrix via aanwijzen en klikken:
 
-- domain names (left column)
-  * from very specific
-  * to very generic
+- domeinnamen (linkerkolom)
+  * van zeer specifieke
+  * tot zeer algemene
 
-- type of requests (top row)
+- type aanvragen (bovenste rij)
   * cookies
-  * CSS-related resources (stylesheets and web fonts)
-  * images
-  * plugins
+  * CSS-gerelateerde bronnen (stijlbladen en weblettertypen)
+  * afbeeldingen
+  * plug-ins
   * scripts
-  * XHR (requests made by scripts)
+  * XHR (aanvragen door scripts)
   * frames
-  * others
+  * overig
 
-You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
+Met slechts één klik kunt u een enkele cel, een hele rij, een groep rijen, een hele kolom, of de hele matrix blacklisten/whitelisten.
 
-µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
+De filterengine van uMatrix gebruikt voorrangslogica voor het evalueren van wat er volgens de cellen die zijn geblacklist/gewhitelist is geblokkeerd/toegestaan. Hierdoor kunt u bijvoorbeeld met één klik een hele pagina whitelisten, zonder dat u dat herhaaldelijk moet doen bij nieuwe gegevens die op de pagina verschijnen.
 
-All rules are scoped. For example, you can block `facebook.com` and `facebook.net` everywhere except when visiting a page on `www.facebook.com`. This way Facebook won't be able to build a profile of your browsing habits.
+Alle regels worden aan een bereik gerelateerd. U kunt bijvoorbeeld ‘facebook.com’ en ‘facebook.net’ overal blokkeren, behalve wanneer u een pagina op ‘www.facebook.com’ bezoekt. Op deze manier zal Facebook geen profiel van uw surfgedrag kunnen opbouwen.
 
-The goal of this extension is to make the allowing or blocking of web sites, wholly or partly, as straightforward as possible, so as to encourage users to care about their privacy.
+Het doel van deze extensie is om het toestaan of blokkeren van websites, geheel of gedeeltelijk, zo overzichtelijk mogelijk te maken en daarmee gebruikers aan te moedigen om op hun privacy te letten.
 
-The extension comes with 3rd-party hosts files totaling over 58,000 distinct hostnames (lists can be selectively disabled/enabled according to your choice).
+Standaard bevat de extensie hosts-bestanden van derden met meer dan 62.000 afzonderlijke hostnamen (lijsten kunnen naar keuze selectief worden in- en uitgeschakeld).
 
-Ultimately, you can choose however you browse the net:
+Uiteindelijk kunt u kiezen hoe u op het internet wilt surfen:
 
-* Blacklist all by default, and whitelist as needed (default mode).
+* Alles standaard blacklisten, en whitelisten wanneer nodig (standaardmodus).
 
-* Whitelist all by default, and blacklist as needed.
+* Alles standaard whitelisten, en blacklisten wanneer nodig.
 
-Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
+In beide gevallen heb u voordeel van de vooraf geleverde blacklists, zodat u op zijn minst basisbescherming krijgt tegen trackers, malwaresites, etc. U kunt al deze vooraf geleverde blacklists ook uitschakelen.
 
-Your choice.
+Uw keuze.
 
-Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
-
-=====
-
-FEEDBACK:
-
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+Willekeurig samengestelde documentatie: https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+Deze extensie is ook bruikbaar om te begrijpen wat de webpagina in uw browser doet, vaak zonder uw medeweten. U hebt de volledige mogelijkheid om te zien en te beslissen waarmee een webpagina communiceert, en deze communicatie tot bepaalde objectklassen binnen dezelfde pagina te beperken.
 
-https://github.com/gorhill/uMatrix/issues
+Het getal dat in het pictogram van de extensie verschijnt, komt overeen met het totale aantal afzonderlijke geprobeerde aanvragen (geslaagd of niet, afhankelijk van of deze werden toegestaan of geblokkeerd) door de webpagina.
 
-You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
+Klik eenvoudig op de juiste vermelding in de matrix om een onderdeel te white-, black- of graylisten. Graylisten houdt in dat de status geblokkeerd of toegestaan van een andere cel met hogere voorrang in de matrix wordt overgenomen.
 
-Ease of use is the primary goal. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+Rood vierkant = effectief geblacklist, m.a.w. aanvragen richting hun bedoelde eindbestemming worden voorkomen:
+* Donkerrood vierkant: de domeinnaam en/of het type aanvraag is specifiek geblacklist.
+* Vaalrood vierkant: de blacklist-status is overgenomen, omdat de vermelding is gegraylist.
 
-This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
+Groen vierkant = effectief gewhitelist, m.a.w. aanvragen mogen hun bedoelde eindbestemming bereiken:
+* Donkergroen vierkant: de domeinnaam en/of het type aanvraag is specifiek gewhitelist.
+* Vaalgroen vierkant: de whitelist-status is overgenomen, omdat de vermelding is gegraylist.
 
-The number which appear in the extension icon correspond to the total number of distinct requests attempted (successfully or not depending on whether these were allowed or blocked) by the web page.
+De cel in de linkerbovenhoek van de matrix, de cel ‘alle’, vertegenwoordigt de algemene standaardinstelling waarmee u kunt kiezen of alles toestaan of blokkeren het standaardgedrag is. Sommige gebruikers geven de voorkeur aan alles toestaan en bij uitzondering blokkeren. Mijn persoonlijke voorkeur is natuurlijk het omgekeerde, alles blokkeren en bij uitzondering toestaan.
 
-Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
-
-Red square = effectively blacklisted, i.e. requests are prevented from reaching their intended destination:
-* Dark red square: the domain name and/or type of request is specifically blacklisted.
-* Faded red square: the blacklist status is inherited because the entry is graylisted.
-
-Green square = effectively whitelisted, i.e. requests are allowed to reach their intended destination:
-* Dark green square: the domain name and/or type of request is specifically whitelisted.
-* Faded green square: the whitelist status is inherited because the entry is graylisted.
-
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
-
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+Deze extensie is ook nuttig als u het browsen wilt versnellen, bijvoorbeeld door alle aanvragen voor afbeeldingen overal te blokkeren.
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/uMatrix (GPLv3)
+BUGS, PROBLEMEN: https://github.com/gorhill/uMatrix/issues
 
-CHANGE LOG: https://github.com/gorhill/uMatrix/releases
+BRONCODE: https://github.com/gorhill/uMatrix (GPLv3)
+
+CHANGELOG: https://github.com/gorhill/uMatrix/releases
