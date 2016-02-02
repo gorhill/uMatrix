@@ -34,7 +34,7 @@ const {XPCOMUtils} = Cu.import('resource://gre/modules/XPCOMUtils.jsm', null);
 
 const hostName = Services.io.newURI(Components.stack.filename, null, null).host;
 
-// Cu.import('resource://gre/modules/devtools/Console.jsm');
+// Cu.import('resource://gre/modules/Console.jsm');
 
 /******************************************************************************/
 
