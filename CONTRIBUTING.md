@@ -14,3 +14,7 @@
 1. Open source quality software comes from contributors carefully **crafting** code: conversely, issues must also be carefully **crafted**.
     - In other words: you benefit from the carefully crafted code, return the favor by **carefully** crafting issues/bug reports.
 1. If your mindset is that your time is more precious than that of my time, refrain from filing issues.
+
+### DO NOT
+
+- Add noise to issues by adding `:+1:` and other such pointless comments which add no substance.
