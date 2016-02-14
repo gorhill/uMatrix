@@ -128,6 +128,9 @@ body[dir="rtl"] #commitButton:before {
 #diff .right li.notLeft {
     color: #000;
     }
+#diff .right li.notLeft:hover {
+    text-decoration: line-through;
+    }
 #diff .right li.notRight {
     color: #000;
     }
