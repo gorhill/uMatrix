@@ -1,8 +1,12 @@
-# Submitting issues
+### Submitting issues
 
-**Must read:** [How to Report Bugs Effectively](http://www.chiark.greenend.org.uk/~sgtatham/bugs.html).
+**The issue tracker is for provable issues only:** You will have to make the case that the issue is really with uMatrix and not something else on your side. To make a case means to provide detailed steps so that anybody can reproduce the issue. Be sure to rule out that the issue is not caused by something specific on your side.
 
-### IMPORTANT
+For **support/discussions**, there is [Mozilla Discourse](https://discourse.mozilla-community.org/t/support-ublock-origin/6746).
+
+Issues opened which are not actual issues with the code will be closed as _invalid_ without further comment.
+
+### Important
 
 1. When you file an issue, your **responsibility** is to provide **ALL** the exact steps needed for me to reproduce an issue.
 1. Ideally, never should I have to _guess_ how to reproduce an issue.
