@@ -1335,41 +1335,6 @@ var matrixSnapshotPoller = (function() {
 
 /******************************************************************************/
 
-// https://github.com/gorhill/uMatrix/pull/441
-// Make the header scroll horizontally with the document.
-
-// Ref.: resource-considerate scroll handler:
-// https://developer.mozilla.org/en-US/docs/Web/Events/scroll#Example
-// Won't cause DOM changes from within scroll handler.
-
-var lastScrollX = 0;
-var onScrollThrottledFired = false;
-
-var onScrollThrottled = function() {
-    lastScrollX = window.scrollX;
-    var style = document.querySelector('.paneHead').style;
-    if ( lastScrollX === 0 ) {
-        style.removeProperty('left');
-    } else {
-        style.setProperty('left', '-' + lastScrollX + 'px');
-    }
-    onScrollThrottledFired = false;
-};
-
-var onScroll = function() {
-    if ( onScrollThrottledFired || window.scrollX === lastScrollX ) {
-        return;
-    }
-    onScrollThrottledFired = true;
-    self.requestAnimationFrame(onScrollThrottled);
-};
-
-if ( typeof self.requestAnimationFrame === 'function' ) {
-    document.addEventListener('scroll', onScroll);
-}
-
-/******************************************************************************/
-
 // Below is UI stuff which is not key to make the menu, so this can
 // be done without having to wait for a tab to be bound to the menu.
 

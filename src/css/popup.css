@@ -7,7 +7,7 @@ body {
     min-height: 16em;
     min-width: 32em;
     opacity: 1;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
     padding: 0;
     }
@@ -24,6 +24,7 @@ a {
     left:0;
     padding: 0;
     position: fixed;
+    right: 0;
     top: 0;
     z-index: 10;
     }
