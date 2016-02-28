@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Panel sterowania",
+    "message":"uMatrix – Panel sterowania",
     "description":""
   },
   "settingsPageName":{
@@ -40,11 +40,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"ciasteczko",
+    "message":"ciastko",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"css",
+    "message":"CSS",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Włącz wsparcie zapisu w chmurze",
+    "message":"Włącz możliwość zapisywania ustawień w chmurze",
     "description":""
   },
   "privacyPageTitle":{
@@ -668,7 +668,7 @@
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Zaimportuj z chmury",
+    "message":"Importuj z chmury",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -676,7 +676,7 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"Nazwa urządzenia:",
+    "message":"Nazwa tego urządzenia:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{

@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Matrix filteren voor dit bereik in-\/uitschakelen",
+    "message":"Matrixfiltering voor dit bereik in-\/uitschakelen",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Naar logboek",
+    "message":"Naar logger",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{

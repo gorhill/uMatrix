@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"お使いのブラウザで、マウス一つでどんな種類のリクエストでも拒否\/許可することができます。スクリプト、iframes、広告、Facebookなどをブロックします。",
+    "message":"お使いのブラウザで、マウス一つでどんな種類のリクエストでも拒否\/許可することができます。スクリプト、Iframe、広告、Facebookなどをブロックします。",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -104,11 +104,11 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agentの偽装",
+    "message":"User-Agent の偽装",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"リファラーの偽装",
+    "message":"リファラの偽装",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
@@ -136,7 +136,7 @@
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>リファラー<\/a> の数: {{count}}",
+    "message":"拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>リファラ<\/a> の数: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -144,7 +144,7 @@
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"削除されたローカルcookie: {{count}}",
+    "message":"削除した Cookie の数: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
@@ -152,7 +152,7 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"クリアされたブラウザキャッシュ: {{count}}",
+    "message":"ブラウザキャッシュを消去した数: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
@@ -232,7 +232,7 @@
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"<b>1ページあたり<\/b> の HTTP 要求",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Enable cloud storage support",
+    "message":"クラウドストレージのサポートを有効にする",
     "description":""
   },
   "privacyPageTitle":{
@@ -316,7 +316,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"ブロックしたCookieを削除する",
+    "message":"ブロックしたクッキーを削除する",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -324,7 +324,7 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"ブロックしていないセッションCookieを削除する （",
+    "message":"ブロックしていないセッションクッキーを削除する （",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
@@ -332,11 +332,11 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>： &ldquo;ブラウザを終了するとセッションクッキーは消去されます。セッションのクッキーは一時的に保存され、ブラウザが閉じられた後には保持されません。&rdquo;<\/p><p><a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>この動きをしない<\/a> ブラウザもあります。また、セッションクッキーを消去するためだけに、ブラウザを閉じたくないということがあるかもしれません。<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"拒否しているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> の内容を消去する",
+    "message":"拒否しているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を消去する",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -356,11 +356,11 @@
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"3rd partyリクエストの <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP リファラ<\/a> を偽装する",
+    "message":"サードパーティーリクエストの <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP リファラ<\/a> を偽装する",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>From Wikipedia:<\/p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote><p>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+    "message":"<p>Wikipedia から引用：<\/p><blockquote>HTTP リファラは、要求しているリソースにリンクしたウェブページのアドレスを識別する HTTP ヘッダのフィールドです。<b>リファラはプライバシーを侵害するおそれがあるため、一部の Web ブラウザでは、ユーザーがリファラの送信を無効にすることができます<\/b>。<\/blockquote><p>この設定をオンにすると、HTTP リファラのドメイン名がアクセスしている Web サイトのドメイン名と異なる場合（サードパーティリクエストである場合）、<i>uMatrix<\/i> は HTTP リファラを偽装します。",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -368,7 +368,7 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>もし HTTPS のページの中に平文の HTTP で送られてくるコンテンツが含まれる場合、その接続は部分的に暗号化されたものにすぎなくなります。暗号化されていないコンテンツは盗聴可能であり、中間者攻撃によってコンテンツの中身は操作できます。すなわち、接続は保護されていません。そのような Web ページは「混在したコンテンツ」を含むページと呼ばれます。<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+    "message":"<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か<\/b> に通知することを可能にする仕組みです。この機能は本質的にはトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -448,7 +448,7 @@
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} distinct blocked hostnames from:",
+    "message":"{{blockedHostnameCount}} 件のホストをブロック対象として使用しています：",
     "description":""
   },
   "hostsFilesPerFileStats":{
@@ -560,7 +560,7 @@
     "description":""
   },
   "aboutOr":{
-    "message":"... か ...",
+    "message":"... もしくは ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
@@ -572,7 +572,7 @@
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"フィルタする",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
@@ -584,11 +584,11 @@
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"削除した Cookie：{{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"Cookie の削除に失敗しました：{{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
@@ -596,7 +596,7 @@
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"リソースを更新しました：{{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
@@ -664,11 +664,11 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"クラウドストレージにエクスポート",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"クラウドストレージからインポート",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -676,15 +676,15 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"このデバイスの名称：",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"登録する",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"元に戻す",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
