@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2013  Raymond Hill
+    Copyright (C) 2013-2106 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,6 +35,8 @@
 
 µMatrix.cookieHunter = (function() {
 
+"use strict";
+
 /******************************************************************************/
 
 var µm = µMatrix;
@@ -44,6 +46,10 @@ var removePageCookiesQueue = {};
 var removeCookieQueue = {};
 var cookieDict = {};
 var cookieEntryJunkyard = [];
+var processRemoveQueuePeriod = 2 * 60 * 1000;
+var processCleanPeriod = 10 * 60 * 1000;
+var processPageRecordQueueTimer = null;
+var processPageRemoveQueueTimer = null;
 
 /******************************************************************************/
 
@@ -198,13 +204,9 @@ var recordPageCookiesAsync = function(pageStats) {
         return;
     }
     recordPageCookiesQueue[pageStats.pageUrl] = pageStats;
-    µm.asyncJobs.add(
-        'cookieHunterPageRecord',
-        null,
-        processPageRecordQueue,
-        1000,
-        false
-    );
+    if ( processPageRecordQueueTimer === null ) {
+        processPageRecordQueueTimer = vAPI.setTimeout(processPageRecordQueue, 1000);
+    }
 };
 
 /******************************************************************************/
@@ -267,13 +269,9 @@ var removePageCookiesAsync = function(pageStats) {
         return;
     }
     removePageCookiesQueue[pageStats.pageUrl] = pageStats;
-    µm.asyncJobs.add(
-        'cookieHunterPageRemove',
-        null,
-        processPageRemoveQueue,
-        15 * 1000,
-        false
-    );
+    if ( processPageRemoveQueueTimer === null ) {
+        processPageRemoveQueueTimer = vAPI.setTimeout(processPageRemoveQueue, 15 * 1000);
+    }
 };
 
 /******************************************************************************/
@@ -281,13 +279,16 @@ var removePageCookiesAsync = function(pageStats) {
 // Candidate for removal
 
 var removeCookieAsync = function(cookieKey) {
-    // console.log('cookies.js/removeCookieAsync()> cookie key = "%s"', cookieKey);
     removeCookieQueue[cookieKey] = true;
 };
 
 /******************************************************************************/
 
-var chromeCookieRemove = function(url, name) {
+var chromeCookieRemove = function(cookieEntry, name) {
+    var url = cookieURLFromCookieEntry(cookieEntry);
+    if ( url === '' ) {
+        return;
+    }
     var sessionCookieKey = cookieKeyFromCookieURL(url, 'session', name);
     var persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
     var callback = function(details) {
@@ -316,6 +317,8 @@ var i18nCookieDeleteFailure = vAPI.i18n('loggerEntryDeleteCookieError');
 /******************************************************************************/
 
 var processPageRecordQueue = function() {
+    processPageRecordQueueTimer = null;
+
     for ( var pageURL in recordPageCookiesQueue ) {
         if ( !recordPageCookiesQueue.hasOwnProperty(pageURL) ) {
             continue;
@@ -328,6 +331,8 @@ var processPageRecordQueue = function() {
 /******************************************************************************/
 
 var processPageRemoveQueue = function() {
+    processPageRemoveQueueTimer = null;
+
     for ( var pageURL in removePageCookiesQueue ) {
         if ( !removePageCookiesQueue.hasOwnProperty(pageURL) ) {
             continue;
@@ -361,18 +366,24 @@ var processRemoveQueue = function() {
         }
         delete removeCookieQueue[cookieKey];
 
-        cookieEntry = cookieDict[cookieKey];
-
         // rhill 2014-05-12: Apparently this can happen. I have to
         // investigate how (A session cookie has same name as a
         // persistent cookie?)
+        cookieEntry = cookieDict[cookieKey];
         if ( !cookieEntry ) {
-            // console.error('cookies.js > processRemoveQueue(): no cookieEntry for "%s"', cookieKey);
             continue;
         }
-        
-        // Just in case setting was changed after cookie was put in queue.
-        if ( cookieEntry.session === false && deleteCookies === false ) {
+
+        // Delete obsolete session cookies: enabled.
+        if ( tstampObsolete !== 0 && cookieEntry.session ) {
+            if ( cookieEntry.tstamp < tstampObsolete ) {
+                chromeCookieRemove(cookieEntry, cookieEntry.name);
+                continue;
+            }
+        }
+
+        // Delete all blocked cookies: disabled.
+        if ( deleteCookies === false ) {
             continue;
         }
 
@@ -384,22 +395,12 @@ var processRemoveQueue = function() {
         // Ensure cookie is not allowed on ALL current web pages: It can
         // happen that a cookie is blacklisted on one web page while
         // being whitelisted on another (because of per-page permissions).
-        if ( canRemoveCookie(cookieKey, srcHostnames) === false ) {
-            // Exception: session cookie may have to be removed even though
-            // they are seen as being whitelisted.
-            if ( cookieEntry.session === false || cookieEntry.tstamp > tstampObsolete ) {
-                continue;
-            }
+        if ( canRemoveCookie(cookieKey, srcHostnames) ) {
+            chromeCookieRemove(cookieEntry, cookieEntry.name);
         }
-
-        var url = cookieURLFromCookieEntry(cookieEntry);
-        if ( !url ) {
-            continue;
-        }
-
-        // console.debug('cookies.js > processRemoveQueue(): removing "%s" (age=%s min)', cookieKey, ((Date.now() - cookieEntry.tstamp) / 60000).toFixed(1));
-        chromeCookieRemove(url, cookieEntry.name);
     }
+
+    vAPI.setTimeout(processRemoveQueue, processRemoveQueuePeriod);
 };
 
 /******************************************************************************/
@@ -418,6 +419,8 @@ var processClean = function() {
     while ( cookieKeys.length ) {
         removeCookieAsync(cookieKeys.pop());
     }
+
+    vAPI.setTimeout(processClean, processCleanPeriod);
 };
 
 /******************************************************************************/
@@ -530,8 +533,8 @@ vAPI.cookies.onChanged = function(cookie) {
 vAPI.cookies.getAll(addCookiesToDict);
 vAPI.cookies.start();
 
-µm.asyncJobs.add('cookieHunterRemove', null, processRemoveQueue, 2 * 60 * 1000, true);
-µm.asyncJobs.add('cookieHunterClean', null, processClean, 10 * 60 * 1000, true);
+vAPI.setTimeout(processRemoveQueue, processRemoveQueuePeriod);
+vAPI.setTimeout(processClean, processCleanPeriod);
 
 /******************************************************************************/
 

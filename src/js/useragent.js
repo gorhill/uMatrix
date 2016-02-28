@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2015 Raymond Hill
+    Copyright (C) 2014-2016 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@
 /******************************************************************************/
 
 µMatrix.userAgentSpoofer = (function() {
+
+"use strict";
 
 /******************************************************************************/
 
@@ -61,14 +63,11 @@ var userAgentSpoofer = function(force) {
         µm.userAgentReplaceStr = userAgentRandomPicker();
         µm.userAgentReplaceStrBirth = Date.now();
     }
+
+    vAPI.setTimeout(userAgentSpoofer, 120 * 1000);
 };
 
-// Prime spoofer
 userAgentSpoofer();
-
-/******************************************************************************/
-
-µMatrix.asyncJobs.add('userAgentSwitcher', null, userAgentSpoofer, 120 * 1000, true);
 
 /******************************************************************************/
 

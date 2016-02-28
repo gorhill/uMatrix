@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    Copyright (C) 2014-2016  Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -568,6 +568,51 @@ vAPI.tabs.registerListeners();
 µm.forceReload = function(tabId) {
     vAPI.tabs.reload(tabId, { bypassCache: true });
 };
+
+/******************************************************************************/
+
+// Update badge
+
+// rhill 2013-11-09: well this sucks, I can't update icon/badge
+// incrementally, as chromium overwrite the icon at some point without
+// notifying me, and this causes internal cached state to be out of sync.
+
+µm.updateBadgeAsync = (function() {
+    var tabIdToTimer = Object.create(null);
+
+    var updateBadge = function(tabId) {
+        delete tabIdToTimer[tabId];
+
+        var iconId = null;
+        var badgeStr = '';
+
+        var pageStore = this.pageStoreFromTabId(tabId);
+        if ( pageStore !== null ) {
+            var total = pageStore.perLoadAllowedRequestCount +
+                        pageStore.perLoadBlockedRequestCount;
+            if ( total ) {
+                var squareSize = 19;
+                var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
+                iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
+            }
+            if ( this.userSettings.iconBadgeEnabled && pageStore.distinctRequestCount !== 0) {
+                badgeStr = this.formatCount(pageStore.distinctRequestCount);
+            }
+        }
+
+        vAPI.setIcon(tabId, iconId, badgeStr);
+    };
+
+    return function(tabId) {
+        if ( tabIdToTimer[tabId] ) {
+            return;
+        }
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
+            return;
+        }
+        tabIdToTimer[tabId] = vAPI.setTimeout(updateBadge.bind(this, tabId), 500);
+    };
+})();
 
 /******************************************************************************/
 
