@@ -19,6 +19,34 @@ a {
     text-decoration: none;
     }
 
+#version {
+    font-size: 10px;
+    font-weight: normal;
+    }
+#gotoDashboard {
+    background-color: #444;
+    border: 0;
+    color: #bbb;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    line-height: 12px;
+    margin: 0;
+    padding: 3px 0;
+    position: relative;
+    text-align: center;
+    }
+#gotoDashboard > span:last-of-type {
+    opacity: 0.5;
+    position: absolute;
+    }
+body[dir="ltr"] #gotoDashboard > span:last-of-type {
+    left: 3px;
+    }
+body[dir="rtl"] #gotoDashboard > span:last-of-type {
+    right: 3px;
+    }
+
 .paneHead {
     background-color: white;
     left:0;
@@ -45,10 +73,6 @@ a {
     margin: 0;
     padding: 02px 0;
     text-align: center;
-    }
-#version {
-    font-size: 10px;
-    font-weight: normal;
     }
 
 .toolbar {
