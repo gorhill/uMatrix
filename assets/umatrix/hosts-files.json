@@ -5,15 +5,15 @@
         },
     "mirror1.malwaredomains.com/files/justdomains": {
         "title": "Malware domains",
-        "homeURL": "http://malwaredomains.lehigh.edu/files/justdomains"
+        "homeURL": "https://mirror.cedia.org.ec/malwaredomains/justdomains"
         },
     "pgl.yoyo.org/as/serverlist": {
         "title": "Peter Lowe’s Ad server list",
-        "homeURL": "http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext"
+        "homeURL": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext"
         },
     "www.malwaredomainlist.com/hostslist/hosts.txt": {
         "title": "Malware Domain List",
-        "homeURL": "http://www.malwaredomainlist.com/hostslist/hosts.txt"
+        "homeURL": "https://www.malwaredomainlist.com/hostslist/hosts.txt"
         },
     "hosts-file.net/ad-servers": {
         "title": "hpHosts’s Ad and tracking servers",
