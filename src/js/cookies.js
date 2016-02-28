@@ -119,7 +119,6 @@ var removeCookieFromDict = function(cookieKey) {
     if ( cookieEntryJunkyard.length < 25 ) {
         cookieEntryJunkyard.push(cookieEntry.unset());
     }
-    // console.log('cookies.js/removeCookieFromDict()> removed cookie key "%s"', cookieKey);
     return true;
 };
 
@@ -525,6 +524,29 @@ vAPI.cookies.onChanged = function(cookie) {
             continue;
         }
         recordPageCookie(pageStore, cookieKey);
+    }
+};
+
+/******************************************************************************/
+
+// Listen to any change in cookieland, we will update page stats accordingly.
+
+vAPI.cookies.onRemoved = function(cookie) {
+    var cookieKey = cookieKeyFromCookie(cookie);
+    if ( removeCookieFromDict(cookieKey) ) {
+        µm.logger.writeOne('', 'info', 'cookie', i18nCookieDeleteSuccess.replace('{{value}}', cookieKey));
+    }
+};
+
+/******************************************************************************/
+
+// Listen to any change in cookieland, we will update page stats accordingly.
+
+vAPI.cookies.onAllRemoved = function() {
+    for ( var cookieKey in cookieDict ) {
+        if ( cookieDict.hasOwnProperty(cookieKey) && removeCookieFromDict(cookieKey) ) {
+            µm.logger.writeOne('', 'info', 'cookie', i18nCookieDeleteSuccess.replace('{{value}}', cookieKey));
+        }
     }
 };
 

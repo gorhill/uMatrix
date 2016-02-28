@@ -840,13 +840,24 @@ vAPI.cookies = {};
 /******************************************************************************/
 
 vAPI.cookies.start = function() {
+    var reallyRemoved = {
+        'evicted': true,
+        'expired': true,
+        'explicit': true
+    };
+
     var onChanged = function(changeInfo) {
-        var handler = changeInfo.removed ? this.onRemoved : this.onChanged;
-        if ( typeof handler !== 'function' ) {
+        if ( changeInfo.removed ) {
+            if ( reallyRemoved[changeInfo.cause] && typeof this.onRemoved === 'function' ) {
+                this.onRemoved(changeInfo.cookie);
+            }
             return;
         }
-        handler(changeInfo.cookie);
+        if ( typeof this.onChanged === 'function' ) {
+            this.onChanged(changeInfo.cookie);
+        }
     };
+
     chrome.cookies.onChanged.addListener(onChanged.bind(this));
 };
 

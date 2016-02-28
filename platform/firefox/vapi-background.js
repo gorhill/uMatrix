@@ -3294,7 +3294,21 @@ vAPI.cookies.observe = function(subject, topic, reason) {
     //if ( topic !== 'cookie-changed' && topic !== 'private-cookie-changed' ) {
     //    return;
     //}
-    if ( reason === 'deleted' || subject instanceof Ci.nsICookie2 === false ) {
+    //
+    if ( reason === 'cleared' && typeof this.onAllRemoved === 'function' ) {
+        this.onAllRemoved();
+        return;
+    }
+    if ( subject === null ) {
+        return;
+    }
+    if ( subject instanceof Ci.nsICookie2 === false ) {
+        subject = subject.QueryInterface(Ci.nsICookie2);
+    }
+    if ( reason === 'deleted' ) {
+        if ( typeof this.onRemoved === 'function' ) {
+            this.onRemoved(new this.CookieEntry(subject));
+        }
         return;
     }
     if ( typeof this.onChanged === 'function' ) {
