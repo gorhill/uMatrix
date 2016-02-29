@@ -173,7 +173,7 @@ var doesMatchSelector = function(node, selector) {
 /******************************************************************************/
 
 DOMList.prototype.nodeAt = function(i) {
-    return this.nodes[i];
+    return this.nodes[i] || null;
 };
 
 DOMList.prototype.at = function(i) {
@@ -518,7 +518,7 @@ DOMList.prototype.css = function(prop, value) {
         return i ? this.nodes[0].style[prop] : undefined;
     }
     if ( value !== '' ) {
-    while ( i-- ) {
+        while ( i-- ) {
             this.nodes[i].style.setProperty(prop, value);
         }
         return this;
