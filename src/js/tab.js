@@ -356,6 +356,11 @@ housekeep itself.
             return;
         }
         push(tabId, details.url, 'newURL');
+        // https://github.com/gorhill/uMatrix/issues/513
+        // Force a badge update here, it could happen that all the subsequent
+        // network requests are already in the page store, which would cause
+        // the badge to no be updated for these network requests.
+        µm.updateBadgeAsync(tabId);
     };
 
     vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
@@ -610,7 +615,7 @@ vAPI.tabs.registerListeners();
         if ( vAPI.isBehindTheSceneTabId(tabId) ) {
             return;
         }
-        tabIdToTimer[tabId] = vAPI.setTimeout(updateBadge.bind(this, tabId), 500);
+        tabIdToTimer[tabId] = vAPI.setTimeout(updateBadge.bind(this, tabId), 750);
     };
 })();
 
