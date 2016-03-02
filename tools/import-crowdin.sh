@@ -62,6 +62,7 @@ cp $SRCDIR/tr_TR/messages.json  $DESDIR/tr/messages.json
 cp $SRCDIR/uk_UA/messages.json  $DESDIR/uk/messages.json
 cp $SRCDIR/vi_VN/messages.json  $DESDIR/vi/messages.json
 cp $SRCDIR/zh_CN/messages.json  $DESDIR/zh_CN/messages.json
+cp $SRCDIR/zh_TW/messages.json  $DESDIR/zh_TW/messages.json
 
 rm -r $ARCDIR
 echo "*** uMatrix: Import done."

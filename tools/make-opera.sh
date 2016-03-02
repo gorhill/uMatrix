@@ -27,7 +27,9 @@ cp -R ./src/_locales/fr    $DES/_locales/
 cp -R ./src/_locales/he    $DES/_locales/
 cp -R ./src/_locales/id    $DES/_locales/
 cp -R ./src/_locales/it    $DES/_locales/
+cp -R ./src/_locales/nl    $DES/_locales/
 cp -R ./src/_locales/pt_BR $DES/_locales/
 cp -R ./src/_locales/pt_PT $DES/_locales/
 cp -R ./src/_locales/tr    $DES/_locales/
+cp -R ./src/_locales/zh_TW $DES/_locales/
 echo "*** uMatrix(Opera): Package done."
