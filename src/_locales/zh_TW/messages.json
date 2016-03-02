@@ -1,0 +1,694 @@
+{
+  "extName":{
+    "message":"uMatrix",
+    "description":""
+  },
+  "extShortDesc":{
+    "message":"點選以禁止或容許瀏覽器中的各種請求。藉此阻擋指令碼、行內框架元素、廣告、社交網站追踪等。",
+    "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
+  },
+  "dashboardPageName":{
+    "message":"uMatrix — 控制台",
+    "description":""
+  },
+  "settingsPageName":{
+    "message":"設定",
+    "description":"a tab in dashboard"
+  },
+  "privacyPageName":{
+    "message":"隱私",
+    "description":"a tab in dashboard"
+  },
+  "statsPageName":{
+    "message":"統計",
+    "description":"a tab in dashboard"
+  },
+  "userRulesPageName":{
+    "message":"規則",
+    "description":"a tab in dashboard"
+  },
+  "ubiquitousRulesPageName":{
+    "message":"Hosts檔案",
+    "description":"a tab in dashboard"
+  },
+  "aboutPageName":{
+    "message":"關於",
+    "description":"a tab in dashboard"
+  },
+  "allPrettyName":{
+    "message":"全部",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "cookiePrettyName":{
+    "message":"cookie",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "cssPrettyName":{
+    "message":"樣式表",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "imagePrettyName":{
+    "message":"圖像",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "pluginPrettyName":{
+    "message":"插件",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "scriptPrettyName":{
+    "message":"指令",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "xhrPrettyName":{
+    "message":"XHR",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "framePrettyName":{
+    "message":"框架",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "otherPrettyName":{
+    "message":"其他",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "matrixNoNetTrafficPrompt":{
+    "message":"此分頁暫無通訊。",
+    "description":""
+  },
+  "matrixMtxButtonTip":{
+    "message":"禁止或啟用過濾此域。",
+    "description":"Tool tip for matrix button"
+  },
+  "matrixPersistButtonTip":{
+    "message":"儲存此域中所有臨時更改。",
+    "description":"Tool tip for the persist button"
+  },
+  "matrixRevertButtonTip":{
+    "message":"取消此域中所有臨時更改。",
+    "description":"Tool tip for the revert local permission button"
+  },
+  "matrixReloadButton":{
+    "message":"重新載入此頁。",
+    "description":"Tool tip for the reload button"
+  },
+  "matrix1stPartyLabel":{
+    "message":"第一方",
+    "description":"1st-party"
+  },
+  "matrixBlacklistedHostnames":{
+    "message":"{{count}}個黑名單主機",
+    "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
+  },
+  "matrixSwitchNoMixedContent":{
+    "message":"嚴格HTTPS",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixSwitchUASpoof":{
+    "message":"偽裝使用者代理",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixSwitchReferrerSpoof":{
+    "message":"偽裝參照位址",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixRevertAllEntry":{
+    "message":"取消所有臨時更改",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixLoggerMenuEntry":{
+    "message":"前往日誌",
+    "description":"A menu entry in the matrix popup"
+  },
+  "matrixDashboardMenuEntry":{
+    "message":"前往控制台",
+    "description":"A menu entry in the matrix popup"
+  },
+  "statsPageTitle":{
+    "message":"uMatrix &ndash; 統計",
+    "description":""
+  },
+  "statsPageGenericStats":{
+    "message":"普通統計",
+    "description":""
+  },
+  "statsPageCookieHeadersFoiled":{
+    "message":"<a href='https:\/\/zh.wikipedia.org\/wiki\/Cookie'>Cookie<\/a>檔頭請求阻止次數：{{count}}",
+    "description":""
+  },
+  "statsPageRefererHeadersFoiled":{
+    "message":"<a href='https:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP參照位址<\/a>檔頭請求阻止次數：{{count}}",
+    "description":""
+  },
+  "statsPageHyperlinkAuditingFoiled":{
+    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超連結審核<\/a>嘗試阻止次數：{{count}}",
+    "description":""
+  },
+  "statsPageCookiesRemoved":{
+    "message":"本地Cookie移除次數：{{count}}",
+    "description":""
+  },
+  "statsPageLocalStoragesCleared":{
+    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>本地儲存<\/a>清空次數：{{count}}",
+    "description":""
+  },
+  "statsPageBrowserCacheCleared":{
+    "message":"瀏覽器暫存清除次數：{{count}}",
+    "description":""
+  },
+  "statsPageDetailedStats":{
+    "message":"詳細統計",
+    "description":""
+  },
+  "statsPageDetailedAllPages":{
+    "message":"全部",
+    "description":""
+  },
+  "statsPageDetailedBehindTheScenePage":{
+    "message":"背景",
+    "description":""
+  },
+  "statsPageOverview":{
+    "message":"概覽",
+    "description":""
+  },
+  "statsPageRequests":{
+    "message":"請求",
+    "description":"header for the stat type column"
+  },
+  "statsPageAllowed":{
+    "message":"容許",
+    "description":"header for the allowed requests column"
+  },
+  "statsPageBlocked":{
+    "message":"阻擋",
+    "description":"header for the blocked requests column"
+  },
+  "statsPageAll":{
+    "message":"全部",
+    "description":""
+  },
+  "statsPagePages":{
+    "message":"頁面",
+    "description":""
+  },
+  "statsPageCookies":{
+    "message":"Cookie",
+    "description":""
+  },
+  "statsPageCSS":{
+    "message":"階層式樣式表",
+    "description":""
+  },
+  "statsPageImages":{
+    "message":"圖像",
+    "description":""
+  },
+  "statsPagePlugins":{
+    "message":"外掛程式",
+    "description":""
+  },
+  "statsPageScripts":{
+    "message":"指令碼",
+    "description":""
+  },
+  "statsPageXHRs":{
+    "message":"XHR",
+    "description":""
+  },
+  "statsPageFrames":{
+    "message":"框架",
+    "description":""
+  },
+  "statsPageOthers":{
+    "message":"其他",
+    "description":""
+  },
+  "statsPageDetailed":{
+    "message":"日誌",
+    "description":""
+  },
+  "statsPageLogSizePrompt1":{
+    "message":"記住<b>每頁<\/b>最近",
+    "description":"First part of Remember the last [n] HTTP requests per page"
+  },
+  "statsPageLogSizePrompt2":{
+    "message":"次HTTP請求。",
+    "description":"Second part of Remember the last [n] HTTP requests per page"
+  },
+  "statsPageLogSizeHelp":{
+    "message":"<p>您可以查看最近期網絡頁面所發出的請求之詳情（見下）。<\/p><p>這對於想了解網絡頁面的確切行為的進階使用者較為實用，惟記錄HTTP請求將耗用記憶體，如您並不在意技術細節則等同浪費記憶體。<\/p><p>故此欄將容許閣下調整用作進一歲檢查的近期HTTP請求之記錄數字。<\/p><p>輸入「<code>0<\/code>」將禁用詳細日誌（從而減少<i>uMatrix<\/i>所佔用之記憶體）。<\/p>",
+    "description":"To help user understand the purpose of the log size value"
+  },
+  "statsPageRefresh":{
+    "message":"重新整理",
+    "description":""
+  },
+  "settingsPageTitle":{
+    "message":"uMatrix &ndash; 設定",
+    "description":""
+  },
+  "settingsMatrixDisplayHeader":{
+    "message":"外觀",
+    "description":""
+  },
+  "settingsMatrixDisplayTextSizePrompt":{
+    "message":"文字大小：",
+    "description":""
+  },
+  "settingsMatrixDisplayTextSizeNormal":{
+    "message":"標準",
+    "description":""
+  },
+  "settingsMatrixDisplayTextSizeLarge":{
+    "message":"大型",
+    "description":""
+  },
+  "settingsMatrixDisplayColorBlind":{
+    "message":"適合色盲者使用",
+    "description":""
+  },
+  "settingsMatrixConvenienceHeader":{
+    "message":"便利",
+    "description":"English: Convenience"
+  },
+  "settingsMatrixAutoReloadPrompt":{
+    "message":"關閉矩陣時重新載入以下分頁：",
+    "description":""
+  },
+  "settingsMatrixAutoReloadNone":{
+    "message":"無",
+    "description":""
+  },
+  "settingsMatrixAutoReloadCurrent":{
+    "message":"現有",
+    "description":""
+  },
+  "settingsMatrixAutoReloadAll":{
+    "message":"全部",
+    "description":""
+  },
+  "settingsMatrixAutoReloadInfo":{
+    "message":"當你更改矩陣以致其將影響分頁之外觀或行為之時，<i>uMatrix<\/i>將於關閉矩陣時自動重新載入。",
+    "description":""
+  },
+  "settingsSubframeColor":{
+    "message":"已封鎖之框架：&ensp;颜色",
+    "description":"English: Blocked frames:&ensp;Color"
+  },
+  "settingsSubframeOpacity":{
+    "message":"不透明度",
+    "description":"English: Opacity"
+  },
+  "settingsIconBadgeEnabled":{
+    "message":"於圖示上顯示請求之數量",
+    "description":"English: Show the number of distinct requests on the icon"
+  },
+  "settingsCollapseBlocked":{
+    "message":"隱藏已封鎖元素之佔位符",
+    "description":"English: Collapse placeholder of blocked elements"
+  },
+  "settingsCloudStorageEnabled":{
+    "message":"啟用雲端儲存支援",
+    "description":""
+  },
+  "privacyPageTitle":{
+    "message":"uMatrix &ndash; 私隱",
+    "description":""
+  },
+  "privacyDeleteBlockedCookiesPrompt":{
+    "message":"刪除已阻止的Cookie。",
+    "description":""
+  },
+  "privacyDeleteBlockedCookiesHelp":{
+    "message":"<p><i>uMatrix<\/i>不會阻止黑名單中的Cookie進入您的瀏覽器，而是阻止它们離開开您的瀏覽器，因後者才確有意義。不於Cookie進入瀏覽器之前阻止他們將使您有機會得知一個網站正嘗試使用Cookie，以便您有需要時進一步查看。<\/p><p>如若黑名單中的Cookie被<i>uMatrix<\/i>所計入則可按閱下意願將其移除。<\/p><p><b>重要提示：<\/b>附加元件於其運作期間作出網絡請求之時將可能產生Cookie。如果Cookie來源之主機並未列於白名單，則<i>uMatrix<\/i>會於此選項開啟之時移除這些Cookie。請確保附加元件溝通用的主機列於白名單之中。<\/p>",
+    "description":""
+  },
+  "privacyDeleteNonBlockedSessionCookiesPrompt1":{
+    "message":"於",
+    "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+  },
+  "privacyDeleteNonBlockedSessionCookiesPrompt2":{
+    "message":"分鐘後刪除未阻止且未使用之會話Cookie",
+    "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+  },
+  "privacyDeleteNonBlockedSessionCookiesHelp":{
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>：「一个會話Cookie……將於瀏覽器會話結束時被清除。會話Cookie儲存於記憶體中，瀏覽器關閉後不再保留。」<\/p><p>不過使用某些瀏覽器時，此行為<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>未必發生<\/a>。另外，對某些人而言，於瀏覽器將閉後才清除會話Cookie可能太遅。<\/p>",
+    "description":""
+  },
+  "privacyDeleteBlockedLocalStoragePrompt":{
+    "message":"按已封鎖的主機刪除<a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>本地儲存<\/a>。",
+    "description":""
+  },
+  "privacyDeleteBlockedLocalStorageHelp":{
+    "message":"待完成",
+    "description":""
+  },
+  "privacyClearCachePrompt1":{
+    "message":"每隔",
+    "description":"First part of 'Clear browser cache every [n] minutes'"
+  },
+  "privacyClearCachePrompt2":{
+    "message":"分鐘清除瀏覽器暫存檔。",
+    "description":"Second part of 'Clear browser cache every [n] minutes'"
+  },
+  "privacyClearCacheHelp":{
+    "message":"<p>某些網站特别熱衷於追蹤，至到其為繞過你為避免追蹤而所作的措施，會使用一些不太光彩的手段。<\/p><p>因為很少有使用者會定期花時間清理瀏覽器快取，使快取獲保留一段長時間，使得一部分追蹤方法使用<sup style='font-size:smaller'>[1, 2]<\/sup><a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>瀏覽器快取<\/a>。<\/p><p>定期清理瀏覽器快取並不會帶來太多麻煩（甚至很可能根本不會注意到），郤可帶來阻止無處不在的追蹤器侵擾閣下私隱的好處。<\/p><p>點擊此選項將容許<i>uMatrix<\/i>於你所指定的時間為您完成此項工作。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用瀏覽器快取進行網絡追蹤」<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>「Cookieless cookies」<\/a><\/p>",
+    "description":""
+  },
+  "privacyProcessRefererPrompt":{
+    "message":"移除第三方請求中的<a href='https:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP參照位址<\/a>。",
+    "description":""
+  },
+  "privacyProcessRefererHelp":{
+    "message":"<p>維基百科：<\/p><blockquote>HTTP位址參照是一個用於辨識請求來源網頁的網址的HTTP頭……<b>由於位址參照可能侵犯私隱，某些瀏覽器容許使用者禁止傳送位址參照。<\/b><\/blockquote><p>若已選此設定，<i>uMatrix<\/i>則會於請求的HTTP位址參照與資源的域名有差別時，將HTTP位址參照偽裝成該資源的域名。",
+    "description":""
+  },
+  "privacyNoMixedContentPrompt":{
+    "message":"嚴格HTTPS：禁止混合内容。",
+    "description":""
+  },
+  "privacyNoMixedContentHelp":{
+    "message":"<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla開發者網絡<\/a>：<\/p><blockquote>如若HTTPS頁面包含使用正常未經加密HTTP的內容時，則連結只是部分加密；未加密的部分將容許他人查看甚至受中間人攻擊所改變，固連結並非完全安全。如若網頁有此行為，則稱作混合內容頁面。<\/blockquote>",
+    "description":""
+  },
+  "privacyProcessHyperlinkAuditingPrompt":{
+    "message":"阻止所有<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超連結審核<\/a>嘗試。",
+    "description":""
+  },
+  "privacyProcessHyperlinkAuditingHelp":{
+    "message":"<p>超連結審核容許<b>任何人<\/b>獲告知一個用戶於特定網頁上點擊某個連結。其本質上為一種追蹤技術：其容許一個網站或任何第三方獲告知你於何頁點解何連結。其唯一目的就是追蹤您的瀏覽動向。<\/p>",
+    "description":""
+  },
+  "privacySpoofUserAgentPrompt1":{
+    "message":"每隔",
+    "description":"First part of UA-spoofing prompt"
+  },
+  "privacySpoofUserAgentPrompt2":{
+    "message":"分鐘從下方隨機選取一段用作<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86'>使用者代理<\/a>偽裝。",
+    "description":"Second part"
+  },
+  "privacySpoofUserAgentHelp":{
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子前哨基金會<\/i><\/a>：「……您的瀏覽器會向網站發送一個『使用者代理』，以精確地向網站報告您所使用的作業系統及瀏覽器。對不同的人而言，作業系統與和瀏覽器的版本通常存在不少差異，故此以上信息可以用作區分互聯網用戶。……<b>使用者代理成為了一個真正的私隱問題<\/b>。」<p>此選項容許您解決由EFF所提出的私隱問題。<\/p><p>您可以提供您自己的使用者代理表。每行一個字串。空行以及以「#」啟始的行將被忽略。<\/p>",
+    "description":""
+  },
+  "privacyBehindTheSceneHeader":{
+    "message":"背景請求",
+    "description":""
+  },
+  "privacyProcessBehindTheSceneHelp":{
+    "message":"",
+    "description":""
+  },
+  "userRulesPermanentHeader":{
+    "message":"永久規則",
+    "description":""
+  },
+  "userRulesTemporaryHeader":{
+    "message":"臨時規則",
+    "description":""
+  },
+  "userRulesRevert":{
+    "message":"還原",
+    "description":"Will remove all temporary rules"
+  },
+  "userRulesCommit":{
+    "message":"提交",
+    "description":"Will save all temporary rules"
+  },
+  "userRulesEdit":{
+    "message":"編輯",
+    "description":"Will enable manual-edit mode (textarea)"
+  },
+  "userRulesEditSave":{
+    "message":"儲存",
+    "description":"Will save manually-edited content and exit manual-edit mode"
+  },
+  "userRulesEditDicard":{
+    "message":"取消",
+    "description":"Will discard manually-edited content and exit manual-edit mode"
+  },
+  "userRulesImport":{
+    "message":"從檔案匯入...",
+    "description":""
+  },
+  "userRulesExport":{
+    "message":"匯出到檔案...",
+    "description":""
+  },
+  "userRulesFormatHint":{
+    "message":"於此查閱規則語法。",
+    "description":""
+  },
+  "userRulesDefaultFileName":{
+    "message":"my-umatrix-rules.txt",
+    "description":"default file name to use"
+  },
+  "hostsFilesPrompt":{
+    "message":"hosts檔案中的主機將列作全域黑名單。",
+    "description":""
+  },
+  "hostsFilesStats":{
+    "message":"{{blockedHostnameCount}}個獨特主機由下列列表阻止：",
+    "description":""
+  },
+  "hostsFilesPerFileStats":{
+    "message":"{{total}}中已使用{{used}}個",
+    "description":""
+  },
+  "hostsFilesLastUpdate":{
+    "message":"上次更新：{{ago}}",
+    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+  },
+  "hostsFilesApplyChanges":{
+    "message":"套用變更",
+    "description":""
+  },
+  "hostsFilesAutoUpdatePrompt":{
+    "message":"自動更新hosts檔案。",
+    "description":""
+  },
+  "hostsFilesUpdateNow":{
+    "message":"立即更新",
+    "description":""
+  },
+  "hostsFilesPurgeAll":{
+    "message":"清除所有快取",
+    "description":""
+  },
+  "hostsFilesExternalListsHint":{
+    "message":"每行一條網址。以「#」開始的行將被忽略。無效網址亦將忽略。",
+    "description":""
+  },
+  "hostsFilesExternalListsParse":{
+    "message":"解析",
+    "description":""
+  },
+  "hostsFilesExternalListPurge":{
+    "message":"清除快取",
+    "description":""
+  },
+  "hostsFilesExternalListNew":{
+    "message":"有新版本",
+    "description":""
+  },
+  "hostsFilesExternalListObsolete":{
+    "message":"已過期",
+    "description":""
+  },
+  "aboutChangelog":{
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>更新日誌<\/a>",
+    "description":""
+  },
+  "aboutStorageUsed":{
+    "message":"已使用空間：{{storageUsed}}位元組",
+    "description":""
+  },
+  "aboutDoc":{
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>共筆系統<\/a>",
+    "description":""
+  },
+  "aboutPermissions":{
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>權限<\/a>",
+    "description":""
+  },
+  "aboutCode":{
+    "message":"原始程式碼（GPLv3）",
+    "description":""
+  },
+  "aboutIssues":{
+    "message":"錯誤與問題",
+    "description":""
+  },
+  "aboutContributors":{
+    "message":"貢獻者",
+    "description":"English: Contributors"
+  },
+  "aboutCodeContributors":{
+    "message":"程式碼：",
+    "description":""
+  },
+  "aboutIssueContributors":{
+    "message":"問題：",
+    "description":""
+  },
+  "aboutTranslationContributors":{
+    "message":"翻譯：",
+    "description":""
+  },
+  "aboutUserDataHeader":{
+    "message":"你的數據",
+    "description":""
+  },
+  "aboutBackupButton":{
+    "message":"備份至檔案...",
+    "description":""
+  },
+  "aboutBackupFilename":{
+    "message":"my-umatrix-backup.txt",
+    "description":"default filename to use"
+  },
+  "aboutRestoreButton":{
+    "message":"從檔案還原...",
+    "description":""
+  },
+  "aboutRestoreConfirm":{
+    "message":"您的所有設定將由{{time}}的備份數據所覆蓋，然後uMatrix將會重新啟動。\n\n是否要將備份數據覆蓋現有設定？",
+    "description":"Message asking user to confirm restore"
+  },
+  "aboutRestoreError":{
+    "message":"無法讀取或無效數據",
+    "description":""
+  },
+  "aboutOr":{
+    "message":"...或...",
+    "description":"English: ... or ..."
+  },
+  "aboutResetButton":{
+    "message":"重設為預設值",
+    "description":"English: Reset to default settings"
+  },
+  "aboutResetConfirm":{
+    "message":"小心！這將移除你所有設定，你確定要繼續？",
+    "description":"Message asking user to confirm reset"
+  },
+  "loggerFilterInputPlaceholder":{
+    "message":"過濾規則表達式",
+    "description":"Appears in the input filed where filter expressions are entered"
+  },
+  "loggerMaxEntriesTip":{
+    "message":"最大項目量",
+    "description":"Appears as a tooltip when hovering the input field"
+  },
+  "loggerEntryUserAgentSpoofing":{
+    "message":"現正使用使用者代理：{{value}}",
+    "description":"An entry for when a new user agent string is selected"
+  },
+  "loggerEntryCookieDeleted":{
+    "message":"已刪除Cookie：{{value}}",
+    "description":"An entry for when a cookie is deleted"
+  },
+  "loggerEntryDeleteCookieError":{
+    "message":"無法刪除Cookie：{{value}}",
+    "description":"An entry for when the browser cache is cleared"
+  },
+  "loggerEntryBrowserCacheCleared":{
+    "message":"瀏覽器快取已清除",
+    "description":"An entry for when a cookie can't be deleted"
+  },
+  "loggerEntryAssetUpdated":{
+    "message":"已更新資料：{{value}}",
+    "description":"An entry for when an asset was updated"
+  },
+  "mainBlockedPrompt1":{
+    "message":"uMatrix已阻止下列頁面之載入：",
+    "description":"English: uMatrix has prevented the following page from loading:"
+  },
+  "mainBlockedPrompt2":{
+    "message":"因下列規則：",
+    "description":"English: Because of the following rule"
+  },
+  "mainBlockedBack":{
+    "message":"返回",
+    "description":"English: Go back"
+  },
+  "mainBlockedClose":{
+    "message":"關閉",
+    "description":"English: Close"
+  },
+  "commandRevertAll":{
+    "message":"還原所有臨時改變",
+    "description":""
+  },
+  "commandWhitelistPageDomain":{
+    "message":"暫時將頁面域名列入白名單",
+    "description":""
+  },
+  "commandWhitelistAll":{
+    "message":"暫時將一切列入白名單",
+    "description":""
+  },
+  "commandOpenDashboard":{
+    "message":"開啟控制台",
+    "description":""
+  },
+  "elapsedOneMinuteAgo":{
+    "message":"一分鐘前",
+    "description":"English: a minute ago"
+  },
+  "elapsedManyMinutesAgo":{
+    "message":"{{value}}分鐘前",
+    "description":"English: {{value}} minutes ago"
+  },
+  "elapsedOneHourAgo":{
+    "message":"一小時前",
+    "description":"English: an hour ago"
+  },
+  "elapsedManyHoursAgo":{
+    "message":"{{value}}小時前",
+    "description":"English: {{value}} hours ago"
+  },
+  "elapsedOneDayAgo":{
+    "message":"一日前",
+    "description":"English: a day ago"
+  },
+  "elapsedManyDaysAgo":{
+    "message":"{{value}}日前",
+    "description":"English: {{value}} days ago"
+  },
+  "showDashboardButton":{
+    "message":"控制台",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "showLoggerButton":{
+    "message":"日誌",
+    "description":"Appears in Firefox's add-on preferences"
+  },
+  "cloudPush":{
+    "message":"導出至雲端儲存",
+    "description":"tooltip"
+  },
+  "cloudPull":{
+    "message":"從雲端儲存導入",
+    "description":"tooltip"
+  },
+  "cloudNoData":{
+    "message":"...\n...",
+    "description":""
+  },
+  "cloudDeviceNamePrompt":{
+    "message":"此設備名稱：",
+    "description":"used as a prompt for the user to provide a custom device name"
+  },
+  "genericSubmit":{
+    "message":"提交",
+    "description":"for generic 'submit' buttons"
+  },
+  "genericRevert":{
+    "message":"還原",
+    "description":"for generic 'revert' buttons"
+  },
+  "errorCantConnectTo":{
+    "message":"網絡錯誤：無法連接至{{url}}",
+    "description":""
+  }
+}
