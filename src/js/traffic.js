@@ -392,10 +392,16 @@ var onHeadersReceived = function(details) {
     //   Since we are modifying an existing CSP header, we need to strip out
     //   'report-uri' if it is present, to prevent spurious reporting of CSP
     //   violation, and thus the leakage of information to the remote site.
+
+    // https://github.com/gorhill/uMatrix/issues/538
+    // We will replace in-place the script-src directive with our own.
     headers.push({
         'name': 'Content-Security-Policy',
-        'value': cspStripReporturi(csp.replace(reScriptsrc, '') +
-                 scriptsrc.replace(reUnsafeinline, ''))
+        'value': cspStripReporturi(
+                    csp.slice(0, matches.index) +
+                    scriptsrc.replace(reUnsafeinline, '') +
+                    csp.slice(matches.index + scriptsrc.length)
+                )
     });
     return { responseHeaders: headers };
 };
