@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µBlock - a browser extension to block requests.
-    Copyright (C) 2014 The µBlock authors
+    uMatrix - a browser extension to block requests.
+    Copyright (C) 2014-2016 The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -769,11 +769,15 @@ vAPI.tabs.get = function(tabId, callback) {
     var win = getOwnerWindow(browser);
     var tabBrowser = getTabBrowser(win);
 
+    // https://github.com/gorhill/uMatrix/issues/540
+    // The `index` property is nowhere used by uMatrix at this point, so we
+    // will refrain from returning this information for the time being.
+
     callback({
         id: tabId,
-        index: tabWatcher.indexFromTarget(browser),
+        index: undefined,
         windowId: winWatcher.idFromWindow(win),
-        active: browser === tabBrowser.selectedBrowser,
+        active: tabBrowser !== null && browser === tabBrowser.selectedBrowser,
         url: browser.currentURI.asciiSpec,
         title: browser.contentTitle
     });
@@ -1012,11 +1016,17 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
 
 var tabWatcher = (function() {
     // TODO: find out whether we need a janitor to take care of stale entries.
-    var browserToTabIdMap = new Map();
+
+    // https://github.com/gorhill/uMatrix/issues/540
+    // Use only weak references to hold onto browser references.
+    var browserToTabIdMap = new WeakMap();
     var tabIdToBrowserMap = new Map();
     var tabIdGenerator = 1;
 
     var indexFromBrowser = function(browser) {
+        if ( !browser ) {
+            return -1;
+        }
         var win = getOwnerWindow(browser);
         if ( !win ) {
             return -1;
@@ -1079,22 +1089,15 @@ var tabWatcher = (function() {
         if ( tabId === undefined ) {
             tabId = '' + tabIdGenerator++;
             browserToTabIdMap.set(browser, tabId);
-            tabIdToBrowserMap.set(tabId, browser);
+            tabIdToBrowserMap.set(tabId, Cu.getWeakReference(browser));
         }
         return tabId;
     };
 
     var browserFromTabId = function(tabId) {
-        var browser = tabIdToBrowserMap.get(tabId);
-        if ( browser === undefined ) {
-            return null;
-        }
-        // Verify that the browser is still live
-        if ( indexFromBrowser(browser) !== -1 ) {
-            return browser;
-        }
-        removeBrowserEntry(tabId, browser);
-        return null;
+        var weakref = tabIdToBrowserMap.get(tabId);
+        var browser = weakref && weakref.get();
+        return browser || null;
     };
 
     var currentBrowser = function() {
@@ -1121,6 +1124,19 @@ var tabWatcher = (function() {
 
     var removeTarget = function(target) {
         onClose({ target: target });
+    };
+
+    var getAllBrowsers = function() {
+        var browsers = [], browser;
+        for ( var [tabId, weakref] of tabIdToBrowserMap ) {
+            browser = weakref.get();
+            // TODO:
+            // Maybe call removeBrowserEntry() if the browser no longer exists?
+            if ( browser ) {
+                browsers.push(browser);
+            }
+        }
+        return browsers;
     };
 
     // https://developer.mozilla.org/en-US/docs/Web/Events/TabOpen
@@ -1368,14 +1384,14 @@ var tabWatcher = (function() {
             onWindowUnload(win);
         }
 
-        browserToTabIdMap.clear();
+        browserToTabIdMap = new WeakMap();
         tabIdToBrowserMap.clear();
     };
 
     cleanupTasks.push(stop);
 
     return {
-        browsers: function() { return browserToTabIdMap.keys(); },
+        browsers: getAllBrowsers,
         browserFromTabId: browserFromTabId,
         browserFromTarget: browserFromTarget,
         currentBrowser: currentBrowser,
