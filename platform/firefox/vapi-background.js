@@ -1722,7 +1722,6 @@ var httpObserver = {
         this.pendingRingBufferInit();
 
         // https://developer.mozilla.org/en/docs/Observer_Notifications#HTTP_requests
-        Services.obs.addObserver(this, 'http-on-opening-request', true);
         Services.obs.addObserver(this, 'http-on-modify-request', true);
         Services.obs.addObserver(this, 'http-on-examine-response', true);
         Services.obs.addObserver(this, 'http-on-examine-cached-response', true);
@@ -1752,7 +1751,6 @@ var httpObserver = {
     },
 
     unregister: function() {
-        Services.obs.removeObserver(this, 'http-on-opening-request');
         Services.obs.removeObserver(this, 'http-on-modify-request');
         Services.obs.removeObserver(this, 'http-on-examine-response');
         Services.obs.removeObserver(this, 'http-on-examine-cached-response');
@@ -1840,43 +1838,37 @@ var httpObserver = {
 
     handleRequest: function(channel, URI, tabId, rawType) {
         var type = this.typeMap[rawType] || 'other';
+
         var onBeforeRequest = vAPI.net.onBeforeRequest;
-        if ( onBeforeRequest.types && onBeforeRequest.types.has(type) === false ) {
-            return false;
+        if ( onBeforeRequest.types === null || onBeforeRequest.types.has(type) ) {
+            var result = onBeforeRequest.callback({
+                hostname: URI.asciiHost,
+                parentFrameId: type === 'main_frame' ? -1 : 0,
+                tabId: tabId,
+                type: type,
+                url: URI.asciiSpec
+            });
+            if ( typeof result === 'object' ) {
+                channel.cancel(this.ABORT);
+                return true;
+            }
         }
 
-        var result = onBeforeRequest.callback({
-            hostname: URI.asciiHost,
-            parentFrameId: type === 'main_frame' ? -1 : 0,
-            tabId: tabId,
-            type: type,
-            url: URI.asciiSpec
-        });
-
-        if ( typeof result !== 'object' ) {
-            return false;
-        }
-
-        channel.cancel(this.ABORT);
-        return true;
-    },
-
-    handleRequestHeaders: function(channel, URI, tabId, rawType) {
-        var type = this.typeMap[rawType] || 'other';
         var onBeforeSendHeaders = vAPI.net.onBeforeSendHeaders;
-        if ( onBeforeSendHeaders.types && onBeforeSendHeaders.types.has(type) === false ) {
-            return;
+        if ( onBeforeSendHeaders.types === null || onBeforeSendHeaders.types.has(type) ) {
+            var requestHeaders = httpRequestHeadersFactory(channel);
+            onBeforeSendHeaders.callback({
+                hostname: URI.asciiHost,
+                parentFrameId: type === 'main_frame' ? -1 : 0,
+                requestHeaders: requestHeaders,
+                tabId: tabId,
+                type: type,
+                url: URI.asciiSpec
+            });
+            requestHeaders.dispose();
         }
-        var requestHeaders = httpRequestHeadersFactory(channel);
-        onBeforeSendHeaders.callback({
-            hostname: URI.asciiHost,
-            parentFrameId: type === 'main_frame' ? -1 : 0,
-            requestHeaders: requestHeaders,
-            tabId: tabId,
-            type: type,
-            url: URI.asciiSpec
-        });
-        requestHeaders.dispose();
+
+        return false;
     },
 
     channelDataFromChannel: function(channel) {
@@ -1996,18 +1988,7 @@ var httpObserver = {
             return;
         }
 
-        if ( topic === 'http-on-modify-request' ) {
-            channelData = this.channelDataFromChannel(channel);
-            if ( channelData === null ) {
-                return;
-            }
-
-            this.handleRequestHeaders(channel, URI, channelData[0], channelData[1]);
-
-            return;
-        }
-
-        // http-on-opening-request
+        // http-on-modify-request
         var tabId;
         var pendingRequest = this.lookupPendingRequest(URI.asciiSpec);
         var rawType = 1;
@@ -2060,11 +2041,10 @@ var httpObserver = {
                 return;
             }
 
-            if ( !(oldChannel instanceof Ci.nsIWritablePropertyBag) ) {
+            var channelData = this.channelDataFromChannel(oldChannel);
+            if ( channelData === null ) {
                 return;
             }
-
-            var channelData = oldChannel.getProperty(this.REQDATAKEY);
 
             if ( this.handleRequest(newChannel, URI, channelData[0], channelData[1]) ) {
                 result = this.ABORT;
