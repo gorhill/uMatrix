@@ -38,22 +38,22 @@ var µm = µMatrix;
 /******************************************************************************/
 
 var defaultLocalUserSettings = {
+    // data-URI background courtesy of https://github.com/dev-random
+    // https://github.com/gorhill/uMatrix/issues/429#issuecomment-194548243
     placeholderBackground: [
-            'linear-gradient(0deg,',
-                'rgba(0,0,0,0.02) 25%,',
-                'rgba(0,0,0,0.05) 25%,',
-                'rgba(0,0,0,0.05) 75%,',
-                'rgba(0,0,0,0.02) 75%,',
-                'rgba(0,0,0,0.02)',
-            ') center center / 10px 10px repeat scroll,',
-            'linear-gradient(',
-                '90deg,',
-                'rgba(0,0,0,0.02) 25%,',
-                'rgba(0,0,0,0.05) 25%,',
-                'rgba(0,0,0,0.05) 75%,',
-                'rgba(0,0,0,0.02) 75%,',
-                'rgba(0,0,0,0.02)',
-            ') center center / 10px 10px repeat scroll #fff'
+            'url("data:image/png;base64,',
+                'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAK',
+                'CAAAAACoWZBhAAAABGdBTUEAALGPC/xh',
+                'BQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH',
+                '3wwIAAgyL/YaPAAAACJJREFUCFtjfMbO',
+                'AAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoA',
+                'In4D/96X1KAAAAAldEVYdGRhdGU6Y3Jl',
+                'YXRlADIwMTUtMTItMDhUMDA6MDg6NTAr',
+                'MDM6MDAasuuJAAAAJXRFWHRkYXRlOm1v',
+                'ZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUw',
+                'KzAzOjAwa+9TNQAAAABJRU5ErkJggg==',
+            '") ',
+            'repeat scroll #fff'
         ].join(''),
     placeholderBorder: '1px solid rgba(0, 0, 0, 0.05)',
     placeholderDocument: [
