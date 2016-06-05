@@ -684,7 +684,7 @@ var winWatcher = (function() {
 /******************************************************************************/
 
 var getTabBrowser = function(win) {
-    return win.gBrowser || null;
+    return win && win.gBrowser || null;
 };
 
 /******************************************************************************/
@@ -889,9 +889,6 @@ vAPI.tabs.open = function(details) {
         }
     }
 
-    var win = winWatcher.getCurrentWindow();
-    var tabBrowser = getTabBrowser(win);
-
     // Open in a standalone window
     if ( details.popup === true ) {
         Services.ww.openWindow(
@@ -901,6 +898,12 @@ vAPI.tabs.open = function(details) {
             'location=1,menubar=1,personalbar=1,resizable=1,toolbar=1',
             null
         );
+        return;
+    }
+
+    var win = winWatcher.getCurrentWindow();
+    var tabBrowser = getTabBrowser(win);
+    if ( tabBrowser === null ) {
         return;
     }
 
@@ -936,7 +939,9 @@ vAPI.tabs.replace = function(tabId, url) {
 /******************************************************************************/
 
 vAPI.tabs._remove = function(tab, tabBrowser) {
-    tabBrowser.removeTab(tab);
+    if ( tabBrowser ) {
+        tabBrowser.removeTab(tab);
+    }
 };
 
 /******************************************************************************/
@@ -979,7 +984,9 @@ vAPI.tabs.select = function(tab) {
     win.focus();
 
     var tabBrowser = getTabBrowser(win);
-    tabBrowser.selectedTab = tab;
+    if ( tabBrowser ) {
+        tabBrowser.selectedTab = tab;
+    }
 };
 
 /******************************************************************************/
@@ -1031,17 +1038,17 @@ var tabWatcher = (function() {
         if ( !win ) {
             return -1;
         }
-        var tabbrowser = getTabBrowser(win);
-        if ( !tabbrowser ) {
+        var tabBrowser = getTabBrowser(win);
+        if ( tabBrowser === null ) {
             return -1;
         }
         // This can happen, for example, the `view-source:` window, there is
         // no tabbrowser object, the browser object sits directly in the
         // window.
-        if ( tabbrowser === browser ) {
+        if ( tabBrowser === browser ) {
             return 0;
         }
-        return tabbrowser.browsers.indexOf(browser);
+        return tabBrowser.browsers.indexOf(browser);
     };
 
     var indexFromTarget = function(target) {
@@ -1057,14 +1064,14 @@ var tabWatcher = (function() {
         if ( !win ) {
             return null;
         }
-        var tabbrowser = getTabBrowser(win);
-        if ( !tabbrowser ) {
+        var tabBrowser = getTabBrowser(win);
+        if ( tabBrowser === null ) {
             return null;
         }
-        if ( !tabbrowser.tabs || i >= tabbrowser.tabs.length ) {
+        if ( !tabBrowser.tabs || i >= tabBrowser.tabs.length ) {
             return null;
         }
-        return tabbrowser.tabs[i];
+        return tabBrowser.tabs[i];
     };
 
     var browserFromTarget = function(target) {
@@ -1300,7 +1307,7 @@ var tabWatcher = (function() {
         vAPI.contextMenu.unregister(win.document);
 
         var tabBrowser = getTabBrowser(win);
-        if ( !tabBrowser ) {
+        if ( tabBrowser === null ) {
             return;
         }
 
@@ -1413,7 +1420,11 @@ vAPI.setIcon = function(tabId, iconId, badge) {
     } else {
         win = winWatcher.getCurrentWindow();
     }
-    var curTabId = tabWatcher.tabIdFromTarget(getTabBrowser(win).selectedTab);
+    var tabBrowser = getTabBrowser(win);
+    if ( tabBrowser === null ) {
+        return;
+    }
+    var curTabId = tabWatcher.tabIdFromTarget(tabBrowser.selectedTab);
     var tb = vAPI.toolbarButton;
 
     // from 'TabSelect' event
