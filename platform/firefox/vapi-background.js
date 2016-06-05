@@ -3310,7 +3310,11 @@ vAPI.cookies.observe = function(subject, topic, reason) {
         return;
     }
     if ( subject instanceof Ci.nsICookie2 === false ) {
-        subject = subject.QueryInterface(Ci.nsICookie2);
+        try {
+            subject = subject.QueryInterface(Ci.nsICookie2);
+        } catch (ex) {
+            return;
+        }
     }
     if ( reason === 'deleted' ) {
         if ( typeof this.onRemoved === 'function' ) {
@@ -3351,8 +3355,8 @@ vAPI.cookies.getAll = function(callback) {
 vAPI.cookies.remove = function(details, callback) {
     var uri = Services.io.newURI(details.url, null, null);
     var cookies = Services.cookies;
-    cookies.remove(uri.asciiHost, details.name, uri.path, false);
-    cookies.remove( '.' + uri.asciiHost, details.name, uri.path, false);
+    cookies.remove(uri.asciiHost, details.name, uri.path, false, {});
+    cookies.remove( '.' + uri.asciiHost, details.name, uri.path, false, {});
     if ( typeof callback === 'function' ) {
         callback({
             domain: uri.asciiHost,
