@@ -2042,13 +2042,14 @@ var httpObserver = {
 
     // contentPolicy.shouldLoad doesn't detect redirects, this needs to be used
     asyncOnChannelRedirect: function(oldChannel, newChannel, flags, callback) {
-        var result = this.ACCEPT;
-
         // If error thrown, the redirect will fail
         try {
             var URI = newChannel.URI;
-
             if ( !URI.schemeIs('http') && !URI.schemeIs('https') ) {
+                return;
+            }
+
+            if ( newChannel instanceof Ci.nsIWritablePropertyBag === false ) {
                 return;
             }
 
@@ -2057,19 +2058,12 @@ var httpObserver = {
                 return;
             }
 
-            if ( this.handleRequest(newChannel, URI, channelData[0], channelData[1]) ) {
-                result = this.ABORT;
-                return;
-            }
-
             // Carry the data on in case of multiple redirects
-            if ( newChannel instanceof Ci.nsIWritablePropertyBag ) {
-                newChannel.setProperty(this.REQDATAKEY, channelData);
-            }
+            newChannel.setProperty(this.REQDATAKEY, channelData);
         } catch (ex) {
             // console.error(ex);
         } finally {
-            callback.onRedirectVerifyCallback(result);
+            callback.onRedirectVerifyCallback(this.ACCEPT);
         }
     }
 };
