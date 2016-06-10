@@ -1885,7 +1885,7 @@ var httpObserver = {
     channelDataFromChannel: function(channel) {
         if ( channel instanceof Ci.nsIWritablePropertyBag ) {
             try {
-                return channel.getProperty(this.REQDATAKEY);
+                return channel.getProperty(this.REQDATAKEY) || null;
             } catch (ex) {
             }
         }
@@ -1957,10 +1957,9 @@ var httpObserver = {
         }
 
         var URI = channel.URI;
-        var channelData;
+        var channelData = this.channelDataFromChannel(channel);
 
         if ( topic.lastIndexOf('http-on-examine-', 0) === 0 ) {
-            channelData = this.channelDataFromChannel(channel);
             if ( channelData === null ) {
                 return;
             }
@@ -2000,6 +1999,14 @@ var httpObserver = {
         }
 
         // http-on-modify-request
+
+        // The channel was previously serviced.
+        if ( channelData !== null ) {
+            this.handleRequest(channel, URI, channelData[0], channelData[1]);
+            return;
+        }
+
+        // The channel was never serviced.
         var tabId;
         var pendingRequest = this.lookupPendingRequest(URI.asciiSpec);
         var rawType = 1;
