@@ -2221,7 +2221,7 @@ vAPI.toolbarButton = {
             }
 
             var height;
-            if(window.screen.availHeight && window.screen.availHeight <= 800) {
+            if(window.screen && window.screen.availHeight && window.screen.availHeight <= 800) {
                 // We set a smaller limit for height
                 height = Math.min(body.clientHeight, 300);
             } else {
