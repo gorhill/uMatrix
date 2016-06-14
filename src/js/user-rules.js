@@ -179,7 +179,7 @@ var handleImportFilePicker = function() {
     if ( file === undefined || file.name === '' ) {
         return;
     }
-    if ( file.type.indexOf('text') !== 0 ) {
+    if ( file.type.indexOf('text') !== 0 && file.type !== 'application/json') {
         return;
     }
     var fr = new FileReader();
