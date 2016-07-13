@@ -51,6 +51,33 @@ vAPI.modernFirefox = Services.appinfo.ID === '{ec8030f7-c20a-464f-9b0e-13a3a9e97
 
 /******************************************************************************/
 
+var deferUntil = function(testFn, mainFn, details) {
+    if ( typeof details !== 'object' ) {
+        details = {};
+    }
+
+    var now = 0;
+    var next = details.next || 200;
+    var until = details.until || 2000;
+
+    var check = function() {
+        if ( testFn() === true || now >= until ) {
+            mainFn();
+            return;
+        }
+        now += next;
+        vAPI.setTimeout(check, next);
+    };
+
+    if ( 'sync' in details && details.sync === true ) {
+        check();
+    } else {
+        vAPI.setTimeout(check, 1);
+    }
+};
+
+/******************************************************************************/
+
 vAPI.app = {
     name: 'uMatrix',
     version: location.hash.slice(1)
@@ -558,12 +585,29 @@ vAPI.storage = (function() {
 // This must be executed/setup early.
 
 var winWatcher = (function() {
-    var chromeWindowType = vAPI.thunderbird ? 'mail:3pane' : 'navigator:browser';
     var windowToIdMap = new Map();
     var windowIdGenerator = 1;
     var api = {
         onOpenWindow: null,
         onCloseWindow: null
+    };
+
+    // https://github.com/gorhill/uMatrix/issues/586
+    // This is necessary hack because on SeaMonkey 2.40, for unknown reasons
+    // private windows do not have the attribute `windowtype` set to
+    // `navigator:browser`. As a fallback, the code here will also test whether
+    // the id attribute is `main-window`.
+    api.toBrowserWindow = function(win) {
+        var docElement = win && win.document && win.document.documentElement;
+        if ( !docElement ) {
+            return null;
+        }
+        if ( vAPI.thunderbird ) {
+            return docElement.getAttribute('windowtype') === 'mail:3pane' ? win : null;
+        }
+        return docElement.getAttribute('windowtype') === 'navigator:browser' ||
+               docElement.getAttribute('id') === 'main-window' ?
+               win : null;
     };
 
     api.getWindows = function() {
@@ -575,7 +619,7 @@ var winWatcher = (function() {
     };
 
     api.getCurrentWindow = function() {
-        return Services.wm.getMostRecentWindow(chromeWindowType) || null;
+        return this.toBrowserWindow(Services.wm.getMostRecentWindow(null));
     };
 
     var addWindow = function(win) {
@@ -761,7 +805,7 @@ vAPI.tabs.get = function(tabId, callback) {
         return browser;
     }
 
-    if ( !browser ) {
+    if ( !browser || !browser.currentURI ) {
         callback();
         return;
     }
@@ -1224,56 +1268,12 @@ var tabWatcher = (function() {
         });
     };
 
-    var attachToTabBrowserLater = function(details) {
-        details.tryCount = details.tryCount ? details.tryCount + 1 : 1;
-        if ( details.tryCount > 8 ) {
-            return false;
-        }
-        vAPI.setTimeout(function(details) {
-                attachToTabBrowser(details.window, details.tryCount);
-            },
-            200,
-            details
-        );
-        return true;
-    };
-
-    var attachToTabBrowser = function(window, tryCount) {
-        // Let's just be extra-paranoiac regarding whether all is right before
-        // trying to attach outself to the browser window.
-        var document = window && window.document;
-        var docElement = document && document.documentElement;
-        var wintype = docElement && docElement.getAttribute('windowtype');
-
-        if ( wintype !== 'navigator:browser' ) {
-            attachToTabBrowserLater({ window: window, tryCount: tryCount });
-            return;
-        }
-
-        // https://github.com/gorhill/uBlock/issues/906
-        // This might have been the cause. Will see.
-        if ( document.readyState !== 'complete' ) {
-            attachToTabBrowserLater({ window: window, tryCount: tryCount });
-            return;
-        }
-
-        // On some platforms, the tab browser isn't immediately available,
-        // try waiting a bit if this happens.
-        // https://github.com/gorhill/uBlock/issues/763
-        // Not getting a tab browser should not prevent from attaching ourself
-        // to the window.
-        var tabBrowser = getTabBrowser(window);
-        if (
-            tabBrowser === null &&
-            attachToTabBrowserLater({ window: window, tryCount: tryCount })
-        ) {
-            return;
-        }
-
+    var attachToTabBrowser = function(window) {
         if ( typeof vAPI.toolbarButton.attachToNewWindow === 'function' ) {
             vAPI.toolbarButton.attachToNewWindow(window);
         }
 
+        var tabBrowser = getTabBrowser(window);
         if ( tabBrowser === null ) {
             return;
         }
@@ -1291,7 +1291,6 @@ var tabWatcher = (function() {
         // not set when a tab is opened as a result of session restore -- it is
         // set *after* the event is fired in such case.
         if ( tabContainer ) {
-            //tabContainer.addEventListener('TabOpen', onOpen);
             tabContainer.addEventListener('TabShow', onShow);
             tabContainer.addEventListener('TabClose', onClose);
             // when new window is opened TabSelect doesn't run on the selected tab?
@@ -1299,8 +1298,32 @@ var tabWatcher = (function() {
         }
     };
 
+    // https://github.com/gorhill/uBlock/issues/906
+    // Ensure the environment is ready before trying to attaching.
+    var canAttachToTabBrowser = function(window) {
+        var document = window && window.document;
+        if ( !document || document.readyState !== 'complete' ) {
+            return false;
+        }
+
+        // On some platforms, the tab browser isn't immediately available,
+        // try waiting a bit if this happens.
+        // https://github.com/gorhill/uBlock/issues/763
+        // Not getting a tab browser should not prevent from attaching ourself
+        // to the window.
+        var tabBrowser = getTabBrowser(window);
+        if ( tabBrowser === null ) {
+            return false;
+        }
+
+        return winWatcher.toBrowserWindow(window) !== null;
+    };
+
     var onWindowLoad = function(win) {
-        attachToTabBrowser(win);
+        deferUntil(
+            canAttachToTabBrowser.bind(null, win),
+            attachToTabBrowser.bind(null, win)
+        );
     };
 
     var onWindowUnload = function(win) {
@@ -1313,7 +1336,6 @@ var tabWatcher = (function() {
 
         var tabContainer = tabBrowser.tabContainer;
         if ( tabContainer ) {
-            //tabContainer.removeEventListener('TabOpen', onOpen);
             tabContainer.removeEventListener('TabShow', onShow);
             tabContainer.removeEventListener('TabClose', onClose);
             tabContainer.removeEventListener('TabSelect', onSelect);
@@ -2316,58 +2338,10 @@ vAPI.toolbarButton = {
     tbb.id = 'umatrix-legacy-button';   // NOTE: must match legacy-toolbar-button.css
     tbb.viewId = tbb.id + '-panel';
 
-    var sss = null;
     var styleSheetUri = null;
 
-    var addLegacyToolbarButtonLater = function(details) {
-        details.tryCount = details.tryCount ? details.tryCount + 1 : 1;
-        if ( details.tryCount > 8 ) {
-            return false;
-        }
-        vAPI.setTimeout(function(details) {
-                addLegacyToolbarButton(details.window, details.tryCount);
-            },
-            200,
-            details
-        );
-        return true;
-    };
-
-    var addLegacyToolbarButton = function(window, tryCount) {
+    var createToolbarButton = function(window) {
         var document = window.document;
-
-        // https://github.com/gorhill/uMatrix/issues/357
-        // Already installed?
-        if ( document.getElementById(tbb.id) !== null ) {
-            return;
-        }
-
-        var toolbox = document.getElementById('navigator-toolbox') ||
-                      document.getElementById('mail-toolbox');
-        if (
-            toolbox === null &&
-            addLegacyToolbarButtonLater({ window: window, tryCount: tryCount })
-        ) {
-            return;
-        }
-
-        // palette might take a little longer to appear on some platforms,
-        // give it a small delay and try again.
-        var palette = toolbox.palette;
-        if (
-            palette === null &&
-            addLegacyToolbarButtonLater({ window: window, tryCount: tryCount })
-        ) {
-            return;
-        }
-
-        var navbar = document.getElementById('nav-bar');
-        if (
-            navbar === null &&
-            addLegacyToolbarButtonLater({ window: window, tryCount: tryCount })
-        ) {
-            return;
-        }
 
         var toolbarButton = document.createElement('toolbarbutton');
         toolbarButton.setAttribute('id', tbb.id);
@@ -2387,21 +2361,49 @@ vAPI.toolbarButton = {
         toolbarButtonPanel.addEventListener('popuphiding', tbb.onViewHiding);
         toolbarButton.appendChild(toolbarButtonPanel);
 
-        if ( palette !== null && palette.querySelector('#' + tbb.id) === null ) {
+        return toolbarButton;
+    };
+
+    var addLegacyToolbarButton = function(window) {
+        // uMatrix's stylesheet lazily added.
+        if ( styleSheetUri === null ) {
+            var sss = Cc["@mozilla.org/content/style-sheet-service;1"]
+                        .getService(Ci.nsIStyleSheetService);
+            styleSheetUri = Services.io.newURI(vAPI.getURL("css/legacy-toolbar-button.css"), null, null);
+
+            // Register global so it works in all windows, including palette
+            if ( !sss.sheetRegistered(styleSheetUri, sss.AUTHOR_SHEET) ) {
+                sss.loadAndRegisterSheet(styleSheetUri, sss.AUTHOR_SHEET);
+            }
+        }
+
+        var document = window.document;
+
+        // https://github.com/gorhill/uMatrix/issues/357
+        // Already installed?
+        if ( document.getElementById(tbb.id) !== null ) {
+            return;
+        }
+
+        var toolbox = document.getElementById('navigator-toolbox') ||
+                      document.getElementById('mail-toolbox');
+        if ( toolbox === null ) {
+            return;
+        }
+
+        var toolbarButton = createToolbarButton(window);
+
+        // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/toolbarpalette
+        var palette = toolbox.palette;
+        if ( palette && palette.querySelector('#' + tbb.id) === null ) {
             palette.appendChild(toolbarButton);
         }
 
-        tbb.closePopup = function() {
-            // `hidePopup` reported as not existing while testing legacy button
-            //  on FF 41.0.2.
-            // https://bugzilla.mozilla.org/show_bug.cgi?id=1151796
-            if ( typeof toolbarButtonPanel.hidePopup === 'function' ) {
-                toolbarButtonPanel.hidePopup();
-            }
-        };
-
-        // Find the place to put the button
-        var toolbars = toolbox.externalToolbars.slice();
+        // Find the place to put the button.
+        // Pale Moon: `toolbox.externalToolbars` can be undefined. Seen while
+        //   testing popup test number 3:
+        //   http://raymondhill.net/ublock/popup.html
+        var toolbars = toolbox.externalToolbars ? toolbox.externalToolbars.slice() : [];
         for ( var child of toolbox.children ) {
             if ( child.localName === 'toolbar' ) {
                 toolbars.push(child);
@@ -2418,6 +2420,11 @@ vAPI.toolbarButton = {
             if ( index === -1 ) {
                 continue;
             }
+            // This can occur with Pale Moon:
+            //   "TypeError: toolbar.insertItem is not a function"
+            if ( typeof toolbar.insertItem !== 'function' ) {
+                continue;
+            }
             // Found our button on this toolbar - but where on it?
             var before = null;
             for ( var i = index + 1; i < currentset.length; i++ ) {
@@ -2426,6 +2433,7 @@ vAPI.toolbarButton = {
                     break;
                 }
             }
+            // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/Method/insertItem
             toolbar.insertItem(tbb.id, before);
             break;
         }
@@ -2440,6 +2448,7 @@ vAPI.toolbarButton = {
         // No button yet so give it a default location. If forcing the button,
         // just put in in the palette rather than on any specific toolbar (who
         // knows what toolbars will be available or visible!)
+        var navbar = document.getElementById('nav-bar');
         if ( navbar !== null && !vAPI.localStorage.getBool('legacyToolbarButtonAdded') ) {
             // https://github.com/gorhill/uBlock/issues/264
             // Find a child customizable palette, if any.
@@ -2451,9 +2460,34 @@ vAPI.toolbarButton = {
         }
     };
 
+    var canAddLegacyToolbarButton = function(window) {
+        var document = window.document;
+        if (
+            !document ||
+            document.readyState !== 'complete' ||
+            document.getElementById('nav-bar') === null
+        ) {
+            return false;
+        }
+        var toolbox = document.getElementById('navigator-toolbox') ||
+                      document.getElementById('mail-toolbox');
+        return toolbox !== null && !!toolbox.palette;
+    };
+
     var onPopupCloseRequested = function({target}) {
-        if ( typeof tbb.closePopup === 'function' ) {
-            tbb.closePopup(target);
+        var document = target.ownerDocument;
+        if ( !document ) {
+            return;
+        }
+        var toolbarButtonPanel = document.getElementById(tbb.viewId);
+        if ( toolbarButtonPanel === null ) {
+            return;
+        }
+        // `hidePopup` reported as not existing while testing legacy button
+        //  on FF 41.0.2.
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=1151796
+        if ( typeof toolbarButtonPanel.hidePopup === 'function' ) {
+            toolbarButtonPanel.hidePopup();
         }
     };
 
@@ -2480,7 +2514,10 @@ vAPI.toolbarButton = {
     };
 
     tbb.attachToNewWindow = function(win) {
-        addLegacyToolbarButton(win);
+        deferUntil(
+            canAddLegacyToolbarButton.bind(null, win),
+            addLegacyToolbarButton.bind(null, win)
+        );
     };
 
     tbb.init = function() {
@@ -2488,14 +2525,6 @@ vAPI.toolbarButton = {
             location.host + ':closePopup',
             onPopupCloseRequested
         );
-
-        sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
-        styleSheetUri = Services.io.newURI(vAPI.getURL("css/legacy-toolbar-button.css"), null, null);
-
-        // Register global so it works in all windows, including palette
-        if ( !sss.sheetRegistered(styleSheetUri, sss.AUTHOR_SHEET) ) {
-            sss.loadAndRegisterSheet(styleSheetUri, sss.AUTHOR_SHEET);
-        }
 
         cleanupTasks.push(shutdown);
     };
@@ -3028,43 +3057,84 @@ vAPI.contextMenu.remove = function() {
 /******************************************************************************/
 /******************************************************************************/
 
-var optionsObserver = {
-    addonId: 'uMatrix@raymondhill.net',
+var optionsObserver = (function() {
+    var addonId = 'uMatrix@raymondhill.net';
 
-    register: function() {
-        Services.obs.addObserver(this, 'addon-options-displayed', false);
-        cleanupTasks.push(this.unregister.bind(this));
-
-        var browser = tabWatcher.currentBrowser();
-        if ( browser && browser.currentURI && browser.currentURI.spec === 'about:addons' ) {
-            this.observe(browser.contentDocument, 'addon-enabled', this.addonId);
+    var commandHandler = function() {
+        switch ( this.id ) {
+        case 'showDashboardButton':
+            vAPI.tabs.open({ url: 'dashboard.html', index: -1 });
+            break;
+        case 'showLoggerButton':
+            vAPI.tabs.open({ url: 'logger-ui.html', index: -1 });
+            break;
+        default:
+            break;
         }
-    },
+    };
 
-    unregister: function() {
-        Services.obs.removeObserver(this, 'addon-options-displayed');
-    },
-
-    setupOptionsButton: function(doc, id, page) {
+    var setupOptionsButton = function(doc, id) {
         var button = doc.getElementById(id);
         if ( button === null ) {
             return;
         }
-        button.addEventListener('command', function() {
-            vAPI.tabs.open({ url: page, index: -1 });
-        });
+        button.addEventListener('command', commandHandler);
         button.label = vAPI.i18n(id);
-    },
+    };
 
-    observe: function(doc, topic, addonId) {
-        if ( addonId !== this.addonId ) {
-            return;
+    var setupOptionsButtons = function(doc) {
+        setupOptionsButton(doc, 'showDashboardButton');
+        setupOptionsButton(doc, 'showLoggerButton');
+    };
+
+    var observer = {
+        observe: function(doc, topic, id) {
+            if ( id !== addonId ) {
+                return;
+            }
+
+            setupOptionsButtons(doc);
         }
+    };
 
-        this.setupOptionsButton(doc, 'showDashboardButton', 'dashboard.html');
-        this.setupOptionsButton(doc, 'showLoggerButton', 'logger-ui.html');
-    }
-};
+    // https://github.com/gorhill/uBlock/issues/948
+    // Older versions of Firefox can throw here when looking up `currentURI`.
+
+    var canInit = function() {
+        try {
+            var tabBrowser = tabWatcher.currentBrowser();
+            return tabBrowser &&
+                   tabBrowser.currentURI &&
+                   tabBrowser.currentURI.spec === 'about:addons' &&
+                   tabBrowser.contentDocument &&
+                   tabBrowser.contentDocument.readyState === 'complete';
+        } catch (ex) {
+        }
+    };
+
+    // Manually add the buttons if the `about:addons` page is already opened.
+
+    var init = function() {
+        if ( canInit() ) {
+            setupOptionsButtons(tabWatcher.currentBrowser().contentDocument);
+        }
+    };
+
+    var unregister = function() {
+        Services.obs.removeObserver(observer, 'addon-options-displayed');
+    };
+
+    var register = function() {
+        Services.obs.addObserver(observer, 'addon-options-displayed', false);
+        cleanupTasks.push(unregister);
+        deferUntil(canInit, init, { next: 463 });
+    };
+
+    return {
+        register: register,
+        unregister: unregister
+    };
+})();
 
 optionsObserver.register();
 
