@@ -1921,44 +1921,52 @@ var httpObserver = {
     // Also:
     //   https://developer.mozilla.org/en-US/Firefox/Multiprocess_Firefox/Limitations_of_chrome_scripts
     tabIdFromChannel: function(channel) {
-        var aWindow;
-        if ( channel.notificationCallbacks ) {
-            try {
-                var loadContext = channel
-                        .notificationCallbacks
-                        .getInterface(Ci.nsILoadContext);
-                if ( loadContext.topFrameElement ) {
-                    return tabWatcher.tabIdFromTarget(loadContext.topFrameElement);
-                }
-                aWindow = loadContext.associatedWindow;
-            } catch (ex) {
-                //console.error(ex);
-            }
-        }
+        var lc;
         try {
-            if ( !aWindow && channel.loadGroup && channel.loadGroup.notificationCallbacks ) {
-                aWindow = channel
-                    .loadGroup
-                    .notificationCallbacks
-                    .getInterface(Ci.nsILoadContext)
-                    .associatedWindow;
-            }
-            if ( aWindow ) {
-                return tabWatcher.tabIdFromTarget(
-                    aWindow
-                    .getInterface(Ci.nsIWebNavigation)
-                    .QueryInterface(Ci.nsIDocShell)
-                    .rootTreeItem
-                    .QueryInterface(Ci.nsIInterfaceRequestor)
-                    .getInterface(Ci.nsIDOMWindow)
-                    .gBrowser
-                    .getBrowserForContentWindow(aWindow)
-                );
-            }
-        } catch (ex) {
-            //console.error(ex);
+            lc = channel.notificationCallbacks.getInterface(Ci.nsILoadContext);
+        } catch(ex) {
         }
-        return vAPI.noTabId;
+        if ( !lc ) {
+            try {
+                lc = channel.loadGroup.notificationCallbacks.getInterface(Ci.nsILoadContext);
+            } catch(ex) {
+            }
+            if ( !lc ) {
+                return vAPI.noTabId;
+            }
+        }
+        if ( lc.topFrameElement ) {
+            return tabWatcher.tabIdFromTarget(lc.topFrameElement);
+        }
+        var win;
+        try {
+            win = lc.associatedWindow;
+        } catch (ex) { }
+        if ( !win ) {
+            return vAPI.noTabId;
+        }
+        if ( win.top ) {
+            win = win.top;
+        }
+        var tabBrowser;
+        try {
+            tabBrowser = getTabBrowser(
+                win.QueryInterface(Ci.nsIInterfaceRequestor).getInterface(Ci.nsIWebNavigation)
+                   .QueryInterface(Ci.nsIDocShell).rootTreeItem
+                   .QueryInterface(Ci.nsIInterfaceRequestor).getInterface(Ci.nsIDOMWindow)
+            );
+        } catch (ex) { }
+        if ( !tabBrowser ) {
+            return vAPI.noTabId;
+        }
+        if ( tabBrowser.getBrowserForContentWindow ) {
+            return tabWatcher.tabIdFromTarget(tabBrowser.getBrowserForContentWindow(win));
+        }
+        // Falling back onto _getTabForContentWindow to ensure older versions
+        // of Firefox work well.
+        return tabBrowser._getTabForContentWindow ?
+               tabWatcher.tabIdFromTarget(tabBrowser._getTabForContentWindow(win)) :
+               vAPI.noTabId;
     },
 
     rawtypeFromContentType: function(channel) {
