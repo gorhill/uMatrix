@@ -1,7 +1,8 @@
 {
 	"browser": true,
+	"devel": true,
 	"esnext": true,
-	"globalstrict": true,
+	"strict": "global",
 	"globals": {
 		"self": false,
 		"vAPI": false,
