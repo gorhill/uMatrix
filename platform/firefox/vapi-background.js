@@ -24,11 +24,11 @@
 
 // For background page
 
+'use strict';
+
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -1714,7 +1714,7 @@ var httpObserver = {
         11: 'xmlhttprequest',
         12: 'object',
         14: 'font',
-        15: 'media',
+        15: 'image',
         16: 'websocket',
         21: 'image'
     },
@@ -1875,7 +1875,6 @@ var httpObserver = {
         var onBeforeRequest = vAPI.net.onBeforeRequest;
         if ( onBeforeRequest.types === null || onBeforeRequest.types.has(type) ) {
             var result = onBeforeRequest.callback({
-                hostname: URI.asciiHost,
                 parentFrameId: type === 'main_frame' ? -1 : 0,
                 tabId: tabId,
                 type: type,
@@ -1891,7 +1890,6 @@ var httpObserver = {
         if ( onBeforeSendHeaders.types === null || onBeforeSendHeaders.types.has(type) ) {
             var requestHeaders = httpRequestHeadersFactory(channel);
             onBeforeSendHeaders.callback({
-                hostname: URI.asciiHost,
                 parentFrameId: type === 'main_frame' ? -1 : 0,
                 requestHeaders: requestHeaders,
                 tabId: tabId,
@@ -2009,7 +2007,6 @@ var httpObserver = {
             }
 
             result = vAPI.net.onHeadersReceived.callback({
-                hostname: URI.asciiHost,
                 parentFrameId: type === 'main_frame' ? -1 : 0,
                 responseHeaders: result ? [{name: topic, value: result}] : [],
                 tabId: channelData[0],
@@ -2506,14 +2503,15 @@ vAPI.toolbarButton = {
                 toolbarButton.parentNode.removeChild(toolbarButton);
             }
         }
-        if ( sss === null ) {
-            return;
+
+        if ( styleSheetUri !== null ) {
+            var sss = Cc["@mozilla.org/content/style-sheet-service;1"]
+                        .getService(Ci.nsIStyleSheetService);
+            if ( sss.sheetRegistered(styleSheetUri, sss.AUTHOR_SHEET) ) {
+                sss.unregisterSheet(styleSheetUri, sss.AUTHOR_SHEET);
+            }
+            styleSheetUri = null;
         }
-        if ( sss.sheetRegistered(styleSheetUri, sss.AUTHOR_SHEET) ) {
-            sss.unregisterSheet(styleSheetUri, sss.AUTHOR_SHEET);
-        }
-        sss = null;
-        styleSheetUri = null;
 
         vAPI.messaging.globalMessageManager.removeMessageListener(
             location.host + ':closePopup',

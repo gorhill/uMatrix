@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a browser extension to block requests.
-    Copyright (C) 2014 The uBlock authors
+    uMatrix - a browser extension to block requests.
+    Copyright (C) 2014-2016 The uBlock authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,18 +16,18 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/gorhill/uMatrix
 */
 
 /* global self, µMatrix */
 
 // For background page
 
+'use strict';
+
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -584,7 +584,6 @@ vAPI.net = {};
 
 vAPI.net.registerListeners = function() {
     var µm = µMatrix;
-    var µmuri = µm.URI;
     var httpRequestHeadersJunkyard = [];
 
     // Abstraction layer to deal with request headers
@@ -659,10 +658,7 @@ vAPI.net.registerListeners = function() {
     // Normalizing request types
     // >>>>>>>>
     var normalizeRequestDetails = function(details) {
-        µmuri.set(details.url);
-
         details.tabId = details.tabId.toString();
-        details.hostname = µmuri.hostnameFromURI(details.url);
 
         // The rest of the function code is to normalize request type
         if ( details.type !== 'other' ) {
@@ -676,9 +672,9 @@ vAPI.net.registerListeners = function() {
             }
         }
 
-        var tail = µmuri.path.slice(-6);
-        var pos = tail.lastIndexOf('.');
-
+        var path = µm.URI.pathFromURI(details.url),
+            pos = path.indexOf('.', path.length - 6);
+ 
         // https://github.com/chrisaljoudi/uBlock/issues/862
         // If no transposition possible, transpose to `object` as per
         // Chromium bug 410382 (see below)
@@ -686,14 +682,14 @@ vAPI.net.registerListeners = function() {
             return;
         }
 
-        var ext = tail.slice(pos) + '.';
-        if ( '.eot.ttf.otf.svg.woff.woff2.'.indexOf(ext) !== -1 ) {
+        var needle = path.slice(pos) + '.';
+        if ( '.eot.ttf.otf.svg.woff.woff2.'.indexOf(needle) !== -1 ) {
             details.type = 'font';
             return;
         }
         // Still need this because often behind-the-scene requests are wrongly
         // categorized as 'other'
-        if ( '.ico.png.gif.jpg.jpeg.webp.'.indexOf(ext) !== -1 ) {
+        if ( '.ico.png.gif.jpg.jpeg.mp3.mp4.webm.webp.'.indexOf(needle) !== -1 ) {
             details.type = 'image';
             return;
         }

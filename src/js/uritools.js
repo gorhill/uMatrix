@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2016 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 
 /* global µMatrix, publicSuffixList */
 
+'use strict';
+
 /*******************************************************************************
 
 RFC 3986 as reference: http://tools.ietf.org/html/rfc3986#appendix-A
@@ -32,8 +34,6 @@ Naming convention from https://en.wikipedia.org/wiki/URI_scheme#Examples
 /******************************************************************************/
 
 µMatrix.URI = (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -50,6 +50,7 @@ var reRFC3986 = /^([^:\/?#]+:)?(\/\/[^\/?#]*)?([^?#]*)(\?[^#]*)?(#.*)?/;
 var reSchemeFromURI          = /^[^:\/?#]+:/;
 var reAuthorityFromURI       = /^(?:[^:\/?#]+:)?(\/\/[^\/?#]+)/;
 var reCommonHostnameFromURL  = /^https?:\/\/([0-9a-z_][0-9a-z._-]*[0-9a-z])\//;
+var rePathFromURI            = /^(?:[^:\/?#]+:)?(?:\/\/[^\/?#]*)?([^?#]*)/;
 
 // These are to parse authority field, not parsed by above official regex
 // IPv6 is seen as an exception: a non-compatible IPv6 is first tried, and
@@ -311,7 +312,14 @@ var psl = publicSuffixList;
 
 /******************************************************************************/
 
-// Trying to alleviate the worries of looking up too often the domain name from
+URI.pathFromURI = function(uri) {
+     var matches = rePathFromURI.exec(uri);
+     return matches !== null ? matches[1] : '';
+ };
+ 
+/******************************************************************************/
+
+ // Trying to alleviate the worries of looking up too often the domain name from
 // a hostname. With a cache, uBlock benefits given that it deals with a
 // specific set of hostnames within a narrow time span -- in other words, I
 // believe probability of cache hit are high in uBlock.

@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2016 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,13 +22,13 @@
 /* global chrome, µMatrix */
 /* jshint boss: true */
 
+'use strict';
+
 /******************************************************************************/
 
 // Start isolation from global scope
 
 µMatrix.webRequest = (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -37,6 +37,7 @@
 var onBeforeRootFrameRequestHandler = function(details) {
     var µm = µMatrix;
     var requestURL = details.url;
+    var requestHostname = µm.URI.hostnameFromURI(requestURL);
     var tabId = details.tabId;
 
     µm.tabContextManager.push(tabId, requestURL);
@@ -45,7 +46,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     var rootHostname = tabContext.rootHostname;
 
     // Disallow request as per matrix?
-    var block = µm.mustBlock(rootHostname, details.hostname, 'doc');
+    var block = µm.mustBlock(rootHostname, requestHostname, 'doc');
 
     var pageStore = µm.pageStoreFromTabId(tabId);
     pageStore.recordRequest('doc', requestURL, block);
@@ -61,7 +62,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     // Blocked
     var query = btoa(JSON.stringify({
         url: requestURL,
-        hn: details.hostname,
+        hn: requestHostname,
         why: '?'
     }));
 
@@ -75,11 +76,12 @@ var onBeforeRootFrameRequestHandler = function(details) {
 // Intercept and filter web requests according to white and black lists.
 
 var onBeforeRequestHandler = function(details) {
-    var µm = µMatrix;
+    var µm = µMatrix,
+        µmuri = µm.URI;
 
     // rhill 2014-02-17: Ignore 'filesystem:': this can happen when listening
     // to 'chrome-extension://'.
-    var requestScheme = µm.URI.schemeFromURI(details.url);
+    var requestScheme = µmuri.schemeFromURI(details.url);
     if ( requestScheme === 'filesystem' ) {
         return;
     }
@@ -118,7 +120,7 @@ var onBeforeRequestHandler = function(details) {
     var block = false;
     if (
         tabContext.secure &&
-        µm.URI.isSecureScheme(requestScheme) === false &&
+        µmuri.isSecureScheme(requestScheme) === false &&
         µm.tMatrix.evaluateSwitchZ('https-strict', rootHostname)
     ) {
         block = true;
@@ -126,7 +128,7 @@ var onBeforeRequestHandler = function(details) {
 
     // Disallow request as per temporary matrix?
     if ( block === false ) {
-        block = µm.mustBlock(rootHostname, details.hostname, requestType);
+        block = µm.mustBlock(rootHostname, µmuri.hostnameFromURI(requestURL), requestType);
     }
 
     // Record request.
@@ -208,15 +210,16 @@ var onBeforeSendHeadersHandler = function(details) {
 
     // If we reach this point, request is not blocked, so what is left to do
     // is to sanitize headers.
+    var requestHostname = µm.URI.hostnameFromURI(requestURL);
 
-    if ( µm.mustBlock(pageStore.pageHostname, details.hostname, 'cookie') ) {
+    if ( µm.mustBlock(pageStore.pageHostname, requestHostname, 'cookie') ) {
         if ( details.requestHeaders.setHeader('cookie', '') ) {
             µm.cookieHeaderFoiledCounter++;
         }
     }
 
     if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', pageStore.pageHostname) ) {
-        foilRefererHeaders(µm, details.hostname, details);
+        foilRefererHeaders(µm, requestHostname, details);
     }
 
     if ( µm.tMatrix.evaluateSwitchZ('ua-spoof', pageStore.pageHostname) ) {
@@ -315,7 +318,7 @@ var onHeadersReceived = function(details) {
         return;
     }
 
-    if ( µm.mustAllow(tabContext.rootHostname, details.hostname, 'script') ) {
+    if ( µm.mustAllow(tabContext.rootHostname, µm.URI.hostnameFromURI(requestURL), 'script') ) {
         return;
     }
 
