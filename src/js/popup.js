@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2016 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1068,7 +1068,10 @@ function updateMatrixSwitches() {
         if ( switches.hasOwnProperty(switchName) === false ) {
             continue;
         }
-        if ( (enabled = switches[switchName]) ) { count += 1; }
+        enabled = switches[switchName];
+        if ( enabled && switchName !== 'matrix-off' ) {
+            count += 1;
+        }
         uDom('#mtxSwitch_' + switchName).toggleClass('switchTrue', enabled);
     }
     uDom('#buttonMtxSwitches').descendants('span.badge').text(count.toLocaleString());
