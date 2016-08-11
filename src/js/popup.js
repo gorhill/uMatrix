@@ -1061,15 +1061,18 @@ function updateScopeCell() {
 /******************************************************************************/
 
 function updateMatrixSwitches() {
-    var switches = matrixSnapshot.tSwitches;
+    var count = 0,
+        enabled,
+        switches = matrixSnapshot.tSwitches;
     for ( var switchName in switches ) {
         if ( switches.hasOwnProperty(switchName) === false ) {
             continue;
         }
-        uDom('#mtxSwitch_' + switchName).toggleClass('switchTrue', switches[switchName]);
-        
+        if ( (enabled = switches[switchName]) ) { count += 1; }
+        uDom('#mtxSwitch_' + switchName).toggleClass('switchTrue', enabled);
     }
-    var count = matrixSnapshot.blockedCount;
+    uDom('#buttonMtxSwitches').descendants('span.badge').text(count.toLocaleString());
+    count = matrixSnapshot.blockedCount;
     var button = uDom('#mtxSwitch_matrix-off');
     button.descendants('span.badge').text(count.toLocaleString());
     button.attr('data-tip', button.attr('data-tip').replace('{{count}}', count));
