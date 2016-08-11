@@ -104,6 +104,7 @@ body .toolbar button {
     padding: 4px;
     font: inherit;
     background-color: white;
+    color: black;
     opacity: 0.9;
     cursor: pointer;
     vertical-align: top;
