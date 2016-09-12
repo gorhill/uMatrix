@@ -126,7 +126,7 @@ var fromNoScript = function(content) {
         noscript === null ||
         typeof noscript !== 'object' ||
         typeof noscript.prefs !== 'object' ||
-        typeof noscript.prefs.clearClick === undefined ||
+        typeof noscript.prefs.clearClick === 'undefined' ||
         typeof noscript.whitelist !== 'string' ||
         typeof noscript.V !== 'string'
     ) {
