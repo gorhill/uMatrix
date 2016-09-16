@@ -8,15 +8,15 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — Πίνακας",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Ρυθμίσεις",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Ιδιωτικό απόρρητο",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
@@ -24,7 +24,7 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Οι κανόνες μου",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -32,11 +32,11 @@
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Περί",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"όλα",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
@@ -48,15 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"Εικόνα",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"Πρόσθετο",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"Δέσμη ενεργειών",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,11 +64,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"Πλαίσιο",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"Άλλο",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -88,7 +88,7 @@
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Επαναφόρτωση σελίδας.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -104,7 +104,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"Σύμβολο User agent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
@@ -120,15 +120,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Μετάβαση στον πίνακα",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"uMatrix &ndash; Στατιστικά",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Γενικά στατιστικά",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -160,7 +160,7 @@
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Όλα",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -168,7 +168,7 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Επισκόπηση",
     "description":""
   },
   "statsPageRequests":{
@@ -176,7 +176,7 @@
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Επιτρέπεται",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
@@ -184,11 +184,11 @@
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Όλα",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Σελίδες",
     "description":""
   },
   "statsPageCookies":{

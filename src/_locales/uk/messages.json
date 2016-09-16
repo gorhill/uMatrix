@@ -52,11 +52,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"плагін",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"скрипт",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,7 +64,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"фрейм",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
@@ -100,7 +100,7 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Строге HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
@@ -204,11 +204,11 @@
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Плагіни",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Скрипти",
     "description":""
   },
   "statsPageXHRs":{
@@ -284,11 +284,11 @@
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Усе",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>uMatrix<\/i> will reload affected pages automatically when you close the matrix.",
+    "message":"Щоразу, коли ви робите зміни в матриці, які можуть змінити вигляд і\/або поведінку однієї, або більше сторінок <i>uMatrix<\/i> перевантажить змінені сторінки після закриття матриці.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -308,11 +308,11 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Enable cloud storage support",
+    "message":"Увімкнути хмарне зберігання",
     "description":""
   },
   "privacyPageTitle":{
-    "message":"uMatrix &ndash; Privacy",
+    "message":"uMatrix &ndash; Приватність",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
@@ -468,7 +468,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Обновити зараз",
+    "message":"Оновити зараз",
     "description":""
   },
   "hostsFilesPurgeAll":{
@@ -480,7 +480,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Обробити",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -576,7 +576,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Максимальна кількість записів",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
@@ -592,7 +592,7 @@
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"кеш браузера очищено",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
@@ -604,7 +604,7 @@
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Через наступне правило",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
@@ -664,11 +664,11 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"Експорт до хмарного сховища",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"Імпорт з хмарного сховища",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -676,15 +676,15 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Назва цього пристрою:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"Відправити",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Повернути",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{

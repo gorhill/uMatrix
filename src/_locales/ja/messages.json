@@ -4,11 +4,11 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"お使いのブラウザで、マウス一つでどんな種類のリクエストでも拒否\/許可することができます。スクリプト、Iframe、広告、Facebookなどをブロックします。",
+    "message":"マウス一つでどんな種類のリクエストでも拒否\/許可することができます。スクリプト、Iframe、広告、Facebookなどをブロックします。",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — ダッシュボード",
     "description":""
   },
   "settingsPageName":{
@@ -32,11 +32,11 @@
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"uMatrixについて",
+    "message":"uMatrix について",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"全て",
+    "message":"すべて",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
@@ -76,11 +76,11 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"このスコープのMatrixフィルタの有効\/無効を切り替える",
+    "message":"このスコープの Matrix フィルタの有効\/無効を切り替える",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"このスコープの一時的な変更を全て保存する",
+    "message":"このスコープの一時的な変更をすべて保存する",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
@@ -104,7 +104,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User-Agent の偽装",
+    "message":"ユーザーエージェントの偽装",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
@@ -112,7 +112,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"全ての一時的な変更を元に戻す",
+    "message":"すべての一時的な変更を元に戻す",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
@@ -160,7 +160,7 @@
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"全て",
+    "message":"すべて",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -184,7 +184,7 @@
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"全て",
+    "message":"すべて",
     "description":""
   },
   "statsPagePages":{
@@ -192,7 +192,7 @@
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"クッキー",
     "description":""
   },
   "statsPageCSS":{
@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>あなたはWebページ（下記参照）による最新のHTTPリクエストの詳細を調べることができます。<\/p><p>これは、Webページが何を行ってきたか正確に調べたい上級ユーザーに特に便利です。しかし、これらのHTTP要求をログに記録するには多くのメモリーを必要です。もしあなたがこの技術情報を気にしない場合、メモリーが浪費されています。<\/p><p>したがって、このフィールドではログに記録される最新のHTTPリクエスト最大数を調整することができます。<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>Web ページ（下記参照）による直近の HTTP リクエストの詳細を調べることができます。<\/p><p>これは、Web ページが何をしていたかを正確に調べたい上級ユーザーにとってとても便利です。しかし、これらの HTTP リクエストをログに記録するのは多くのメモリーを必要とします。もしあなたがこの技術情報を必要としない場合、メモリーが浪費されています。<\/p><p>このフィールドではログに記録される直近の HTTP リクエストの上限を調整することができます。<\/p><p>ログ記録を無効化したい（そして <i>uMatrix<\/i> のメモリー消費量を削減したい）場合は &ldquo;<code>0<\/code>&rdquo; を入力してください。<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -272,11 +272,11 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Matrixを閉じたとき、これらのタブを再読み込みする:",
+    "message":"Matrix を閉じたとき、これらのタブを再読み込みする:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"無し",
+    "message":"なし",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
@@ -284,11 +284,11 @@
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"全て",
+    "message":"すべて",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"1ページ以上に影響を与える変更をしてからMatrixを閉じたときには、<i>uMatrix<\/i>は影響のあったページを再読み込みします",
+    "message":"1 ページ以上に影響を与える変更をしてから Matrix を閉じたときは、<i>uMatrix<\/i> は影響をうけるページを再読み込みします",
     "description":""
   },
   "settingsSubframeColor":{
@@ -320,7 +320,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p><i>uMatrix<\/i> はブロックする設定になっているクッキーでも、ブラウザが保存するのをブロックしません。ブラウザからのクッキーの送信をブロックします（これが本当に重要なことです）。ブラウザがクッキーを保存するのをブロックしないのは、そのサイトがクッキーを送信していることをユーザに知らせるとともに、必要であればその内容を確認できるようにするためです。<\/p><p>必要であれば、こうしたクッキーを <i>uMatrix<\/i> がブロックしたときにブラウザから削除できます。<\/p><p><b>重要な注意点：<\/b> ブラウザの拡張機能はその機能の一部として Web リクエストをおこなうことがあります。こうしたリクエストの結果、ブラウザにクッキーが保存されることがあります。もしこのオプションが設定されていて、かつクッキーを送信したホストからのクッキーを許可するように登録されていない場合は、<i>uMatrix<\/i> によってクッキーが削除されます。拡張機能が通信するホストからのクッキーを許可するように設定するのを忘れないでください。<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -336,7 +336,7 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"拒否しているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を消去する",
+    "message":"ブロックしているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を消去する",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -344,7 +344,7 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"ブラウザのキャッシュを全てクリアする（",
+    "message":"ブラウザのキャッシュをクリアする（",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
@@ -352,7 +352,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>ユーザの行動を追跡するのに必死な Web サイトもあります。こうした Web サイトは行儀の悪い方法を使って、追跡されないようにするための対策を回避しようとします。<\/p><p>こうした手法の一部は、<a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>ブラウザのキャッシュ<\/a>に依存<sup style='font-size:smaller'>[1, 2]<\/sup> しています。なぜなら、ブラウザのキャッシュを消去する人はまれで、多くの場合に長期間にわたって残り続けるためです。<\/p><p>定期的にブラウザのキャッシュを消去することによる不都合はほとんどありません（あるとすれば、消去されるときユーザが気づかないということです）。メリットは、こうした不愉快なトラッカーによってあなたのプライバシーが侵害されるのを防げるという点です。<\/p><p>このオプションを設定することで、任意の間隔で <i>uMatrix<\/i> がブラウザのキャッシュを消去するようになります。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -368,7 +368,7 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>もし HTTPS のページの中に平文の HTTP で送られてくるコンテンツが含まれる場合、その接続は部分的に暗号化されたものにすぎなくなります。暗号化されていないコンテンツは盗聴可能であり、中間者攻撃によってコンテンツの中身は操作できます。すなわち、接続は保護されていません。そのような Web ページは「混在したコンテンツ」を含むページと呼ばれます。<\/blockquote>",
+    "message":"<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>もし HTTPS のページが平文の HTTP で送られてくるコンテンツを含む場合、その接続は部分的に暗号化されたものにすぎません。暗号化されていないコンテンツは盗聴可能であり、中間者攻撃によってコンテンツを書き換えられます。すなわち、この接続は保護されているとはいえません。このような Web ページは「混在したコンテンツ」を含むページと呼ばれます。<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
@@ -376,11 +376,11 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か<\/b> に通知することを可能にする仕組みです。この機能は本質的にはトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。<\/p>",
+    "message":"<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か<\/b> に通知することを可能にする仕組みです。これは本質的にトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"以下のリストからランダムに選択した <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> で偽装する（",
+    "message":"以下のリストからランダムに選択した <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>ユーザーエージェント<\/a> で偽装する（",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -388,7 +388,7 @@
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF. Please note that <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>your actual User Agent string can be leaked<\/a> through WebSockets.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子フロンティア財団（EFF）<\/i>によると<\/a>: &ldquo;[...] ブラウザは利用している OS と Web ブラウザについての詳細を、&lsquo;User Agent&rsquo; ヘッダによりウェブサイトに通知します。この情報は、インターネット上のユーザを識別するのに役立っています。なぜなら、この情報はしばしば人それぞれ大幅に違うことがあるためです。[...] <b>ユーザーエージェント文字列は、現実のプライバシーの問題となっています。<\/b>&rdquo;<p>このオプションによって、EFF が提起したプライバシーの問題に対処することができます。実際のユーザーエージェント文字列は WebSocket から<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>漏洩することがある<\/a>のでご注意ください。<\/p><p>ユーザーエージェント文字列のリストを独自に定義することができます。1 行にひとつずつ記述してください。空の行と &lsquo;#&rsquo; で始まる行は無視されます。<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
@@ -444,7 +444,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"ホストファイルに記載された全てのホスト名は、あらゆるリクエストにおいてブロックするホスト名として扱われます。",
+    "message":"ホストファイルに記載されたすべてのホストは、あらゆるリクエストをブロックする対象として扱われます。",
     "description":""
   },
   "hostsFilesStats":{
@@ -472,11 +472,11 @@
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"全てのキャッシュをクリア",
+    "message":"すべてのキャッシュをクリア",
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"1 行に一つずつ記述してください。&lsquo;#&rsquo; で始まる行は無視されます。無効な URL は入力されなかったものとして取り扱われます。",
+    "message":"1 行にひとつずつ記述してください。&lsquo;#&rsquo; で始まる行は無視されます。無効な URL は警告なしに無視されます。",
     "description":""
   },
   "hostsFilesExternalListsParse":{
@@ -552,7 +552,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"全ての設定は{{time}}のバックアップデータで上書きされ、uMatrixが再起動します。\n\nバックアップデータで上書きしますか？",
+    "message":"すべての設定は {{time}} のバックアップデータで上書きされ、uMatrix が再起動します。\n\nバックアップデータで上書きしますか？",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -580,7 +580,7 @@
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"偽装しているUser agent: {{value}}",
+    "message":"偽装しているユーザーエージェント: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
@@ -600,7 +600,7 @@
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrixは次のページの読み込みを拒否しています：",
+    "message":"uMatrix はこのページの読み込みをブロックしています：",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
@@ -616,7 +616,7 @@
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"全ての一時的な変更を元に戻す",
+    "message":"すべての一時的な変更を元に戻す",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -624,11 +624,11 @@
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"一時的に全てホワイトリストに登録",
+    "message":"一時的にすべてホワイトリストに登録",
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Dashboardを開く",
+    "message":"ダッシュボードを開く",
     "description":""
   },
   "elapsedOneMinuteAgo":{

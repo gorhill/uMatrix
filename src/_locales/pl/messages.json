@@ -84,11 +84,11 @@
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Usuń tymczasowe zmiany dla tego kontekstu.",
+    "message":"Usuń tymczasowe zmiany dla tej witryny.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Przeładuj stronę.",
+    "message":"Odśwież stronę.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Przejdź do dziennika",
+    "message":"Przejdź do dziennika żądań",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{

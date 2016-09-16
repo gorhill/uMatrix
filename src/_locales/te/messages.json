@@ -12,51 +12,51 @@
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"ఐచ్చికాలు",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"గోప్యత",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"గణాంకాలు",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"నా నియమాలు",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"హోస్ట్ ఫైల్లు",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"మా గురించి",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"అన్ని",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"కుక్కి",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"css",
+    "message":"సిఎస్ఎస్",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"చిత్రం",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"పొడిగింపు",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"స్క్రిప్ట్",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,11 +64,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"ఫ్రేమ్",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"ఇతర",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -184,19 +184,19 @@
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"అన్ని",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"పేజీలు",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"కుక్కీలు",
     "description":""
   },
   "statsPageCSS":{
-    "message":"CSS",
+    "message":"సిఎస్ఎస్",
     "description":""
   },
   "statsPageImages":{
@@ -220,7 +220,7 @@
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"ఇతరులు",
     "description":""
   },
   "statsPageDetailed":{
@@ -276,15 +276,15 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"ఏదీకాదు",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"ప్రస్తుత",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"అన్ని",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -296,15 +296,15 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"స్పష్టత",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"చిహ్నంపై విభిన్న అభ్యర్దనల సంఖ్య చూపుము",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
+    "message":"నిరోధించబడిన అంశాలయోక్క సంగ్రాహకాలను దాచుము",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
@@ -348,7 +348,7 @@
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"నిమిషాలు.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -384,7 +384,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"నిమిషాలు.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -400,11 +400,11 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"శాశ్వత నియమాలు",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"తాత్కాలిక నియమాలు",
     "description":""
   },
   "userRulesRevert":{
@@ -412,19 +412,19 @@
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"భద్రపరచు",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"సవరించు",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"భద్రపరచు",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"వదిలివేయు",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
@@ -460,7 +460,7 @@
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"మార్పులను అమలుపరచు",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
@@ -468,7 +468,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"ఇప్పుడే నవీకరించు",
     "description":""
   },
   "hostsFilesPurgeAll":{
@@ -648,7 +648,7 @@
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"ఒక రోజు క్రితం",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{

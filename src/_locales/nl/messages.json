@@ -44,15 +44,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
-    "message":"css",
+    "message":"CSS",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"afbeelding",
+    "message":"afb.",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"plug-in",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -80,7 +80,7 @@
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Alle tijdelijke wijzigingen voor deze scope opslaan.",
+    "message":"Alle tijdelijke wijzigingen voor dit bereik opslaan",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
@@ -88,7 +88,7 @@
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"De pagina vernieuwen.",
+    "message":"De pagina vernieuwen",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -100,7 +100,7 @@
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Stricte HTTPS",
+    "message":"Strict HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
@@ -120,7 +120,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Naar het Instellingenpaneel gaan",
+    "message":"Naar dashboard",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logboek",
+    "message":"Logger",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -328,7 +328,7 @@
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minuten na de laatste keer dat ze zijn gebruikt verwijderen",
+    "message":"&thinsp;minuten na de laatste keer dat ze zijn gebruikt verwijderen",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is een mechanisme waarmee een partij, <b>ongeacht welke<\/b>, kan worden geïnformeerd over de koppeling op een bepaalde webpagina waarop een internetgebruiker heeft geklikt. Dit is in essentie een trackingfunctie: het kan een website of enige andere derde partij ten opzichte van die website informeren over welke koppeling en op welke pagina’s van die website u hebt geklikt. Het enige doel ervan is het volgen van uw browseractiviteit.<\/p>",
+    "message":"<p>Hyperlink auditing is een mechanisme waarmee een partij, <b>ongeacht welke<\/b>, kan worden geïnformeerd over de koppeling op een bepaalde webpagina waarop een gebruiker heeft geklikt. Dit is in essentie een trackingfunctie: het kan een website of derde partijen ten opzichte van die website informeren over op welke koppeling en op welke pagina’s van de website u hebt geklikt. Het enige doel ervan is het volgen van uw browseractiviteit.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
@@ -392,7 +392,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Aanvragen van achter de schermen",
+    "message":"Aanvragen achter de schermen",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -412,7 +412,7 @@
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Opslaan",
+    "message":"Vastleggen",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
@@ -432,11 +432,11 @@
     "description":""
   },
   "userRulesExport":{
-    "message":"Naar bestand exporteren...",
+    "message":"Exporteren naar bestand...",
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"Op deze pagina vind u de syntaxis voor de regels.",
+    "message":"Bekijk deze pagina voor regelsyntaxis.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -448,7 +448,7 @@
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} afzonderlijk geblokkeerde hostnamen van:",
+    "message":"{{blockedHostnameCount}} afzonderlijke geblokkeerde hostnamen van:",
     "description":""
   },
   "hostsFilesPerFileStats":{
@@ -496,7 +496,7 @@
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uBlock\/releases'>Wijzigingenlogboek<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Wijzigingenlogboek<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
@@ -656,11 +656,11 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Instellingen-paneel",
+    "message":"Dashboard",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logboek",
+    "message":"Logger",
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{

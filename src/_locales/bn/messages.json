@@ -272,7 +272,7 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"যখন ম্যাট্রিক্স বন্ধ হয়েছিল, স্মার্ট এই ট্যাবগুলি পুনঃলোড করে:",
+    "message":"ম্যাট্রিক্স যখন বন্ধ হয়ে যায়, স্মার্ট এই ট্যাবগুলি পুনঃলোড করে:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
