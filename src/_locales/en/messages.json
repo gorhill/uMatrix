@@ -145,7 +145,7 @@
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled" : {
-        "message": "<a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>Hyperlink auditing</a> attempts foiled: {{count}}",
+        "message": "<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>Hyperlink auditing</a> attempts foiled: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved" : {
@@ -380,7 +380,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt" : {
-        "message": "Block all <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>hyperlink auditing</a> attempts.",
+        "message": "Block all <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>hyperlink auditing</a> attempts.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp" : {
