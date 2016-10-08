@@ -47,13 +47,16 @@ var directiveSort = function(a, b) {
 /******************************************************************************/
 
 var processUserRules = function(response) {
-    var rules, rule, i;
+    var rules, rule, i, inlineDiff;
     var permanentList = [];
     var temporaryList = [];
+    var bothList = [];
     var allRules = {};
     var permanentRules = {};
     var temporaryRules = {};
     var onLeft, onRight;
+
+    inlineDiff = uDom('#displayChangesInlineCheckbox').prop('checked');
 
     rules = response.permanentRules.split(/\n+/);
     i = rules.length;
@@ -77,8 +80,12 @@ var processUserRules = function(response) {
         onLeft = permanentRules.hasOwnProperty(rule);
         onRight = temporaryRules.hasOwnProperty(rule);
         if ( onLeft && onRight ) {
-            permanentList.push('<li>', rule);
-            temporaryList.push('<li>', rule);
+            if ( inlineDiff ) {
+                permanentList.push('<li>', rule);
+                temporaryList.push('<li>', rule);
+            } else {
+                bothList.push('<li>', rule);
+            }
         } else if ( onLeft ) {
             permanentList.push('<li>', rule);
             temporaryList.push('<li class="notRight toRemove">', rule);
@@ -86,6 +93,10 @@ var processUserRules = function(response) {
             permanentList.push('<li>&nbsp;');
             temporaryList.push('<li class="notLeft">', rule);
         }
+    }
+    if ( !inlineDiff ) {
+        Array.prototype.push.apply(permanentList, bothList);
+        Array.prototype.push.apply(temporaryList, bothList);
     }
 
     // TODO: build incrementally.
@@ -273,6 +284,12 @@ var editCancelHandler = function(ev) {
 
 /******************************************************************************/
 
+var toggleInlineDiff = function(ev) {
+    messager.send({ what: 'getUserRules' }, processUserRules);
+};
+
+/******************************************************************************/
+
 var temporaryRulesToggler = function(ev) {
     var li = uDom(this);
     li.toggleClass('toRemove');
@@ -315,6 +332,7 @@ uDom.onLoad(function() {
     uDom('#editEnterButton').on('click', editStartHandler);
     uDom('#editStopButton').on('click', editStopHandler);
     uDom('#editCancelButton').on('click', editCancelHandler);
+    uDom('#displayChangesInlineCheckbox').on('change', toggleInlineDiff);
     uDom('#diff > .right > ul').on('click', 'li', temporaryRulesToggler);
 
     messager.send({ what: 'getUserRules' }, processUserRules);

@@ -453,6 +453,10 @@
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
+    "userRulesDisplayChangesInlineCheckbox": {
+        "message": "Display changes inline",
+        "description": "Toggle whether changed rules rows are inline, instead of grouped together"
+    },
 
 
     "hostsFilesPrompt" : {
