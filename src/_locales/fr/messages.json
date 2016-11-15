@@ -4,7 +4,7 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"À l'aide d'une matrice, définissez des autorisations et des blocages pour tout type de requête effectué par votre navigateur.",
+    "message":"Pointez-et-cliquez pour interdire\/autoriser toute sorte de requêtes effectuées par le navigateur à l'aide d'un tableau de données.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
@@ -308,7 +308,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Activer le support de stockage dans le nuage",
+    "message":"Activer le stockage des paramètres dans le nuage",
     "description":""
   },
   "privacyPageTitle":{
@@ -396,7 +396,7 @@
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>Il faut savoir qu'un navigateur Web est susceptible d'émettre secrètement des requêtes HTTP, qui sont souvent nécessaires à son bon fonctionnement (c'est par exemple le cas de <a href='https:\/\/www.google.com\/intl\/fr\/chrome\/browser\/privacy\/whitepaper.html'><i>Chromium<\/i><\/a>). Les extensions peuvent également recourir à ce procédé.<\/p><p>Qualifions ces requêtes singulières de <strong>requêtes en coulisses<\/strong>.<\/p><p><i>uMatrix<\/i> vous permet d'intercepter et de traiter ces requêtes comme toutes les autres, et peuvent donc être autorisées ou bloquées selon vos réglages.<\/p><p>Rendez-vous dans l'onglet Mes règles pour activer ou non le traitement des requêtes en coulisses et définir d'éventuelles règles de gestion adéquates.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Veuillez trouver ci-après diverses informations susceptibles de s'appliquer à votre navigateur Web.<\/span> Utilisateurs de Chrome\/Chromium\/Dérivés de Chromium : Le blocage de certaines requêtes HTTP en coulisses peut empêcher l'ajout par l'utilisateur ou la mise à jour d'une extension depuis le Chrome Web Store, ainsi que des interférences sur d'autres extensions installées. En conséquence, définissez avec soin le traitement des requêtes en coulisses en appliquant les bonnes autorisations.<\/p><p>Utilisateurs d'Opera\/Opera beta\/Opera developer : Si vous activez la gestion des requêtes en coulisses, veuillez autoriser les requêtes en coulisses de type Autre afin de ne pas entraver la génération des miniatures de vos Accès Rapide. Si vous souhaitez utiliser la fonction Découvrir de votre navigateur, ajoutez la règle suivante dans Mes règles : \"* api.recsys.opera.com * allow\" (sans les guillemets). Le blocage de certaines requêtes en coulisses peut occasionner des dysfonctionnements sur autres extensions installées (celles requérant l'utilisation de données distantes). En conséquence, définissez avec soin le traitement des requêtes en coulisses en appliquant les bonnes autorisations.<\/p><p>Sachez que même si vous désactivez cette fonctionnalité, les <strong>requêtes en coulisses<\/strong> sont toujours journalisées par <i>uMatrix<\/i>, pour que vous puissez quand même les inspecter (depuis la page Statistiques).<\/p>",
+    "message":"",
     "description":""
   },
   "userRulesPermanentHeader":{

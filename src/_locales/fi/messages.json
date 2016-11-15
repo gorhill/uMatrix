@@ -124,7 +124,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"uMatrix &ndash; Tilastot",
     "description":""
   },
   "statsPageGenericStats":{
@@ -172,7 +172,7 @@
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Pyynnöt",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
@@ -200,7 +200,7 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Kuvat",
     "description":""
   },
   "statsPagePlugins":{
@@ -216,7 +216,7 @@
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Kehykset",
     "description":""
   },
   "statsPageOthers":{
@@ -228,11 +228,11 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Muista viimeiset",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"HTTP pyyntöä <b>sivua kohden<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{

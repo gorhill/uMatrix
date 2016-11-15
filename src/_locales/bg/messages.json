@@ -8,39 +8,39 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — Контролно табло",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Настройки",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Поверителност",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Статистика",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Мои правила",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Файлове от хостове",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Относно",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"всичко",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"бисквитка",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,15 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"изображение",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"приставка",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"скрипт",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -64,11 +64,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"рамка",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"друго",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -80,7 +80,7 @@
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Запис на всички временни промени в тази област.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
@@ -88,19 +88,19 @@
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Презареждане на страницата.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"текущ домейн",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"сайтове в черния списък: {{count}}",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Само HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
@@ -112,7 +112,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Отмяна на всички временни промени",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
@@ -120,15 +120,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Към контролното табло",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"uMatrix &ndash; Статистика",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Обща статистика",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -152,47 +152,47 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"Изчистен е кешът в браузъра: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Подробна статистика",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Всичко",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Behind the scene",
+    "message":"Скрити заявки",
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Общ преглед",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Заявки",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Позволено",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Блокирано",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Всичко",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Страници",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Бисквитки",
     "description":""
   },
   "statsPageCSS":{
@@ -200,27 +200,27 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Изображения",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Приставки",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Скриптове",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR-и",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Рамки",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Други",
     "description":""
   },
   "statsPageDetailed":{
@@ -228,11 +228,11 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Запомняне на последното",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"HTTP заявки <b>за страница<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -240,39 +240,39 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Опресняване",
     "description":""
   },
   "settingsPageTitle":{
-    "message":"uMatrix &ndash; Settings",
+    "message":"uMatrix &ndash; Настройки",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Изглед",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Големина на текста:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Нормален",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Голям",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Цветова схема за далтонисти",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"Удобство",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Затваряйки матрицата, започва умно презареждане на тези табове:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
@@ -280,11 +280,11 @@
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"Текуща версия",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Всичко",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -292,11 +292,11 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Блокирани рамки:&ensp;Цвят",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Непрозрачност",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
@@ -312,11 +312,11 @@
     "description":""
   },
   "privacyPageTitle":{
-    "message":"uMatrix &ndash; Privacy",
+    "message":"uMatrix &ndash; Поверителност",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Delete blocked cookies.",
+    "message":"Изтриване на блокираните бисквитки.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -324,11 +324,11 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"Изтриване на неблокираните бисквитки за сесията ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" минути след последната употреба.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -336,7 +336,7 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+    "message":"Изтрийте съдържанието на <a href='https:\/\/ru.wikipedia.org\/wiki\/Web_storage'>локалното хранилище<\/a> от блокирани имена на хостове",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -344,11 +344,11 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Изчиства кеша на браузъра на всеки",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"минути.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -364,7 +364,7 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Само HTTPS: забранено е смесено съдържание.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -384,7 +384,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"минути.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -392,7 +392,7 @@
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"Behind-the-scene requests",
+    "message":"Скрити заявки",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -400,15 +400,15 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Постоянни правила",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Временни правила",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Връщане",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
@@ -416,11 +416,11 @@
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Редактиране",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Запис",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
@@ -436,7 +436,7 @@
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Правилата за синтаксиса можете да видите на тази страница.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -444,7 +444,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+    "message":"Всички сайтове във файла с хостове са заредени като блокирани на глобално ниво.",
     "description":""
   },
   "hostsFilesStats":{
@@ -452,27 +452,27 @@
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"{{used}} използвано от {{total}}",
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"Последно обновяване: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Прилагане на промените",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Автообновление на файловете от хостовете.",
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Обновяване сега",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"Очистване на всичкия кеш",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -480,19 +480,19 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Анализиране",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"очистване на кеша",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"налична е нова версия",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"остаряло",
     "description":""
   },
   "aboutChangelog":{
@@ -504,43 +504,43 @@
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документация<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Позволения<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Изходен код (GPLv3)",
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"Бъгове и проблеми",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Сътрудници",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Код:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"Проблеми:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Преводи:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"Вашите данни",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Правене на резервно копие...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -548,7 +548,7 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Възстановяване от файл...",
     "description":""
   },
   "aboutRestoreConfirm":{
@@ -556,19 +556,19 @@
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"The data could not be read or is invalid",
+    "message":"Данните не могат да се прочетат или имат грешки",
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... или ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"Нулиране до първоначалните настройки",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Caution! this will remove all your custom settings. Are you sure you want to proceed?",
+    "message":"Внимание! Това ще премахне всичките ви ръчни настройки. Наистина ли искате да продължите?",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
@@ -576,7 +576,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Максимален брой записи",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
@@ -584,15 +584,15 @@
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"бисквитката е изтрита: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"пропадна изтриването на бисквитката: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"кешът в браузъра е изчистен",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
@@ -600,19 +600,19 @@
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix попречи зареждането на следната страница:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Заради следното правило",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Обратно",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Затваряне",
     "description":"English: Close"
   },
   "commandRevertAll":{
@@ -620,43 +620,43 @@
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Temporarily whitelist page domain",
+    "message":"Временно позволяване на домейна на страницата",
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Temporarily whitelist all",
+    "message":"Временно позволение на всички",
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Отваряне на контролното табло",
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"преди минута",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"преди {{value}} минути",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"преди час",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"преди {{value}} часа",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"преди ден",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"преди {{value}} дни",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Контролно табло",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
@@ -676,19 +676,19 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Името на това устройство:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"Подаване",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Връщане",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
-    "message":"Network error: Unable to connect to {{url}}",
+    "message":"Грешка в мрежата: не може да се свърже към {{url}}",
     "description":""
   }
 }
