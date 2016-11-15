@@ -155,7 +155,7 @@ var collapser = (function() {
         var collapse = response.collapse;
         var placeholders = response.placeholders;
         var i = requests.length;
-        var request, entry, target, tagName, docurl;
+        var request, entry, target, tagName, docurl, replaced;
         while ( i-- ) {
             request = requests[i];
             if ( pendingRequests.hasOwnProperty(request.id) === false ) {
@@ -183,11 +183,17 @@ var collapser = (function() {
             // Special case: iframe
             if ( tagName === 'iframe' ) {
                 docurl = 'data:text/html,' + encodeURIComponent(placeholders.iframe.replace(reURLplaceholder, request.url));
+                replaced = false;
                 // Using contentWindow.location prevent tainting browser
                 // history -- i.e. breaking back button (seen on Chromium).
                 if ( target.contentWindow ) {
-                    target.contentWindow.location.replace(docurl);
-                } else {
+                    try {
+                        target.contentWindow.location.replace(docurl);
+                        replaced = true;
+                    } catch(ex) {
+                    }
+                }
+                if ( !replaced ) {
                     target.setAttribute('src', docurl);
                 }
                 continue;
