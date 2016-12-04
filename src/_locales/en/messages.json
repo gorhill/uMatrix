@@ -360,7 +360,7 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp" : {
-        "message": "<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.</p><p>A few of these tricks rely<sup style='font-size:smaller'>[1, 2]</sup> on the <a href='https://en.wikipedia.org/wiki/Web_cache'>browser cache</a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.</p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.</p><p>Check this option to have <i>uMatrix</i> do it for you, at the interval you wish.</p><p style='font-size:smaller'>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a><br>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
+        "message": "<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.</p><p>A few of these tricks rely<sup>[1, 2]</sup> on the <a href='https://en.wikipedia.org/wiki/Web_cache'>browser cache</a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.</p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.</p><p>Check this option to have <i>uMatrix</i> do it for you, at the interval you wish.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a>\n[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt" : {
@@ -368,7 +368,7 @@
         "description": ""
     },
     "privacyProcessRefererHelp" : {
-        "message": "<p>From Wikipedia:</p><blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.</b></blockquote><p>If this setting is checked, <i>uMatrix</i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+        "message": "From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.</b></blockquote>If this setting is checked, <i>uMatrix</i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
         "description": ""
     },
     "privacyNoMixedContentPrompt" : {

@@ -56,12 +56,13 @@ button {
     opacity: 1.0;
     }
 .whatisthis-expandable {
+    background-color: #F8F8F8;
+    border: 1px dotted #aaa;
+    display: none;
+    font-size: smaller;
     margin: 0.5em 0 1em 1.25em;
     padding: 0.5em;
-    font-size: smaller;
-    display: none;
-    border: 1px dotted #aaa;
-    background-color: #F8F8F8;
+    white-space: pre-line;
     }
 .whatisthis-expandable > p {
     margin-top: 1em;
