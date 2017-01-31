@@ -29,7 +29,7 @@ cp    platform/firefox/*.xul            $DES/
 cp    LICENSE.txt                       $DES/
 
 echo "*** uMatrix.firefox: Generating meta..."
-python tools/make-firefox-meta.py $DES/ "$2"
+python tools/make-firefox-meta.py $DES/
 
 if [ "$1" = all ]; then
     echo "*** uMatrix.firefox: Creating package..."
