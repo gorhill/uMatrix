@@ -73,8 +73,11 @@ var contentObserver = {
     contentBaseURI: 'chrome://' + hostName + '/content/js/',
     cpMessageName: hostName + ':shouldLoad',
     uniqueSandboxId: 1,
-    modernFirefox: Services.appinfo.ID === '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}' &&
-                   Services.vc.compare(Services.appinfo.platformVersion, '44') > 0,
+    modernFirefox:
+        Services.vc.compare(Services.appinfo.platformVersion, '44') > 0 && (
+            Services.appinfo.ID === '{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}' ||
+            Services.appinfo.ID === '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}'
+        ),
 
     get componentRegistrar() {
         return Components.manager.QueryInterface(Ci.nsIComponentRegistrar);
@@ -154,6 +157,11 @@ var contentObserver = {
             contextWindow = context.contentWindow;
         } else {
             contextWindow = (context.ownerDocument || context).defaultView;
+        }
+
+        // https://github.com/gorhill/uMatrix/issues/706
+        if ( !contextWindow ) {
+            return this.ACCEPT;
         }
 
         // The context for the toolbar popup is an iframe element here,
