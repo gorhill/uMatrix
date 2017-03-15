@@ -72,7 +72,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"Nenhum tráfego de rede foi visto para este aba até agora.",
+    "message":"Não foi encontrado tráfego de rede nesta aba até agora.",
     "description":""
   },
   "matrixMtxButtonTip":{

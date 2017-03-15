@@ -1,14 +1,14 @@
 {
   "extName":{
-    "message":"µMatrix",
+    "message":"uMatrix",
     "description":""
   },
   "extShortDesc":{
-    "message":"轻松点击即可阻止\/允许您的浏览器发出的任何类型的请求，可用以屏蔽脚本、子文档、广告和社交网站追踪等。",
+    "message":"通过点击开关达到控制浏览器中的各种网页请求。借此拦截网页脚本、嵌套页面、媒体广告、社交网站追踪等行为。",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"µMatrix — 控制面板",
+    "message":"uMatrix — 控制面板",
     "description":""
   },
   "settingsPageName":{
@@ -40,7 +40,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"Cookie",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -64,7 +64,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"框架",
+    "message":"嵌套",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
@@ -72,23 +72,23 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"暂时未监测到此标签页下的网络流量。",
+    "message":"该页面暂无网络传输。",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"对此作用域禁用\/启用 matrix 过滤功能。",
+    "message":"停用或启用在该域名下的过滤。",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"保存此作用域下的所有临时变更。",
+    "message":"保存该域名下的所有临时变更。",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"移除此作用域下的所有临时变更。",
+    "message":"撤销该域名下的所有临时变更。",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"重新载入页面。",
+    "message":"重新加载页面。",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -96,39 +96,39 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} 个黑名单主机名",
+    "message":"{{count}} 个黑名单域名",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"严格 HTTPS 策略",
+    "message":"严格遵守 HTTPS 协议",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"伪装 User Agent",
+    "message":"伪造 User Agent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"伪装 Referrer",
+    "message":"伪造 Referrer",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"还原所有临时变更",
+    "message":"撤销所有临时变更",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"转至请求日志",
+    "message":"查看日志",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"转至控制面板",
+    "message":"前往控制面板",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"µMatrix &ndash; 统计",
+    "message":"uMatrix &ndash; 统计",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"常规统计",
+    "message":"大致统计",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"后台",
+    "message":"页面后台",
     "description":""
   },
   "statsPageOverview":{
@@ -180,7 +180,7 @@
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"屏蔽",
+    "message":"拦截",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
@@ -216,7 +216,7 @@
     "description":""
   },
   "statsPageFrames":{
-    "message":"框架",
+    "message":"嵌套",
     "description":""
   },
   "statsPageOthers":{
@@ -224,7 +224,7 @@
     "description":""
   },
   "statsPageDetailed":{
-    "message":"请求日志",
+    "message":"过滤日志",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -248,19 +248,19 @@
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"外观",
+    "message":"界面外观",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"文本大小：",
+    "message":"文字大小：",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"常规",
+    "message":"标准",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"大号",
+    "message":"大",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
@@ -268,7 +268,7 @@
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"便利",
+    "message":"便捷功能",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
@@ -300,15 +300,15 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"在图标上显示不重复请求的数量",
+    "message":"在图标上显示页面请求数量",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"隐藏已屏蔽元素的占位符",
+    "message":"隐藏已拦截请求所关联的页面内容",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"允许上传设置至您的浏览器账户",
+    "message":"启用浏览器自带云储存功能",
     "description":""
   },
   "privacyPageTitle":{
@@ -316,27 +316,27 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"删除已屏蔽的 Cookie。",
+    "message":"删除已屏蔽的 Cookie",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p><i>uMatrix<\/i>并不阻止黑名单中的 Cookie 进入您的浏览器，而是阻止它们离开您的浏览器，后者才是真正有意义的。不在 Cookie 进入您的浏览器之前屏蔽它们，将使得您有机会得知一个网站正尝试使用 Cookie，以便您在有需求的情况下进一步查看它们。<\/p><p>一旦黑名单中的 Cookie被<i>uMatrix<\/i> 所计入，如果您愿意，它们将能够被移除出您的浏览器。<\/p><p><b>重要提示：<\/b>浏览器扩展在正常的运作过程中可以发出网络请求，这些请求可能会在浏览器中生成 Cookie。如果 Cookie 的来源站点不在白名单中，那么在开启此选项时，<i>uMatrix<\/i> 将从浏览器中移除这些 Cookie。请确保浏览器扩展所通信的站点位于白名单中。<\/p>",
+    "message":"<p><i>uMatrix<\/i> 默认不阻止黑名单中的 Cookie 进入您的浏览器，而是阻止它们离开您的浏览器，是因后者更具有意义。不在 Cookie 进入浏览器之前阻止它们将使您有机会得知网站正尝试使用 Cookie，以便您有需要时进一步查看。<\/p><p>若黑名单中的 Cookie 被 <i>uMatrix<\/i> 所计入则可如愿将其移除。<\/p><p><b>重要提示：<\/b>浏览器扩展在其运作期间发出网络请求时可能会产生 Cookie。如果 Cookie 所在域名尚未被列入白名单，则 <i>uMatrix<\/i> 会于该选项开启之时移除这些 Cookie。请确保用于扩展通信的域名处于白名单内。<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"删除未屏蔽的会话 Cookie ",
+    "message":"于 ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" 分钟后删除非屏蔽的会话cookie。",
+    "message":" 分钟后删除未屏蔽的闲置会话 Cookie",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>：&ldquo;一段会话 Cookie……将在您结束浏览器会话时被清除。会话 Cookie 被存储于临时内存中，浏览器关闭后将不再保留。&rdquo;<\/p><p>不过在使用某些浏览器时，这一行为<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>有可能并不会发生<\/a>。另外，对某些人而言，必须在浏览器关闭后才能清除会话 Cookie 可能有些过迟。<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>：“会话 Cookie……将在您结束浏览器会话时被清除。会话 Cookie 被存储于临时内存中，浏览器关闭后将不再保留。”<\/p><p>不过在使用某些浏览器时，这一行为<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>有可能并不会发生<\/a>。另外，对某些人而言，必须在浏览器关闭后才能清除会话 Cookie 可能有些过迟。<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"同时删除被屏蔽站点的<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8'>本地存储<\/a>内容",
+    "message":"连同被屏蔽的 Cookie 一並删除相关域名下的<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8#.E6.9C.AC.E5.9C.B0.E5.8F.8A.E6.9C.83.E8.A9.B1.E5.AD.98.E5.84.B2'>本地存储<\/a>数据",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -344,55 +344,55 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"每隔",
+    "message":"每隔 ",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"分钟清除浏览器缓存。",
+    "message":" 分钟清理浏览器缓存",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>某些网站特别热衷于追踪，为了绕过您所施行的一切不被追踪的办法，他们甚至会采用某些不太光彩的手段。<\/p><p>这些手段中的一部分依赖<sup style='font-size:smaller'>[1, 2]<\/sup>于<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>浏览器缓存<\/a>，因为很少有用户会定期花时间清理他们的浏览器缓存，这些缓存内容通常会长期留存。<\/p><p>定期清理浏览器缓存并不会带来多少麻烦（您很可能根本不会注意到它的发生），而它的好处则是可以阻止这些无处不在的追踪器侵扰您的隐私。<\/p><p>勾选这个选项可以使 <i>uMatrix<\/i> 在您所期望的间隔内为您完成这项工作。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;阻止利用浏览器缓存进行网络追踪&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>某些网站特别热衷于跟踪，以至于为规避您的反跟踪举措，会使用一些不太光彩的手段。<\/p><p>一部分诡计利用了<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>浏览器缓存<\/a><sup style='font-size:smaller'>[1, 2]<\/sup>，因为缓存内容通常会长期储留，用户也基本不会去亲自清理。<\/p><p>定期清理浏览器缓存其实并不怎么麻烦（甚至很可能不会被注意到），且贵在可以保护您的隐私免受跟踪者侵犯。<\/p><p>启用该设置将容许 <i>uMatrix<\/i> 依您指定的时间定期为您完成该项工作。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用浏览器缓存进行网络追踪」<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>「Cookieless Cookies」<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"对第三方请求伪装<a href='http:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%82%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP来源地址<\/a>信息。",
+    "message":"伪造网页第三方请求中的 <a href='https:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP 来源地址<\/a>",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"HTTP 来源地址（referer，或 HTTP referer），是 HTTP 标头的一个字段，用来标示从哪个资源链接到目前的网页<b>因为 referer 信息可能会有隐私权的问题，部分网页浏览器允许用户设置不要发送这个信息。<\/b><\/blockquote><p>如果这个设置被勾选，在 HTTP referrer 信息是相对于网络请求的第三方时，<i>µMatrix<\/i> 将会伪装 HTTP referrer。",
+    "message":"<p>维基百科：<\/p><blockquote>HTTP 来源地址是一个用于辨识请求来源网址的内容标识。……<b>由于来源地址可能会泄漏隐私，某些浏览器允许用户禁止发送来源地址。<\/b><\/blockquote><p>若启用该设置，<i>uMatrix<\/i> 则会在来源网页请求的 HTTP 来源地址中包含的域名与请求资源所在域名有差别时伪造来源地址。",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"严格HTTPS模式：禁止混合内容。",
+    "message":"严格遵守 HTTPS 协议：禁止混合内容",
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>来自 <a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla 开发者网络<\/a>：<\/p><blockquote>当用户访问使用HTTPS的页面时，他们与web服务器之间的连接是使用SSL加密的，从而保护连接不受嗅探器和中间人攻击。如果HTTPS页面包括定期检索内容，明文HTTP，然后连接只是部分加密：非加密的内容是可以被嗅探器入侵的并且是可以被中间人攻击者修改的,因此连接不再受保护。当一个网页出现这种情况,它被称为混合内容页面。<\/blockquote>",
+    "message":"<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla开发者网络<\/a>告知：<\/p><blockquote>若 HTTPS 页面包含未经加密的普通 HTTP 网页内容时，则当前连接只是部分加密；未加密的部分将容许他人窥视甚至被中间人篡改，故连接并非完全安全。当该情况发生时，当前页面即被称作混合内容页面。<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"屏蔽所有<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审计<\/a>尝试。",
+    "message":"禁止<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审查<\/a>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>超链接审计允许<b>任何<\/b>一个团体，被告知一个用户在一个特定的网页上点击了哪个链接。它本质上是一种追踪技术：它允许一个网站，或那个网站上的任何第三方，被告知您在它的哪个页面上点击了哪个链接。它的唯一目的就是追踪您的浏览动向。<\/p>",
+    "message":"<p>超链接审查容许<b>任何人<\/b>得知用户于特定网页上点击了某个链接。其本质为一种跟踪手段：经由容许网站或任何第三方获知您于哪个页面点击了哪个链接，以达到追踪您的浏览活动这一特定目的。<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"每隔",
+    "message":"每隔 ",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"分钟从下方随机选取新的一条用以伪装成<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86'>用户代理<\/a>。",
+    "message":" 分钟从下方随机抽取一行用来伪造 <a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86'>User Agent<\/a>：",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>根据<i>电子前哨基金会<\/i><\/a>：&ldquo;[...]您的浏览器会向网站发送一个&lsquo;用户代理&rsquo;头部，精确地向网站报告您所使用的操作系统和网络浏览器。对不同的人而言，系统和浏览器的版本通常存在相当的差异，因此这些信息可以帮助区分互联网用户。[...] <b>用户代理字串成为了一个真正的隐私问题<\/b>。&rdquo;<p>这个选项允许您解决由EFF所提出的隐私疑议。<\/p><p>您可以提供您自己的用户代理字串表。每行一个字串。空行以及以&lsquo;#&rsquo;开头的行将被忽略。<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>电子前哨基金会<\/i><\/a>告知：“……您的浏览器会向网站发送一个‘用户代理’标识，以精确地向网站报告您所使用的操作系统及浏览器。对不同的人而言，操作系统与浏览器的版本通常存在不少差异，故此，以上信息可被用于识别互联网用户。……<b>用户代理标识成为了一个实实在在的私隐问题<\/b>。”<p>该选项有助您处理由电子前哨基金会提出的隐私问题。<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>请注意，目前尚无法彻底阻止 WebSocket 泄漏您的用户代理标识。<\/a><\/p><p>您可以自行提供用户代理列表。每行一个字符串。空行以及以“#”启始的行将被忽略。<\/p>",
     "description":""
   },
   "privacyBehindTheSceneHeader":{
-    "message":"后台请求",
+    "message":"页面后台请求",
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
@@ -400,7 +400,7 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"固定规则",
+    "message":"永久规则",
     "description":""
   },
   "userRulesTemporaryHeader":{
@@ -424,7 +424,7 @@
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"取消",
+    "message":"撤销",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
@@ -432,7 +432,7 @@
     "description":""
   },
   "userRulesExport":{
-    "message":"导出为文件...",
+    "message":"导出至文件...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -444,15 +444,15 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"hosts文件中的所有站点将作为黑名单站点被载入到全局作用域中。",
+    "message":"Hosts 文件中的域名将被列入全局黑名单。",
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} 个不同的主机名被下列列表屏蔽：",
+    "message":"共有 {{blockedHostnameCount}} 个域名被列入以下黑名单：",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{total}}中使用{{used}}",
+    "message":"{{used}}\/{{total}} 使用中",
     "description":""
   },
   "hostsFilesLastUpdate":{
@@ -464,7 +464,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"自动更新hosts文件。",
+    "message":"自动更新 hosts 文件",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -496,11 +496,11 @@
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>变更日志<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>更新日志<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"已用存储空间：{{storageUsed}} 字节",
+    "message":"占用存储空间：{{storageUsed}} 字节",
     "description":""
   },
   "aboutDoc":{
@@ -508,15 +508,15 @@
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>权限<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>权限说明<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"源代码 (GPLv3)",
+    "message":"源代码（GPLv3）",
     "description":""
   },
   "aboutIssues":{
-    "message":"缺陷与问题",
+    "message":"问题与报告",
     "description":""
   },
   "aboutContributors":{
@@ -524,11 +524,11 @@
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"代码：",
+    "message":"源代码：",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"问题：",
+    "message":"问题报告：",
     "description":""
   },
   "aboutTranslationContributors":{
@@ -540,7 +540,7 @@
     "description":""
   },
   "aboutBackupButton":{
-    "message":"备份为文件...",
+    "message":"备份至文件...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -552,19 +552,19 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"您的所有设置将会被 {{time}} 的备份数据所覆盖，然后 µMatrix 将会重启。\n\n是否要用备份数据覆盖现有的所有设置？",
+    "message":"您的所有设置将被 {{time}} 的备份数据所覆盖，接着 uMatrix 将会重启。\n\n是否要用备份数据覆盖现有设置？",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"此数据无法读取或无效",
+    "message":"数据读取失败或格式有误",
     "description":""
   },
   "aboutOr":{
-    "message":"... 或 ...",
+    "message":"...或者...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"重置为默认设置",
+    "message":"还原至默认设置",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
@@ -572,27 +572,27 @@
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"过滤规则表达式",
+    "message":"规则过滤表达式",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"条目最大数量",
+    "message":"日志条数限制",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"伪造用户代理：{{value}}",
+    "message":"当前 User Agent 被伪造成：{{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"Cookie 已删除：{{value}}",
+    "message":"已删除 Cookie：{{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"删除 Cookie 失败：{{value}}",
+    "message":"无法删除 Cookie：{{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"浏览器缓存已清除",
+    "message":"浏览器缓存清除完毕",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
@@ -600,11 +600,11 @@
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix 已阻止下列页面被载入：",
+    "message":"uMatrix 已阻止载入以下页面：",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"因为下列规则",
+    "message":"因以下规则",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
@@ -616,7 +616,7 @@
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"还原所有临时变更",
+    "message":"撤销所有临时变更",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -632,7 +632,7 @@
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"一分钟前",
+    "message":"1 分钟前",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
@@ -640,7 +640,7 @@
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"一小时前",
+    "message":"1 小时前",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{

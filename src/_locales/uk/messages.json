@@ -236,7 +236,7 @@
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>Ви можете переглянути деталі про останні необроблені запити HTTP, що були зроблені сторінкою (див. нижче).<\/p><p>Це набільш корисно для просунутих користувачів, які хочуть перевірити, що конкретно робила дана веб-сторінка. Однак, збереження цих запитів HTTP потребує додаткової пам'яті, тож якщо вам не потрібна технічна інформація, пам'ять буде витрачатись намарно. <\/p><p>Отож, це поле, що дозволяє вам змінити максимальну кількість останніх запитів HTTP, що будуть збережені для подальшої перевірки.<\/p><p>Введіть &ldquo;<code>0<\/code>&rdquo; щоб вимкнути детальне логування (і, як наслідок, зменшити витрати пам'яті <i>uMatrix<\/i>'ом).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -380,7 +380,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+    "message":"Підміняти <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a>, випадково вибираючи одну з наведених нижче, кожні",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -596,7 +596,7 @@
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"компонент оновлено: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{

@@ -116,11 +116,11 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Mine logijasse",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Mine esilehele",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -172,27 +172,27 @@
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Päringud",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Lubatud",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Blokeeritud",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Kõik",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Leheküljed",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Küpsised",
     "description":""
   },
   "statsPageCSS":{
@@ -200,31 +200,31 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Pildid",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Liidesed",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Skriptid",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHRid",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Raamid",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Muud",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logger",
+    "message":"Logija",
     "description":""
   },
   "statsPageLogSizePrompt1":{
@@ -256,11 +256,11 @@
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Normaalne",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Suur",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
@@ -276,7 +276,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"Pole",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
@@ -284,7 +284,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Kõik",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{

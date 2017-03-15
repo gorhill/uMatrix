@@ -4,43 +4,43 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"اشاره و کلیک کنید تا هر کلاسی از درخواست‌هایی که توسط مرورگر ایجاد می‌شوند را منع کنید یا اجازه دهید. برای سد راه کردن اسکریپت‌ها، iframeها، تبلیغات، فیس‌بوک و غیره از آن استفاده کنید.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — داشبورد",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"تنظیمات",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"حریم خصوصی",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"آمارها",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"قوانین شخصی",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"فایل‌های هاست‌ها",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"درباره",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"همه",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"کوکی",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,15 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"تصویر",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"افزونه",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"اسکریپت",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -68,27 +68,27 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"سایر",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"هیچ ترافیک شبکه‌ای برای این تب تا کنون دیده نشده است.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"فعال یا غیرفعال نمودن ماتریس فیلتر برای این محدوده.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"ذخیره نمودن همه‌ی تغییرات موقتی برای این محدوده.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"بازگرداندن تغییرات موقتی برای این محدوده.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"بارگذاری مجدد صفحه.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -96,103 +96,103 @@
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"{{count}} بلاک‌شده آدرس‌(های)",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"فقط HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"مخفی نمودن user agent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"مخفی‌نمودن ارجاع‌دهنده",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"بازگرداندن همه‌ی تغییرات موقتی",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"رفتن به logger",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"رفتن به داشبورد",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"uMatrix &ndash; آمارها",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"آمارهای کلی",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP کوکی<\/a> هدرها بی‌اثر شدند: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP ارجاع‌دهنده<\/a> هدرها بی‌اثر شدند: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> attempts foiled: {{count}}",
+    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>بررسی لینک<\/a> تلاش‌ها بی‌اثر شدند: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"کوکی‌های محلی پاک‌شده: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>انباره‌های محلی<\/a> خالی شدند: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"کش‌های مرورگر پاک شدند: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"آمارهای جزئی",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"همه",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Behind the scene",
+    "message":"پشت‌صحنه",
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"نمای کلی",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"درخواست‌ها",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"مجاز",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"مسدود شده",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"همه",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"صفحات",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"کوکی‌ها",
     "description":""
   },
   "statsPageCSS":{
@@ -200,27 +200,27 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"تصاویر",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"افزونه‌ها",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"اسکریپت‌ها",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHRها",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"فریم‌ها",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"ساير",
     "description":""
   },
   "statsPageDetailed":{
@@ -228,11 +228,11 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"به یاد سپردن آخرین",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"درخواست‌های HTTP <b>در هر صفحه<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -240,7 +240,7 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"تازه‌سازی",
     "description":""
   },
   "settingsPageTitle":{
@@ -248,19 +248,19 @@
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"ظاهر",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"اندازه متن:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"عادی",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"بزرگ",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
@@ -268,23 +268,23 @@
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"راحتی",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"وقتی ماتریس بسته شد، تب‌ها را هوشمندانه دوباره بارگذاری کن:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"هیچ‌کدام",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"کنونی",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"همه",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -296,7 +296,7 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"وضوح",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
@@ -340,15 +340,15 @@
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
+    "message":"برای‌انجام",
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"پاک‌نمودن کش مرورگر هر",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"دقیقه.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -384,7 +384,7 @@
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"دقیقه.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -400,39 +400,39 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"قوانین دائم",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"قوانین موقت",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"بازگرداندن",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"انجام‌دادن",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"ويرايش",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"ذخيره",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"صرف‌نظر",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"واردکردن از فایل...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"ذخیره در فایل...",
     "description":""
   },
   "userRulesFormatHint":{
@@ -460,7 +460,7 @@
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"اعمال تغییرات",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
@@ -468,7 +468,7 @@
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"اکنون به‌روزآوری شود",
     "description":""
   },
   "hostsFilesPurgeAll":{
@@ -480,7 +480,7 @@
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"تجزیه‌کردن",
     "description":""
   },
   "hostsFilesExternalListPurge":{
@@ -492,7 +492,7 @@
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"منسوخ",
     "description":""
   },
   "aboutChangelog":{
@@ -516,39 +516,39 @@
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"مشکلات و مسائل",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"مشارکت کننده‌ها",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"کد:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"مسائل:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"ترجمه‌ها:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"داده‌ی شما",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"پشتیبان‌گیری در فایل...",
     "description":""
   },
   "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
+    "message":"پشتیبان-umatrix-من.txt",
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"بازگرداندن از فایل...",
     "description":""
   },
   "aboutRestoreConfirm":{
@@ -560,15 +560,15 @@
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... یا ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"بازگشت به تنظیمات پیش‌فرض",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Caution! this will remove all your custom settings. Are you sure you want to proceed?",
+    "message":"هشدار! این عمل تمام تنظیمات سفارشی شما را از بین می‌برد. آیا از انجام آن مطمئن هستید؟",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
@@ -576,7 +576,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"بیشترین تعداد ورودی‌ها",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
@@ -584,7 +584,7 @@
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"کوکی پاک‌شده: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
@@ -592,7 +592,7 @@
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"کش مروگر پاک شد",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
@@ -604,19 +604,19 @@
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"به خاطر قانون زیر",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"برگرد",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"بستن",
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Revert all temporary changes",
+    "message":"بازگرداندن همه‌ی تغییرات موقتی",
     "description":""
   },
   "commandWhitelistPageDomain":{
@@ -628,35 +628,35 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"بازکردن داشبورد",
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"یک دقیقه پیش",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"{{value}} دقیقه پیش",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"یک ساعت پیش",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"{{value}} ساعت پیش",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"یک روز پیش",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"{{value}} روز پیش",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"داشبورد",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
@@ -664,27 +664,27 @@
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"دخیره در فضای ابری",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"گرفتن از فضای ابری",
     "description":"tooltip"
   },
   "cloudNoData":{
-    "message":"...\n...",
+    "message":"... ...",
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"نام دستگاه:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"ثبت‌کردن",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"بازگرداندن",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
