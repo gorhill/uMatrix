@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     µBlock - a browser extension to block requests.
-    Copyright (C) 2014 Raymond Hill
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@
 /* global DOMTokenList */
 /* exported uDom */
 
+'use strict';
+
 /******************************************************************************/
 
 // It's just a silly, minimalist DOM framework: this allows me to not rely
@@ -31,8 +33,6 @@
 // of assumption on passed parameters, etc. I grow it on a per-need-basis only.
 
 var uDom = (function() {
-
-'use strict';
 
 /******************************************************************************/
 

@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2016 Raymond Hill
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,12 +22,12 @@
 /* global punycode, vAPI, uDom */
 /* jshint esnext: true, bitwise: false */
 
+'use strict';
+
 /******************************************************************************/
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 /******************************************************************************/
@@ -66,6 +66,29 @@ var matrixHeaderPrettyNames = {
 
 var firstPartyLabel = '';
 var blacklistedHostnamesLabel = '';
+
+var nodeToExpandosMap = (function() {
+    if ( typeof window.WeakMap === 'function' ) {
+        return new window.WeakMap();
+    }
+})();
+
+var expandosFromNode = function(node) {
+    if (
+        node instanceof HTMLElement === false &&
+        typeof node.nodeAt === 'function'
+    ) {
+        node = node.nodeAt(0);
+    }
+    if ( nodeToExpandosMap ) {
+        var expandos = nodeToExpandosMap.get(node);
+        if ( expandos === undefined ) {
+            nodeToExpandosMap.set(node, (expandos = Object.create(null)));
+        }
+        return expandos;
+    }
+    return node;
+};
 
 var messager = vAPI.messaging.channel('popup.js');
 
@@ -263,9 +286,11 @@ function getPermanentColor(hostname, type) {
     return matrixSnapshot.rows[hostname].permanent[matrixSnapshot.headers[type]];
 }
 
-function getCellClass(hostname, type) {
-    return 't' + getTemporaryColor(hostname, type).toString(16) +
-          ' p' + getPermanentColor(hostname, type).toString(16);
+function addCellClass(cell, hostname, type) {
+    var cl = cell.classList;
+    cell.classList.add('matCell');
+    cell.classList.add('t' + getTemporaryColor(hostname, type).toString(16));
+    cell.classList.add('p' + getPermanentColor(hostname, type).toString(16));
 }
 
 /******************************************************************************/
@@ -313,11 +338,11 @@ function toggleMainCollapseState(uelem) {
 function toggleSpecificCollapseState(uelem) {
     // Remember collapse state forever, but only if it is different
     // from main collapse switch.
-    var section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed');
-    var domain = section.prop('domain');
-    var collapsed = section.hasClass('collapsed');
-    var mainCollapseState = getUISetting('popupCollapseDomains') === true;
-    var specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
+    var section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed'),
+        domain = expandosFromNode(section).domain,
+        collapsed = section.hasClass('collapsed'),
+        mainCollapseState = getUISetting('popupCollapseDomains') === true,
+        specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
     if ( collapsed !== mainCollapseState ) {
         specificCollapseStates[domain] = collapsed;
         setUISetting('popupCollapseSpecificDomains', specificCollapseStates);
@@ -332,26 +357,23 @@ function toggleSpecificCollapseState(uelem) {
 // Update count value of matrix cells(s)
 
 function updateMatrixCounts() {
-    var matCells = uDom('.matrix .matRow.rw > .matCell');
-    var i = matCells.length;
-    var matRow, matCell, count, counts;
-    var headers = matrixSnapshot.headers;
-    var rows = matrixSnapshot.rows;
+    var matCells = uDom('.matrix .matRow.rw > .matCell'),
+        i = matCells.length,
+        matRow, matCell, count, counts,
+        headers = matrixSnapshot.headers,
+        rows = matrixSnapshot.rows,
+        expandos;
     while ( i-- ) {
         matCell = matCells.nodeAt(i);
-        if ( matCell.hostname === '*' ) {
-            continue;
-        }
-        if ( matCell.reqType === '*' ) {
+        expandos = expandosFromNode(matCell);
+        if ( expandos.hostname === '*' || expandos.reqType === '*' ) {
             continue;
         }
         matRow = matCell.parentNode;
         counts = matRow.classList.contains('meta') ? 'totals' : 'counts';
-        count = rows[matCell.hostname][counts][headers[matCell.reqType]];
-        if ( count === matCell.count) {
-            continue;
-        }
-        matCell.count = count;
+        count = rows[expandos.hostname][counts][headers[expandos.reqType]];
+        if ( count === expandos.count ) { continue; }
+        expandos.count = count;
         matCell.textContent = count ? count : '\u00A0';
     }
 }
@@ -362,12 +384,13 @@ function updateMatrixCounts() {
 // Color changes when rules change
 
 function updateMatrixColors() {
-    var cells = uDom('.matrix .matRow.rw > .matCell').removeClass();
-    var i = cells.length;
-    var cell;
+    var cells = uDom('.matrix .matRow.rw > .matCell').removeClass(),
+        i = cells.length,
+        cell, expandos;
     while ( i-- ) {
         cell = cells.nodeAt(i);
-        cell.className = 'matCell ' + getCellClass(cell.hostname, cell.reqType);
+        expandos = expandosFromNode(cell);
+        addCellClass(cell, expandos.hostname, expandos.reqType);
     }
     resizePopup();
 }
@@ -418,9 +441,10 @@ function getCellAction(hostname, type, leaning) {
 
 function handleFilter(button, leaning) {
     // our parent cell knows who we are
-    var cell = button.ancestors('div.matCell');
-    var type = cell.prop('reqType');
-    var desHostname = cell.prop('hostname');
+    var cell = button.ancestors('div.matCell'),
+        expandos = expandosFromNode(cell),
+        type = expandos.reqType,
+        desHostname = expandos.hostname;
     // https://github.com/gorhill/uMatrix/issues/24
     // No hostname can happen -- like with blacklist meta row
     if ( desHostname === '' ) {
@@ -515,53 +539,63 @@ var createMatrixRow = function() {
 function renderMatrixHeaderRow() {
     var matHead = uDom('#matHead.collapsible');
     matHead.toggleClass('collapsed', getUISetting('popupCollapseDomains') === true);
-    var cells = matHead.descendants('.matCell');
-    cells.at(0)
-        .prop('reqType', '*')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', '*'));
-    cells.at(1)
-        .prop('reqType', 'cookie')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'cookie'));
-    cells.at(2)
-        .prop('reqType', 'css')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'css'));
-    cells.at(3)
-        .prop('reqType', 'image')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'image'));
-    cells.at(4)
-        .prop('reqType', 'plugin')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'plugin'));
-    cells.at(5)
-        .prop('reqType', 'script')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'script'));
-    cells.at(6)
-        .prop('reqType', 'xhr')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'xhr'));
-    cells.at(7)
-        .prop('reqType', 'frame')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'frame'));
-    cells.at(8)
-        .prop('reqType', 'other')
-        .prop('hostname', '*')
-        .addClass(getCellClass('*', 'other'));
+    var cells = matHead.descendants('.matCell'), cell, expandos;
+    cell = cells.nodeAt(0);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = '*';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', '*');
+    cell = cells.nodeAt(1);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'cookie';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'cookie');
+    cell = cells.nodeAt(2);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'css';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'css');
+    cell = cells.nodeAt(3);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'image';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'image');
+    cell = cells.nodeAt(4);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'plugin';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'plugin');
+    cell = cells.nodeAt(5);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'script';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'script');
+    cell = cells.nodeAt(6);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'xhr';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'xhr');
+    cell = cells.nodeAt(7);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'frame';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'frame');
+    cell = cells.nodeAt(8);
+    expandos = expandosFromNode(cell);
+    expandos.reqType = 'other';
+    expandos.hostname = '*';
+    addCellClass(cell, '*', 'other');
     uDom('#matHead .matRow').css('display', '');
 }
 
 /******************************************************************************/
 
 function renderMatrixCellDomain(cell, domain) {
-    var contents = cell.prop('reqType', '*')
-        .prop('hostname', domain)
-        .addClass(getCellClass(domain, '*'))
-        .contents();
+    var expandos = expandosFromNode(cell);
+    expandos.hostname = domain;
+    expandos.reqType = '*';
+    addCellClass(cell.nodeAt(0), domain, '*');
+    var contents = cell.contents();
     contents.nodeAt(0).textContent = domain === '1st-party' ?
         firstPartyLabel :
         punycode.toUnicode(domain);
@@ -569,28 +603,31 @@ function renderMatrixCellDomain(cell, domain) {
 }
 
 function renderMatrixCellSubdomain(cell, domain, subomain) {
-    var contents = cell.prop('reqType', '*')
-        .prop('hostname', subomain)
-        .addClass(getCellClass(subomain, '*'))
-        .contents();
+    var expandos = expandosFromNode(cell);
+    expandos.hostname = subomain;
+    expandos.reqType = '*';
+    addCellClass(cell.nodeAt(0), subomain, '*');
+    var contents = cell.contents();
     contents.nodeAt(0).textContent = punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
     contents.nodeAt(1).textContent = punycode.toUnicode(domain);
 }
 
 function renderMatrixMetaCellDomain(cell, domain) {
-    var contents = cell.prop('reqType', '*')
-        .prop('hostname', domain)
-        .addClass(getCellClass(domain, '*'))
-        .contents();
+    var expandos = expandosFromNode(cell);
+    expandos.hostname = domain;
+    expandos.reqType = '*';
+    addCellClass(cell.nodeAt(0), domain, '*');
+    var contents = cell.contents();
     contents.nodeAt(0).textContent = '\u2217.' + punycode.toUnicode(domain);
     contents.nodeAt(1).textContent = ' ';
 }
 
 function renderMatrixCellType(cell, hostname, type, count) {
-    cell.prop('reqType', type)
-        .prop('hostname', hostname)
-        .prop('count', count)
-        .addClass(getCellClass(hostname, type));
+    var expandos = expandosFromNode(cell);
+    expandos.hostname = hostname;
+    expandos.reqType = type;
+    expandos.count = count;
+    addCellClass(cell.nodeAt(0), hostname, type);
     if ( count ) {
         cell.text(count);
     } else {
@@ -642,10 +679,11 @@ function makeMatrixMetaRowDomain(domain) {
 function renderMatrixMetaCellType(cell, count) {
     // https://github.com/gorhill/uMatrix/issues/24
     // Don't forget to reset cell properties
-    cell.addClass('t1')
-        .prop('reqType', '')
-        .prop('hostname', '')
-        .prop('count', count);
+    var expandos = expandosFromNode(cell);
+    expandos.hostname = '';
+    expandos.reqType = '';
+    expandos.count = count;
+    cell.addClass('t1');
     if ( count ) {
         cell.text(count);
     } else {
@@ -658,7 +696,9 @@ function makeMatrixMetaRow(totals) {
     var matrixRow = createMatrixRow().at(0).addClass('ro');
     var cells = matrixRow.descendants('.matCell');
     var contents = cells.at(0).addClass('t81').contents();
-    cells.at(0).prop('reqType', '*').prop('hostname', '');
+    var expandos = expandosFromNode(cells.nodeAt(0));
+    expandos.hostname = '';
+    expandos.reqType = '*';
     contents.nodeAt(0).textContent = ' ';
     contents.nodeAt(1).textContent = blacklistedHostnamesLabel.replace(
         '{{count}}',
@@ -731,7 +771,8 @@ function makeMatrixGroup0SectionDomain() {
 }
 
 function makeMatrixGroup0Section() {
-    var domainDiv = createMatrixSection().prop('domain', '1st-party');
+    var domainDiv = createMatrixSection();
+    expandosFromNode(domainDiv).domain = '1st-party';
     makeMatrixGroup0SectionDomain().appendTo(domainDiv);
     return domainDiv;
 }
@@ -766,8 +807,8 @@ function makeMatrixGroup1SectionMetaDomain(domain) {
 function makeMatrixGroup1Section(hostnames) {
     var domain = hostnames[0];
     var domainDiv = createMatrixSection()
-        .toggleClass('collapsed', getCollapseState(domain))
-        .prop('domain', domain);
+        .toggleClass('collapsed', getCollapseState(domain));
+    expandosFromNode(domainDiv).domain = domain;
     if ( hostnames.length > 1 ) {
         makeMatrixGroup1SectionMetaDomain(domain)
             .appendTo(domainDiv);
@@ -814,8 +855,8 @@ function makeMatrixGroup2SectionMetaDomain(domain) {
 function makeMatrixGroup2Section(hostnames) {
     var domain = hostnames[0];
     var domainDiv = createMatrixSection()
-        .toggleClass('collapsed', getCollapseState(domain))
-        .prop('domain', domain);
+        .toggleClass('collapsed', getCollapseState(domain));
+    expandosFromNode(domainDiv).domain = domain;
     if ( hostnames.length > 1 ) {
         makeMatrixGroup2SectionMetaDomain(domain).appendTo(domainDiv);
     }
@@ -862,8 +903,8 @@ function makeMatrixGroup3SectionMetaDomain(domain) {
 function makeMatrixGroup3Section(hostnames) {
     var domain = hostnames[0];
     var domainDiv = createMatrixSection()
-        .toggleClass('collapsed', getCollapseState(domain))
-        .prop('domain', domain);
+        .toggleClass('collapsed', getCollapseState(domain));
+    expandosFromNode(domainDiv).domain = domain;
     if ( hostnames.length > 1 ) {
         makeMatrixGroup3SectionMetaDomain(domain).appendTo(domainDiv);
     }
@@ -905,8 +946,8 @@ function makeMatrixGroup4SectionSubomain(domain, subdomain) {
 
 function makeMatrixGroup4Section(hostnames) {
     var domain = hostnames[0];
-    var domainDiv = createMatrixSection()
-        .prop('domain', domain);
+    var domainDiv = createMatrixSection();
+    expandosFromNode(domainDiv).domain = domain;
     makeMatrixGroup4SectionDomain(domain)
         .appendTo(domainDiv);
     for ( var i = 1; i < hostnames.length; i++ ) {
