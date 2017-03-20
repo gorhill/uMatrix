@@ -67,9 +67,10 @@ var matrixHeaderPrettyNames = {
 var firstPartyLabel = '';
 var blacklistedHostnamesLabel = '';
 
+var expandosIdGenerator = 1;
 var nodeToExpandosMap = (function() {
-    if ( typeof window.WeakMap === 'function' ) {
-        return new window.WeakMap();
+    if ( typeof window.Map === 'function' ) {
+        return new window.Map();
     }
 })();
 
@@ -81,9 +82,14 @@ var expandosFromNode = function(node) {
         node = node.nodeAt(0);
     }
     if ( nodeToExpandosMap ) {
-        var expandos = nodeToExpandosMap.get(node);
+        var expandosId = node.getAttribute('data-expandos');
+        if ( !expandosId ) {
+            expandosId = '' + (expandosIdGenerator++);
+            node.setAttribute('data-expandos', expandosId);
+        }
+        var expandos = nodeToExpandosMap.get(expandosId);
         if ( expandos === undefined ) {
-            nodeToExpandosMap.set(node, (expandos = Object.create(null)));
+            nodeToExpandosMap.set(expandosId, (expandos = Object.create(null)));
         }
         return expandos;
     }
