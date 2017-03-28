@@ -1,5 +1,7 @@
 ### Submitting issues
 
+**Do not open feature requests.** I just do not have the time.
+
 **The issue tracker is for provable issues only:** You will have to make the case that the issue is really with uMatrix and not something else on your side. To make a case means to provide detailed steps so that anybody can reproduce the issue. Be sure to rule out that the issue is not caused by something specific on your side.
 
 For **support/discussions**, there is [Mozilla Discourse](https://discourse.mozilla-community.org/t/support-umatrix/5131).
