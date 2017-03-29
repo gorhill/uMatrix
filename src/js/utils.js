@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014 Raymond Hill
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, µMatrix */
+'use strict';
 
 /******************************************************************************/
 
@@ -45,9 +45,71 @@ var gotoExtensionURL = function(url) {
 
 /******************************************************************************/
 
+var LineIterator = function(text, offset) {
+    this.text = text;
+    this.textLen = this.text.length;
+    this.offset = offset || 0;
+};
+
+LineIterator.prototype.next = function() {
+    var lineEnd = this.text.indexOf('\n', this.offset);
+    if ( lineEnd === -1 ) {
+        lineEnd = this.text.indexOf('\r', this.offset);
+        if ( lineEnd === -1 ) {
+            lineEnd = this.textLen;
+        }
+    }
+    var line = this.text.slice(this.offset, lineEnd);
+    this.offset = lineEnd + 1;
+    return line;
+};
+
+LineIterator.prototype.rewind = function() {
+    if ( this.offset <= 1 ) {
+        this.offset = 0;
+        return;
+    }
+    var lineEnd = this.text.lastIndexOf('\n', this.offset - 2);
+    if ( lineEnd !== -1 ) {
+        this.offset = lineEnd + 1;
+    } else {
+        lineEnd = this.text.lastIndexOf('\r', this.offset - 2);
+        this.offset = lineEnd !== -1 ? lineEnd + 1 : 0;
+    }
+};
+
+LineIterator.prototype.eot = function() {
+    return this.offset >= this.textLen;
+};
+
+/******************************************************************************/
+
+var setToArray = typeof Array.from === 'function'
+    ? Array.from
+    : function(dict) {
+        var out = [],
+            entries = dict.values(),
+            entry;
+        for (;;) {
+            entry = entries.next();
+            if ( entry.done ) { break; }
+            out.push(entry.value);
+        }
+        return out;
+    };
+
+var setFromArray = function(arr) {
+    return new Set(arr);
+};
+
+/******************************************************************************/
+
 return {
     gotoURL: gotoURL,
-    gotoExtensionURL: gotoExtensionURL
+    gotoExtensionURL: gotoExtensionURL,
+    LineIterator: LineIterator,
+    setToArray: setToArray,
+    setFromArray: setFromArray
 };
 
 /******************************************************************************/

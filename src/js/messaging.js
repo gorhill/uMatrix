@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global µMatrix, vAPI */
+'use strict';
 
 /******************************************************************************/
 /******************************************************************************/
@@ -27,8 +27,6 @@
 // Default handler
 
 (function() {
-
-'use strict';
 
 var µm = µMatrix;
 
@@ -40,7 +38,12 @@ function onMessage(request, sender, callback) {
     // Async
     switch ( request.what ) {
     case 'getAssetContent':
-        return µm.assets.getLocal(request.url, callback);
+        µm.assets.get(request.url, { dontCache: true }, callback);
+        return;
+
+    case 'selectHostsFiles':
+        µm.selectHostsFiles(request, callback);
+        return;
 
     default:
         break;
@@ -55,7 +58,8 @@ function onMessage(request, sender, callback) {
         break;
 
     case 'forceUpdateAssets':
-        µm.assetUpdater.force();
+        µm.scheduleAssetUpdater(0);
+        µm.assets.updateStart({ delay: 2000 });
         break;
 
     case 'getUserSettings':
@@ -80,10 +84,6 @@ function onMessage(request, sender, callback) {
 
     case 'reloadHostsFiles':
         µm.reloadHostsFiles();
-        break;
-
-    case 'selectHostsFiles':
-        µm.selectHostsFiles(request.switches);
         break;
 
     case 'userSettings':
@@ -571,8 +571,6 @@ vAPI.messaging.listen('contentscript-end.js', onMessage);
 
 (function() {
 
-'use strict';
-
 /******************************************************************************/
 
 var µm = µMatrix;
@@ -800,8 +798,6 @@ var getLists = function(callback) {
     var onMetadataReady = function(entries) {
         r.cache = entries;
         prepEntries(r.cache);
-        r.manualUpdate = µm.assetUpdater.manualUpdate;
-        r.manualUpdateProgress = µm.assetUpdater.manualUpdateProgress;
         callback(r);
     };
     var onAvailableHostsFilesReady = function(lists) {
@@ -822,9 +818,6 @@ var onMessage = function(request, sender, callback) {
     case 'getLists':
         return getLists(callback);
 
-    case 'purgeAllCaches':
-        return µm.assets.purgeAll(callback);
-
     default:
         break;
     }
@@ -834,7 +827,16 @@ var onMessage = function(request, sender, callback) {
 
     switch ( request.what ) {
     case 'purgeCache':
-        µm.assets.purge(request.path);
+        µm.assets.purge(request.assetKey);
+        µm.assets.remove('compiled/' + request.assetKey);
+        break;
+
+    case 'purgeAllCaches':
+        if ( request.hard ) {
+            µm.assets.remove(/./);
+        } else {
+            µm.assets.purge(/./, 'public_suffix_list.dat');
+        }
         break;
 
     default:
@@ -943,8 +945,6 @@ vAPI.messaging.listen('about.js', onMessage);
 // logger-ui.js
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 

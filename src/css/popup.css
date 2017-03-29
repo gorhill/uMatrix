@@ -74,7 +74,9 @@ body[dir="rtl"] #gotoDashboard > span:last-of-type {
     padding: 02px 0;
     text-align: center;
     }
-
+#toolbarContainer {
+    position: relative;
+}
 .toolbar {
     border: 0;
     display: inline-block;

@@ -1,0 +1,75 @@
+{
+	"assets.json": {
+		"content": "internal",
+		"updateAfter": 13,
+		"contentURL": [
+			"https://raw.githubusercontent.com/gorhill/uMatrix/master/assets/assets.json",
+			"assets/assets.json"
+		]
+	},
+	"public_suffix_list.dat": {
+		"content": "internal",
+		"updateAfter": 19,
+		"contentURL": [
+			"https://publicsuffix.org/list/public_suffix_list.dat",
+			"assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat"
+		]
+	},
+	"malware-0": {
+		"content": "filters",
+		"group": "malware",
+		"title": "Malware Domain List",
+		"contentURL": [
+			"https://www.malwaredomainlist.com/hostslist/hosts.txt",
+			"assets/thirdparties/www.malwaredomainlist.com/hostslist/hosts.txt"
+		]
+	},
+	"malware-1": {
+		"content": "filters",
+		"group": "malware",
+		"title": "Malware domains",
+		"contentURL": [
+			"https://mirror.cedia.org.ec/malwaredomains/justdomains",
+			"https://mirror1.malwaredomains.com/files/justdomains",
+			"assets/thirdparties/mirror1.malwaredomains.com/files/justdomains",
+			"assets/thirdparties/mirror1.malwaredomains.com/files/justdomains.txt"
+		],
+		"supportURL": "http://www.malwaredomains.com/"
+	},
+	"dpollock-0": {
+		"content": "filters",
+		"group": "multipurpose",
+		"updateAfter": 11,
+		"title": "Dan Pollock’s hosts file",
+		"contentURL": "http://someonewhocares.org/hosts/hosts",
+		"supportURL": "http://someonewhocares.org/hosts/"
+	},
+	"hphosts": {
+		"content": "filters",
+		"group": "multipurpose",
+		"updateAfter": 11,
+		"title": "hpHosts’ Ad and tracking servers",
+		"contentURL": "https://hosts-file.net/.%5Cad_servers.txt",
+		"supportURL": "https://hosts-file.net/"
+	},
+	"mvps-0": {
+		"content": "filters",
+		"group": "multipurpose",
+		"updateAfter": 11,
+		"title": "MVPS HOSTS",
+		"contentURL": "http://winhelp2002.mvps.org/hosts.txt",
+		"supportURL": "http://winhelp2002.mvps.org/"
+	},
+	"plowe-0": {
+		"content": "filters",
+		"group": "multipurpose",
+		"updateAfter": 13,
+		"title": "Peter Lowe’s Ad and tracking server list",
+		"contentURL": [
+			"https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext",
+			"assets/thirdparties/pgl.yoyo.org/as/serverlist",
+			"assets/thirdparties/pgl.yoyo.org/as/serverlist.txt"
+		],
+		"supportURL": "https://pgl.yoyo.org/adservers/"
+	}
+}

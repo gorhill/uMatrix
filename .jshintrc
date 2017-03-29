@@ -5,9 +5,9 @@
 	"strict": "global",
 	"globals": {
 		"self": false,
-		"vAPI": false,
 		"chrome": false,
-		"safari": false,
+		"vAPI": false,
+		"µMatrix": false,
 		"Components": false // global variable in Firefox
 	}
 }

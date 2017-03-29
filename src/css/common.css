@@ -80,3 +80,40 @@ body[dir="ltr"] .tip-anchor-right[data-i18n-tip]:hover:after,
 body[dir="rtl"] .tip-anchor-left[data-i18n-tip]:hover:after {
     right: -3vw;
     }
+button.custom {
+    padding: 0.6em 1em;
+    border: 1px solid transparent;
+    border-color: #ccc #ccc #bbb #bbb;
+    border-radius: 3px;
+    background-color: hsl(216, 0%, 75%);
+    background-image: linear-gradient(#f2f2f2, #dddddd);
+    background-repeat: repeat-x;
+    color: #000;
+    opacity: 0.8;
+    }
+button.custom:hover {
+    opacity: 1.0;
+    }
+button.custom.important {
+    padding: 0.6em 1em;
+    border: 1px solid transparent;
+    border-color: #ffcc7f #ffcc7f hsl(36, 100%, 73%);
+    border-radius: 3px;
+    background-color: hsl(36, 100%, 75%);
+    background-image: linear-gradient(#ffdca8, #ffcc7f);
+    background-repeat: repeat-x;
+    color: #222;
+    opacity: 0.8;
+    }
+button.custom.important:hover {
+    opacity: 1.0;
+    }
+button.custom.disabled,
+button.custom[disabled] {
+    border-color: #ddd #ddd hsl(36, 0%, 85%);
+    background-color: hsl(36, 0%, 72%);
+    background-image: linear-gradient(#f2f2f2, #dddddd);
+    color: #666;
+    opacity: 0.6;
+    pointer-events: none;
+    }

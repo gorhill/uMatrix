@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global punycode, vAPI, uDom */
+/* global punycode, uDom */
 /* jshint esnext: true, bitwise: false */
 
 'use strict';

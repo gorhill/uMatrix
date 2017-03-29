@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to block requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    uBlock Origin - a browser extension to block requests.
+    Copyright (C) 2016 The uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,37 +16,15 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uMatrix
+    Home: https://github.com/gorhill/uBlock
 */
 
-/* global uDom */
+// For background page or non-background pages
 
 'use strict';
 
 /******************************************************************************/
 
-(function() {
+var objectAssign = Object.assign;
 
 /******************************************************************************/
-
-var messager = vAPI.messaging.channel('asset-viewer.js');
-
-/******************************************************************************/
-
-var onAssetContentReceived = function(details) {
-    uDom('#content').html(details && (details.content || ''));
-};
-
-/******************************************************************************/
-
-var q = window.location.search;
-var matches = q.match(/^\?url=([^&]+)/);
-if ( !matches || matches.length !== 2 ) {
-    return;
-}
-
-messager.send({ what : 'getAssetContent', url: matches[1] }, onAssetContentReceived);
-
-/******************************************************************************/
-
-})();

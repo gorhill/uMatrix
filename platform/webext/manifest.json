@@ -1,0 +1,61 @@
+{
+    "applications": {
+        "gecko": {
+            "id": "uMatrix@raymondhill.net",
+            "strict_min_version": "53.0a1"
+        }
+    },
+    "author": "Raymond Hill",
+    "background": {
+        "page": "background.html"
+    },
+    "browser_action": {
+        "browser_style": false,
+        "default_icon": {
+            "19": "img/browsericons/icon19.png",
+            "38": "img/browsericons/icon38.png"
+        },
+        "default_title": "uMatrix",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["js/vapi-client.js", "js/contentscript-start.js"],
+            "run_at": "document_start",
+            "all_frames": true
+        },
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["js/contentscript-end.js"],
+            "run_at": "document_end",
+            "all_frames": true
+        }
+    ],
+    "default_locale": "en",
+    "description": "__MSG_extShortDesc__",
+    "icons": {
+        "16": "img/icon_16.png",
+        "128": "img/icon_128.png"
+    },
+    "manifest_version": 2,
+    "minimum_chrome_version": "26.0",
+    "name": "uMatrix",
+    "options_ui": {
+        "page": "options_ui.html"
+    },
+    "permissions": [
+        "browsingData",
+        "contentSettings",
+        "cookies",
+        "privacy",
+        "storage",
+        "tabs",
+        "webNavigation",
+        "webRequest",
+        "webRequestBlocking",
+        "<all_urls>"
+    ],
+    "short_name": "uMatrix",
+    "version": "0.9.9"
+}

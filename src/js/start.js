@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014 Raymond Hill
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -89,22 +89,11 @@ var rwLocalUserSettings = {
 
 /******************************************************************************/
 
-// Important: raise barrier to remote fetching: we do not want resources to
-// be pulled from remote server at start up time.
-
-µm.assets.remoteFetchBarrier += 1;
-
-/******************************************************************************/
-
 var onAllDone = function() {
     µm.webRequest.start();
 
-    // https://github.com/chrisaljoudi/uBlock/issues/184
-    // Check for updates not too far in the future.
-    µm.assetUpdater.onStart.addListener(µm.updateStartHandler.bind(µm));
-    µm.assetUpdater.onCompleted.addListener(µm.updateCompleteHandler.bind(µm));
-    µm.assetUpdater.onAssetUpdated.addListener(µm.assetUpdatedHandler.bind(µm));
-    µm.assets.onAssetCacheRemoved.addListener(µm.assetCacheRemovedHandler.bind(µm));
+    µm.assets.addObserver(µm.assetObserver.bind(µm));
+    µm.scheduleAssetUpdater(µm.userSettings.autoUpdate ? 7 * 60 * 1000 : 0);
 
     for ( var key in defaultLocalUserSettings ) {
         if ( defaultLocalUserSettings.hasOwnProperty(key) === false ) {
@@ -118,9 +107,7 @@ var onAllDone = function() {
         }
     }
 
-    vAPI.cloud.start([
-        'myRulesPane'
-    ]);
+    vAPI.cloud.start([ 'myRulesPane' ]);
 };
 
 var onTabsReady = function(tabs) {
@@ -133,12 +120,6 @@ var onTabsReady = function(tabs) {
     }
 
     onAllDone();
-};
-
-var onHostsFilesLoaded = function() {
-    // Important: remove barrier to remote fetching, this was useful only
-    // for launch time.
-    µm.assets.remoteFetchBarrier -= 1;
 };
 
 var onUserSettingsLoaded = function() {
@@ -154,7 +135,7 @@ var onUserSettingsLoaded = function() {
     delete µm.userSettings.subframeColor;
     delete µm.userSettings.subframeOpacity;
 
-    µm.loadHostsFiles(onHostsFilesLoaded);
+    µm.loadHostsFiles();
 };
 
 var onPSLReady = function() {

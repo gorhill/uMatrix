@@ -88,7 +88,7 @@ vAPI.closePopup = function() {
 // This storage is optional, but it is nice to have, for a more polished user
 // experience.
 
-vAPI.localStorage = window.localStorage;
+vAPI.localStorage = self.localStorage;
 
 /******************************************************************************/
 

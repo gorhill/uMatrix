@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2016 Raymond Hill
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -449,44 +449,33 @@ var requestTypeNormalizer = {
     'font'          : 'css',
     'image'         : 'image',
     'main_frame'    : 'doc',
+    'media'         : 'plugin',
     'object'        : 'plugin',
     'other'         : 'other',
     'ping'          : 'ping',
     'script'        : 'script',
     'stylesheet'    : 'css',
     'sub_frame'     : 'frame',
+    'websocket'     : 'xhr',
     'xmlhttprequest': 'xhr'
 };
 
 /******************************************************************************/
 
 vAPI.net.onBeforeRequest = {
-    urls: [
-        "http://*/*",
-        "https://*/*"
-    ],
     extra: [ 'blocking' ],
     callback: onBeforeRequestHandler
 };
 
 vAPI.net.onBeforeSendHeaders = {
-    urls: [
-        "http://*/*",
-        "https://*/*"
-    ],
+    urls: [ 'http://*/*', 'https://*/*' ],
     extra: [ 'blocking', 'requestHeaders' ],
     callback: onBeforeSendHeadersHandler
 };
 
 vAPI.net.onHeadersReceived = {
-    urls: [
-        "http://*/*",
-        "https://*/*"
-    ],
-    types: [
-        "main_frame",
-        "sub_frame"
-    ],
+    urls: [ 'http://*/*', 'https://*/*' ],
+    types: [ 'main_frame', 'sub_frame' ],
     extra: [ 'blocking', 'responseHeaders' ],
     callback: onHeadersReceived
 };

@@ -1,7 +1,8 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to block requests.
-    Copyright (C) 2014-2016 The uBlock authors
+    Copyright (C) 2014-2017 The uBlock Origin authors
+    Copyright (C)      2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -52,14 +53,16 @@ chrome.privacy.network.networkPredictionEnabled.set({
 // Tell Chromium to allow all javascript: µMatrix will control whether
 // javascript execute through `Content-Policy-Directive` and webRequest.
 //   https://github.com/gorhill/httpswitchboard/issues/74
-chrome.contentSettings.javascript.set({
-    primaryPattern: 'https://*/*',
-    setting: 'allow'
-});
-chrome.contentSettings.javascript.set({
-    primaryPattern: 'http://*/*',
-    setting: 'allow'
-});
+if ( chrome.contentSettings instanceof Object ) {
+    chrome.contentSettings.javascript.set({
+        primaryPattern: 'https://*/*',
+        setting: 'allow'
+    });
+    chrome.contentSettings.javascript.set({
+        primaryPattern: 'http://*/*',
+        setting: 'allow'
+    });
+}
 
 /******************************************************************************/
 
@@ -107,6 +110,7 @@ vAPI.app.restart = function() {
 // chrome.storage.local.get(null, function(bin){ console.debug('%o', bin); });
 
 vAPI.storage = chrome.storage.local;
+vAPI.cacheStorage = chrome.storage.local;
 
 /******************************************************************************/
 
@@ -583,8 +587,9 @@ vAPI.net = {};
 /******************************************************************************/
 
 vAPI.net.registerListeners = function() {
-    var µm = µMatrix;
-    var httpRequestHeadersJunkyard = [];
+    var µm = µMatrix,
+        reNetworkURL = /^(?:https?|wss?):\/\//,
+        httpRequestHeadersJunkyard = [];
 
     // Abstraction layer to deal with request headers
     // >>>>>>>>
@@ -657,11 +662,24 @@ vAPI.net.registerListeners = function() {
 
     // Normalizing request types
     // >>>>>>>>
+    var extToTypeMap = new Map([
+        ['eot','font'],['otf','font'],['svg','font'],['ttf','font'],['woff','font'],['woff2','font'],
+        ['mp3','media'],['mp4','media'],['webm','media'],
+        ['gif','image'],['ico','image'],['jpeg','image'],['jpg','image'],['png','image'],['webp','image']
+    ]);
+
     var normalizeRequestDetails = function(details) {
         details.tabId = details.tabId.toString();
 
+        var type = details.type;
+
+        if ( type === 'imageset' ) {
+            details.type = 'image';
+            return;
+        }
+
         // The rest of the function code is to normalize request type
-        if ( details.type !== 'other' ) {
+        if ( type !== 'other' ) {
             return;
         }
 
@@ -672,26 +690,11 @@ vAPI.net.registerListeners = function() {
             }
         }
 
+        // Try to map known "extension" part of URL to request type.
         var path = µm.URI.pathFromURI(details.url),
             pos = path.indexOf('.', path.length - 6);
- 
-        // https://github.com/chrisaljoudi/uBlock/issues/862
-        // If no transposition possible, transpose to `object` as per
-        // Chromium bug 410382 (see below)
-        if ( pos === -1 ) {
-            return;
-        }
-
-        var needle = path.slice(pos) + '.';
-        if ( '.eot.ttf.otf.svg.woff.woff2.'.indexOf(needle) !== -1 ) {
-            details.type = 'font';
-            return;
-        }
-        // Still need this because often behind-the-scene requests are wrongly
-        // categorized as 'other'
-        if ( '.ico.png.gif.jpg.jpeg.mp3.mp4.webm.webp.'.indexOf(needle) !== -1 ) {
-            details.type = 'image';
-            return;
+        if ( pos !== -1 && (type = extToTypeMap.get(path.slice(pos + 1))) ) {
+            details.type = type;
         }
     };
     // <<<<<<<<
@@ -700,12 +703,13 @@ vAPI.net.registerListeners = function() {
     // Network event handlers
     // >>>>>>>>
     var onBeforeRequestClient = this.onBeforeRequest.callback;
-    var onBeforeRequest = function(details) {
-        normalizeRequestDetails(details);
-        return onBeforeRequestClient(details);
-    };
     chrome.webRequest.onBeforeRequest.addListener(
-        onBeforeRequest,
+        function(details) {
+            if ( reNetworkURL.test(details.url) ) {
+                normalizeRequestDetails(details);
+                return onBeforeRequestClient(details);
+            }
+        },
         //function(details) {
         //    quickProfiler.start('onBeforeRequest');
         //    var r = onBeforeRequest(details);
@@ -713,8 +717,8 @@ vAPI.net.registerListeners = function() {
         //    return r;
         //},
         {
-            'urls': this.onBeforeRequest.urls || ['<all_urls>'],
-            'types': this.onBeforeRequest.types || []
+            'urls': this.onBeforeRequest.urls || [ '<all_urls>' ],
+            'types': this.onBeforeRequest.types || undefined
         },
         this.onBeforeRequest.extra
     );
@@ -735,8 +739,8 @@ vAPI.net.registerListeners = function() {
     chrome.webRequest.onBeforeSendHeaders.addListener(
         onBeforeSendHeaders,
         {
-            'urls': this.onBeforeSendHeaders.urls || ['<all_urls>'],
-            'types': this.onBeforeSendHeaders.types || []
+            'urls': this.onBeforeSendHeaders.urls || [ '<all_urls>' ],
+            'types': this.onBeforeSendHeaders.types || undefined
         },
         this.onBeforeSendHeaders.extra
     );
@@ -749,8 +753,8 @@ vAPI.net.registerListeners = function() {
     chrome.webRequest.onHeadersReceived.addListener(
         onHeadersReceived,
         {
-            'urls': this.onHeadersReceived.urls || ['<all_urls>'],
-            'types': this.onHeadersReceived.types || []
+            'urls': this.onHeadersReceived.urls || [ '<all_urls>' ],
+            'types': this.onHeadersReceived.types || undefined
         },
         this.onHeadersReceived.extra
     );

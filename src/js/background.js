@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome */
+'use strict';
 
 /******************************************************************************/
 
-var µMatrix = (function() {
+var µMatrix = (function() { // jshint ignore:line
 
 /******************************************************************************/
 
@@ -127,12 +127,8 @@ return {
     updateAssetsEvery: 11 * oneDay + 1 * oneHour + 1 * oneMinute + 1 * oneSecond,
     firstUpdateAfter: 11 * oneMinute,
     nextUpdateAfter: 11 * oneHour,
-    projectServerRoot: 'https://raw.githubusercontent.com/gorhill/umatrix/master/',
-    pslPath: 'assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat',
-
-    // permanent hosts files
-    permanentHostsFiles: {
-    },
+    assetsBootstrapLocation: 'assets/assets.json',
+    pslAssetKey: 'public_suffix_list.dat',
 
     // list of live hosts files
     liveHostsFiles: {

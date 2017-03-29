@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2015 Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,37 +19,34 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global vAPI, uDom */
-
-/******************************************************************************/
-
-(function() {
+/* global uDom */
 
 'use strict';
 
 /******************************************************************************/
 
-var listDetails = {};
-var externalHostsFiles = '';
-var cacheWasPurged = false;
-var needUpdate = false;
-var hasCachedContent = false;
+(function() {
+
+/******************************************************************************/
+
+var listDetails = {},
+    lastUpdateTemplateString = vAPI.i18n('hostsFilesLastUpdate'),
+    hostsFilesSettingsHash,
+    reValidExternalList = /[a-z-]+:\/\/\S*\/\S+/;
 
 /******************************************************************************/
 
 var onMessage = function(msg) {
     switch ( msg.what ) {
+    case 'assetUpdated':
+        updateAssetStatus(msg);
+        break;
+    case 'assetsUpdated':
+        document.body.classList.remove('updating');
+        break;
     case 'loadHostsFilesCompleted':
         renderHostsFiles();
         break;
-
-    case 'forceUpdateAssetsProgress':
-        renderBusyOverlay(true, msg.progress);
-        if ( msg.done ) {
-            messager.send({ what: 'reloadHostsFiles' });
-        }
-        break;
-
     default:
         break;
     }
@@ -65,115 +62,120 @@ var renderNumber = function(value) {
 
 /******************************************************************************/
 
-// TODO: get rid of background page dependencies
+var renderHostsFiles = function(soft) {
+    var listEntryTemplate = uDom('#templates .listEntry'),
+        listStatsTemplate = vAPI.i18n('hostsFilesPerFileStats'),
+        renderElapsedTimeToString = vAPI.i18n.renderElapsedTimeToString,
+        reExternalHostFile = /^https?:/;
 
-var renderHostsFiles = function() {
-    var listEntryTemplate = uDom('#templates .listEntry');
-    var listStatsTemplate = vAPI.i18n('hostsFilesPerFileStats');
-    var lastUpdateString = vAPI.i18n('hostsFilesLastUpdate');
-    var renderElapsedTimeToString = vAPI.i18n.renderElapsedTimeToString;
-    var reExternalHostFile = /^https?:/;
-
-    // Assemble a pretty blacklist name if possible
+    // Assemble a pretty list name if possible
     var listNameFromListKey = function(listKey) {
         var list = listDetails.current[listKey] || listDetails.available[listKey];
         var listTitle = list ? list.title : '';
-        if ( listTitle === '' ) {
-            return listKey;
-        }
+        if ( listTitle === '' ) { return listKey; }
         return listTitle;
     };
 
-    var liFromListEntry = function(listKey) {
-        var elem, text;
-        var entry = listDetails.available[listKey];
-        var li = listEntryTemplate.clone();
-
-        if ( entry.off !== true ) {
-            li.descendants('input').attr('checked', '');
+    var liFromListEntry = function(listKey, li) {
+        var entry = listDetails.available[listKey],
+            elem;
+        if ( !li ) {
+            li = listEntryTemplate.clone().nodeAt(0);
         }
-
-        elem = li.descendants('a:nth-of-type(1)');
-        elem.attr('href', encodeURI(listKey));
-        elem.text(listNameFromListKey(listKey) + '\u200E');
-
-        elem = li.descendants('a:nth-of-type(2)');
-        if ( entry.homeDomain ) {
-            elem.attr('href', 'http://' + encodeURI(entry.homeHostname));
-            elem.text('(' + entry.homeDomain + ')');
-            elem.css('display', '');
-        }
-
-        elem = li.descendants('span:nth-of-type(1)');
-        text = listStatsTemplate
-            .replace('{{used}}', renderNumber(!entry.off && !isNaN(+entry.entryUsedCount) ? entry.entryUsedCount : 0))
-            .replace('{{total}}', !isNaN(+entry.entryCount) ? renderNumber(entry.entryCount) : '?');
-        elem.text(text);
-
-        // https://github.com/gorhill/uBlock/issues/78
-        // Badge for non-secure connection
-        var remoteURL = listKey;
-        if ( remoteURL.lastIndexOf('http:', 0) !== 0 ) {
-            remoteURL = entry.homeURL || '';
-        }
-        if ( remoteURL.lastIndexOf('http:', 0) === 0 ) {
-            li.descendants('span.status.unsecure').css('display', '');
-        }
-
-        // https://github.com/chrisaljoudi/uBlock/issues/104
-        var asset = listDetails.cache[listKey] || {};
-
-        // Badge for update status
-        if ( entry.off !== true ) {
-            if ( asset.repoObsolete ) {
-                li.descendants('span.status.new').css('display', '');
-                needUpdate = true;
-            } else if ( asset.cacheObsolete ) {
-                li.descendants('span.status.obsolete').css('display', '');
-                needUpdate = true;
-            } else if ( entry.external && !asset.cached ) {
-                li.descendants('span.status.obsolete').css('display', '');
-                needUpdate = true;
+        if ( li.getAttribute('data-listkey') !== listKey ) {
+            li.setAttribute('data-listkey', listKey);
+            elem = li.querySelector('input[type="checkbox"]');
+            elem.checked = entry.off !== true;
+            elem = li.querySelector('a:nth-of-type(1)');
+            elem.setAttribute('href', 'asset-viewer.html?url=' + encodeURI(listKey));
+            elem.setAttribute('type', 'text/html');
+            elem.textContent = listNameFromListKey(listKey);
+            li.classList.remove('toRemove');
+            if ( entry.supportName ) {
+                li.classList.add('support');
+                elem = li.querySelector('a.support');
+                elem.setAttribute('href', entry.supportURL);
+                elem.setAttribute('title', entry.supportName);
+            } else {
+                li.classList.remove('support');
+            }
+            if ( entry.external ) {
+                li.classList.add('external');
+            } else {
+                li.classList.remove('external');
+            }
+            if ( entry.instructionURL ) {
+                li.classList.add('mustread');
+                elem = li.querySelector('a.mustread');
+                elem.setAttribute('href', entry.instructionURL);
+            } else {
+                li.classList.remove('mustread');
             }
         }
-
-        // In cache
-        if ( asset.cached ) {
-            elem = li.descendants('span.status.purge');
-            elem.css('display', '');
-            elem.attr('title', lastUpdateString.replace('{{ago}}', renderElapsedTimeToString(asset.lastModified)));
-            hasCachedContent = true;
+        // https://github.com/gorhill/uBlock/issues/1429
+        if ( !soft ) {
+            elem = li.querySelector('input[type="checkbox"]');
+            elem.checked = entry.off !== true;
         }
+        elem = li.querySelector('span.counts');
+        var text = '';
+        if ( !isNaN(+entry.entryUsedCount) && !isNaN(+entry.entryCount) ) {
+            text = listStatsTemplate
+                .replace('{{used}}', renderNumber(entry.off ? 0 : entry.entryUsedCount))
+                .replace('{{total}}', renderNumber(entry.entryCount));
+        }
+        elem.textContent = text;
+        // https://github.com/chrisaljoudi/uBlock/issues/104
+        var asset = listDetails.cache[listKey] || {};
+        var remoteURL = asset.remoteURL;
+        li.classList.toggle(
+            'unsecure',
+            typeof remoteURL === 'string' && remoteURL.lastIndexOf('http:', 0) === 0
+        );
+        li.classList.toggle('failed', asset.error !== undefined);
+        li.classList.toggle('obsolete', asset.obsolete === true);
+        li.classList.toggle('cached', asset.cached === true && asset.writeTime > 0);
+        if ( asset.cached ) {
+            li.querySelector('.status.cache').setAttribute(
+                'title',
+                lastUpdateTemplateString.replace('{{ago}}', renderElapsedTimeToString(asset.writeTime))
+            );
+        }
+        li.classList.remove('discard');
         return li;
     };
 
     var onListsReceived = function(details) {
         // Before all, set context vars
         listDetails = details;
-        needUpdate = false;
-        hasCachedContent = false;
 
-        var availableLists = details.available;
-        var listKeys = Object.keys(details.available);
+        // Incremental rendering: this will allow us to easily discard unused
+        // DOM list entries.
+        uDom('#lists .listEntry').addClass('discard');
+
+        var availableLists = details.available,
+            listKeys = Object.keys(details.available);
 
         // Sort works this way:
         // - Send /^https?:/ items at the end (custom hosts file URL)
         listKeys.sort(function(a, b) {
-            var ta = availableLists[a].title || a;
-            var tb = availableLists[b].title || b;
+            var ta = availableLists[a].title || a,
+                tb = availableLists[b].title || b;
             if ( reExternalHostFile.test(ta) === reExternalHostFile.test(tb) ) {
                 return ta.localeCompare(tb);
             }
-            if ( reExternalHostFile.test(tb) ) {
-                return -1;
-            }
-            return 1;
+            return reExternalHostFile.test(tb) ? -1 : 1;
         });
-        var ulList = uDom('#lists').empty();
+
+        var ulList = document.querySelector('#lists');
         for ( var i = 0; i < listKeys.length; i++ ) {
-            ulList.append(liFromListEntry(listKeys[i]));
+            var liEntry = liFromListEntry(listKeys[i], ulList.children[i]);
+            if ( liEntry.parentElement === null ) {
+                ulList.appendChild(liEntry);
+            }
         }
 
+        uDom('#lists .listEntry.discard').remove();
         uDom('#listsOfBlockedHostsPrompt').text(
             vAPI.i18n('hostsFilesStats').replace(
                 '{{blockedHostnameCount}}',
@@ -182,8 +184,10 @@ var renderHostsFiles = function() {
         );
         uDom('#autoUpdate').prop('checked', listDetails.autoUpdate === true);
 
+        if ( !soft ) {
+            hostsFilesSettingsHash = hashFromCurrentFromSettings();
+        }
         renderWidgets();
-        renderBusyOverlay(details.manualUpdate, details.manualUpdateProgress);
     };
 
     messager.send({ what: 'getLists' }, onListsReceived);
@@ -191,198 +195,163 @@ var renderHostsFiles = function() {
 
 /******************************************************************************/
 
-// Progress must be normalized to [0, 1], or can be undefined.
-
-var renderBusyOverlay = function(state, progress) {
-    progress = progress || {};
-    var showProgress = typeof progress.value === 'number';
-    if ( showProgress ) {
-        uDom('#busyOverlay > div:nth-of-type(2) > div:first-child').css(
-            'width',
-            (progress.value * 100).toFixed(1) + '%'
-        );
-        var text = progress.text || '';
-        if ( text !== '' ) {
-            uDom('#busyOverlay > div:nth-of-type(2) > div:last-child').text(text);
-        }
-    }
-    uDom('#busyOverlay > div:nth-of-type(2)').css('display', showProgress ? '' : 'none');
-    uDom('body').toggleClass('busy', !!state);
-};
-
-/******************************************************************************/
-
-// This is to give a visual hint that the selection of blacklists has changed.
-
 var renderWidgets = function() {
-    uDom('#buttonApply').toggleClass('disabled', !listsSelectionChanged());
-    uDom('#buttonUpdate').toggleClass('disabled', !listsContentChanged());
-    uDom('#buttonPurgeAll').toggleClass('disabled', !hasCachedContent);
+    uDom('#buttonUpdate').toggleClass('disabled', document.querySelector('body:not(.updating) #lists .listEntry.obsolete > input[type="checkbox"]:checked') === null);
+    uDom('#buttonPurgeAll').toggleClass('disabled', document.querySelector('#lists .listEntry.cached') === null);
+    uDom('#buttonApply').toggleClass('disabled', hostsFilesSettingsHash === hashFromCurrentFromSettings());
 };
 
 /******************************************************************************/
 
-// Return whether selection of lists changed.
-
-var listsSelectionChanged = function() {
-    if ( cacheWasPurged ) {
-        return true;
+var updateAssetStatus = function(details) {
+    var li = document.querySelector('#lists .listEntry[data-listkey="' + details.key + '"]');
+    if ( li === null ) { return; }
+    li.classList.toggle('failed', !!details.failed);
+    li.classList.toggle('obsolete', !details.cached);
+    li.classList.toggle('cached', !!details.cached);
+    if ( details.cached ) {
+        li.querySelector('.status.cache').setAttribute(
+            'title',
+            lastUpdateTemplateString.replace(
+                '{{ago}}',
+                vAPI.i18n.renderElapsedTimeToString(Date.now())
+            )
+        );
     }
-    var availableLists = listDetails.available;
-    var currentLists = listDetails.current;
-    var location, availableOff, currentOff;
-    // This check existing entries
-    for ( location in availableLists ) {
-        if ( availableLists.hasOwnProperty(location) === false ) {
-            continue;
+    renderWidgets();
+};
+
+/*******************************************************************************
+
+    Compute a hash from all the settings affecting how filter lists are loaded
+    in memory.
+
+**/
+
+var hashFromCurrentFromSettings = function() {
+    var hash = [],
+        listHash = [],
+        listEntries = document.querySelectorAll('#lists .listEntry[data-listkey]:not(.toRemove)'),
+        liEntry,
+        i = listEntries.length;
+    while ( i-- ) {
+        liEntry = listEntries[i];
+        if ( liEntry.querySelector('input[type="checkbox"]:checked') !== null ) {
+            listHash.push(liEntry.getAttribute('data-listkey'));
         }
-        availableOff = availableLists[location].off === true;
-        currentOff = currentLists[location] === undefined || currentLists[location].off === true;
-        if ( availableOff !== currentOff ) {
-            return true;
-        }
     }
-    // This check removed entries
-    for ( location in currentLists ) {
-        if ( currentLists.hasOwnProperty(location) === false ) {
-            continue;
-        }
-        currentOff = currentLists[location].off === true;
-        availableOff = availableLists[location] === undefined || availableLists[location].off === true;
-        if ( availableOff !== currentOff ) {
-            return true;
-        }
-    }
-    return false;
+    hash.push(
+        listHash.sort().join(),
+        reValidExternalList.test(document.getElementById('externalHostsFiles').value),
+        document.querySelector('#lists .listEntry.toRemove') !== null
+    );
+    return hash.join();
 };
 
 /******************************************************************************/
 
-// Return whether content need update.
-
-var listsContentChanged = function() {
-    return needUpdate;
+var onHostsFilesSettingsChanged = function() {
+    renderWidgets();
 };
 
 /******************************************************************************/
 
-// This is to give a visual hint that the selection of blacklists has changed.
-
-var updateWidgets = function() {
-    uDom('#buttonApply').toggleClass('disabled', !listsSelectionChanged());
-    uDom('#buttonUpdate').toggleClass('disabled', !listsContentChanged());
-    uDom('#buttonPurgeAll').toggleClass('disabled', !hasCachedContent);
-    uDom('body').toggleClass('busy', false);
-};
-
-/******************************************************************************/
-
-var onListCheckboxChanged = function() {
-    var href = uDom(this).parent().descendants('a').first().attr('href');
-    if ( typeof href !== 'string' ) {
-        return;
+var onRemoveExternalHostsFile = function(ev) {
+    var liEntry = uDom(this).ancestors('[data-listkey]'),
+        listKey = liEntry.attr('data-listkey');
+    if ( listKey ) {
+        liEntry.toggleClass('toRemove');
+        renderWidgets();
     }
-    if ( listDetails.available[href] === undefined ) {
-        return;
-    }
-    listDetails.available[href].off = !this.checked;
-    updateWidgets();
-};
-
-/******************************************************************************/
-
-var onListLinkClicked = function(ev) {
-    messager.send({
-        what: 'gotoExtensionURL',
-        url: 'asset-viewer.html?url=' + uDom(this).attr('href')
-    });
     ev.preventDefault();
 };
 
 /******************************************************************************/
 
 var onPurgeClicked = function() {
-    var button = uDom(this);
-    var li = button.parent();
-    var href = li.descendants('a').first().attr('href');
-    if ( !href ) {
-        return;
-    }
-    messager.send({ what: 'purgeCache', path: href });
-    button.remove();
-    if ( li.descendants('input').first().prop('checked') ) {
-        cacheWasPurged = true;
-        updateWidgets();
+    var button = uDom(this),
+        liEntry = button.ancestors('[data-listkey]'),
+        listKey = liEntry.attr('data-listkey');
+    if ( !listKey ) { return; }
+
+    messager.send({ what: 'purgeCache', assetKey: listKey });
+    liEntry.addClass('obsolete');
+    liEntry.removeClass('cached');
+
+    if ( liEntry.descendants('input').first().prop('checked') ) {
+        renderWidgets();
     }
 };
 
 /******************************************************************************/
 
 var selectHostsFiles = function(callback) {
-    var switches = [];
-    var lis = uDom('#lists .listEntry'), li;
-    var i = lis.length;
+    // Hosts files to select
+    var toSelect = [],
+        liEntries = document.querySelectorAll('#lists .listEntry[data-listkey]:not(.toRemove)'),
+        i = liEntries.length,
+        liEntry;
     while ( i-- ) {
-        li = lis.at(i);
-        switches.push({
-            location: li.descendants('a').attr('href'),
-            off: li.descendants('input').prop('checked') === false
-        });
+        liEntry = liEntries[i];
+        if ( liEntry.querySelector('input[type="checkbox"]:checked') !== null ) {
+            toSelect.push(liEntry.getAttribute('data-listkey'));
+        }
     }
 
+    // External hosts files to remove
+    var toRemove = [];
+    liEntries = document.querySelectorAll('#lists .listEntry.toRemove[data-listkey]');
+    i = liEntries.length;
+    while ( i-- ) {
+        toRemove.push(liEntries[i].getAttribute('data-listkey'));
+    }
+
+    // External hosts files to import
+    var externalListsElem = document.getElementById('externalHostsFiles'),
+        toImport = externalListsElem.value.trim();
+    externalListsElem.value = '';
+
     messager.send({
-        what: 'selectHostsFiles',
-        switches: switches
-    }, callback);
+            what: 'selectHostsFiles',
+            toSelect: toSelect,
+            toImport: toImport,
+            toRemove: toRemove
+        },
+        callback
+    );
+
+    hostsFilesSettingsHash = hashFromCurrentFromSettings();
 };
 
 /******************************************************************************/
 
 var buttonApplyHandler = function() {
     uDom('#buttonApply').removeClass('enabled');
-
-    renderBusyOverlay(true);
-
-    var onSelectionDone = function() {
+    selectHostsFiles(function() {
         messager.send({ what: 'reloadHostsFiles' });
-    };
-
-    selectHostsFiles(onSelectionDone);
-
-    cacheWasPurged = false;
+    });
+    renderWidgets();
 };
 
 /******************************************************************************/
 
 var buttonUpdateHandler = function() {
     uDom('#buttonUpdate').removeClass('enabled');
-
-    if ( needUpdate ) {
-        renderBusyOverlay(true);
-
-        var onSelectionDone = function() {
-            messager.send({ what: 'forceUpdateAssets' });
-        };
-
-        selectHostsFiles(onSelectionDone);
-
-        cacheWasPurged = false;
-    }
+    selectHostsFiles(function() {
+        document.body.classList.add('updating');
+        messager.send({ what: 'forceUpdateAssets' });
+        renderWidgets();
+    });
+    renderWidgets();
 };
 
 /******************************************************************************/
 
 var buttonPurgeAllHandler = function() {
     uDom('#buttonPurgeAll').removeClass('enabled');
-
-    renderBusyOverlay(true);
-
-    var onCompleted = function() {
-        cacheWasPurged = true;
-        renderHostsFiles();
-    };
-
-    messager.send({ what: 'purgeAllCaches' }, onCompleted);
+    messager.send({ what: 'purgeAllCaches' }, function() {
+        renderHostsFiles(true);
+    });
 };
 
 /******************************************************************************/
@@ -397,52 +366,16 @@ var autoUpdateCheckboxChanged = function() {
 
 /******************************************************************************/
 
-var renderExternalLists = function() {
-    var onReceived = function(details) {
-        uDom('#externalHostsFiles').val(details);
-        externalHostsFiles = details;
-    };
-    messager.send({ what: 'userSettings', name: 'externalHostsFiles' }, onReceived);
-};
+uDom('#autoUpdate').on('change', autoUpdateCheckboxChanged);
+uDom('#buttonApply').on('click', buttonApplyHandler);
+uDom('#buttonUpdate').on('click', buttonUpdateHandler);
+uDom('#buttonPurgeAll').on('click', buttonPurgeAllHandler);
+uDom('#lists').on('change', '.listEntry > input', onHostsFilesSettingsChanged);
+uDom('#lists').on('click', '.listEntry > a.remove', onRemoveExternalHostsFile);
+uDom('#lists').on('click', 'span.cache', onPurgeClicked);
+uDom('#externalHostsFiles').on('input', onHostsFilesSettingsChanged);
 
-/******************************************************************************/
-
-var externalListsChangeHandler = function() {
-    uDom('#externalListsParse').prop(
-        'disabled',
-        this.value.trim() === externalHostsFiles
-    );
-};
-
-/******************************************************************************/
-
-var externalListsApplyHandler = function() {
-    externalHostsFiles = uDom('#externalHostsFiles').val();
-    messager.send({
-        what: 'userSettings',
-        name: 'externalHostsFiles',
-        value: externalHostsFiles
-    });
-    renderHostsFiles();
-    uDom('#externalListsParse').prop('disabled', true);
-};
-
-/******************************************************************************/
-
-uDom.onLoad(function() {
-    uDom('#autoUpdate').on('change', autoUpdateCheckboxChanged);
-    uDom('#buttonApply').on('click', buttonApplyHandler);
-    uDom('#buttonUpdate').on('click', buttonUpdateHandler);
-    uDom('#buttonPurgeAll').on('click', buttonPurgeAllHandler);
-    uDom('#lists').on('change', '.listEntry > input', onListCheckboxChanged);
-    uDom('#lists').on('click', '.listEntry > a:nth-of-type(1)', onListLinkClicked);
-    uDom('#lists').on('click', 'span.purge', onPurgeClicked);
-    uDom('#externalHostsFiles').on('input', externalListsChangeHandler);
-    uDom('#externalListsParse').on('click', externalListsApplyHandler);
-
-    renderHostsFiles();
-    renderExternalLists();
-});
+renderHostsFiles();
 
 /******************************************************************************/
 
