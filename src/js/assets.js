@@ -28,7 +28,6 @@
 /******************************************************************************/
 
 var reIsExternalPath = /^(?:[a-z-]+):\/\//,
-    reIsUserAsset = /^user-/,
     errorCantConnectTo = vAPI.i18n('errorCantConnectTo'),
     noopfunc = function(){};
 
@@ -188,7 +187,6 @@ var migrate = function(callback) {
         }
         var aliases = api.listKeyAliases;
         for ( var oldKey in entries ) {
-            if ( oldKey.endsWith('assets/user/filters.txt') ) { continue; }
             var newKey = aliases[oldKey];
             if ( !newKey && /^https?:\/\//.test(oldKey) ) {
                 newKey = oldKey;

@@ -116,5 +116,5 @@ install_rdf = pj(build_dir, 'install.rdf')
 with open(install_rdf, 'r+t', encoding='utf-8', newline='\n') as f:
     install_rdf = f.read()
     f.seek(0)
-
     f.write(install_rdf.format(**manifest))
+    f.truncate()

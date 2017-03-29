@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
+    uMatrix - a Chromium browser extension to black/white list requests.
     Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -89,6 +89,20 @@ var rwLocalUserSettings = {
 
 /******************************************************************************/
 
+var processCallbackQueue = function(queue, callback) {
+    var processOne = function() {
+        var fn = queue.pop();
+        if ( fn ) {
+            fn(processOne);
+        } else if ( typeof callback === 'function' ) {
+            callback();
+        }
+    };
+    processOne();
+};
+
+/******************************************************************************/
+
 var onAllDone = function() {
     µm.webRequest.start();
 
@@ -151,8 +165,9 @@ var onPSLReady = function() {
     vAPI.tabs.getAll(onTabsReady);
 };
 
-// Must be done ASAP
-µm.loadPublicSuffixList(onPSLReady);
+processCallbackQueue(µm.onBeforeStartQueue, function() {
+    µm.loadPublicSuffixList(onPSLReady);
+});
 
 /******************************************************************************/
 

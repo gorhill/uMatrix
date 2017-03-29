@@ -7,17 +7,23 @@ echo "*** uMatrix.webext: Copying files"
 
 DES=dist/build/uMatrix.webext
 rm -rf $DES
-mkdir -p $DES
+mkdir -p $DES/webextension
 
-cp -R ./assets                   $DES/
-cp -R ./src/*                    $DES/
-cp -R $DES/_locales/nb           $DES/_locales/no
-cp platform/chromium/*.html      $DES/
-cp platform/webext/polyfill.js   $DES/js/
-cp platform/chromium/*.js        $DES/js/
-cp -R platform/chromium/img/*    $DES/img/
-cp platform/webext/manifest.json $DES/
-cp LICENSE.txt                   $DES/
+cp -R ./assets                           $DES/webextension/
+cp -R ./src/*                            $DES/webextension/
+cp    platform/chromium/*.html           $DES/webextension/
+cp    platform/chromium/*.js             $DES/webextension/js/
+cp -R platform/chromium/img/*            $DES/webextension/img/
+cp    LICENSE.txt                        $DES/webextension/
+
+cp    platform/webext/background.html    $DES/webextension/
+cp    platform/webext/polyfill.js        $DES/webextension/js/
+cp    platform/webext/from-legacy.js     $DES/webextension/js/
+cp    platform/webext/manifest.json      $DES/webextension/
+cp    platform/webext/bootstrap.js       $DES/
+cp    platform/webext/chrome.manifest    $DES/
+cp    platform/webext/install.rdf        $DES/
+mv    $DES/webextension/img/icon_128.png $DES/icon.png
 
 echo "*** uMatrix.webext: Generating meta..."
 python tools/make-webext-meta.py $DES/
