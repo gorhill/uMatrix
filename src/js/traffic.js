@@ -139,7 +139,7 @@ var onBeforeRequestHandler = function(details) {
     // it is available.
     var pageStore = µm.mustPageStoreFromTabId(tabId);
     pageStore.recordRequest(requestType, requestURL, block);
-    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, requestType, block);
+    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, details.type, block);
 
     // Allowed?
     if ( !block ) {
