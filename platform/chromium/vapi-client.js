@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µBlock - a browser extension to block requests.
-    Copyright (C) 2014 The µBlock authors
+    uMatrix - a browser extension to block requests.
+    Copyright (C) 2014-2017 The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,20 +16,25 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/gorhill/uMatrix
 */
 
 // For non background pages
-
-/******************************************************************************/
-
-(function(self) {
 
 'use strict';
 
 /******************************************************************************/
 
-var vAPI = self.vAPI = self.vAPI || {};
+(function() {
+
+/******************************************************************************/
+
+// https://bugs.chromium.org/p/project-zero/issues/detail?id=1225&desc=6#c10
+if ( !self.vAPI || !self.vAPI.uMatrix ) {
+    self.vAPI = { uMatrix: true };
+}
+
+var vAPI = self.vAPI;
 var chrome = self.chrome;
 
 // https://github.com/chrisaljoudi/uBlock/issues/456
@@ -56,7 +61,7 @@ vAPI.shutdown = (function() {
     var exec = function() {
         //console.debug('Shutting down...');
         var job;
-        while ( job = jobs.pop() ) {
+        while ( (job = jobs.pop()) ) {
             job();
         }
     };
@@ -186,6 +191,6 @@ vAPI.setTimeout = vAPI.setTimeout || function(callback, delay) {
 
 /******************************************************************************/
 
-})(this);
+})();
 
 /******************************************************************************/
