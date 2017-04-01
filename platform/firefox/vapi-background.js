@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to block requests.
-    Copyright (C) 2014-2016 The uMatrix/uBlock Origin authors
+    Copyright (C) 2014-2017 The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1712,14 +1712,20 @@ var httpObserver = {
         5: 'object',
         6: 'main_frame',
         7: 'sub_frame',
+        9: 'xbl',
         10: 'ping',
         11: 'xmlhttprequest',
         12: 'object',
+        13: 'xml_dtd',
         14: 'font',
-        15: 'image',
+        15: 'media',
         16: 'websocket',
+        17: 'csp_report',
+        18: 'xslt',
+        19: 'beacon',
         20: 'xmlhttprequest',
-        21: 'image'
+        21: 'imageset',
+        22: 'web_manifest'
     },
     mimeTypeMap: {
         'audio': 15,
