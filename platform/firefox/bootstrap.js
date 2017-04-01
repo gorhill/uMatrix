@@ -64,16 +64,7 @@ function startup(data/*, reason*/) {
         return;
     }
 
-    let appShell = Cc['@mozilla.org/appshell/appShellService;1']
-        .getService(Ci.nsIAppShellService);
-
-    if ( appShell.createWindowlessBrowser ) {
-        getWindowlessBrowserFrame(appShell);
-    } else {
-        getHiddenWindowBrowserFrame(appShell);
-    }
-
-
+    waitForHiddenWindow();
 }
 
 function createBgProcess(parentDocument) {
@@ -118,7 +109,10 @@ function getWindowlessBrowserFrame(appShell) {
     windowlessBrowser.document.location = "data:application/vnd.mozilla.xul+xml;charset=utf-8,<window%20id='" + hostName + "-win'/>";
 }
 
-function getHiddenWindowBrowserFrame(appShell) {
+function waitForHiddenWindow() {
+    let appShell = Cc['@mozilla.org/appshell/appShellService;1']
+        .getService(Ci.nsIAppShellService);
+
     let onReady = function(e) {
         if ( e ) {
             this.removeEventListener(e.type, onReady);
@@ -130,13 +124,57 @@ function getHiddenWindowBrowserFrame(appShell) {
         // Fixed by github.com/AlexVallat:
         //   https://github.com/chrisaljoudi/uBlock/issues/1149
         //   https://github.com/AlexVallat/uBlock/commit/e762a29d308caa46578cdc34a9be92c4ad5ecdd0
-        if ( hiddenDoc.readyState === 'loading' ) {
-            hiddenDoc.addEventListener('DOMContentLoaded', onReady);
+        if ( !hiddenDoc || hiddenDoc.readyState === 'loading' ) {
+            appShell.hiddenDOMWindow.addEventListener('DOMContentLoaded', onReady);
             return;
         }
 
-        createBgProcess(hiddenDoc);
+        // Fix from https://github.com/gijsk, taken from:
+        // - https://github.com/gorhill/uBlock/commit/53a794d9b2a8c65406ee7a201cacbc91c297b2f8
+        // 
+        // In theory, it should be possible to create a windowless browser
+        // immediately, without waiting for the hidden window to have loaded
+        // completely. However, in practice, on Windows this seems to lead
+        // to a broken Firefox appearance. To avoid this, we only create the
+        // windowless browser here. We'll use that rather than the hidden
+        // window for the actual background page (windowless browsers are
+        // also what the webextension implementation in Firefox uses for
+        // background pages).
+        if ( appShell.createWindowlessBrowser ) {
+            getWindowlessBrowserFrame(appShell);
+        } else {
+            createBgProcess(hiddenDoc);
+        }
     };
+
+    var ready = false;
+    try {
+        ready = appShell.hiddenDOMWindow &&
+                appShell.hiddenDOMWindow.document;
+    } catch (ex) {
+    }
+    if ( ready ) {
+        onReady();
+        return;
+    }
+
+    let ww = Components.classes['@mozilla.org/embedcomp/window-watcher;1']
+                       .getService(Components.interfaces.nsIWindowWatcher);
+
+    ww.registerNotification({
+        observe: function(win, topic) {
+            if ( topic !== 'domwindowopened' ) {
+                return;
+            }
+            try {
+                void appShell.hiddenDOMWindow;
+            } catch (ex) {
+                return;
+            }
+            ww.unregisterNotification(this);
+            onReady();
+        }
+    });
 }
 
 /******************************************************************************/
