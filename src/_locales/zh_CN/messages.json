@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"已阻止<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审计<\/a>尝试：{{count}} 次",
+    "message":"已阻止<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>超链接审查<\/a>尝试：{{count}} 次",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -352,7 +352,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>某些网站特别热衷于跟踪，以至于为规避您的反跟踪举措，会使用一些不太光彩的手段。<\/p><p>一部分诡计利用了<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>浏览器缓存<\/a><sup style='font-size:smaller'>[1, 2]<\/sup>，因为缓存内容通常会长期储留，用户也基本不会去亲自清理。<\/p><p>定期清理浏览器缓存其实并不怎么麻烦（甚至很可能不会被注意到），且贵在可以保护您的隐私免受跟踪者侵犯。<\/p><p>启用该设置将容许 <i>uMatrix<\/i> 依您指定的时间定期为您完成该项工作。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用浏览器缓存进行网络追踪」<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>「Cookieless Cookies」<\/a><\/p>",
+    "message":"<p>某些网站特别热衷于跟踪，以至于为规避您的反跟踪举措，会使用一些不太光彩的手段。<\/p><p>一部分诡计利用了<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>浏览器缓存<\/a><sup>[1, 2]<\/sup>，因为缓存内容通常会长期储留，用户也基本不会去亲自清理。<\/p><p>定期清理浏览器缓存其实并不怎么麻烦（甚至很可能不会被注意到），且贵在可以保护您的隐私免受跟踪者侵犯。<\/p><p>启用该设置将容许 <i>uMatrix<\/i> 依您指定的时间定期为您完成该项工作。<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用浏览器缓存进行网络追踪」<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>「Cookieless Cookies」<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -360,7 +360,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>维基百科：<\/p><blockquote>HTTP 来源地址是一个用于辨识请求来源网址的内容标识。……<b>由于来源地址可能会泄漏隐私，某些浏览器允许用户禁止发送来源地址。<\/b><\/blockquote><p>若启用该设置，<i>uMatrix<\/i> 则会在来源网页请求的 HTTP 来源地址中包含的域名与请求资源所在域名有差别时伪造来源地址。",
+    "message":"维基百科：<blockquote>HTTP 来源地址是一个用于辨识请求来源网址的内容标识。……<b>由于来源地址可能会泄漏隐私，某些浏览器允许用户禁止发送来源地址。<\/b><\/blockquote>若启用该设置，<i>uMatrix<\/i> 则会在来源网页请求的 HTTP 来源地址中包含的域名与请求资源所在域名有差别时伪造来源地址。",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"禁止<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超链接审查<\/a>",
+    "message":"禁止<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>超链接审查<\/a>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{

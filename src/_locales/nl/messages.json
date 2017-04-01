@@ -52,7 +52,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plug-in",
+    "message":"media",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Verijdelde <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a>-pogingen: {{count}}",
+    "message":"Verijdelde <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a>-pogingen: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -328,7 +328,7 @@
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":"&thinsp;minuten na de laatste keer dat ze zijn gebruikt verwijderen",
+    "message":" minuten na de laatste keer dat ze zijn gebruikt verwijderen",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -352,7 +352,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Sommige website zijn er zo op gericht om u te traceren dat ze onvriendelijke trucs gebruiken om maatregelen die u neemt om niet te worden gevolgd te omzeilen.<\/p><p>Sommige van deze trucs gebruiken<sup style='font-size:smaller'>[1, 2]<\/sup> de <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browsercache<\/a>, waarvan de inhoud vaak lang aanwezig is, aangezien gebruikers zelden de tijd nemen om hun browsercache regelmatig te wissen.<\/p><p>Het regelmatig wissen van de browsercache biedt weinig ongemakken (waarschijnlijk merkt u het niet als dit gebeurt), en het voordeel is dat wordt voorkomen dat deze onaangename trackers inbreuk op uw privacy maken.<\/p><p>Vink deze optie aan om dit met een gewenst interval door <i>uMatrix<\/i> te laten doen.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&lsquo;Preventing Web Tracking via the Browser Cache&rsquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&lsquo;Cookieless cookies&rsquo;<\/a><\/p>",
+    "message":"<p>Sommige websites zijn er zo op gericht om u te traceren dat ze onvriendelijke trucs gebruiken om maatregelen die u neemt om niet te worden gevolgd te omzeilen.<\/p><p>Sommige van deze trucs gebruiken<sup>[1, 2]<\/sup> de <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browsercache<\/a>, waarvan de inhoud vaak lang aanwezig is, aangezien gebruikers zelden de tijd nemen om hun browsercache regelmatig te wissen.<\/p><p>Het regelmatig wissen van de browsercache biedt weinig ongemakken (waarschijnlijk merkt u het niet als dit gebeurt), en het voordeel is dat wordt voorkomen dat deze onaangename trackers inbreuk op uw privacy maken.<\/p><p>Vink deze optie aan om dit met een gewenst interval door <i>uMatrix<\/i> te laten doen.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&lsquo;Preventing Web Tracking via the Browser Cache&rsquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&lsquo;Cookieless cookies&rsquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -360,7 +360,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Van Wikipedia:<\/p><blockquote>Een HTTP-referer is een HTTP-headerveld dat het adres aanduidt van de webpagina die naar de opgevraagde bron verwijst. ... <b>Omdat referer-informatie uw privacy kan schenden, kunnen gebruikers in sommige webbrowsers het verzenden van de referer-informatie uitschakelen.<\/b><\/blockquote><p>Als deze optie is aangevinkt, zal <i>uMatrix<\/i> de HTTP-referer vervalsen (lees: manipuleren) als de domeinnaam van de HTTP-referer een derde partij is voor de domeinnaam van de netwerkaanvraag.",
+    "message":"Van Wikipedia:<blockquote>Een HTTP-referer is een HTTP-headerveld dat het adres aanduidt van de webpagina die naar de opgevraagde bron verwijst. ... <b>Omdat referer-informatie de privacy kan schenden, kunnen gebruikers in sommige webbrowsers het verzenden van de referer-informatie uitschakelen.<\/b><\/blockquote>Als deze optie is aangevinkt, zal <i>uMatrix<\/i> de HTTP-referer vervalsen (lees: manipuleren) als de domeinnaam van de HTTP-referer een derde partij is voor de domeinnaam van de netwerkaanvraag.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -368,11 +368,11 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>Van <a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:\n<\/p><blockquote>Als een HTTPS-pagina inhoud bevat die door normale cleartext-HTTP is opgehaald, is de verbinding slechts gedeeltelijk versleuteld: de onversleutelde inhoud is toegankelijk voor ‘sniffers’ en kan door ‘man-in-the-middle’-aanvallers worden aangepast, en de verbinding is daarom niet meer beschermd. Wanneer een webpagina dit gedrag vertoont, wordt deze een pagina met gemengde inhoud genoemd.<\/blockquote>",
+    "message":"<p>Van <a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Als een HTTPS-pagina inhoud bevat die door normale cleartext-HTTP is opgehaald, is de verbinding slechts gedeeltelijk versleuteld: de onversleutelde inhoud is toegankelijk voor ‘sniffers’ en kan door ‘man-in-the-middle’-aanvallers worden aangepast, en de verbinding is daarom niet meer beschermd. Wanneer een webpagina dit gedrag vertoont, wordt deze een pagina met gemengde inhoud genoemd.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Alle <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hyperlink auditing<\/a>-pogingen blokkeren",
+    "message":"Alle <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a>-pogingen blokkeren",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{

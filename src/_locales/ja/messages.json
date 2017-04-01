@@ -24,7 +24,7 @@
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"Myルール",
+    "message":"My ルール",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -52,7 +52,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"Plugin",
+    "message":"Media",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -116,7 +116,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Loggerを開く",
+    "message":"Logger を開く",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"拒否した <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>ハイパーリンク監査<\/a> の数: {{count}}",
+    "message":"拒否した <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> の数: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -192,7 +192,7 @@
     "description":""
   },
   "statsPageCookies":{
-    "message":"クッキー",
+    "message":"Cookie",
     "description":""
   },
   "statsPageCSS":{
@@ -264,7 +264,7 @@
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"色盲の人に見やすい色で表示する",
+    "message":"色覚障害の人に見やすい色で表示する",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -316,15 +316,15 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"ブロックしたクッキーを削除する",
+    "message":"ブロックした Cookie を削除する",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p><i>uMatrix<\/i> はブロックする設定になっているクッキーでも、ブラウザが保存するのをブロックしません。ブラウザからのクッキーの送信をブロックします（これが本当に重要なことです）。ブラウザがクッキーを保存するのをブロックしないのは、そのサイトがクッキーを送信していることをユーザに知らせるとともに、必要であればその内容を確認できるようにするためです。<\/p><p>必要であれば、こうしたクッキーを <i>uMatrix<\/i> がブロックしたときにブラウザから削除できます。<\/p><p><b>重要な注意点：<\/b> ブラウザの拡張機能はその機能の一部として Web リクエストをおこなうことがあります。こうしたリクエストの結果、ブラウザにクッキーが保存されることがあります。もしこのオプションが設定されていて、かつクッキーを送信したホストからのクッキーを許可するように登録されていない場合は、<i>uMatrix<\/i> によってクッキーが削除されます。拡張機能が通信するホストからのクッキーを許可するように設定するのを忘れないでください。<\/p>",
+    "message":"<p><i>uMatrix<\/i> はブロックする設定になっている Cookie がブラウザに保存されるのをブロックしません。ブラウザからの Cookie の送信をブロックします（これが本当に重要なことです）。ブラウザが Cookie を保存するのをブロックしないのは、そのサイトが Cookie を送信していることをユーザに知らせるとともに、必要であればその内容を確認できるようにするためです。<\/p><p>必要であれば、こうした Cookie を <i>uMatrix<\/i> がブロックしたときにブラウザから削除できます。<\/p><p><b>重要な注意点：<\/b> ブラウザの拡張機能はその機能の一部として Web リクエストをおこなうことがあります。こうしたリクエストにより、ブラウザに Cookie が保存されることがあります。もしこのオプションが設定されていて、かつ Cookie を送信したホストからの Cookie を許可するように登録されていない場合は、<i>uMatrix<\/i> によって Cookie が削除されます。拡張機能が通信するホストからの Cookie を許可するように設定するのを忘れないでください。<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"ブロックしていないセッションクッキーを削除する （",
+    "message":"ブロックしていないセッション Cookie を削除する （",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
@@ -332,11 +332,11 @@
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>： &ldquo;ブラウザを終了するとセッションクッキーは消去されます。セッションのクッキーは一時的に保存され、ブラウザが閉じられた後には保持されません。&rdquo;<\/p><p><a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>この動きをしない<\/a> ブラウザもあります。また、セッションクッキーを消去するためだけに、ブラウザを閉じたくないということがあるかもしれません。<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>： &ldquo;ブラウザを終了するとセッション Cookie は消去されます。セッション Cookie は一時的に保存され、ブラウザが閉じられた後には保持されません。&rdquo;<\/p><p><a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>この動きをしない<\/a> ブラウザもあります。また、セッション Cookie を消去するためだけに、ブラウザを閉じたくないということがあるかもしれません。<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"ブロックしているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を消去する",
+    "message":"ブロックしているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を削除する",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
@@ -368,11 +368,11 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>もし HTTPS のページが平文の HTTP で送られてくるコンテンツを含む場合、その接続は部分的に暗号化されたものにすぎません。暗号化されていないコンテンツは盗聴可能であり、中間者攻撃によってコンテンツを書き換えられます。すなわち、この接続は保護されているとはいえません。このような Web ページは「混在したコンテンツ」を含むページと呼ばれます。<\/blockquote>",
+    "message":"<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>もし HTTPS のページが平文の HTTP で送られてくるコンテンツを含む場合、その接続は部分的に暗号化されたものにすぎません。暗号化されていないコンテンツは盗聴可能であり、中間者攻撃によってコンテンツを書き換えることができます。すなわち、その接続は保護されているとはいえません。このような Web ページは「混在したコンテンツ」を含むページと呼ばれます。<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"すべての <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>ハイパーリンク監査<\/a> を拒否する",
+    "message":"すべての <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> を拒否する",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{

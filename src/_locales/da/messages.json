@@ -4,11 +4,11 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Peg og klik for at forbyde\/tillade bestemte former for anmodninger. Brug det til at blokere scripts, iframes, ads, facebook, etc.",
+    "message":"Peg og klik for at forbyde\/tillade bestemte former for anmodninger. Brug det til at blokere scripts, iframes, annoncer, Facebook, etc.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — Kontrolpanel",
     "description":""
   },
   "settingsPageName":{
@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts filer",
+    "message":"Hosts-filer",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -48,7 +48,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"billede",
+    "message":"medier",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -76,7 +76,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Deaktiver\/aktiver matrix filtrering på dette område.",
+    "message":"Deaktiver\/aktiver matrix-filtrering på dette område.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -88,15 +88,15 @@
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Genindlæs hjemmesiden.",
+    "message":"Genindlæs siden.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1. parts",
+    "message":"1.-parts",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} Sortlistede hostname(s)",
+    "message":"{{count}} sortlistede værtsnavne",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
@@ -104,15 +104,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"Forfalsking af bruger agent",
+    "message":"Forfalsking af brugeragent",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Forfalsking af referrer",
+    "message":"Forfalsking af referer",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Fortryd alle midlertidige ændringer",
+    "message":"Tilbagestil alle midlertidige ændringer",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
@@ -120,7 +120,7 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Gå til dashboard",
+    "message":"Gå til kontrolpanel",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -132,11 +132,11 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers forhindret: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP-cookie<\/a>-headere forhindret: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers forhindret: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a>-headere forhindret: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
@@ -152,7 +152,7 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches tømt: {{count}}",
+    "message":"Browser-cacher tømt: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
@@ -164,7 +164,7 @@
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Baggrunds anmodninger",
+    "message":"Baggrundsanmodninger",
     "description":""
   },
   "statsPageOverview":{
@@ -180,7 +180,7 @@
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blokeret",
+    "message":"Blokerede",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
@@ -188,7 +188,7 @@
     "description":""
   },
   "statsPagePages":{
-    "message":"Hjemmesider",
+    "message":"Sider",
     "description":""
   },
   "statsPageCookies":{
@@ -228,15 +228,15 @@
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Husk sidste",
+    "message":"Husk de sidste",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP forespørgsler <b>per side<\/b>.",
+    "message":"HTTP-forespørgsler <b>per side<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>Du kan inspicerer detaljerne for de seneste \"raw\" HTTP forespørgsler, der er blevet foretaget af en eller flere hjemmesider (se nedenfor).<p><p>Informationen er mest nyttigt for erfarne brugere, der ønsker at inspicerer detaljerede oplysninger om en eller flere hjemmesiders aktiviteter. Loggingen af disse informationer kræver dog hukommelse, så hvis du er ligeglad med den tekniske information, er det øgede forbrug af hukommelse altså spildt.<\/p><p>Af denne grund kan du med på dette felt ændre det maksimumme antal af HTTP forespørgsler der vil blive logget for senere inspektion.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; for at slå detaljeret logging fra (og dermed reducere hukommelsesforbruget af <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>Du kan inspicerer detaljerne for de seneste \"rå\" HTTP-forespørgsler, der er blevet foretaget af en webside (se nedenfor).<\/p><p>Dette er mest nyttigt for erfarne brugere, der ønsker at undersøge præcis hvad en webside har lavet. Men logningen af disse HTTP-forespørgsler kræver hukommelse, så hvis du er ligeglad med denne tekniske information, er det øgede forbrug af hukommelse spildt.<\/p><p>Derfor dette felt, som lader dig justere det maskimale antal nyeste HTTP-forespørgsler, som skal logges til yderligere inspektion.<\/p><p>Skriv &ldquo;<code>0<\/code>&rdquo; for at slå detaljeret logning fra (og dermed reducere hukommelsesforbruget for <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
@@ -268,11 +268,11 @@
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Bekvemmelig",
+    "message":"Bekvemmelighed",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"Når matrix er lukket, \"smart reload\" disse tabs:",
+    "message":"Genindlæs disse faner \"smart\", når matricen er lukket:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
@@ -288,7 +288,7 @@
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Hver gang du ændre noget i matrix, der kan have indflydelse på en eller flere hjemmesiders udseende eller adfærd, vil <i>uMatrix<\/i> automatisk genindlæse de påvirkede hjemmesider, når du lukke matrix.",
+    "message":"Hver gang du ændrer noget i matricen, der kan have indflydelse på en eller flere siders udseende eller adfærd, vil <i>uMatrix<\/i> automatisk genindlæse de påvirkede sider, når du lukker matricen.",
     "description":""
   },
   "settingsSubframeColor":{
@@ -296,15 +296,15 @@
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Gennemsigtighed",
+    "message":"Uigennemsigtighed",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Vis antallet af unikke forespørgsler på ikonet",
+    "message":"Vis antal separate forespørgsler på ikonet",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Kollaps blokerede pladsholdere",
+    "message":"Sammenfold pladsholder for blokerede elementer",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
@@ -320,7 +320,7 @@
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Sortlistede cookies bliver ikke forhindret af <i>uMatrix<\/i> i at trænge ind i din browser. Derimod bliver de forhindret i at forlade din browser igen, hvilket faktisk er det vigtige. Ved ikke at blokere cookies inden de trænger ind i din browser, gør det muligt for brugeren at undersøge indeholdet og antallet af de cookies diverse hjemmesider placerer i din browser.<\/p><p>Når disse sortlistede cookies er blevet undersøgt af <i>uMatrix<\/i>, kan de blive slettet, hvis brugeren ønsker det.<\/p><p><b>Vigtih note:<\/b> Extensions kan benytte sig af cookies i deres helt legale webkommunikation. Hvis det hostnavn som en extension forsøger at kommunikere med ikke er hvidlistet, vil disse cookies blive fjernet fra din browser af <i>uMatrix<\/i> hvis denne indstilling er valgt. Du skal derfor være sikker på, at dette hostnavn(e) er hvidlistede.<\/p>",
+    "message":"<p>Sortlistede cookies bliver ikke forhindret af <i>uMatrix<\/i> i at trænge ind i din browser. Derimod bliver de forhindret i at forlade din browser igen, hvilket faktisk er det vigtige. Ved ikke at blokere cookies inden de trænger ind i din browser, gøres det muligt for brugeren at undersøge indholdet og antallet af de cookies diverse websteder placerer i din browser.<\/p><p>Når disse sortlistede cookies er blevet undersøgt af <i>uMatrix<\/i>, kan de blive slettet, hvis brugeren ønsker det.<\/p><p><b>Vigtig bemærkning:<\/b> Udvidelser kan benytte sig af cookies i deres helt legale webkommunikation. Hvis det værtsnavn, som en cookie kommer fra, ikke er hvidlistet, vil denne cookie blive fjernet fra browseren af <i>uMatrix<\/i>, hvis denne indstilling er slået til. Du skal derfor sikre dig, at de værtsnavne, som en udvidelse kommunikerer med, er hvidlistede.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
@@ -328,7 +328,7 @@
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutter siden de sidst er blevet brugt.",
+    "message":" minutter efter de sidst er blevet brugt.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -364,7 +364,7 @@
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Steng HTTPS: forbyd blandet indhold.",
+    "message":"Streng HTTPS: forbyd blandet indhold.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
@@ -380,7 +380,7 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Forfalsk<a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string ved at vælge tilfældigt blandt nedenstående hvert",
+    "message":"Forfalsk <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a>-streng ved at vælge tilfældigt blandt nedenstående hver",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
@@ -628,7 +628,7 @@
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Åben dashboard",
+    "message":"Åbn kontrolpanel",
     "description":""
   },
   "elapsedOneMinuteAgo":{
@@ -656,7 +656,7 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Kontrolpanel",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{

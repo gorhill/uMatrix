@@ -132,15 +132,15 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/zh.wikipedia.org\/wiki\/Cookie'>Cookie<\/a>檔頭請求阻止次數：{{count}}",
+    "message":"已阻止<a href='https:\/\/zh.wikipedia.org\/wiki\/Cookie'>Cookie<\/a>檔頭請求：{{count}}次",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP參照位址<\/a>檔頭請求阻止次數：{{count}}",
+    "message":"已阻止<a href='https:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP參照位址<\/a>檔頭請求：{{count}}次",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超連結審核<\/a>嘗試阻止次數：{{count}}",
+    "message":"已阻止<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>超連結審查<\/a>：{{count}}次",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -352,7 +352,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>某些網站特别熱衷於追蹤，以至於為規避您的反跟蹤舉措，會使用一些不太光彩的手段。<\/p><p>一部分詭計利用了<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>瀏覽器快取<\/a><sup style='font-size:smaller'>[1, 2]<\/sup>，因為快取內容通常會長期儲留，用戶也基本不會去親自清理。<\/p><p>定期清理瀏覽器快取其實並不怎麼麻煩（甚至很可能不會被注意到），且貴在可以保護您的隱私免受追蹤者侵犯。<\/p><p>啟用該設定將容許 <i>uMatrix<\/i> 依您指定的時間定期為您完成此項工作。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用瀏覽器快取進行網絡追蹤」<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>「Cookieless Cookies」<\/a><\/p>",
+    "message":"<p>某些網站特别熱衷於追蹤，以至於為規避您的反跟蹤舉措，會使用一些不太光彩的手段。<\/p><p>一部分詭計利用了<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>瀏覽器快取<\/a><sup>[1, 2]<\/sup>，因為快取內容通常會長期儲留，用戶也基本不會去親自清理。<\/p><p>定期清理瀏覽器快取其實並不怎麼麻煩（甚至很可能不會被注意到），且貴在可以保護您的隱私免受追蹤者侵犯。<\/p><p>啟用該設定將容許 <i>uMatrix<\/i> 依您指定的時間定期為您完成此項工作。<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用瀏覽器快取進行網絡追蹤」<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>「Cookieless Cookies」<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -360,7 +360,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>維基百科：<\/p><blockquote>HTTP 位址參照是一個用於辨識請求來源網頁網址的內容標識。……<b>由於位址參照可能會洩漏隱私，某些瀏覽器容許使用者禁止傳送位址參照。<\/b><\/blockquote><p>若啟用該設定，<i>uMatrix<\/i> 則會於來源網頁請求的 HTTP 位址參照中包含的域名與請求資源所在域名有差別時偽造位址參照。",
+    "message":"維基百科：<blockquote>HTTP 位址參照是一個用於辨識請求來源網頁網址的內容標識。……<b>由於位址參照可能會洩漏隱私，某些瀏覽器容許使用者禁止傳送位址參照。<\/b><\/blockquote>若啟用該設定，<i>uMatrix<\/i> 則會於來源網頁請求的 HTTP 位址參照中包含的域名與請求資源所在域名有差別時偽造位址參照。",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"禁止<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>超連結審查<\/a>",
+    "message":"禁止<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>超連結審查<\/a>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{

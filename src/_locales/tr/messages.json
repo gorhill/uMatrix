@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Köprü denetim<\/a> girişimi önlendi: {{count}}",
+    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hiperbağlaç denetim<\/a> girişimi önlendi: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Tüm <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>köprü denetim<\/a> girişimlerini engelle.",
+    "message":"Tüm <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hiperbağlaç denetim<\/a> girişimlerini engelle.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{

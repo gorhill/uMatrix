@@ -48,11 +48,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"изображение",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"медиа",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Обработано попыток <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>проверки гиперссылок<\/a>: {{count}}",
+    "message":"Обработано попыток <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>аудита гиперссылок<\/a>: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -352,7 +352,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые меры, предпринятые для защиты от отслеживания.<\/p><p>Одно из таких ухищрений основано<sup style='font-size:smaller'>[1, 2]<\/sup> на использовании <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэша браузера<\/a>, содержимое которого зачастую хранится длительное время, потому что пользователи нерегулярно его очищают.<\/p><p>Регулярная очистка кэша предотвращает отслеживание, однако делать это вручную не всегда удобно.<\/p><p>Включение данной опции позволит <i>uMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые меры, предпринятые для защиты от отслеживания.<\/p><p>Некоторые ухищрения основаны<sup>[1, 2]<\/sup> на использовании <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэша браузера<\/a>, содержимое которого зачастую хранится длительное время, потому что пользователи нерегулярно его очищают.<\/p><p>Регулярная очистка кэша предотвращает отслеживание, однако делать это вручную не всегда удобно.<\/p><p>Включение данной опции позволит <i>uMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -360,7 +360,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Материал из Википедии:<\/p><blockquote>HTTP referer — это заголовок HTTP, который указывает адрес страницы, содержащей ссылку на запрошенный ресурс. [...] <b>Поскольку эта информация может нарушать конфиденциальность, некоторые браузеры позволяют запретить её передачу.<\/b><\/blockquote><p>При включении данной опции <i>uMatrix<\/i> будет подменять заголовок HTTP referrer, если сайт, указанный в HTTP referrer, является сторонним по отношению к запрашиваемому ресурсу.",
+    "message":"Материал из Википедии:<blockquote>HTTP referer — это HTTP заголовок, который указывает адрес страницы, содержащей ссылку на запрошенный ресурс. ... <b>Поскольку эта информация может нарушать конфиденциальность, некоторые браузеры позволяют запретить её передачу.<\/b><\/blockquote>Если эта опция включена, <i>uMatrix<\/i> будет подменять HTTP referer, если сайт, указанный в HTTP referer, является сторонним по отношению к запрашиваемому ресурсу.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Блокировать все попытки <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудита гиперссылок<\/a>.",
+    "message":"Блокировать все попытки <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>аудита гиперссылок<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
