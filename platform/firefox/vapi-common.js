@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µBlock - a browser extension to block requests.
-    Copyright (C) 2014 The µBlock authors
+    uMatrix - a browser extension to block requests.
+    Copyright (C) 2014-2017 The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,11 +23,11 @@
 
 // For background page or non-background pages
 
+'use strict';
+
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -36,7 +36,12 @@ const {Services} = Components.utils.import(
     null
 );
 
-var vAPI = self.vAPI = self.vAPI || {};
+// https://bugs.chromium.org/p/project-zero/issues/detail?id=1225&desc=6#c10
+if ( !self.vAPI || !self.vAPI.uMatrix ) {
+    self.vAPI = { uMatrix: true };
+}
+
+var vAPI = self.vAPI;
 
 /******************************************************************************/
 
