@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µBlock - a browser extension to block requests.
-    Copyright (C) 2014 The µBlock authors
+    uMatrix - a browser extension to block requests.
+    Copyright (C) 2014-2017 The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,10 +26,14 @@
 
 /******************************************************************************/
 
+const {classes: Cc, interfaces: Ci} = Components;
+
 // Accessing the context of the background page:
 // var win = Services.appShell.hiddenDOMWindow.document.querySelector('iframe[src*=umatrix]').contentWindow;
 
-let bgProcess;
+let windowlessBrowser = null;
+let windowlessBrowserPL = null;
+let bgProcess = null;
 let version;
 const hostName = 'umatrix';
 const restartListener = {
@@ -46,14 +50,75 @@ const restartListener = {
 
 /******************************************************************************/
 
+// https://github.com/gorhill/uBlock/issues/2493
+// Fix by https://github.com/gijsk
+//     imported from https://github.com/gorhill/uBlock/pull/2497
+
 function startup(data/*, reason*/) {
     if ( data !== undefined ) {
         version = data.version;
     }
 
-    let appShell = Components.classes['@mozilla.org/appshell/appShellService;1']
-        .getService(Components.interfaces.nsIAppShellService);
+    // Already started?
+    if ( bgProcess !== null ) {
+        return;
+    }
 
+    let appShell = Cc['@mozilla.org/appshell/appShellService;1']
+        .getService(Ci.nsIAppShellService);
+
+    if ( appShell.createWindowlessBrowser ) {
+        getWindowlessBrowserFrame(appShell);
+    } else {
+        getHiddenWindowBrowserFrame(appShell);
+    }
+
+
+}
+
+function createBgProcess(parentDocument) {
+    bgProcess = parentDocument.documentElement.appendChild(
+        parentDocument.createElementNS('http://www.w3.org/1999/xhtml', 'iframe')
+    );
+    bgProcess.setAttribute(
+        'src',
+        'chrome://' + hostName + '/content/background.html#' + version
+    );
+
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIMessageListenerManager#addMessageListener%28%29
+    // "If the same listener registers twice for the same message, the
+    // "second registration is ignored."
+    restartListener.messageManager.addMessageListener(
+        hostName + '-restart',
+        restartListener
+    );
+}
+
+function getWindowlessBrowserFrame(appShell) {
+    windowlessBrowser = appShell.createWindowlessBrowser(true);
+    windowlessBrowser.QueryInterface(Ci.nsIInterfaceRequestor);
+    let webProgress = windowlessBrowser.getInterface(Ci.nsIWebProgress);
+    let XPCOMUtils = Components.utils.import('resource://gre/modules/XPCOMUtils.jsm', null).XPCOMUtils;
+    windowlessBrowserPL = {
+        QueryInterface: XPCOMUtils.generateQI([
+            Ci.nsIWebProgressListener, Ci.nsIWebProgressListener2,
+            Ci.nsISupportsWeakReference]),
+        onStateChange(wbp, request, stateFlags, status) {
+            if ( !request ) {
+                return;
+            }
+            if ( stateFlags & Ci.nsIWebProgressListener.STATE_STOP ) {
+                webProgress.removeProgressListener(windowlessBrowserPL);
+                windowlessBrowserPL = null;
+                createBgProcess(windowlessBrowser.document);
+            }
+        }
+    };
+    webProgress.addProgressListener(windowlessBrowserPL, Ci.nsIWebProgress.NOTIFY_STATE_DOCUMENT);
+    windowlessBrowser.document.location = "data:application/vnd.mozilla.xul+xml;charset=utf-8,<window%20id='" + hostName + "-win'/>";
+}
+
+function getHiddenWindowBrowserFrame(appShell) {
     let onReady = function(e) {
         if ( e ) {
             this.removeEventListener(e.type, onReady);
@@ -70,50 +135,8 @@ function startup(data/*, reason*/) {
             return;
         }
 
-        bgProcess = hiddenDoc.documentElement.appendChild(
-            hiddenDoc.createElementNS('http://www.w3.org/1999/xhtml', 'iframe')
-        );
-        bgProcess.setAttribute(
-            'src',
-            'chrome://' + hostName + '/content/background.html#' + version
-        );
-
-        restartListener.messageManager.addMessageListener(
-            hostName + '-restart',
-            restartListener
-        );
+        createBgProcess(hiddenDoc);
     };
-
-    var ready = false;
-    try {
-        ready = appShell.hiddenDOMWindow &&
-                appShell.hiddenDOMWindow.document;
-    } catch (ex) {
-    }
-    if ( ready ) {
-        onReady();
-        return;
-    }
-
-    let ww = Components.classes['@mozilla.org/embedcomp/window-watcher;1']
-        .getService(Components.interfaces.nsIWindowWatcher);
-
-    ww.registerNotification({
-        observe: function(win, topic) {
-            if ( topic !== 'domwindowopened' ) {
-                return;
-            }
-
-            try {
-                void appShell.hiddenDOMWindow;
-            } catch (ex) {
-                return;
-            }
-
-            ww.unregisterNotification(this);
-            win.addEventListener('DOMContentLoaded', onReady);
-        }
-    });
 }
 
 /******************************************************************************/
@@ -123,7 +146,19 @@ function shutdown(data, reason) {
         return;
     }
 
-    bgProcess.parentNode.removeChild(bgProcess);
+    if ( bgProcess !== null ) {
+        bgProcess.parentNode.removeChild(bgProcess);
+        bgProcess = null;
+    }
+
+    if ( windowlessBrowser !== null ) {
+        // close() does not exist for older versions of Firefox.
+        if ( typeof windowlessBrowser.close === 'function' ) {
+            windowlessBrowser.close();
+        }
+        windowlessBrowser = null;
+        windowlessBrowserPL = null;
+    }
 
     if ( data === undefined ) {
         return;
