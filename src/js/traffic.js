@@ -86,8 +86,6 @@ var onBeforeRequestHandler = function(details) {
         return;
     }
 
-    // console.debug('onBeforeRequestHandler()> "%s": %o', details.url, details);
-
     var requestType = requestTypeNormalizer[details.type] || 'other';
 
     // https://github.com/gorhill/httpswitchboard/issues/303
@@ -99,9 +97,9 @@ var onBeforeRequestHandler = function(details) {
 
     var requestURL = details.url;
 
-    // Ignore non-http schemes
-    if ( requestScheme.lastIndexOf('http', 0) !== 0 ) {
-        µm.logger.writeOne('', 'info', 'request not processed: ' + details.url);
+    // Ignore non-network schemes
+    if ( µmuri.isNetworkScheme(requestScheme) === false ) {
+        µm.logger.writeOne('', 'info', 'request not processed: ' + requestURL);
         return;
     }
 
@@ -160,7 +158,10 @@ var onBeforeRequestHandler = function(details) {
 var onBeforeSendHeadersHandler = function(details) {
     var µm = µMatrix;
 
-    // console.debug('onBeforeSendHeadersHandler()> "%s": %o', details.url, details);
+    // Ignore non-network schemes
+    if ( µm.URI.isNetworkScheme(details.url) === false ) {
+        return;
+    }
 
     // Re-classify orphan HTTP requests as behind-the-scene requests. There is
     // not much else which can be done, because there are URLs
@@ -468,7 +469,6 @@ vAPI.net.onBeforeRequest = {
 };
 
 vAPI.net.onBeforeSendHeaders = {
-    urls: [ 'http://*/*', 'https://*/*' ],
     extra: [ 'blocking', 'requestHeaders' ],
     callback: onBeforeSendHeadersHandler
 };

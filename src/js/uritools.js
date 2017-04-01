@@ -237,11 +237,19 @@ URI.schemeFromURI = function(uri) {
 
 /******************************************************************************/
 
-URI.isSecureScheme = function(scheme) {
-    return scheme === 'https' ||
-           scheme === 'wss' ||
-           scheme === 'ftps';
+URI.isNetworkScheme = function(scheme) {
+    return this.reNetworkScheme.test(scheme);
 };
+
+URI.reNetworkScheme = /^(?:https?|wss?|ftps?)\b/;
+
+/******************************************************************************/
+
+URI.isSecureScheme = function(scheme) {
+    return this.reSecureScheme.test(scheme);
+};
+
+URI.reSecureScheme = /^(?:https|wss|ftps)\b/;
 
 /******************************************************************************/
 
