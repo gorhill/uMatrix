@@ -113,25 +113,21 @@ function waitForHiddenWindow() {
     let appShell = Cc['@mozilla.org/appshell/appShellService;1']
         .getService(Ci.nsIAppShellService);
 
-    let onReady = function(e) {
-        if ( e ) {
-            this.removeEventListener(e.type, onReady);
+    let isReady = function() {
+        var hiddenDoc;
+
+        try {
+            hiddenDoc = appShell.hiddenDOMWindow &&
+                        appShell.hiddenDOMWindow.document;
+        } catch (ex) {
         }
 
-        let hiddenDoc = appShell.hiddenDOMWindow.document;
-
-        // https://github.com/gorhill/uBlock/issues/10
-        // Fixed by github.com/AlexVallat:
-        //   https://github.com/chrisaljoudi/uBlock/issues/1149
-        //   https://github.com/AlexVallat/uBlock/commit/e762a29d308caa46578cdc34a9be92c4ad5ecdd0
-        if ( !hiddenDoc || hiddenDoc.readyState === 'loading' ) {
-            appShell.hiddenDOMWindow.addEventListener('DOMContentLoaded', onReady);
-            return;
+        // Do not test against `loading`: it does appear `readyState` could be
+        // undefined if looked up too early.
+        if ( !hiddenDoc || hiddenDoc.readyState !== 'complete' ) {
+            return false;
         }
 
-        // Fix from https://github.com/gijsk, taken from:
-        // - https://github.com/gorhill/uBlock/commit/53a794d9b2a8c65406ee7a201cacbc91c297b2f8
-        // 
         // In theory, it should be possible to create a windowless browser
         // immediately, without waiting for the hidden window to have loaded
         // completely. However, in practice, on Windows this seems to lead
@@ -146,36 +142,50 @@ function waitForHiddenWindow() {
         } else {
             createBgProcess(hiddenDoc);
         }
+        return true;
     };
 
-    var ready = false;
-    try {
-        ready = appShell.hiddenDOMWindow &&
-                appShell.hiddenDOMWindow.document;
-    } catch (ex) {
-    }
-    if ( ready ) {
-        onReady();
+    if ( isReady() ) {
         return;
     }
 
-    let ww = Cc['@mozilla.org/embedcomp/window-watcher;1']
-               .getService(Ci.nsIWindowWatcher);
+    // https://github.com/gorhill/uBlock/issues/749
+    // Poll until the proper environment is set up -- or give up eventually.
+    // We poll frequently early on but relax poll delay as time pass.
 
-    ww.registerNotification({
-        observe: function(win, topic) {
-            if ( topic !== 'domwindowopened' ) {
-                return;
-            }
-            try {
-                void appShell.hiddenDOMWindow;
-            } catch (ex) {
-                return;
-            }
-            ww.unregisterNotification(this);
-            onReady();
+    let tryDelay = 5;
+    let trySum = 0;
+    // https://trac.torproject.org/projects/tor/ticket/19438
+    // Try for a longer period.
+    let tryMax = 600011;
+    let timer = Cc['@mozilla.org/timer;1']
+        .createInstance(Ci.nsITimer);
+
+    let checkLater = function() {
+        trySum += tryDelay;
+        if ( trySum >= tryMax ) {
+            timer = null;
+            return;
         }
-    });
+        timer.init(timerObserver, tryDelay, timer.TYPE_ONE_SHOT);
+        tryDelay *= 2;
+        if ( tryDelay > 503 ) {
+            tryDelay = 503;
+        }
+    };
+
+    var timerObserver = {
+        observe: function() {
+            timer.cancel();
+            if ( isReady() ) {
+                timer = null;
+            } else {
+                checkLater();
+            }
+        }
+    };
+
+    checkLater();
 }
 
 /******************************************************************************/
