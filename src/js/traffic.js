@@ -449,6 +449,7 @@ var headerIndexFromName = function(headerName, headers) {
 var requestTypeNormalizer = {
     'font'          : 'css',
     'image'         : 'image',
+    'imageset'      : 'image',
     'main_frame'    : 'doc',
     'media'         : 'plugin',
     'object'        : 'plugin',
