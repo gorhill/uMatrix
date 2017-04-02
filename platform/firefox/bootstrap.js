@@ -26,7 +26,7 @@
 
 /******************************************************************************/
 
-const {classes: Cc, interfaces: Ci} = Components;
+const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 
 // Accessing the context of the background page:
 // var win = Services.appShell.hiddenDOMWindow.document.querySelector('iframe[src*=umatrix]').contentWindow;
@@ -38,8 +38,8 @@ let version;
 const hostName = 'umatrix';
 const restartListener = {
     get messageManager() {
-        return Components.classes['@mozilla.org/parentprocessmessagemanager;1']
-            .getService(Components.interfaces.nsIMessageListenerManager);
+        return Cc['@mozilla.org/parentprocessmessagemanager;1']
+          .getService(Ci.nsIMessageListenerManager);
     },
 
     receiveMessage: function() {
@@ -89,7 +89,7 @@ function getWindowlessBrowserFrame(appShell) {
     windowlessBrowser = appShell.createWindowlessBrowser(true);
     windowlessBrowser.QueryInterface(Ci.nsIInterfaceRequestor);
     let webProgress = windowlessBrowser.getInterface(Ci.nsIWebProgress);
-    let XPCOMUtils = Components.utils.import('resource://gre/modules/XPCOMUtils.jsm', null).XPCOMUtils;
+    let XPCOMUtils = Cu.import('resource://gre/modules/XPCOMUtils.jsm', null).XPCOMUtils;
     windowlessBrowserPL = {
         QueryInterface: XPCOMUtils.generateQI([
             Ci.nsIWebProgressListener,
@@ -140,7 +140,8 @@ function waitForHiddenWindow() {
         // window for the actual background page (windowless browsers are
         // also what the webextension implementation in Firefox uses for
         // background pages).
-        if ( appShell.createWindowlessBrowser ) {
+        let { Services } = Cu.import('resource://gre/modules/Services.jsm', null);
+        if ( Services.vc.compare(Services.appinfo.platformVersion, '27') >= 0 ) {
             getWindowlessBrowserFrame(appShell);
         } else {
             createBgProcess(hiddenDoc);
@@ -158,8 +159,8 @@ function waitForHiddenWindow() {
         return;
     }
 
-    let ww = Components.classes['@mozilla.org/embedcomp/window-watcher;1']
-                       .getService(Components.interfaces.nsIWindowWatcher);
+    let ww = Cc['@mozilla.org/embedcomp/window-watcher;1']
+               .getService(Ci.nsIWindowWatcher);
 
     ww.registerNotification({
         observe: function(win, topic) {
@@ -213,9 +214,9 @@ function shutdown(data, reason) {
 
 function install() {
     // https://bugzil.la/719376
-    Components.classes['@mozilla.org/intl/stringbundle;1']
-        .getService(Components.interfaces.nsIStringBundleService)
-        .flushBundles();
+    Cc['@mozilla.org/intl/stringbundle;1']
+      .getService(Ci.nsIStringBundleService)
+      .flushBundles();
 }
 
 /******************************************************************************/
@@ -226,10 +227,9 @@ function uninstall(data, aReason) {
     }
     // To cleanup vAPI.localStorage in vapi-common.js, aka
     // "extensions.umatrix.*" in `about:config`.
-    Components.utils.import('resource://gre/modules/Services.jsm', null)
-        .Services.prefs
-            .getBranch('extensions.' + hostName + '.')
-            .deleteBranch('');
+    Cu.import('resource://gre/modules/Services.jsm', null)
+      .Services.prefs.getBranch('extensions.' + hostName + '.')
+      .deleteBranch('');
 }
 
 /******************************************************************************/
