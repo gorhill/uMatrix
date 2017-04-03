@@ -31,7 +31,7 @@ python tools/make-webext-meta.py $DES/
 if [ "$1" = all ]; then
     echo "*** uMatrix.webext: Creating package..."
     pushd $DES > /dev/null
-    zip ../$(basename $DES).zip -qr *
+    zip ../$(basename $DES).xpi -qr *
     popd > /dev/null
 fi
 
