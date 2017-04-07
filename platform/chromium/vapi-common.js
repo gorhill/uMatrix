@@ -31,7 +31,7 @@
 /******************************************************************************/
 
 // https://bugs.chromium.org/p/project-zero/issues/detail?id=1225&desc=6#c10
-if ( !self.vAPI || !self.vAPI.uMatrix ) {
+if ( self.vAPI === undefined || self.vAPI.uMatrix !== true ) {
     self.vAPI = { uMatrix: true };
 }
 
