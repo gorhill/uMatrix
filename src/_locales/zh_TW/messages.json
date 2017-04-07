@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子前哨基金會<\/i><\/a>告知：「……您的瀏覽器會向網站發送一個『使用者代理』標識，以精確地向網站報告您所使用的作業系統及瀏覽器。對不同的人而言，作業系統與瀏覽器的版本通常存在不少差異，故此，以上信息可被用於識別互聯網用戶。……<b>使用者代理標識成為了一個實實在在的私隱問題<\/b>。」<p>該選項有助您處理由電子前哨基金會提出的隱私問題。<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>請注意，目前尚無法徹底阻止 WebSocket 洩漏您的使用者代理標識。<\/a><\/p><p>您可以自行提供使用者代理列表。每行一個字串。空行以及以「#」啟始的行將被忽略。<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"頁面後臺請求",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"永久規則",
     "description":""

@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation'a<\/i> göre<\/a>: &ldquo;[...] tarayıcınız web sitesine kullandığınız işletim sistemini ve tarayıcıyı bilgisini içeren &lsquo;Kullanıcı Aracı&rsquo; başlığı gönderir. Bu bilgi Internet kullanıcılarının birbirlerinden ayırt edilmesine yardımcı olabilir. [...] <b>Kullanıcı Aracı dizesi gerçek bir gizlilik problemine yol açar<\/b>.&rdquo;<p>Bu seçenek EFF tarafından dile getirilen gizlilik sorununu çözmenizi sağlar. <\/p><p>Kendi kullanıcı aracı dizesi listelerinizi sağlayabilirsiniz. Satır başına bir dize. Boş satırlar ve &lsquo;#&rsquo; işareti ile başlayan satırlar yok sayılacaktır.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Perde arkası istekleri",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"<p><a href='https:\/\/www.google.com\/intl\/en\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome Gizlilik Raporuna<\/a> göre, <i>Chromium<\/i> kullanıcı bir web sayfası ziyaret etmese bile <i>Google'a<\/i> HTTP istekleri gönderebilir. Bu özel istekleri <strong>perde arkası<\/strong> istekler olarak adlandıralım. Ayrıca, diğer kurulu tarayıcı eklentileri de <strong>perde arkası<\/strong> HTTP istekleri gönderebilir.<\/p><p><i>µMatrix<\/i> bu istekleri keserek diğer istekler gibi davranmanıza izin verir: Bunları beyaz ve kara listelerinize göre işleyerek izin verebilir veya engelleyebilirsiniz.<\/p><p>Bu sayfayı görüntülerken kullanıma başlamak için eklenti simgesine tıklayın. Bakınız: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Perde arkası istekleri<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Dikkat!<\/span> <strong>perde arkası<\/strong> ağ isteklerini engellemek kullanıcının Chrome mağazasından eklenti yüklerken <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>bir sorunla<\/a> karşılaşmasına yol açabilir (eklenti güncelleştirmelerini de engelleyebilir). Ayrıca bu engelleme kurulu eklentilerin de düzgün çalışmamasına yol açabilir (uzaktan veri sorgulayanlar için).<\/p><p>Bu özellik etkin olmasa bile, <strong>perde arkası<\/strong> isteklerinin günlüğü <i>µMatrix<\/i> tarafından hâla tutulmaktadır. Bu istekleri <a href='dashboard.html#statistics'>İstatistikler<\/a> sayfasından inceleyebilirsiniz.<\/p>",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Kalıcı kurallar",
     "description":""

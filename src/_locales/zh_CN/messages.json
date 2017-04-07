@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>电子前哨基金会<\/i><\/a>告知：“……您的浏览器会向网站发送一个‘用户代理’标识，以精确地向网站报告您所使用的操作系统及浏览器。对不同的人而言，操作系统与浏览器的版本通常存在不少差异，故此，以上信息可被用于识别互联网用户。……<b>用户代理标识成为了一个实实在在的私隐问题<\/b>。”<p>该选项有助您处理由电子前哨基金会提出的隐私问题。<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>请注意，目前尚无法彻底阻止 WebSocket 泄漏您的用户代理标识。<\/a><\/p><p>您可以自行提供用户代理列表。每行一个字符串。空行以及以“#”启始的行将被忽略。<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"页面后台请求",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>根据<a href='https:\/\/www.google.com\/intl\/zh-CN\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome 隐私权白皮书<\/a>，<i>Chromium<\/i>可能会在用户并未显性访问一个网页时向<i>Google<\/i>发出HTTP请求。让我们把这些特殊请求称为<strong>后台<\/strong>请求。同样的，其它已安装的浏览器拓展也可以发送<strong>后台<\/strong>HTTP请求。<\/p><p><i>µMatrix<\/i>允许您像拦截其它任何请求一样拦截这些请求：根据您的白名单\/黑名单，它们可以被处理成允许\/屏蔽。<\/p><p>在观看本页面时点击拓展图标以开始执行。必须的阅读： <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>。<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>注意！<\/span>屏蔽<strong>后台<\/strong>网络请求将可能会在用户想要从Chrome商店中安装拓展时引起潜在的<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>问题<\/a>（包括可能会阻止拓展的升级），因此这里提供了禁用这项功能的选择。屏蔽还可能会造成其它已安装的（会查询远程数据的）拓展不能正常地工作。<\/p><p>即使这项功能未被启用，<strong>后台<\/strong>请求依然会被<i>µMatrix<\/i>所记录。您可以在<a href='dashboard.html#statistics'>统计<\/a>页面查看这些请求。<\/p>",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"永久规则",
     "description":""

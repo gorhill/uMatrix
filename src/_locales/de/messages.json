@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Laut der <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] sendet dein Browser einen &lsquo;User Agent&rsquo; Header an die Webseite und sagt damit präzise, welches Betriebssystem und welchen Webbrowser du benutzt. Diese Informationen tragen dazu bei, Internet-Nutzer von anderen zu unterscheiden, da diese Versionen häufig beträchtlich von Person zu Person unterschiedlich sind. [...] <b>der User Agent wird damit zu einer reellen Gefahr für die Privatsphäre<\/b>.&rdquo;<p>Diese Option ermöglicht dir, auf diese Bedrohung zu reagieren.<\/p><p>Du kannst deine eigene Liste von User Agents einstellen, und zwar eine Variante pro Zeile. Leere Zeilen und Zeilen mit einem vorangestellten &lsquo;#&rsquo; werden ignoriert.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Hintergrundanfragen",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Permanente Regeln",
     "description":""

@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>De acordo com o <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] o seu navegador envia uma &lsquo;User Agent&rsquo; cabeçalho para o site dizendo exatamente qual sistema operacional e navegador que você está usando. Esta informação pode ajudar a distinguir os utilizadores da Internet a partir de um outro, pois essas versões são diferentes, muitas vezes consideravelmente, de pessoa para pessoa. [...] <b>a seqüência de agente do usuário torna-se um problema real privacidade<\/b>.&rdquo;<p>Esta opção permite-lhe abordar a questão da privacidade levantadas pelo EFF.<\/p><p>Você pode fornecer a sua própria lista de cadeias de agente de usuário. Um por linha.As linhas em branco e linhas com prefixo &lsquo;#&rsquo; serão ignorados.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Pedidos por trás das cenas",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Regras permanentes",
     "description":""

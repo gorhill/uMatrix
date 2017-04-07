@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子フロンティア財団（EFF）<\/i>によると<\/a>: &ldquo;[...] ブラウザは利用している OS と Web ブラウザについての詳細を、&lsquo;User Agent&rsquo; ヘッダによりウェブサイトに通知します。この情報は、インターネット上のユーザを識別するのに役立っています。なぜなら、この情報はしばしば人それぞれ大幅に違うことがあるためです。[...] <b>ユーザーエージェント文字列は、現実のプライバシーの問題となっています。<\/b>&rdquo;<p>このオプションによって、EFF が提起したプライバシーの問題に対処することができます。実際のユーザーエージェント文字列は WebSocket から<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>漏洩することがある<\/a>のでご注意ください。<\/p><p>ユーザーエージェント文字列のリストを独自に定義することができます。1 行にひとつずつ記述してください。空の行と &lsquo;#&rsquo; で始まる行は無視されます。<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"バックグラウンドのリクエスト",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"永続的なルール",
     "description":""

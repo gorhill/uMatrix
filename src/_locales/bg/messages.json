@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF. Please note that <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>your actual User Agent string can be leaked<\/a> through WebSockets.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Скрити заявки",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Постоянни правила",
     "description":""

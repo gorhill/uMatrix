@@ -391,14 +391,6 @@
     "message":"Согласно <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] браузер посылает веб-сайту заголовок &lsquo;User Agent&rsquo;, в котором содержится точная информация об используемой операционной системе и браузере. Эта информация позволяет отличать пользователей друг от друга, потому что версии ОС и браузера часто существенно различаются. [...] <b>Строка User Agent становится настоящей проблемой для тех, кто заботится о своей конфиденциальности<\/b>.&rdquo;<p>Данная опция позволяет решить эту проблему.<\/p><p>Вы можете составить собственный список заголовков user agent. Одна запись на строку. Пустые строки и строки, начинающиеся с символа &lsquo;#&rsquo;, будут проигнорированы.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Скрытые запросы",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>Согласно документу <a href='https:\/\/www.google.com\/intl\/ru\/chrome\/browser\/privacy\/whitepaper.html'>&lsquo;Политика конфиденциальности Google Chrome&rsquo;<\/a>, <i>Chromium<\/i> может самостоятельно отсылать запросы HTTP в <i>Google<\/i> без явного открытия веб-страниц пользователем. Обозначим эти запросы как <strong>скрытые<\/strong>. Установленные расширение тоже могут посылать <strong>скрытые<\/strong> запросы HTTP.<\/p><p><i>µMatrix<\/i> позволяет перехватывать и обрабатывать такие запросы как и любые другие: их можно принимать или отклонять в соответствии с правилами.<\/p><p>Click the extension icon while viewing this page to get started. Required reading: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Внимание!<\/span> Запрет <strong>скрытых<\/strong> сетевых запросов может привести к <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>ошибке<\/a> при установке и обновлении расширений из Интернет-магазина Chrome, hence the ability to disable the feature here. Установленные расширения могут перестать правильно работать (those querying for remote data).<\/p><p>Даже если эта функция не включена, <strong>скрытые<\/strong> запросы всё равно записываются. Вы можете увидеть эти запросы на странице <a href='dashboard.html#statistics'>статистики<\/a>.<\/p>",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Постоянные правила",
     "description":""

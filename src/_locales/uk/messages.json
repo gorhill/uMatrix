@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Згідно з <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] Ваш переглядач відправляє заголовок &lsquo;User Agent&rsquo; що містить точну версію Вашої операційної системи та веб-переглядача. Ця інформація допомогає розрізняти відвідувачів сайтів, тому що ці версії різні у різних користувачів. [...] <b>заголовок User Agent є справжньою проблемою для приватності<\/b>. &rdquo;<p>Ця опція дозволяє уникнути цієї проблеми.<\/p><p>Ви можете вказати власний перелік цих значень. Одне значення User Agent на рядок. Порожні рядки, а також рядки що починаються з &lsquo;#&rsquo; не мають значення.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Приховані запити",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Постійні правила",
     "description":""

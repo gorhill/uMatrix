@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Według <i>Electronic Frontier Foundation<\/i>[ang.]<\/a>: &ldquo;[...] twoja przeglądarka wysyła do witryny internetowej nagłówek &lsquo;User Agent&rsquo; mówiący dokładnie jakiej wersji przeglądarki i systemu operacyjnego używasz. Ta informacja może pomóc odróżnić poszczególnych użytkowników Internetu, ponieważ wersje [systemu i przeglądarki] różnią się, często znacząco, od użytkownika do użytkownika. [...] <b>nagłówek User Agent staje się realnym problemem prywatności<\/b>.&rdquo;<p>Ta opcja pozwala ci odnieść się do problemu podniesionego przez EFF.<\/p><p>Możesz podać swoją własną listę nagłówków User Agent. Jeden ja linię. Puste linie i linie zaczynające się od &lsquo;#&rsquo; będą zignorowane.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Ukryte żądania",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Stałe zasady",
     "description":""

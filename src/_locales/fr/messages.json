@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>D'après l'<i>Electronic Frontier Foundation<\/i><\/a>, &ldquo;votre navigateur envoit un entête d’ &lsquo;Identification du navigateur&rsquo; vers le site Web visité, indiquant à ce dernier le Système d'Exploitation et le Navigateur Web que vous utilisez. Cette information peut permettre la distinction entre deux internautes puisque leurs versions employées diffèrent, parfois même de manière considérable. [...] <b>la chaine de caractères d’Identification du navigateur devient un réel problème de confidentialité<\/b>.&rdquo;<p><i>µMatrix<\/i> vous offre ainsi la possibilité de falsifier votre Identification du navigateur pour améliorer votre vie privée.<\/p><p>Sachez cependant qu'en fonction de la fausse identification aléatoirement choisie et utilisée, certains sites Web peuvent avoir un comportement qui vous paraitra un peu étrange, si cela devenait un obstacle pour un site précis, pensez à désactiver provisoirement cette option.<\/p><p>Vous pouvez fournir votre propre liste d'Identifications du navigateur. N'en saisissez qu'une par ligne. Les lignes vides et les lignes commençant par &lsquo;#&rsquo; seront ignorées.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Requêtes en coulisses du navigateur",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Règles permanentes",
     "description":""

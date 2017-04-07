@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Volgens de <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo; [...] uw browser stuurt een &lsquo;Useragent&rsquo;-header naar de website, die precies vertelt welk besturingssysteem en welke internetbrowser u gebruikt. Deze informatie kan helpen internetgebruikers van elkaar te onderscheiden, omdat deze versies van gebruiker tot gebruiker vaak aanzienlijk verschillen. [...] <b>de Useragent-string wordt een groot privacyprobleem<\/b>.&rdquo;<p> Via deze optie kunt u op dit privacygerelateerde probleem dat door de EFF naar voren is gebracht reageren. Houd er rekening mee dat <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>uw werkelijke Useragent-string kan worden doorgegeven<\/a> via WebSockets.<\/p><p>U kunt uw eigen lijst van useragents opgeven. Eén string per regel. Lege regels en regels beginnend met &lsquo;#&rsquo; worden genegeerd.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Aanvragen achter de schermen",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Permanente regels",
     "description":""

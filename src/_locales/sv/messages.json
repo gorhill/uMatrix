@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Enligt <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] skickar din webbläsare ett &lsquo;användaragent&rsquo;-sidhuvud till webbplatser för att tala om precis vilket operativsystem och vilken webbläsare du använder. Denna information kan hjälpa sidan att unikt särskilja internetanvändare från varandra, eftersom informationen ofta skiljer sig markant från person till person. [...]<b>Användaragenten blir ett riktigt integritetsproblem<\/b>.&rdquo;<p>Denna inställning åtgärdar integritetsproblemet som EFF har lyft fram. Observera att <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>din riktiga användaragent kan läcka<\/a> genom WebSockets.<\/p><p>Du kan skriva in en egen lista med användaragenter. En sträng per rad. Tomma rader och rader som börjar med &lsquo;#&rsquo; ignoreras.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Bakom-kuliss-förfrågningar",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Permanenta regler",
     "description":""

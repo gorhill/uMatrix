@@ -391,14 +391,6 @@
     "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Menurut <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] peramban anda mengirimkan sebuah tajuk &lsquo;User Agent&rsquo; ke situs web dan menjelaskan secara akurat tentang sistem operasi dan peramban web yang anda gunakan. Informasi tersebut dapat membantu membedakan pengguna internet satu dengan yang lain karena versi sistem operasi dan peramban yang berbeda-beda, seringkali, orang per orang. [...] <b>User Agent menjadi masalah utama privasi yang nyata<\/b>.&rdquo;<p>Opsi ini memungkinkan anda untuk mengatasi masalah privasi yang diangkat oleh EFF.<\/p><p>Anda dapat memberikan senarai untai user agent anda sendiri. Satu untai user agent per baris. Baris kosong dan baris yang dimulai dengan &lsquo;#&rsquo; akan diabaikan.<\/p>",
     "description":""
   },
-  "privacyBehindTheSceneHeader":{
-    "message":"Permintaan di balik layar",
-    "description":""
-  },
-  "privacyProcessBehindTheSceneHelp":{
-    "message":"",
-    "description":""
-  },
   "userRulesPermanentHeader":{
     "message":"Aturan permanen",
     "description":""
