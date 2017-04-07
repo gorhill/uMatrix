@@ -52,7 +52,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"Plugin",
+    "message":"Medien",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -140,7 +140,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink-Auditing<\/a> Versuche vereitelt: {{count}}",
+    "message":"<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> Versuche vereitelt: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -352,7 +352,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Einige Webseiten sind wirklich darauf aus, dich zu verfolgen bzw. zu tracken, und scheuen nicht davor zurück, unfeine Tricks zu verwenden, um Maßnahmen, die dieses Tracking verhindern sollen, zu unterlaufen.<\/p><p>Einige dieser Tricks benutzen dazu den <sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/de.wikipedia.org\/wiki\/Browser-Cache'>Browser Cache<\/a>, dessen Inhalt häufig für lange Zeit auslesbar ist, da viele Benutzer ihn nicht regelmäßig löschen.<\/p><p>Das regelmäßige Löschen des Browser Caches bringt kaum Nachteile mit sich (wahrscheinlich werden Sie gar keine bemerken), während die Vorteile darin bestehen, dass diese fiesen Tracker davon abgehalten werden, in deine Privatsphäre einzudringen.<\/p><p>Aktiviere diesen Schalter, damit  <i>uMatrix<\/i> diese Aufgabe in dem von dir gewünschten Intervall übernimmt.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Einige Webseiten sind wirklich darauf aus, dich zu verfolgen bzw. zu tracken, und scheuen nicht davor zurück, unfeine Tricks zu verwenden, um Maßnahmen, die dieses Tracking verhindern sollen, zu unterlaufen.<\/p><p>Einige dieser Tricks benutzen dazu den <sup style='font-size:smaller'>[1, 2]<\/sup> on the <a href='https:\/\/de.wikipedia.org\/wiki\/Browser-Cache'>Browser Cache<\/a>, dessen Inhalt häufig für lange Zeit auslesbar ist, da viele Benutzer ihn nicht regelmäßig löschen.<\/p><p>Das regelmäßige Löschen des Browser Caches bringt kaum Nachteile mit sich (wahrscheinlich wirst du gar keine bemerken), während die Vorteile darin bestehen, dass diese fiesen Tracker davon abgehalten werden, in deine Privatsphäre einzudringen.<\/p><p>Aktiviere diesen Schalter, damit  <i>uMatrix<\/i> diese Aufgabe in dem von dir gewünschten Intervall übernimmt.<\/p><p >[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -372,7 +372,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Alle sperren <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink Auditing<\/a> Versuche.",
+    "message":"Blockiere alle <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> Versuche.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
@@ -396,7 +396,7 @@
     "description":""
   },
   "privacyProcessBehindTheSceneHelp":{
-    "message":"<p>Gemäß dem <a href='http:\/\/www.google.com\/intl\/de\/chrome\/browser\/privacy\/whitepaper.html'>Google Chrome - Whitepaper zum Datenschutz<\/a>, kann <i>Chromium<\/i>  HTTP Anfragen zu <i>Google<\/i> senden, ohne dass der Benutzer eine Webseite ausdrücklich besucht. Lasst uns diese speziellen Anfragen <strong>Hintergrund<\/strong>-Anfragen nennen. Auch andere installierte  Browser-Erweiterungen können <strong>Hintergrund<\/strong>- HTTP Anfragen senden.<\/p><p><i>µMatrix<\/i> kann diese Anfragen abfangen und verarbeiten wie jede andere Anfrage: sie können entsprechend deiner Whitelist\/Blacklist erlaubt\/blockiert werden.<\/p><p>Klicke auf das Symbol dieser Erweiterung, während du dich auf dieser Seite befindest. Pflichtlektüre: <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Behind-the-scene-requests'>Behind-the-scene requests<\/a>.<\/p><div class='warn'><p><span style='color:red; font-weight:bold'>Achtung!<\/span> Das Blockieren von <strong>Hintergrund<\/strong>-Anfragen kann z.Z. einen <a href='https:\/\/github.com\/gorhill\/httpswitchboard\/issues\/27'>Fehler<\/a> verursachen, wenn der Benutzer eine Erweiterung aus dem Chrome Store installieren möchte (außerdem kann es beim Update von Erweiterungen Probleme geben) - daher die Möglichkeit, dieses Feature zu deaktivieren. Zudem kann das Blockieren dieser Anfragen dazu führen, dass andere installierte Erweiterungen nicht richtig funktionieren (sofern sie Daten aus dem Internet abfragen).<\/p> <p>Aber selbst wenn diese Funktion nicht aktiviert ist, werden <strong>Hintergrund<\/strong>-Anfragen dennoch durch <i>µMatrix<\/i> aufgezeichnet, so dass du sie zumindest auf der  <a href='dashboard.html#statistics'>Statistik<\/a>-Seite inspizieren kannst.<\/p>",
+    "message":"",
     "description":""
   },
   "userRulesPermanentHeader":{
