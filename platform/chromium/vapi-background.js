@@ -53,6 +53,7 @@ chrome.privacy.network.networkPredictionEnabled.set({
 // Tell Chromium to allow all javascript: µMatrix will control whether
 // javascript execute through `Content-Policy-Directive` and webRequest.
 //   https://github.com/gorhill/httpswitchboard/issues/74
+// Firefox WebExtensions does not support contentSettings API, yet.
 if ( chrome.contentSettings instanceof Object ) {
     chrome.contentSettings.javascript.set({
         primaryPattern: 'https://*/*',
@@ -83,7 +84,10 @@ vAPI.app.start = function() {
 /******************************************************************************/
 
 vAPI.app.stop = function() {
-    chrome.contentSettings.javascript.clear({});
+    // Firefox WebExtensions does not support contentSettings API, yet.
+    if ( chrome.contentSettings instanceof Object ) {
+        chrome.contentSettings.javascript.clear({});
+    }
 
     // rhill 2013-12-07:
     // Tell Chromium to allow all javascript: µMatrix will control whether

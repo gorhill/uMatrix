@@ -46,7 +46,6 @@
     },
     "permissions": [
         "browsingData",
-        "contentSettings",
         "cookies",
         "privacy",
         "storage",
