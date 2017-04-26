@@ -359,12 +359,6 @@ var hasInlineScript = function(nodeList, summary) {
         }
 
         if ( node.localName === 'script' ) {
-            // https://github.com/gorhill/httpswitchboard/issues/252
-            // Do not count uMatrix's own script tags, they are not required
-            // to "unbreak" a web page
-            if ( typeof node.id === 'string' && ownScripts[node.id] ) {
-                continue;
-            }
             text = node.textContent.trim();
             if ( text === '' ) {
                 continue;
@@ -381,10 +375,6 @@ var hasInlineScript = function(nodeList, summary) {
     if ( summary.inlineScript ) {
         summary.mustReport = true;
     }
-};
-
-var ownScripts = {
-    'umatrix-ua-spoofer': true
 };
 
 /******************************************************************************/

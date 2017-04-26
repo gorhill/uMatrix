@@ -79,9 +79,12 @@ var navigatorSpoofer = " \
         var pos = spoofedUserAgent.indexOf('/'); \n \
         var appName = pos === -1 ? '' : spoofedUserAgent.slice(0, pos); \n \
         var appVersion = pos === -1 ? spoofedUserAgent : spoofedUserAgent.slice(pos + 1); \n \
-        Object.defineProperty(navigator, 'userAgent', { get: function(){ return spoofedUserAgent; } }); \n \
-        Object.defineProperty(navigator, 'appName', { get: function(){ return appName; } }); \n \
-        Object.defineProperty(navigator, 'appVersion', { get: function(){ return appVersion; } }); \n \
+        Object.defineProperty(navigator, 'userAgent', { value: spoofedUserAgent }); \n \
+        Object.defineProperty(navigator, 'appName', { value: appName }); \n \
+        Object.defineProperty(navigator, 'appVersion', { value: appVersion }); \n \
+        var c = document.currentScript, \n \
+            p = c && c.parentNode; \n \
+        if ( p ) { p.removeChild(c); } \n \
     } catch (e) { \n \
     } \n \
 })();";
@@ -102,17 +105,35 @@ var injectNavigatorSpoofer = function(spoofedUserAgent) {
     if ( spoofedUserAgent === navigator.userAgent ) {
         return;
     }
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.id = 'umatrix-ua-spoofer';
-    var js = document.createTextNode(navigatorSpoofer.replace('{{ua-json}}', JSON.stringify(spoofedUserAgent)));
-    script.appendChild(js);
-
+    var parent = document.head || document.documentElement,
+        scriptText = navigatorSpoofer.replace('{{ua-json}}', JSON.stringify(spoofedUserAgent)),
+        script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('id', 'umatrix-ua-spoofer');
+    script.appendChild(document.createTextNode(scriptText));
     try {
-        var parent = document.head || document.documentElement;
         parent.appendChild(script);
     }
-    catch (e) {
+    catch (ex) {
+    }
+
+    // https://github.com/gorhill/uMatrix/issues/771
+    var spoofer = document.querySelector('script#umatrix-ua-spoofer');
+    if ( spoofer !== null ) {
+        spoofer.parentNode.removeChild(spoofer);
+        script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.setAttribute('id', 'umatrix-ua-spoofer');
+        script.setAttribute('src', 'data:application/javascript;base64,' + window.btoa(scriptText));
+        try {
+            parent.appendChild(script);
+        }
+        catch (ex) {
+        }
+        spoofer = document.querySelector('script#umatrix-ua-spoofer');
+        if ( spoofer !== null ) {
+            spoofer.parentNode.removeChild(spoofer);
+        }
     }
 
     // The port will never be used again at this point, disconnecting allows
