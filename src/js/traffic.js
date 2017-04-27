@@ -19,7 +19,6 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, µMatrix */
 /* jshint boss: true */
 
 'use strict';
@@ -296,8 +295,6 @@ var foilRefererHeaders = function(µm, toHostname, details) {
 // https://github.com/gorhill/httpswitchboard/issues/35
 
 var onHeadersReceived = function(details) {
-    // console.debug('onHeadersReceived()> "%s": %o', details.url, details);
-
     // Ignore schemes other than 'http...'
     var requestURL = details.url;
     if ( requestURL.lastIndexOf('http', 0) !== 0 ) {
@@ -328,95 +325,22 @@ var onHeadersReceived = function(details) {
     // We block only inline-script tags, all the external javascript will be
     // blocked by our request handler.
 
-    // https://github.com/gorhill/uMatrix/issues/129
-    // https://github.com/gorhill/uMatrix/issues/320
-    //   Modernize CSP injection:
-    //   - Do not overwrite blindly possibly already present CSP header
-    //   - Add CSP directive to block inline script ONLY if needed
-    //   - If we end up modifying the an existing CSP, strip out `report-uri`
-    //     to prevent spurious CSP violations.
-
-    var headers = details.responseHeaders;
-
-    // Is there a CSP header present?
-    // If not, inject a script-src CSP directive to prevent inline javascript
-    // from executing.
-    var i = headerIndexFromName('content-security-policy', headers);
-    if ( i === -1 ) {
-        headers.push({
-            'name': 'Content-Security-Policy',
-            'value': "script-src 'unsafe-eval' *"
-        });
-        return { responseHeaders: headers };
+    var csp = "script-src 'unsafe-eval' *",
+        headers = details.responseHeaders,
+        i = headerIndexFromName('content-security-policy', headers);
+    // A CSP header is already present: just add our own directive as a
+    // separate disposition (i.e. use comma).
+    if ( i !== -1 ) {
+        csp = headers[i].value.trim() + ', ' + csp;
+        headers.splice(i, 1);
     }
 
-    // A CSP header is already present.
-    // Remove the CSP header, we will re-inject it after processing it.
     // TODO: We are currently forced to add the CSP header at the end of the
     //       headers array, because this is what the platform specific code
     //       expect (Firefox).
-    var csp = headers.splice(i, 1)[0].value.trim();
-
-    // Is there a script-src directive in the CSP header?
-    // If not, we simply need to append our script-src directive.
-    // https://github.com/gorhill/uMatrix/issues/320
-    //   Since we are modifying an existing CSP header, we need to strip out
-    //   'report-uri' if it is present, to prevent spurious reporting of CSP
-    //   violation, and thus the leakage of information to the remote site.
-    var matches = reScriptsrc.exec(csp);
-    if ( matches === null ) {
-        headers.push({
-            'name': 'Content-Security-Policy',
-            'value': cspStripReporturi(csp + "; script-src 'unsafe-eval' *")
-        });
-        return { responseHeaders: headers };
-    }
-
-    // A `script-src' directive is already present. Extract it.
-    var scriptsrc = matches[0];
-
-    // Is there at least one 'unsafe-inline' or 'nonce-' token in the
-    // script-src?
-    // If not we have no further processing to perform: inline scripts are
-    // already forbidden by the site.
-    if ( reUnsafeinline.test(scriptsrc) === false ) {
-        headers.push({
-            'name': 'Content-Security-Policy',
-            'value': csp
-        });
-        return { responseHeaders: headers };
-    }
-
-    // There are tokens enabling inline script tags in the script-src
-    // directive, so we have to strip them out.
-    // Strip out whole script-src directive, remove the offending tokens
-    // from it, then append the resulting script-src directive to the original
-    // CSP header.
-    // https://github.com/gorhill/uMatrix/issues/320
-    //   Since we are modifying an existing CSP header, we need to strip out
-    //   'report-uri' if it is present, to prevent spurious reporting of CSP
-    //   violation, and thus the leakage of information to the remote site.
-
-    // https://github.com/gorhill/uMatrix/issues/538
-    // We will replace in-place the script-src directive with our own.
-    headers.push({
-        'name': 'Content-Security-Policy',
-        'value': cspStripReporturi(
-                    csp.slice(0, matches.index) +
-                    scriptsrc.replace(reUnsafeinline, '') +
-                    csp.slice(matches.index + scriptsrc.length)
-                )
-    });
+    headers.push({ name: 'Content-Security-Policy', value: csp });
     return { responseHeaders: headers };
 };
-
-var cspStripReporturi = function(csp) {
-    return csp.replace(reReporturi, '');
-};
-
-var reReporturi = /report-uri[^;]*;?\s*/;
-var reScriptsrc = /script-src[^;]*;?\s*/;
-var reUnsafeinline = /'unsafe-inline'\s*|'nonce-[^']+'\s*/g;
 
 /******************************************************************************/
 
