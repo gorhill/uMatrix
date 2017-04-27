@@ -64,7 +64,7 @@ var typeBitOffsets = {
     'cookie':  4,
        'css':  6,
      'image':  8,
-    'plugin': 10,
+     'media': 10,
     'script': 12,
        'xhr': 14,
      'frame': 16,
@@ -795,6 +795,11 @@ Matrix.prototype.fromString = function(text, append) {
 
         if ( fieldVal !== undefined ) {
             type = fieldVal;
+            // https://github.com/gorhill/uMatrix/issues/759
+            // Backward compatibility.
+            if ( type === 'plugin' ) {
+                type = 'media';
+            }
             // Unknown type: reject
             if ( typeBitOffsets.hasOwnProperty(type) === false ) {
                 continue;
@@ -813,12 +818,6 @@ Matrix.prototype.fromString = function(text, append) {
             state = nameToStateMap[fieldVal];
         } else {
             state = 2;
-        }
-
-        // Backward compatibility:
-        // `chromium-behind-the-scene` is now `behind-the-scene`
-        if ( srcHostname === 'chromium-behind-the-scene' ) {
-            srcHostname = 'behind-the-scene';
         }
 
         matrix.setCell(srcHostname, desHostname, type, state);

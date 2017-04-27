@@ -57,7 +57,7 @@ var matrixHeaderPrettyNames = {
     'cookie': '',
     'css': '',
     'image': '',
-    'plugin': '',
+    'media': '',
     'script': '',
     'xhr': '',
     'frame': '',
@@ -568,9 +568,9 @@ function renderMatrixHeaderRow() {
     addCellClass(cell, '*', 'image');
     cell = cells.nodeAt(4);
     expandos = expandosFromNode(cell);
-    expandos.reqType = 'plugin';
+    expandos.reqType = 'media';
     expandos.hostname = '*';
-    addCellClass(cell, '*', 'plugin');
+    addCellClass(cell, '*', 'media');
     cell = cells.nodeAt(5);
     expandos = expandosFromNode(cell);
     expandos.reqType = 'script';
@@ -647,7 +647,7 @@ function renderMatrixCellTypes(cells, hostname, countName) {
     renderMatrixCellType(cells.at(1), hostname, 'cookie', counts[countIndices.cookie]);
     renderMatrixCellType(cells.at(2), hostname, 'css', counts[countIndices.css]);
     renderMatrixCellType(cells.at(3), hostname, 'image', counts[countIndices.image]);
-    renderMatrixCellType(cells.at(4), hostname, 'plugin', counts[countIndices.plugin]);
+    renderMatrixCellType(cells.at(4), hostname, 'media', counts[countIndices.media]);
     renderMatrixCellType(cells.at(5), hostname, 'script', counts[countIndices.script]);
     renderMatrixCellType(cells.at(6), hostname, 'xhr', counts[countIndices.xhr]);
     renderMatrixCellType(cells.at(7), hostname, 'frame', counts[countIndices.frame]);
@@ -713,7 +713,7 @@ function makeMatrixMetaRow(totals) {
     renderMatrixMetaCellType(cells.at(1), totals[typeOffsets.cookie]);
     renderMatrixMetaCellType(cells.at(2), totals[typeOffsets.css]);
     renderMatrixMetaCellType(cells.at(3), totals[typeOffsets.image]);
-    renderMatrixMetaCellType(cells.at(4), totals[typeOffsets.plugin]);
+    renderMatrixMetaCellType(cells.at(4), totals[typeOffsets.media]);
     renderMatrixMetaCellType(cells.at(5), totals[typeOffsets.script]);
     renderMatrixMetaCellType(cells.at(6), totals[typeOffsets.xhr]);
     renderMatrixMetaCellType(cells.at(7), totals[typeOffsets.frame]);
