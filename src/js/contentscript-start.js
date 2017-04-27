@@ -109,7 +109,6 @@ var injectNavigatorSpoofer = function(spoofedUserAgent) {
         scriptText = navigatorSpoofer.replace('{{ua-json}}', JSON.stringify(spoofedUserAgent)),
         script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
-    script.setAttribute('id', 'umatrix-ua-spoofer');
     script.appendChild(document.createTextNode(scriptText));
     try {
         parent.appendChild(script);
@@ -118,21 +117,18 @@ var injectNavigatorSpoofer = function(spoofedUserAgent) {
     }
 
     // https://github.com/gorhill/uMatrix/issues/771
-    var spoofer = document.querySelector('script#umatrix-ua-spoofer');
-    if ( spoofer !== null ) {
-        spoofer.parentNode.removeChild(spoofer);
+    if ( script.parentNode !== null ) {
+        script.parentNode.removeChild(script);
         script = document.createElement('script');
         script.setAttribute('type', 'text/javascript');
-        script.setAttribute('id', 'umatrix-ua-spoofer');
         script.setAttribute('src', 'data:application/javascript;base64,' + window.btoa(scriptText));
         try {
             parent.appendChild(script);
         }
         catch (ex) {
         }
-        spoofer = document.querySelector('script#umatrix-ua-spoofer');
-        if ( spoofer !== null ) {
-            spoofer.parentNode.removeChild(spoofer);
+        if ( script.parentNode !== null ) {
+            script.parentNode.removeChild(script);
         }
     }
 
