@@ -1000,13 +1000,6 @@ var makeMenu = function() {
 
     renderMatrixHeaderRow();
 
-    // Manually adjust the position of the main matrix according to the height
-    // of the toolbar/matrix header.
-    document.querySelector('.paneContent').style.setProperty(
-        'padding-top',
-        document.querySelector('.paneHead').clientHeight + 'px'
-    );
-
     startMatrixUpdate();
     makeMatrixGroup0(groupStats[0]);
     makeMatrixGroup1(groupStats[1]);
@@ -1274,9 +1267,26 @@ var onMatrixSnapshotReady = function(response) {
 
 /******************************************************************************/
 
-var resizePopup = function() {
-    document.body.setAttribute('data-resize-popup', 'true');
-};
+var resizePopup = (function() {
+    var timer;
+    var fix = function() {
+        timer = undefined;
+        var doc = document;
+        // Manually adjust the position of the main matrix according to the
+        // height of the toolbar/matrix header.
+        doc.querySelector('.paneContent').style.setProperty(
+            'padding-top',
+            (doc.querySelector('.paneHead').clientHeight + 2) + 'px'
+        );
+        doc.body.setAttribute('data-resize-popup', 'true');
+    };
+    return function() {
+        if ( timer !== undefined ) {
+            clearTimeout(timer);
+        }
+        timer = vAPI.setTimeout(fix, 97);
+    };
+})();
 
 /******************************************************************************/
 
@@ -1429,6 +1439,8 @@ uDom('#matList').on('click', '.g4Meta', function() {
     setUISetting('popupHideBlacklisted', collapsed);
     resizePopup();
 });
+
+resizePopup();
 
 /******************************************************************************/
 
