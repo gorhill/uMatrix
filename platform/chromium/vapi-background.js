@@ -49,22 +49,6 @@ chrome.privacy.network.networkPredictionEnabled.set({
     value: false
 });
 
-// rhill 2013-12-07:
-// Tell Chromium to allow all javascript: µMatrix will control whether
-// javascript execute through `Content-Policy-Directive` and webRequest.
-//   https://github.com/gorhill/httpswitchboard/issues/74
-// Firefox WebExtensions does not support contentSettings API, yet.
-if ( chrome.contentSettings instanceof Object ) {
-    chrome.contentSettings.javascript.set({
-        primaryPattern: 'https://*/*',
-        setting: 'allow'
-    });
-    chrome.contentSettings.javascript.set({
-        primaryPattern: 'http://*/*',
-        setting: 'allow'
-    });
-}
-
 /******************************************************************************/
 
 vAPI.app = {
@@ -75,32 +59,11 @@ vAPI.app = {
 /******************************************************************************/
 
 vAPI.app.start = function() {
-    // rhill 2013-12-07:
-    // Relinquish control over javascript execution to the user.
-    //   https://github.com/gorhill/httpswitchboard/issues/74
-    //chrome.contentSettings.javascript.clear({});
 };
 
 /******************************************************************************/
 
 vAPI.app.stop = function() {
-    // Firefox WebExtensions does not support contentSettings API, yet.
-    if ( chrome.contentSettings instanceof Object ) {
-        chrome.contentSettings.javascript.clear({});
-    }
-
-    // rhill 2013-12-07:
-    // Tell Chromium to allow all javascript: µMatrix will control whether
-    // javascript execute through `Content-Policy-Directive` and webRequest.
-    //   https://github.com/gorhill/httpswitchboard/issues/74
-    //chrome.contentSettings.javascript.set({
-    //    primaryPattern: 'https://*/*',
-    //    setting: 'allow'
-    //});
-    //chrome.contentSettings.javascript.set({
-    //    primaryPattern: 'http://*/*',
-    //    setting: 'allow'
-    //});
 };
 
 /******************************************************************************/
