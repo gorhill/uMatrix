@@ -51,6 +51,10 @@
     "message":"obrazek",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
     "message":"wtyczka",
     "description":"HAS TO FIT IN MATRIX HEADER!"
@@ -140,7 +144,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Powstrzymane próby <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>: {{count}}",
+    "message":"Powstrzymane próby <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -352,7 +356,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Niektóre witryny internetowe są tak zdecydowane by cię śledzić, że używają niezbyt ładnych trików aby obejść jakiekolwiek zabezpieczenia zastosujesz, by nie być śledzonym.<\/p><p>Kilka z tych trików<sup style='font-size:smaller'>[1, 2]<\/sup> opiera się na wykorzystaniu <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>pamięci podręcznej przeglądarki [ang.]<\/a>, której zawartość jest często dostępna przez bardzo długo, ponieważ użytkownicy rzadko ją usuwają.<\/p><p>Wady regularnego czyszczenia pamięci podręcznej są niewielkie (prawdopodobnie nie zauważysz, gdy to się stanie), a zaletą jest zapobieganie tym nieznośnym szpiegom naruszania twojej prywatności.<\/p><p>Zaznacz tą opcję by <i>uMatrix<\/i> robił to za ciebie, z częstotliwością jaką sobie życzysz.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Zapobieganie śledzeniu z wykorzystaniem pamięci podręcznej przeglądarki&rdquo; [ang.]<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Bezciasteczkowe ciasteczka&rdquo;[ang.]<\/a><\/p>",
+    "message":"<p>Niektóre witryny internetowe są tak zdecydowane by cię śledzić, że używają niezbyt ładnych trików aby obejść jakiekolwiek zabezpieczenia zastosujesz, by nie być śledzonym.<\/p><p>Kilka z tych trików<sup>[1, 2]<\/sup> opiera się na wykorzystaniu <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>pamięci podręcznej przeglądarki [ang.]<\/a>, której zawartość jest często dostępna bardzo długo, ponieważ użytkownicy rzadko ją usuwają.<\/p><p>Wady regularnego czyszczenia pamięci podręcznej są niewielkie (prawdopodobnie nie zauważysz, gdy to się stanie), a zaletą jest zapobieganie tym nieznośnym szpiegom naruszania twojej prywatności.<\/p><p>Zaznacz tą opcję by <i>uMatrix<\/i> robił to za ciebie, z częstotliwością jaką sobie życzysz.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Zapobieganie śledzeniu z wykorzystaniem pamięci podręcznej przeglądarki&rdquo; [ang.]<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Bezciasteczkowe ciasteczka&rdquo;[ang.]<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -360,7 +364,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Z Wikipedii [ang.]:<\/p><blockquote>HTTP referer jest nagłówkiem HTTP który identyfikuje adres strony która linkuje do zasobu będącego wywoływanym. ... <b>Ponieważ informacje o stronie odsyłającej mogą zagrażać prywatności, niektóre przeglądarki pozwalają na wyłączenie wysyłania tej informacji.<\/b><\/blockquote><p>Jeśli ta opcja jest zaznaczona, <i>uMatrix<\/i> będzie fałszował informację o refererze jeśli domena referera jest inna niż domena żądania sieciowego.",
+    "message":"Z Wikipedii [ang.]:<blockquote>HTTP referer jest nagłówkiem HTTP który identyfikuje adres strony która linkuje do zasobu będącego wywoływanym. ... <b>Ponieważ informacje o stronie odsyłającej mogą zagrażać prywatności, niektóre przeglądarki pozwalają na wyłączenie wysyłania tej informacji.<\/b><\/blockquote>Jeśli ta opcja jest zaznaczona, <i>uMatrix<\/i> będzie fałszował informację o refererze jeśli domena referera jest inna niż domena żądania sieciowego.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -372,7 +376,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Blokuj wszystkie próby <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>.",
+    "message":"Blokuj wszystkie próby <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{

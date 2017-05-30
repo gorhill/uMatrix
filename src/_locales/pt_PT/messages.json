@@ -51,6 +51,10 @@
     "message":"imagem",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
     "message":"plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"
@@ -140,7 +144,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Auditoria de hyperlink<\/a> Tentativas destruídas: {{count}}",
+    "message":"<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Auditoria de hyperlink<\/a> tentativas destruídas: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -308,7 +312,7 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Habiliar suporte de armazenamento em nuvem",
+    "message":"Ativar suporte para armazenamento na nuvem",
     "description":""
   },
   "privacyPageTitle":{

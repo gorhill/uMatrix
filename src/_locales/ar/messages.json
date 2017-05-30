@@ -51,6 +51,10 @@
     "message":"الصُورَة",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
     "message":"إضافة",
     "description":"HAS TO FIT IN MATRIX HEADER!"

@@ -51,6 +51,10 @@
     "message":"చిత్రం",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
     "message":"పొడిగింపు",
     "description":"HAS TO FIT IN MATRIX HEADER!"

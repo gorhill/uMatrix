@@ -51,8 +51,12 @@
     "message":"pilt",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
-    "message":"pistikprogramm",
+    "message":"meedia",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{

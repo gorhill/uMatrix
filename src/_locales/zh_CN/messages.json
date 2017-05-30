@@ -51,8 +51,12 @@
     "message":"图像",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
-  "pluginPrettyName":{
+  "mediaPrettyName":{
     "message":"影音",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "pluginPrettyName":{
+    "message":"插件",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -368,7 +372,7 @@
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla开发者网络<\/a>告知：<\/p><blockquote>若 HTTPS 页面包含未经加密的普通 HTTP 网页内容时，则当前连接只是部分加密；未加密的部分将容许他人窥视甚至被中间人篡改，故连接并非完全安全。当该情况发生时，当前页面即被称作混合内容页面。<\/blockquote>",
+    "message":"<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla 开发者网络<\/a>告知：<\/p><blockquote>若 HTTPS 页面包含未经加密的普通 HTTP 网页内容，则当前连接只是部分加密；未加密的部分将容许他人窥视甚至被中间人篡改，故连接并非完全安全。当该情况发生时，当前页面即被称作混合内容页面。<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{

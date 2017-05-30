@@ -8,7 +8,7 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Контролно табло",
+    "message":"uMatrix — Tабло",
     "description":""
   },
   "settingsPageName":{
@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Файлове от хостове",
+    "message":"Файлове с хостове",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -40,7 +40,7 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"бисквитка",
+    "message":"бискв",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,7 +48,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"изображение",
+    "message":"изобр",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "mediaPrettyName":{
+    "message":"media",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{

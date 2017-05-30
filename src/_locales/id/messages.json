@@ -48,7 +48,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"gambar",
+    "message":"gmbar",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "mediaPrettyName":{
+    "message":"media",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -140,7 +144,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Percobaan <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>pengauditan pranala<\/a> digagalkan: {{count}}",
+    "message":"Percobaan <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>pengauditan pranala<\/a> digagalkan: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -352,7 +356,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Beberapa situs sangat lihai dalam melacak anda, amat sangat lihai sampai-sampai meraka akan gunakan cara-cara yang tidak baik untuk menghindari apapun tindakan yang anda lakukan agar tidak dilacak.<\/p><p>Beberapa cara-cara ini mengandalkan<sup style='font-size:smaller'>[1, 2]<\/sup> <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tembolok peramban<\/a>, yang muatannya terkadang bertahan lama karena jarang pengguna menyempatkan waktu secara berkala membersihkan tembolok peramban mereka.<\/p><p>Ada sedikit ketidaknyamanan untuk membersihkan tembolok peramban secara berkala (kemungkinan adalah anda tidak akan tahu ketika hal tersebut terjadi), dan keuntungannya adalah untuk mencegah pelacak yang menjengkelkan ini melanggar privasi anda.<\/p><p>Centang opsi berikut untuk membuat <i>uMatrix<\/i> melakukannya untuk anda, pada selang waktu yang anda inginkan.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Mencegah Pelacakan Web melalui Tembolok Web&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Kuki tanpa kuki&rdquo;<\/a><\/p>",
+    "message":"<p>Beberapa situs sangat lihai dalam melacak anda, amat sangat lihai sampai-sampai mereka akan gunakan cara-cara yang tidak baik untuk menghindari apapun tindakan yang anda lakukan agar tidak dilacak.<\/p><p>Beberapa cara-cara ini mengandalkan<sup>[1, 2]<\/sup> <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tembolok peramban<\/a>, yang muatannya terkadang bertahan lama karena jarang pengguna menyempatkan waktu secara berkala membersihkan tembolok peramban mereka.<\/p><p>Ada sedikit ketidaknyamanan untuk membersihkan tembolok peramban secara berkala (kemungkinan adalah anda tidak akan tahu ketika hal tersebut terjadi), dan keuntungannya adalah untuk mencegah pelacak yang menjengkelkan ini melanggar privasi anda.<\/p><p>Centang opsi berikut untuk membuat <i>uMatrix<\/i> melakukannya untuk anda, pada selang waktu yang anda inginkan.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Mencegah Pelacakan Web melalui Tembolok Web&rdquo;<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Kuki tanpa kuki&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -360,7 +364,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Dari Wikipedia:<\/p><blockquote>Perujuk HTTP adalah sebuah ruas tajuk HTTP yang mengidentifikasi alamat dari halaman web yang bertautan dengan sumber daya yang sedang diminta. ... <b>Karena informasi perujuk dapat melanggar privasi, beberapa peramban memperbolehkan pengguna untuk menonaktifkan pengiriman informasi perujuk.<\/b><\/blockquote><p>Jika aturan ini dicentang, <i>uMatrix<\/i> akan memalsukan informasi perujuk HTTP jika nama ranah perujuk HTTP adalah pihak ketiga dari nama ranah jaringan yang diminta.",
+    "message":"Dari Wikipedia:<blockquote>Perujuk HTTP adalah sebuah ruas tajuk HTTP yang mengidentifikasi alamat dari halaman web yang bertautan dengan sumber daya yang sedang diminta. ... <b>Karena informasi perujuk dapat melanggar privasi, beberapa peramban memperbolehkan pengguna untuk menonaktifkan pengiriman informasi perujuk.<\/b><\/blockquote>Jika aturan ini dicentang, <i>uMatrix<\/i> akan memalsukan informasi perujuk HTTP jika nama domain perujuk HTTP adalah pihak ketiga dari nama domain jaringan yang diminta.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -372,7 +376,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Blokir semua percobaan <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>pengauditan pranala<\/a>.",
+    "message":"Blokir semua percobaan <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>pengauditan pranala<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
@@ -680,7 +684,7 @@
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
-    "message":"Jaringan galat: Tidak dapat terhubung ke {{url}}",
+    "message":"Galat jaringan: Tidak bisa terhubung ke {{url}}",
     "description":""
   }
 }

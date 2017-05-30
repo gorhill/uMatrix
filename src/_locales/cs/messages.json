@@ -28,7 +28,7 @@
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Soubory hostů",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
@@ -49,6 +49,10 @@
   },
   "imagePrettyName":{
     "message":"obr.",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "mediaPrettyName":{
+    "message":"média",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
@@ -76,7 +80,7 @@
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"Vypnout\/zapnout filtrování matrixu pro tento rozsah.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
@@ -112,15 +116,15 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Vrátit všechny dočasné změny",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Jít na záznamník",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Přejít na řídící panel",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
@@ -132,7 +136,7 @@
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"Zničené <a href='https:\/\/cs.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> hlavičky: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
@@ -152,7 +156,7 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"Cache prohlížeče smazána: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
@@ -268,7 +272,7 @@
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"Pohodlí",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
@@ -300,15 +304,15 @@
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Zobrazit počet blokovaných požadavků u ikony",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
+    "message":"Skrýt zástupné objekty zablokovaných prvků",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Enable cloud storage support",
+    "message":"Zapnout podporu cloudového úložiště",
     "description":""
   },
   "privacyPageTitle":{
@@ -360,7 +364,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+    "message":"Z Wikipedie:<blockquote>HTTP referer je v informatice označení pro URI, ze kterého byla webová stránka navštívena. Údaj HTTP referrer zapisuje webový prohlížeč do hlavičky HTTP dotazu pro webový server, který ho může dále zpracovat. <b>Dereferrer označuje činnost, při které je ze žádosti o webovou stránku odstraněn HTTP referrer, takže není možné zjistit, odkud uživatel na webovou stránku přišel.<\/b><\/blockquote>Pokud je toto zakliknuto, <i>µMatrix<\/i> bude spoofovat informace o HTTP referrer pokud je jméno domény HTTP referreru třetí strany v kontextu s požadavkem.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -380,11 +384,11 @@
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+    "message":"Náhodně podstrčit řetězec <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agenta<\/a>",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"minut.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
@@ -428,7 +432,7 @@
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Podívej se na tuto stránku pro syntaxi pravidel.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -436,7 +440,7 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+    "message":"Všechny jména hostů v souboru hostů jsou načteny jako zakázaná v globálním měřítku.",
     "description":""
   },
   "hostsFilesStats":{
@@ -456,7 +460,7 @@
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Automaticky aktualizovat soubory hostů.",
     "description":""
   },
   "hostsFilesUpdateNow":{
@@ -468,7 +472,7 @@
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+    "message":"Jedna URL na řádek. Řádky s prefixem &lsquo;#&rsquo; budou ignorovány. Nevalidní URL budou ignorovány.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
@@ -488,7 +492,7 @@
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Přehled změn<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
@@ -496,11 +500,11 @@
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentace<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Oprávnění<\/a>",
     "description":""
   },
   "aboutCode":{
@@ -544,7 +548,7 @@
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"All your settings will be overwritten using data backed up on {{time}}, and uMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+    "message":"Všechna vaše nastavení budou přepsány daty zálohovanými v {{time}}, µMatrix bude restartován.\nPřepsat všechny existující nastavení zálohovanými daty?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
@@ -564,39 +568,39 @@
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"výraz(y) filtru",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Maximální počet záznamů",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"spoofování user agenta s: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"cookie odstraněno: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"smazání cookie se nepodařilo: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"cache prohlížeče vymazána",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"asset aktualizován: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"µMatrix zabránil následující stránce v načítání:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Kvůli tomuto pravidlu",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
@@ -648,19 +652,19 @@
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Přehled",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Záznamník",
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"Exportovat do cloudového úložiště",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"Importovat z cloudového úložiště",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -668,15 +672,15 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Jméno tohoto zařízení:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"Odeslat",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Vrátit zpět",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{

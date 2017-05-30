@@ -51,8 +51,12 @@
     "message":"छवि",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
-  "pluginPrettyName":{
+  "mediaPrettyName":{
     "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "pluginPrettyName":{
+    "message":"plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{

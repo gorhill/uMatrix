@@ -51,8 +51,12 @@
     "message":"Image",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"Média",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
-    "message":"Plugin",
+    "message":"Plug-in",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -140,7 +144,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"Nombre d'<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Audits hyperliens<\/a> bloqués : {{count}}",
+    "message":"Nombre d'<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Audits hyperliens<\/a> bloqués : {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -372,7 +376,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Bloquer toutes les tentatives d'<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>audit hyperlien<\/a>",
+    "message":"Bloquer toutes les tentatives d'<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>audit hyperlien<\/a>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{

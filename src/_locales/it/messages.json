@@ -51,6 +51,10 @@
     "message":"immagine",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
     "message":"plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"

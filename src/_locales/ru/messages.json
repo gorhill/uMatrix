@@ -48,11 +48,15 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"изображение",
+    "message":"image",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
+  "mediaPrettyName":{
+    "message":"media",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"медиа",
+    "message":"plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{

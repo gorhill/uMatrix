@@ -51,6 +51,10 @@
     "message":"imagem",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
+  "mediaPrettyName":{
+    "message":"media",
+    "description":"HAS TO FIT IN MATRIX HEADER!"
+  },
   "pluginPrettyName":{
     "message":"mídia",
     "description":"HAS TO FIT IN MATRIX HEADER!"
@@ -360,7 +364,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"<p>Do Wikipedia: &ldquo;HTTP Referer é um campo de cabeçalho HTTP que identifica o endereço da página que ligado ao recurso que está sendo solicitado. ... <b>Porque a informação do  referer pode violar a privacidade, alguns navegadores da Web permitem que o usuário desativar o envio de informações do referer.<\/b>&rdquo;<\/p><p>Se essa configuração for selecionada, <i>uMatrix<\/i> irá remover as informações HTTP referer se <b>ambas <\/b> das seguintes condições forem verdadeiras:<ul style='padding-left:1em;list-style-type:disc;'><li>O nome de domínio do HTTP referer não corresponde ao nome de domínio do URL do pedido (ou seja, o referer é de terceiros para a página da web);<li>O nome do host do pedido não está na lista branca.<\/ul><\/p>",
+    "message":"Do Wikipedia:<blockquote>HTTP Referer é um campo de cabeçalho HTTP que identifica o endereço da página que ligado ao recurso que está sendo solicitado. ... <b>Porque a informação do referer pode violar a privacidade, alguns navegadores da Web permitem que o usuário desativar o envio de informações do referer.<\/b><\/blockquote>Se essa configuração for selecionada, <i>uMatrix<\/i> irá remover as informações HTTP referer se o nome do domínio do HTTP referrer é de terceiros para o nome de domínio da solicitação.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
