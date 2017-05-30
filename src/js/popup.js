@@ -1122,6 +1122,13 @@ function updateMatrixSwitches() {
     uDom('body').toggleClass('powerOff', switches['matrix-off']);
 }
 
+function updateMatrixSwitchButton() {
+    var switchesActive = uDom('#mtxSwitch_ua-spoof').hasClass('switchTrue') ||
+            uDom('#mtxSwitch_referrer-spoof').hasClass('switchTrue') ||
+            uDom('#mtxSwitch_https-strict').hasClass('switchTrue');
+    uDom('#buttonMtxSwitches').toggleClass('disabled', !switchesActive);
+}
+
 function toggleMatrixSwitch(ev) {
     var elem = ev.currentTarget;
     var pos = elem.id.indexOf('_');
@@ -1182,6 +1189,7 @@ function revertMatrix() {
 function updateMatrixButtons() {
     updateScopeCell();
     updateMatrixSwitches();
+    updateMatrixSwitchButton();
     updatePersistButton();
 }
 
