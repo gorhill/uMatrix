@@ -370,8 +370,26 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
     var bitOffset = typeBitOffsets[type];
     var s = srcHostname;
     var v;
+    var r;
     for (;;) {
+        // check ipv4 addresses recursive. e.g.: 192.168.0.1, 192.168.0, 192.168
+	// this works because isIPAdress() only checks the last octet
         v = this.rules[s + ' ' + desHostname];
+	if ( v === undefined && isIPAddress(s) && isIPAddress(desHostname) ) {
+	    if (( r = this.evaluateCellZ(s.replace(/\.\d{1,3}$/, ''), desHostname.replace(/\.\d{1,3}$/, ''), type) ) > 0 ) {
+	        return r;
+	    }
+	}
+	else if ( v === undefined && isIPAddress(s) ) {
+	    if (( r = this.evaluateCellZ(s.replace(/\.\d{1,3}$/, ''), desHostname, type) ) > 0 ) {
+	        return r;
+	    }
+	}
+	else if ( v === undefined && isIPAddress(desHostname) ) {
+	    if (( r = this.evaluateCellZ(s, desHostname.replace(/\.\d{1,3}$/, ''), type) ) > 0 ) {
+	        return r;
+	    }
+	}
         if ( v !== undefined ) {
             v = v >> bitOffset & 3;
             if ( v !== 0 ) {
