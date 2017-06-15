@@ -105,6 +105,10 @@ body[dir="rtl"] #commitButton:before {
 #diff .left {
     padding: 0 0 0 0;
     }
+#diff .left input,
+#diff .left label {
+    visibility: hidden;
+}
 #diff .right > ul {
     color: #888;
     }
