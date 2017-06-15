@@ -2258,8 +2258,14 @@ vAPI.toolbarButton = {
                 return;
             }
 
-            // We set a limit for height
-            var height = Math.min(body.clientHeight, 600);
+            var height;
+            if(window.screen && window.screen.availHeight && window.screen.availHeight <= 800) {
+                // We set a smaller limit for height
+                height = Math.min(body.clientHeight, 300);
+            } else {
+                // We set a limit for height
+                height = Math.min(body.clientHeight, 600);
+            }
 
             // https://github.com/chrisaljoudi/uBlock/issues/730
             // Voodoo programming: this recipe works
