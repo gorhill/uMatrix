@@ -2,7 +2,19 @@
 
 Definitely for advanced users.
 
+***
+
 **NOTE**: For the time being, the issue tracker has been closed due to too many users filing invalid issues due to uMatrix blocking stuff according to its ruleset (aka **doing its job**). I did warn that uMatrix is for advanced users, and advanced users are expected to be able to understand rulset and figure what needs to be done in order to unbreak stuff. I would re-open the issue tracker if I could find a way to allow only select contributors who have a good track history of filing actual valid issues, but this is currently not possible on GitHub.
+
+**UPDATE:** There is no hope. Here is what happens when I am silly enough to think that maybe things will get better:
+
+![b](https://user-images.githubusercontent.com/585534/27193733-0054d1f8-51ce-11e7-9ac8-a19cbd842917.png)
+
+Despite:
+
+![a](https://user-images.githubusercontent.com/585534/27193731-ff3c2046-51cd-11e7-84bd-2ce2545062a7.png)
+
+***
 
 Keep Github issues for bugs. User support is [Mozilla's add-on-support](https://discourse.mozilla-community.org/t/support-umatrix/5131).
 
