@@ -2843,9 +2843,11 @@ vAPI.toolbarButton = {
                 ');',
             '}',
             '#' + this.viewId + ', #' + this.viewId + ' > iframe {',
-                'width: 160px;',
                 'height: 290px;',
+                'min-width: 0 !important;',
                 'overflow: hidden !important;',
+                'padding: 0 !important;',
+                'width: 160px;',
             '}'
         ];
 
