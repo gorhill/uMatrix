@@ -95,11 +95,11 @@ vAPI.shutdown.add(function() {
         }
 
         // TODO: indexedDB
-        if ( window.indexedDB && !!window.indexedDB.webkitGetDatabaseNames ) {
+        //if ( window.indexedDB && !!window.indexedDB.webkitGetDatabaseNames ) {
             // var db = window.indexedDB.webkitGetDatabaseNames().onsuccess = function(sender) {
             //    console.debug('webkitGetDatabaseNames(): result=%o', sender.target.result);
             // };
-        }
+        //}
 
         // TODO: Web SQL
         if ( window.openDatabase ) {
