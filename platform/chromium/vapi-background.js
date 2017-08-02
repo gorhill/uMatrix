@@ -278,7 +278,8 @@ vAPI.tabs.open = function(details) {
     }
 
     chrome.tabs.query({ url: targetURL }, function(tabs) {
-        var tab = tabs[0];
+        if ( chrome.runtime.lastError ) { /* noop */ }
+        var tab = Array.isArray(tabs) && tabs[0];
         if ( tab ) {
             chrome.tabs.update(tab.id, { active: true }, function(tab) {
                 chrome.windows.update(tab.windowId, { focused: true });
