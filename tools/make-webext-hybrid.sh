@@ -2,10 +2,10 @@
 #
 # This script assumes a linux environment
 
-echo "*** uMatrix.webext: Creating web store package"
-echo "*** uMatrix.webext: Copying files"
+echo "*** uMatrix.webext-hybrid: Creating web store package"
+echo "*** uMatrix.webext-hybrid: Copying files"
 
-DES=dist/build/uMatrix.webext
+DES=dist/build/uMatrix.webext-hybrid
 rm -rf $DES
 mkdir -p $DES/webextension
 
@@ -25,14 +25,14 @@ cp    platform/webext/chrome.manifest    $DES/
 cp    platform/webext/install.rdf        $DES/
 mv    $DES/webextension/img/icon_128.png $DES/icon.png
 
-echo "*** uMatrix.webext: Generating meta..."
-python tools/make-webext-meta.py $DES/
+echo "*** uMatrix.webext-hybrid: Generating meta..."
+python tools/make-webext-hybrid-meta.py $DES/
 
 if [ "$1" = all ]; then
-    echo "*** uMatrix.webext: Creating package..."
+    echo "*** uMatrix.webext-hybrid: Creating package..."
     pushd $DES > /dev/null
     zip ../$(basename $DES).xpi -qr *
     popd > /dev/null
 fi
 
-echo "*** uMatrix.webext: Package done."
+echo "*** uMatrix.webext-hybrid: Package done."
