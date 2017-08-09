@@ -8,23 +8,23 @@
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — Vezérlőpult",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Beállítások",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Adatvédelem",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Statisztika",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Saját szabályok",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
@@ -32,15 +32,15 @@
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"Névjegy",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"mind",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"sütik",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,19 +48,19 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"kép",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "mediaPrettyName":{
-    "message":"media",
+    "message":"média",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"bővítmény",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"szkript",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -68,11 +68,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"keret",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"egyéb",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
@@ -84,15 +84,15 @@
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Minden ideiglenes változtatás mentése.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"Ideiglenes változtatások visszavonása.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Oldal újratöltése.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
@@ -116,23 +116,23 @@
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Minden ideiglenes változtatás visszaállítása",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Napló mutatása",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Irány az irányítópult",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"uMatrix &ndash; Statisztika",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Általános statisztikák",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
@@ -156,15 +156,15 @@
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"Böngésző gyorsítótára törölve: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Részletes statisztika",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Mind",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
@@ -172,31 +172,31 @@
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Áttekintés",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Lekérések",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Engedélyezett",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Blokkolva",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Mind",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Oldalak",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Sütik",
     "description":""
   },
   "statsPageCSS":{
@@ -204,39 +204,39 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Képek",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Bővítmények",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Szkriptek",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR-ek",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Keretek",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Egyebek",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logger",
+    "message":"Napló",
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Emlékezz az utolsó",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"darab HTTP kérésre <b>oldalanként<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
@@ -244,31 +244,31 @@
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Frissítés",
     "description":""
   },
   "settingsPageTitle":{
-    "message":"uMatrix &ndash; Settings",
+    "message":"uMatrix &ndash; Beállítások",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Megjelenés",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Betűméret:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Normál",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Nagy",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Vakbarát",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
@@ -276,19 +276,19 @@
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Intelligens újratöltése a következő oldalaknak, ha a matrix be van zárva:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"Nincs",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"Jelenlegi",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Mind",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
@@ -296,15 +296,15 @@
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Blokkolt keret:&ensp;Szín",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Áttetszőség",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Jelenjen meg az egyedi lekérések száma az ikonon",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
@@ -312,15 +312,15 @@
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Enable cloud storage support",
+    "message":"Felhőben tárolás bekapcsolása",
     "description":""
   },
   "privacyPageTitle":{
-    "message":"uMatrix &ndash; Privacy",
+    "message":"uMatrix &ndash; Adatvédelem",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Delete blocked cookies.",
+    "message":"Blokkolt sütik törlése.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
@@ -328,11 +328,11 @@
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"Adott munkamenetben a nem blokkolt sütik törlése ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" perc elteltével az utolsó használatuk után.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
@@ -348,11 +348,11 @@
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Gyorsítótárak ürítése minden",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"percenként.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
@@ -396,43 +396,43 @@
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Állandó szabályok",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Átmeneti szabályok",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Visszaállítás",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"Alkalmaz",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Szerkesztés",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Mentés",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Elvetés",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Importálás fájlból...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Exportálás fájlba...",
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Az alábbi oldalon találod a szintaxis szabályokat.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -448,27 +448,27 @@
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"{{used}} használatban a {{total}} közül",
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"Utolsó frissítés: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Módosítások alkalmazása",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Host fájlok automatikus frissítése.",
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Frissítés",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"Minden gyorsítótár ürítése",
     "description":""
   },
   "hostsFilesExternalListsHint":{
@@ -480,15 +480,15 @@
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"gyorsítótár ürítése",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"új verzió érhető el",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"elavult",
     "description":""
   },
   "aboutChangelog":{
@@ -496,19 +496,19 @@
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"Tárolóhely használat: {{storageUsed}} byte",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentáció<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Engedélyek<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Forráskód (GPLv3)",
     "description":""
   },
   "aboutIssues":{
@@ -516,7 +516,7 @@
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Közreműködők",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
@@ -528,7 +528,7 @@
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Fordítások:",
     "description":""
   },
   "aboutUserDataHeader":{
@@ -536,7 +536,7 @@
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Mentés fájlba...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -544,23 +544,23 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Visszaállítás fájlból...",
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"All your settings will be overwritten using data backed up on {{time}}, and uMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+    "message":"Minden beállításod felül lesz írva a {{time}}-kor létrehozott mentésből, és az uMatrix újraindul.\n\nMinden létező beállítás felülírása a mentésből?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"The data could not be read or is invalid",
+    "message":"Nem olvasható vagy érvénytelen adat",
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... vagy ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"Alapbeállítások visszaállítása",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
@@ -572,7 +572,7 @@
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Maximális bejegyzések száma",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
@@ -588,83 +588,83 @@
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"böngésző gyorsítótár törölve",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"host adatok frissítve: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix a következő oldalt akadályozta meg a betöltésben:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"A következő szabály miatt",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Vissza",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Bezár",
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Revert all temporary changes",
+    "message":"Minden ideiglenes változtatás törlése",
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Temporarily whitelist page domain",
+    "message":"Domain hozzáadása ideiglenes kivételként",
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Temporarily whitelist all",
+    "message":"Ideiglenes kivétel hozzáadása",
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Vezérlőpult megnyitása",
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"egy perce",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"{{value}} perce",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"egy órája",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"{{value}} órája",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"egy napja",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"{{value}} napja",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Vezérlőpult",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Napló",
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"Exportálás a felhőszolgáltatásba",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"Importálás a felhőszolgáltatásból",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -672,19 +672,19 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Eszköz neve:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"Küldés",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Visszaállítás",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
-    "message":"Network error: Unable to connect to {{url}}",
+    "message":"Hálózati hiba: sikertelen kapcsolódás {{url}}",
     "description":""
   }
 }

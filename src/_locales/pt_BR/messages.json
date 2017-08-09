@@ -52,11 +52,11 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "mediaPrettyName":{
-    "message":"media",
+    "message":"mídia",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"mídia",
+    "message":"plugin",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
@@ -144,7 +144,7 @@
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> tentativas frustradas: {{count}}",
+    "message":"<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> tentativas falhas: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
@@ -356,7 +356,7 @@
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Alguns sites são realmente empenhados no seu rastreamento, tanto que eles vão usar truques não tão agradáveis ​​para contornar as medidas de tomar, a fim de não ser rastreado.<\/p><p>Alguns desses truques é usar<sup style='font-size:smaller'>[1, 2]<\/sup> no <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>cache do navegador<\/a>, que o conteúdo é muitas vezes de longa duração já que raramente os usuários irão perder seu tempo para limpar regularmente o cache de seu navegador.<\/p><p>Há pouco inconveniente em limpar o cache do navegador regularmente (mais provável é que você não vai notar quando isso acontece), e o benefício é para evitar que esses rastreadores detestáveis ​​de invadir a sua privacidade.<\/p><p>Marque esta opção para o <i>uMatrix<\/i> fazer isso por você, no intervalo que você desejar.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Alguns sites são realmente empenhados no seu rastreamento, tanto que eles vão usar truques não tão agradáveis ​​para contornar as medidas de tomar, a fim de não ser rastreado.<\/p><p>Alguns desses truques é usar<sup>[1, 2]<\/sup> no <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>cache do navegador<\/a>, que o conteúdo é muitas vezes de longa duração já que raramente os usuários irão perder seu tempo para limpar regularmente o cache de seu navegador.<\/p><p>Há pouco inconveniente em limpar o cache do navegador regularmente (mais provável é que você não vai notar quando isso acontece), e o benefício é para evitar que esses rastreadores detestáveis ​​de invadir a sua privacidade.<\/p><p>Marque esta opção para o <i>uMatrix<\/i> fazer isso por você, no intervalo que você desejar.<\/p><p>[1]<a\nhref='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
@@ -364,7 +364,7 @@
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"Do Wikipedia:<blockquote>HTTP Referer é um campo de cabeçalho HTTP que identifica o endereço da página que ligado ao recurso que está sendo solicitado. ... <b>Porque a informação do referer pode violar a privacidade, alguns navegadores da Web permitem que o usuário desativar o envio de informações do referer.<\/b><\/blockquote>Se essa configuração for selecionada, <i>uMatrix<\/i> irá remover as informações HTTP referer se o nome do domínio do HTTP referrer é de terceiros para o nome de domínio da solicitação.",
+    "message":"Do Wikipedia:<blockquote>HTTP referer é um campo de cabeçalho HTTP que identifica o endereço da página que ligado ao recurso que está sendo solicitado. ... <b>Porque a informação do referer pode violar a privacidade, alguns navegadores da Web permitem que o usuário desativar o envio de informações do referer.<\/b><\/blockquote>Se essa configuração for selecionada, <i>uMatrix<\/i> irá remover as informações HTTP referer se o nome do domínio do HTTP referrer é de terceiros para o nome de domínio da solicitação.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
@@ -376,7 +376,7 @@
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Bloquear todas tentativas de <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>hyperlink auditing<\/a>.",
+    "message":"Bloquear todas tentativas de <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
