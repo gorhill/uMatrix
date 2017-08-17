@@ -91,7 +91,31 @@ vAPI.closePopup = function() {
 // This storage is optional, but it is nice to have, for a more polished user
 // experience.
 
-vAPI.localStorage = self.localStorage;
+// This can throw in some contexts (like in devtool).
+try {
+    vAPI.localStorage = self.localStorage;
+} catch (ex) {
+}
+
+// https://github.com/gorhill/uBlock/issues/2824
+//   Use a dummy localStorage if for some reasons it's not available.
+if ( vAPI.localStorage instanceof Object === false ) {
+    vAPI.localStorage = {
+        length: 0,
+        clear: function() {
+        },
+        getItem: function() {
+            return null;
+        },
+        key: function() {
+            throw new RangeError();
+        },
+        removeItem: function() {
+        },
+        setItem: function() {
+        }
+    };
+}
 
 /******************************************************************************/
 
