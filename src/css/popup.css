@@ -621,3 +621,17 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
 #domainOnly:hover {
     opacity: 1;
     }
+
+@-moz-document url-prefix() {
+    html {
+        overflow-y: hidden;
+        }
+    .paneContainer {
+        max-height: 600px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        }
+    .paneHead {
+        right: auto;
+        }
+    }
