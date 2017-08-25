@@ -12,8 +12,7 @@
     "browser_action": {
         "browser_style": false,
         "default_icon": {
-            "19": "img/browsericons/icon19.png",
-            "38": "img/browsericons/icon38.png"
+            "19": "img/browsericons/icon19-off.png"
         },
         "default_title": "uMatrix",
         "default_popup": "popup.html"
