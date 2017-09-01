@@ -9,20 +9,21 @@ DES=dist/build/uMatrix.webext
 rm -rf $DES
 mkdir -p $DES
 
-cp -R ./assets                           $DES/
-cp -R ./src/*                            $DES/
-cp    platform/chromium/*.html           $DES/
-cp    platform/chromium/*.js             $DES/js/
-cp -R platform/chromium/img/*            $DES/img/
-cp    LICENSE.txt                        $DES/
+cp -R ./assets                             $DES/
+cp -R ./src/*                              $DES/
+cp    platform/chromium/*.html             $DES/
+cp    platform/chromium/*.js               $DES/js/
+cp -R platform/chromium/img/*              $DES/img/
+cp    LICENSE.txt                          $DES/
 
-cp    platform/webext/options_ui.html    $DES/
+cp    platform/webext/options_ui.html      $DES/
 rm    $DES/js/options_ui.js
-cp    platform/webext/polyfill.js        $DES/js/
-cp    platform/webext/manifest.json      $DES/
+cp    platform/webext/polyfill.js          $DES/js/
+cp    platform/webext/vapi-cachestorage.js $DES/js/
+cp    platform/webext/manifest.json        $DES/
 
 echo "*** uMatrix.webext: Generating meta..."
-python tools/make-webext-meta.py $DES/
+python tools/make-webext-meta.py           $DES/
 
 if [ "$1" = all ]; then
     echo "*** uMatrix.webext: Creating package..."
