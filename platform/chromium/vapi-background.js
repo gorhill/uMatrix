@@ -39,6 +39,16 @@ var manifest = chrome.runtime.getManifest();
 
 vAPI.chrome = true;
 
+vAPI.webextFlavor = '';
+if (
+    self.browser instanceof Object &&
+    typeof self.browser.runtime.getBrowserInfo === 'function'
+) {
+    self.browser.runtime.getBrowserInfo().then(function(info) {
+        vAPI.webextFlavor = info.vendor + '-' + info.name + '-' + info.version;
+    });
+}
+
 var noopFunc = function(){};
 
 /******************************************************************************/
@@ -845,28 +855,49 @@ vAPI.cookies.remove = function(details, callback) {
 /******************************************************************************/
 
 vAPI.cloud = (function() {
+    // Not all platforms support `chrome.storage.sync`.
+    if ( chrome.storage.sync instanceof Object === false ) {
+        return;
+    }
+
     var chunkCountPerFetch = 16; // Must be a power of 2
 
     // Mind chrome.storage.sync.MAX_ITEMS (512 at time of writing)
     var maxChunkCountPerItem = Math.floor(512 * 0.75) & ~(chunkCountPerFetch - 1);
 
     // Mind chrome.storage.sync.QUOTA_BYTES_PER_ITEM (8192 at time of writing)
-    var maxChunkSize = Math.floor(chrome.storage.sync.QUOTA_BYTES_PER_ITEM * 0.75);
+    var maxChunkSize = chrome.storage.sync.QUOTA_BYTES_PER_ITEM || 8192;
 
-    // Mind chrome.storage.sync.QUOTA_BYTES_PER_ITEM (8192 at time of writing)
-    var maxStorageSize = chrome.storage.sync.QUOTA_BYTES;
+    // Mind chrome.storage.sync.QUOTA_BYTES (128 kB at time of writing)
+    // Firefox:
+    // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/storage/sync
+    // > You can store up to 100KB of data using this API/
+    var maxStorageSize = chrome.storage.sync.QUOTA_BYTES || 102400;
+
+    // Flavor-specific handling needs to be done here. Reason: to allow time
+    // for vAPI.webextFlavor to be properly set.
+    // https://github.com/gorhill/uBlock/issues/3006
+    //  For Firefox, we will use a lower ratio to allow for more overhead for
+    //  the infrastructure. Unfortunately this leads to less usable space for
+    //  actual data, but all of this is provided for free by browser vendors,
+    //  so we need to accept and deal with these limitations.
+    var initialize = function() {
+        var ratio = vAPI.webextFlavor.startsWith('Mozilla-Firefox-') ? 0.6 : 0.75;
+        maxChunkSize = Math.floor(maxChunkSize * ratio);
+        initialize = function(){};
+    };
 
     var options = {
         defaultDeviceName: window.navigator.platform,
-        deviceName: window.localStorage.getItem('deviceName') || ''
+        deviceName: vAPI.localStorage.getItem('deviceName') || ''
     };
 
     // This is used to find out a rough count of how many chunks exists:
     // We "poll" at specific index in order to get a rough idea of how
     // large is the stored string.
     // This allows reading a single item with only 2 sync operations -- a
-    // good thing given chrome.storage.syncMAX_WRITE_OPERATIONS_PER_MINUTE
-    // and chrome.storage.syncMAX_WRITE_OPERATIONS_PER_HOUR.
+    // good thing given chrome.storage.sync.MAX_WRITE_OPERATIONS_PER_MINUTE
+    // and chrome.storage.sync.MAX_WRITE_OPERATIONS_PER_HOUR.
 
     var getCoarseChunkCount = function(dataKey, callback) {
         var bin = {};
@@ -912,6 +943,8 @@ vAPI.cloud = (function() {
     };
 
     var push = function(dataKey, data, callback) {
+        initialize();
+
         var bin = {
             'source': options.deviceName || options.defaultDeviceName,
             'tstamp': Date.now(),
@@ -921,7 +954,7 @@ vAPI.cloud = (function() {
         bin.size = JSON.stringify(bin).length;
         var item = JSON.stringify(bin);
 
-        // Chunkify taking into account  QUOTA_BYTES_PER_ITEM:
+        // Chunkify taking into account QUOTA_BYTES_PER_ITEM:
         //   https://developer.chrome.com/extensions/storage#property-sync
         //   "The maximum size (in bytes) of each individual item in sync
         //   "storage, as measured by the JSON stringification of its value
@@ -937,6 +970,9 @@ vAPI.cloud = (function() {
             var errorStr;
             if ( chrome.runtime.lastError ) {
                 errorStr = chrome.runtime.lastError.message;
+                // https://github.com/gorhill/uBlock/issues/3006#issuecomment-332597677
+                // - Delete all that was pushed in case of failure.
+                chunkCount = 0;
             }
             callback(errorStr);
 
@@ -946,6 +982,8 @@ vAPI.cloud = (function() {
     };
 
     var pull = function(dataKey, callback) {
+        initialize();
+
         var assembleChunks = function(bin) {
             if ( chrome.runtime.lastError ) {
                 callback(null, chrome.runtime.lastError.message);
@@ -1002,7 +1040,7 @@ vAPI.cloud = (function() {
         }
 
         if ( typeof details.deviceName === 'string' ) {
-            window.localStorage.setItem('deviceName', details.deviceName);
+            vAPI.localStorage.setItem('deviceName', details.deviceName);
             options.deviceName = details.deviceName;
         }
 
