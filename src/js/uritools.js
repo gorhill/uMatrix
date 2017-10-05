@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2016 Raymond Hill
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global µMatrix, publicSuffixList */
+/* global publicSuffixList, punycode */
 
 'use strict';
 
@@ -49,8 +49,10 @@ var reRFC3986 = /^([^:\/?#]+:)?(\/\/[^\/?#]*)?([^?#]*)(\?[^#]*)?(#.*)?/;
 // Derived
 var reSchemeFromURI          = /^[^:\/?#]+:/;
 var reAuthorityFromURI       = /^(?:[^:\/?#]+:)?(\/\/[^\/?#]+)/;
+var reOriginFromURI          = /^(?:[^:\/?#]+:)?(?:\/\/[^\/?#]+)/;
 var reCommonHostnameFromURL  = /^https?:\/\/([0-9a-z_][0-9a-z._-]*[0-9a-z])\//;
 var rePathFromURI            = /^(?:[^:\/?#]+:)?(?:\/\/[^\/?#]*)?([^?#]*)/;
+var reMustNormalizeHostname  = /[^0-9a-z._-]/;
 
 // These are to parse authority field, not parsed by above official regex
 // IPv6 is seen as an exception: a non-compatible IPv6 is first tried, and
@@ -60,11 +62,11 @@ var rePathFromURI            = /^(?:[^:\/?#]+:)?(?:\/\/[^\/?#]*)?([^?#]*)/;
 // https://github.com/gorhill/httpswitchboard/issues/211
 // "While a hostname may not contain other characters, such as the
 // "underscore character (_), other DNS names may contain the underscore"
-var reHostPortFromAuthority  = /^(?:[^@]*@)?([0-9a-z._-]*)(:\d*)?$/i;
+var reHostPortFromAuthority  = /^(?:[^@]*@)?([^:]*)(:\d*)?$/;
 var reIPv6PortFromAuthority  = /^(?:[^@]*@)?(\[[0-9a-f:]*\])(:\d*)?$/i;
 
 var reHostFromNakedAuthority = /^[0-9a-z._-]+[0-9a-z]$/i;
-var reHostFromAuthority      = /^(?:[^@]*@)?([0-9a-z._-]+)(?::\d*)?$/i;
+var reHostFromAuthority      = /^(?:[^@]*@)?([^:]+)(?::\d*)?$/;
 var reIPv6FromAuthority      = /^(?:[^@]*@)?(\[[0-9a-f:]+\])(?::\d*)?$/i;
 
 // Coarse (but fast) tests
@@ -227,6 +229,13 @@ URI.assemble = function(bits) {
 
 /******************************************************************************/
 
+URI.originFromURI = function(uri) {
+    var matches = reOriginFromURI.exec(uri);
+    return matches !== null ? matches[0].toLowerCase() : '';
+};
+
+/******************************************************************************/
+
 URI.schemeFromURI = function(uri) {
     var matches = reSchemeFromURI.exec(uri);
     if ( matches === null ) {
@@ -265,33 +274,34 @@ URI.authorityFromURI = function(uri) {
 
 // The most used function, so it better be fast.
 
+// https://github.com/gorhill/uBlock/issues/1559
+//   See http://en.wikipedia.org/wiki/FQDN
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1360285
+//   Revisit punycode dependency when above issue is fixed in Firefox.
+
 URI.hostnameFromURI = function(uri) {
     var matches = reCommonHostnameFromURL.exec(uri);
-    if ( matches ) {
-        return matches[1];
-    }
+    if ( matches !== null ) { return matches[1]; }
     matches = reAuthorityFromURI.exec(uri);
-    if ( !matches ) {
-        return '';
-    }
+    if ( matches === null ) { return ''; }
     var authority = matches[1].slice(2);
-    // Assume very simple authority (most common case for µMatrix)
+    // Assume very simple authority (most common case for µBlock)
     if ( reHostFromNakedAuthority.test(authority) ) {
         return authority.toLowerCase();
     }
     matches = reHostFromAuthority.exec(authority);
-    if ( !matches ) {
+    if ( matches === null ) {
         matches = reIPv6FromAuthority.exec(authority);
-        if ( !matches ) {
-            return '';
-        }
+        if ( matches === null ) { return ''; }
     }
-    // http://en.wikipedia.org/wiki/FQDN
     var hostname = matches[1];
-    if ( hostname.slice(-1) === '.' ) {
+    while ( hostname.endsWith('.') ) {
         hostname = hostname.slice(0, -1);
     }
-    return hostname.toLowerCase();
+    if ( reMustNormalizeHostname.test(hostname) ) {
+        hostname = punycode.toASCII(hostname.toLowerCase());
+    }
+    return hostname;
 };
 
 /******************************************************************************/
@@ -321,9 +331,9 @@ var psl = publicSuffixList;
 /******************************************************************************/
 
 URI.pathFromURI = function(uri) {
-     var matches = rePathFromURI.exec(uri);
-     return matches !== null ? matches[1] : '';
- };
+    var matches = rePathFromURI.exec(uri);
+    return matches !== null ? matches[1] : '';
+};
  
 /******************************************************************************/
 
