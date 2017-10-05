@@ -48,8 +48,6 @@ var directiveSort = function(a, b) {
 
 var processUserRules = function(response) {
     var rules, rule, i;
-    var permanentList = [];
-    var temporaryList = [];
     var allRules = {};
     var permanentRules = {};
     var temporaryRules = {};
@@ -71,29 +69,48 @@ var processUserRules = function(response) {
             temporaryRules[rule] = allRules[rule] = true;
         }
     }
+
+    var permanentList = document.createDocumentFragment(),
+        temporaryList = document.createDocumentFragment(),
+        li;
+
     rules = Object.keys(allRules).sort(directiveSort);
     for ( i = 0; i < rules.length; i++ ) {
         rule = rules[i];
         onLeft = permanentRules.hasOwnProperty(rule);
         onRight = temporaryRules.hasOwnProperty(rule);
         if ( onLeft && onRight ) {
-            permanentList.push('<li>', rule);
-            temporaryList.push('<li>', rule);
+            li = document.createElement('li');
+            li.textContent = rule;
+            permanentList.appendChild(li);
+            li = document.createElement('li');
+            li.textContent = rule;
+            temporaryList.appendChild(li);
         } else if ( onLeft ) {
-            permanentList.push('<li>', rule);
-            temporaryList.push('<li class="notRight toRemove">', rule);
+            li = document.createElement('li');
+            li.textContent = rule;
+            permanentList.appendChild(li);
+            li = document.createElement('li');
+            li.textContent = rule;
+            li.className = 'notRight toRemove';
+            temporaryList.appendChild(li);
         } else if ( onRight ) {
-            permanentList.push('<li>&nbsp;');
-            temporaryList.push('<li class="notLeft">', rule);
+            li = document.createElement('li');
+            li.textContent = '\xA0';
+            permanentList.appendChild(li);
+            li = document.createElement('li');
+            li.textContent = rule;
+            li.className = 'notLeft';
+            temporaryList.appendChild(li);
         }
     }
 
     // TODO: build incrementally.
 
     uDom('#diff > .left > ul > li').remove();
-    uDom('#diff > .left > ul').html(permanentList.join(''));
+    document.querySelector('#diff > .left > ul').appendChild(permanentList);
     uDom('#diff > .right > ul > li').remove();
-    uDom('#diff > .right > ul').html(temporaryList.join(''));
+    document.querySelector('#diff > .right > ul').appendChild(temporaryList);
     uDom('#diff').toggleClass('dirty', response.temporaryRules !== response.permanentRules);
 };
 

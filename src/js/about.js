@@ -21,11 +21,11 @@
 
 /* global vAPI, uDom */
 
+'use strict';
+
 /******************************************************************************/
 
 uDom.onLoad(function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -120,13 +120,14 @@ var resetUserData = function() {
 
 (function() {
     var renderStats = function(details) {
-        uDom('#aboutVersion').html(details.version);
+        document.getElementById('aboutVersion').textContent = details.version;
         var template = uDom('[data-i18n="aboutStorageUsed"]').text();
         var storageUsed = '?';
         if ( typeof details.storageUsed === 'number' ) {
             storageUsed = details.storageUsed.toLocaleString();
         }
-        uDom('#aboutStorageUsed').html(template.replace('{{storageUsed}}', storageUsed));
+        document.getElementById('aboutStorageUsed').textContent =
+            template.replace('{{storageUsed}}', storageUsed);
     };
     messager.send({ what: 'getSomeStats' }, renderStats);
 })();

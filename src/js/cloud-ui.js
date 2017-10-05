@@ -168,28 +168,31 @@ var onInitialize = function(options) {
 
     fetchCloudData();
 
-    var html = [
-        '<button id="cloudPush" type="button" title="cloudPush"></button>',
-        '<span data-i18n="cloudNoData"></span>',
-        '<button id="cloudPull" type="button" title="cloudPull" disabled></button>',
-        '<span id="cloudCog" class="fa">&#xf013;</span>',
-        '<div id="cloudOptions">',
-        '    <div>',
-        '        <p><label data-i18n="cloudDeviceNamePrompt"></label> <input id="cloudDeviceName" type="text" value="">',
-        '        <p><button id="cloudOptionsSubmit" type="button" data-i18n="genericSubmit"></button>',
-        '    </div>',
-        '</div>',
-    ].join('');
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'cloud-ui.html', true);
+    xhr.overrideMimeType('text/html;charset=utf-8');
+    xhr.responseType = 'text';
+    xhr.onload = function() {
+        this.onload = null;
+        var parser = new DOMParser(),
+            parsed = parser.parseFromString(this.responseText, 'text/html'),
+            fromParent = parsed.body;
+        while ( fromParent.firstElementChild !== null ) {
+            widget.appendChild(
+                document.adoptNode(fromParent.firstElementChild)
+            );
+        }
 
-    vAPI.insertHTML(widget, html);
-    vAPI.i18n.render(widget);
-    widget.classList.remove('hide');
+        vAPI.i18n.render(widget);
+        widget.classList.remove('hide');
 
-    uDom('#cloudPush').on('click', pushData);
-    uDom('#cloudPull').on('click', pullData);
-    uDom('#cloudCog').on('click', openOptions);
-    uDom('#cloudOptions').on('click', closeOptions);
-    uDom('#cloudOptionsSubmit').on('click', submitOptions);
+        uDom('#cloudPush').on('click', pushData);
+        uDom('#cloudPull').on('click', pullData);
+        uDom('#cloudCog').on('click', openOptions);
+        uDom('#cloudOptions').on('click', closeOptions);
+        uDom('#cloudOptionsSubmit').on('click', submitOptions);
+    };
+    xhr.send();
 };
 
 messager.send({ what: 'cloudGetOptions' }, onInitialize);

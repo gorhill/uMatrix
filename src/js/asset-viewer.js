@@ -34,7 +34,7 @@ var messager = vAPI.messaging.channel('asset-viewer.js');
 /******************************************************************************/
 
 var onAssetContentReceived = function(details) {
-    uDom('#content').html(details && (details.content || ''));
+    document.getElementById('content').textContent = details && (details.content || '');
 };
 
 /******************************************************************************/
