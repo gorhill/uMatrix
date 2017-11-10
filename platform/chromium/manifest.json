@@ -19,36 +19,6 @@
     "background": {
         "page": "background.html"
     },
-    "commands": {
-       "revert-all": {
-            "description": "__MSG_commandRevertAll__",
-            "suggested_key": {
-                "default": "Alt+Q",
-                "mac": "Command+Shift+Q"
-            }
-        },
-       "whitelist-all": {
-            "description": "__MSG_commandWhitelistAll__",
-            "suggested_key": {
-                "default": "Alt+A",
-                "mac": "Command+Shift+A"
-            }
-        },
-       "whitelist-page-domain": {
-            "description": "__MSG_commandWhitelistPageDomain__",
-            "suggested_key": {
-                "default": "Alt+W",
-                "mac": "Command+Shift+W"
-            }
-        },
-       "open-dashboard": {
-            "description": "__MSG_commandOpenDashboard__",
-            "suggested_key": {
-                "default": "Alt+S",
-                "mac": "Command+Shift+S"
-            }
-        }
-    },
     "content_scripts": [
     {
         "matches": ["http://*/*", "https://*/*"],
