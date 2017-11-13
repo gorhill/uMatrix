@@ -62,6 +62,7 @@ var onCloudDataReceived = function(entry) {
     self.cloud.data = entry.data;
 
     uDom.nodeFromId('cloudPull').removeAttribute('disabled');
+    uDom.nodeFromId('cloudPullAndMerge').removeAttribute('disabled');
 
     var timeOptions = {
         weekday: 'short',
@@ -113,6 +114,14 @@ var pushData = function() {
 var pullData = function(ev) {
     if ( typeof self.cloud.onPull === 'function' ) {
         self.cloud.onPull(self.cloud.data, ev.shiftKey);
+    }
+};
+
+/******************************************************************************/
+
+var pullAndMergeData = function() {
+    if ( typeof self.cloud.onPull === 'function' ) {
+        self.cloud.onPull(self.cloud.data, true);
     }
 };
 
@@ -188,6 +197,7 @@ var onInitialize = function(options) {
 
         uDom('#cloudPush').on('click', pushData);
         uDom('#cloudPull').on('click', pullData);
+        uDom('#cloudPullAndMerge').on('click', pullAndMergeData);
         uDom('#cloudCog').on('click', openOptions);
         uDom('#cloudOptions').on('click', closeOptions);
         uDom('#cloudOptionsSubmit').on('click', submitOptions);

@@ -307,9 +307,7 @@ self.cloud.onPush = function() {
 };
 
 self.cloud.onPull = function(data, append) {
-    if ( typeof data !== 'string' ) {
-        return;
-    }
+    if ( typeof data !== 'string' ) { return; }
     if ( append ) {
         data = rulesFromHTML('#diff .right li') + '\n' + data;
     }
