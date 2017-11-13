@@ -38,7 +38,6 @@
         "128": "img/icon_128.png"
     },
     "manifest_version": 2,
-    "minimum_chrome_version": "26.0",
     "name": "uMatrix",
     "options_ui": {
       "page":"dashboard.html",
