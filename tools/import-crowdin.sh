@@ -22,6 +22,7 @@ cp $SRCDIR/cs_CZ/messages.json  $DESDIR/cs/messages.json
 cp $SRCDIR/da_DK/messages.json  $DESDIR/da/messages.json
 cp $SRCDIR/de_DE/messages.json  $DESDIR/de/messages.json
 cp $SRCDIR/el_GR/messages.json  $DESDIR/el/messages.json
+cp $SRCDIR/eo_UY/messages.json  $DESDIR/eo/messages.json
 cp $SRCDIR/es_ES/messages.json  $DESDIR/es/messages.json
 cp $SRCDIR/et_EE/messages.json  $DESDIR/et/messages.json
 cp $SRCDIR/fa_IR/messages.json  $DESDIR/fa/messages.json
@@ -52,7 +53,7 @@ cp $SRCDIR/ro_RO/messages.json  $DESDIR/ro/messages.json
 cp $SRCDIR/ru_RU/messages.json  $DESDIR/ru/messages.json
 cp $SRCDIR/sk_SK/messages.json  $DESDIR/sk/messages.json
 cp $SRCDIR/sl_SI/messages.json  $DESDIR/sl/messages.json
-cp $SRCDIR/sr_CS/messages.json  $DESDIR/sr/messages.json
+cp $SRCDIR/sr_SP/messages.json  $DESDIR/sr/messages.json
 cp $SRCDIR/sv_SE/messages.json  $DESDIR/sv/messages.json
 cp $SRCDIR/sw_KE/messages.json  $DESDIR/sw/messages.json
 cp $SRCDIR/ta_IN/messages.json  $DESDIR/ta/messages.json

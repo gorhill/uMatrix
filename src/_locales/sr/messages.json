@@ -4,43 +4,43 @@
     "description":""
   },
   "extShortDesc":{
-    "message":"Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+    "message":"Забраните или дозволите било коју врсту захтева од стране прегледача. Корисно за блокирање скрипти, реклама, друштвених мрежа и др.",
     "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
   },
   "dashboardPageName":{
-    "message":"uMatrix — Dashboard",
+    "message":"uMatrix — Контролна табла",
     "description":""
   },
   "settingsPageName":{
-    "message":"Settings",
+    "message":"Подешавања",
     "description":"a tab in dashboard"
   },
   "privacyPageName":{
-    "message":"Privacy",
+    "message":"Приватност",
     "description":"a tab in dashboard"
   },
   "statsPageName":{
-    "message":"Statistics",
+    "message":"Статистика",
     "description":"a tab in dashboard"
   },
   "userRulesPageName":{
-    "message":"My rules",
+    "message":"Моја правила",
     "description":"a tab in dashboard"
   },
   "ubiquitousRulesPageName":{
-    "message":"Hosts files",
+    "message":"Хост датотеке",
     "description":"a tab in dashboard"
   },
   "aboutPageName":{
-    "message":"About",
+    "message":"О програму",
     "description":"a tab in dashboard"
   },
   "allPrettyName":{
-    "message":"all",
+    "message":"све",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cookiePrettyName":{
-    "message":"cookie",
+    "message":"колачић",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "cssPrettyName":{
@@ -48,19 +48,19 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "imagePrettyName":{
-    "message":"image",
+    "message":"слика",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "mediaPrettyName":{
-    "message":"media",
+    "message":"медији",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "pluginPrettyName":{
-    "message":"plugin",
+    "message":"прикључак",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "scriptPrettyName":{
-    "message":"script",
+    "message":"скрипта",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "xhrPrettyName":{
@@ -68,135 +68,135 @@
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "framePrettyName":{
-    "message":"frame",
+    "message":"оквир",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "otherPrettyName":{
-    "message":"other",
+    "message":"остало",
     "description":"HAS TO FIT IN MATRIX HEADER!"
   },
   "matrixNoNetTrafficPrompt":{
-    "message":"No net traffic seen for this tab so far.",
+    "message":"Нема мрежних активности на овој картици.",
     "description":""
   },
   "matrixMtxButtonTip":{
-    "message":"Disable\/enable matrix filtering for this scope.",
+    "message":"Омогући\/онемогући матрично филтрирање за ову област.",
     "description":"Tool tip for matrix button"
   },
   "matrixPersistButtonTip":{
-    "message":"Save all temporary changes for this scope.",
+    "message":"Сачувај све привремене измене за ову област.",
     "description":"Tool tip for the persist button"
   },
   "matrixRevertButtonTip":{
-    "message":"Revert temporary changes for this scope.",
+    "message":"Врати привремене измене за ову област.",
     "description":"Tool tip for the revert local permission button"
   },
   "matrixReloadButton":{
-    "message":"Reload the page.",
+    "message":"Поново учитај страницу.",
     "description":"Tool tip for the reload button"
   },
   "matrix1stPartyLabel":{
-    "message":"1st-party",
+    "message":"Тренутни домен",
     "description":"1st-party"
   },
   "matrixBlacklistedHostnames":{
-    "message":"{{count}} blacklisted hostname(s)",
+    "message":"забрањених сајтова: {{count}}",
     "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
   },
   "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
+    "message":"Само HTTPS",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchUASpoof":{
-    "message":"User agent spoofing",
+    "message":"User agent лажирање",
     "description":"A menu entry in the matrix popup"
   },
   "matrixSwitchReferrerSpoof":{
-    "message":"Referrer spoofing",
+    "message":"Referrer лажирање",
     "description":"A menu entry in the matrix popup"
   },
   "matrixRevertAllEntry":{
-    "message":"Revert all temporary changes",
+    "message":"Врати све привремене измене",
     "description":"A menu entry in the matrix popup"
   },
   "matrixLoggerMenuEntry":{
-    "message":"Go to logger",
+    "message":"Иди на евиденцију",
     "description":"A menu entry in the matrix popup"
   },
   "matrixDashboardMenuEntry":{
-    "message":"Go to dashboard",
+    "message":"Иди на контролну таблу",
     "description":"A menu entry in the matrix popup"
   },
   "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistics",
+    "message":"uMatrix &ndash; Статистика",
     "description":""
   },
   "statsPageGenericStats":{
-    "message":"Generic statistics",
+    "message":"Општа статистика",
     "description":""
   },
   "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> блокираних заглавља: {{count}}",
     "description":""
   },
   "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers foiled: {{count}}",
+    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> блокираних заглавља: {{count}}",
     "description":""
   },
   "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> attempts foiled: {{count}}",
+    "message":"Блокираних покушаја <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>надгледања хипервеза<\/a>: {{count}}",
     "description":""
   },
   "statsPageCookiesRemoved":{
-    "message":"Local cookies removed: {{count}}",
+    "message":"Уклоњено локалних колачића: {{count}}",
     "description":""
   },
   "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Локалних складишта<\/a> испражњено: {{count}}",
     "description":""
   },
   "statsPageBrowserCacheCleared":{
-    "message":"Browser caches cleared: {{count}}",
+    "message":"Очишћено кеша прегледача: {{count}}",
     "description":""
   },
   "statsPageDetailedStats":{
-    "message":"Detailed statistics",
+    "message":"Детаљна статистика",
     "description":""
   },
   "statsPageDetailedAllPages":{
-    "message":"All",
+    "message":"Све",
     "description":""
   },
   "statsPageDetailedBehindTheScenePage":{
-    "message":"Behind the scene",
+    "message":"Скривени захтеви",
     "description":""
   },
   "statsPageOverview":{
-    "message":"Overview",
+    "message":"Преглед",
     "description":""
   },
   "statsPageRequests":{
-    "message":"Requests",
+    "message":"Захтеви",
     "description":"header for the stat type column"
   },
   "statsPageAllowed":{
-    "message":"Allowed",
+    "message":"Дозвољено",
     "description":"header for the allowed requests column"
   },
   "statsPageBlocked":{
-    "message":"Blocked",
+    "message":"Блокирано",
     "description":"header for the blocked requests column"
   },
   "statsPageAll":{
-    "message":"All",
+    "message":"Све",
     "description":""
   },
   "statsPagePages":{
-    "message":"Pages",
+    "message":"Странице",
     "description":""
   },
   "statsPageCookies":{
-    "message":"Cookies",
+    "message":"Колачићи",
     "description":""
   },
   "statsPageCSS":{
@@ -204,235 +204,235 @@
     "description":""
   },
   "statsPageImages":{
-    "message":"Images",
+    "message":"Слике",
     "description":""
   },
   "statsPagePlugins":{
-    "message":"Plugins",
+    "message":"Прикључци",
     "description":""
   },
   "statsPageScripts":{
-    "message":"Scripts",
+    "message":"Скрипте",
     "description":""
   },
   "statsPageXHRs":{
-    "message":"XHRs",
+    "message":"XHR",
     "description":""
   },
   "statsPageFrames":{
-    "message":"Frames",
+    "message":"Оквири",
     "description":""
   },
   "statsPageOthers":{
-    "message":"Others",
+    "message":"Остало",
     "description":""
   },
   "statsPageDetailed":{
-    "message":"Logger",
+    "message":"Евиденција",
     "description":""
   },
   "statsPageLogSizePrompt1":{
-    "message":"Remember the last",
+    "message":"Запамти последње",
     "description":"First part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizePrompt2":{
-    "message":"HTTP requests <b>per page<\/b>.",
+    "message":"HTTP захтеви <b>по страници<\/b>.",
     "description":"Second part of Remember the last [n] HTTP requests per page"
   },
   "statsPageLogSizeHelp":{
-    "message":"<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
+    "message":"<p>Можете прегледати детаље најновијих HTTP захтева креираних од стране веб странице (видети испод).<\/p><p>Ово је нарочито корисно напредним корисницима који желе да сазнају шта је тачно страница радила. Али за евидентирање ових HTTP захтева потребна је меморија, па ако вам није битна ова техничка информација, то значи повећање заузећа меморије.<\/p><p>Дакле, ово поље вам омогућава да подесите максимални број најновијих HTTP захтева које треба да се евидентирају ради даљег испитивања.<\/p><p>Унесите &ldquo;<code>0<\/code>&rdquo; за искључивање детаљног евидентирања (и смањења заузећа меморије од стране додатка <i>uMatrix<\/i>).<\/p>",
     "description":"To help user understand the purpose of the log size value"
   },
   "statsPageRefresh":{
-    "message":"Refresh",
+    "message":"Освежи",
     "description":""
   },
   "settingsPageTitle":{
-    "message":"uMatrix &ndash; Settings",
+    "message":"uMatrix &ndash; Подешавања",
     "description":""
   },
   "settingsMatrixDisplayHeader":{
-    "message":"Appearance",
+    "message":"Изглед",
     "description":""
   },
   "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Text size:",
+    "message":"Величина текста:",
     "description":""
   },
   "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normal",
+    "message":"Нормалан",
     "description":""
   },
   "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Large",
+    "message":"Велики",
     "description":""
   },
   "settingsMatrixDisplayColorBlind":{
-    "message":"Color-blind friendly",
+    "message":"Шема боја за далтонисте",
     "description":""
   },
   "settingsMatrixConvenienceHeader":{
-    "message":"Convenience",
+    "message":"Погодност",
     "description":"English: Convenience"
   },
   "settingsMatrixAutoReloadPrompt":{
-    "message":"When the matrix is closed, smart reload these tabs:",
+    "message":"Приликом затварања матрице, паметно обнови ове картице:",
     "description":""
   },
   "settingsMatrixAutoReloadNone":{
-    "message":"None",
+    "message":"Ниједан",
     "description":""
   },
   "settingsMatrixAutoReloadCurrent":{
-    "message":"Current",
+    "message":"Тренутни",
     "description":""
   },
   "settingsMatrixAutoReloadAll":{
-    "message":"All",
+    "message":"Све",
     "description":""
   },
   "settingsMatrixAutoReloadInfo":{
-    "message":"Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>uMatrix<\/i> will reload affected pages automatically when you close the matrix.",
+    "message":"Када год начините измене у матрици које могу утицати на приказ и\/или понашање једне или више страница, <i>uMatrix<\/i> ће аутоматски поново учитати погођене странице када будете затворили матрицу.",
     "description":""
   },
   "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
+    "message":"Блокираних оквира:&ensp;Боја",
     "description":"English: Blocked frames:&ensp;Color"
   },
   "settingsSubframeOpacity":{
-    "message":"Opacity",
+    "message":"Непрозирност",
     "description":"English: Opacity"
   },
   "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
+    "message":"Прикажи број појединачних захтева на иконици",
     "description":"English: Show the number of distinct requests on the icon"
   },
   "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
+    "message":"Скупи држач блокираних елемената",
     "description":"English: Collapse placeholder of blocked elements"
   },
   "settingsCloudStorageEnabled":{
-    "message":"Enable cloud storage support",
+    "message":"Омогући подршку складиштења у облаку",
     "description":""
   },
   "privacyPageTitle":{
-    "message":"uMatrix &ndash; Privacy",
+    "message":"uMatrix &ndash; Приватност",
     "description":""
   },
   "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Delete blocked cookies.",
+    "message":"Избриши блокиране колачиће.",
     "description":""
   },
   "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+    "message":"<p><i>uMatrix<\/i> не спречава улазак блокираних колачића у ваш прегледач али их спречава да га напусте и то је оно што је у ствари важно. Неблокирање колачића пре него што уђу у прегледач вам даје могућност да будете упознати са тим да сајт покушава да користи колачиће, као и да испитујете њихов садржај, уколико то желите.<\/p><p>Чим <i>uMatrix<\/i> обрачуна ове колачиће, можете их уклонити ако то желите.<\/p><p><b>Важна напомена<\/b>Проширења могу креирати веб захтеве током свог нормалног рада. Ови захтеви могу довести до креирања колачића у прегледачу. Ако сајт одакле потиче колачић није на белој листи, онда ће <i>uMatrix<\/i> уклонити колачић из прегледача ако је ова опција омогућена. Зато будите сигурни да сајт са којим проширење комуницира буде на белој листи.<\/p>",
     "description":""
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Delete non-blocked session cookies ",
+    "message":"Избриши неблокиране колачиће сесије ",
     "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minutes after the last time they have been used.",
+    "message":" минута након последњег коришћења.",
     "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
   },
   "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Колачић сесије ... се брише када завршите сесију прегледача. Колачић сесије се чува у привременој меморији и не задржава се после затварања прегледача.&rdquo;<\/p><p>С тим да се ово<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>можда неће десити<\/a> у појединим прегледачима. Такође, затварање прегледача због брисања колачића сесије можда неће бити довољно брзо.<\/p>",
     "description":""
   },
   "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+    "message":"Избриши садржај <a href='https:\/\/ru.wikipedia.org\/wiki\/Web_storage'>локалног складишта<\/a> блокираних сајтова",
     "description":""
   },
   "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
+    "message":"Листа задатака",
     "description":""
   },
   "privacyClearCachePrompt1":{
-    "message":"Clear browser cache every",
+    "message":"Очисти кеш прегледача сваких",
     "description":"First part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCachePrompt2":{
-    "message":"minutes.",
+    "message":"минута.",
     "description":"Second part of 'Clear browser cache every [n] minutes'"
   },
   "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+    "message":"<p>Неки веб сајтови су стварно решени да вас прате, толико да ће користити не баш лепе трикове да би заобишли све мере које предузимате да бисте избегли праћење.<\/p><p>Неко од ових трикова се заснивају<sup style='font-size:smaller'>[1, 2]<\/sup>на<a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кешу прегледача<\/a>,чији је садржај често дуготрајан, пошто корисници ретко одвајају мало времена да редовно чисте кеш прегледача.<\/p><p>Мало је непријатно редовно чистити кеш прегледача, а корист се огледа у томе да се спрече ови одвратни трагачи да упадају у вашу приватност.<\/p><p>Омогућите ову опцију да <i>uMatrix<\/i> то ради уместо вас, у временском интервалу који желите.<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Спречавање веб праћења преко кеша прегледача&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
     "description":""
   },
   "privacyProcessRefererPrompt":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+    "message":"Лажирај низ <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> за захтеве трећих страна.",
     "description":""
   },
   "privacyProcessRefererHelp":{
-    "message":"From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+    "message":"<p>Са Википедије<\/p><blockquote>HTTP referer је HTTP заглавље које идентификује адресу веб странице који је повезан са извором који се тражи. ... <b>Пошто ове информације могу нарушити приватност, неки прегледачи дозвољавају корисницима да онемогуће слање ових информација.<\/b><\/blockquote><p>Ако је ова опција омогућена, <i>uMatrix<\/i> ће лажирати информацију ако је сајт, наведен у HTTP referrer, трећа страна у односу на захтевани.",
     "description":""
   },
   "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
+    "message":"Само HTTPS: забрани мешани садржај.",
     "description":""
   },
   "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+    "message":"<p>Са<a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Ако [a] HTTPS страница укључује садржај који се преузима преко редовног,отвореног HTTP, веза је делимично кодирана: некодираном садржају се може приступити и може бити мењан, тако да веза више није безбедна. Таква веб страница се зове страница са мешаним садржајем.<\/blockquote>",
     "description":""
   },
   "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+    "message":"Блокирај све покушаје <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>надгледања хипервеза<\/a>.",
     "description":""
   },
   "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+    "message":"<p>Надгледање хипервеза је механизам који дозвољава страни, <b>било којој страни<\/b>, да се информише о томе коју везу је корисник отворио на одређеној страници. То је у суштини функција праћења: дозвољава веб сајту или некој трећој страни да се информише о томе коју везу сте отворили на којој веб страници. Једина сврха је праћење активности корисника.<\/p>",
     "description":""
   },
   "privacySpoofUserAgentPrompt1":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+    "message":"Лажирај <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> низ насумичним избором новог са листе испод, сваких",
     "description":"First part of UA-spoofing prompt"
   },
   "privacySpoofUserAgentPrompt2":{
-    "message":"minutes.",
+    "message":"минута.",
     "description":"Second part"
   },
   "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF. Please note that <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>your actual User Agent string can be leaked<\/a> through WebSockets.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
+    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Према <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...]ваш прегледач шаље &lsquo;User Agent&rsquo; заглавље веб сајту одајући тачно који оперативни систем и веб прегледач користите. Ова информација може помоћи у разликовању интернет корисника једних од других, зато што се ове верзије разликују, често знатно, од особе до особе.[...] <b>User Agent низ постаје стварни проблем приватности<\/b>.&rdquo;<p>Ова опција вам омогућује да решите питање приватности покренуто од стране EFF. Имајте на уму да <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>ваш тренутни User Agent низ може бити одат<\/a> преко WebSockets.<\/p><p>Можете креирати сопствени списак user agent низова. Један низ по линији.Празне линије и линије које почињу са &lsquo;#&rsquo; ће бити игнорисане.<\/p>",
     "description":""
   },
   "userRulesPermanentHeader":{
-    "message":"Permanent rules",
+    "message":"Трајна правила",
     "description":""
   },
   "userRulesTemporaryHeader":{
-    "message":"Temporary rules",
+    "message":"Привремена правила",
     "description":""
   },
   "userRulesRevert":{
-    "message":"Revert",
+    "message":"Врати",
     "description":"Will remove all temporary rules"
   },
   "userRulesCommit":{
-    "message":"Commit",
+    "message":"Потврди",
     "description":"Will save all temporary rules"
   },
   "userRulesEdit":{
-    "message":"Edit",
+    "message":"Уреди",
     "description":"Will enable manual-edit mode (textarea)"
   },
   "userRulesEditSave":{
-    "message":"Save",
+    "message":"Сачувај",
     "description":"Will save manually-edited content and exit manual-edit mode"
   },
   "userRulesEditDicard":{
-    "message":"Discard",
+    "message":"Одбаци",
     "description":"Will discard manually-edited content and exit manual-edit mode"
   },
   "userRulesImport":{
-    "message":"Import from file...",
+    "message":"Увези из датотеке...",
     "description":""
   },
   "userRulesExport":{
-    "message":"Export to file...",
+    "message":"Извези као датотеку...",
     "description":""
   },
   "userRulesFormatHint":{
-    "message":"See this page for rule syntax.",
+    "message":"Правила синтаксе можете погледати на овој страници.",
     "description":""
   },
   "userRulesDefaultFileName":{
@@ -440,103 +440,103 @@
     "description":"default file name to use"
   },
   "hostsFilesPrompt":{
-    "message":"All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+    "message":"Сви сајтови у хост датотеци су учитани као блокирани на глобалном нивоу.",
     "description":""
   },
   "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} distinct blocked hostnames from:",
+    "message":"{{blockedHostnameCount}} појединачних блокираних хостова из:",
     "description":""
   },
   "hostsFilesPerFileStats":{
-    "message":"{{used}} used out of {{total}}",
+    "message":"{{used}} искоришћено од {{total}}",
     "description":""
   },
   "hostsFilesLastUpdate":{
-    "message":"Last update: {{ago}}",
+    "message":"Последње ажурирање: {{ago}}",
     "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
   },
   "hostsFilesApplyChanges":{
-    "message":"Apply changes",
+    "message":"Примени измене",
     "description":""
   },
   "hostsFilesAutoUpdatePrompt":{
-    "message":"Auto-update hosts files.",
+    "message":"Аутоматски обнови хост датотеке.",
     "description":""
   },
   "hostsFilesUpdateNow":{
-    "message":"Update now",
+    "message":"Ажурирај сада",
     "description":""
   },
   "hostsFilesPurgeAll":{
-    "message":"Purge all caches",
+    "message":"Очисти сав кеш",
     "description":""
   },
   "hostsFilesExternalListsHint":{
-    "message":"One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+    "message":"Један URL по линији. Линије које почињу симболом &lsquo;#&rsquo; ће бити игнорисане. Неважеће адресе ће бити тихо игнорисане.",
     "description":""
   },
   "hostsFilesExternalListsParse":{
-    "message":"Parse",
+    "message":"Анализирај",
     "description":""
   },
   "hostsFilesExternalListPurge":{
-    "message":"purge cache",
+    "message":"очисти кеш",
     "description":""
   },
   "hostsFilesExternalListNew":{
-    "message":"new version available",
+    "message":"доступна нова верзија",
     "description":""
   },
   "hostsFilesExternalListObsolete":{
-    "message":"outdated",
+    "message":"застарело",
     "description":""
   },
   "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Списак измена<\/a>",
     "description":""
   },
   "aboutStorageUsed":{
-    "message":"Storage used: {{storageUsed}} bytes",
+    "message":"Искоришћеност складишта: {{storageUsed}} бајтова",
     "description":""
   },
   "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документација<\/a>",
     "description":""
   },
   "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Дозволе<\/a>",
     "description":""
   },
   "aboutCode":{
-    "message":"Source code (GPLv3)",
+    "message":"Изворни код (GPLv3)",
     "description":""
   },
   "aboutIssues":{
-    "message":"Bugs and issues",
+    "message":"Грешке и проблеми",
     "description":""
   },
   "aboutContributors":{
-    "message":"Contributors",
+    "message":"Сарадници",
     "description":"English: Contributors"
   },
   "aboutCodeContributors":{
-    "message":"Code:",
+    "message":"Код:",
     "description":""
   },
   "aboutIssueContributors":{
-    "message":"Issues:",
+    "message":"Проблеми:",
     "description":""
   },
   "aboutTranslationContributors":{
-    "message":"Translations:",
+    "message":"Преводи:",
     "description":""
   },
   "aboutUserDataHeader":{
-    "message":"Your data",
+    "message":"Ваши подаци",
     "description":""
   },
   "aboutBackupButton":{
-    "message":"Backup to file...",
+    "message":"Сачувај резервну копију...",
     "description":""
   },
   "aboutBackupFilename":{
@@ -544,127 +544,127 @@
     "description":"default filename to use"
   },
   "aboutRestoreButton":{
-    "message":"Restore from file...",
+    "message":"Обнови из датотеке...",
     "description":""
   },
   "aboutRestoreConfirm":{
-    "message":"All your settings will be overwritten using data backed up on {{time}}, and uMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+    "message":"Сва ваша подешавања ће бити замењена резервном копијом од {{time}}, и uMatrix ће бити поново покренут.\n\nЗаменити сва постојећа подешавања резервном копијом?",
     "description":"Message asking user to confirm restore"
   },
   "aboutRestoreError":{
-    "message":"The data could not be read or is invalid",
+    "message":"Подаци се не могу прочитати или су неважећи",
     "description":""
   },
   "aboutOr":{
-    "message":"... or ...",
+    "message":"... или ...",
     "description":"English: ... or ..."
   },
   "aboutResetButton":{
-    "message":"Reset to default settings",
+    "message":"Врати на подразумевана подешавања",
     "description":"English: Reset to default settings"
   },
   "aboutResetConfirm":{
-    "message":"Caution! this will remove all your custom settings. Are you sure you want to proceed?",
+    "message":"Пажња! Ово ће уклонити ваша прилагођена подешавања. Да ли сте сигурни да желите да наставите?",
     "description":"Message asking user to confirm reset"
   },
   "loggerFilterInputPlaceholder":{
-    "message":"filter expression(s)",
+    "message":"филтрирање израза",
     "description":"Appears in the input filed where filter expressions are entered"
   },
   "loggerMaxEntriesTip":{
-    "message":"Maximum number of entries",
+    "message":"Највећи број уноса",
     "description":"Appears as a tooltip when hovering the input field"
   },
   "loggerEntryUserAgentSpoofing":{
-    "message":"spoofing user agent with: {{value}}",
+    "message":"лажирање user agentа са: {{value}}",
     "description":"An entry for when a new user agent string is selected"
   },
   "loggerEntryCookieDeleted":{
-    "message":"cookie deleted: {{value}}",
+    "message":"колачића избрисано: {{value}}",
     "description":"An entry for when a cookie is deleted"
   },
   "loggerEntryDeleteCookieError":{
-    "message":"failed to delete cookie: {{value}}",
+    "message":"неуспелих брисања колачића: {{value}}",
     "description":"An entry for when the browser cache is cleared"
   },
   "loggerEntryBrowserCacheCleared":{
-    "message":"browser cache cleared",
+    "message":"кеш прегледача очишћен",
     "description":"An entry for when a cookie can't be deleted"
   },
   "loggerEntryAssetUpdated":{
-    "message":"asset updated: {{value}}",
+    "message":"ажурираних средстава: {{value}}",
     "description":"An entry for when an asset was updated"
   },
   "mainBlockedPrompt1":{
-    "message":"uMatrix has prevented the following page from loading:",
+    "message":"uMatrix је спречио учитавање следеће странице:",
     "description":"English: uMatrix has prevented the following page from loading:"
   },
   "mainBlockedPrompt2":{
-    "message":"Because of the following rule",
+    "message":"Због следећег правила",
     "description":"English: Because of the following rule"
   },
   "mainBlockedBack":{
-    "message":"Go back",
+    "message":"Назад",
     "description":"English: Go back"
   },
   "mainBlockedClose":{
-    "message":"Close",
+    "message":"Затвори",
     "description":"English: Close"
   },
   "commandRevertAll":{
-    "message":"Revert all temporary changes",
+    "message":"Врати све привремене измене",
     "description":""
   },
   "commandWhitelistPageDomain":{
-    "message":"Temporarily whitelist page domain",
+    "message":"Привремено дозволи домен странице",
     "description":""
   },
   "commandWhitelistAll":{
-    "message":"Temporarily whitelist all",
+    "message":"Привремено дозволи све",
     "description":""
   },
   "commandOpenDashboard":{
-    "message":"Open dashboard",
+    "message":"Отвори контролну таблу",
     "description":""
   },
   "elapsedOneMinuteAgo":{
-    "message":"a minute ago",
+    "message":"пре једног минута",
     "description":"English: a minute ago"
   },
   "elapsedManyMinutesAgo":{
-    "message":"{{value}} minutes ago",
+    "message":"пре {{value}} минута",
     "description":"English: {{value}} minutes ago"
   },
   "elapsedOneHourAgo":{
-    "message":"an hour ago",
+    "message":"пре сат времена",
     "description":"English: an hour ago"
   },
   "elapsedManyHoursAgo":{
-    "message":"{{value}} hours ago",
+    "message":"пре {{value}} сата\/и",
     "description":"English: {{value}} hours ago"
   },
   "elapsedOneDayAgo":{
-    "message":"a day ago",
+    "message":"пре једног дана",
     "description":"English: a day ago"
   },
   "elapsedManyDaysAgo":{
-    "message":"{{value}} days ago",
+    "message":"пре {{value}} дана",
     "description":"English: {{value}} days ago"
   },
   "showDashboardButton":{
-    "message":"Dashboard",
+    "message":"Контролна табла",
     "description":"Appears in Firefox's add-on preferences"
   },
   "showLoggerButton":{
-    "message":"Logger",
+    "message":"Евиденција",
     "description":"Appears in Firefox's add-on preferences"
   },
   "cloudPush":{
-    "message":"Export to cloud storage",
+    "message":"Извези у складиште у облаку",
     "description":"tooltip"
   },
   "cloudPull":{
-    "message":"Import from cloud storage",
+    "message":"Увези из складишта у облаку",
     "description":"tooltip"
   },
   "cloudNoData":{
@@ -672,19 +672,19 @@
     "description":""
   },
   "cloudDeviceNamePrompt":{
-    "message":"This device name:",
+    "message":"Име овог уређаја:",
     "description":"used as a prompt for the user to provide a custom device name"
   },
   "genericSubmit":{
-    "message":"Submit",
+    "message":"Проследи",
     "description":"for generic 'submit' buttons"
   },
   "genericRevert":{
-    "message":"Revert",
+    "message":"Врати",
     "description":"for generic 'revert' buttons"
   },
   "errorCantConnectTo":{
-    "message":"Network error: Unable to connect to {{url}}",
+    "message":"Грешка на мрежи: Ни може се повезати на {{url}}",
     "description":""
   }
 }
