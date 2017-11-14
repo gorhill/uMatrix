@@ -35,7 +35,26 @@
 
 var µm = µMatrix;
 
-/******************************************************************************/
+/*******************************************************************************
+
+    SVG-based icons below were extracted from
+    fontawesome-webfont.svg v4.7. Excerpt of copyright notice at
+    the top of the file:
+
+    > Created by FontForge 20120731 at Mon Oct 24 17:37:40 2016
+    > By ,,,
+    > Copyright Dave Gandy 2016. All rights reserved.
+
+    Excerpt of the license information in the fontawesome CSS
+    file bundled with the package:
+
+    > Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+    > License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+
+    Font icons:
+    - glyph-name: "external_link"
+
+*/
 
 var defaultLocalUserSettings = {
     // data-URI background courtesy of https://github.com/dev-random
@@ -74,8 +93,17 @@ var defaultLocalUserSettings = {
                 'padding: 0 3px;',
                 'text-decoration: none;',
             '}',
+            'svg {',
+                'display: inline-block;',
+                'fill: gray;',
+                'height: 12px;',
+                'vertical-align: bottom;',
+                'width: 12px;',
+            '}',
             '</style></head><body>',
-            '<a href="{{url}}" title="{{url}}" target="_blank">&#x2191;</a>{{url}}',
+            '<span><a href="{{url}}" title="{{url}}" target="_blank">',
+            '<svg viewBox="0 0 1792 1792"><path transform="scale(1,-1) translate(0,-1536)" d="M1408 608v-320q0 -119 -84.5 -203.5t-203.5 -84.5h-832q-119 0 -203.5 84.5t-84.5 203.5v832q0 119 84.5 203.5t203.5 84.5h704q14 0 23 -9t9 -23v-64q0 -14 -9 -23t-23 -9h-704q-66 0 -113 -47t-47 -113v-832q0 -66 47 -113t113 -47h832q66 0 113 47t47 113v320q0 14 9 23t23 9h64q14 0 23 -9t9 -23zM1792 1472v-512q0 -26 -19 -45t-45 -19t-45 19l-176 176l-652 -652q-10 -10 -23 -10t-23 10l-114 114q-10 10 -10 23t10 23l652 652l-176 176q-19 19 -19 45t19 45t45 19h512q26 0 45 -19t19 -45z" /></svg>',
+            '</a>{{url}}</span>',
             '</body></html>'
         ].join(''),
     placeholderImage: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
