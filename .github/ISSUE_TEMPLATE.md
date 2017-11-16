@@ -1,6 +1,7 @@
 <!--
 
-No feature requests please. Issues are for proven issues with uMatrix itself.
+No feature requests please. Issue tracker is for proven issues with uMatrix
+itself.
 
 uMatrix is for advanced users. I do not provide support if you have issue
 using uMatrix.
