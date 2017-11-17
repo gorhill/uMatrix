@@ -322,6 +322,10 @@
         "message": "Enable cloud storage support",
         "description": ""
     },
+    "settingsReloadOnSave" : {
+        "message": "Automatically reload after saving",
+        "description": "On the dashboard, after saving all temporary changes for the current scope (padlock icon), the page will be reload (reload icon)."
+    },
 
     "privacyPageTitle" : {
         "message": "uMatrix &ndash; Privacy",
