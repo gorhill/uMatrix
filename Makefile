@@ -4,8 +4,12 @@ PHONY: clean
 clean:
 	-rm -r dist/
 
-PHONY: build
-build:
-	tools/make-firefox.sh
+build: dist/build/uMatrix.chromium dist/build/uMatrix.firefox
+	@echo All done. Find your builds in: $^
+
+dist/build/uMatrix.chromium:
 	tools/make-chromium.sh
+
+dist/build/uMatrix.firefox:
+	tools/make-firefox.sh
 
