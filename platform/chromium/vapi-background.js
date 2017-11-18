@@ -346,7 +346,7 @@ vAPI.tabs.reload = function(tabId /*, flags*/) {
     if ( isNaN(tabId) ) {
         return;
     }
-    chrome.tabs.reload(tabId);
+    chrome.tabs.reload(tabId, { bypassCache: true });
 };
 
 /******************************************************************************/
