@@ -41,7 +41,7 @@
 //   No HTML entities are allowed, there is code to handle existing HTML
 //   entities already present in translation files until they are all gone.
 
-var reSafeTags = /^([\s\S]*?)<(b|blockquote|code|em|i|span|sup)>(.+?)<\/\2>([\s\S]*)$/,
+var reSafeTags = /^([\s\S]*?)<(b|blockquote|code|em|i|kbd|span|sup)>(.+?)<\/\2>([\s\S]*)$/,
     reSafeInput = /^([\s\S]*?)<(input type="[^"]+")>(.*?)([\s\S]*)$/,
     reInput = /^input type=(['"])([a-z]+)\1$/,
     reSafeLink = /^([\s\S]*?)<(a href=['"]https?:\/\/[^'" <>]+['"])>(.+?)<\/a>([\s\S]*)$/,
@@ -76,6 +76,8 @@ var safeTextToTagNode = function(text) {
         return document.createElement('em');
     case 'i':
         return document.createElement('i');
+    case 'kbd':
+        return document.createElement('kbd');
     case 'span':
         return document.createElement('span');
     case 'sup':
@@ -166,7 +168,9 @@ vAPI.i18n.render = function(context) {
     uDom('[data-i18n-tip]', context).forEach(function(elem) {
         elem.attr(
             'data-tip',
-            vAPI.i18n(elem.attr('data-i18n-tip')).replace(/<br>/g, '\n').replace(/\n{3,}/g, '\n\n')
+            vAPI.i18n(elem.attr('data-i18n-tip'))
+                .replace(/<br>/g, '\n')
+                .replace(/\n{3,}/g, '\n\n')
         );
     });
 };
