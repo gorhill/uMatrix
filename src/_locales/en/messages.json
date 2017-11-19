@@ -322,6 +322,10 @@
         "message": "Enable cloud storage support",
         "description": ""
     },
+    "settingsReloadOnSave" : {
+        "message": "Automatically reload tab after saving",
+        "description": "Setting checkbox for english: Automatically reload tab after saving"
+    },
 
     "privacyPageTitle" : {
         "message": "uMatrix &ndash; Privacy",

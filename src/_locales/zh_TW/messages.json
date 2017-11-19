@@ -315,6 +315,10 @@
         "message": "啟用瀏覽器自帶雲端儲存",
         "description": ""
     },
+    "settingsReloadOnSave" : {
+        "message": "重新加载后保存",
+        "description": "Setting checkbox for english: Automatically reload tab after saving"
+    },
     "privacyPageTitle": {
         "message": "uMatrix &ndash; 隱私",
         "description": ""

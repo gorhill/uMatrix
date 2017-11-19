@@ -116,6 +116,7 @@ return {
         displayTextSize: '13px',
         externalHostsFiles: '',
         iconBadgeEnabled: false,
+        reloadOnSave: false,
         maxLoggedRequests: 1000,
         popupScopeLevel: 'domain',
         processHyperlinkAuditing: true,

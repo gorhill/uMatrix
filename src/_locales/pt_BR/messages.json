@@ -315,6 +315,10 @@
     "message":"Habilitar suporte à armazenagem em nuvem",
     "description":""
   },
+  "settingsReloadOnSave" : {
+    "message": "Atualizar aba atual após salvar",
+    "description": "Setting checkbox for english: Automatically reload after saving"
+  },
   "privacyPageTitle":{
     "message":"uMatrix &ndash; Privacidade",
     "description":""

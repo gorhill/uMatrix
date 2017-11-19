@@ -315,6 +315,10 @@
     "message":"Activer le stockage des paramètres dans le nuage",
     "description":""
   },
+  "settingsReloadOnSave" : {
+    "message": "recharger page après avoir enregistré les paramètres",
+    "description": "Setting checkbox for english: Automatically reload tab after saving"
+  },
   "privacyPageTitle":{
     "message":"uMatrix &ndash; Confidentialité",
     "description":""

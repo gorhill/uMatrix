@@ -315,6 +315,10 @@
         "message": "Attiva il supporto all'archiviazione sul cloud",
         "description": ""
     },
+    "settingsReloadOnSave" : {
+        "message": "Ricarica scheda dopo aver salvato",
+        "description": "Setting checkbox for english: Automatically reload tab after saving"
+    },
     "privacyPageTitle": {
         "message": "uMatrix &ndash; Privacy",
         "description": ""
