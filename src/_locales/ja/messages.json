@@ -315,6 +315,10 @@
     "message":"クラウドストレージのサポートを有効にする",
     "description":""
   },
+  "settingsReloadOnSave" : {
+    "message": "保存した後、ページを再読み込み",
+    "description": "Setting checkbox for english: Automatically reload tab after saving"
+  },
   "privacyPageTitle":{
     "message":"uMatrix &ndash; プライバシー",
     "description":""

@@ -315,6 +315,10 @@
     "message":"Habilitar soporte de almacenamiento en la nube",
     "description":""
   },
+  "settingsReloadOnSave" : {
+    "message": "Actualizar la pestaña actual después de guardar",
+    "description": "Setting checkbox for english: Automatically reload after saving"
+  },
   "privacyPageTitle":{
     "message":"uMatrix &ndash; Privacidad",
     "description":""

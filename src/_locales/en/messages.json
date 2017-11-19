@@ -323,8 +323,8 @@
         "description": ""
     },
     "settingsReloadOnSave" : {
-        "message": "Automatically reload after saving",
-        "description": "On the dashboard, after saving all temporary changes for the current scope (padlock icon), the page will be reload (reload icon)."
+        "message": "Automatically reload tab after saving",
+        "description": "Setting checkbox for english: Automatically reload tab after saving"
     },
 
     "privacyPageTitle" : {
