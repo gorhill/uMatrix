@@ -1,690 +1,690 @@
 {
-  "extName":{
-    "message":"uম্যাট্রিক্স",
-    "description":""
-  },
-  "extShortDesc":{
-    "message":"আপনার ব্রাউজার দ্বারা করা যে কোন শ্রেণীর অনুরোধ অনুমতি\/নিষেধ করতে পয়েন্ট ও ক্লিক করুন। স্ক্রিপ্ট, আইফ্রেম, বিজ্ঞাপন, ফেসবুক, ইত্যাদি ব্লক এটি ব্যবহার করুন।",
-    "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
-  },
-  "dashboardPageName":{
-    "message":"uম্যাট্রিক্স — ড্যাশবোর্ড",
-    "description":""
-  },
-  "settingsPageName":{
-    "message":"সেটিংস",
-    "description":"a tab in dashboard"
-  },
-  "privacyPageName":{
-    "message":"গোপনীয়তা",
-    "description":"a tab in dashboard"
-  },
-  "statsPageName":{
-    "message":"পরিসংখ্যান",
-    "description":"a tab in dashboard"
-  },
-  "userRulesPageName":{
-    "message":"আমার নিয়ম",
-    "description":"a tab in dashboard"
-  },
-  "ubiquitousRulesPageName":{
-    "message":"নিমন্ত্রক ফাইল",
-    "description":"a tab in dashboard"
-  },
-  "aboutPageName":{
-    "message":"সম্পর্কে",
-    "description":"a tab in dashboard"
-  },
-  "allPrettyName":{
-    "message":"সব",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cookiePrettyName":{
-    "message":"কুকি",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cssPrettyName":{
-    "message":"css",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "imagePrettyName":{
-    "message":"চিত্র",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "mediaPrettyName":{
-    "message":"media",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "pluginPrettyName":{
-    "message":"প্লাগইন",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "scriptPrettyName":{
-    "message":"স্ক্রিপ্ট",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "xhrPrettyName":{
-    "message":"XHR",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "framePrettyName":{
-    "message":"ফ্রেম",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "otherPrettyName":{
-    "message":"অন্যান্য",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "matrixNoNetTrafficPrompt":{
-    "message":"এখন পর্যন্ত এই ট্যাবের জন্য কোন নেট ট্রাফিক দেখা যায়নি।",
-    "description":""
-  },
-  "matrixMtxButtonTip":{
-    "message":"এই ব্যাপ্তির জন্য ম্যাট্রিক্স পরিশোধন সক্রিয়\/নিষ্ক্রিয় করুন।",
-    "description":"Tool tip for matrix button"
-  },
-  "matrixPersistButtonTip":{
-    "message":"এই ব্যাপ্তির জন্য সব অস্থায়ী পরিবর্তনগুলি সংরক্ষণ করুন।",
-    "description":"Tool tip for the persist button"
-  },
-  "matrixRevertButtonTip":{
-    "message":"এই ব্যাপ্তির জন্য অস্থায়ী পরিবর্তনগুলি প্রত্যাবর্তন করুন।",
-    "description":"Tool tip for the revert local permission button"
-  },
-  "matrixReloadButton":{
-    "message":"পৃষ্ঠাটি পুনঃলোড করুন।",
-    "description":"Tool tip for the reload button"
-  },
-  "matrix1stPartyLabel":{
-    "message":"১ম-দল",
-    "description":"1st-party"
-  },
-  "matrixBlacklistedHostnames":{
-    "message":"{{count}}টি কালোতালিকাভুক্ত হোস্টেরনাম",
-    "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
-  },
-  "matrixSwitchNoMixedContent":{
-    "message":"স্ক্রিপ্ট HTTPS",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchUASpoof":{
-    "message":"ব্যবহারকারী এজেন্ট স্পুফিং",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchReferrerSpoof":{
-    "message":"রেফারার স্পুফিং",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixRevertAllEntry":{
-    "message":"সব অস্থায়ী পরিবর্তন প্রত্যাবর্তন করুন",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixLoggerMenuEntry":{
-    "message":"লগারে যান",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixDashboardMenuEntry":{
-    "message":"ড্যাশবোর্ডে যান",
-    "description":"A menu entry in the matrix popup"
-  },
-  "statsPageTitle":{
-    "message":"uম্যাট্রিক্স &ndash; পরিসংখ্যান",
-    "description":""
-  },
-  "statsPageGenericStats":{
-    "message":"জেনেরিক পরিসংখ্যান",
-    "description":""
-  },
-  "statsPageCookieHeadersFoiled":{
-    "message":"<a href='https:\/\/bn.wikipedia.org\/wiki\/এইচটিটিপি_কুকি'>এইচটিটিপি কুকি<\/a> হেডার ব্যর্থ: {{count}}",
-    "description":""
-  },
-  "statsPageRefererHeadersFoiled":{
-    "message":"<a href='https:\/\/bn.wikipedia.org\/wiki\/এইচটিটিপি_রেফার'>এইচটিটিপি রেফার<\/a> হেডার ব্যর্থ: {{count}}",
-    "description":""
-  },
-  "statsPageHyperlinkAuditingFoiled":{
-    "message":"<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>হাইপারলিঙ্ক নিরীক্ষণ<\/a> প্রচেষ্টা ব্যর্থ: {{count}}",
-    "description":""
-  },
-  "statsPageCookiesRemoved":{
-    "message":"স্থানীয় কুকি সরানো হয়েছে: {{count}}টি",
-    "description":""
-  },
-  "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>স্থানীয় সংগ্রহস্থল<\/a> খালি: {{count}}টি",
-    "description":""
-  },
-  "statsPageBrowserCacheCleared":{
-    "message":"ব্রাউজারের ক্যাশে পরিষ্কার হয়েছে: {{count}}টি",
-    "description":""
-  },
-  "statsPageDetailedStats":{
-    "message":"বিস্তারিত পরিসংখ্যান",
-    "description":""
-  },
-  "statsPageDetailedAllPages":{
-    "message":"সব",
-    "description":""
-  },
-  "statsPageDetailedBehindTheScenePage":{
-    "message":"পর্দার আড়ালে",
-    "description":""
-  },
-  "statsPageOverview":{
-    "message":"সংক্ষিপ্ত বিবরণ",
-    "description":""
-  },
-  "statsPageRequests":{
-    "message":"অনুরোধ",
-    "description":"header for the stat type column"
-  },
-  "statsPageAllowed":{
-    "message":"অনুমোদিত",
-    "description":"header for the allowed requests column"
-  },
-  "statsPageBlocked":{
-    "message":"অবরুদ্ধ",
-    "description":"header for the blocked requests column"
-  },
-  "statsPageAll":{
-    "message":"সব",
-    "description":""
-  },
-  "statsPagePages":{
-    "message":"পৃষ্ঠা",
-    "description":""
-  },
-  "statsPageCookies":{
-    "message":"কুকি",
-    "description":""
-  },
-  "statsPageCSS":{
-    "message":"CSS",
-    "description":""
-  },
-  "statsPageImages":{
-    "message":"চিত্র",
-    "description":""
-  },
-  "statsPagePlugins":{
-    "message":"প্লাগইন",
-    "description":""
-  },
-  "statsPageScripts":{
-    "message":"স্ক্রিপ্ট",
-    "description":""
-  },
-  "statsPageXHRs":{
-    "message":"XHRs",
-    "description":""
-  },
-  "statsPageFrames":{
-    "message":"ফ্রেম",
-    "description":""
-  },
-  "statsPageOthers":{
-    "message":"অন্যান্য",
-    "description":""
-  },
-  "statsPageDetailed":{
-    "message":"লগার",
-    "description":""
-  },
-  "statsPageLogSizePrompt1":{
-    "message":"শেষটি মনে রাখুন",
-    "description":"First part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizePrompt2":{
-    "message":"<b>পাতা প্রতি<\/b> HTTP অনুরোধ।",
-    "description":"Second part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizeHelp":{
-    "message":"<p>আপনি একটি ওয়েব পাতা দ্বারা তৈরিকৃত সাম্প্রতিকতম কাঁচা HTTP অনুরোধের বিস্তারিত পরিদর্শন করতে পারেন (নিচে দেখুন)।<\/p><p>এটি উন্নত ব্যবহারকারীদের জন্য মূলত দরকারী যারা একটি ওয়েব পাতা কি কাজ করছে তা তদন্ত করতে চান। কিন্তু এই HTTP অনুরোধে লগিং করার জন্য মেমরি প্রয়োজন, এবং আপনি যদি এই প্রযুক্তিগত তথ্যের প্রতি যত্নশীল না হোন, তাহলে মেমরির অপচয় হবে।<\/p><p>তাই এই ক্ষেত্র যা সর্বোচ্চ সংখ্যক আপনার সবচেয়ে সাম্প্রতিক HTTP অনুরোধ সমন্বয় করতে দেয় যার ফলে আরও পরিদর্শনের জন্য লগকৃত করা হয়।<\/p><p>বিস্তারিত লগিং বন্ধ করতে &ldquo;<code>0<\/code>&rdquo; লিখুন (এবং ফলস্বরূপ <i>uম্যাট্রিক্সের<\/i> মেমরির পদচিহ্ন কমে)।<\/p>",
-    "description":"To help user understand the purpose of the log size value"
-  },
-  "statsPageRefresh":{
-    "message":"পুন:সতেজ",
-    "description":""
-  },
-  "settingsPageTitle":{
-    "message":"uম্যাট্রিক্স &ndash; সেটিংস",
-    "description":""
-  },
-  "settingsMatrixDisplayHeader":{
-    "message":"উপস্থিতি",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizePrompt":{
-    "message":"লেখার মাপ:",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeNormal":{
-    "message":"সাধারণ",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeLarge":{
-    "message":"বড়",
-    "description":""
-  },
-  "settingsMatrixDisplayColorBlind":{
-    "message":"বর্ণান্ধ বন্ধুত্বপূর্ণ",
-    "description":""
-  },
-  "settingsMatrixConvenienceHeader":{
-    "message":"সুবিধা",
-    "description":"English: Convenience"
-  },
-  "settingsMatrixAutoReloadPrompt":{
-    "message":"ম্যাট্রিক্স যখন বন্ধ হয়ে যায়, স্মার্ট এই ট্যাবগুলি পুনঃলোড করে:",
-    "description":""
-  },
-  "settingsMatrixAutoReloadNone":{
-    "message":"কিছুই না",
-    "description":""
-  },
-  "settingsMatrixAutoReloadCurrent":{
-    "message":"বর্তমান",
-    "description":""
-  },
-  "settingsMatrixAutoReloadAll":{
-    "message":"সব",
-    "description":""
-  },
-  "settingsMatrixAutoReloadInfo":{
-    "message":"যখনই আপনি ম্যাট্রিক্সে পরিবর্তন করবেন এটি এক বা একাধিক পাতা প্রদর্শনের আচরণ প্রভাবিত করতে পারে, আপনি ম্যাট্রিক্স বন্ধ করলে <i>uম্যাট্রিক্স<\/i> স্বয়ংক্রিয়ভাবে প্রভাবিত পৃষ্ঠাগুলি পুনরায় লোড করবে।",
-    "description":""
-  },
-  "settingsSubframeColor":{
-    "message":"অবরুদ্ধ ফ্রেম:&ensp;রং",
-    "description":"English: Blocked frames:&ensp;Color"
-  },
-  "settingsSubframeOpacity":{
-    "message":"অস্বচ্ছতা",
-    "description":"English: Opacity"
-  },
-  "settingsIconBadgeEnabled":{
-    "message":"আইকনের উপর স্বতন্ত্র অনুরোধের সংখ্যা দেখান",
-    "description":"English: Show the number of distinct requests on the icon"
-  },
-  "settingsCollapseBlocked":{
-    "message":"অবরুদ্ধ উপাদান সংকোচনের স্থানধারক",
-    "description":"English: Collapse placeholder of blocked elements"
-  },
-  "settingsCloudStorageEnabled":{
-    "message":"ক্লাউড সঞ্চয়স্থান সমর্থন সক্রিয় করুন",
-    "description":""
-  },
-  "privacyPageTitle":{
-    "message":"uম্যাট্রিক্স &ndash; গোপনীয়তা",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesPrompt":{
-    "message":"অবরুদ্ধ কুকি মুছুন।",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>কালোতালিকাভুক্ত কুকি <i>uম্যাট্রিক্স<\/i> দ্বারা আপনার ব্রাউজারে প্রবেশ করা থেকে প্রতিহত করা হয়না। তবে তাদের আপনার ব্রাউজার থেকে ছেড়ে চলে যাওয়ার সময় প্রতিহত করা হয়, যা সত্যিই গুরুত্বপূর্ণ। তারা আপনার ব্রাউজার প্রবেশ করার আগে কুকি অবরুদ্ধ না করা আপনাকে অবগত করার সুযোগ করে দেয় যে একটি সাইট কুকি ব্যবহার করার চেষ্টা করছে, এবং উপরন্তু তাদের বিষয়বস্তুর পরিদর্শন করা (যদি আপনি চান)।<\/p><p><i>uম্যাট্রিক্স<\/i> দ্বারা এইসব কালোতালিকাভুক্ত কুকি একবার দায়ী করা হলে, আপনি চাইলে তাদের আপনি আপনার ব্রাউজার থেকে মুছে ফেলতে পারেন।<\/p><p><b>গুরুত্বপূর্ণ তথ্য:<\/b> এক্সটেনশানগুলি তাদের স্বাভাবিক অপারেশনের সময় ওয়েব অনুরোধ করতে পারে। এই অনুরোধগুলির ফলাফল ব্রাউজারে কুকি তৈরি করা হচ্ছে হতে পারে। একটি কুকির উৎপত্তি সাদাতালিকাভুক্ত হোস্টনেম থেকে না হলে, <i>uম্যাট্রিক্স<\/i> দ্বারা কুকি ব্রাউজার থেকে সরানো হবে যদি এই অপশনটি সক্রিয় করা থাকে। তাই নিশ্চিত হোন যে একটি এক্সটেনশনের যোগাযোগকৃত হোস্টনেম(গুলি) সাদাতালিকাভুক্ত।<\/p>",
-    "description":""
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"অ-অবরুদ্ধ সেশন কুকি মুছুন ",
-    "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" মিনিটের যেটি সর্বশেষ সময়ে ব্যবহৃত হয়েছিল।",
-    "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;যখন আপনি ব্রাউজারের সেশন শেষ করেন একটি সেশন কুকি তখন মুছে ফেলা হয়। সেশন কুকি অস্থায়ী মেমরির মধ্যে সংরক্ষিত হয় এবং ব্রাউজার বন্ধ করার পরে অপরিবর্তিত রাখা হয় না।&rdquo;<\/p><p>সেটি বাদে এটি কিছু ব্রাউজারে <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>নাও ঘটতে পারে<\/a>। এছাড়াও, কিছু ক্ষেত্রে, সেশন কুকি পরিস্কার করার জন্য ব্রাউজার বন্ধ হলে প্রথম দিকে যথেষ্ট নাও হতে পারে।<\/p>",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"অবরুদ্ধ হোস্টনেম দ্বারা স্থাপিত <a href='https:\/\/bn.wikipedia.org\/wiki\/ওয়েব_স্টোরেজ'>স্থানীয় সঞ্চয়ের<\/a> সামগ্রী মুছে ফেলুন",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"করণীয়",
-    "description":""
-  },
-  "privacyClearCachePrompt1":{
-    "message":"ব্রাউজার ক্যাশে সাফ করুন প্রতি",
-    "description":"First part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCachePrompt2":{
-    "message":"মিনিটে।",
-    "description":"Second part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCacheHelp":{
-    "message":"<p>কিছু কিছু ওয়েব সাইট, আপনাকে ট্র্যাকিং করতে সত্যিই নমিত, তারা আপনাকে অনুসরণ করার জন্য এমন সব কৌশল নেয় যা দেখে মনে হবে তারা আপনাকে অনুসরণ করছে না।<\/p><p>এই রকম কিছু কৌশল<sup style='font-size:smaller'>[১, ২]<\/sup><a href='https:\/\/bn.wikipedia.org\/wiki\/ওয়েব_ক্যাশে'>ব্রাউজারের ক্যাশে<\/a> নির্ভর, যার যা বিষয়বস্তু প্রায়ই দীর্ঘস্থায়ী হয়, যেহেতু খুব কমই ব্যবহারকারীদের নিয়মিত তাদের ব্রাউজারের ক্যাশে সাফ করতে সময় ব্যয় করেন।<\/p><p>নিয়মিত ব্রাউজারের ক্যাশে সাফ সামান্য অসুবিধা আছে (সম্ভাবত আপনি লক্ষ্য করবেন না যখন এটা ঘটে), এবং সুবিধা হল আপনার গোপনীয়তা আক্রমণ করা থেকে এইসব আপত্তিকর ব্যক্তি অনুসরণ প্রতিরোধ করা।<\/p><p>এই অপশন সক্রিয় করলে <i>uম্যাট্রিক্স<\/i> আপনার ইচ্ছামত অন্তর, এটা আপনার জন্য করবে।<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;ব্রাউজারের ক্যাশে&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;কুকিবিহীন কুকির মাধ্যমে ওয়েব ট্র্যাকিং রোধ করবে&rdquo;<\/a><\/p>",
-    "description":""
-  },
-  "privacyProcessRefererPrompt":{
-    "message":"<a href='https:\/\/bn.wikipedia.org\/wiki\/এইচটিটিপি_রেফার'>এইচটিটিপি রেফারের<\/a> তৃতীয় পক্ষের অনুরোধের স্ট্রিং স্পুফ করুন।",
-    "description":""
-  },
-  "privacyProcessRefererHelp":{
-    "message":"<p>উইকিপিডিয়া থেকে:<\/p><blockquote>এইচটিটিপি রেফারার একটি এইচটিটিপি হেডার ক্ষেত্র যা ওয়েবপাতার ঠিকানা চিহ্নিত করে যা অনুরোধকৃত রিসোর্সে সংযুক্ত থাকে।... <b>যেহেতু রেফারার তথ্য গোপনীয়তার নীতিমালা ভঙ্গ করতে পারে, কিছু ওয়েব ব্রাউজারে ব্যবহারকারীদের রেফারার তথ্য পাঠানো নিষ্ক্রিয় করার অনুমতি দেয়।<\/b><\/blockquote><p>যদি সেটিংসে এটি নির্বাচন করা থাকে, <i>uম্যাট্রিক্স<\/i> HTTP রেফারার তথ্য স্পুফ করবে যদি ডোমেইনের নামের নেট অনুরোধে HTTP রেফারারের ডোমেইনের নাম তৃতীয় পক্ষের হয়।<\/p>",
-    "description":""
-  },
-  "privacyNoMixedContentPrompt":{
-    "message":"কড়া HTTPS: মিশ্রিত সামগ্রী নিষেধ।",
-    "description":""
-  },
-  "privacyNoMixedContentHelp":{
-    "message":"<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>মোজিলা ডেভেলপার নেটওয়ার্ক<\/a> থেকে:<\/p><blockquote>যদি HTTPS পাতা নিয়মিত, স্পষ্ট পাঠ HTTP-র মাধ্যমে বিষয়বস্তুর উদ্ধার অন্তর্ভুক্ত করে, তাহলে সংযোগ শুধুমাত্র আংশিকভাবে এনক্রিপ্ট করা হয়: এনক্রিপশনবিহীন বিষয়বস্তু স্নিফার থেকে প্রবেশযোগ্য এবং মধ্য আক্রমণকারীদের দ্বারা পরিবর্তনযোগ্য, এবং সেইজন্য সংযোগ আর সুরক্ষিত থাকে না। যখন একটি ওয়েবপাতা এই আচরণ প্রদর্শন করে, তখন এটিকে একটি মিশ্র বিষয়বস্তু পাতা বলা হয়।<\/blockquote>",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"সব <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>হাইপারলিঙ্ক নিরীক্ষণ<\/a> প্রচেষ্টা অবরুদ্ধ।",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>হাইপারলিঙ্ক নিরীক্ষণ একটি প্রক্রিয়া যা একটি দল, <b>যে কোন দলকে<\/b> একজন ব্যবহারকারীর একটি নির্দিষ্ট ওয়েব পাতার লিঙ্ক ক্লিক করা সম্পর্কে অবগত করার অনুমতি দেয়। এটি মূলত একটি ট্র্যাকিং বৈশিষ্ট্য: যা একটি ওয়েব সাইট বা কোনো তৃতীয় পক্ষকে আপনি কোন ওয়েব সাইটের কোন ওয়েব পাতা ক্লিক করেছেন তা অবগত করার অনুমতি দেয়। একমাত্র উদ্দেশ্য হল আপনার ব্রাউজিং কার্যকলাপ অনুসরণ করা।<\/p>",
-    "description":""
-  },
-  "privacySpoofUserAgentPrompt1":{
-    "message":"<a href='https:\/\/bn.wikipedia.org\/wiki\/ইউজার_এজেন্ট'>ইউজার-এজেন্ট<\/a> স্ট্রিং দ্বারা দৈবচয়নে তোলা নিচের একটি নতুন স্পুফ করুন প্রতি",
-    "description":"First part of UA-spoofing prompt"
-  },
-  "privacySpoofUserAgentPrompt2":{
-    "message":"মিনিট।",
-    "description":"Second part"
-  },
-  "privacySpoofUserAgentHelp":{
-    "message":"<i>ইলেক্ট্রনিক ফ্রন্টিয়ার ফাউন্ডেশনের<\/i> <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>মতে<\/a>: &ldquo;[...] আপনার ব্রাউজার ওয়েবসাইটে আপনি কোন অপারেটিং সিস্টেম এবং ওয়েব ব্রাউজার ব্যবহার করছেন তার একটি &lsquo;ইউজার এজেন্ট&rsquo; হেডার পাঠায়। এই তথ্য ইন্টারনেট ব্যবহারকারীকে একে অপরের থেকে পার্থক্য করতে সাহায্য করে, কারণ এইসব সংস্করণ ব্যক্তি থেকে ব্যক্তি, প্রায়ই যথেষ্ট, পৃথক হয়। [...] <b>ইউজার এজেন্ট স্ট্রিং একটি বাস্তব গোপনীয়তা সমস্যায় পরিণত হয়েছে<\/b>।&rdquo;<p>EFF দ্বারা উত্থাপিত গোপনীয়তা সমস্যা এই অপশনের সাহায্যে আপনি মোকাবেলা করতে পারবেন।<\/p><p>আপনি আপনার নিজস্ব তালিকার ইউজার এজেন্ট স্ট্রিং সরবরাহ করতে পারবেন। লাইন প্রতি একটি স্ট্রিং। খালি লাইন এবং &lsquo;#&rsquo; উপসর্গসহ লাইন উপেক্ষা করা হবে।<\/p>",
-    "description":""
-  },
-  "userRulesPermanentHeader":{
-    "message":"স্থায়ী নিয়ম",
-    "description":""
-  },
-  "userRulesTemporaryHeader":{
-    "message":"অস্থায়ী নিয়ম",
-    "description":""
-  },
-  "userRulesRevert":{
-    "message":"প্রত্যাবর্তন",
-    "description":"Will remove all temporary rules"
-  },
-  "userRulesCommit":{
-    "message":"কমিট",
-    "description":"Will save all temporary rules"
-  },
-  "userRulesEdit":{
-    "message":"সম্পাদনা",
-    "description":"Will enable manual-edit mode (textarea)"
-  },
-  "userRulesEditSave":{
-    "message":"সংরক্ষণ",
-    "description":"Will save manually-edited content and exit manual-edit mode"
-  },
-  "userRulesEditDicard":{
-    "message":"বাতিল করুন",
-    "description":"Will discard manually-edited content and exit manual-edit mode"
-  },
-  "userRulesImport":{
-    "message":"ফাইল থেকে আমদানি...",
-    "description":""
-  },
-  "userRulesExport":{
-    "message":"ফাইলে রপ্তানি...",
-    "description":""
-  },
-  "userRulesFormatHint":{
-    "message":"নিয়ম শব্দবিন্যাসের জন্য এই পাতাটি দেখুন।",
-    "description":""
-  },
-  "userRulesDefaultFileName":{
-    "message":"amar-umatrix-niyom.txt",
-    "description":"default file name to use"
-  },
-  "hostsFilesPrompt":{
-    "message":"বৈশ্বিক ব্যাপ্তিতে একটি হোস্ট ফাইলের সব হোস্টনেম কালোতালিকাভুক্ত হোস্টনেম হিসাবে লোড করা হয়।",
-    "description":""
-  },
-  "hostsFilesStats":{
-    "message":"এখান থেকে {{blockedHostnameCount}}টি স্বতন্ত্র অবরুদ্ধ হোস্টনেম:",
-    "description":""
-  },
-  "hostsFilesPerFileStats":{
-    "message":"{{total}}টির মধ্যে {{used}}টি ব্যবহৃত",
-    "description":""
-  },
-  "hostsFilesLastUpdate":{
-    "message":"সর্বশেষ হালনাগাদ: {{ago}}",
-    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
-  },
-  "hostsFilesApplyChanges":{
-    "message":"পরিবর্তনগুলি প্রয়োগ",
-    "description":""
-  },
-  "hostsFilesAutoUpdatePrompt":{
-    "message":"হোস্ট ফাইল স্বয়ংক্রিয়-হালনাগাদ করুন।",
-    "description":""
-  },
-  "hostsFilesUpdateNow":{
-    "message":"এখনই হালনাগাদ করুন",
-    "description":""
-  },
-  "hostsFilesPurgeAll":{
-    "message":"সব ক্যাশে শোধন করুন",
-    "description":""
-  },
-  "hostsFilesExternalListsHint":{
-    "message":"লাইন প্রতি একটি URL। &lsquo;#&rsquo; সহ উপসর্গ লাইন উপেক্ষা করা হবে। অকার্যকর URL গুলি নীরবে উপেক্ষা করা হবে।",
-    "description":""
-  },
-  "hostsFilesExternalListsParse":{
-    "message":"পার্স",
-    "description":""
-  },
-  "hostsFilesExternalListPurge":{
-    "message":"ক্যাশে শোধন করুন",
-    "description":""
-  },
-  "hostsFilesExternalListNew":{
-    "message":"নতুন সংস্করণ উপলব্ধ",
-    "description":""
-  },
-  "hostsFilesExternalListObsolete":{
-    "message":"পুরোনো",
-    "description":""
-  },
-  "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>পরিবর্তন লগ<\/a>",
-    "description":""
-  },
-  "aboutStorageUsed":{
-    "message":"সংগ্রহস্থল ব্যবহার: {{storageUsed}} বাইট",
-    "description":""
-  },
-  "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>নথিপত্র<\/a>",
-    "description":""
-  },
-  "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>অনুমতি<\/a>",
-    "description":""
-  },
-  "aboutCode":{
-    "message":"উত্স কোড (GPLv৩)",
-    "description":""
-  },
-  "aboutIssues":{
-    "message":"বাগ ও ইস্যু",
-    "description":""
-  },
-  "aboutContributors":{
-    "message":"অবদানকারী",
-    "description":"English: Contributors"
-  },
-  "aboutCodeContributors":{
-    "message":"কোড:",
-    "description":""
-  },
-  "aboutIssueContributors":{
-    "message":"ইস্যু:",
-    "description":""
-  },
-  "aboutTranslationContributors":{
-    "message":"অনুবাদ:",
-    "description":""
-  },
-  "aboutUserDataHeader":{
-    "message":"আপনার উপাত্ত",
-    "description":""
-  },
-  "aboutBackupButton":{
-    "message":"ফাইলে ব্যাকআপ...",
-    "description":""
-  },
-  "aboutBackupFilename":{
-    "message":"amar-umatrix-backup.txt",
-    "description":"default filename to use"
-  },
-  "aboutRestoreButton":{
-    "message":"ফাইল থেকে পুনরুদ্ধার...",
-    "description":""
-  },
-  "aboutRestoreConfirm":{
-    "message":"{{time}}-এর ডেটা ব্যাকআপ ব্যবহার করে আপনার সেটিংস পুনঃলিখিত হবে, এবং uম্যাট্রিক্স পুনরায় চালু হবে।\n\nডেটা ব্যাকআপ ব্যবহার করে সমস্ত বিদ্যমান সেটিংস পুনঃলিখবেন?",
-    "description":"Message asking user to confirm restore"
-  },
-  "aboutRestoreError":{
-    "message":"উপাত্তটি পড়া যায়নি বা অকার্যকর",
-    "description":""
-  },
-  "aboutOr":{
-    "message":"... বা ...",
-    "description":"English: ... or ..."
-  },
-  "aboutResetButton":{
-    "message":"ডিফল্ট সেটিংসে পুন:স্থাপন করুন",
-    "description":"English: Reset to default settings"
-  },
-  "aboutResetConfirm":{
-    "message":"সতর্কতা! এটি আপনার সব স্বনির্ধারিত সেটিংস সরিয়ে দেবে? আপনি কি অগ্রসর হতে চান?",
-    "description":"Message asking user to confirm reset"
-  },
-  "loggerFilterInputPlaceholder":{
-    "message":"পরিশোধকের অভিব্যক্তি",
-    "description":"Appears in the input filed where filter expressions are entered"
-  },
-  "loggerMaxEntriesTip":{
-    "message":"ভুক্তির সর্বাধিক সংখ্যা",
-    "description":"Appears as a tooltip when hovering the input field"
-  },
-  "loggerEntryUserAgentSpoofing":{
-    "message":"{{value}}: এর সাথে স্পুফিং ব্যবহারকারী এজেন্ট",
-    "description":"An entry for when a new user agent string is selected"
-  },
-  "loggerEntryCookieDeleted":{
-    "message":"কুকি অপসারিত: {{value}}",
-    "description":"An entry for when a cookie is deleted"
-  },
-  "loggerEntryDeleteCookieError":{
-    "message":"কুকি অপসারণ করতে ব্যর্থ: {{value}}",
-    "description":"An entry for when the browser cache is cleared"
-  },
-  "loggerEntryBrowserCacheCleared":{
-    "message":"ব্রাউজারের ক্যাশে পরিষ্কার হয়েছে",
-    "description":"An entry for when a cookie can't be deleted"
-  },
-  "loggerEntryAssetUpdated":{
-    "message":"অ্যাসেট হালনাগাদকৃত: {{value}}",
-    "description":"An entry for when an asset was updated"
-  },
-  "mainBlockedPrompt1":{
-    "message":"uম্যাট্রিক্স নিচের পৃষ্ঠা লোড করাকে প্রতিহত করেছে:",
-    "description":"English: uMatrix has prevented the following page from loading:"
-  },
-  "mainBlockedPrompt2":{
-    "message":"নিম্নলিখিত নিয়মের কারণে",
-    "description":"English: Because of the following rule"
-  },
-  "mainBlockedBack":{
-    "message":"ফিরে যান",
-    "description":"English: Go back"
-  },
-  "mainBlockedClose":{
-    "message":"বন্ধ",
-    "description":"English: Close"
-  },
-  "commandRevertAll":{
-    "message":"সব অস্থায়ী পরিবর্তন প্রত্যাবর্তন করুন",
-    "description":""
-  },
-  "commandWhitelistPageDomain":{
-    "message":"সাময়িকরূপে সাদাতালিকার পাতা ডোমেইন",
-    "description":""
-  },
-  "commandWhitelistAll":{
-    "message":"সাময়িকরূপে সাদাতালিকার সব",
-    "description":""
-  },
-  "commandOpenDashboard":{
-    "message":"ড্যাশবোর্ড খুলুন",
-    "description":""
-  },
-  "elapsedOneMinuteAgo":{
-    "message":"এক মিনিট আগে",
-    "description":"English: a minute ago"
-  },
-  "elapsedManyMinutesAgo":{
-    "message":"{{value}} মিনিট আগে",
-    "description":"English: {{value}} minutes ago"
-  },
-  "elapsedOneHourAgo":{
-    "message":"এক ঘণ্টা আগে",
-    "description":"English: an hour ago"
-  },
-  "elapsedManyHoursAgo":{
-    "message":"{{value}} ঘণ্টা আগে",
-    "description":"English: {{value}} hours ago"
-  },
-  "elapsedOneDayAgo":{
-    "message":"এক দিন আগে",
-    "description":"English: a day ago"
-  },
-  "elapsedManyDaysAgo":{
-    "message":"{{value}} দিন আগে",
-    "description":"English: {{value}} days ago"
-  },
-  "showDashboardButton":{
-    "message":"ড্যাশবোর্ড",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "showLoggerButton":{
-    "message":"লগার",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "cloudPush":{
-    "message":"ক্লাউড সঞ্চয়স্থানে রপ্তানি করুন",
-    "description":"tooltip"
-  },
-  "cloudPull":{
-    "message":"ক্লাউড সঞ্চয়স্থান থেকে আমদানি করুন",
-    "description":"tooltip"
-  },
-  "cloudNoData":{
-    "message":"...\n...",
-    "description":""
-  },
-  "cloudDeviceNamePrompt":{
-    "message":"এই ডিভাইসের নাম:",
-    "description":"used as a prompt for the user to provide a custom device name"
-  },
-  "genericSubmit":{
-    "message":"জমা দিন",
-    "description":"for generic 'submit' buttons"
-  },
-  "genericRevert":{
-    "message":"প্রত্যাবর্তন",
-    "description":"for generic 'revert' buttons"
-  },
-  "errorCantConnectTo":{
-    "message":"নেটওয়ার্ক ত্রুটি: {{url}} -এ সংযোগ করতে অক্ষম",
-    "description":""
-  }
+    "extName": {
+        "message": "uম্যাট্রিক্স",
+        "description": ""
+    },
+    "extShortDesc": {
+        "message": "আপনার ব্রাউজার দ্বারা করা যে কোন শ্রেণীর অনুরোধ অনুমতি\/নিষেধ করতে পয়েন্ট ও ক্লিক করুন। স্ক্রিপ্ট, আইফ্রেম, বিজ্ঞাপন, ফেসবুক, ইত্যাদি ব্লক এটি ব্যবহার করুন।",
+        "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
+    },
+    "dashboardPageName": {
+        "message": "uম্যাট্রিক্স — ড্যাশবোর্ড",
+        "description": ""
+    },
+    "settingsPageName": {
+        "message": "সেটিংস",
+        "description": "a tab in dashboard"
+    },
+    "privacyPageName": {
+        "message": "গোপনীয়তা",
+        "description": "a tab in dashboard"
+    },
+    "statsPageName": {
+        "message": "পরিসংখ্যান",
+        "description": "a tab in dashboard"
+    },
+    "userRulesPageName": {
+        "message": "আমার নিয়ম",
+        "description": "a tab in dashboard"
+    },
+    "ubiquitousRulesPageName": {
+        "message": "নিমন্ত্রক ফাইল",
+        "description": "a tab in dashboard"
+    },
+    "aboutPageName": {
+        "message": "সম্পর্কে",
+        "description": "a tab in dashboard"
+    },
+    "allPrettyName": {
+        "message": "সব",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "কুকি",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cssPrettyName": {
+        "message": "css",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyName": {
+        "message": "চিত্র",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "mediaPrettyName": {
+        "message": "media",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "pluginPrettyName": {
+        "message": "প্লাগইন",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyName": {
+        "message": "স্ক্রিপ্ট",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xhrPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "framePrettyName": {
+        "message": "ফ্রেম",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyName": {
+        "message": "অন্যান্য",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "matrixNoNetTrafficPrompt": {
+        "message": "এখন পর্যন্ত এই ট্যাবের জন্য কোন নেট ট্রাফিক দেখা যায়নি।",
+        "description": ""
+    },
+    "matrixMtxButtonTip": {
+        "message": "এই ব্যাপ্তির জন্য ম্যাট্রিক্স পরিশোধন সক্রিয়\/নিষ্ক্রিয় করুন।",
+        "description": "Tool tip for matrix button"
+    },
+    "matrixPersistButtonTip": {
+        "message": "এই ব্যাপ্তির জন্য সব অস্থায়ী পরিবর্তনগুলি সংরক্ষণ করুন।",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip": {
+        "message": "এই ব্যাপ্তির জন্য অস্থায়ী পরিবর্তনগুলি প্রত্যাবর্তন করুন।",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixReloadButton": {
+        "message": "পৃষ্ঠাটি পুনঃলোড করুন।",
+        "description": "Tool tip for the reload button"
+    },
+    "matrix1stPartyLabel": {
+        "message": "১ম-দল",
+        "description": "1st-party"
+    },
+    "matrixBlacklistedHostnames": {
+        "message": "{{count}}টি কালোতালিকাভুক্ত হোস্টেরনাম",
+        "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
+    },
+    "matrixSwitchNoMixedContent": {
+        "message": "স্ক্রিপ্ট HTTPS",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchUASpoof": {
+        "message": "ব্যবহারকারী এজেন্ট স্পুফিং",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchReferrerSpoof": {
+        "message": "রেফারার স্পুফিং",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixRevertAllEntry": {
+        "message": "সব অস্থায়ী পরিবর্তন প্রত্যাবর্তন করুন",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixLoggerMenuEntry": {
+        "message": "লগারে যান",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixDashboardMenuEntry": {
+        "message": "ড্যাশবোর্ডে যান",
+        "description": "A menu entry in the matrix popup"
+    },
+    "statsPageTitle": {
+        "message": "uম্যাট্রিক্স &ndash; পরিসংখ্যান",
+        "description": ""
+    },
+    "statsPageGenericStats": {
+        "message": "জেনেরিক পরিসংখ্যান",
+        "description": ""
+    },
+    "statsPageCookieHeadersFoiled": {
+        "message": "<a href='https:\/\/bn.wikipedia.org\/wiki\/এইচটিটিপি_কুকি'>এইচটিটিপি কুকি<\/a> হেডার ব্যর্থ: {{count}}",
+        "description": ""
+    },
+    "statsPageRefererHeadersFoiled": {
+        "message": "<a href='https:\/\/bn.wikipedia.org\/wiki\/এইচটিটিপি_রেফার'>এইচটিটিপি রেফার<\/a> হেডার ব্যর্থ: {{count}}",
+        "description": ""
+    },
+    "statsPageHyperlinkAuditingFoiled": {
+        "message": "<a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>হাইপারলিঙ্ক নিরীক্ষণ<\/a> প্রচেষ্টা ব্যর্থ: {{count}}",
+        "description": ""
+    },
+    "statsPageCookiesRemoved": {
+        "message": "স্থানীয় কুকি সরানো হয়েছে: {{count}}টি",
+        "description": ""
+    },
+    "statsPageLocalStoragesCleared": {
+        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>স্থানীয় সংগ্রহস্থল<\/a> খালি: {{count}}টি",
+        "description": ""
+    },
+    "statsPageBrowserCacheCleared": {
+        "message": "ব্রাউজারের ক্যাশে পরিষ্কার হয়েছে: {{count}}টি",
+        "description": ""
+    },
+    "statsPageDetailedStats": {
+        "message": "বিস্তারিত পরিসংখ্যান",
+        "description": ""
+    },
+    "statsPageDetailedAllPages": {
+        "message": "সব",
+        "description": ""
+    },
+    "statsPageDetailedBehindTheScenePage": {
+        "message": "পর্দার আড়ালে",
+        "description": ""
+    },
+    "statsPageOverview": {
+        "message": "সংক্ষিপ্ত বিবরণ",
+        "description": ""
+    },
+    "statsPageRequests": {
+        "message": "অনুরোধ",
+        "description": "header for the stat type column"
+    },
+    "statsPageAllowed": {
+        "message": "অনুমোদিত",
+        "description": "header for the allowed requests column"
+    },
+    "statsPageBlocked": {
+        "message": "অবরুদ্ধ",
+        "description": "header for the blocked requests column"
+    },
+    "statsPageAll": {
+        "message": "সব",
+        "description": ""
+    },
+    "statsPagePages": {
+        "message": "পৃষ্ঠা",
+        "description": ""
+    },
+    "statsPageCookies": {
+        "message": "কুকি",
+        "description": ""
+    },
+    "statsPageCSS": {
+        "message": "CSS",
+        "description": ""
+    },
+    "statsPageImages": {
+        "message": "চিত্র",
+        "description": ""
+    },
+    "statsPagePlugins": {
+        "message": "প্লাগইন",
+        "description": ""
+    },
+    "statsPageScripts": {
+        "message": "স্ক্রিপ্ট",
+        "description": ""
+    },
+    "statsPageXHRs": {
+        "message": "XHRs",
+        "description": ""
+    },
+    "statsPageFrames": {
+        "message": "ফ্রেম",
+        "description": ""
+    },
+    "statsPageOthers": {
+        "message": "অন্যান্য",
+        "description": ""
+    },
+    "statsPageDetailed": {
+        "message": "লগার",
+        "description": ""
+    },
+    "statsPageLogSizePrompt1": {
+        "message": "শেষটি মনে রাখুন",
+        "description": "First part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizePrompt2": {
+        "message": "<b>পাতা প্রতি<\/b> HTTP অনুরোধ।",
+        "description": "Second part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizeHelp": {
+        "message": "<p>আপনি একটি ওয়েব পাতা দ্বারা তৈরিকৃত সাম্প্রতিকতম কাঁচা HTTP অনুরোধের বিস্তারিত পরিদর্শন করতে পারেন (নিচে দেখুন)।<\/p><p>এটি উন্নত ব্যবহারকারীদের জন্য মূলত দরকারী যারা একটি ওয়েব পাতা কি কাজ করছে তা তদন্ত করতে চান। কিন্তু এই HTTP অনুরোধে লগিং করার জন্য মেমরি প্রয়োজন, এবং আপনি যদি এই প্রযুক্তিগত তথ্যের প্রতি যত্নশীল না হোন, তাহলে মেমরির অপচয় হবে।<\/p><p>তাই এই ক্ষেত্র যা সর্বোচ্চ সংখ্যক আপনার সবচেয়ে সাম্প্রতিক HTTP অনুরোধ সমন্বয় করতে দেয় যার ফলে আরও পরিদর্শনের জন্য লগকৃত করা হয়।<\/p><p>বিস্তারিত লগিং বন্ধ করতে &ldquo;<code>0<\/code>&rdquo; লিখুন (এবং ফলস্বরূপ <i>uম্যাট্রিক্সের<\/i> মেমরির পদচিহ্ন কমে)।<\/p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh": {
+        "message": "পুন:সতেজ",
+        "description": ""
+    },
+    "settingsPageTitle": {
+        "message": "uম্যাট্রিক্স &ndash; সেটিংস",
+        "description": ""
+    },
+    "settingsMatrixDisplayHeader": {
+        "message": "উপস্থিতি",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizePrompt": {
+        "message": "লেখার মাপ:",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeNormal": {
+        "message": "সাধারণ",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeLarge": {
+        "message": "বড়",
+        "description": ""
+    },
+    "settingsMatrixDisplayColorBlind": {
+        "message": "বর্ণান্ধ বন্ধুত্বপূর্ণ",
+        "description": ""
+    },
+    "settingsMatrixConvenienceHeader": {
+        "message": "সুবিধা",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt": {
+        "message": "ম্যাট্রিক্স যখন বন্ধ হয়ে যায়, স্মার্ট এই ট্যাবগুলি পুনঃলোড করে:",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadNone": {
+        "message": "কিছুই না",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent": {
+        "message": "বর্তমান",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll": {
+        "message": "সব",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo": {
+        "message": "যখনই আপনি ম্যাট্রিক্সে পরিবর্তন করবেন এটি এক বা একাধিক পাতা প্রদর্শনের আচরণ প্রভাবিত করতে পারে, আপনি ম্যাট্রিক্স বন্ধ করলে <i>uম্যাট্রিক্স<\/i> স্বয়ংক্রিয়ভাবে প্রভাবিত পৃষ্ঠাগুলি পুনরায় লোড করবে।",
+        "description": ""
+    },
+    "settingsSubframeColor": {
+        "message": "অবরুদ্ধ ফ্রেম:&ensp;রং",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity": {
+        "message": "অস্বচ্ছতা",
+        "description": "English: Opacity"
+    },
+    "settingsIconBadgeEnabled": {
+        "message": "আইকনের উপর স্বতন্ত্র অনুরোধের সংখ্যা দেখান",
+        "description": "English: Show the number of distinct requests on the icon"
+    },
+    "settingsCollapseBlocked": {
+        "message": "অবরুদ্ধ উপাদান সংকোচনের স্থানধারক",
+        "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsCloudStorageEnabled": {
+        "message": "ক্লাউড সঞ্চয়স্থান সমর্থন সক্রিয় করুন",
+        "description": ""
+    },
+    "privacyPageTitle": {
+        "message": "uম্যাট্রিক্স &ndash; গোপনীয়তা",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesPrompt": {
+        "message": "অবরুদ্ধ কুকি মুছুন।",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesHelp": {
+        "message": "<p>কালোতালিকাভুক্ত কুকি <i>uম্যাট্রিক্স<\/i> দ্বারা আপনার ব্রাউজারে প্রবেশ করা থেকে প্রতিহত করা হয়না। তবে তাদের আপনার ব্রাউজার থেকে ছেড়ে চলে যাওয়ার সময় প্রতিহত করা হয়, যা সত্যিই গুরুত্বপূর্ণ। তারা আপনার ব্রাউজার প্রবেশ করার আগে কুকি অবরুদ্ধ না করা আপনাকে অবগত করার সুযোগ করে দেয় যে একটি সাইট কুকি ব্যবহার করার চেষ্টা করছে, এবং উপরন্তু তাদের বিষয়বস্তুর পরিদর্শন করা (যদি আপনি চান)।<\/p><p><i>uম্যাট্রিক্স<\/i> দ্বারা এইসব কালোতালিকাভুক্ত কুকি একবার দায়ী করা হলে, আপনি চাইলে তাদের আপনি আপনার ব্রাউজার থেকে মুছে ফেলতে পারেন।<\/p><p><b>গুরুত্বপূর্ণ তথ্য:<\/b> এক্সটেনশানগুলি তাদের স্বাভাবিক অপারেশনের সময় ওয়েব অনুরোধ করতে পারে। এই অনুরোধগুলির ফলাফল ব্রাউজারে কুকি তৈরি করা হচ্ছে হতে পারে। একটি কুকির উৎপত্তি সাদাতালিকাভুক্ত হোস্টনেম থেকে না হলে, <i>uম্যাট্রিক্স<\/i> দ্বারা কুকি ব্রাউজার থেকে সরানো হবে যদি এই অপশনটি সক্রিয় করা থাকে। তাই নিশ্চিত হোন যে একটি এক্সটেনশনের যোগাযোগকৃত হোস্টনেম(গুলি) সাদাতালিকাভুক্ত।<\/p>",
+        "description": ""
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1": {
+        "message": "অ-অবরুদ্ধ সেশন কুকি মুছুন ",
+        "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2": {
+        "message": " মিনিটের যেটি সর্বশেষ সময়ে ব্যবহৃত হয়েছিল।",
+        "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp": {
+        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;যখন আপনি ব্রাউজারের সেশন শেষ করেন একটি সেশন কুকি তখন মুছে ফেলা হয়। সেশন কুকি অস্থায়ী মেমরির মধ্যে সংরক্ষিত হয় এবং ব্রাউজার বন্ধ করার পরে অপরিবর্তিত রাখা হয় না।&rdquo;<\/p><p>সেটি বাদে এটি কিছু ব্রাউজারে <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>নাও ঘটতে পারে<\/a>। এছাড়াও, কিছু ক্ষেত্রে, সেশন কুকি পরিস্কার করার জন্য ব্রাউজার বন্ধ হলে প্রথম দিকে যথেষ্ট নাও হতে পারে।<\/p>",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStoragePrompt": {
+        "message": "অবরুদ্ধ হোস্টনেম দ্বারা স্থাপিত <a href='https:\/\/bn.wikipedia.org\/wiki\/ওয়েব_স্টোরেজ'>স্থানীয় সঞ্চয়ের<\/a> সামগ্রী মুছে ফেলুন",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStorageHelp": {
+        "message": "করণীয়",
+        "description": ""
+    },
+    "privacyClearCachePrompt1": {
+        "message": "ব্রাউজার ক্যাশে সাফ করুন প্রতি",
+        "description": "First part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCachePrompt2": {
+        "message": "মিনিটে।",
+        "description": "Second part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCacheHelp": {
+        "message": "<p>কিছু কিছু ওয়েব সাইট, আপনাকে ট্র্যাকিং করতে সত্যিই নমিত, তারা আপনাকে অনুসরণ করার জন্য এমন সব কৌশল নেয় যা দেখে মনে হবে তারা আপনাকে অনুসরণ করছে না।<\/p><p>এই রকম কিছু কৌশল<sup style='font-size:smaller'>[১, ২]<\/sup><a href='https:\/\/bn.wikipedia.org\/wiki\/ওয়েব_ক্যাশে'>ব্রাউজারের ক্যাশে<\/a> নির্ভর, যার যা বিষয়বস্তু প্রায়ই দীর্ঘস্থায়ী হয়, যেহেতু খুব কমই ব্যবহারকারীদের নিয়মিত তাদের ব্রাউজারের ক্যাশে সাফ করতে সময় ব্যয় করেন।<\/p><p>নিয়মিত ব্রাউজারের ক্যাশে সাফ সামান্য অসুবিধা আছে (সম্ভাবত আপনি লক্ষ্য করবেন না যখন এটা ঘটে), এবং সুবিধা হল আপনার গোপনীয়তা আক্রমণ করা থেকে এইসব আপত্তিকর ব্যক্তি অনুসরণ প্রতিরোধ করা।<\/p><p>এই অপশন সক্রিয় করলে <i>uম্যাট্রিক্স<\/i> আপনার ইচ্ছামত অন্তর, এটা আপনার জন্য করবে।<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;ব্রাউজারের ক্যাশে&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;কুকিবিহীন কুকির মাধ্যমে ওয়েব ট্র্যাকিং রোধ করবে&rdquo;<\/a><\/p>",
+        "description": ""
+    },
+    "privacyProcessRefererPrompt": {
+        "message": "<a href='https:\/\/bn.wikipedia.org\/wiki\/এইচটিটিপি_রেফার'>এইচটিটিপি রেফারের<\/a> তৃতীয় পক্ষের অনুরোধের স্ট্রিং স্পুফ করুন।",
+        "description": ""
+    },
+    "privacyProcessRefererHelp": {
+        "message": "<p>উইকিপিডিয়া থেকে:<\/p><blockquote>এইচটিটিপি রেফারার একটি এইচটিটিপি হেডার ক্ষেত্র যা ওয়েবপাতার ঠিকানা চিহ্নিত করে যা অনুরোধকৃত রিসোর্সে সংযুক্ত থাকে।... <b>যেহেতু রেফারার তথ্য গোপনীয়তার নীতিমালা ভঙ্গ করতে পারে, কিছু ওয়েব ব্রাউজারে ব্যবহারকারীদের রেফারার তথ্য পাঠানো নিষ্ক্রিয় করার অনুমতি দেয়।<\/b><\/blockquote><p>যদি সেটিংসে এটি নির্বাচন করা থাকে, <i>uম্যাট্রিক্স<\/i> HTTP রেফারার তথ্য স্পুফ করবে যদি ডোমেইনের নামের নেট অনুরোধে HTTP রেফারারের ডোমেইনের নাম তৃতীয় পক্ষের হয়।<\/p>",
+        "description": ""
+    },
+    "privacyNoMixedContentPrompt": {
+        "message": "কড়া HTTPS: মিশ্রিত সামগ্রী নিষেধ।",
+        "description": ""
+    },
+    "privacyNoMixedContentHelp": {
+        "message": "<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>মোজিলা ডেভেলপার নেটওয়ার্ক<\/a> থেকে:<\/p><blockquote>যদি HTTPS পাতা নিয়মিত, স্পষ্ট পাঠ HTTP-র মাধ্যমে বিষয়বস্তুর উদ্ধার অন্তর্ভুক্ত করে, তাহলে সংযোগ শুধুমাত্র আংশিকভাবে এনক্রিপ্ট করা হয়: এনক্রিপশনবিহীন বিষয়বস্তু স্নিফার থেকে প্রবেশযোগ্য এবং মধ্য আক্রমণকারীদের দ্বারা পরিবর্তনযোগ্য, এবং সেইজন্য সংযোগ আর সুরক্ষিত থাকে না। যখন একটি ওয়েবপাতা এই আচরণ প্রদর্শন করে, তখন এটিকে একটি মিশ্র বিষয়বস্তু পাতা বলা হয়।<\/blockquote>",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingPrompt": {
+        "message": "সব <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>হাইপারলিঙ্ক নিরীক্ষণ<\/a> প্রচেষ্টা অবরুদ্ধ।",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingHelp": {
+        "message": "<p>হাইপারলিঙ্ক নিরীক্ষণ একটি প্রক্রিয়া যা একটি দল, <b>যে কোন দলকে<\/b> একজন ব্যবহারকারীর একটি নির্দিষ্ট ওয়েব পাতার লিঙ্ক ক্লিক করা সম্পর্কে অবগত করার অনুমতি দেয়। এটি মূলত একটি ট্র্যাকিং বৈশিষ্ট্য: যা একটি ওয়েব সাইট বা কোনো তৃতীয় পক্ষকে আপনি কোন ওয়েব সাইটের কোন ওয়েব পাতা ক্লিক করেছেন তা অবগত করার অনুমতি দেয়। একমাত্র উদ্দেশ্য হল আপনার ব্রাউজিং কার্যকলাপ অনুসরণ করা।<\/p>",
+        "description": ""
+    },
+    "privacySpoofUserAgentPrompt1": {
+        "message": "<a href='https:\/\/bn.wikipedia.org\/wiki\/ইউজার_এজেন্ট'>ইউজার-এজেন্ট<\/a> স্ট্রিং দ্বারা দৈবচয়নে তোলা নিচের একটি নতুন স্পুফ করুন প্রতি",
+        "description": "First part of UA-spoofing prompt"
+    },
+    "privacySpoofUserAgentPrompt2": {
+        "message": "মিনিট।",
+        "description": "Second part"
+    },
+    "privacySpoofUserAgentHelp": {
+        "message": "<i>ইলেক্ট্রনিক ফ্রন্টিয়ার ফাউন্ডেশনের<\/i> <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>মতে<\/a>: &ldquo;[...] আপনার ব্রাউজার ওয়েবসাইটে আপনি কোন অপারেটিং সিস্টেম এবং ওয়েব ব্রাউজার ব্যবহার করছেন তার একটি &lsquo;ইউজার এজেন্ট&rsquo; হেডার পাঠায়। এই তথ্য ইন্টারনেট ব্যবহারকারীকে একে অপরের থেকে পার্থক্য করতে সাহায্য করে, কারণ এইসব সংস্করণ ব্যক্তি থেকে ব্যক্তি, প্রায়ই যথেষ্ট, পৃথক হয়। [...] <b>ইউজার এজেন্ট স্ট্রিং একটি বাস্তব গোপনীয়তা সমস্যায় পরিণত হয়েছে<\/b>।&rdquo;<p>EFF দ্বারা উত্থাপিত গোপনীয়তা সমস্যা এই অপশনের সাহায্যে আপনি মোকাবেলা করতে পারবেন।<\/p><p>আপনি আপনার নিজস্ব তালিকার ইউজার এজেন্ট স্ট্রিং সরবরাহ করতে পারবেন। লাইন প্রতি একটি স্ট্রিং। খালি লাইন এবং &lsquo;#&rsquo; উপসর্গসহ লাইন উপেক্ষা করা হবে।<\/p>",
+        "description": ""
+    },
+    "userRulesPermanentHeader": {
+        "message": "স্থায়ী নিয়ম",
+        "description": ""
+    },
+    "userRulesTemporaryHeader": {
+        "message": "অস্থায়ী নিয়ম",
+        "description": ""
+    },
+    "userRulesRevert": {
+        "message": "প্রত্যাবর্তন",
+        "description": "Will remove all temporary rules"
+    },
+    "userRulesCommit": {
+        "message": "কমিট",
+        "description": "Will save all temporary rules"
+    },
+    "userRulesEdit": {
+        "message": "সম্পাদনা",
+        "description": "Will enable manual-edit mode (textarea)"
+    },
+    "userRulesEditSave": {
+        "message": "সংরক্ষণ",
+        "description": "Will save manually-edited content and exit manual-edit mode"
+    },
+    "userRulesEditDicard": {
+        "message": "বাতিল করুন",
+        "description": "Will discard manually-edited content and exit manual-edit mode"
+    },
+    "userRulesImport": {
+        "message": "ফাইল থেকে আমদানি...",
+        "description": ""
+    },
+    "userRulesExport": {
+        "message": "ফাইলে রপ্তানি...",
+        "description": ""
+    },
+    "userRulesFormatHint": {
+        "message": "নিয়ম শব্দবিন্যাসের জন্য এই পাতাটি দেখুন।",
+        "description": ""
+    },
+    "userRulesDefaultFileName": {
+        "message": "amar-umatrix-niyom.txt",
+        "description": "default file name to use"
+    },
+    "hostsFilesPrompt": {
+        "message": "বৈশ্বিক ব্যাপ্তিতে একটি হোস্ট ফাইলের সব হোস্টনেম কালোতালিকাভুক্ত হোস্টনেম হিসাবে লোড করা হয়।",
+        "description": ""
+    },
+    "hostsFilesStats": {
+        "message": "এখান থেকে {{blockedHostnameCount}}টি স্বতন্ত্র অবরুদ্ধ হোস্টনেম:",
+        "description": ""
+    },
+    "hostsFilesPerFileStats": {
+        "message": "{{total}}টির মধ্যে {{used}}টি ব্যবহৃত",
+        "description": ""
+    },
+    "hostsFilesLastUpdate": {
+        "message": "সর্বশেষ হালনাগাদ: {{ago}}",
+        "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+    },
+    "hostsFilesApplyChanges": {
+        "message": "পরিবর্তনগুলি প্রয়োগ",
+        "description": ""
+    },
+    "hostsFilesAutoUpdatePrompt": {
+        "message": "হোস্ট ফাইল স্বয়ংক্রিয়-হালনাগাদ করুন।",
+        "description": ""
+    },
+    "hostsFilesUpdateNow": {
+        "message": "এখনই হালনাগাদ করুন",
+        "description": ""
+    },
+    "hostsFilesPurgeAll": {
+        "message": "সব ক্যাশে শোধন করুন",
+        "description": ""
+    },
+    "hostsFilesExternalListsHint": {
+        "message": "লাইন প্রতি একটি URL। &lsquo;#&rsquo; সহ উপসর্গ লাইন উপেক্ষা করা হবে। অকার্যকর URL গুলি নীরবে উপেক্ষা করা হবে।",
+        "description": ""
+    },
+    "hostsFilesExternalListsParse": {
+        "message": "পার্স",
+        "description": ""
+    },
+    "hostsFilesExternalListPurge": {
+        "message": "ক্যাশে শোধন করুন",
+        "description": ""
+    },
+    "hostsFilesExternalListNew": {
+        "message": "নতুন সংস্করণ উপলব্ধ",
+        "description": ""
+    },
+    "hostsFilesExternalListObsolete": {
+        "message": "পুরোনো",
+        "description": ""
+    },
+    "aboutChangelog": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>পরিবর্তন লগ<\/a>",
+        "description": ""
+    },
+    "aboutStorageUsed": {
+        "message": "সংগ্রহস্থল ব্যবহার: {{storageUsed}} বাইট",
+        "description": ""
+    },
+    "aboutDoc": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>নথিপত্র<\/a>",
+        "description": ""
+    },
+    "aboutPermissions": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>অনুমতি<\/a>",
+        "description": ""
+    },
+    "aboutCode": {
+        "message": "উত্স কোড (GPLv৩)",
+        "description": ""
+    },
+    "aboutIssues": {
+        "message": "বাগ ও ইস্যু",
+        "description": ""
+    },
+    "aboutContributors": {
+        "message": "অবদানকারী",
+        "description": "English: Contributors"
+    },
+    "aboutCodeContributors": {
+        "message": "কোড:",
+        "description": ""
+    },
+    "aboutIssueContributors": {
+        "message": "ইস্যু:",
+        "description": ""
+    },
+    "aboutTranslationContributors": {
+        "message": "অনুবাদ:",
+        "description": ""
+    },
+    "aboutUserDataHeader": {
+        "message": "আপনার উপাত্ত",
+        "description": ""
+    },
+    "aboutBackupButton": {
+        "message": "ফাইলে ব্যাকআপ...",
+        "description": ""
+    },
+    "aboutBackupFilename": {
+        "message": "amar-umatrix-backup.txt",
+        "description": "default filename to use"
+    },
+    "aboutRestoreButton": {
+        "message": "ফাইল থেকে পুনরুদ্ধার...",
+        "description": ""
+    },
+    "aboutRestoreConfirm": {
+        "message": "{{time}}-এর ডেটা ব্যাকআপ ব্যবহার করে আপনার সেটিংস পুনঃলিখিত হবে, এবং uম্যাট্রিক্স পুনরায় চালু হবে।\n\nডেটা ব্যাকআপ ব্যবহার করে সমস্ত বিদ্যমান সেটিংস পুনঃলিখবেন?",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutRestoreError": {
+        "message": "উপাত্তটি পড়া যায়নি বা অকার্যকর",
+        "description": ""
+    },
+    "aboutOr": {
+        "message": "... বা ...",
+        "description": "English: ... or ..."
+    },
+    "aboutResetButton": {
+        "message": "ডিফল্ট সেটিংসে পুন:স্থাপন করুন",
+        "description": "English: Reset to default settings"
+    },
+    "aboutResetConfirm": {
+        "message": "সতর্কতা! এটি আপনার সব স্বনির্ধারিত সেটিংস সরিয়ে দেবে? আপনি কি অগ্রসর হতে চান?",
+        "description": "Message asking user to confirm reset"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "পরিশোধকের অভিব্যক্তি",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerMaxEntriesTip": {
+        "message": "ভুক্তির সর্বাধিক সংখ্যা",
+        "description": "Appears as a tooltip when hovering the input field"
+    },
+    "loggerEntryUserAgentSpoofing": {
+        "message": "{{value}}: এর সাথে স্পুফিং ব্যবহারকারী এজেন্ট",
+        "description": "An entry for when a new user agent string is selected"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "কুকি অপসারিত: {{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "কুকি অপসারণ করতে ব্যর্থ: {{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "ব্রাউজারের ক্যাশে পরিষ্কার হয়েছে",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "অ্যাসেট হালনাগাদকৃত: {{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "mainBlockedPrompt1": {
+        "message": "uম্যাট্রিক্স নিচের পৃষ্ঠা লোড করাকে প্রতিহত করেছে:",
+        "description": "English: uMatrix has prevented the following page from loading:"
+    },
+    "mainBlockedPrompt2": {
+        "message": "নিম্নলিখিত নিয়মের কারণে",
+        "description": "English: Because of the following rule"
+    },
+    "mainBlockedBack": {
+        "message": "ফিরে যান",
+        "description": "English: Go back"
+    },
+    "mainBlockedClose": {
+        "message": "বন্ধ",
+        "description": "English: Close"
+    },
+    "commandRevertAll": {
+        "message": "সব অস্থায়ী পরিবর্তন প্রত্যাবর্তন করুন",
+        "description": ""
+    },
+    "commandWhitelistPageDomain": {
+        "message": "সাময়িকরূপে সাদাতালিকার পাতা ডোমেইন",
+        "description": ""
+    },
+    "commandWhitelistAll": {
+        "message": "সাময়িকরূপে সাদাতালিকার সব",
+        "description": ""
+    },
+    "commandOpenDashboard": {
+        "message": "ড্যাশবোর্ড খুলুন",
+        "description": ""
+    },
+    "elapsedOneMinuteAgo": {
+        "message": "এক মিনিট আগে",
+        "description": "English: a minute ago"
+    },
+    "elapsedManyMinutesAgo": {
+        "message": "{{value}} মিনিট আগে",
+        "description": "English: {{value}} minutes ago"
+    },
+    "elapsedOneHourAgo": {
+        "message": "এক ঘণ্টা আগে",
+        "description": "English: an hour ago"
+    },
+    "elapsedManyHoursAgo": {
+        "message": "{{value}} ঘণ্টা আগে",
+        "description": "English: {{value}} hours ago"
+    },
+    "elapsedOneDayAgo": {
+        "message": "এক দিন আগে",
+        "description": "English: a day ago"
+    },
+    "elapsedManyDaysAgo": {
+        "message": "{{value}} দিন আগে",
+        "description": "English: {{value}} days ago"
+    },
+    "showDashboardButton": {
+        "message": "ড্যাশবোর্ড",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "showLoggerButton": {
+        "message": "লগার",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "cloudPush": {
+        "message": "ক্লাউড সঞ্চয়স্থানে রপ্তানি করুন",
+        "description": "tooltip"
+    },
+    "cloudPull": {
+        "message": "ক্লাউড সঞ্চয়স্থান থেকে আমদানি করুন",
+        "description": "tooltip"
+    },
+    "cloudNoData": {
+        "message": "...\n...",
+        "description": ""
+    },
+    "cloudDeviceNamePrompt": {
+        "message": "এই ডিভাইসের নাম:",
+        "description": "used as a prompt for the user to provide a custom device name"
+    },
+    "genericSubmit": {
+        "message": "জমা দিন",
+        "description": "for generic 'submit' buttons"
+    },
+    "genericRevert": {
+        "message": "প্রত্যাবর্তন",
+        "description": "for generic 'revert' buttons"
+    },
+    "errorCantConnectTo": {
+        "message": "নেটওয়ার্ক ত্রুটি: {{url}} -এ সংযোগ করতে অক্ষম",
+        "description": ""
+    }
 }

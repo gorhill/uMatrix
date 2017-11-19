@@ -1,690 +1,690 @@
 {
-  "extName":{
-    "message":"uMatrix",
-    "description":""
-  },
-  "extShortDesc":{
-    "message":"Натисніть для блокування будь якого класу запитів. Використовуйте для блокування скриптів, банерів, соцмереж, тощо.",
-    "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
-  },
-  "dashboardPageName":{
-    "message":"uMatrix — Налаштування",
-    "description":""
-  },
-  "settingsPageName":{
-    "message":"Налаштування",
-    "description":"a tab in dashboard"
-  },
-  "privacyPageName":{
-    "message":"Конфіденційність",
-    "description":"a tab in dashboard"
-  },
-  "statsPageName":{
-    "message":"Статистика",
-    "description":"a tab in dashboard"
-  },
-  "userRulesPageName":{
-    "message":"Мої правила",
-    "description":"a tab in dashboard"
-  },
-  "ubiquitousRulesPageName":{
-    "message":"Файли hosts",
-    "description":"a tab in dashboard"
-  },
-  "aboutPageName":{
-    "message":"Про програму",
-    "description":"a tab in dashboard"
-  },
-  "allPrettyName":{
-    "message":"усе",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cookiePrettyName":{
-    "message":"cookie",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cssPrettyName":{
-    "message":"css",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "imagePrettyName":{
-    "message":"зображення",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "mediaPrettyName":{
-    "message":"media",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "pluginPrettyName":{
-    "message":"плагін",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "scriptPrettyName":{
-    "message":"скрипт",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "xhrPrettyName":{
-    "message":"XHR",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "framePrettyName":{
-    "message":"фрейм",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "otherPrettyName":{
-    "message":"інше",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "matrixNoNetTrafficPrompt":{
-    "message":"У цій вкладці ще не було трафіку.",
-    "description":""
-  },
-  "matrixMtxButtonTip":{
-    "message":"Вимкнути\/увімкнути фільтрацію для цього сайту.",
-    "description":"Tool tip for matrix button"
-  },
-  "matrixPersistButtonTip":{
-    "message":"Зберегти усі тимчасові зміни для цього сайту.",
-    "description":"Tool tip for the persist button"
-  },
-  "matrixRevertButtonTip":{
-    "message":"Відмінити усі тимчасові зміни для цього сайту.",
-    "description":"Tool tip for the revert local permission button"
-  },
-  "matrixReloadButton":{
-    "message":"Перезавантажити сторінку.",
-    "description":"Tool tip for the reload button"
-  },
-  "matrix1stPartyLabel":{
-    "message":"поточний сайт",
-    "description":"1st-party"
-  },
-  "matrixBlacklistedHostnames":{
-    "message":"Сайтів заблоковано: {{count}}",
-    "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
-  },
-  "matrixSwitchNoMixedContent":{
-    "message":"Строге HTTPS",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchUASpoof":{
-    "message":"Підміна User agent",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchReferrerSpoof":{
-    "message":"Підміна referrer",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixRevertAllEntry":{
-    "message":"Відмінити усі тимчасові зміни",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixLoggerMenuEntry":{
-    "message":"Перейти до журналу",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixDashboardMenuEntry":{
-    "message":"Налаштування",
-    "description":"A menu entry in the matrix popup"
-  },
-  "statsPageTitle":{
-    "message":"uMatrix &ndash; Статистика",
-    "description":""
-  },
-  "statsPageGenericStats":{
-    "message":"Загальна статистика",
-    "description":""
-  },
-  "statsPageCookieHeadersFoiled":{
-    "message":"Відредаговано заголовків <a href='http:\/\/uk.wikipedia.org\/wiki\/Куки'>кукі<\/a>: {{count}}",
-    "description":""
-  },
-  "statsPageRefererHeadersFoiled":{
-    "message":"Відредаговано заголовків <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>referer<\/a>: {{count}}",
-    "description":""
-  },
-  "statsPageHyperlinkAuditingFoiled":{
-    "message":"Заблоковано спроб <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудиту посилань<\/a>: {{count}}",
-    "description":""
-  },
-  "statsPageCookiesRemoved":{
-    "message":"Видалено локальних кукі: {{count}}",
-    "description":""
-  },
-  "statsPageLocalStoragesCleared":{
-    "message":"Спорожнено <a href='http:\/\/diveintohtml5.info\/storage.html'>локальних сховищ<\/a>: {{count}}",
-    "description":""
-  },
-  "statsPageBrowserCacheCleared":{
-    "message":"Кешів очищено: {{count}}",
-    "description":""
-  },
-  "statsPageDetailedStats":{
-    "message":"Детальна статистика",
-    "description":""
-  },
-  "statsPageDetailedAllPages":{
-    "message":"Усе",
-    "description":""
-  },
-  "statsPageDetailedBehindTheScenePage":{
-    "message":"Приховані запити",
-    "description":""
-  },
-  "statsPageOverview":{
-    "message":"Огляд",
-    "description":""
-  },
-  "statsPageRequests":{
-    "message":"Запити",
-    "description":"header for the stat type column"
-  },
-  "statsPageAllowed":{
-    "message":"Дозволено",
-    "description":"header for the allowed requests column"
-  },
-  "statsPageBlocked":{
-    "message":"Заблоковано",
-    "description":"header for the blocked requests column"
-  },
-  "statsPageAll":{
-    "message":"Усе",
-    "description":""
-  },
-  "statsPagePages":{
-    "message":"Сторінки",
-    "description":""
-  },
-  "statsPageCookies":{
-    "message":"Кукі",
-    "description":""
-  },
-  "statsPageCSS":{
-    "message":"CSS",
-    "description":""
-  },
-  "statsPageImages":{
-    "message":"Зображення",
-    "description":""
-  },
-  "statsPagePlugins":{
-    "message":"Плагіни",
-    "description":""
-  },
-  "statsPageScripts":{
-    "message":"Скрипти",
-    "description":""
-  },
-  "statsPageXHRs":{
-    "message":"XHRs",
-    "description":""
-  },
-  "statsPageFrames":{
-    "message":"Frames",
-    "description":""
-  },
-  "statsPageOthers":{
-    "message":"Інше",
-    "description":""
-  },
-  "statsPageDetailed":{
-    "message":"Журнал",
-    "description":""
-  },
-  "statsPageLogSizePrompt1":{
-    "message":"Запам’ятати останнє",
-    "description":"First part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizePrompt2":{
-    "message":"HTTP запитів <b>на сторінку<\/b>.",
-    "description":"Second part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizeHelp":{
-    "message":"<p>Ви можете переглянути деталі про останні необроблені запити HTTP, що були зроблені сторінкою (див. нижче).<\/p><p>Це набільш корисно для просунутих користувачів, які хочуть перевірити, що конкретно робила дана веб-сторінка. Однак, збереження цих запитів HTTP потребує додаткової пам'яті, тож якщо вам не потрібна технічна інформація, пам'ять буде витрачатись намарно. <\/p><p>Отож, це поле, що дозволяє вам змінити максимальну кількість останніх запитів HTTP, що будуть збережені для подальшої перевірки.<\/p><p>Введіть &ldquo;<code>0<\/code>&rdquo; щоб вимкнути детальне логування (і, як наслідок, зменшити витрати пам'яті <i>uMatrix<\/i>'ом).<\/p>",
-    "description":"To help user understand the purpose of the log size value"
-  },
-  "statsPageRefresh":{
-    "message":"Оновити",
-    "description":""
-  },
-  "settingsPageTitle":{
-    "message":"uMatrix &ndash; Налаштування",
-    "description":""
-  },
-  "settingsMatrixDisplayHeader":{
-    "message":"Вигляд",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Розмір тексту:",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Середній",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Великий",
-    "description":""
-  },
-  "settingsMatrixDisplayColorBlind":{
-    "message":"Контрастні кольори",
-    "description":""
-  },
-  "settingsMatrixConvenienceHeader":{
-    "message":"Зручність",
-    "description":"English: Convenience"
-  },
-  "settingsMatrixAutoReloadPrompt":{
-    "message":"Після закриття matrix перезавантажувати ці вкладки:",
-    "description":""
-  },
-  "settingsMatrixAutoReloadNone":{
-    "message":"Жодних",
-    "description":""
-  },
-  "settingsMatrixAutoReloadCurrent":{
-    "message":"Поточний",
-    "description":""
-  },
-  "settingsMatrixAutoReloadAll":{
-    "message":"Усе",
-    "description":""
-  },
-  "settingsMatrixAutoReloadInfo":{
-    "message":"Щоразу, коли ви робите зміни в матриці, які можуть змінити вигляд і\/або поведінку однієї, або більше сторінок <i>uMatrix<\/i> перевантажить змінені сторінки після закриття матриці.",
-    "description":""
-  },
-  "settingsSubframeColor":{
-    "message":"Blocked frames:&ensp;Color",
-    "description":"English: Blocked frames:&ensp;Color"
-  },
-  "settingsSubframeOpacity":{
-    "message":"Затінення",
-    "description":"English: Opacity"
-  },
-  "settingsIconBadgeEnabled":{
-    "message":"Show the number of distinct requests on the icon",
-    "description":"English: Show the number of distinct requests on the icon"
-  },
-  "settingsCollapseBlocked":{
-    "message":"Collapse placeholder of blocked elements",
-    "description":"English: Collapse placeholder of blocked elements"
-  },
-  "settingsCloudStorageEnabled":{
-    "message":"Увімкнути хмарне зберігання",
-    "description":""
-  },
-  "privacyPageTitle":{
-    "message":"uMatrix &ndash; Приватність",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Видаляти заблоковані кукі.",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
-    "description":""
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Видаляти незаблоковані кукі сесій через ",
-    "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" хвилин простою.",
-    "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"Перелік завдань",
-    "description":""
-  },
-  "privacyClearCachePrompt1":{
-    "message":"Ощищувати кеш оглядача кожні",
-    "description":"First part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCachePrompt2":{
-    "message":"хвилин.",
-    "description":"Second part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCacheHelp":{
-    "message":"<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
-    "description":""
-  },
-  "privacyProcessRefererPrompt":{
-    "message":"Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
-    "description":""
-  },
-  "privacyProcessRefererHelp":{
-    "message":"From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
-    "description":""
-  },
-  "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: forbid mixed content.",
-    "description":""
-  },
-  "privacyNoMixedContentHelp":{
-    "message":"<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
-    "description":""
-  },
-  "privacySpoofUserAgentPrompt1":{
-    "message":"Підміняти <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a>, випадково вибираючи одну з наведених нижче, кожні",
-    "description":"First part of UA-spoofing prompt"
-  },
-  "privacySpoofUserAgentPrompt2":{
-    "message":"хвилин.",
-    "description":"Second part"
-  },
-  "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Згідно з <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] Ваш переглядач відправляє заголовок &lsquo;User Agent&rsquo; що містить точну версію Вашої операційної системи та веб-переглядача. Ця інформація допомогає розрізняти відвідувачів сайтів, тому що ці версії різні у різних користувачів. [...] <b>заголовок User Agent є справжньою проблемою для приватності<\/b>. &rdquo;<p>Ця опція дозволяє уникнути цієї проблеми.<\/p><p>Ви можете вказати власний перелік цих значень. Одне значення User Agent на рядок. Порожні рядки, а також рядки що починаються з &lsquo;#&rsquo; не мають значення.<\/p>",
-    "description":""
-  },
-  "userRulesPermanentHeader":{
-    "message":"Постійні правила",
-    "description":""
-  },
-  "userRulesTemporaryHeader":{
-    "message":"Тимчасові правила",
-    "description":""
-  },
-  "userRulesRevert":{
-    "message":"Повернути",
-    "description":"Will remove all temporary rules"
-  },
-  "userRulesCommit":{
-    "message":"Затвердити",
-    "description":"Will save all temporary rules"
-  },
-  "userRulesEdit":{
-    "message":"Редагувати",
-    "description":"Will enable manual-edit mode (textarea)"
-  },
-  "userRulesEditSave":{
-    "message":"Зберегти",
-    "description":"Will save manually-edited content and exit manual-edit mode"
-  },
-  "userRulesEditDicard":{
-    "message":"Відхилити",
-    "description":"Will discard manually-edited content and exit manual-edit mode"
-  },
-  "userRulesImport":{
-    "message":"Імпортувати з файлу...",
-    "description":""
-  },
-  "userRulesExport":{
-    "message":"Експортувати в файл...",
-    "description":""
-  },
-  "userRulesFormatHint":{
-    "message":"Дивися цю сторінку з правилами синтаксису.",
-    "description":""
-  },
-  "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
-    "description":"default file name to use"
-  },
-  "hostsFilesPrompt":{
-    "message":"Всі імена з файлу hosts були занесені до чорного списку у глобальному діапазоні.",
-    "description":""
-  },
-  "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} унікальних імен заблоковано з:",
-    "description":""
-  },
-  "hostsFilesPerFileStats":{
-    "message":"{{used}} використано з {{total}}",
-    "description":""
-  },
-  "hostsFilesLastUpdate":{
-    "message":"Останнє оновлення: {{ago}}",
-    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
-  },
-  "hostsFilesApplyChanges":{
-    "message":"Застосувати зміни",
-    "description":""
-  },
-  "hostsFilesAutoUpdatePrompt":{
-    "message":"Автоматичне оновлення файлів hosts.",
-    "description":""
-  },
-  "hostsFilesUpdateNow":{
-    "message":"Оновити зараз",
-    "description":""
-  },
-  "hostsFilesPurgeAll":{
-    "message":"Відмінити усі зміни",
-    "description":""
-  },
-  "hostsFilesExternalListsHint":{
-    "message":"Один URL на рядок. Рядки що починаються з &lsquo;#&rsquo; будуть проігноровані. Неправильні URL будуть проігноровані.",
-    "description":""
-  },
-  "hostsFilesExternalListsParse":{
-    "message":"Обробити",
-    "description":""
-  },
-  "hostsFilesExternalListPurge":{
-    "message":"очистити кеш",
-    "description":""
-  },
-  "hostsFilesExternalListNew":{
-    "message":"є нова версія",
-    "description":""
-  },
-  "hostsFilesExternalListObsolete":{
-    "message":"застаріла",
-    "description":""
-  },
-  "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Перелік змін<\/a>",
-    "description":""
-  },
-  "aboutStorageUsed":{
-    "message":"Байтів використано у сховищі: {{storageUsed}}",
-    "description":""
-  },
-  "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документація<\/a>",
-    "description":""
-  },
-  "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Дозволи<\/a>",
-    "description":""
-  },
-  "aboutCode":{
-    "message":"Текст програми (GPLv3)",
-    "description":""
-  },
-  "aboutIssues":{
-    "message":"Проблеми і помилки",
-    "description":""
-  },
-  "aboutContributors":{
-    "message":"Учасники",
-    "description":"English: Contributors"
-  },
-  "aboutCodeContributors":{
-    "message":"Код:",
-    "description":""
-  },
-  "aboutIssueContributors":{
-    "message":"Проблеми:",
-    "description":""
-  },
-  "aboutTranslationContributors":{
-    "message":"Переклади:",
-    "description":""
-  },
-  "aboutUserDataHeader":{
-    "message":"Ваші дані",
-    "description":""
-  },
-  "aboutBackupButton":{
-    "message":"Зберегти резервну копію...",
-    "description":""
-  },
-  "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
-    "description":"default filename to use"
-  },
-  "aboutRestoreButton":{
-    "message":"Відновити з файлу...",
-    "description":""
-  },
-  "aboutRestoreConfirm":{
-    "message":"Усі налаштування будуть замінені даними з резервної копії від {{time}}, і uMatrix буде перезавантажено.\n\nЗамінити усі існуючі дані?",
-    "description":"Message asking user to confirm restore"
-  },
-  "aboutRestoreError":{
-    "message":"Дані неправильні або недоступні",
-    "description":""
-  },
-  "aboutOr":{
-    "message":"... або ...",
-    "description":"English: ... or ..."
-  },
-  "aboutResetButton":{
-    "message":"Скинути до заводських налаштувань",
-    "description":"English: Reset to default settings"
-  },
-  "aboutResetConfirm":{
-    "message":"Увага! Ваші ручні налаштування буде видалено. Продовжити?",
-    "description":"Message asking user to confirm reset"
-  },
-  "loggerFilterInputPlaceholder":{
-    "message":"фільтр(и)",
-    "description":"Appears in the input filed where filter expressions are entered"
-  },
-  "loggerMaxEntriesTip":{
-    "message":"Максимальна кількість записів",
-    "description":"Appears as a tooltip when hovering the input field"
-  },
-  "loggerEntryUserAgentSpoofing":{
-    "message":"підміна user agent на: {{value}}",
-    "description":"An entry for when a new user agent string is selected"
-  },
-  "loggerEntryCookieDeleted":{
-    "message":"кукі видалено: {{value}}",
-    "description":"An entry for when a cookie is deleted"
-  },
-  "loggerEntryDeleteCookieError":{
-    "message":"не вдалося видалити кукі: {{value}}",
-    "description":"An entry for when the browser cache is cleared"
-  },
-  "loggerEntryBrowserCacheCleared":{
-    "message":"кеш браузера очищено",
-    "description":"An entry for when a cookie can't be deleted"
-  },
-  "loggerEntryAssetUpdated":{
-    "message":"компонент оновлено: {{value}}",
-    "description":"An entry for when an asset was updated"
-  },
-  "mainBlockedPrompt1":{
-    "message":"uMatrix заблокував завантаження сторінки:",
-    "description":"English: uMatrix has prevented the following page from loading:"
-  },
-  "mainBlockedPrompt2":{
-    "message":"Через наступне правило",
-    "description":"English: Because of the following rule"
-  },
-  "mainBlockedBack":{
-    "message":"Назад",
-    "description":"English: Go back"
-  },
-  "mainBlockedClose":{
-    "message":"Закрити",
-    "description":"English: Close"
-  },
-  "commandRevertAll":{
-    "message":"Відмінити усі тимчасові зміни",
-    "description":""
-  },
-  "commandWhitelistPageDomain":{
-    "message":"Тимчасово додати домен у білий список",
-    "description":""
-  },
-  "commandWhitelistAll":{
-    "message":"Тимчасово розблокувати усе",
-    "description":""
-  },
-  "commandOpenDashboard":{
-    "message":"Відкрити налаштування",
-    "description":""
-  },
-  "elapsedOneMinuteAgo":{
-    "message":"хвилину тому",
-    "description":"English: a minute ago"
-  },
-  "elapsedManyMinutesAgo":{
-    "message":"{{value}} хвилин тому",
-    "description":"English: {{value}} minutes ago"
-  },
-  "elapsedOneHourAgo":{
-    "message":"годину тому",
-    "description":"English: an hour ago"
-  },
-  "elapsedManyHoursAgo":{
-    "message":"{{value}} годин тому",
-    "description":"English: {{value}} hours ago"
-  },
-  "elapsedOneDayAgo":{
-    "message":"день тому",
-    "description":"English: a day ago"
-  },
-  "elapsedManyDaysAgo":{
-    "message":"{{value}} днів тому",
-    "description":"English: {{value}} days ago"
-  },
-  "showDashboardButton":{
-    "message":"Налаштування",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "showLoggerButton":{
-    "message":"Журнал",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "cloudPush":{
-    "message":"Експорт до хмарного сховища",
-    "description":"tooltip"
-  },
-  "cloudPull":{
-    "message":"Імпорт з хмарного сховища",
-    "description":"tooltip"
-  },
-  "cloudNoData":{
-    "message":"...\n...",
-    "description":""
-  },
-  "cloudDeviceNamePrompt":{
-    "message":"Назва цього пристрою:",
-    "description":"used as a prompt for the user to provide a custom device name"
-  },
-  "genericSubmit":{
-    "message":"Відправити",
-    "description":"for generic 'submit' buttons"
-  },
-  "genericRevert":{
-    "message":"Повернути",
-    "description":"for generic 'revert' buttons"
-  },
-  "errorCantConnectTo":{
-    "message":"Помилка мережі: Неможливо під’єднатися до {{url}}",
-    "description":""
-  }
+    "extName": {
+        "message": "uMatrix",
+        "description": ""
+    },
+    "extShortDesc": {
+        "message": "Натисніть для блокування будь якого класу запитів. Використовуйте для блокування скриптів, банерів, соцмереж, тощо.",
+        "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
+    },
+    "dashboardPageName": {
+        "message": "uMatrix — Налаштування",
+        "description": ""
+    },
+    "settingsPageName": {
+        "message": "Налаштування",
+        "description": "a tab in dashboard"
+    },
+    "privacyPageName": {
+        "message": "Конфіденційність",
+        "description": "a tab in dashboard"
+    },
+    "statsPageName": {
+        "message": "Статистика",
+        "description": "a tab in dashboard"
+    },
+    "userRulesPageName": {
+        "message": "Мої правила",
+        "description": "a tab in dashboard"
+    },
+    "ubiquitousRulesPageName": {
+        "message": "Файли hosts",
+        "description": "a tab in dashboard"
+    },
+    "aboutPageName": {
+        "message": "Про програму",
+        "description": "a tab in dashboard"
+    },
+    "allPrettyName": {
+        "message": "усе",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "cookie",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cssPrettyName": {
+        "message": "css",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyName": {
+        "message": "зображення",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "mediaPrettyName": {
+        "message": "media",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "pluginPrettyName": {
+        "message": "плагін",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyName": {
+        "message": "скрипт",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xhrPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "framePrettyName": {
+        "message": "фрейм",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyName": {
+        "message": "інше",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "matrixNoNetTrafficPrompt": {
+        "message": "У цій вкладці ще не було трафіку.",
+        "description": ""
+    },
+    "matrixMtxButtonTip": {
+        "message": "Вимкнути\/увімкнути фільтрацію для цього сайту.",
+        "description": "Tool tip for matrix button"
+    },
+    "matrixPersistButtonTip": {
+        "message": "Зберегти усі тимчасові зміни для цього сайту.",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip": {
+        "message": "Відмінити усі тимчасові зміни для цього сайту.",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixReloadButton": {
+        "message": "Перезавантажити сторінку.",
+        "description": "Tool tip for the reload button"
+    },
+    "matrix1stPartyLabel": {
+        "message": "поточний сайт",
+        "description": "1st-party"
+    },
+    "matrixBlacklistedHostnames": {
+        "message": "Сайтів заблоковано: {{count}}",
+        "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
+    },
+    "matrixSwitchNoMixedContent": {
+        "message": "Строге HTTPS",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchUASpoof": {
+        "message": "Підміна User agent",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchReferrerSpoof": {
+        "message": "Підміна referrer",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixRevertAllEntry": {
+        "message": "Відмінити усі тимчасові зміни",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixLoggerMenuEntry": {
+        "message": "Перейти до журналу",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixDashboardMenuEntry": {
+        "message": "Налаштування",
+        "description": "A menu entry in the matrix popup"
+    },
+    "statsPageTitle": {
+        "message": "uMatrix &ndash; Статистика",
+        "description": ""
+    },
+    "statsPageGenericStats": {
+        "message": "Загальна статистика",
+        "description": ""
+    },
+    "statsPageCookieHeadersFoiled": {
+        "message": "Відредаговано заголовків <a href='http:\/\/uk.wikipedia.org\/wiki\/Куки'>кукі<\/a>: {{count}}",
+        "description": ""
+    },
+    "statsPageRefererHeadersFoiled": {
+        "message": "Відредаговано заголовків <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>referer<\/a>: {{count}}",
+        "description": ""
+    },
+    "statsPageHyperlinkAuditingFoiled": {
+        "message": "Заблоковано спроб <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>аудиту посилань<\/a>: {{count}}",
+        "description": ""
+    },
+    "statsPageCookiesRemoved": {
+        "message": "Видалено локальних кукі: {{count}}",
+        "description": ""
+    },
+    "statsPageLocalStoragesCleared": {
+        "message": "Спорожнено <a href='http:\/\/diveintohtml5.info\/storage.html'>локальних сховищ<\/a>: {{count}}",
+        "description": ""
+    },
+    "statsPageBrowserCacheCleared": {
+        "message": "Кешів очищено: {{count}}",
+        "description": ""
+    },
+    "statsPageDetailedStats": {
+        "message": "Детальна статистика",
+        "description": ""
+    },
+    "statsPageDetailedAllPages": {
+        "message": "Усе",
+        "description": ""
+    },
+    "statsPageDetailedBehindTheScenePage": {
+        "message": "Приховані запити",
+        "description": ""
+    },
+    "statsPageOverview": {
+        "message": "Огляд",
+        "description": ""
+    },
+    "statsPageRequests": {
+        "message": "Запити",
+        "description": "header for the stat type column"
+    },
+    "statsPageAllowed": {
+        "message": "Дозволено",
+        "description": "header for the allowed requests column"
+    },
+    "statsPageBlocked": {
+        "message": "Заблоковано",
+        "description": "header for the blocked requests column"
+    },
+    "statsPageAll": {
+        "message": "Усе",
+        "description": ""
+    },
+    "statsPagePages": {
+        "message": "Сторінки",
+        "description": ""
+    },
+    "statsPageCookies": {
+        "message": "Кукі",
+        "description": ""
+    },
+    "statsPageCSS": {
+        "message": "CSS",
+        "description": ""
+    },
+    "statsPageImages": {
+        "message": "Зображення",
+        "description": ""
+    },
+    "statsPagePlugins": {
+        "message": "Плагіни",
+        "description": ""
+    },
+    "statsPageScripts": {
+        "message": "Скрипти",
+        "description": ""
+    },
+    "statsPageXHRs": {
+        "message": "XHRs",
+        "description": ""
+    },
+    "statsPageFrames": {
+        "message": "Frames",
+        "description": ""
+    },
+    "statsPageOthers": {
+        "message": "Інше",
+        "description": ""
+    },
+    "statsPageDetailed": {
+        "message": "Журнал",
+        "description": ""
+    },
+    "statsPageLogSizePrompt1": {
+        "message": "Запам’ятати останнє",
+        "description": "First part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizePrompt2": {
+        "message": "HTTP запитів <b>на сторінку<\/b>.",
+        "description": "Second part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizeHelp": {
+        "message": "<p>Ви можете переглянути деталі про останні необроблені запити HTTP, що були зроблені сторінкою (див. нижче).<\/p><p>Це набільш корисно для просунутих користувачів, які хочуть перевірити, що конкретно робила дана веб-сторінка. Однак, збереження цих запитів HTTP потребує додаткової пам'яті, тож якщо вам не потрібна технічна інформація, пам'ять буде витрачатись намарно. <\/p><p>Отож, це поле, що дозволяє вам змінити максимальну кількість останніх запитів HTTP, що будуть збережені для подальшої перевірки.<\/p><p>Введіть &ldquo;<code>0<\/code>&rdquo; щоб вимкнути детальне логування (і, як наслідок, зменшити витрати пам'яті <i>uMatrix<\/i>'ом).<\/p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh": {
+        "message": "Оновити",
+        "description": ""
+    },
+    "settingsPageTitle": {
+        "message": "uMatrix &ndash; Налаштування",
+        "description": ""
+    },
+    "settingsMatrixDisplayHeader": {
+        "message": "Вигляд",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizePrompt": {
+        "message": "Розмір тексту:",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeNormal": {
+        "message": "Середній",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeLarge": {
+        "message": "Великий",
+        "description": ""
+    },
+    "settingsMatrixDisplayColorBlind": {
+        "message": "Контрастні кольори",
+        "description": ""
+    },
+    "settingsMatrixConvenienceHeader": {
+        "message": "Зручність",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt": {
+        "message": "Після закриття matrix перезавантажувати ці вкладки:",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadNone": {
+        "message": "Жодних",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent": {
+        "message": "Поточний",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll": {
+        "message": "Усе",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo": {
+        "message": "Щоразу, коли ви робите зміни в матриці, які можуть змінити вигляд і\/або поведінку однієї, або більше сторінок <i>uMatrix<\/i> перевантажить змінені сторінки після закриття матриці.",
+        "description": ""
+    },
+    "settingsSubframeColor": {
+        "message": "Blocked frames:&ensp;Color",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity": {
+        "message": "Затінення",
+        "description": "English: Opacity"
+    },
+    "settingsIconBadgeEnabled": {
+        "message": "Show the number of distinct requests on the icon",
+        "description": "English: Show the number of distinct requests on the icon"
+    },
+    "settingsCollapseBlocked": {
+        "message": "Collapse placeholder of blocked elements",
+        "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsCloudStorageEnabled": {
+        "message": "Увімкнути хмарне зберігання",
+        "description": ""
+    },
+    "privacyPageTitle": {
+        "message": "uMatrix &ndash; Приватність",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesPrompt": {
+        "message": "Видаляти заблоковані кукі.",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesHelp": {
+        "message": "<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+        "description": ""
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1": {
+        "message": "Видаляти незаблоковані кукі сесій через ",
+        "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2": {
+        "message": " хвилин простою.",
+        "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp": {
+        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStoragePrompt": {
+        "message": "Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStorageHelp": {
+        "message": "Перелік завдань",
+        "description": ""
+    },
+    "privacyClearCachePrompt1": {
+        "message": "Ощищувати кеш оглядача кожні",
+        "description": "First part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCachePrompt2": {
+        "message": "хвилин.",
+        "description": "Second part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCacheHelp": {
+        "message": "<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "description": ""
+    },
+    "privacyProcessRefererPrompt": {
+        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+        "description": ""
+    },
+    "privacyProcessRefererHelp": {
+        "message": "From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+        "description": ""
+    },
+    "privacyNoMixedContentPrompt": {
+        "message": "Strict HTTPS: forbid mixed content.",
+        "description": ""
+    },
+    "privacyNoMixedContentHelp": {
+        "message": "<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingPrompt": {
+        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingHelp": {
+        "message": "<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+        "description": ""
+    },
+    "privacySpoofUserAgentPrompt1": {
+        "message": "Підміняти <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a>, випадково вибираючи одну з наведених нижче, кожні",
+        "description": "First part of UA-spoofing prompt"
+    },
+    "privacySpoofUserAgentPrompt2": {
+        "message": "хвилин.",
+        "description": "Second part"
+    },
+    "privacySpoofUserAgentHelp": {
+        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Згідно з <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] Ваш переглядач відправляє заголовок &lsquo;User Agent&rsquo; що містить точну версію Вашої операційної системи та веб-переглядача. Ця інформація допомогає розрізняти відвідувачів сайтів, тому що ці версії різні у різних користувачів. [...] <b>заголовок User Agent є справжньою проблемою для приватності<\/b>. &rdquo;<p>Ця опція дозволяє уникнути цієї проблеми.<\/p><p>Ви можете вказати власний перелік цих значень. Одне значення User Agent на рядок. Порожні рядки, а також рядки що починаються з &lsquo;#&rsquo; не мають значення.<\/p>",
+        "description": ""
+    },
+    "userRulesPermanentHeader": {
+        "message": "Постійні правила",
+        "description": ""
+    },
+    "userRulesTemporaryHeader": {
+        "message": "Тимчасові правила",
+        "description": ""
+    },
+    "userRulesRevert": {
+        "message": "Повернути",
+        "description": "Will remove all temporary rules"
+    },
+    "userRulesCommit": {
+        "message": "Затвердити",
+        "description": "Will save all temporary rules"
+    },
+    "userRulesEdit": {
+        "message": "Редагувати",
+        "description": "Will enable manual-edit mode (textarea)"
+    },
+    "userRulesEditSave": {
+        "message": "Зберегти",
+        "description": "Will save manually-edited content and exit manual-edit mode"
+    },
+    "userRulesEditDicard": {
+        "message": "Відхилити",
+        "description": "Will discard manually-edited content and exit manual-edit mode"
+    },
+    "userRulesImport": {
+        "message": "Імпортувати з файлу...",
+        "description": ""
+    },
+    "userRulesExport": {
+        "message": "Експортувати в файл...",
+        "description": ""
+    },
+    "userRulesFormatHint": {
+        "message": "Дивися цю сторінку з правилами синтаксису.",
+        "description": ""
+    },
+    "userRulesDefaultFileName": {
+        "message": "my-umatrix-rules.txt",
+        "description": "default file name to use"
+    },
+    "hostsFilesPrompt": {
+        "message": "Всі імена з файлу hosts були занесені до чорного списку у глобальному діапазоні.",
+        "description": ""
+    },
+    "hostsFilesStats": {
+        "message": "{{blockedHostnameCount}} унікальних імен заблоковано з:",
+        "description": ""
+    },
+    "hostsFilesPerFileStats": {
+        "message": "{{used}} використано з {{total}}",
+        "description": ""
+    },
+    "hostsFilesLastUpdate": {
+        "message": "Останнє оновлення: {{ago}}",
+        "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+    },
+    "hostsFilesApplyChanges": {
+        "message": "Застосувати зміни",
+        "description": ""
+    },
+    "hostsFilesAutoUpdatePrompt": {
+        "message": "Автоматичне оновлення файлів hosts.",
+        "description": ""
+    },
+    "hostsFilesUpdateNow": {
+        "message": "Оновити зараз",
+        "description": ""
+    },
+    "hostsFilesPurgeAll": {
+        "message": "Відмінити усі зміни",
+        "description": ""
+    },
+    "hostsFilesExternalListsHint": {
+        "message": "Один URL на рядок. Рядки що починаються з &lsquo;#&rsquo; будуть проігноровані. Неправильні URL будуть проігноровані.",
+        "description": ""
+    },
+    "hostsFilesExternalListsParse": {
+        "message": "Обробити",
+        "description": ""
+    },
+    "hostsFilesExternalListPurge": {
+        "message": "очистити кеш",
+        "description": ""
+    },
+    "hostsFilesExternalListNew": {
+        "message": "є нова версія",
+        "description": ""
+    },
+    "hostsFilesExternalListObsolete": {
+        "message": "застаріла",
+        "description": ""
+    },
+    "aboutChangelog": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Перелік змін<\/a>",
+        "description": ""
+    },
+    "aboutStorageUsed": {
+        "message": "Байтів використано у сховищі: {{storageUsed}}",
+        "description": ""
+    },
+    "aboutDoc": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документація<\/a>",
+        "description": ""
+    },
+    "aboutPermissions": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Дозволи<\/a>",
+        "description": ""
+    },
+    "aboutCode": {
+        "message": "Текст програми (GPLv3)",
+        "description": ""
+    },
+    "aboutIssues": {
+        "message": "Проблеми і помилки",
+        "description": ""
+    },
+    "aboutContributors": {
+        "message": "Учасники",
+        "description": "English: Contributors"
+    },
+    "aboutCodeContributors": {
+        "message": "Код:",
+        "description": ""
+    },
+    "aboutIssueContributors": {
+        "message": "Проблеми:",
+        "description": ""
+    },
+    "aboutTranslationContributors": {
+        "message": "Переклади:",
+        "description": ""
+    },
+    "aboutUserDataHeader": {
+        "message": "Ваші дані",
+        "description": ""
+    },
+    "aboutBackupButton": {
+        "message": "Зберегти резервну копію...",
+        "description": ""
+    },
+    "aboutBackupFilename": {
+        "message": "my-umatrix-backup.txt",
+        "description": "default filename to use"
+    },
+    "aboutRestoreButton": {
+        "message": "Відновити з файлу...",
+        "description": ""
+    },
+    "aboutRestoreConfirm": {
+        "message": "Усі налаштування будуть замінені даними з резервної копії від {{time}}, і uMatrix буде перезавантажено.\n\nЗамінити усі існуючі дані?",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutRestoreError": {
+        "message": "Дані неправильні або недоступні",
+        "description": ""
+    },
+    "aboutOr": {
+        "message": "... або ...",
+        "description": "English: ... or ..."
+    },
+    "aboutResetButton": {
+        "message": "Скинути до заводських налаштувань",
+        "description": "English: Reset to default settings"
+    },
+    "aboutResetConfirm": {
+        "message": "Увага! Ваші ручні налаштування буде видалено. Продовжити?",
+        "description": "Message asking user to confirm reset"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "фільтр(и)",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerMaxEntriesTip": {
+        "message": "Максимальна кількість записів",
+        "description": "Appears as a tooltip when hovering the input field"
+    },
+    "loggerEntryUserAgentSpoofing": {
+        "message": "підміна user agent на: {{value}}",
+        "description": "An entry for when a new user agent string is selected"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "кукі видалено: {{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "не вдалося видалити кукі: {{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "кеш браузера очищено",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "компонент оновлено: {{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "mainBlockedPrompt1": {
+        "message": "uMatrix заблокував завантаження сторінки:",
+        "description": "English: uMatrix has prevented the following page from loading:"
+    },
+    "mainBlockedPrompt2": {
+        "message": "Через наступне правило",
+        "description": "English: Because of the following rule"
+    },
+    "mainBlockedBack": {
+        "message": "Назад",
+        "description": "English: Go back"
+    },
+    "mainBlockedClose": {
+        "message": "Закрити",
+        "description": "English: Close"
+    },
+    "commandRevertAll": {
+        "message": "Відмінити усі тимчасові зміни",
+        "description": ""
+    },
+    "commandWhitelistPageDomain": {
+        "message": "Тимчасово додати домен у білий список",
+        "description": ""
+    },
+    "commandWhitelistAll": {
+        "message": "Тимчасово розблокувати усе",
+        "description": ""
+    },
+    "commandOpenDashboard": {
+        "message": "Відкрити налаштування",
+        "description": ""
+    },
+    "elapsedOneMinuteAgo": {
+        "message": "хвилину тому",
+        "description": "English: a minute ago"
+    },
+    "elapsedManyMinutesAgo": {
+        "message": "{{value}} хвилин тому",
+        "description": "English: {{value}} minutes ago"
+    },
+    "elapsedOneHourAgo": {
+        "message": "годину тому",
+        "description": "English: an hour ago"
+    },
+    "elapsedManyHoursAgo": {
+        "message": "{{value}} годин тому",
+        "description": "English: {{value}} hours ago"
+    },
+    "elapsedOneDayAgo": {
+        "message": "день тому",
+        "description": "English: a day ago"
+    },
+    "elapsedManyDaysAgo": {
+        "message": "{{value}} днів тому",
+        "description": "English: {{value}} days ago"
+    },
+    "showDashboardButton": {
+        "message": "Налаштування",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "showLoggerButton": {
+        "message": "Журнал",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "cloudPush": {
+        "message": "Експорт до хмарного сховища",
+        "description": "tooltip"
+    },
+    "cloudPull": {
+        "message": "Імпорт з хмарного сховища",
+        "description": "tooltip"
+    },
+    "cloudNoData": {
+        "message": "...\n...",
+        "description": ""
+    },
+    "cloudDeviceNamePrompt": {
+        "message": "Назва цього пристрою:",
+        "description": "used as a prompt for the user to provide a custom device name"
+    },
+    "genericSubmit": {
+        "message": "Відправити",
+        "description": "for generic 'submit' buttons"
+    },
+    "genericRevert": {
+        "message": "Повернути",
+        "description": "for generic 'revert' buttons"
+    },
+    "errorCantConnectTo": {
+        "message": "Помилка мережі: Неможливо під’єднатися до {{url}}",
+        "description": ""
+    }
 }

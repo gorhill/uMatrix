@@ -96,7 +96,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton" : {
-        "message": "Reload the page.",
+        "message": "Reload the page.\nPress Shift to bypass the browser cache.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel" : {

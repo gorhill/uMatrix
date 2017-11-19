@@ -1,690 +1,690 @@
 {
-  "extName":{
-    "message":"uMatrix",
-    "description":""
-  },
-  "extShortDesc":{
-    "message":"マウス一つでどんな種類のリクエストでも拒否\/許可することができます。スクリプト、Iframe、広告、Facebookなどをブロックします。",
-    "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
-  },
-  "dashboardPageName":{
-    "message":"uMatrix — ダッシュボード",
-    "description":""
-  },
-  "settingsPageName":{
-    "message":"設定",
-    "description":"a tab in dashboard"
-  },
-  "privacyPageName":{
-    "message":"プライバシー",
-    "description":"a tab in dashboard"
-  },
-  "statsPageName":{
-    "message":"統計",
-    "description":"a tab in dashboard"
-  },
-  "userRulesPageName":{
-    "message":"My ルール",
-    "description":"a tab in dashboard"
-  },
-  "ubiquitousRulesPageName":{
-    "message":"ホストファイル",
-    "description":"a tab in dashboard"
-  },
-  "aboutPageName":{
-    "message":"uMatrix について",
-    "description":"a tab in dashboard"
-  },
-  "allPrettyName":{
-    "message":"すべて",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cookiePrettyName":{
-    "message":"Cookie",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cssPrettyName":{
-    "message":"CSS",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "imagePrettyName":{
-    "message":"画像",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "mediaPrettyName":{
-    "message":"media",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "pluginPrettyName":{
-    "message":"Media",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "scriptPrettyName":{
-    "message":"Script",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "xhrPrettyName":{
-    "message":"XHR",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "framePrettyName":{
-    "message":"Frame",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "otherPrettyName":{
-    "message":"その他",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "matrixNoNetTrafficPrompt":{
-    "message":"このタブではネットワークトラフィックを検出できません",
-    "description":""
-  },
-  "matrixMtxButtonTip":{
-    "message":"このスコープの Matrix フィルタの有効\/無効を切り替える",
-    "description":"Tool tip for matrix button"
-  },
-  "matrixPersistButtonTip":{
-    "message":"このスコープの一時的な変更をすべて保存する",
-    "description":"Tool tip for the persist button"
-  },
-  "matrixRevertButtonTip":{
-    "message":"このスコープの一時的な変更を元に戻す",
-    "description":"Tool tip for the revert local permission button"
-  },
-  "matrixReloadButton":{
-    "message":"このページを再読み込みする",
-    "description":"Tool tip for the reload button"
-  },
-  "matrix1stPartyLabel":{
-    "message":"1st Party",
-    "description":"1st-party"
-  },
-  "matrixBlacklistedHostnames":{
-    "message":"{{count}} 件のブラックリストに載っているホスト名",
-    "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
-  },
-  "matrixSwitchNoMixedContent":{
-    "message":"完全な HTTPS",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchUASpoof":{
-    "message":"ユーザーエージェントの偽装",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchReferrerSpoof":{
-    "message":"リファラの偽装",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixRevertAllEntry":{
-    "message":"すべての一時的な変更を元に戻す",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixLoggerMenuEntry":{
-    "message":"Logger を開く",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixDashboardMenuEntry":{
-    "message":"ダッシュボードを開く",
-    "description":"A menu entry in the matrix popup"
-  },
-  "statsPageTitle":{
-    "message":"uMatrix &ndash; 統計",
-    "description":""
-  },
-  "statsPageGenericStats":{
-    "message":"一般的な統計",
-    "description":""
-  },
-  "statsPageCookieHeadersFoiled":{
-    "message":"拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>Cookie<\/a> の数: {{count}}",
-    "description":""
-  },
-  "statsPageRefererHeadersFoiled":{
-    "message":"拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>リファラ<\/a> の数: {{count}}",
-    "description":""
-  },
-  "statsPageHyperlinkAuditingFoiled":{
-    "message":"拒否した <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> の数: {{count}}",
-    "description":""
-  },
-  "statsPageCookiesRemoved":{
-    "message":"削除した Cookie の数: {{count}}",
-    "description":""
-  },
-  "statsPageLocalStoragesCleared":{
-    "message":"<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storage<\/a> を空にした数: {{count}}",
-    "description":""
-  },
-  "statsPageBrowserCacheCleared":{
-    "message":"ブラウザキャッシュを消去した数: {{count}}",
-    "description":""
-  },
-  "statsPageDetailedStats":{
-    "message":"詳細な統計",
-    "description":""
-  },
-  "statsPageDetailedAllPages":{
-    "message":"すべて",
-    "description":""
-  },
-  "statsPageDetailedBehindTheScenePage":{
-    "message":"バックグラウンドリクエスト",
-    "description":""
-  },
-  "statsPageOverview":{
-    "message":"概要",
-    "description":""
-  },
-  "statsPageRequests":{
-    "message":"リクエスト",
-    "description":"header for the stat type column"
-  },
-  "statsPageAllowed":{
-    "message":"許可",
-    "description":"header for the allowed requests column"
-  },
-  "statsPageBlocked":{
-    "message":"ブロック中",
-    "description":"header for the blocked requests column"
-  },
-  "statsPageAll":{
-    "message":"すべて",
-    "description":""
-  },
-  "statsPagePages":{
-    "message":"ページ",
-    "description":""
-  },
-  "statsPageCookies":{
-    "message":"Cookie",
-    "description":""
-  },
-  "statsPageCSS":{
-    "message":"CSS",
-    "description":""
-  },
-  "statsPageImages":{
-    "message":"画像",
-    "description":""
-  },
-  "statsPagePlugins":{
-    "message":"Plugins",
-    "description":""
-  },
-  "statsPageScripts":{
-    "message":"スクリプト",
-    "description":""
-  },
-  "statsPageXHRs":{
-    "message":"XHRs",
-    "description":""
-  },
-  "statsPageFrames":{
-    "message":"フレーム",
-    "description":""
-  },
-  "statsPageOthers":{
-    "message":"その他",
-    "description":""
-  },
-  "statsPageDetailed":{
-    "message":"Logger",
-    "description":""
-  },
-  "statsPageLogSizePrompt1":{
-    "message":"最後の記録",
-    "description":"First part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizePrompt2":{
-    "message":"<b>1ページあたり<\/b> の HTTP 要求",
-    "description":"Second part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizeHelp":{
-    "message":"<p>Web ページ（下記参照）による直近の HTTP リクエストの詳細を調べることができます。<\/p><p>これは、Web ページが何をしていたかを正確に調べたい上級ユーザーにとってとても便利です。しかし、これらの HTTP リクエストをログに記録するのは多くのメモリーを必要とします。もしあなたがこの技術情報を必要としない場合、メモリーが浪費されています。<\/p><p>このフィールドではログに記録される直近の HTTP リクエストの上限を調整することができます。<\/p><p>ログ記録を無効化したい（そして <i>uMatrix<\/i> のメモリー消費量を削減したい）場合は &ldquo;<code>0<\/code>&rdquo; を入力してください。<\/p>",
-    "description":"To help user understand the purpose of the log size value"
-  },
-  "statsPageRefresh":{
-    "message":"再読み込み",
-    "description":""
-  },
-  "settingsPageTitle":{
-    "message":"uMatrix &ndash; 設定",
-    "description":""
-  },
-  "settingsMatrixDisplayHeader":{
-    "message":"外観",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizePrompt":{
-    "message":"文字の大きさ：",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeNormal":{
-    "message":"標準",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeLarge":{
-    "message":"大きい",
-    "description":""
-  },
-  "settingsMatrixDisplayColorBlind":{
-    "message":"色覚障害の人に見やすい色で表示する",
-    "description":""
-  },
-  "settingsMatrixConvenienceHeader":{
-    "message":"利便性",
-    "description":"English: Convenience"
-  },
-  "settingsMatrixAutoReloadPrompt":{
-    "message":"Matrix を閉じたとき、これらのタブを再読み込みする:",
-    "description":""
-  },
-  "settingsMatrixAutoReloadNone":{
-    "message":"なし",
-    "description":""
-  },
-  "settingsMatrixAutoReloadCurrent":{
-    "message":"現在",
-    "description":""
-  },
-  "settingsMatrixAutoReloadAll":{
-    "message":"すべて",
-    "description":""
-  },
-  "settingsMatrixAutoReloadInfo":{
-    "message":"1 ページ以上に影響を与える変更をしてから Matrix を閉じたときは、<i>uMatrix<\/i> は影響をうけるページを再読み込みします",
-    "description":""
-  },
-  "settingsSubframeColor":{
-    "message":"ブロック中のframe:&ensp;Color",
-    "description":"English: Blocked frames:&ensp;Color"
-  },
-  "settingsSubframeOpacity":{
-    "message":"不透明度",
-    "description":"English: Opacity"
-  },
-  "settingsIconBadgeEnabled":{
-    "message":"アイコンにリクエスト数を表示する",
-    "description":"English: Show the number of distinct requests on the icon"
-  },
-  "settingsCollapseBlocked":{
-    "message":"ブロックした要素のプレースホルダを折りたたむ",
-    "description":"English: Collapse placeholder of blocked elements"
-  },
-  "settingsCloudStorageEnabled":{
-    "message":"クラウドストレージのサポートを有効にする",
-    "description":""
-  },
-  "privacyPageTitle":{
-    "message":"uMatrix &ndash; プライバシー",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesPrompt":{
-    "message":"ブロックした Cookie を削除する",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p><i>uMatrix<\/i> はブロックする設定になっている Cookie がブラウザに保存されるのをブロックしません。ブラウザからの Cookie の送信をブロックします（これが本当に重要なことです）。ブラウザが Cookie を保存するのをブロックしないのは、そのサイトが Cookie を送信していることをユーザに知らせるとともに、必要であればその内容を確認できるようにするためです。<\/p><p>必要であれば、こうした Cookie を <i>uMatrix<\/i> がブロックしたときにブラウザから削除できます。<\/p><p><b>重要な注意点：<\/b> ブラウザの拡張機能はその機能の一部として Web リクエストをおこなうことがあります。こうしたリクエストにより、ブラウザに Cookie が保存されることがあります。もしこのオプションが設定されていて、かつ Cookie を送信したホストからの Cookie を許可するように登録されていない場合は、<i>uMatrix<\/i> によって Cookie が削除されます。拡張機能が通信するホストからの Cookie を許可するように設定するのを忘れないでください。<\/p>",
-    "description":""
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"ブロックしていないセッション Cookie を削除する （",
-    "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" 分間使用されていない場合）",
-    "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>： &ldquo;ブラウザを終了するとセッション Cookie は消去されます。セッション Cookie は一時的に保存され、ブラウザが閉じられた後には保持されません。&rdquo;<\/p><p><a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>この動きをしない<\/a> ブラウザもあります。また、セッション Cookie を消去するためだけに、ブラウザを閉じたくないということがあるかもしれません。<\/p>",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"ブロックしているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を削除する",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TODO",
-    "description":""
-  },
-  "privacyClearCachePrompt1":{
-    "message":"ブラウザのキャッシュをクリアする（",
-    "description":"First part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCachePrompt2":{
-    "message":"分おき）",
-    "description":"Second part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCacheHelp":{
-    "message":"<p>ユーザの行動を追跡するのに必死な Web サイトもあります。こうした Web サイトは行儀の悪い方法を使って、追跡されないようにするための対策を回避しようとします。<\/p><p>こうした手法の一部は、<a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>ブラウザのキャッシュ<\/a>に依存<sup style='font-size:smaller'>[1, 2]<\/sup> しています。なぜなら、ブラウザのキャッシュを消去する人はまれで、多くの場合に長期間にわたって残り続けるためです。<\/p><p>定期的にブラウザのキャッシュを消去することによる不都合はほとんどありません（あるとすれば、消去されるときユーザが気づかないということです）。メリットは、こうした不愉快なトラッカーによってあなたのプライバシーが侵害されるのを防げるという点です。<\/p><p>このオプションを設定することで、任意の間隔で <i>uMatrix<\/i> がブラウザのキャッシュを消去するようになります。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
-    "description":""
-  },
-  "privacyProcessRefererPrompt":{
-    "message":"サードパーティーリクエストの <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP リファラ<\/a> を偽装する",
-    "description":""
-  },
-  "privacyProcessRefererHelp":{
-    "message":"<p>Wikipedia から引用：<\/p><blockquote>HTTP リファラは、要求しているリソースにリンクしたウェブページのアドレスを識別する HTTP ヘッダのフィールドです。<b>リファラはプライバシーを侵害するおそれがあるため、一部の Web ブラウザでは、ユーザーがリファラの送信を無効にすることができます<\/b>。<\/blockquote><p>この設定をオンにすると、HTTP リファラのドメイン名がアクセスしている Web サイトのドメイン名と異なる場合（サードパーティリクエストである場合）、<i>uMatrix<\/i> は HTTP リファラを偽装します。",
-    "description":""
-  },
-  "privacyNoMixedContentPrompt":{
-    "message":"完全な HTTPS: 混在したコンテンツを禁止する",
-    "description":""
-  },
-  "privacyNoMixedContentHelp":{
-    "message":"<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>もし HTTPS のページが平文の HTTP で送られてくるコンテンツを含む場合、その接続は部分的に暗号化されたものにすぎません。暗号化されていないコンテンツは盗聴可能であり、中間者攻撃によってコンテンツを書き換えることができます。すなわち、その接続は保護されているとはいえません。このような Web ページは「混在したコンテンツ」を含むページと呼ばれます。<\/blockquote>",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"すべての <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> を拒否する",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か<\/b> に通知することを可能にする仕組みです。これは本質的にトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。<\/p>",
-    "description":""
-  },
-  "privacySpoofUserAgentPrompt1":{
-    "message":"以下のリストからランダムに選択した <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>ユーザーエージェント<\/a> で偽装する（",
-    "description":"First part of UA-spoofing prompt"
-  },
-  "privacySpoofUserAgentPrompt2":{
-    "message":"分おきに変更する）",
-    "description":"Second part"
-  },
-  "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子フロンティア財団（EFF）<\/i>によると<\/a>: &ldquo;[...] ブラウザは利用している OS と Web ブラウザについての詳細を、&lsquo;User Agent&rsquo; ヘッダによりウェブサイトに通知します。この情報は、インターネット上のユーザを識別するのに役立っています。なぜなら、この情報はしばしば人それぞれ大幅に違うことがあるためです。[...] <b>ユーザーエージェント文字列は、現実のプライバシーの問題となっています。<\/b>&rdquo;<p>このオプションによって、EFF が提起したプライバシーの問題に対処することができます。実際のユーザーエージェント文字列は WebSocket から<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>漏洩することがある<\/a>のでご注意ください。<\/p><p>ユーザーエージェント文字列のリストを独自に定義することができます。1 行にひとつずつ記述してください。空の行と &lsquo;#&rsquo; で始まる行は無視されます。<\/p>",
-    "description":""
-  },
-  "userRulesPermanentHeader":{
-    "message":"永続的なルール",
-    "description":""
-  },
-  "userRulesTemporaryHeader":{
-    "message":"一時的なルール",
-    "description":""
-  },
-  "userRulesRevert":{
-    "message":"元に戻す",
-    "description":"Will remove all temporary rules"
-  },
-  "userRulesCommit":{
-    "message":"コミット",
-    "description":"Will save all temporary rules"
-  },
-  "userRulesEdit":{
-    "message":"編集",
-    "description":"Will enable manual-edit mode (textarea)"
-  },
-  "userRulesEditSave":{
-    "message":"保存",
-    "description":"Will save manually-edited content and exit manual-edit mode"
-  },
-  "userRulesEditDicard":{
-    "message":"破棄",
-    "description":"Will discard manually-edited content and exit manual-edit mode"
-  },
-  "userRulesImport":{
-    "message":"ファイルからインポート...",
-    "description":""
-  },
-  "userRulesExport":{
-    "message":"ファイルへのエクスポート...",
-    "description":""
-  },
-  "userRulesFormatHint":{
-    "message":"ルールの構文については、このページを参照してください。",
-    "description":""
-  },
-  "userRulesDefaultFileName":{
-    "message":"my-umatrix-rules.txt",
-    "description":"default file name to use"
-  },
-  "hostsFilesPrompt":{
-    "message":"ホストファイルに記載されたすべてのホストは、あらゆるリクエストをブロックする対象として扱われます。",
-    "description":""
-  },
-  "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} 件のホストをブロック対象として使用しています：",
-    "description":""
-  },
-  "hostsFilesPerFileStats":{
-    "message":"{{total}} 件のうち {{used}} 件を使用中",
-    "description":""
-  },
-  "hostsFilesLastUpdate":{
-    "message":"最終更新日: {{ago}}",
-    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
-  },
-  "hostsFilesApplyChanges":{
-    "message":"変更を適用する",
-    "description":""
-  },
-  "hostsFilesAutoUpdatePrompt":{
-    "message":"ホストファイルを自動で更新する",
-    "description":""
-  },
-  "hostsFilesUpdateNow":{
-    "message":"今すぐアップデート",
-    "description":""
-  },
-  "hostsFilesPurgeAll":{
-    "message":"すべてのキャッシュをクリア",
-    "description":""
-  },
-  "hostsFilesExternalListsHint":{
-    "message":"1 行にひとつずつ記述してください。&lsquo;#&rsquo; で始まる行は無視されます。無効な URL は警告なしに無視されます。",
-    "description":""
-  },
-  "hostsFilesExternalListsParse":{
-    "message":"読み込む",
-    "description":""
-  },
-  "hostsFilesExternalListPurge":{
-    "message":"キャッシュのクリア",
-    "description":""
-  },
-  "hostsFilesExternalListNew":{
-    "message":"新しいバージョンを利用できます",
-    "description":""
-  },
-  "hostsFilesExternalListObsolete":{
-    "message":"古い",
-    "description":""
-  },
-  "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uBlock\/releases'>変更履歴<\/a>",
-    "description":""
-  },
-  "aboutStorageUsed":{
-    "message":"使用中のストレージ: {{storageUsed}} bytes",
-    "description":""
-  },
-  "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>ドキュメント<\/a>",
-    "description":""
-  },
-  "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>パーミッションについて<\/a>",
-    "description":""
-  },
-  "aboutCode":{
-    "message":"ソースコード (GPLv3)",
-    "description":""
-  },
-  "aboutIssues":{
-    "message":"バグや問題点",
-    "description":""
-  },
-  "aboutContributors":{
-    "message":"協力者",
-    "description":"English: Contributors"
-  },
-  "aboutCodeContributors":{
-    "message":"ソースコード:",
-    "description":""
-  },
-  "aboutIssueContributors":{
-    "message":"問題点:",
-    "description":""
-  },
-  "aboutTranslationContributors":{
-    "message":"翻訳:",
-    "description":""
-  },
-  "aboutUserDataHeader":{
-    "message":"データ",
-    "description":""
-  },
-  "aboutBackupButton":{
-    "message":"ファイルにバックアップ...",
-    "description":""
-  },
-  "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
-    "description":"default filename to use"
-  },
-  "aboutRestoreButton":{
-    "message":"ファイルから復元...",
-    "description":""
-  },
-  "aboutRestoreConfirm":{
-    "message":"すべての設定は {{time}} のバックアップデータで上書きされ、uMatrix が再起動します。\n\nバックアップデータで上書きしますか？",
-    "description":"Message asking user to confirm restore"
-  },
-  "aboutRestoreError":{
-    "message":"データを読み込めなかったか、無効なデータです",
-    "description":""
-  },
-  "aboutOr":{
-    "message":"... もしくは ...",
-    "description":"English: ... or ..."
-  },
-  "aboutResetButton":{
-    "message":"初期設定に戻す",
-    "description":"English: Reset to default settings"
-  },
-  "aboutResetConfirm":{
-    "message":"注意！ 設定はすべて削除されます。続行してもよろしいですか？",
-    "description":"Message asking user to confirm reset"
-  },
-  "loggerFilterInputPlaceholder":{
-    "message":"フィルタする",
-    "description":"Appears in the input filed where filter expressions are entered"
-  },
-  "loggerMaxEntriesTip":{
-    "message":"エントリの最大数",
-    "description":"Appears as a tooltip when hovering the input field"
-  },
-  "loggerEntryUserAgentSpoofing":{
-    "message":"偽装しているユーザーエージェント: {{value}}",
-    "description":"An entry for when a new user agent string is selected"
-  },
-  "loggerEntryCookieDeleted":{
-    "message":"削除した Cookie：{{value}}",
-    "description":"An entry for when a cookie is deleted"
-  },
-  "loggerEntryDeleteCookieError":{
-    "message":"Cookie の削除に失敗しました：{{value}}",
-    "description":"An entry for when the browser cache is cleared"
-  },
-  "loggerEntryBrowserCacheCleared":{
-    "message":"ブラウザのキャッシュを削除しました",
-    "description":"An entry for when a cookie can't be deleted"
-  },
-  "loggerEntryAssetUpdated":{
-    "message":"リソースを更新しました：{{value}}",
-    "description":"An entry for when an asset was updated"
-  },
-  "mainBlockedPrompt1":{
-    "message":"uMatrix はこのページの読み込みをブロックしています：",
-    "description":"English: uMatrix has prevented the following page from loading:"
-  },
-  "mainBlockedPrompt2":{
-    "message":"以下のルールに従う",
-    "description":"English: Because of the following rule"
-  },
-  "mainBlockedBack":{
-    "message":"戻る",
-    "description":"English: Go back"
-  },
-  "mainBlockedClose":{
-    "message":"閉じる",
-    "description":"English: Close"
-  },
-  "commandRevertAll":{
-    "message":"すべての一時的な変更を元に戻す",
-    "description":""
-  },
-  "commandWhitelistPageDomain":{
-    "message":"このページのドメインを一時的にホワイトリストに登録する",
-    "description":""
-  },
-  "commandWhitelistAll":{
-    "message":"一時的にすべてホワイトリストに登録",
-    "description":""
-  },
-  "commandOpenDashboard":{
-    "message":"ダッシュボードを開く",
-    "description":""
-  },
-  "elapsedOneMinuteAgo":{
-    "message":"1 分前",
-    "description":"English: a minute ago"
-  },
-  "elapsedManyMinutesAgo":{
-    "message":"{{value}} 分前",
-    "description":"English: {{value}} minutes ago"
-  },
-  "elapsedOneHourAgo":{
-    "message":"1 時間前",
-    "description":"English: an hour ago"
-  },
-  "elapsedManyHoursAgo":{
-    "message":"{{value}} 時間前",
-    "description":"English: {{value}} hours ago"
-  },
-  "elapsedOneDayAgo":{
-    "message":"1 日前",
-    "description":"English: a day ago"
-  },
-  "elapsedManyDaysAgo":{
-    "message":"{{value}} 日前",
-    "description":"English: {{value}} days ago"
-  },
-  "showDashboardButton":{
-    "message":"ダッシュボード",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "showLoggerButton":{
-    "message":"Logger",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "cloudPush":{
-    "message":"クラウドストレージにエクスポート",
-    "description":"tooltip"
-  },
-  "cloudPull":{
-    "message":"クラウドストレージからインポート",
-    "description":"tooltip"
-  },
-  "cloudNoData":{
-    "message":"...\n...",
-    "description":""
-  },
-  "cloudDeviceNamePrompt":{
-    "message":"このデバイスの名称：",
-    "description":"used as a prompt for the user to provide a custom device name"
-  },
-  "genericSubmit":{
-    "message":"登録する",
-    "description":"for generic 'submit' buttons"
-  },
-  "genericRevert":{
-    "message":"元に戻す",
-    "description":"for generic 'revert' buttons"
-  },
-  "errorCantConnectTo":{
-    "message":"ネットワークエラー: {{url}} に接続できません",
-    "description":""
-  }
+    "extName": {
+        "message": "uMatrix",
+        "description": ""
+    },
+    "extShortDesc": {
+        "message": "マウス一つでどんな種類のリクエストでも拒否\/許可することができます。スクリプト、Iframe、広告、Facebookなどをブロックします。",
+        "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
+    },
+    "dashboardPageName": {
+        "message": "uMatrix — ダッシュボード",
+        "description": ""
+    },
+    "settingsPageName": {
+        "message": "設定",
+        "description": "a tab in dashboard"
+    },
+    "privacyPageName": {
+        "message": "プライバシー",
+        "description": "a tab in dashboard"
+    },
+    "statsPageName": {
+        "message": "統計",
+        "description": "a tab in dashboard"
+    },
+    "userRulesPageName": {
+        "message": "My ルール",
+        "description": "a tab in dashboard"
+    },
+    "ubiquitousRulesPageName": {
+        "message": "ホストファイル",
+        "description": "a tab in dashboard"
+    },
+    "aboutPageName": {
+        "message": "uMatrix について",
+        "description": "a tab in dashboard"
+    },
+    "allPrettyName": {
+        "message": "すべて",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "Cookie",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cssPrettyName": {
+        "message": "CSS",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyName": {
+        "message": "画像",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "mediaPrettyName": {
+        "message": "media",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "pluginPrettyName": {
+        "message": "Media",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyName": {
+        "message": "Script",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xhrPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "framePrettyName": {
+        "message": "Frame",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyName": {
+        "message": "その他",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "matrixNoNetTrafficPrompt": {
+        "message": "このタブではネットワークトラフィックを検出できません",
+        "description": ""
+    },
+    "matrixMtxButtonTip": {
+        "message": "このスコープの Matrix フィルタの有効\/無効を切り替える",
+        "description": "Tool tip for matrix button"
+    },
+    "matrixPersistButtonTip": {
+        "message": "このスコープの一時的な変更をすべて保存する",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip": {
+        "message": "このスコープの一時的な変更を元に戻す",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixReloadButton": {
+        "message": "このページを再読み込みする",
+        "description": "Tool tip for the reload button"
+    },
+    "matrix1stPartyLabel": {
+        "message": "1st Party",
+        "description": "1st-party"
+    },
+    "matrixBlacklistedHostnames": {
+        "message": "{{count}} 件のブラックリストに載っているホスト名",
+        "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
+    },
+    "matrixSwitchNoMixedContent": {
+        "message": "完全な HTTPS",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchUASpoof": {
+        "message": "ユーザーエージェントの偽装",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchReferrerSpoof": {
+        "message": "リファラの偽装",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixRevertAllEntry": {
+        "message": "すべての一時的な変更を元に戻す",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixLoggerMenuEntry": {
+        "message": "Logger を開く",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixDashboardMenuEntry": {
+        "message": "ダッシュボードを開く",
+        "description": "A menu entry in the matrix popup"
+    },
+    "statsPageTitle": {
+        "message": "uMatrix &ndash; 統計",
+        "description": ""
+    },
+    "statsPageGenericStats": {
+        "message": "一般的な統計",
+        "description": ""
+    },
+    "statsPageCookieHeadersFoiled": {
+        "message": "拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>Cookie<\/a> の数: {{count}}",
+        "description": ""
+    },
+    "statsPageRefererHeadersFoiled": {
+        "message": "拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>リファラ<\/a> の数: {{count}}",
+        "description": ""
+    },
+    "statsPageHyperlinkAuditingFoiled": {
+        "message": "拒否した <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> の数: {{count}}",
+        "description": ""
+    },
+    "statsPageCookiesRemoved": {
+        "message": "削除した Cookie の数: {{count}}",
+        "description": ""
+    },
+    "statsPageLocalStoragesCleared": {
+        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storage<\/a> を空にした数: {{count}}",
+        "description": ""
+    },
+    "statsPageBrowserCacheCleared": {
+        "message": "ブラウザキャッシュを消去した数: {{count}}",
+        "description": ""
+    },
+    "statsPageDetailedStats": {
+        "message": "詳細な統計",
+        "description": ""
+    },
+    "statsPageDetailedAllPages": {
+        "message": "すべて",
+        "description": ""
+    },
+    "statsPageDetailedBehindTheScenePage": {
+        "message": "バックグラウンドリクエスト",
+        "description": ""
+    },
+    "statsPageOverview": {
+        "message": "概要",
+        "description": ""
+    },
+    "statsPageRequests": {
+        "message": "リクエスト",
+        "description": "header for the stat type column"
+    },
+    "statsPageAllowed": {
+        "message": "許可",
+        "description": "header for the allowed requests column"
+    },
+    "statsPageBlocked": {
+        "message": "ブロック中",
+        "description": "header for the blocked requests column"
+    },
+    "statsPageAll": {
+        "message": "すべて",
+        "description": ""
+    },
+    "statsPagePages": {
+        "message": "ページ",
+        "description": ""
+    },
+    "statsPageCookies": {
+        "message": "Cookie",
+        "description": ""
+    },
+    "statsPageCSS": {
+        "message": "CSS",
+        "description": ""
+    },
+    "statsPageImages": {
+        "message": "画像",
+        "description": ""
+    },
+    "statsPagePlugins": {
+        "message": "Plugins",
+        "description": ""
+    },
+    "statsPageScripts": {
+        "message": "スクリプト",
+        "description": ""
+    },
+    "statsPageXHRs": {
+        "message": "XHRs",
+        "description": ""
+    },
+    "statsPageFrames": {
+        "message": "フレーム",
+        "description": ""
+    },
+    "statsPageOthers": {
+        "message": "その他",
+        "description": ""
+    },
+    "statsPageDetailed": {
+        "message": "Logger",
+        "description": ""
+    },
+    "statsPageLogSizePrompt1": {
+        "message": "最後の記録",
+        "description": "First part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizePrompt2": {
+        "message": "<b>1ページあたり<\/b> の HTTP 要求",
+        "description": "Second part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizeHelp": {
+        "message": "<p>Web ページ（下記参照）による直近の HTTP リクエストの詳細を調べることができます。<\/p><p>これは、Web ページが何をしていたかを正確に調べたい上級ユーザーにとってとても便利です。しかし、これらの HTTP リクエストをログに記録するのは多くのメモリーを必要とします。もしあなたがこの技術情報を必要としない場合、メモリーが浪費されています。<\/p><p>このフィールドではログに記録される直近の HTTP リクエストの上限を調整することができます。<\/p><p>ログ記録を無効化したい（そして <i>uMatrix<\/i> のメモリー消費量を削減したい）場合は &ldquo;<code>0<\/code>&rdquo; を入力してください。<\/p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh": {
+        "message": "再読み込み",
+        "description": ""
+    },
+    "settingsPageTitle": {
+        "message": "uMatrix &ndash; 設定",
+        "description": ""
+    },
+    "settingsMatrixDisplayHeader": {
+        "message": "外観",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizePrompt": {
+        "message": "文字の大きさ：",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeNormal": {
+        "message": "標準",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeLarge": {
+        "message": "大きい",
+        "description": ""
+    },
+    "settingsMatrixDisplayColorBlind": {
+        "message": "色覚障害の人に見やすい色で表示する",
+        "description": ""
+    },
+    "settingsMatrixConvenienceHeader": {
+        "message": "利便性",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt": {
+        "message": "Matrix を閉じたとき、これらのタブを再読み込みする:",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadNone": {
+        "message": "なし",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent": {
+        "message": "現在",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll": {
+        "message": "すべて",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo": {
+        "message": "1 ページ以上に影響を与える変更をしてから Matrix を閉じたときは、<i>uMatrix<\/i> は影響をうけるページを再読み込みします",
+        "description": ""
+    },
+    "settingsSubframeColor": {
+        "message": "ブロック中のframe:&ensp;Color",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity": {
+        "message": "不透明度",
+        "description": "English: Opacity"
+    },
+    "settingsIconBadgeEnabled": {
+        "message": "アイコンにリクエスト数を表示する",
+        "description": "English: Show the number of distinct requests on the icon"
+    },
+    "settingsCollapseBlocked": {
+        "message": "ブロックした要素のプレースホルダを折りたたむ",
+        "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsCloudStorageEnabled": {
+        "message": "クラウドストレージのサポートを有効にする",
+        "description": ""
+    },
+    "privacyPageTitle": {
+        "message": "uMatrix &ndash; プライバシー",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesPrompt": {
+        "message": "ブロックした Cookie を削除する",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesHelp": {
+        "message": "<p><i>uMatrix<\/i> はブロックする設定になっている Cookie がブラウザに保存されるのをブロックしません。ブラウザからの Cookie の送信をブロックします（これが本当に重要なことです）。ブラウザが Cookie を保存するのをブロックしないのは、そのサイトが Cookie を送信していることをユーザに知らせるとともに、必要であればその内容を確認できるようにするためです。<\/p><p>必要であれば、こうした Cookie を <i>uMatrix<\/i> がブロックしたときにブラウザから削除できます。<\/p><p><b>重要な注意点：<\/b> ブラウザの拡張機能はその機能の一部として Web リクエストをおこなうことがあります。こうしたリクエストにより、ブラウザに Cookie が保存されることがあります。もしこのオプションが設定されていて、かつ Cookie を送信したホストからの Cookie を許可するように登録されていない場合は、<i>uMatrix<\/i> によって Cookie が削除されます。拡張機能が通信するホストからの Cookie を許可するように設定するのを忘れないでください。<\/p>",
+        "description": ""
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1": {
+        "message": "ブロックしていないセッション Cookie を削除する （",
+        "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2": {
+        "message": " 分間使用されていない場合）",
+        "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp": {
+        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>： &ldquo;ブラウザを終了するとセッション Cookie は消去されます。セッション Cookie は一時的に保存され、ブラウザが閉じられた後には保持されません。&rdquo;<\/p><p><a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>この動きをしない<\/a> ブラウザもあります。また、セッション Cookie を消去するためだけに、ブラウザを閉じたくないということがあるかもしれません。<\/p>",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStoragePrompt": {
+        "message": "ブロックしているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を削除する",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStorageHelp": {
+        "message": "TODO",
+        "description": ""
+    },
+    "privacyClearCachePrompt1": {
+        "message": "ブラウザのキャッシュをクリアする（",
+        "description": "First part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCachePrompt2": {
+        "message": "分おき）",
+        "description": "Second part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCacheHelp": {
+        "message": "<p>ユーザの行動を追跡するのに必死な Web サイトもあります。こうした Web サイトは行儀の悪い方法を使って、追跡されないようにするための対策を回避しようとします。<\/p><p>こうした手法の一部は、<a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>ブラウザのキャッシュ<\/a>に依存<sup style='font-size:smaller'>[1, 2]<\/sup> しています。なぜなら、ブラウザのキャッシュを消去する人はまれで、多くの場合に長期間にわたって残り続けるためです。<\/p><p>定期的にブラウザのキャッシュを消去することによる不都合はほとんどありません（あるとすれば、消去されるときユーザが気づかないということです）。メリットは、こうした不愉快なトラッカーによってあなたのプライバシーが侵害されるのを防げるという点です。<\/p><p>このオプションを設定することで、任意の間隔で <i>uMatrix<\/i> がブラウザのキャッシュを消去するようになります。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "description": ""
+    },
+    "privacyProcessRefererPrompt": {
+        "message": "サードパーティーリクエストの <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP リファラ<\/a> を偽装する",
+        "description": ""
+    },
+    "privacyProcessRefererHelp": {
+        "message": "<p>Wikipedia から引用：<\/p><blockquote>HTTP リファラは、要求しているリソースにリンクしたウェブページのアドレスを識別する HTTP ヘッダのフィールドです。<b>リファラはプライバシーを侵害するおそれがあるため、一部の Web ブラウザでは、ユーザーがリファラの送信を無効にすることができます<\/b>。<\/blockquote><p>この設定をオンにすると、HTTP リファラのドメイン名がアクセスしている Web サイトのドメイン名と異なる場合（サードパーティリクエストである場合）、<i>uMatrix<\/i> は HTTP リファラを偽装します。",
+        "description": ""
+    },
+    "privacyNoMixedContentPrompt": {
+        "message": "完全な HTTPS: 混在したコンテンツを禁止する",
+        "description": ""
+    },
+    "privacyNoMixedContentHelp": {
+        "message": "<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>もし HTTPS のページが平文の HTTP で送られてくるコンテンツを含む場合、その接続は部分的に暗号化されたものにすぎません。暗号化されていないコンテンツは盗聴可能であり、中間者攻撃によってコンテンツを書き換えることができます。すなわち、その接続は保護されているとはいえません。このような Web ページは「混在したコンテンツ」を含むページと呼ばれます。<\/blockquote>",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingPrompt": {
+        "message": "すべての <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> を拒否する",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingHelp": {
+        "message": "<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か<\/b> に通知することを可能にする仕組みです。これは本質的にトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。<\/p>",
+        "description": ""
+    },
+    "privacySpoofUserAgentPrompt1": {
+        "message": "以下のリストからランダムに選択した <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>ユーザーエージェント<\/a> で偽装する（",
+        "description": "First part of UA-spoofing prompt"
+    },
+    "privacySpoofUserAgentPrompt2": {
+        "message": "分おきに変更する）",
+        "description": "Second part"
+    },
+    "privacySpoofUserAgentHelp": {
+        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子フロンティア財団（EFF）<\/i>によると<\/a>: &ldquo;[...] ブラウザは利用している OS と Web ブラウザについての詳細を、&lsquo;User Agent&rsquo; ヘッダによりウェブサイトに通知します。この情報は、インターネット上のユーザを識別するのに役立っています。なぜなら、この情報はしばしば人それぞれ大幅に違うことがあるためです。[...] <b>ユーザーエージェント文字列は、現実のプライバシーの問題となっています。<\/b>&rdquo;<p>このオプションによって、EFF が提起したプライバシーの問題に対処することができます。実際のユーザーエージェント文字列は WebSocket から<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>漏洩することがある<\/a>のでご注意ください。<\/p><p>ユーザーエージェント文字列のリストを独自に定義することができます。1 行にひとつずつ記述してください。空の行と &lsquo;#&rsquo; で始まる行は無視されます。<\/p>",
+        "description": ""
+    },
+    "userRulesPermanentHeader": {
+        "message": "永続的なルール",
+        "description": ""
+    },
+    "userRulesTemporaryHeader": {
+        "message": "一時的なルール",
+        "description": ""
+    },
+    "userRulesRevert": {
+        "message": "元に戻す",
+        "description": "Will remove all temporary rules"
+    },
+    "userRulesCommit": {
+        "message": "コミット",
+        "description": "Will save all temporary rules"
+    },
+    "userRulesEdit": {
+        "message": "編集",
+        "description": "Will enable manual-edit mode (textarea)"
+    },
+    "userRulesEditSave": {
+        "message": "保存",
+        "description": "Will save manually-edited content and exit manual-edit mode"
+    },
+    "userRulesEditDicard": {
+        "message": "破棄",
+        "description": "Will discard manually-edited content and exit manual-edit mode"
+    },
+    "userRulesImport": {
+        "message": "ファイルからインポート...",
+        "description": ""
+    },
+    "userRulesExport": {
+        "message": "ファイルへのエクスポート...",
+        "description": ""
+    },
+    "userRulesFormatHint": {
+        "message": "ルールの構文については、このページを参照してください。",
+        "description": ""
+    },
+    "userRulesDefaultFileName": {
+        "message": "my-umatrix-rules.txt",
+        "description": "default file name to use"
+    },
+    "hostsFilesPrompt": {
+        "message": "ホストファイルに記載されたすべてのホストは、あらゆるリクエストをブロックする対象として扱われます。",
+        "description": ""
+    },
+    "hostsFilesStats": {
+        "message": "{{blockedHostnameCount}} 件のホストをブロック対象として使用しています：",
+        "description": ""
+    },
+    "hostsFilesPerFileStats": {
+        "message": "{{total}} 件のうち {{used}} 件を使用中",
+        "description": ""
+    },
+    "hostsFilesLastUpdate": {
+        "message": "最終更新日: {{ago}}",
+        "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+    },
+    "hostsFilesApplyChanges": {
+        "message": "変更を適用する",
+        "description": ""
+    },
+    "hostsFilesAutoUpdatePrompt": {
+        "message": "ホストファイルを自動で更新する",
+        "description": ""
+    },
+    "hostsFilesUpdateNow": {
+        "message": "今すぐアップデート",
+        "description": ""
+    },
+    "hostsFilesPurgeAll": {
+        "message": "すべてのキャッシュをクリア",
+        "description": ""
+    },
+    "hostsFilesExternalListsHint": {
+        "message": "1 行にひとつずつ記述してください。&lsquo;#&rsquo; で始まる行は無視されます。無効な URL は警告なしに無視されます。",
+        "description": ""
+    },
+    "hostsFilesExternalListsParse": {
+        "message": "読み込む",
+        "description": ""
+    },
+    "hostsFilesExternalListPurge": {
+        "message": "キャッシュのクリア",
+        "description": ""
+    },
+    "hostsFilesExternalListNew": {
+        "message": "新しいバージョンを利用できます",
+        "description": ""
+    },
+    "hostsFilesExternalListObsolete": {
+        "message": "古い",
+        "description": ""
+    },
+    "aboutChangelog": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uBlock\/releases'>変更履歴<\/a>",
+        "description": ""
+    },
+    "aboutStorageUsed": {
+        "message": "使用中のストレージ: {{storageUsed}} bytes",
+        "description": ""
+    },
+    "aboutDoc": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>ドキュメント<\/a>",
+        "description": ""
+    },
+    "aboutPermissions": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>パーミッションについて<\/a>",
+        "description": ""
+    },
+    "aboutCode": {
+        "message": "ソースコード (GPLv3)",
+        "description": ""
+    },
+    "aboutIssues": {
+        "message": "バグや問題点",
+        "description": ""
+    },
+    "aboutContributors": {
+        "message": "協力者",
+        "description": "English: Contributors"
+    },
+    "aboutCodeContributors": {
+        "message": "ソースコード:",
+        "description": ""
+    },
+    "aboutIssueContributors": {
+        "message": "問題点:",
+        "description": ""
+    },
+    "aboutTranslationContributors": {
+        "message": "翻訳:",
+        "description": ""
+    },
+    "aboutUserDataHeader": {
+        "message": "データ",
+        "description": ""
+    },
+    "aboutBackupButton": {
+        "message": "ファイルにバックアップ...",
+        "description": ""
+    },
+    "aboutBackupFilename": {
+        "message": "my-umatrix-backup.txt",
+        "description": "default filename to use"
+    },
+    "aboutRestoreButton": {
+        "message": "ファイルから復元...",
+        "description": ""
+    },
+    "aboutRestoreConfirm": {
+        "message": "すべての設定は {{time}} のバックアップデータで上書きされ、uMatrix が再起動します。\n\nバックアップデータで上書きしますか？",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutRestoreError": {
+        "message": "データを読み込めなかったか、無効なデータです",
+        "description": ""
+    },
+    "aboutOr": {
+        "message": "... もしくは ...",
+        "description": "English: ... or ..."
+    },
+    "aboutResetButton": {
+        "message": "初期設定に戻す",
+        "description": "English: Reset to default settings"
+    },
+    "aboutResetConfirm": {
+        "message": "注意！ 設定はすべて削除されます。続行してもよろしいですか？",
+        "description": "Message asking user to confirm reset"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "フィルタする",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerMaxEntriesTip": {
+        "message": "エントリの最大数",
+        "description": "Appears as a tooltip when hovering the input field"
+    },
+    "loggerEntryUserAgentSpoofing": {
+        "message": "偽装しているユーザーエージェント: {{value}}",
+        "description": "An entry for when a new user agent string is selected"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "削除した Cookie：{{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "Cookie の削除に失敗しました：{{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "ブラウザのキャッシュを削除しました",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "リソースを更新しました：{{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "mainBlockedPrompt1": {
+        "message": "uMatrix はこのページの読み込みをブロックしています：",
+        "description": "English: uMatrix has prevented the following page from loading:"
+    },
+    "mainBlockedPrompt2": {
+        "message": "以下のルールに従う",
+        "description": "English: Because of the following rule"
+    },
+    "mainBlockedBack": {
+        "message": "戻る",
+        "description": "English: Go back"
+    },
+    "mainBlockedClose": {
+        "message": "閉じる",
+        "description": "English: Close"
+    },
+    "commandRevertAll": {
+        "message": "すべての一時的な変更を元に戻す",
+        "description": ""
+    },
+    "commandWhitelistPageDomain": {
+        "message": "このページのドメインを一時的にホワイトリストに登録する",
+        "description": ""
+    },
+    "commandWhitelistAll": {
+        "message": "一時的にすべてホワイトリストに登録",
+        "description": ""
+    },
+    "commandOpenDashboard": {
+        "message": "ダッシュボードを開く",
+        "description": ""
+    },
+    "elapsedOneMinuteAgo": {
+        "message": "1 分前",
+        "description": "English: a minute ago"
+    },
+    "elapsedManyMinutesAgo": {
+        "message": "{{value}} 分前",
+        "description": "English: {{value}} minutes ago"
+    },
+    "elapsedOneHourAgo": {
+        "message": "1 時間前",
+        "description": "English: an hour ago"
+    },
+    "elapsedManyHoursAgo": {
+        "message": "{{value}} 時間前",
+        "description": "English: {{value}} hours ago"
+    },
+    "elapsedOneDayAgo": {
+        "message": "1 日前",
+        "description": "English: a day ago"
+    },
+    "elapsedManyDaysAgo": {
+        "message": "{{value}} 日前",
+        "description": "English: {{value}} days ago"
+    },
+    "showDashboardButton": {
+        "message": "ダッシュボード",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "showLoggerButton": {
+        "message": "Logger",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "cloudPush": {
+        "message": "クラウドストレージにエクスポート",
+        "description": "tooltip"
+    },
+    "cloudPull": {
+        "message": "クラウドストレージからインポート",
+        "description": "tooltip"
+    },
+    "cloudNoData": {
+        "message": "...\n...",
+        "description": ""
+    },
+    "cloudDeviceNamePrompt": {
+        "message": "このデバイスの名称：",
+        "description": "used as a prompt for the user to provide a custom device name"
+    },
+    "genericSubmit": {
+        "message": "登録する",
+        "description": "for generic 'submit' buttons"
+    },
+    "genericRevert": {
+        "message": "元に戻す",
+        "description": "for generic 'revert' buttons"
+    },
+    "errorCantConnectTo": {
+        "message": "ネットワークエラー: {{url}} に接続できません",
+        "description": ""
+    }
 }

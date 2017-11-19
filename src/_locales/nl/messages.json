@@ -1,690 +1,690 @@
 {
-  "extName":{
-    "message":"uMatrix",
-    "description":""
-  },
-  "extShortDesc":{
-    "message":"Beslis zelf welke aanvragen door uw browser mogen worden gedaan. Blokkeer scripts, iframes, advertenties, Facebook en meer.",
-    "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
-  },
-  "dashboardPageName":{
-    "message":"uMatrix – Dashboard",
-    "description":""
-  },
-  "settingsPageName":{
-    "message":"Instellingen",
-    "description":"a tab in dashboard"
-  },
-  "privacyPageName":{
-    "message":"Privacy",
-    "description":"a tab in dashboard"
-  },
-  "statsPageName":{
-    "message":"Statistieken",
-    "description":"a tab in dashboard"
-  },
-  "userRulesPageName":{
-    "message":"Mijn regels",
-    "description":"a tab in dashboard"
-  },
-  "ubiquitousRulesPageName":{
-    "message":"Hosts-bestanden",
-    "description":"a tab in dashboard"
-  },
-  "aboutPageName":{
-    "message":"Over",
-    "description":"a tab in dashboard"
-  },
-  "allPrettyName":{
-    "message":"alle",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cookiePrettyName":{
-    "message":"cookie",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cssPrettyName":{
-    "message":"CSS",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "imagePrettyName":{
-    "message":"afb.",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "mediaPrettyName":{
-    "message":"media",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "pluginPrettyName":{
-    "message":"plug-in",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "scriptPrettyName":{
-    "message":"script",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "xhrPrettyName":{
-    "message":"XHR",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "framePrettyName":{
-    "message":"frame",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "otherPrettyName":{
-    "message":"overig",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "matrixNoNetTrafficPrompt":{
-    "message":"Voor dit tabblad is nog geen netwerkverkeer gedetecteerd.",
-    "description":""
-  },
-  "matrixMtxButtonTip":{
-    "message":"Matrixfiltering voor dit bereik in-\/uitschakelen",
-    "description":"Tool tip for matrix button"
-  },
-  "matrixPersistButtonTip":{
-    "message":"Alle tijdelijke wijzigingen voor dit bereik opslaan",
-    "description":"Tool tip for the persist button"
-  },
-  "matrixRevertButtonTip":{
-    "message":"Tijdelijke wijzigingen voor dit bereik ongedaan maken",
-    "description":"Tool tip for the revert local permission button"
-  },
-  "matrixReloadButton":{
-    "message":"De pagina vernieuwen",
-    "description":"Tool tip for the reload button"
-  },
-  "matrix1stPartyLabel":{
-    "message":"Huidige domein",
-    "description":"1st-party"
-  },
-  "matrixBlacklistedHostnames":{
-    "message":"{{count}} geblackliste hostnamen",
-    "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
-  },
-  "matrixSwitchNoMixedContent":{
-    "message":"Strict HTTPS",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchUASpoof":{
-    "message":"Useragent vervalsen",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchReferrerSpoof":{
-    "message":"Referer vervalsen",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixRevertAllEntry":{
-    "message":"Alle tijdelijke wijzigingen ongedaan maken",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixLoggerMenuEntry":{
-    "message":"Naar logger",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixDashboardMenuEntry":{
-    "message":"Naar dashboard",
-    "description":"A menu entry in the matrix popup"
-  },
-  "statsPageTitle":{
-    "message":"uMatrix &ndash; Statistieken",
-    "description":""
-  },
-  "statsPageGenericStats":{
-    "message":"Algemene statistieken",
-    "description":""
-  },
-  "statsPageCookieHeadersFoiled":{
-    "message":"Geweerde <a href='https:\/\/nl.wikipedia.org\/wiki\/HTTP_cookie'>HTTP-cookie<\/a>-headers: {{count}}",
-    "description":""
-  },
-  "statsPageRefererHeadersFoiled":{
-    "message":"Geweerde <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-referer<\/a>-headers: {{count}}",
-    "description":""
-  },
-  "statsPageHyperlinkAuditingFoiled":{
-    "message":"Verijdelde <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a>-pogingen: {{count}}",
-    "description":""
-  },
-  "statsPageCookiesRemoved":{
-    "message":"Verwijderde lokale cookies: {{count}}",
-    "description":""
-  },
-  "statsPageLocalStoragesCleared":{
-    "message":"Gewiste <a href='http:\/\/diveintohtml5.info\/storage.html'>lokale opslagcaches<\/a>: {{count}}",
-    "description":""
-  },
-  "statsPageBrowserCacheCleared":{
-    "message":"Gewiste browsercaches: {{count}}",
-    "description":""
-  },
-  "statsPageDetailedStats":{
-    "message":"Gedetailleerde statistieken",
-    "description":""
-  },
-  "statsPageDetailedAllPages":{
-    "message":"Alle",
-    "description":""
-  },
-  "statsPageDetailedBehindTheScenePage":{
-    "message":"Achter de schermen",
-    "description":""
-  },
-  "statsPageOverview":{
-    "message":"Overzicht",
-    "description":""
-  },
-  "statsPageRequests":{
-    "message":"Aanvragen",
-    "description":"header for the stat type column"
-  },
-  "statsPageAllowed":{
-    "message":"Toegestaan",
-    "description":"header for the allowed requests column"
-  },
-  "statsPageBlocked":{
-    "message":"Geblokkeerd",
-    "description":"header for the blocked requests column"
-  },
-  "statsPageAll":{
-    "message":"Alle",
-    "description":""
-  },
-  "statsPagePages":{
-    "message":"Pagina’s",
-    "description":""
-  },
-  "statsPageCookies":{
-    "message":"Cookies",
-    "description":""
-  },
-  "statsPageCSS":{
-    "message":"CSS",
-    "description":""
-  },
-  "statsPageImages":{
-    "message":"Afbeeldingen",
-    "description":""
-  },
-  "statsPagePlugins":{
-    "message":"Plug-ins",
-    "description":""
-  },
-  "statsPageScripts":{
-    "message":"Scripts",
-    "description":""
-  },
-  "statsPageXHRs":{
-    "message":"XHR’s",
-    "description":""
-  },
-  "statsPageFrames":{
-    "message":"Frames",
-    "description":""
-  },
-  "statsPageOthers":{
-    "message":"Overige",
-    "description":""
-  },
-  "statsPageDetailed":{
-    "message":"Logger",
-    "description":""
-  },
-  "statsPageLogSizePrompt1":{
-    "message":"De laatste",
-    "description":"First part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizePrompt2":{
-    "message":"HTTP-aanvragen <b>per pagina<\/b> onthouden",
-    "description":"Second part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizeHelp":{
-    "message":"<p>Van de meest recente HTTP-aanvragen die door een website zijn gedaan, kunt u de details inspecteren.<\/p><p>Dit is vooral nuttig voor nieuwsgierige (ook ervaren) gebruikers die willen onderzoeken wat een webpagina precies heeft gedaan. Het registreren van deze HTTP-aanvragen vereist echter geheugen, en als u niets om deze technische informatie geeft, wordt geheugen verspild.<\/p><p>Vandaar dit veld, waarmee u het maximale aantal meest recente HTTP-aanvragen kunt instellen dat voor nader onderzoek wordt geregistreerd.<\/p><p>Vul &lsquo;<code>0<\/code>&rsquo; in om gedetailleerde registratie uit te zetten (en daardoor de geheugenfootprint van <i>uMatrix<\/i> te verlagen).<\/p>",
-    "description":"To help user understand the purpose of the log size value"
-  },
-  "statsPageRefresh":{
-    "message":"Vernieuwen",
-    "description":""
-  },
-  "settingsPageTitle":{
-    "message":"uMatrix &ndash; Instellingen",
-    "description":""
-  },
-  "settingsMatrixDisplayHeader":{
-    "message":"Vormgeving",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizePrompt":{
-    "message":"Tekstgrootte:",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeNormal":{
-    "message":"Normaal",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeLarge":{
-    "message":"Groot",
-    "description":""
-  },
-  "settingsMatrixDisplayColorBlind":{
-    "message":"Vriendelijk voor kleurenblinden",
-    "description":""
-  },
-  "settingsMatrixConvenienceHeader":{
-    "message":"Gemak",
-    "description":"English: Convenience"
-  },
-  "settingsMatrixAutoReloadPrompt":{
-    "message":"Wanneer de matrix wordt gesloten, deze tabbladen slim vernieuwen:",
-    "description":""
-  },
-  "settingsMatrixAutoReloadNone":{
-    "message":"Geen",
-    "description":""
-  },
-  "settingsMatrixAutoReloadCurrent":{
-    "message":"Huidige",
-    "description":""
-  },
-  "settingsMatrixAutoReloadAll":{
-    "message":"Alle",
-    "description":""
-  },
-  "settingsMatrixAutoReloadInfo":{
-    "message":"Als u wijzigingen aanbrengt die de weergave en\/of het gedrag van een of meer pagina’s kunnen beïnvloeden, zal <i>uMatrix<\/i> de betreffende pagina’s automatisch vernieuwen zodra u de matrix sluit.",
-    "description":""
-  },
-  "settingsSubframeColor":{
-    "message":"Geblokkeerde frames:&ensp;kleur",
-    "description":"English: Blocked frames:&ensp;Color"
-  },
-  "settingsSubframeOpacity":{
-    "message":"Ondoorzichtigheid",
-    "description":"English: Opacity"
-  },
-  "settingsIconBadgeEnabled":{
-    "message":"Het aantal afzonderlijke aanvragen op het pictogram tonen",
-    "description":"English: Show the number of distinct requests on the icon"
-  },
-  "settingsCollapseBlocked":{
-    "message":"Tijdelijke aanduiding van geblokkeerde elementen samenvouwen",
-    "description":"English: Collapse placeholder of blocked elements"
-  },
-  "settingsCloudStorageEnabled":{
-    "message":"Ondersteuning voor cloudopslag inschakelen",
-    "description":""
-  },
-  "privacyPageTitle":{
-    "message":"uMatrix &ndash; Privacy",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesPrompt":{
-    "message":"Geblokkeerde cookies verwijderen",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p><i>uMatrix<\/i> voorkomt niet dat geblackliste cookies door uw browser worden ontvangen. Er wordt echter wel voorkomen dat ze uw browser verlaten, wat het belangrijkste is. Het niet blokkeren van cookies voordat ze door uw browser worden ontvangen biedt de mogelijkheid te worden geïnformeerd wanneer een website cookies probeerde te gebruiken, en daarnaast eventueel de inhoud ervan te inspecteren.<\/p><p>Als deze geblackliste cookies eenmaal door <i>uMatrix<\/i> zijn verwerkt, kunnen ze desgewenst uit uw browser worden verwijderd.<\/p><p><b>Belangrijke opmerking:<\/b> extensies kunnen tijdens hun normale werking webaanvragen doen. Door deze aanvragen kunnen cookies in de browser worden aangemaakt. Als de hostnaam waarvan een cookie afkomstig is zich niet op de whitelist bevindt, zal het cookie als deze optie is aangevinkt door <i>uMatrix<\/i> uit de browser worden verwijderd. Zorg er daarom voor dat de namen van de hosts waarmee een extensie communiceert zich op de whitelist bevinden.<\/p>",
-    "description":""
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"Niet-geblokkeerde sessiecookies ",
-    "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" minuten na de laatste keer dat ze zijn gebruikt verwijderen",
-    "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Een sessiecookie wordt gewist zodra u de browsersessie beëindigt. Een sessiecookie wordt in tijdelijk geheugen opgeslagen en niet behouden nadat de browser wordt gesloten.&rdquo;<\/p><p>Het is mogelijk dat dit <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>niet in alle browsers gebeurt<\/a>. Ook vinden sommige gebruikers het moeten sluiten van de browser om sessiecookies te wissen misschien niet vroeg genoeg.",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"Inhoud van <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>lokale opslag<\/a> die door geblokkeerde hostnamen is ingesteld verwijderen",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"TE DOEN",
-    "description":""
-  },
-  "privacyClearCachePrompt1":{
-    "message":"Browsercache om de",
-    "description":"First part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCachePrompt2":{
-    "message":"minuten wissen",
-    "description":"Second part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCacheHelp":{
-    "message":"<p>Sommige websites zijn er zo op gericht om u te traceren dat ze onvriendelijke trucs gebruiken om maatregelen die u neemt om niet te worden gevolgd te omzeilen.<\/p><p>Sommige van deze trucs gebruiken<sup>[1, 2]<\/sup> de <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browsercache<\/a>, waarvan de inhoud vaak lang aanwezig is, aangezien gebruikers zelden de tijd nemen om hun browsercache regelmatig te wissen.<\/p><p>Het regelmatig wissen van de browsercache biedt weinig ongemakken (waarschijnlijk merkt u het niet als dit gebeurt), en het voordeel is dat wordt voorkomen dat deze onaangename trackers inbreuk op uw privacy maken.<\/p><p>Vink deze optie aan om dit met een gewenst interval door <i>uMatrix<\/i> te laten doen.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&lsquo;Preventing Web Tracking via the Browser Cache&rsquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&lsquo;Cookieless cookies&rsquo;<\/a><\/p>",
-    "description":""
-  },
-  "privacyProcessRefererPrompt":{
-    "message":"<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-referer<\/a>-string van aanvragen van derden vervalsen",
-    "description":""
-  },
-  "privacyProcessRefererHelp":{
-    "message":"Van Wikipedia:<blockquote>Een HTTP-referer is een HTTP-headerveld dat het adres aanduidt van de webpagina die naar de opgevraagde bron verwijst. ... <b>Omdat referer-informatie de privacy kan schenden, kunnen gebruikers in sommige webbrowsers het verzenden van de referer-informatie uitschakelen.<\/b><\/blockquote>Als deze optie is aangevinkt, zal <i>uMatrix<\/i> de HTTP-referer vervalsen (lees: manipuleren) als de domeinnaam van de HTTP-referer een derde partij is voor de domeinnaam van de netwerkaanvraag.",
-    "description":""
-  },
-  "privacyNoMixedContentPrompt":{
-    "message":"Strict HTTPS: gemengde inhoud blokkeren",
-    "description":""
-  },
-  "privacyNoMixedContentHelp":{
-    "message":"<p>Van <a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Als een HTTPS-pagina inhoud bevat die door normale cleartext-HTTP is opgehaald, is de verbinding slechts gedeeltelijk versleuteld: de onversleutelde inhoud is toegankelijk voor ‘sniffers’ en kan door ‘man-in-the-middle’-aanvallers worden aangepast, en de verbinding is daarom niet meer beschermd. Wanneer een webpagina dit gedrag vertoont, wordt deze een pagina met gemengde inhoud genoemd.<\/blockquote>",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"Alle <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a>-pogingen blokkeren",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing is een mechanisme waarmee een partij, <b>ongeacht welke<\/b>, kan worden geïnformeerd over de koppeling op een bepaalde webpagina waarop een gebruiker heeft geklikt. Dit is in essentie een trackingfunctie: het kan een website of derde partijen ten opzichte van die website informeren over op welke koppeling en op welke pagina’s van de website u hebt geklikt. Het enige doel ervan is het volgen van uw browseractiviteit.<\/p>",
-    "description":""
-  },
-  "privacySpoofUserAgentPrompt1":{
-    "message":"<a href='https:\/\/nl.wikipedia.org\/wiki\/Useragent'>Useragent<\/a>-string vervalsen door om de",
-    "description":"First part of UA-spoofing prompt"
-  },
-  "privacySpoofUserAgentPrompt2":{
-    "message":"minuten willekeurig een nieuwe uit de onderstaande te kiezen",
-    "description":"Second part"
-  },
-  "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Volgens de <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo; [...] uw browser stuurt een &lsquo;Useragent&rsquo;-header naar de website, die precies vertelt welk besturingssysteem en welke internetbrowser u gebruikt. Deze informatie kan helpen internetgebruikers van elkaar te onderscheiden, omdat deze versies van gebruiker tot gebruiker vaak aanzienlijk verschillen. [...] <b>de Useragent-string wordt een groot privacyprobleem<\/b>.&rdquo;<p> Via deze optie kunt u op dit privacygerelateerde probleem dat door de EFF naar voren is gebracht reageren. Houd er rekening mee dat <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>uw werkelijke Useragent-string kan worden doorgegeven<\/a> via WebSockets.<\/p><p>U kunt uw eigen lijst van useragents opgeven. Eén string per regel. Lege regels en regels beginnend met &lsquo;#&rsquo; worden genegeerd.<\/p>",
-    "description":""
-  },
-  "userRulesPermanentHeader":{
-    "message":"Permanente regels",
-    "description":""
-  },
-  "userRulesTemporaryHeader":{
-    "message":"Tijdelijke regels",
-    "description":""
-  },
-  "userRulesRevert":{
-    "message":"Ongedaan maken",
-    "description":"Will remove all temporary rules"
-  },
-  "userRulesCommit":{
-    "message":"Vastleggen",
-    "description":"Will save all temporary rules"
-  },
-  "userRulesEdit":{
-    "message":"Bewerken",
-    "description":"Will enable manual-edit mode (textarea)"
-  },
-  "userRulesEditSave":{
-    "message":"Opslaan",
-    "description":"Will save manually-edited content and exit manual-edit mode"
-  },
-  "userRulesEditDicard":{
-    "message":"Annuleren",
-    "description":"Will discard manually-edited content and exit manual-edit mode"
-  },
-  "userRulesImport":{
-    "message":"Importeren uit bestand...",
-    "description":""
-  },
-  "userRulesExport":{
-    "message":"Exporteren naar bestand...",
-    "description":""
-  },
-  "userRulesFormatHint":{
-    "message":"Bekijk deze pagina voor regelsyntaxis.",
-    "description":""
-  },
-  "userRulesDefaultFileName":{
-    "message":"mijn-umatrix-regels.txt",
-    "description":"default file name to use"
-  },
-  "hostsFilesPrompt":{
-    "message":"Alle hostnamen in een hosts-bestand worden in het globale bereik als geblackliste hostnamen geladen.",
-    "description":""
-  },
-  "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} afzonderlijke geblokkeerde hostnamen van:",
-    "description":""
-  },
-  "hostsFilesPerFileStats":{
-    "message":"{{used}} van {{total}} gebruikt",
-    "description":""
-  },
-  "hostsFilesLastUpdate":{
-    "message":"Laatst bijgewerkt: {{ago}}",
-    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
-  },
-  "hostsFilesApplyChanges":{
-    "message":"Wijzigingen toepassen",
-    "description":""
-  },
-  "hostsFilesAutoUpdatePrompt":{
-    "message":"Hosts-bestanden automatisch bijwerken",
-    "description":""
-  },
-  "hostsFilesUpdateNow":{
-    "message":"Nu bijwerken",
-    "description":""
-  },
-  "hostsFilesPurgeAll":{
-    "message":"Alle caches legen",
-    "description":""
-  },
-  "hostsFilesExternalListsHint":{
-    "message":"Eén URL per regel. Regels beginnend met &lsquo;#&rsquo; worden genegeerd. Ongeldige URL’s worden zonder mededeling genegeerd.",
-    "description":""
-  },
-  "hostsFilesExternalListsParse":{
-    "message":"Toepassen",
-    "description":""
-  },
-  "hostsFilesExternalListPurge":{
-    "message":"cache legen",
-    "description":""
-  },
-  "hostsFilesExternalListNew":{
-    "message":"nieuwe versie beschikbaar",
-    "description":""
-  },
-  "hostsFilesExternalListObsolete":{
-    "message":"verouderd",
-    "description":""
-  },
-  "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Wijzigingenlogboek<\/a>",
-    "description":""
-  },
-  "aboutStorageUsed":{
-    "message":"Gebruikte opslag: {{storageUsed}} bytes",
-    "description":""
-  },
-  "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentatie<\/a>",
-    "description":""
-  },
-  "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Toestemmingen<\/a>",
-    "description":""
-  },
-  "aboutCode":{
-    "message":"Broncode (GPLv3)",
-    "description":""
-  },
-  "aboutIssues":{
-    "message":"Bugs en problemen",
-    "description":""
-  },
-  "aboutContributors":{
-    "message":"Medewerkers",
-    "description":"English: Contributors"
-  },
-  "aboutCodeContributors":{
-    "message":"Code:",
-    "description":""
-  },
-  "aboutIssueContributors":{
-    "message":"Problemen:",
-    "description":""
-  },
-  "aboutTranslationContributors":{
-    "message":"Vertalingen:",
-    "description":""
-  },
-  "aboutUserDataHeader":{
-    "message":"Uw gegevens",
-    "description":""
-  },
-  "aboutBackupButton":{
-    "message":"Back-up maken naar bestand...",
-    "description":""
-  },
-  "aboutBackupFilename":{
-    "message":"mijn-umatrix-back-up.txt",
-    "description":"default filename to use"
-  },
-  "aboutRestoreButton":{
-    "message":"Terugzetten uit bestand...",
-    "description":""
-  },
-  "aboutRestoreConfirm":{
-    "message":"Al uw instelling zullen met back-upgegevens van {{time}} worden overschreven, en uMatrix zal worden herstart.\n\nWilt u alle bestaande instellingen met back-upgegevens overschrijven?",
-    "description":"Message asking user to confirm restore"
-  },
-  "aboutRestoreError":{
-    "message":"De gegevens konden niet worden gelezen of zijn ongeldig",
-    "description":""
-  },
-  "aboutOr":{
-    "message":"... of ...",
-    "description":"English: ... or ..."
-  },
-  "aboutResetButton":{
-    "message":"Standaardinstellingen terugzetten",
-    "description":"English: Reset to default settings"
-  },
-  "aboutResetConfirm":{
-    "message":"Waarschuwing! Hierdoor worden alle aangepaste instellingen verwijderd. Weet u zeker dat u wilt doorgaan?",
-    "description":"Message asking user to confirm reset"
-  },
-  "loggerFilterInputPlaceholder":{
-    "message":"filterexpressie(s)",
-    "description":"Appears in the input filed where filter expressions are entered"
-  },
-  "loggerMaxEntriesTip":{
-    "message":"Maximale aantal vermeldingen",
-    "description":"Appears as a tooltip when hovering the input field"
-  },
-  "loggerEntryUserAgentSpoofing":{
-    "message":"useragent wordt vervalst met: {{value}}",
-    "description":"An entry for when a new user agent string is selected"
-  },
-  "loggerEntryCookieDeleted":{
-    "message":"cookie verwijderd: {{value}}",
-    "description":"An entry for when a cookie is deleted"
-  },
-  "loggerEntryDeleteCookieError":{
-    "message":"cookie verwijderen mislukt: {{value}}",
-    "description":"An entry for when the browser cache is cleared"
-  },
-  "loggerEntryBrowserCacheCleared":{
-    "message":"browsercache gewist",
-    "description":"An entry for when a cookie can't be deleted"
-  },
-  "loggerEntryAssetUpdated":{
-    "message":"hosts-bestand bijgewerkt: {{value}}",
-    "description":"An entry for when an asset was updated"
-  },
-  "mainBlockedPrompt1":{
-    "message":"uMatrix heeft voorkomen dat de volgende pagina werd geladen:",
-    "description":"English: uMatrix has prevented the following page from loading:"
-  },
-  "mainBlockedPrompt2":{
-    "message":"vanwege de volgende regel",
-    "description":"English: Because of the following rule"
-  },
-  "mainBlockedBack":{
-    "message":"Teruggaan",
-    "description":"English: Go back"
-  },
-  "mainBlockedClose":{
-    "message":"Sluiten",
-    "description":"English: Close"
-  },
-  "commandRevertAll":{
-    "message":"Alle tijdelijke wijzigingen ongedaan maken",
-    "description":""
-  },
-  "commandWhitelistPageDomain":{
-    "message":"Paginadomein tijdelijk toestaan",
-    "description":""
-  },
-  "commandWhitelistAll":{
-    "message":"Alles tijdelijk toestaan",
-    "description":""
-  },
-  "commandOpenDashboard":{
-    "message":"Dashboard openen",
-    "description":""
-  },
-  "elapsedOneMinuteAgo":{
-    "message":"een minuut geleden",
-    "description":"English: a minute ago"
-  },
-  "elapsedManyMinutesAgo":{
-    "message":"{{value}} minuten geleden",
-    "description":"English: {{value}} minutes ago"
-  },
-  "elapsedOneHourAgo":{
-    "message":"een uur geleden",
-    "description":"English: an hour ago"
-  },
-  "elapsedManyHoursAgo":{
-    "message":"{{value}} uur geleden",
-    "description":"English: {{value}} hours ago"
-  },
-  "elapsedOneDayAgo":{
-    "message":"een dag geleden",
-    "description":"English: a day ago"
-  },
-  "elapsedManyDaysAgo":{
-    "message":"{{value}} dagen geleden",
-    "description":"English: {{value}} days ago"
-  },
-  "showDashboardButton":{
-    "message":"Dashboard",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "showLoggerButton":{
-    "message":"Logger",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "cloudPush":{
-    "message":"Exporteren naar cloudopslag",
-    "description":"tooltip"
-  },
-  "cloudPull":{
-    "message":"Importeren uit cloudopslag",
-    "description":"tooltip"
-  },
-  "cloudNoData":{
-    "message":"...\n...",
-    "description":""
-  },
-  "cloudDeviceNamePrompt":{
-    "message":"Naam van dit apparaat:",
-    "description":"used as a prompt for the user to provide a custom device name"
-  },
-  "genericSubmit":{
-    "message":"Verzenden",
-    "description":"for generic 'submit' buttons"
-  },
-  "genericRevert":{
-    "message":"Ongedaan maken",
-    "description":"for generic 'revert' buttons"
-  },
-  "errorCantConnectTo":{
-    "message":"Netwerkfout: kan geen verbinding maken met {{url}}",
-    "description":""
-  }
+    "extName": {
+        "message": "uMatrix",
+        "description": ""
+    },
+    "extShortDesc": {
+        "message": "Beslis zelf welke aanvragen door uw browser mogen worden gedaan. Blokkeer scripts, iframes, advertenties, Facebook en meer.",
+        "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
+    },
+    "dashboardPageName": {
+        "message": "uMatrix – Dashboard",
+        "description": ""
+    },
+    "settingsPageName": {
+        "message": "Instellingen",
+        "description": "a tab in dashboard"
+    },
+    "privacyPageName": {
+        "message": "Privacy",
+        "description": "a tab in dashboard"
+    },
+    "statsPageName": {
+        "message": "Statistieken",
+        "description": "a tab in dashboard"
+    },
+    "userRulesPageName": {
+        "message": "Mijn regels",
+        "description": "a tab in dashboard"
+    },
+    "ubiquitousRulesPageName": {
+        "message": "Hosts-bestanden",
+        "description": "a tab in dashboard"
+    },
+    "aboutPageName": {
+        "message": "Over",
+        "description": "a tab in dashboard"
+    },
+    "allPrettyName": {
+        "message": "alle",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "cookie",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cssPrettyName": {
+        "message": "CSS",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyName": {
+        "message": "afb.",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "mediaPrettyName": {
+        "message": "media",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "pluginPrettyName": {
+        "message": "plug-in",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyName": {
+        "message": "script",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xhrPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "framePrettyName": {
+        "message": "frame",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyName": {
+        "message": "overig",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "matrixNoNetTrafficPrompt": {
+        "message": "Voor dit tabblad is nog geen netwerkverkeer gedetecteerd.",
+        "description": ""
+    },
+    "matrixMtxButtonTip": {
+        "message": "Matrixfiltering voor dit bereik in-\/uitschakelen",
+        "description": "Tool tip for matrix button"
+    },
+    "matrixPersistButtonTip": {
+        "message": "Alle tijdelijke wijzigingen voor dit bereik opslaan",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip": {
+        "message": "Tijdelijke wijzigingen voor dit bereik ongedaan maken",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixReloadButton": {
+        "message": "De pagina vernieuwen.",
+        "description": "Tool tip for the reload button"
+    },
+    "matrix1stPartyLabel": {
+        "message": "Huidige domein",
+        "description": "1st-party"
+    },
+    "matrixBlacklistedHostnames": {
+        "message": "{{count}} geblackliste hostnamen",
+        "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
+    },
+    "matrixSwitchNoMixedContent": {
+        "message": "Strict HTTPS",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchUASpoof": {
+        "message": "Useragent vervalsen",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchReferrerSpoof": {
+        "message": "Referer vervalsen",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixRevertAllEntry": {
+        "message": "Alle tijdelijke wijzigingen ongedaan maken",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixLoggerMenuEntry": {
+        "message": "Naar logger",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixDashboardMenuEntry": {
+        "message": "Naar dashboard",
+        "description": "A menu entry in the matrix popup"
+    },
+    "statsPageTitle": {
+        "message": "uMatrix &ndash; Statistieken",
+        "description": ""
+    },
+    "statsPageGenericStats": {
+        "message": "Algemene statistieken",
+        "description": ""
+    },
+    "statsPageCookieHeadersFoiled": {
+        "message": "Geweerde <a href='https:\/\/nl.wikipedia.org\/wiki\/HTTP_cookie'>HTTP-cookie<\/a>-headers: {{count}}",
+        "description": ""
+    },
+    "statsPageRefererHeadersFoiled": {
+        "message": "Geweerde <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-referer<\/a>-headers: {{count}}",
+        "description": ""
+    },
+    "statsPageHyperlinkAuditingFoiled": {
+        "message": "Verijdelde <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a>-pogingen: {{count}}",
+        "description": ""
+    },
+    "statsPageCookiesRemoved": {
+        "message": "Verwijderde lokale cookies: {{count}}",
+        "description": ""
+    },
+    "statsPageLocalStoragesCleared": {
+        "message": "Gewiste <a href='http:\/\/diveintohtml5.info\/storage.html'>lokale opslagcaches<\/a>: {{count}}",
+        "description": ""
+    },
+    "statsPageBrowserCacheCleared": {
+        "message": "Gewiste browsercaches: {{count}}",
+        "description": ""
+    },
+    "statsPageDetailedStats": {
+        "message": "Gedetailleerde statistieken",
+        "description": ""
+    },
+    "statsPageDetailedAllPages": {
+        "message": "Alle",
+        "description": ""
+    },
+    "statsPageDetailedBehindTheScenePage": {
+        "message": "Achter de schermen",
+        "description": ""
+    },
+    "statsPageOverview": {
+        "message": "Overzicht",
+        "description": ""
+    },
+    "statsPageRequests": {
+        "message": "Aanvragen",
+        "description": "header for the stat type column"
+    },
+    "statsPageAllowed": {
+        "message": "Toegestaan",
+        "description": "header for the allowed requests column"
+    },
+    "statsPageBlocked": {
+        "message": "Geblokkeerd",
+        "description": "header for the blocked requests column"
+    },
+    "statsPageAll": {
+        "message": "Alle",
+        "description": ""
+    },
+    "statsPagePages": {
+        "message": "Pagina’s",
+        "description": ""
+    },
+    "statsPageCookies": {
+        "message": "Cookies",
+        "description": ""
+    },
+    "statsPageCSS": {
+        "message": "CSS",
+        "description": ""
+    },
+    "statsPageImages": {
+        "message": "Afbeeldingen",
+        "description": ""
+    },
+    "statsPagePlugins": {
+        "message": "Plug-ins",
+        "description": ""
+    },
+    "statsPageScripts": {
+        "message": "Scripts",
+        "description": ""
+    },
+    "statsPageXHRs": {
+        "message": "XHR’s",
+        "description": ""
+    },
+    "statsPageFrames": {
+        "message": "Frames",
+        "description": ""
+    },
+    "statsPageOthers": {
+        "message": "Overige",
+        "description": ""
+    },
+    "statsPageDetailed": {
+        "message": "Logger",
+        "description": ""
+    },
+    "statsPageLogSizePrompt1": {
+        "message": "De laatste",
+        "description": "First part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizePrompt2": {
+        "message": "HTTP-aanvragen <b>per pagina<\/b> onthouden",
+        "description": "Second part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizeHelp": {
+        "message": "<p>Van de meest recente HTTP-aanvragen die door een website zijn gedaan, kunt u de details inspecteren.<\/p><p>Dit is vooral nuttig voor nieuwsgierige (ook ervaren) gebruikers die willen onderzoeken wat een webpagina precies heeft gedaan. Het registreren van deze HTTP-aanvragen vereist echter geheugen, en als u niets om deze technische informatie geeft, wordt geheugen verspild.<\/p><p>Vandaar dit veld, waarmee u het maximale aantal meest recente HTTP-aanvragen kunt instellen dat voor nader onderzoek wordt geregistreerd.<\/p><p>Vul &lsquo;<code>0<\/code>&rsquo; in om gedetailleerde registratie uit te zetten (en daardoor de geheugenfootprint van <i>uMatrix<\/i> te verlagen).<\/p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh": {
+        "message": "Vernieuwen",
+        "description": ""
+    },
+    "settingsPageTitle": {
+        "message": "uMatrix &ndash; Instellingen",
+        "description": ""
+    },
+    "settingsMatrixDisplayHeader": {
+        "message": "Vormgeving",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizePrompt": {
+        "message": "Tekstgrootte:",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeNormal": {
+        "message": "Normaal",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeLarge": {
+        "message": "Groot",
+        "description": ""
+    },
+    "settingsMatrixDisplayColorBlind": {
+        "message": "Vriendelijk voor kleurenblinden",
+        "description": ""
+    },
+    "settingsMatrixConvenienceHeader": {
+        "message": "Gemak",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt": {
+        "message": "Wanneer de matrix wordt gesloten, deze tabbladen slim vernieuwen:",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadNone": {
+        "message": "Geen",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent": {
+        "message": "Huidige",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll": {
+        "message": "Alle",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo": {
+        "message": "Als u wijzigingen aanbrengt die de weergave en\/of het gedrag van een of meer pagina’s kunnen beïnvloeden, zal <i>uMatrix<\/i> de betreffende pagina’s automatisch vernieuwen zodra u de matrix sluit.",
+        "description": ""
+    },
+    "settingsSubframeColor": {
+        "message": "Geblokkeerde frames:&ensp;kleur",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity": {
+        "message": "Ondoorzichtigheid",
+        "description": "English: Opacity"
+    },
+    "settingsIconBadgeEnabled": {
+        "message": "Het aantal afzonderlijke aanvragen op het pictogram tonen",
+        "description": "English: Show the number of distinct requests on the icon"
+    },
+    "settingsCollapseBlocked": {
+        "message": "Tijdelijke aanduiding van geblokkeerde elementen samenvouwen",
+        "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsCloudStorageEnabled": {
+        "message": "Ondersteuning voor cloudopslag inschakelen",
+        "description": ""
+    },
+    "privacyPageTitle": {
+        "message": "uMatrix &ndash; Privacy",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesPrompt": {
+        "message": "Geblokkeerde cookies verwijderen",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesHelp": {
+        "message": "<p><i>uMatrix<\/i> voorkomt niet dat geblackliste cookies door uw browser worden ontvangen. Er wordt echter wel voorkomen dat ze uw browser verlaten, wat het belangrijkste is. Het niet blokkeren van cookies voordat ze door uw browser worden ontvangen biedt de mogelijkheid te worden geïnformeerd wanneer een website cookies probeerde te gebruiken, en daarnaast eventueel de inhoud ervan te inspecteren.<\/p><p>Als deze geblackliste cookies eenmaal door <i>uMatrix<\/i> zijn verwerkt, kunnen ze desgewenst uit uw browser worden verwijderd.<\/p><p><b>Belangrijke opmerking:<\/b> extensies kunnen tijdens hun normale werking webaanvragen doen. Door deze aanvragen kunnen cookies in de browser worden aangemaakt. Als de hostnaam waarvan een cookie afkomstig is zich niet op de whitelist bevindt, zal het cookie als deze optie is aangevinkt door <i>uMatrix<\/i> uit de browser worden verwijderd. Zorg er daarom voor dat de namen van de hosts waarmee een extensie communiceert zich op de whitelist bevinden.<\/p>",
+        "description": ""
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1": {
+        "message": "Niet-geblokkeerde sessiecookies ",
+        "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2": {
+        "message": " minuten na de laatste keer dat ze zijn gebruikt verwijderen",
+        "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp": {
+        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Een sessiecookie wordt gewist zodra u de browsersessie beëindigt. Een sessiecookie wordt in tijdelijk geheugen opgeslagen en niet behouden nadat de browser wordt gesloten.&rdquo;<\/p><p>Het is mogelijk dat dit <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>niet in alle browsers gebeurt<\/a>. Ook vinden sommige gebruikers het moeten sluiten van de browser om sessiecookies te wissen misschien niet vroeg genoeg.",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStoragePrompt": {
+        "message": "Inhoud van <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>lokale opslag<\/a> die door geblokkeerde hostnamen is ingesteld verwijderen",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStorageHelp": {
+        "message": "TE DOEN",
+        "description": ""
+    },
+    "privacyClearCachePrompt1": {
+        "message": "Browsercache om de",
+        "description": "First part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCachePrompt2": {
+        "message": "minuten wissen",
+        "description": "Second part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCacheHelp": {
+        "message": "<p>Sommige websites zijn er zo op gericht om u te traceren dat ze onvriendelijke trucs gebruiken om maatregelen die u neemt om niet te worden gevolgd te omzeilen.<\/p><p>Sommige van deze trucs gebruiken<sup>[1, 2]<\/sup> de <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browsercache<\/a>, waarvan de inhoud vaak lang aanwezig is, aangezien gebruikers zelden de tijd nemen om hun browsercache regelmatig te wissen.<\/p><p>Het regelmatig wissen van de browsercache biedt weinig ongemakken (waarschijnlijk merkt u het niet als dit gebeurt), en het voordeel is dat wordt voorkomen dat deze onaangename trackers inbreuk op uw privacy maken.<\/p><p>Vink deze optie aan om dit met een gewenst interval door <i>uMatrix<\/i> te laten doen.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&lsquo;Preventing Web Tracking via the Browser Cache&rsquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&lsquo;Cookieless cookies&rsquo;<\/a><\/p>",
+        "description": ""
+    },
+    "privacyProcessRefererPrompt": {
+        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-referer<\/a>-string van aanvragen van derden vervalsen",
+        "description": ""
+    },
+    "privacyProcessRefererHelp": {
+        "message": "Van Wikipedia:<blockquote>Een HTTP-referer is een HTTP-headerveld dat het adres aanduidt van de webpagina die naar de opgevraagde bron verwijst. ... <b>Omdat referer-informatie de privacy kan schenden, kunnen gebruikers in sommige webbrowsers het verzenden van de referer-informatie uitschakelen.<\/b><\/blockquote>Als deze optie is aangevinkt, zal <i>uMatrix<\/i> de HTTP-referer vervalsen (lees: manipuleren) als de domeinnaam van de HTTP-referer een derde partij is voor de domeinnaam van de netwerkaanvraag.",
+        "description": ""
+    },
+    "privacyNoMixedContentPrompt": {
+        "message": "Strict HTTPS: gemengde inhoud blokkeren",
+        "description": ""
+    },
+    "privacyNoMixedContentHelp": {
+        "message": "<p>Van <a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Als een HTTPS-pagina inhoud bevat die door normale cleartext-HTTP is opgehaald, is de verbinding slechts gedeeltelijk versleuteld: de onversleutelde inhoud is toegankelijk voor ‘sniffers’ en kan door ‘man-in-the-middle’-aanvallers worden aangepast, en de verbinding is daarom niet meer beschermd. Wanneer een webpagina dit gedrag vertoont, wordt deze een pagina met gemengde inhoud genoemd.<\/blockquote>",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingPrompt": {
+        "message": "Alle <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a>-pogingen blokkeren",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingHelp": {
+        "message": "<p>Hyperlink auditing is een mechanisme waarmee een partij, <b>ongeacht welke<\/b>, kan worden geïnformeerd over de koppeling op een bepaalde webpagina waarop een gebruiker heeft geklikt. Dit is in essentie een trackingfunctie: het kan een website of derde partijen ten opzichte van die website informeren over op welke koppeling en op welke pagina’s van de website u hebt geklikt. Het enige doel ervan is het volgen van uw browseractiviteit.<\/p>",
+        "description": ""
+    },
+    "privacySpoofUserAgentPrompt1": {
+        "message": "<a href='https:\/\/nl.wikipedia.org\/wiki\/Useragent'>Useragent<\/a>-string vervalsen door om de",
+        "description": "First part of UA-spoofing prompt"
+    },
+    "privacySpoofUserAgentPrompt2": {
+        "message": "minuten willekeurig een nieuwe uit de onderstaande te kiezen",
+        "description": "Second part"
+    },
+    "privacySpoofUserAgentHelp": {
+        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Volgens de <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo; [...] uw browser stuurt een &lsquo;Useragent&rsquo;-header naar de website, die precies vertelt welk besturingssysteem en welke internetbrowser u gebruikt. Deze informatie kan helpen internetgebruikers van elkaar te onderscheiden, omdat deze versies van gebruiker tot gebruiker vaak aanzienlijk verschillen. [...] <b>de Useragent-string wordt een groot privacyprobleem<\/b>.&rdquo;<p> Via deze optie kunt u op dit privacygerelateerde probleem dat door de EFF naar voren is gebracht reageren. Houd er rekening mee dat <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>uw werkelijke Useragent-string kan worden doorgegeven<\/a> via WebSockets.<\/p><p>U kunt uw eigen lijst van useragents opgeven. Eén string per regel. Lege regels en regels beginnend met &lsquo;#&rsquo; worden genegeerd.<\/p>",
+        "description": ""
+    },
+    "userRulesPermanentHeader": {
+        "message": "Permanente regels",
+        "description": ""
+    },
+    "userRulesTemporaryHeader": {
+        "message": "Tijdelijke regels",
+        "description": ""
+    },
+    "userRulesRevert": {
+        "message": "Ongedaan maken",
+        "description": "Will remove all temporary rules"
+    },
+    "userRulesCommit": {
+        "message": "Vastleggen",
+        "description": "Will save all temporary rules"
+    },
+    "userRulesEdit": {
+        "message": "Bewerken",
+        "description": "Will enable manual-edit mode (textarea)"
+    },
+    "userRulesEditSave": {
+        "message": "Opslaan",
+        "description": "Will save manually-edited content and exit manual-edit mode"
+    },
+    "userRulesEditDicard": {
+        "message": "Annuleren",
+        "description": "Will discard manually-edited content and exit manual-edit mode"
+    },
+    "userRulesImport": {
+        "message": "Importeren uit bestand...",
+        "description": ""
+    },
+    "userRulesExport": {
+        "message": "Exporteren naar bestand...",
+        "description": ""
+    },
+    "userRulesFormatHint": {
+        "message": "Bekijk deze pagina voor regelsyntaxis.",
+        "description": ""
+    },
+    "userRulesDefaultFileName": {
+        "message": "mijn-umatrix-regels.txt",
+        "description": "default file name to use"
+    },
+    "hostsFilesPrompt": {
+        "message": "Alle hostnamen in een hosts-bestand worden in het globale bereik als geblackliste hostnamen geladen.",
+        "description": ""
+    },
+    "hostsFilesStats": {
+        "message": "{{blockedHostnameCount}} afzonderlijke geblokkeerde hostnamen van:",
+        "description": ""
+    },
+    "hostsFilesPerFileStats": {
+        "message": "{{used}} van {{total}} gebruikt",
+        "description": ""
+    },
+    "hostsFilesLastUpdate": {
+        "message": "Laatst bijgewerkt: {{ago}}",
+        "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+    },
+    "hostsFilesApplyChanges": {
+        "message": "Wijzigingen toepassen",
+        "description": ""
+    },
+    "hostsFilesAutoUpdatePrompt": {
+        "message": "Hosts-bestanden automatisch bijwerken",
+        "description": ""
+    },
+    "hostsFilesUpdateNow": {
+        "message": "Nu bijwerken",
+        "description": ""
+    },
+    "hostsFilesPurgeAll": {
+        "message": "Alle caches legen",
+        "description": ""
+    },
+    "hostsFilesExternalListsHint": {
+        "message": "Eén URL per regel. Regels beginnend met &lsquo;#&rsquo; worden genegeerd. Ongeldige URL’s worden zonder mededeling genegeerd.",
+        "description": ""
+    },
+    "hostsFilesExternalListsParse": {
+        "message": "Toepassen",
+        "description": ""
+    },
+    "hostsFilesExternalListPurge": {
+        "message": "cache legen",
+        "description": ""
+    },
+    "hostsFilesExternalListNew": {
+        "message": "nieuwe versie beschikbaar",
+        "description": ""
+    },
+    "hostsFilesExternalListObsolete": {
+        "message": "verouderd",
+        "description": ""
+    },
+    "aboutChangelog": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Wijzigingenlogboek<\/a>",
+        "description": ""
+    },
+    "aboutStorageUsed": {
+        "message": "Gebruikte opslag: {{storageUsed}} bytes",
+        "description": ""
+    },
+    "aboutDoc": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentatie<\/a>",
+        "description": ""
+    },
+    "aboutPermissions": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Toestemmingen<\/a>",
+        "description": ""
+    },
+    "aboutCode": {
+        "message": "Broncode (GPLv3)",
+        "description": ""
+    },
+    "aboutIssues": {
+        "message": "Bugs en problemen",
+        "description": ""
+    },
+    "aboutContributors": {
+        "message": "Medewerkers",
+        "description": "English: Contributors"
+    },
+    "aboutCodeContributors": {
+        "message": "Code:",
+        "description": ""
+    },
+    "aboutIssueContributors": {
+        "message": "Problemen:",
+        "description": ""
+    },
+    "aboutTranslationContributors": {
+        "message": "Vertalingen:",
+        "description": ""
+    },
+    "aboutUserDataHeader": {
+        "message": "Uw gegevens",
+        "description": ""
+    },
+    "aboutBackupButton": {
+        "message": "Back-up maken naar bestand...",
+        "description": ""
+    },
+    "aboutBackupFilename": {
+        "message": "mijn-umatrix-back-up.txt",
+        "description": "default filename to use"
+    },
+    "aboutRestoreButton": {
+        "message": "Terugzetten uit bestand...",
+        "description": ""
+    },
+    "aboutRestoreConfirm": {
+        "message": "Al uw instelling zullen met back-upgegevens van {{time}} worden overschreven, en uMatrix zal worden herstart.\n\nWilt u alle bestaande instellingen met back-upgegevens overschrijven?",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutRestoreError": {
+        "message": "De gegevens konden niet worden gelezen of zijn ongeldig",
+        "description": ""
+    },
+    "aboutOr": {
+        "message": "... of ...",
+        "description": "English: ... or ..."
+    },
+    "aboutResetButton": {
+        "message": "Standaardinstellingen terugzetten",
+        "description": "English: Reset to default settings"
+    },
+    "aboutResetConfirm": {
+        "message": "Waarschuwing! Hierdoor worden alle aangepaste instellingen verwijderd. Weet u zeker dat u wilt doorgaan?",
+        "description": "Message asking user to confirm reset"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "filterexpressie(s)",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerMaxEntriesTip": {
+        "message": "Maximale aantal vermeldingen",
+        "description": "Appears as a tooltip when hovering the input field"
+    },
+    "loggerEntryUserAgentSpoofing": {
+        "message": "useragent wordt vervalst met: {{value}}",
+        "description": "An entry for when a new user agent string is selected"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "cookie verwijderd: {{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "cookie verwijderen mislukt: {{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "browsercache gewist",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "hosts-bestand bijgewerkt: {{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "mainBlockedPrompt1": {
+        "message": "uMatrix heeft voorkomen dat de volgende pagina werd geladen:",
+        "description": "English: uMatrix has prevented the following page from loading:"
+    },
+    "mainBlockedPrompt2": {
+        "message": "vanwege de volgende regel",
+        "description": "English: Because of the following rule"
+    },
+    "mainBlockedBack": {
+        "message": "Teruggaan",
+        "description": "English: Go back"
+    },
+    "mainBlockedClose": {
+        "message": "Sluiten",
+        "description": "English: Close"
+    },
+    "commandRevertAll": {
+        "message": "Alle tijdelijke wijzigingen ongedaan maken",
+        "description": ""
+    },
+    "commandWhitelistPageDomain": {
+        "message": "Paginadomein tijdelijk toestaan",
+        "description": ""
+    },
+    "commandWhitelistAll": {
+        "message": "Alles tijdelijk toestaan",
+        "description": ""
+    },
+    "commandOpenDashboard": {
+        "message": "Dashboard openen",
+        "description": ""
+    },
+    "elapsedOneMinuteAgo": {
+        "message": "een minuut geleden",
+        "description": "English: a minute ago"
+    },
+    "elapsedManyMinutesAgo": {
+        "message": "{{value}} minuten geleden",
+        "description": "English: {{value}} minutes ago"
+    },
+    "elapsedOneHourAgo": {
+        "message": "een uur geleden",
+        "description": "English: an hour ago"
+    },
+    "elapsedManyHoursAgo": {
+        "message": "{{value}} uur geleden",
+        "description": "English: {{value}} hours ago"
+    },
+    "elapsedOneDayAgo": {
+        "message": "een dag geleden",
+        "description": "English: a day ago"
+    },
+    "elapsedManyDaysAgo": {
+        "message": "{{value}} dagen geleden",
+        "description": "English: {{value}} days ago"
+    },
+    "showDashboardButton": {
+        "message": "Dashboard",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "showLoggerButton": {
+        "message": "Logger",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "cloudPush": {
+        "message": "Exporteren naar cloudopslag",
+        "description": "tooltip"
+    },
+    "cloudPull": {
+        "message": "Importeren uit cloudopslag",
+        "description": "tooltip"
+    },
+    "cloudNoData": {
+        "message": "...\n...",
+        "description": ""
+    },
+    "cloudDeviceNamePrompt": {
+        "message": "Naam van dit apparaat:",
+        "description": "used as a prompt for the user to provide a custom device name"
+    },
+    "genericSubmit": {
+        "message": "Verzenden",
+        "description": "for generic 'submit' buttons"
+    },
+    "genericRevert": {
+        "message": "Ongedaan maken",
+        "description": "for generic 'revert' buttons"
+    },
+    "errorCantConnectTo": {
+        "message": "Netwerkfout: kan geen verbinding maken met {{url}}",
+        "description": ""
+    }
 }

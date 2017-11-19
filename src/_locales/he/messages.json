@@ -1,690 +1,690 @@
 {
-  "extName":{
-    "message":"uMatrix",
-    "description":""
-  },
-  "extShortDesc":{
-    "message":"כוון & לחץ על מנת לחסום\/להרשות כל סוג של בקשות שיצאו מהדפדפן שלך. השתמש בזה על מנת לחסום סקריפטים, מסגרות, פרסומות, פייסבוק, וכו'.",
-    "description":"this will be used as short description in web stores: MUST BE 132 characters OR LESS"
-  },
-  "dashboardPageName":{
-    "message":"uMatrix — פאנל הקונפיגורציות",
-    "description":""
-  },
-  "settingsPageName":{
-    "message":"הגדרות",
-    "description":"a tab in dashboard"
-  },
-  "privacyPageName":{
-    "message":"פרטיות",
-    "description":"a tab in dashboard"
-  },
-  "statsPageName":{
-    "message":"סטטיסטיקות",
-    "description":"a tab in dashboard"
-  },
-  "userRulesPageName":{
-    "message":"החוקים שלי",
-    "description":"a tab in dashboard"
-  },
-  "ubiquitousRulesPageName":{
-    "message":"קבצי Hosts",
-    "description":"a tab in dashboard"
-  },
-  "aboutPageName":{
-    "message":"אודות",
-    "description":"a tab in dashboard"
-  },
-  "allPrettyName":{
-    "message":"הכל",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cookiePrettyName":{
-    "message":"עוגייה",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "cssPrettyName":{
-    "message":"CSS",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "imagePrettyName":{
-    "message":"תמונה",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "mediaPrettyName":{
-    "message":"media",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "pluginPrettyName":{
-    "message":"פלאגין",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "scriptPrettyName":{
-    "message":"סקריפט",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "xhrPrettyName":{
-    "message":"XHR",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "framePrettyName":{
-    "message":"מסגרת",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "otherPrettyName":{
-    "message":"אחר",
-    "description":"HAS TO FIT IN MATRIX HEADER!"
-  },
-  "matrixNoNetTrafficPrompt":{
-    "message":"לא נצפו פעולות רשת בלשונית זו עד לעכשיו.",
-    "description":""
-  },
-  "matrixMtxButtonTip":{
-    "message":"כבה\/אפשר מטריצת פילטור עבור טווח זה.",
-    "description":"Tool tip for matrix button"
-  },
-  "matrixPersistButtonTip":{
-    "message":"שמור את כל השינויים הזמניים עבור טווח זה.",
-    "description":"Tool tip for the persist button"
-  },
-  "matrixRevertButtonTip":{
-    "message":"מחק שינויים זמניים עבור טווח זה.",
-    "description":"Tool tip for the revert local permission button"
-  },
-  "matrixReloadButton":{
-    "message":"טען מחדש את העמוד.",
-    "description":"Tool tip for the reload button"
-  },
-  "matrix1stPartyLabel":{
-    "message":"צד ראשון",
-    "description":"1st-party"
-  },
-  "matrixBlacklistedHostnames":{
-    "message":"{{count}} דומיין(ים) חסום(ים)",
-    "description":"Appears in the metadata row of bottom-most group: **mind the limited width**"
-  },
-  "matrixSwitchNoMixedContent":{
-    "message":"מצב HTTPS נוקשה",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchUASpoof":{
-    "message":"זיוף מזהה משתמש",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixSwitchReferrerSpoof":{
-    "message":"זיוף מפנה",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixRevertAllEntry":{
-    "message":"מחק את כל השינויים הזמניים",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixLoggerMenuEntry":{
-    "message":"עבור למתעד",
-    "description":"A menu entry in the matrix popup"
-  },
-  "matrixDashboardMenuEntry":{
-    "message":"עבור לפאנל הקונפיגורציות",
-    "description":"A menu entry in the matrix popup"
-  },
-  "statsPageTitle":{
-    "message":"uMatrix &ndash; סטטיסטיקות",
-    "description":""
-  },
-  "statsPageGenericStats":{
-    "message":"סטטיסטיקות גנריות",
-    "description":""
-  },
-  "statsPageCookieHeadersFoiled":{
-    "message":"כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> שסוכלו: {{count}}",
-    "description":""
-  },
-  "statsPageRefererHeadersFoiled":{
-    "message":"כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> שסוכלו: {{count}}",
-    "description":""
-  },
-  "statsPageHyperlinkAuditingFoiled":{
-    "message":"ניסיונות <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> שסוכלו: {{count}}",
-    "description":""
-  },
-  "statsPageCookiesRemoved":{
-    "message":"מחיקות של עוגיות מקומיות: {{count}}",
-    "description":""
-  },
-  "statsPageLocalStoragesCleared":{
-    "message":"ריקונים של <a href='http:\/\/diveintohtml5.info\/storage.html'>אחסונים לוקליים<\/a>: {{count}}",
-    "description":""
-  },
-  "statsPageBrowserCacheCleared":{
-    "message":"מחיקות של זיכרון מטמון: {{count}}",
-    "description":""
-  },
-  "statsPageDetailedStats":{
-    "message":"סטטיסטיקות מפורטות",
-    "description":""
-  },
-  "statsPageDetailedAllPages":{
-    "message":"כל הדפים",
-    "description":""
-  },
-  "statsPageDetailedBehindTheScenePage":{
-    "message":"מאחורי הקלעים",
-    "description":""
-  },
-  "statsPageOverview":{
-    "message":"סקירה כללית",
-    "description":""
-  },
-  "statsPageRequests":{
-    "message":"בקשות",
-    "description":"header for the stat type column"
-  },
-  "statsPageAllowed":{
-    "message":"מאופשרות",
-    "description":"header for the allowed requests column"
-  },
-  "statsPageBlocked":{
-    "message":"חסומות",
-    "description":"header for the blocked requests column"
-  },
-  "statsPageAll":{
-    "message":"כולן",
-    "description":""
-  },
-  "statsPagePages":{
-    "message":"דפים",
-    "description":""
-  },
-  "statsPageCookies":{
-    "message":"עוגיות",
-    "description":""
-  },
-  "statsPageCSS":{
-    "message":"CSS",
-    "description":""
-  },
-  "statsPageImages":{
-    "message":"תמונות",
-    "description":""
-  },
-  "statsPagePlugins":{
-    "message":"פלאגינים",
-    "description":""
-  },
-  "statsPageScripts":{
-    "message":"סקריפטים",
-    "description":""
-  },
-  "statsPageXHRs":{
-    "message":"XHRs",
-    "description":""
-  },
-  "statsPageFrames":{
-    "message":"מסגרות",
-    "description":""
-  },
-  "statsPageOthers":{
-    "message":"אחרות",
-    "description":""
-  },
-  "statsPageDetailed":{
-    "message":"מתעד",
-    "description":""
-  },
-  "statsPageLogSizePrompt1":{
-    "message":"זכור את",
-    "description":"First part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizePrompt2":{
-    "message":"בקשות ה HTTP <b>פר עמוד<\/b>.",
-    "description":"Second part of Remember the last [n] HTTP requests per page"
-  },
-  "statsPageLogSizeHelp":{
-    "message":"<p>אתה יכול לבדוק את הפרטים של רוב בקשות HTTP הגולמיות האחרונות אשר יצאו מדף אינטרנט (ראה להלן).<\/p><p>זה שימושי בעיקר למשתמשים מתקדמים שרוצים לחקור בדיוק מה דף האינטרנט עשה. אבל רישום בקשות ה HTTP הללו דורש זיכרון, ואם לא אכפת לך מהמידע הטכני הזה, אז הזיכרון מתבזבז.<\/p><p>לכן קיימת אפשרות זו המאפשרת לך להתאים את המספר המרבי של בקשות ה HTTP הכי האחרונות שמיועדות להירשם לבדיקה נוספת.<\/p><p>הזן &ldquo;<code>0<\/code>&rdquo; כדי לכבות את הרישום המפורט (וכתוצאה מכך להפחית את השימוש בזיכרון של <i>uMatrix<\/i>).<\/p>",
-    "description":"To help user understand the purpose of the log size value"
-  },
-  "statsPageRefresh":{
-    "message":"רענן",
-    "description":""
-  },
-  "settingsPageTitle":{
-    "message":"uMatrix &ndash; הגדרות",
-    "description":""
-  },
-  "settingsMatrixDisplayHeader":{
-    "message":"תצוגה",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizePrompt":{
-    "message":"גודל טקסט:",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeNormal":{
-    "message":"רגיל",
-    "description":""
-  },
-  "settingsMatrixDisplayTextSizeLarge":{
-    "message":"גדול",
-    "description":""
-  },
-  "settingsMatrixDisplayColorBlind":{
-    "message":"ידידותי לעיוורי צבעים",
-    "description":""
-  },
-  "settingsMatrixConvenienceHeader":{
-    "message":"נוחות",
-    "description":"English: Convenience"
-  },
-  "settingsMatrixAutoReloadPrompt":{
-    "message":"לאחר סגירת המטריצה, טען מחדש בצורה חכמה את הלשוניות הבאות:",
-    "description":""
-  },
-  "settingsMatrixAutoReloadNone":{
-    "message":"ללא",
-    "description":""
-  },
-  "settingsMatrixAutoReloadCurrent":{
-    "message":"נוכחי",
-    "description":""
-  },
-  "settingsMatrixAutoReloadAll":{
-    "message":"כולם",
-    "description":""
-  },
-  "settingsMatrixAutoReloadInfo":{
-    "message":"בכל פעם שאתה עושה שינויים במטריצה אשר יכולים להשפיע על ההצגה ו\/או התנהגות של דף או יותר, <i>uMatrix<\/i> יטען מחדש את העמודים המושפעים אוטומטית כשתסגור את המטריצה.",
-    "description":""
-  },
-  "settingsSubframeColor":{
-    "message":"מסגרות חסומות:&ensp;צבע",
-    "description":"English: Blocked frames:&ensp;Color"
-  },
-  "settingsSubframeOpacity":{
-    "message":"אטימות",
-    "description":"English: Opacity"
-  },
-  "settingsIconBadgeEnabled":{
-    "message":"הראה את מספר הבקשות החסומות הייחודיות על האייקון",
-    "description":"English: Show the number of distinct requests on the icon"
-  },
-  "settingsCollapseBlocked":{
-    "message":"הסתר את המקום שנשאר מחסימה של אלמנטים",
-    "description":"English: Collapse placeholder of blocked elements"
-  },
-  "settingsCloudStorageEnabled":{
-    "message":"אפשר תמיכת אחסון ענן",
-    "description":""
-  },
-  "privacyPageTitle":{
-    "message":"uMatrix &ndash; פרטיות",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesPrompt":{
-    "message":"מחק עוגיות חסומות.",
-    "description":""
-  },
-  "privacyDeleteBlockedCookiesHelp":{
-    "message":"<p>עוגיות ברשימה השחורה לא נמנעות על ידי <i>uMatrix<\/i> מלהיכנס לדפדפן שלך. אולם הן כן מנועות מלצאת מהדפדפן שלך, וזה מה שחשוב באמת. לא לחסום עוגיות לפני שהן נכנסות לדפדפן שלך נותן לך את ההזדמנות להיות מודע לכך שאתר ניסה להשתמש בעוגיות, ויתר על כן כדי לבדוק את תוכנם, אם תרצה.<\/p><p>כאשר <i>uMatrix<\/i> נתקל בעוגייה שברשימה השחורה, הן יכולות להיות מוסרות מהדפדפן שלך אם תרצה בכך.<\/p><p><b>הערה חשובה:<\/b> תוספים יכולים לבצע בקשות רשת במהלך פעולתם הרגילה. בקשות אלה יכולות לגרום לכך שעוגיות יווצרו בדפדפן. אם הדומיין שממנה העוגייה הגיעה לא ברשימה הלבנה, העוגייה תמחק מהדפדפן על ידי <i>µMatrix<\/i> אם אפשרות זו מאופשרת. אז תהיה בטוח לגבי זה שהדומיין(ים) אשר איתם התוסף יכול לתקשר נמצא(ים) ברשימה הלבנה.<\/p>",
-    "description":""
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt1":{
-    "message":"מחק עוגיות סשן לא חסומות ",
-    "description":"First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesPrompt2":{
-    "message":" דקות אחרי הפעם האחרונה שהן היו בשימוש.",
-    "description":"Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
-  },
-  "privacyDeleteNonBlockedSessionCookiesHelp":{
-    "message":"<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;עוגיית סשן ... נמחקת כאשר אתה מסיים הסשן של הדפדפן. עוגיית הסשן מאוכסנת בזיכרון זמני ולא נשמרת לאחר שהדפדפן נסגר.&rdquo;<\/p><p>אלא שהדבר <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>יכול לא לקרות<\/a> בדפדפנים מסויימים. כמו כן, לחלק, הפעולה של לסגור את הדפדפן על מנת שעוגיות הסשן יימחקו יכולה להיות  פעולה מספיק מוקדמת.<\/p>",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStoragePrompt":{
-    "message":"מחק <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>איחסונים לוקאליים<\/a> שנרשמו על ידי דומיינים חסומים",
-    "description":""
-  },
-  "privacyDeleteBlockedLocalStorageHelp":{
-    "message":"לעשות",
-    "description":""
-  },
-  "privacyClearCachePrompt1":{
-    "message":"מחק את הזיכרון מטמון כל",
-    "description":"First part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCachePrompt2":{
-    "message":"דקות.",
-    "description":"Second part of 'Clear browser cache every [n] minutes'"
-  },
-  "privacyClearCacheHelp":{
-    "message":"<p>יש אתרי אינטרנט שממש רוצים לעקוב אחרייך, כל כך שהם ישתמשו בטריקים לא כל כך יפים על מנת לעקוף את כל הדברים שאתה עושה כדי לא להיות במעקב.<\/p><p>כמה מהטריקים האלה מתבססים<sup style='font-size:smaller'>[1, 2]<\/sup> על <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>הזיכרון מטמון של הדפדפן<\/a>, אשר תוכנו לרוב נמצא הרבה זמן על המחשב מכיוון שלעיתים רחוקות משתמשים ישקיעו מזמנם לנקות באופן קבוע את הזיכרון מטמון של הדפדפן שלהם.<\/p><p>יש אי נעימות קלה לנקות את הזיכרון מטמון של הדפדפן באופן קבוע (רוב הסיכויים שלא תשים לב כשזה קורה), והתועלת היא במניעה של העוקבים המגעילים האלה מחדירה לפרטיות שלך.<\/p><p>אפשר אפשרות זו בשביל ש <i>uMatrix<\/i> יעשה את זה בשבילך, כל כמה זמן שתרצה.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;מניעה מעקב אינטרנטי על ידי שימוש בזיכרון מטמון של הדפדפן&rdquo;<\/a><br>[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;עוגיות חסרי העוגיות&rdquo;<\/a><\/p>",
-    "description":""
-  },
-  "privacyProcessRefererPrompt":{
-    "message":"זייף את ה <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> של בקשות צד שלישי.",
-    "description":""
-  },
-  "privacyProcessRefererHelp":{
-    "message":"<p>מתוך ויקיפדיה:<\/p><blockquote>HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לפגוע בפרטיות, מספר דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע של המפנה.<\/b><\/blockquote><p>אם אפשרות זו מאופשרת, <i>uMatrix<\/i> יזייף את המידע של ה HTTP referer אם שם הדומיין של ה HTTP referrer הוא צד שלישי לשם הדומיין של בקשת הרשת.",
-    "description":""
-  },
-  "privacyNoMixedContentPrompt":{
-    "message":"מצב HTTPS נוקשה: אסור על תוכן מעורב.",
-    "description":""
-  },
-  "privacyNoMixedContentHelp":{
-    "message":"<p>מתוך <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p>אם דף HTTPS (מאובטח) מכיל בתוכו תוכן שהובא באמצעות בקשת HTTP, אז החיבור מוצפן באופן חלקי בלבד: התוכן הלא מוצפן נגיש להסנפה ותוקפים שנמצאים באמצע יכולים לשנות אותו, ולכן החיבור כבר לא בטוח. כאשר דף אינטרנט מציג התנהגות זו, זה נקרא דף עם תוכן מעורב.<\/blockquote>",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingPrompt":{
-    "message":"חסום את כל הניסיונות ל <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a>.",
-    "description":""
-  },
-  "privacyProcessHyperlinkAuditingHelp":{
-    "message":"<p>Hyperlink auditing זהו מנגנון אשר מאפשר לצד, <b>כל צד<\/b>, להיות מודע על איזה קישור בדיוק המשתמש לחץ בדף אינטרנט ספציפי. במהות שלו זוהי תכונת מעקב: היא מאפשרת לדף אינטרנט, או לכל אתר צד שלישי לדף אינטרנט זה, להיות מודע לגבי איזה קישור לחצת באיזה דף של האתר שלהם. המטרה היחידה היא לעקוב אחר פעילות הגלישה שלך.<\/p>",
-    "description":""
-  },
-  "privacySpoofUserAgentPrompt1":{
-    "message":"החלף את הערך של <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>מזהה המשתמש<\/a> על ידי בחירה באקראי במזהה חדש מהרשימה למטה כל",
-    "description":"First part of UA-spoofing prompt"
-  },
-  "privacySpoofUserAgentPrompt2":{
-    "message":"דקות.",
-    "description":"Second part"
-  },
-  "privacySpoofUserAgentHelp":{
-    "message":"<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>לפי ה <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] הדפדפן שלך שולח כותרת (header) של &lsquo;מזהה משתמש&rsquo; לאתר שאומר בדיוק באיזו מערכת הפעלה ודפדפן אתה משתמש. מידע זה יכול לעזור להבדיל בין משתמש אינטרנט אחד לשני בגלל שוני הגרסאות, שלפעמים מהותי, מאדם לאדם. [...] <b> התוכן של מזהה המשתמש הופך לבעיית פרטיות אמיתית<\/b>.&rdquo;<p>אפשרות זו מאפשרת לך להתייחס לבעיית הפרטיות שהועלתה על ידי ה EFF.<\/p><p>אתה יכול להכניס רשימה משלך של מזהי משתמשים. מזהה משתמש אחד בכל שורה. שורות ריקות ושורות עם קידומת &lsquo;#&rsquo; לא יפורשו.<\/p>",
-    "description":""
-  },
-  "userRulesPermanentHeader":{
-    "message":"חוקים קבועים",
-    "description":""
-  },
-  "userRulesTemporaryHeader":{
-    "message":"חוקים זמניים",
-    "description":""
-  },
-  "userRulesRevert":{
-    "message":"החזר למצב הקודם",
-    "description":"Will remove all temporary rules"
-  },
-  "userRulesCommit":{
-    "message":"החל",
-    "description":"Will save all temporary rules"
-  },
-  "userRulesEdit":{
-    "message":"ערוך",
-    "description":"Will enable manual-edit mode (textarea)"
-  },
-  "userRulesEditSave":{
-    "message":"שמור",
-    "description":"Will save manually-edited content and exit manual-edit mode"
-  },
-  "userRulesEditDicard":{
-    "message":"בטל",
-    "description":"Will discard manually-edited content and exit manual-edit mode"
-  },
-  "userRulesImport":{
-    "message":"ייבא מקובץ...",
-    "description":""
-  },
-  "userRulesExport":{
-    "message":"ייצא לקובץ...",
-    "description":""
-  },
-  "userRulesFormatHint":{
-    "message":"ראה דף זה עבור הסינטקס (התחביר) של החוקים.",
-    "description":""
-  },
-  "userRulesDefaultFileName":{
-    "message":"חוקי-המטריצה-שלי.txt",
-    "description":"default file name to use"
-  },
-  "hostsFilesPrompt":{
-    "message":"כל הדומיינים בקובץ ה hosts נטענים כחסומים בטווח הגלובלי.",
-    "description":""
-  },
-  "hostsFilesStats":{
-    "message":"{{blockedHostnameCount}} דומיינים שונים חסומים מ:",
-    "description":""
-  },
-  "hostsFilesPerFileStats":{
-    "message":"{{used}} בשימוש מתוך {{total}}",
-    "description":""
-  },
-  "hostsFilesLastUpdate":{
-    "message":"עדכון אחרון: {{ago}}",
-    "description":"English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
-  },
-  "hostsFilesApplyChanges":{
-    "message":"החל שינויים",
-    "description":""
-  },
-  "hostsFilesAutoUpdatePrompt":{
-    "message":"עדכן אוטומטית את קבצי ה hosts.",
-    "description":""
-  },
-  "hostsFilesUpdateNow":{
-    "message":"עדכן כעת",
-    "description":""
-  },
-  "hostsFilesPurgeAll":{
-    "message":"נקה את כל זיכרוני המטמון",
-    "description":""
-  },
-  "hostsFilesExternalListsHint":{
-    "message":"כתובת אחת בכל שורה. שורות עם קידומת &lsquo;#&rsquo; לא יפורשו. כתובות לא חוקיות לא יפורשו ולא תהיה התראה לכך.",
-    "description":""
-  },
-  "hostsFilesExternalListsParse":{
-    "message":"פרסר",
-    "description":""
-  },
-  "hostsFilesExternalListPurge":{
-    "message":"נקה זיכרון מטמון",
-    "description":""
-  },
-  "hostsFilesExternalListNew":{
-    "message":"גרסה חדשה זמינה",
-    "description":""
-  },
-  "hostsFilesExternalListObsolete":{
-    "message":"לא עדכני",
-    "description":""
-  },
-  "aboutChangelog":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>רשימת שינויים<\/a>",
-    "description":""
-  },
-  "aboutStorageUsed":{
-    "message":"אחסון בשימוש: {{storageUsed}} בתים",
-    "description":""
-  },
-  "aboutDoc":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>דוקומנטציה<\/a>",
-    "description":""
-  },
-  "aboutPermissions":{
-    "message":"<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>הרשאות<\/a>",
-    "description":""
-  },
-  "aboutCode":{
-    "message":"קוד מקור (GPLv3)",
-    "description":""
-  },
-  "aboutIssues":{
-    "message":"באגים ובעיות",
-    "description":""
-  },
-  "aboutContributors":{
-    "message":"תורמים",
-    "description":"English: Contributors"
-  },
-  "aboutCodeContributors":{
-    "message":"קוד:",
-    "description":""
-  },
-  "aboutIssueContributors":{
-    "message":"בעיות:",
-    "description":""
-  },
-  "aboutTranslationContributors":{
-    "message":"תרגומים:",
-    "description":""
-  },
-  "aboutUserDataHeader":{
-    "message":"המידע שלך",
-    "description":""
-  },
-  "aboutBackupButton":{
-    "message":"גבה לקובץ...",
-    "description":""
-  },
-  "aboutBackupFilename":{
-    "message":"my-umatrix-backup.txt",
-    "description":"default filename to use"
-  },
-  "aboutRestoreButton":{
-    "message":"שחזר מקובץ...",
-    "description":""
-  },
-  "aboutRestoreConfirm":{
-    "message":"כל ההגדרות שלך יוחלפו בנתונים שגובו ב {{time}}, ו uMatrix יופעל מחדש.\n\nהאם להחליף את כל ההגדרות הקיימות בנתונים המגובים?",
-    "description":"Message asking user to confirm restore"
-  },
-  "aboutRestoreError":{
-    "message":"לא הוצלח לקרוא את המידע או שהינו פגום",
-    "description":""
-  },
-  "aboutOr":{
-    "message":"... או ...",
-    "description":"English: ... or ..."
-  },
-  "aboutResetButton":{
-    "message":"אפס להגדרות ברירת מחדל",
-    "description":"English: Reset to default settings"
-  },
-  "aboutResetConfirm":{
-    "message":"אזהרה! פעולה זו תוביל למחיקה של כל ההגדרות המותאמות אישית שלך. האם אתה בטוח שאתה רוצה להמשיך?",
-    "description":"Message asking user to confirm reset"
-  },
-  "loggerFilterInputPlaceholder":{
-    "message":"ביטוי(י) פילטור",
-    "description":"Appears in the input filed where filter expressions are entered"
-  },
-  "loggerMaxEntriesTip":{
-    "message":"מספר רשומות מקסימליות",
-    "description":"Appears as a tooltip when hovering the input field"
-  },
-  "loggerEntryUserAgentSpoofing":{
-    "message":"מחליף את ה user agent שלך ב: {{value}}",
-    "description":"An entry for when a new user agent string is selected"
-  },
-  "loggerEntryCookieDeleted":{
-    "message":"עוגייה נמחקה: {{value}}",
-    "description":"An entry for when a cookie is deleted"
-  },
-  "loggerEntryDeleteCookieError":{
-    "message":"נכשל במחיקת העוגייה: {{value}}",
-    "description":"An entry for when the browser cache is cleared"
-  },
-  "loggerEntryBrowserCacheCleared":{
-    "message":"זיכרון מטמון נמחק",
-    "description":"An entry for when a cookie can't be deleted"
-  },
-  "loggerEntryAssetUpdated":{
-    "message":"הנכס עודכן: {{value}}",
-    "description":"An entry for when an asset was updated"
-  },
-  "mainBlockedPrompt1":{
-    "message":"uMatrix מנע מהעמוד הבא מלהיטען:",
-    "description":"English: uMatrix has prevented the following page from loading:"
-  },
-  "mainBlockedPrompt2":{
-    "message":"בגלל החוק הבא",
-    "description":"English: Because of the following rule"
-  },
-  "mainBlockedBack":{
-    "message":"חזור",
-    "description":"English: Go back"
-  },
-  "mainBlockedClose":{
-    "message":"סגור",
-    "description":"English: Close"
-  },
-  "commandRevertAll":{
-    "message":"מחק את כל ההגדרות הזמניות",
-    "description":""
-  },
-  "commandWhitelistPageDomain":{
-    "message":"זמנית הרשה את דף הדומיין",
-    "description":""
-  },
-  "commandWhitelistAll":{
-    "message":"זמנית הרשה הכל",
-    "description":""
-  },
-  "commandOpenDashboard":{
-    "message":"פתח את פאנל הקונפיגורציות",
-    "description":""
-  },
-  "elapsedOneMinuteAgo":{
-    "message":"לפני דקה",
-    "description":"English: a minute ago"
-  },
-  "elapsedManyMinutesAgo":{
-    "message":"לפני {{value}} דקות",
-    "description":"English: {{value}} minutes ago"
-  },
-  "elapsedOneHourAgo":{
-    "message":"לפני שעה",
-    "description":"English: an hour ago"
-  },
-  "elapsedManyHoursAgo":{
-    "message":"לפני {{value}} שעות",
-    "description":"English: {{value}} hours ago"
-  },
-  "elapsedOneDayAgo":{
-    "message":"לפני יום",
-    "description":"English: a day ago"
-  },
-  "elapsedManyDaysAgo":{
-    "message":"לפני {{value}} ימים",
-    "description":"English: {{value}} days ago"
-  },
-  "showDashboardButton":{
-    "message":"פאנל הקונפיגורציות",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "showLoggerButton":{
-    "message":"מתעד",
-    "description":"Appears in Firefox's add-on preferences"
-  },
-  "cloudPush":{
-    "message":"ייצא לאחסון ענן",
-    "description":"tooltip"
-  },
-  "cloudPull":{
-    "message":"ייבא מתוך אחסון ענן",
-    "description":"tooltip"
-  },
-  "cloudNoData":{
-    "message":"...\n...",
-    "description":""
-  },
-  "cloudDeviceNamePrompt":{
-    "message":"שם התקן זה:",
-    "description":"used as a prompt for the user to provide a custom device name"
-  },
-  "genericSubmit":{
-    "message":"שלח",
-    "description":"for generic 'submit' buttons"
-  },
-  "genericRevert":{
-    "message":"שחזר",
-    "description":"for generic 'revert' buttons"
-  },
-  "errorCantConnectTo":{
-    "message":"שגיאת רשת: לא הוצלח להתחבר ל {{url}}",
-    "description":""
-  }
+    "extName": {
+        "message": "uMatrix",
+        "description": ""
+    },
+    "extShortDesc": {
+        "message": "כוון & לחץ על מנת לחסום\/להרשות כל סוג של בקשות שיצאו מהדפדפן שלך. השתמש בזה על מנת לחסום סקריפטים, מסגרות, פרסומות, פייסבוק, וכו'.",
+        "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
+    },
+    "dashboardPageName": {
+        "message": "uMatrix — פאנל הקונפיגורציות",
+        "description": ""
+    },
+    "settingsPageName": {
+        "message": "הגדרות",
+        "description": "a tab in dashboard"
+    },
+    "privacyPageName": {
+        "message": "פרטיות",
+        "description": "a tab in dashboard"
+    },
+    "statsPageName": {
+        "message": "סטטיסטיקות",
+        "description": "a tab in dashboard"
+    },
+    "userRulesPageName": {
+        "message": "החוקים שלי",
+        "description": "a tab in dashboard"
+    },
+    "ubiquitousRulesPageName": {
+        "message": "קבצי Hosts",
+        "description": "a tab in dashboard"
+    },
+    "aboutPageName": {
+        "message": "אודות",
+        "description": "a tab in dashboard"
+    },
+    "allPrettyName": {
+        "message": "הכל",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cookiePrettyName": {
+        "message": "עוגייה",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "cssPrettyName": {
+        "message": "CSS",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "imagePrettyName": {
+        "message": "תמונה",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "mediaPrettyName": {
+        "message": "media",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "pluginPrettyName": {
+        "message": "פלאגין",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "scriptPrettyName": {
+        "message": "סקריפט",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "xhrPrettyName": {
+        "message": "XHR",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "framePrettyName": {
+        "message": "מסגרת",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "otherPrettyName": {
+        "message": "אחר",
+        "description": "HAS TO FIT IN MATRIX HEADER!"
+    },
+    "matrixNoNetTrafficPrompt": {
+        "message": "לא נצפו פעולות רשת בלשונית זו עד לעכשיו.",
+        "description": ""
+    },
+    "matrixMtxButtonTip": {
+        "message": "כבה\/אפשר מטריצת פילטור עבור טווח זה.",
+        "description": "Tool tip for matrix button"
+    },
+    "matrixPersistButtonTip": {
+        "message": "שמור את כל השינויים הזמניים עבור טווח זה.",
+        "description": "Tool tip for the persist button"
+    },
+    "matrixRevertButtonTip": {
+        "message": "מחק שינויים זמניים עבור טווח זה.",
+        "description": "Tool tip for the revert local permission button"
+    },
+    "matrixReloadButton": {
+        "message": "טען מחדש את העמוד.",
+        "description": "Tool tip for the reload button"
+    },
+    "matrix1stPartyLabel": {
+        "message": "צד ראשון",
+        "description": "1st-party"
+    },
+    "matrixBlacklistedHostnames": {
+        "message": "{{count}} דומיין(ים) חסום(ים)",
+        "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
+    },
+    "matrixSwitchNoMixedContent": {
+        "message": "מצב HTTPS נוקשה",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchUASpoof": {
+        "message": "זיוף מזהה משתמש",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchReferrerSpoof": {
+        "message": "זיוף מפנה",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixRevertAllEntry": {
+        "message": "מחק את כל השינויים הזמניים",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixLoggerMenuEntry": {
+        "message": "עבור למתעד",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixDashboardMenuEntry": {
+        "message": "עבור לפאנל הקונפיגורציות",
+        "description": "A menu entry in the matrix popup"
+    },
+    "statsPageTitle": {
+        "message": "uMatrix &ndash; סטטיסטיקות",
+        "description": ""
+    },
+    "statsPageGenericStats": {
+        "message": "סטטיסטיקות גנריות",
+        "description": ""
+    },
+    "statsPageCookieHeadersFoiled": {
+        "message": "כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> שסוכלו: {{count}}",
+        "description": ""
+    },
+    "statsPageRefererHeadersFoiled": {
+        "message": "כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> שסוכלו: {{count}}",
+        "description": ""
+    },
+    "statsPageHyperlinkAuditingFoiled": {
+        "message": "ניסיונות <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> שסוכלו: {{count}}",
+        "description": ""
+    },
+    "statsPageCookiesRemoved": {
+        "message": "מחיקות של עוגיות מקומיות: {{count}}",
+        "description": ""
+    },
+    "statsPageLocalStoragesCleared": {
+        "message": "ריקונים של <a href='http:\/\/diveintohtml5.info\/storage.html'>אחסונים לוקליים<\/a>: {{count}}",
+        "description": ""
+    },
+    "statsPageBrowserCacheCleared": {
+        "message": "מחיקות של זיכרון מטמון: {{count}}",
+        "description": ""
+    },
+    "statsPageDetailedStats": {
+        "message": "סטטיסטיקות מפורטות",
+        "description": ""
+    },
+    "statsPageDetailedAllPages": {
+        "message": "כל הדפים",
+        "description": ""
+    },
+    "statsPageDetailedBehindTheScenePage": {
+        "message": "מאחורי הקלעים",
+        "description": ""
+    },
+    "statsPageOverview": {
+        "message": "סקירה כללית",
+        "description": ""
+    },
+    "statsPageRequests": {
+        "message": "בקשות",
+        "description": "header for the stat type column"
+    },
+    "statsPageAllowed": {
+        "message": "מאופשרות",
+        "description": "header for the allowed requests column"
+    },
+    "statsPageBlocked": {
+        "message": "חסומות",
+        "description": "header for the blocked requests column"
+    },
+    "statsPageAll": {
+        "message": "כולן",
+        "description": ""
+    },
+    "statsPagePages": {
+        "message": "דפים",
+        "description": ""
+    },
+    "statsPageCookies": {
+        "message": "עוגיות",
+        "description": ""
+    },
+    "statsPageCSS": {
+        "message": "CSS",
+        "description": ""
+    },
+    "statsPageImages": {
+        "message": "תמונות",
+        "description": ""
+    },
+    "statsPagePlugins": {
+        "message": "פלאגינים",
+        "description": ""
+    },
+    "statsPageScripts": {
+        "message": "סקריפטים",
+        "description": ""
+    },
+    "statsPageXHRs": {
+        "message": "XHRs",
+        "description": ""
+    },
+    "statsPageFrames": {
+        "message": "מסגרות",
+        "description": ""
+    },
+    "statsPageOthers": {
+        "message": "אחרות",
+        "description": ""
+    },
+    "statsPageDetailed": {
+        "message": "מתעד",
+        "description": ""
+    },
+    "statsPageLogSizePrompt1": {
+        "message": "זכור את",
+        "description": "First part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizePrompt2": {
+        "message": "בקשות ה HTTP <b>פר עמוד<\/b>.",
+        "description": "Second part of Remember the last [n] HTTP requests per page"
+    },
+    "statsPageLogSizeHelp": {
+        "message": "<p>אתה יכול לבדוק את הפרטים של רוב בקשות HTTP הגולמיות האחרונות אשר יצאו מדף אינטרנט (ראה להלן).<\/p><p>זה שימושי בעיקר למשתמשים מתקדמים שרוצים לחקור בדיוק מה דף האינטרנט עשה. אבל רישום בקשות ה HTTP הללו דורש זיכרון, ואם לא אכפת לך מהמידע הטכני הזה, אז הזיכרון מתבזבז.<\/p><p>לכן קיימת אפשרות זו המאפשרת לך להתאים את המספר המרבי של בקשות ה HTTP הכי האחרונות שמיועדות להירשם לבדיקה נוספת.<\/p><p>הזן &ldquo;<code>0<\/code>&rdquo; כדי לכבות את הרישום המפורט (וכתוצאה מכך להפחית את השימוש בזיכרון של <i>uMatrix<\/i>).<\/p>",
+        "description": "To help user understand the purpose of the log size value"
+    },
+    "statsPageRefresh": {
+        "message": "רענן",
+        "description": ""
+    },
+    "settingsPageTitle": {
+        "message": "uMatrix &ndash; הגדרות",
+        "description": ""
+    },
+    "settingsMatrixDisplayHeader": {
+        "message": "תצוגה",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizePrompt": {
+        "message": "גודל טקסט:",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeNormal": {
+        "message": "רגיל",
+        "description": ""
+    },
+    "settingsMatrixDisplayTextSizeLarge": {
+        "message": "גדול",
+        "description": ""
+    },
+    "settingsMatrixDisplayColorBlind": {
+        "message": "ידידותי לעיוורי צבעים",
+        "description": ""
+    },
+    "settingsMatrixConvenienceHeader": {
+        "message": "נוחות",
+        "description": "English: Convenience"
+    },
+    "settingsMatrixAutoReloadPrompt": {
+        "message": "לאחר סגירת המטריצה, טען מחדש בצורה חכמה את הלשוניות הבאות:",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadNone": {
+        "message": "ללא",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadCurrent": {
+        "message": "נוכחי",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadAll": {
+        "message": "כולם",
+        "description": ""
+    },
+    "settingsMatrixAutoReloadInfo": {
+        "message": "בכל פעם שאתה עושה שינויים במטריצה אשר יכולים להשפיע על ההצגה ו\/או התנהגות של דף או יותר, <i>uMatrix<\/i> יטען מחדש את העמודים המושפעים אוטומטית כשתסגור את המטריצה.",
+        "description": ""
+    },
+    "settingsSubframeColor": {
+        "message": "מסגרות חסומות:&ensp;צבע",
+        "description": "English: Blocked frames:&ensp;Color"
+    },
+    "settingsSubframeOpacity": {
+        "message": "אטימות",
+        "description": "English: Opacity"
+    },
+    "settingsIconBadgeEnabled": {
+        "message": "הראה את מספר הבקשות החסומות הייחודיות על האייקון",
+        "description": "English: Show the number of distinct requests on the icon"
+    },
+    "settingsCollapseBlocked": {
+        "message": "הסתר את המקום שנשאר מחסימה של אלמנטים",
+        "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsCloudStorageEnabled": {
+        "message": "אפשר תמיכת אחסון ענן",
+        "description": ""
+    },
+    "privacyPageTitle": {
+        "message": "uMatrix &ndash; פרטיות",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesPrompt": {
+        "message": "מחק עוגיות חסומות.",
+        "description": ""
+    },
+    "privacyDeleteBlockedCookiesHelp": {
+        "message": "<p>עוגיות ברשימה השחורה לא נמנעות על ידי <i>uMatrix<\/i> מלהיכנס לדפדפן שלך. אולם הן כן מנועות מלצאת מהדפדפן שלך, וזה מה שחשוב באמת. לא לחסום עוגיות לפני שהן נכנסות לדפדפן שלך נותן לך את ההזדמנות להיות מודע לכך שאתר ניסה להשתמש בעוגיות, ויתר על כן כדי לבדוק את תוכנם, אם תרצה.<\/p><p>כאשר <i>uMatrix<\/i> נתקל בעוגייה שברשימה השחורה, הן יכולות להיות מוסרות מהדפדפן שלך אם תרצה בכך.<\/p><p><b>הערה חשובה:<\/b> תוספים יכולים לבצע בקשות רשת במהלך פעולתם הרגילה. בקשות אלה יכולות לגרום לכך שעוגיות יווצרו בדפדפן. אם הדומיין שממנה העוגייה הגיעה לא ברשימה הלבנה, העוגייה תמחק מהדפדפן על ידי <i>µMatrix<\/i> אם אפשרות זו מאופשרת. אז תהיה בטוח לגבי זה שהדומיין(ים) אשר איתם התוסף יכול לתקשר נמצא(ים) ברשימה הלבנה.<\/p>",
+        "description": ""
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt1": {
+        "message": "מחק עוגיות סשן לא חסומות ",
+        "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesPrompt2": {
+        "message": " דקות אחרי הפעם האחרונה שהן היו בשימוש.",
+        "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
+    },
+    "privacyDeleteNonBlockedSessionCookiesHelp": {
+        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;עוגיית סשן ... נמחקת כאשר אתה מסיים הסשן של הדפדפן. עוגיית הסשן מאוכסנת בזיכרון זמני ולא נשמרת לאחר שהדפדפן נסגר.&rdquo;<\/p><p>אלא שהדבר <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>יכול לא לקרות<\/a> בדפדפנים מסויימים. כמו כן, לחלק, הפעולה של לסגור את הדפדפן על מנת שעוגיות הסשן יימחקו יכולה להיות  פעולה מספיק מוקדמת.<\/p>",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStoragePrompt": {
+        "message": "מחק <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>איחסונים לוקאליים<\/a> שנרשמו על ידי דומיינים חסומים",
+        "description": ""
+    },
+    "privacyDeleteBlockedLocalStorageHelp": {
+        "message": "לעשות",
+        "description": ""
+    },
+    "privacyClearCachePrompt1": {
+        "message": "מחק את הזיכרון מטמון כל",
+        "description": "First part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCachePrompt2": {
+        "message": "דקות.",
+        "description": "Second part of 'Clear browser cache every [n] minutes'"
+    },
+    "privacyClearCacheHelp": {
+        "message": "<p>יש אתרי אינטרנט שממש רוצים לעקוב אחרייך, כל כך שהם ישתמשו בטריקים לא כל כך יפים על מנת לעקוף את כל הדברים שאתה עושה כדי לא להיות במעקב.<\/p><p>כמה מהטריקים האלה מתבססים<sup style='font-size:smaller'>[1, 2]<\/sup> על <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>הזיכרון מטמון של הדפדפן<\/a>, אשר תוכנו לרוב נמצא הרבה זמן על המחשב מכיוון שלעיתים רחוקות משתמשים ישקיעו מזמנם לנקות באופן קבוע את הזיכרון מטמון של הדפדפן שלהם.<\/p><p>יש אי נעימות קלה לנקות את הזיכרון מטמון של הדפדפן באופן קבוע (רוב הסיכויים שלא תשים לב כשזה קורה), והתועלת היא במניעה של העוקבים המגעילים האלה מחדירה לפרטיות שלך.<\/p><p>אפשר אפשרות זו בשביל ש <i>uMatrix<\/i> יעשה את זה בשבילך, כל כמה זמן שתרצה.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;מניעה מעקב אינטרנטי על ידי שימוש בזיכרון מטמון של הדפדפן&rdquo;<\/a><br>[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;עוגיות חסרי העוגיות&rdquo;<\/a><\/p>",
+        "description": ""
+    },
+    "privacyProcessRefererPrompt": {
+        "message": "זייף את ה <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> של בקשות צד שלישי.",
+        "description": ""
+    },
+    "privacyProcessRefererHelp": {
+        "message": "<p>מתוך ויקיפדיה:<\/p><blockquote>HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לפגוע בפרטיות, מספר דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע של המפנה.<\/b><\/blockquote><p>אם אפשרות זו מאופשרת, <i>uMatrix<\/i> יזייף את המידע של ה HTTP referer אם שם הדומיין של ה HTTP referrer הוא צד שלישי לשם הדומיין של בקשת הרשת.",
+        "description": ""
+    },
+    "privacyNoMixedContentPrompt": {
+        "message": "מצב HTTPS נוקשה: אסור על תוכן מעורב.",
+        "description": ""
+    },
+    "privacyNoMixedContentHelp": {
+        "message": "<p>מתוך <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p>אם דף HTTPS (מאובטח) מכיל בתוכו תוכן שהובא באמצעות בקשת HTTP, אז החיבור מוצפן באופן חלקי בלבד: התוכן הלא מוצפן נגיש להסנפה ותוקפים שנמצאים באמצע יכולים לשנות אותו, ולכן החיבור כבר לא בטוח. כאשר דף אינטרנט מציג התנהגות זו, זה נקרא דף עם תוכן מעורב.<\/blockquote>",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingPrompt": {
+        "message": "חסום את כל הניסיונות ל <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a>.",
+        "description": ""
+    },
+    "privacyProcessHyperlinkAuditingHelp": {
+        "message": "<p>Hyperlink auditing זהו מנגנון אשר מאפשר לצד, <b>כל צד<\/b>, להיות מודע על איזה קישור בדיוק המשתמש לחץ בדף אינטרנט ספציפי. במהות שלו זוהי תכונת מעקב: היא מאפשרת לדף אינטרנט, או לכל אתר צד שלישי לדף אינטרנט זה, להיות מודע לגבי איזה קישור לחצת באיזה דף של האתר שלהם. המטרה היחידה היא לעקוב אחר פעילות הגלישה שלך.<\/p>",
+        "description": ""
+    },
+    "privacySpoofUserAgentPrompt1": {
+        "message": "החלף את הערך של <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>מזהה המשתמש<\/a> על ידי בחירה באקראי במזהה חדש מהרשימה למטה כל",
+        "description": "First part of UA-spoofing prompt"
+    },
+    "privacySpoofUserAgentPrompt2": {
+        "message": "דקות.",
+        "description": "Second part"
+    },
+    "privacySpoofUserAgentHelp": {
+        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>לפי ה <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] הדפדפן שלך שולח כותרת (header) של &lsquo;מזהה משתמש&rsquo; לאתר שאומר בדיוק באיזו מערכת הפעלה ודפדפן אתה משתמש. מידע זה יכול לעזור להבדיל בין משתמש אינטרנט אחד לשני בגלל שוני הגרסאות, שלפעמים מהותי, מאדם לאדם. [...] <b> התוכן של מזהה המשתמש הופך לבעיית פרטיות אמיתית<\/b>.&rdquo;<p>אפשרות זו מאפשרת לך להתייחס לבעיית הפרטיות שהועלתה על ידי ה EFF.<\/p><p>אתה יכול להכניס רשימה משלך של מזהי משתמשים. מזהה משתמש אחד בכל שורה. שורות ריקות ושורות עם קידומת &lsquo;#&rsquo; לא יפורשו.<\/p>",
+        "description": ""
+    },
+    "userRulesPermanentHeader": {
+        "message": "חוקים קבועים",
+        "description": ""
+    },
+    "userRulesTemporaryHeader": {
+        "message": "חוקים זמניים",
+        "description": ""
+    },
+    "userRulesRevert": {
+        "message": "החזר למצב הקודם",
+        "description": "Will remove all temporary rules"
+    },
+    "userRulesCommit": {
+        "message": "החל",
+        "description": "Will save all temporary rules"
+    },
+    "userRulesEdit": {
+        "message": "ערוך",
+        "description": "Will enable manual-edit mode (textarea)"
+    },
+    "userRulesEditSave": {
+        "message": "שמור",
+        "description": "Will save manually-edited content and exit manual-edit mode"
+    },
+    "userRulesEditDicard": {
+        "message": "בטל",
+        "description": "Will discard manually-edited content and exit manual-edit mode"
+    },
+    "userRulesImport": {
+        "message": "ייבא מקובץ...",
+        "description": ""
+    },
+    "userRulesExport": {
+        "message": "ייצא לקובץ...",
+        "description": ""
+    },
+    "userRulesFormatHint": {
+        "message": "ראה דף זה עבור הסינטקס (התחביר) של החוקים.",
+        "description": ""
+    },
+    "userRulesDefaultFileName": {
+        "message": "חוקי-המטריצה-שלי.txt",
+        "description": "default file name to use"
+    },
+    "hostsFilesPrompt": {
+        "message": "כל הדומיינים בקובץ ה hosts נטענים כחסומים בטווח הגלובלי.",
+        "description": ""
+    },
+    "hostsFilesStats": {
+        "message": "{{blockedHostnameCount}} דומיינים שונים חסומים מ:",
+        "description": ""
+    },
+    "hostsFilesPerFileStats": {
+        "message": "{{used}} בשימוש מתוך {{total}}",
+        "description": ""
+    },
+    "hostsFilesLastUpdate": {
+        "message": "עדכון אחרון: {{ago}}",
+        "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
+    },
+    "hostsFilesApplyChanges": {
+        "message": "החל שינויים",
+        "description": ""
+    },
+    "hostsFilesAutoUpdatePrompt": {
+        "message": "עדכן אוטומטית את קבצי ה hosts.",
+        "description": ""
+    },
+    "hostsFilesUpdateNow": {
+        "message": "עדכן כעת",
+        "description": ""
+    },
+    "hostsFilesPurgeAll": {
+        "message": "נקה את כל זיכרוני המטמון",
+        "description": ""
+    },
+    "hostsFilesExternalListsHint": {
+        "message": "כתובת אחת בכל שורה. שורות עם קידומת &lsquo;#&rsquo; לא יפורשו. כתובות לא חוקיות לא יפורשו ולא תהיה התראה לכך.",
+        "description": ""
+    },
+    "hostsFilesExternalListsParse": {
+        "message": "פרסר",
+        "description": ""
+    },
+    "hostsFilesExternalListPurge": {
+        "message": "נקה זיכרון מטמון",
+        "description": ""
+    },
+    "hostsFilesExternalListNew": {
+        "message": "גרסה חדשה זמינה",
+        "description": ""
+    },
+    "hostsFilesExternalListObsolete": {
+        "message": "לא עדכני",
+        "description": ""
+    },
+    "aboutChangelog": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>רשימת שינויים<\/a>",
+        "description": ""
+    },
+    "aboutStorageUsed": {
+        "message": "אחסון בשימוש: {{storageUsed}} בתים",
+        "description": ""
+    },
+    "aboutDoc": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>דוקומנטציה<\/a>",
+        "description": ""
+    },
+    "aboutPermissions": {
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>הרשאות<\/a>",
+        "description": ""
+    },
+    "aboutCode": {
+        "message": "קוד מקור (GPLv3)",
+        "description": ""
+    },
+    "aboutIssues": {
+        "message": "באגים ובעיות",
+        "description": ""
+    },
+    "aboutContributors": {
+        "message": "תורמים",
+        "description": "English: Contributors"
+    },
+    "aboutCodeContributors": {
+        "message": "קוד:",
+        "description": ""
+    },
+    "aboutIssueContributors": {
+        "message": "בעיות:",
+        "description": ""
+    },
+    "aboutTranslationContributors": {
+        "message": "תרגומים:",
+        "description": ""
+    },
+    "aboutUserDataHeader": {
+        "message": "המידע שלך",
+        "description": ""
+    },
+    "aboutBackupButton": {
+        "message": "גבה לקובץ...",
+        "description": ""
+    },
+    "aboutBackupFilename": {
+        "message": "my-umatrix-backup.txt",
+        "description": "default filename to use"
+    },
+    "aboutRestoreButton": {
+        "message": "שחזר מקובץ...",
+        "description": ""
+    },
+    "aboutRestoreConfirm": {
+        "message": "כל ההגדרות שלך יוחלפו בנתונים שגובו ב {{time}}, ו uMatrix יופעל מחדש.\n\nהאם להחליף את כל ההגדרות הקיימות בנתונים המגובים?",
+        "description": "Message asking user to confirm restore"
+    },
+    "aboutRestoreError": {
+        "message": "לא הוצלח לקרוא את המידע או שהינו פגום",
+        "description": ""
+    },
+    "aboutOr": {
+        "message": "... או ...",
+        "description": "English: ... or ..."
+    },
+    "aboutResetButton": {
+        "message": "אפס להגדרות ברירת מחדל",
+        "description": "English: Reset to default settings"
+    },
+    "aboutResetConfirm": {
+        "message": "אזהרה! פעולה זו תוביל למחיקה של כל ההגדרות המותאמות אישית שלך. האם אתה בטוח שאתה רוצה להמשיך?",
+        "description": "Message asking user to confirm reset"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "ביטוי(י) פילטור",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerMaxEntriesTip": {
+        "message": "מספר רשומות מקסימליות",
+        "description": "Appears as a tooltip when hovering the input field"
+    },
+    "loggerEntryUserAgentSpoofing": {
+        "message": "מחליף את ה user agent שלך ב: {{value}}",
+        "description": "An entry for when a new user agent string is selected"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "עוגייה נמחקה: {{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "נכשל במחיקת העוגייה: {{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "זיכרון מטמון נמחק",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "הנכס עודכן: {{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "mainBlockedPrompt1": {
+        "message": "uMatrix מנע מהעמוד הבא מלהיטען:",
+        "description": "English: uMatrix has prevented the following page from loading:"
+    },
+    "mainBlockedPrompt2": {
+        "message": "בגלל החוק הבא",
+        "description": "English: Because of the following rule"
+    },
+    "mainBlockedBack": {
+        "message": "חזור",
+        "description": "English: Go back"
+    },
+    "mainBlockedClose": {
+        "message": "סגור",
+        "description": "English: Close"
+    },
+    "commandRevertAll": {
+        "message": "מחק את כל ההגדרות הזמניות",
+        "description": ""
+    },
+    "commandWhitelistPageDomain": {
+        "message": "זמנית הרשה את דף הדומיין",
+        "description": ""
+    },
+    "commandWhitelistAll": {
+        "message": "זמנית הרשה הכל",
+        "description": ""
+    },
+    "commandOpenDashboard": {
+        "message": "פתח את פאנל הקונפיגורציות",
+        "description": ""
+    },
+    "elapsedOneMinuteAgo": {
+        "message": "לפני דקה",
+        "description": "English: a minute ago"
+    },
+    "elapsedManyMinutesAgo": {
+        "message": "לפני {{value}} דקות",
+        "description": "English: {{value}} minutes ago"
+    },
+    "elapsedOneHourAgo": {
+        "message": "לפני שעה",
+        "description": "English: an hour ago"
+    },
+    "elapsedManyHoursAgo": {
+        "message": "לפני {{value}} שעות",
+        "description": "English: {{value}} hours ago"
+    },
+    "elapsedOneDayAgo": {
+        "message": "לפני יום",
+        "description": "English: a day ago"
+    },
+    "elapsedManyDaysAgo": {
+        "message": "לפני {{value}} ימים",
+        "description": "English: {{value}} days ago"
+    },
+    "showDashboardButton": {
+        "message": "פאנל הקונפיגורציות",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "showLoggerButton": {
+        "message": "מתעד",
+        "description": "Appears in Firefox's add-on preferences"
+    },
+    "cloudPush": {
+        "message": "ייצא לאחסון ענן",
+        "description": "tooltip"
+    },
+    "cloudPull": {
+        "message": "ייבא מתוך אחסון ענן",
+        "description": "tooltip"
+    },
+    "cloudNoData": {
+        "message": "...\n...",
+        "description": ""
+    },
+    "cloudDeviceNamePrompt": {
+        "message": "שם התקן זה:",
+        "description": "used as a prompt for the user to provide a custom device name"
+    },
+    "genericSubmit": {
+        "message": "שלח",
+        "description": "for generic 'submit' buttons"
+    },
+    "genericRevert": {
+        "message": "שחזר",
+        "description": "for generic 'revert' buttons"
+    },
+    "errorCantConnectTo": {
+        "message": "שגיאת רשת: לא הוצלח להתחבר ל {{url}}",
+        "description": ""
+    }
 }
