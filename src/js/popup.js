@@ -1197,10 +1197,11 @@ function revertAll() {
 
 /******************************************************************************/
 
-function buttonReloadHandler() {
+function buttonReloadHandler(ev) {
     messager.send({
         what: 'forceReloadTab',
-        tabId: matrixSnapshot.tabId
+        tabId: matrixSnapshot.tabId,
+        bypassCache: ev.shiftKey
     });
 }
 

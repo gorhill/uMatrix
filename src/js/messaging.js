@@ -54,7 +54,7 @@ function onMessage(request, sender, callback) {
 
     switch ( request.what ) {
     case 'forceReloadTab':
-        µm.forceReload(request.tabId);
+        µm.forceReload(request.tabId, request.bypassCache);
         break;
 
     case 'forceUpdateAssets':

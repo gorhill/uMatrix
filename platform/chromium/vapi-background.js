@@ -339,14 +339,14 @@ vAPI.tabs.remove = function(tabId) {
 
 /******************************************************************************/
 
-vAPI.tabs.reload = function(tabId /*, flags*/) {
+vAPI.tabs.reload = function(tabId, bypassCache) {
     if ( typeof tabId === 'string' ) {
         tabId = parseInt(tabId, 10);
     }
     if ( isNaN(tabId) ) {
         return;
     }
-    chrome.tabs.reload(tabId);
+    chrome.tabs.reload(tabId, { bypassCache: bypassCache === true });
 };
 
 /******************************************************************************/

@@ -570,8 +570,8 @@ vAPI.tabs.registerListeners();
 
 /******************************************************************************/
 
-µm.forceReload = function(tabId) {
-    vAPI.tabs.reload(tabId, { bypassCache: true });
+µm.forceReload = function(tabId, bypassCache) {
+    vAPI.tabs.reload(tabId, bypassCache);
 };
 
 /******************************************************************************/
