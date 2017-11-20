@@ -7,7 +7,6 @@ TEMPFILE=/tmp/umatrix-asset
 echo "*** uMatrix: updating remote assets..."
 
 THIRDPARTY_REMOTEURLS=(
-    'http://mirror1.malwaredomains.com/files/immortal_domains.txt'
     'http://mirror1.malwaredomains.com/files/justdomains'
     'http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&startdate%5Bday%5D=&startdate%5Bmonth%5D=&startdate%5Byear%5D=&mimetype=plaintext'
     'http://www.malwaredomainlist.com/hostslist/hosts.txt'
@@ -18,7 +17,6 @@ THIRDPARTY_REMOTEURLS=(
     )
 
 THIRDPARTY_LOCALURLS=(
-    'assets/thirdparties/mirror1.malwaredomains.com/files/immortal_domains.txt'
     'assets/thirdparties/mirror1.malwaredomains.com/files/justdomains'
     'assets/thirdparties/pgl.yoyo.org/as/serverlist'
     'assets/thirdparties/www.malwaredomainlist.com/hostslist/hosts.txt'
