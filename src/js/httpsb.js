@@ -45,6 +45,9 @@
     µm.pMatrix.setCell('*', '1st-party', '*', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '1st-party', 'frame', µm.Matrix.Green);
 
+    // https://discourse.mozilla.org/t/support-umatrix/5131/157
+    µm.pMatrix.setSwitch('matrix-off', 'wyciwyg-scheme', 1);
+
     µm.tMatrix = new µm.Matrix();
     µm.tMatrix.assign(µm.pMatrix);
 })();
