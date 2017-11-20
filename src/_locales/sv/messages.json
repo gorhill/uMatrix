@@ -92,7 +92,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Uppdatera sidan.",
+        "message": "Ladda om sidan.\nHåll ner Skift tangenten för att kringgå webbläsarens cache.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {

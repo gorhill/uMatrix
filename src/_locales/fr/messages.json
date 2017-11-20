@@ -92,7 +92,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Actualiser la page",
+        "message": "Actualiser la page\nAppuyez sur Maj pour contourner le cache du navigateur",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {

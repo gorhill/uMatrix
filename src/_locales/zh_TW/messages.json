@@ -156,7 +156,7 @@
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
-        "message": "瀏覽器暫存清除次數：{{count}}",
+        "message": "瀏覽器快取清除次數：{{count}}",
         "description": ""
     },
     "statsPageDetailedStats": {

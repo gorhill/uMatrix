@@ -92,7 +92,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "重新加载页面。",
+        "message": "重新加载页面。\n同时按下 Shift 键以弃用浏览器缓存。",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -156,7 +156,7 @@
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
-        "message": "已清除浏览器缓存：{{count}} 次",
+        "message": "已清除的浏览器缓存：{{count}}",
         "description": ""
     },
     "statsPageDetailedStats": {
