@@ -621,3 +621,19 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
 #domainOnly:hover {
     opacity: 1;
     }
+
+#buttonApplyChanges {
+    background-color: #eee;
+    color: #333;
+    font-weight: bold;
+    margin: 2.5em 2.5% .5em;
+    opacity: .9;
+    padding: .5em;
+    width: 95%;
+    }
+
+#buttonApplyChanges:hover {
+    background-color: #6c6;
+    color: #000;
+    opacity: 1;
+    }

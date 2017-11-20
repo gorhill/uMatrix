@@ -120,6 +120,7 @@ return {
         popupScopeLevel: 'domain',
         processHyperlinkAuditing: true,
         processReferer: false,
+        showApplyButton: true,
         spoofUserAgent: false,
         spoofUserAgentEvery: 5,
         spoofUserAgentWith: defaultUserAgentStrings
