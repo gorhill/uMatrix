@@ -3,7 +3,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=100vw">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/common.css" type="text/css">
 <link rel="stylesheet" href="css/popup.css" type="text/css">
 <title>uMatrix panel</title>
@@ -22,16 +22,8 @@
     <a id="gotoDashboard" class="extensionURL" href="#" data-extension-url="dashboard.html" title="popupTipDashboard">uMatrix <span id="version"> </span><span class="fa">&#xf013;</span></a>
     <div id="toolbarContainer">
         <div class="toolbar">
-            <span class="scope" id="specificScope"></span><!--
+            <span class="scope" id="specificScope"><span>&nbsp;</span></span><!--
          --><span class="scope" id="globalScope" data-scope="*">&#x2217;</span>
-            <!-- <div class="dropdown-menu">
-                <ul>
-                    <li id="scopeKeyGlobal" class="dropdown-menu-entry">&#x2217;
-                    <li id="scopeKeyDomain" class="dropdown-menu-entry">
-                    <li id="scopeKeySite" class="dropdown-menu-entry">
-                </ul>
-            </div>
-            <div class="dropdown-menu-capture"></div> -->
             <button id="mtxSwitch_matrix-off" type="button" class="fa scopeRel tip-anchor-left" data-i18n-tip="matrixMtxButtonTip">&#xf011;<span class="badge"></span></button>
             <div style="display:inline-block; position:relative; vertical-align:top;">
                 <button id="buttonMtxSwitches" type="button" class="dropdown-menu-button fa scopeRel" tabindex="-1">&#xf142;<span class="badge"></span></button>

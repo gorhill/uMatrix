@@ -1053,7 +1053,7 @@ function selectGlobalScope() {
 
 function selectSpecificScope(ev) {
     var newScope = ev.target.getAttribute('data-scope');
-    if ( matrixSnapshot.scope === newScope ) { return; }
+    if ( !newScope || matrixSnapshot.scope === newScope ) { return; }
     document.body.classList.remove('globalScope');
     matrixSnapshot.scope = newScope;
     matrixSnapshot.tMatrixModifiedTime = undefined;
