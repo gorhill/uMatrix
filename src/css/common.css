@@ -80,6 +80,9 @@ body[dir="ltr"] .tip-anchor-right[data-i18n-tip]:hover:after,
 body[dir="rtl"] .tip-anchor-left[data-i18n-tip]:hover:after {
     right: -3vw;
     }
+.tip-anchor-above[data-i18n-tip]:hover:after {
+    top: -100%;
+    }
 button.custom {
     padding: 0.6em 1em;
     border: 1px solid transparent;

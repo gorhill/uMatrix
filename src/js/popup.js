@@ -1020,6 +1020,7 @@ var makeMenu = function() {
 function initMenuEnvironment() {
     uDom('body').css('font-size', getUserSetting('displayTextSize'));
     uDom('body').toggleClass('colorblind', getUserSetting('colorBlindFriendly') === true);
+    uDom('#buttonApplyChanges').css('display', getUserSetting('showApplyButton') === true ? 'inline-block' : 'none');
     uDom('#version').text(matrixSnapshot.appVersion || '');
 
     var prettyNames = matrixHeaderPrettyNames;
@@ -1226,6 +1227,11 @@ function buttonReloadHandler(ev) {
         tabId: matrixSnapshot.tabId,
         bypassCache: ev.shiftKey
     });
+}
+
+function buttonApplyChangesHandler(ev) {
+    buttonReloadHandler(ev);
+    vAPI.closePopup();
 }
 
 /******************************************************************************/
@@ -1463,6 +1469,8 @@ uDom('#matList').on('click', '.g4Meta', function() {
     setUISetting('popupHideBlacklisted', collapsed);
     resizePopup();
 });
+
+uDom('#buttonApplyChanges').on('click', buttonApplyChangesHandler);
 
 resizePopup();
 
