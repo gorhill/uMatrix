@@ -20,18 +20,19 @@
 <div class="paneHead">
     <a id="gotoDashboard" class="extensionURL" href="#" data-extension-url="dashboard.html" title="popupTipDashboard">uMatrix <span id="version"> </span><span class="fa">&#xf013;</span></a>
     <div id="toolbarContainer">
-        <div id="toolbarLeft" class="toolbar alignLeft">
-            <button id="scopeCell" class="dropdown-menu-button" tabindex="-1"></button>
-            <div class="dropdown-menu">
+        <div class="toolbar">
+            <span class="scope" id="specificScope"></span><!--
+         --><span class="scope" id="globalScope" data-scope="*">&#x2217;</span>
+            <!-- <div class="dropdown-menu">
                 <ul>
                     <li id="scopeKeyGlobal" class="dropdown-menu-entry">&#x2217;
                     <li id="scopeKeyDomain" class="dropdown-menu-entry">
                     <li id="scopeKeySite" class="dropdown-menu-entry">
                 </ul>
             </div>
-            <div class="dropdown-menu-capture"></div>
+            <div class="dropdown-menu-capture"></div> -->
             <button id="mtxSwitch_matrix-off" type="button" class="fa scopeRel tip-anchor-left" data-i18n-tip="matrixMtxButtonTip">&#xf011;<span class="badge"></span></button>
-            <div style="display: inline-block; position: relative">
+            <div style="display:inline-block; position:relative; vertical-align:top;">
                 <button id="buttonMtxSwitches" type="button" class="dropdown-menu-button fa scopeRel" tabindex="-1">&#xf142;<span class="badge"></span></button>
                 <div class="dropdown-menu">
                     <ul id="mtxSwitches">
@@ -47,7 +48,7 @@
             <button id="buttonRevertScope" type="button" class="fa scopeRel tip-anchor-left" tabindex="-1" data-i18n-tip="matrixRevertButtonTip">&#xf12d;</button>
             <button id="buttonReload" type="button" class="fa tip-anchor-left" data-i18n-tip="matrixReloadButton">&#xf021;</button>
         </div>
-        <div class="toolbar alignRight">
+        <div class="toolbar">
             <button id="buttonRevertAll" class="fa tip-anchor-right" data-i18n-tip="matrixRevertAllEntry">&#xf122;</button>
             <button type="button" class="fa extensionURL tip-anchor-right" data-extension-url="logger-ui.html" data-i18n-tip="matrixLoggerMenuEntry">&#xf022;</button>
         </div>

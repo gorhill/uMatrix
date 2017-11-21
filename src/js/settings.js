@@ -62,6 +62,10 @@ var installEventHandlers = function() {
         changeUserSettings('displayTextSize', this.value);
     });
 
+    uDom('#popupScopeLevel').on('change', function(){
+        changeUserSettings('popupScopeLevel', this.value);
+    });
+
     // https://github.com/gorhill/httpswitchboard/issues/197
     uDom(window).on('beforeunload', prepareToDie);
 };
@@ -82,6 +86,8 @@ uDom.onLoad(function() {
         uDom('input[name="displayTextSize"]').forEach(function(elem) {
             elem.prop('checked', elem.val() === userSettings.displayTextSize);
         });
+
+        uDom.nodeFromId('popupScopeLevel').value = userSettings.popupScopeLevel;
 
         installEventHandlers();
     };

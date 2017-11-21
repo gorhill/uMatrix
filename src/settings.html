@@ -19,6 +19,9 @@ ul {
 ul > li {
     margin: 0 0 0 1em;
     }
+ul > li.separator {
+    margin: 0.5em 0;
+    }
 .dim {
     font-weight: 100;
     color: #888;
@@ -27,14 +30,6 @@ ul > li {
 </head>
 
 <body>
-
-<h2 data-i18n="settingsMatrixDisplayHeader"></h2>
-<ul style="list-style:none">
-    <li style="margin-top:0.5em;"><input id="colorBlindFriendly" type="checkbox" data-range="bool"><label data-i18n="settingsMatrixDisplayColorBlind" for="colorBlindFriendly"></label>
-    <li style="margin-top:0.5em;"><span data-i18n="settingsMatrixDisplayTextSizePrompt"></span>
-    <input type="radio" name="displayTextSize" id="displayTextSizeNormal" value="13px"><label data-i18n="settingsMatrixDisplayTextSizeNormal" for="displayTextSizeNormal"></label>
-    <input type="radio" name="displayTextSize" id="displayTextSizeLarge" value="16px"><label data-i18n="settingsMatrixDisplayTextSizeLarge" for="displayTextSizeLarge"></label>
-</ul>
 
 <h2 data-i18n="settingsMatrixConvenienceHeader"></h2>
 <ul>
@@ -48,7 +43,19 @@ ul > li {
         <input id="cloudStorageEnabled" type="checkbox" data-range="bool">
         <label data-i18n="settingsCloudStorageEnabled" for="cloudStorageEnabled"></label>
 </ul>
-
+<h2 data-i18n="settingsMatrixDisplayHeader"></h2>
+<ul>
+    <li><span data-i18n="settingsMatrixDisplayTextSizePrompt"></span>
+    <input type="radio" name="displayTextSize" id="displayTextSizeNormal" value="13px"><label data-i18n="settingsMatrixDisplayTextSizeNormal" for="displayTextSizeNormal"></label>
+    <input type="radio" name="displayTextSize" id="displayTextSizeLarge" value="16px"><label data-i18n="settingsMatrixDisplayTextSizeLarge" for="displayTextSizeLarge"></label>
+    <li class="separator">
+    <li>
+        <label data-i18n="settingsDefaultScopeLevel"></label> <select id="popupScopeLevel"><option data-i18n="settingsDefaultScopeLevel2" value="site"><option data-i18n="settingsDefaultScopeLevel1" value="domain"><option data-i18n="settingsDefaultScopeLevel0" value="*"></select>
+    <li class="separator">
+    <li>
+        <input id="colorBlindFriendly" type="checkbox" data-range="bool">
+        <label data-i18n="settingsMatrixDisplayColorBlind" for="colorBlindFriendly"></label>
+</ul>
 
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>

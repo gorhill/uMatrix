@@ -75,30 +75,18 @@ body[dir="rtl"] #gotoDashboard > span:last-of-type {
     text-align: center;
     }
 #toolbarContainer {
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .toolbar {
     border: 0;
     display: inline-block;
     margin: 0;
     padding: 0;
-    position: relative;
     vertical-align: top;
     white-space: nowrap;
     }
-.toolbar.alignRight {
-    position: absolute;
-    }
-
-body[dir="ltr"] .toolbar.alignLeft,
-body[dir="rtl"] .toolbar.alignRight {
-    left: 0;
-    }
-body[dir="ltr"] .toolbar.alignRight,
-body[dir="rtl"] .toolbar.alignLeft {
-    right: 0;
-    }
-
 
 body .toolbar button {
     margin: 0;
@@ -121,15 +109,6 @@ body .toolbar button.disabled {
 body .toolbar button.fa {
     font: 1.75em FontAwesome;
     min-width: 1.1em;
-    }
-body.tScopeGlobal .scopeRel:not(.disabled) {
-    color: #000;
-    }
-body.tScopeDomain .scopeRel:not(.disabled) {
-    color: #24c;
-    }
-body.tScopeSite .scopeRel:not(.disabled) {
-    color: #48c;
     }
 #mtxSwitch_matrix-off.switchTrue {
     color: #a00;
@@ -297,37 +276,55 @@ button.disabled > span.badge {
     font-size: 1.2em;
     }
 
-body .toolbar button#scopeCell {
-    margin: 0;
-    border: 1px dotted rgba(0,0,0,0.2);
-    padding: 6px 1px 3px 1px;
+body .toolbar .scope {
+    background-color: #ccc;
+    border: 1px solid #ccc;
     box-sizing: content-box;
     -moz-box-sizing: content-box;
-    width: 16em;
-    height: 1.5em;
-    white-space: nowrap;
-    text-align: right;
-    line-height: 100%;
     color: white;
-    background-repeat: no-repeat;
-    background-position: -1px -1px;
+    display: inline-block;
+    line-height: 2em;
+    margin: 0;
+    padding: 1px;
+    cursor: pointer;
+    white-space: nowrap;
     }
-body #scopeCell + .dropdown-menu {
-    padding: 6px 1px 3px 1px;
+body .toolbar #specificScope {
+    display: inline-flex;
+    justify-content: flex-end;
     text-align: right;
-    min-width: 50%;
-    max-width: 80%;
+    width: 16em;
     }
-body.tScopeGlobal #scopeCell {
-    background-color: #000;
+body .toolbar #specificScope.on {
+    background-color: #24c;
+    border-color: #24c;
     }
-body.tScopeDomain #scopeCell {
+body .toolbar #specificScope > span {
+    background-color: #ccc;
+    display: inline-block;
+    height: 100%;
+    }
+body .toolbar #specificScope > span.on {
     background-color: #24c;
     }
-body.tScopeSite #scopeCell {
-    background-color: #48c;
+body .toolbar #specificScope > span:first-of-type {
+    flex: 1;
     }
-
+body .toolbar #globalScope {
+    margin-left: 0 0 0 1px;
+    text-align: center;
+    width: 2em;
+    }
+body .toolbar #globalScope.on {
+    background-color: #000;
+    border-color: #000;
+    }
+body .toolbar .scopeRel {
+    color: #24c;
+    }
+body.globalScope .toolbar .scopeRel {
+    color: #000;
+    }
 
 .matrix {
     text-align: left;
@@ -349,6 +346,11 @@ body.tScopeSite #scopeCell {
     position: relative;
     }
 
+#matHead {
+    border-top: 1px dotted #ccc;
+    padding-top: 1px;
+    margin: 1px 0 0 0;
+    }
 .paneHead .matCell:nth-child(2) {
     letter-spacing: -0.3px;
     }

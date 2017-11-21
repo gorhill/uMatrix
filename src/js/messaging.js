@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014 Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -173,7 +173,9 @@ var matrixSnapshot = function(pageStore, details) {
 
     var headers = r.headers;
 
-    if ( µmuser.popupScopeLevel === 'site' ) {
+    if ( typeof details.scope === 'string' ) {
+        r.scope = details.scope;
+    } else if ( µmuser.popupScopeLevel === 'site' ) {
         r.scope = r.hostname;
     } else if ( µmuser.popupScopeLevel === 'domain' ) {
         r.scope = r.domain;

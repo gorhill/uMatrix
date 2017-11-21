@@ -1043,59 +1043,82 @@ function initMenuEnvironment() {
 // Create page scopes for the web page
 
 function selectGlobalScope() {
-    setUserSetting('popupScopeLevel', '*');
+    if ( matrixSnapshot.scope === '*' ) { return; }
+    matrixSnapshot.scope = '*';
+    document.body.classList.add('globalScope');
     matrixSnapshot.tMatrixModifiedTime = undefined;
     updateMatrixSnapshot();
     dropDownMenuHide();
 }
 
-function selectDomainScope() {
-    setUserSetting('popupScopeLevel', 'domain');
+function selectSpecificScope(ev) {
+    var newScope = ev.target.getAttribute('data-scope');
+    if ( matrixSnapshot.scope === newScope ) { return; }
+    document.body.classList.remove('globalScope');
+    matrixSnapshot.scope = newScope;
     matrixSnapshot.tMatrixModifiedTime = undefined;
     updateMatrixSnapshot();
     dropDownMenuHide();
-}
-
-function selectSiteScope() {
-    setUserSetting('popupScopeLevel', 'site');
-    matrixSnapshot.tMatrixModifiedTime = undefined;
-    updateMatrixSnapshot();
-    dropDownMenuHide();
-}
-
-function getClassFromScope() {
-    if ( matrixSnapshot.scope === '*' ) {
-        return 'tScopeGlobal';
-    }
-    if ( matrixSnapshot.scope === matrixSnapshot.domain ) {
-        return 'tScopeDomain';
-    }
-    return 'tScopeSite';
 }
 
 function initScopeCell() {
     // It's possible there is no page URL at this point: some pages cannot
-    // be filtered by µMatrix.
-    if ( matrixSnapshot.url === '' ) {
-        return;
+    // be filtered by uMatrix.
+    if ( matrixSnapshot.url === '' ) { return; }
+    var specificScope = uDom.nodeFromId('specificScope');
+
+    while ( specificScope.firstChild !== null ) {
+        specificScope.removeChild(specificScope.firstChild);
     }
+
     // Fill in the scope menu entries
-    if ( matrixSnapshot.hostname === matrixSnapshot.domain ) {
-        uDom('#scopeKeySite').css('display', 'none');
+    var pos = matrixSnapshot.domain.indexOf('.');
+    var tld, labels;
+    if ( pos === -1 ) {
+        tld = '';
+        labels = matrixSnapshot.hostname;
     } else {
-        uDom('#scopeKeySite').text(punycode.toUnicode(matrixSnapshot.hostname));
+        tld = matrixSnapshot.domain.slice(pos + 1);
+        labels = matrixSnapshot.hostname.slice(0, -tld.length);
     }
-    uDom('#scopeKeyDomain').text(punycode.toUnicode(matrixSnapshot.domain));
+    var beg = 0, span;
+    while ( beg < labels.length ) {
+        pos = labels.indexOf('.', beg);
+        if ( pos === -1 ) {
+            pos = labels.length;
+        } else {
+            pos += 1;
+        }
+        span = document.createElement('span');
+        span.setAttribute('data-scope', labels.slice(beg) + tld);
+        span.appendChild(
+            document.createTextNode(punycode.toUnicode(labels.slice(beg, pos)))
+        );
+        specificScope.appendChild(span);
+        beg = pos;
+    }
+    if ( tld !== '' ) {
+        span = document.createElement('span');
+        span.setAttribute('data-scope', tld);
+        span.appendChild(document.createTextNode(punycode.toUnicode(tld)));
+        specificScope.appendChild(span);
+    }
     updateScopeCell();
 }
 
 function updateScopeCell() {
-    uDom('body')
-        .removeClass('tScopeGlobal tScopeDomain tScopeSite')
-        .addClass(getClassFromScope());
-    uDom('#scopeCell').text(
-        punycode.toUnicode(matrixSnapshot.scope).replace('*', '\u2217')
-    );
+    var specificScope = uDom.nodeFromId('specificScope'),
+        globalScope = uDom.nodeFromId('globalScope');
+    var isGlobal = matrixSnapshot.scope === '*';
+    specificScope.classList.toggle('on', !isGlobal);
+    globalScope.classList.toggle('on', isGlobal);
+    for ( var node of uDom.nodeFromId('specificScope').children ) {
+        node.classList.toggle(
+            'on', 
+            !isGlobal &&
+                matrixSnapshot.scope.endsWith(node.getAttribute('data-scope'))
+        );
+    }
 }
 
 /******************************************************************************/
@@ -1254,7 +1277,7 @@ var onMatrixSnapshotReady = function(response) {
     // After popup menu is built, check whether there is a non-empty matrix
     if ( matrixSnapshot.url === '' ) {
         uDom('#matHead').remove();
-        uDom('#toolbarLeft').remove();
+        uDom('#toolbarContainer').remove();
 
         // https://github.com/gorhill/httpswitchboard/issues/191
         uDom('#noNetTrafficPrompt').text(vAPI.i18n('matrixNoNetTrafficPrompt'));
@@ -1335,6 +1358,7 @@ var matrixSnapshotPoller = (function() {
         messager.send({
             what: 'matrixSnapshot',
             tabId: matrixSnapshot.tabId,
+            scope: matrixSnapshot.scope,
             mtxContentModifiedTime: matrixSnapshot.mtxContentModifiedTime,
             mtxCountModifiedTime: matrixSnapshot.mtxCountModifiedTime,
             mtxDiffCount: matrixSnapshot.diff.length,
@@ -1419,9 +1443,8 @@ matrixCellHotspots = uDom('#cellHotspots').detach();
 uDom('body')
     .on('mouseenter', '.matCell', mouseenterMatrixCellHandler)
     .on('mouseleave', '.matCell', mouseleaveMatrixCellHandler);
-uDom('#scopeKeyGlobal').on('click', selectGlobalScope);
-uDom('#scopeKeyDomain').on('click', selectDomainScope);
-uDom('#scopeKeySite').on('click', selectSiteScope);
+uDom('#specificScope').on('click', selectSpecificScope);
+uDom('#globalScope').on('click', selectGlobalScope);
 uDom('[id^="mtxSwitch_"]').on('click', toggleMatrixSwitch);
 uDom('#buttonPersist').on('click', persistMatrix);
 uDom('#buttonRevertScope').on('click', revertMatrix);
