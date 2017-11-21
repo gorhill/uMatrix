@@ -253,7 +253,7 @@
     },
     "settingsMatrixDisplayHeader": {
         "message": "Diện mạo",
-        "description": ""
+        "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
         "message": "Cỡ chữ:",
@@ -274,6 +274,22 @@
     "settingsMatrixConvenienceHeader": {
         "message": "Tiện lợi",
         "description": "English: Convenience"
+    },
+    "settingsDefaultScopeLevel": {
+        "message": "Default scope level:",
+        "description": "Label for default scope level selector in Settings pane"
+    },
+    "settingsDefaultScopeLevel0": {
+        "message": "Global",
+        "description": "Scope will be global"
+    },
+    "settingsDefaultScopeLevel1": {
+        "message": "Domain",
+        "description": "Scope will be base domain"
+    },
+    "settingsDefaultScopeLevel2": {
+        "message": "Site",
+        "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
         "message": "Khi đã đóng ma trận, tải lại thông minh những thẻ này:",

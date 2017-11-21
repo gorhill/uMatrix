@@ -253,7 +253,7 @@
     },
     "settingsMatrixDisplayHeader": {
         "message": "दिखावट",
-        "description": ""
+        "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
         "message": "पाठ का आकार",
@@ -274,6 +274,22 @@
     "settingsMatrixConvenienceHeader": {
         "message": "Convenience",
         "description": "English: Convenience"
+    },
+    "settingsDefaultScopeLevel": {
+        "message": "Default scope level:",
+        "description": "Label for default scope level selector in Settings pane"
+    },
+    "settingsDefaultScopeLevel0": {
+        "message": "Global",
+        "description": "Scope will be global"
+    },
+    "settingsDefaultScopeLevel1": {
+        "message": "Domain",
+        "description": "Scope will be base domain"
+    },
+    "settingsDefaultScopeLevel2": {
+        "message": "Site",
+        "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
         "message": "When the matrix is closed, smart reload these tabs:",
