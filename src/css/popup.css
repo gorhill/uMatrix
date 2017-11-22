@@ -270,6 +270,14 @@ button.disabled > span.badge {
     visibility: hidden;
     }
 
+#scopeCell::before {
+    font-family: FontAwesome;
+    content: "\f0d7";
+    color: lightblue;
+    float: left;
+    padding-left: 5px;
+}
+
 /* I think this is obsolete */
 .dropdown-menu > li > a > i {
     padding: 0 6px;
