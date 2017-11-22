@@ -32,6 +32,22 @@
 /******************************************************************************/
 /******************************************************************************/
 
+var paneContentPaddingTop;
+try {
+    paneContentPaddingTop = localStorage.getItem('paneContentPaddingTop');
+} catch(ex) {
+}
+
+if ( typeof paneContentPaddingTop === 'string' ) {
+    document.querySelector('.paneContent').style.setProperty(
+        'padding-top',
+        paneContentPaddingTop
+    );
+}
+
+/******************************************************************************/
+/******************************************************************************/
+
 // Must be consistent with definitions in matrix.js
 var Pale        = 0x00;
 var Dark        = 0x80;
@@ -319,7 +335,6 @@ function toggleCollapseState(elem) {
     } else {
         toggleSpecificCollapseState(elem);
     }
-    resizePopup();
 }
 
 function toggleMainCollapseState(uelem) {
@@ -398,7 +413,6 @@ function updateMatrixColors() {
         expandos = expandosFromNode(cell);
         addCellClass(cell, expandos.hostname, expandos.reqType);
     }
-    resizePopup();
 }
 
 /******************************************************************************/
@@ -989,9 +1003,7 @@ function makeMatrixGroup4(group) {
 var makeMenu = function() {
     var groupStats = getGroupStats();
 
-    if ( Object.keys(groupStats).length === 0 ) {
-        return;
-    }
+    if ( Object.keys(groupStats).length === 0 ) { return; }
 
     // https://github.com/gorhill/httpswitchboard/issues/31
     if ( matrixCellHotspots ) {
@@ -1298,11 +1310,15 @@ var resizePopup = (function() {
         var doc = document;
         // Manually adjust the position of the main matrix according to the
         // height of the toolbar/matrix header.
+        var paddingTop = (doc.querySelector('.paneHead').clientHeight + 2) + 'px';
         doc.querySelector('.paneContent').style.setProperty(
             'padding-top',
-            (doc.querySelector('.paneHead').clientHeight + 2) + 'px'
+            paddingTop
         );
-        doc.body.setAttribute('data-resize-popup', 'true');
+        try {
+            localStorage.setItem('paneContentPaddingTop', paddingTop);
+        } catch(ex) {
+        }
     };
     return function() {
         if ( timer !== undefined ) {
@@ -1461,10 +1477,7 @@ uDom('#matList').on('click', '.g4Meta', function() {
         .toggleClass('g4Collapsed')
         .hasClass('g4Collapsed');
     setUISetting('popupHideBlacklisted', collapsed);
-    resizePopup();
 });
-
-resizePopup();
 
 /******************************************************************************/
 

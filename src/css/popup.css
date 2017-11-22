@@ -385,11 +385,6 @@ body.globalScope .toolbar .scopeRel {
     padding: 0;
     /* background-color: rgba(0,0,0,0.05); */
     }
-.matrix .matGroup .matSection:first-child {
-    margin-top: 2px;
-    border-top: 1px dotted #ccc;
-    padding-top: 1px;
-    }
 .matrix .matGroup.g0 .matSection:first-child {
     margin-top: 0;
     }
