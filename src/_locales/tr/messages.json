@@ -92,7 +92,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Sayfayı yeniden yükle.",
+        "message": "Sayfayı yeniden yükle.\nTarayıcı önbelleğini yok sayarak yeniden yüklemek için Üst Karakter'e basın.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -252,7 +252,7 @@
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "Görünüm",
+        "message": "Matris",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
@@ -276,15 +276,15 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "Varsayılan kapsam seviyesi:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "Genel",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "Alan adı",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {

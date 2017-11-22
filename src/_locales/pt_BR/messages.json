@@ -284,7 +284,7 @@
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "Domínio",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
