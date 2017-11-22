@@ -325,6 +325,9 @@ body .toolbar .scopeRel {
 body.globalScope .toolbar .scopeRel {
     color: #000;
     }
+body.globalScope .toolbar .scopeRel.disabled {
+    color: #ccc;
+    }
 
 .matrix {
     text-align: left;
