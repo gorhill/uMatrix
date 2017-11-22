@@ -252,7 +252,7 @@
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "Affichage",
+        "message": "Matrice",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
@@ -276,7 +276,7 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "Niveau de contexte par défaut :",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
@@ -284,7 +284,7 @@
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "Domaine",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {

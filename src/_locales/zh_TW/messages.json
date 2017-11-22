@@ -276,19 +276,19 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "預設域名層級",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "全域",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "主站域名",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "網頁域名",
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
