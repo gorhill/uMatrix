@@ -12,18 +12,6 @@
 }
 @font-face {
   font-family: 'httpsb';
-  font-style: italic;
-  font-weight: normal;
-  src: local('httpsb'), url(fonts/Roboto_Condensed/RobotoCondensed-Light.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'httpsb';
-  font-style: italic;
-  font-weight: bold;
-  src: local('httpsb'), url(fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'httpsb';
   font-style: normal;
   font-weight: 100;
   src: local('httpsb'), url(fonts/Roboto_Condensed/RobotoCondensed-Light.ttf) format('truetype');
