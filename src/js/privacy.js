@@ -73,9 +73,9 @@ function onChangeValueHandler(uelem, setting, min, max) {
 /******************************************************************************/
 
 function prepareToDie() {
-    onChangeValueHandler(uDom('#delete-unused-session-cookies-after'), 'deleteUnusedSessionCookiesAfter', 15, 1440);
-    onChangeValueHandler(uDom('#clear-browser-cache-after'), 'clearBrowserCacheAfter', 15, 1440);
-    onChangeValueHandler(uDom('#spoof-user-agent-every'), 'spoofUserAgentEvery', 2, 999);
+    onChangeValueHandler(uDom('#delete-unused-session-cookies-after'), 'deleteUnusedSessionCookiesAfter', 1, 1440);
+    onChangeValueHandler(uDom('#clear-browser-cache-after'), 'clearBrowserCacheAfter', 1, 1440);
+    onChangeValueHandler(uDom('#spoof-user-agent-every'), 'spoofUserAgentEvery', 1, 999);
 }
 
 /******************************************************************************/
@@ -96,13 +96,13 @@ var installEventHandlers = function() {
     });
 
     uDom('#delete-unused-session-cookies-after').on('change', function(){
-        onChangeValueHandler(uDom(this), 'deleteUnusedSessionCookiesAfter', 15, 1440);
+        onChangeValueHandler(uDom(this), 'deleteUnusedSessionCookiesAfter', 1, 1440);
     });
     uDom('#clear-browser-cache-after').on('change', function(){
-        onChangeValueHandler(uDom(this), 'clearBrowserCacheAfter', 15, 1440);
+        onChangeValueHandler(uDom(this), 'clearBrowserCacheAfter', 1, 1440);
     });
     uDom('#spoof-user-agent-every').on('change', function(){
-        onChangeValueHandler(uDom(this), 'spoofUserAgentEvery', 2, 999);
+        onChangeValueHandler(uDom(this), 'spoofUserAgentEvery', 1, 999);
     });
     uDom('#spoof-user-agent-with').on('change', function(){
         changeUserSettings('spoofUserAgentWith', uDom(this).val());
