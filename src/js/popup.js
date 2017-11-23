@@ -32,18 +32,66 @@
 /******************************************************************************/
 /******************************************************************************/
 
-var paneContentPaddingTop;
-try {
-    paneContentPaddingTop = localStorage.getItem('paneContentPaddingTop');
-} catch(ex) {
-}
+// Stuff which is good to do very early so as to avoid visual glitches.
 
-if ( typeof paneContentPaddingTop === 'string' ) {
-    document.querySelector('.paneContent').style.setProperty(
-        'padding-top',
-        paneContentPaddingTop
-    );
-}
+(function() {
+    var paneContentPaddingTop,
+        touchDevice;
+    try {
+        paneContentPaddingTop = localStorage.getItem('paneContentPaddingTop');
+        touchDevice = localStorage.getItem('touchDevice');
+    } catch(ex) {
+    }
+
+    if ( typeof paneContentPaddingTop === 'string' ) {
+        document.querySelector('.paneContent').style.setProperty(
+            'padding-top',
+            paneContentPaddingTop
+        );
+    }
+    if ( touchDevice === 'true' ) {
+        document.body.setAttribute('data-touch', 'true');
+    } else {
+        document.addEventListener('touchstart', function onTouched(ev) {
+            document.removeEventListener(ev.type, onTouched);
+            document.body.setAttribute('data-touch', 'true');
+            try {
+                localStorage.setItem('touchDevice', 'true');
+            } catch(ex) {
+            }
+            resizePopup();
+        });
+    }
+})();
+
+var resizePopup = (function() {
+    var timer;
+    var fix = function() {
+        timer = undefined;
+        var doc = document;
+        // Manually adjust the position of the main matrix according to the
+        // height of the toolbar/matrix header.
+        var paddingTop = (doc.querySelector('.paneHead').clientHeight + 2) + 'px',
+            paneContent = doc.querySelector('.paneContent');
+        if ( paddingTop !== paneContent.style.paddingTop ) {
+            paneContent.style.setProperty('padding-top', paddingTop);
+            try {
+                localStorage.setItem('paneContentPaddingTop', paddingTop);
+            } catch(ex) {
+            }
+        }
+        document.body.classList.toggle(
+            'hConstrained',
+            window.innerWidth < document.body.clientWidth
+        );
+    };
+    return function() {
+        if ( timer !== undefined ) {
+            clearTimeout(timer);
+        }
+        timer = vAPI.setTimeout(fix, 97);
+    };
+})();
 
 /******************************************************************************/
 /******************************************************************************/
@@ -1300,33 +1348,6 @@ var onMatrixSnapshotReady = function(response) {
     // highlighted.
     // TODO:
 };
-
-/******************************************************************************/
-
-var resizePopup = (function() {
-    var timer;
-    var fix = function() {
-        timer = undefined;
-        var doc = document;
-        // Manually adjust the position of the main matrix according to the
-        // height of the toolbar/matrix header.
-        var paddingTop = (doc.querySelector('.paneHead').clientHeight + 2) + 'px';
-        doc.querySelector('.paneContent').style.setProperty(
-            'padding-top',
-            paddingTop
-        );
-        try {
-            localStorage.setItem('paneContentPaddingTop', paddingTop);
-        } catch(ex) {
-        }
-    };
-    return function() {
-        if ( timer !== undefined ) {
-            clearTimeout(timer);
-        }
-        timer = vAPI.setTimeout(fix, 97);
-    };
-})();
 
 /******************************************************************************/
 

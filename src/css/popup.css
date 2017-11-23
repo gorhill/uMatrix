@@ -49,7 +49,7 @@ body[dir="rtl"] #gotoDashboard > span:last-of-type {
 
 .paneHead {
     background-color: white;
-    left:0;
+    left: 0;
     padding: 0;
     position: fixed;
     right: 0;
@@ -620,4 +620,19 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
     }
 #domainOnly:hover {
     opacity: 1;
+    }
+
+/* Mobile-friendly rules */
+
+body.hConstrained {
+    overflow-x: auto;
+    }
+body.hConstrained .paneHead {
+    left: auto;
+    position: absolute;
+    right: auto;
+    width: 100%;
+    }
+body[data-touch="true"] .matCell {
+    line-height: 200%;
     }
