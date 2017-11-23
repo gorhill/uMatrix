@@ -276,7 +276,7 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "Nível Padrão de Escopo:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
