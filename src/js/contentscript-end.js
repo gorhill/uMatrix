@@ -102,11 +102,11 @@ vAPI.shutdown.add(function() {
         //}
 
         // TODO: Web SQL
-        if ( window.openDatabase ) {
+       // if ( window.openDatabase ) {
             // Sad:
             // "There is no way to enumerate or delete the databases available for an origin from this API."
             // Ref.: http://www.w3.org/TR/webdatabase/#databases
-        }
+       // }
     }
     catch (e) {
     }
