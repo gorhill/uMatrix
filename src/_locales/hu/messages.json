@@ -11,6 +11,10 @@
         "message": "uMatrix — Vezérlőpult",
         "description": ""
     },
+    "loggerPageName": {
+        "message": "uMatrix — Logger",
+        "description": "Title for the logger window"
+    },
     "settingsPageName": {
         "message": "Beállítások",
         "description": "a tab in dashboard"
@@ -126,6 +130,10 @@
     "matrixDashboardMenuEntry": {
         "message": "Irány a vezérlőpult",
         "description": "A menu entry in the matrix popup"
+    },
+    "matrixNoTabFound": {
+        "message": "No web page found",
+        "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
         "message": "uMatrix &ndash; Statisztika",

@@ -11,6 +11,10 @@
         "message": "യുമാട്രിക്സ്‌ — ഡാഷ്ബോര്‍ഡ്",
         "description": ""
     },
+    "loggerPageName": {
+        "message": "uMatrix — Logger",
+        "description": "Title for the logger window"
+    },
     "settingsPageName": {
         "message": "സെറ്റിംഗ്സ്",
         "description": "a tab in dashboard"
@@ -126,6 +130,10 @@
     "matrixDashboardMenuEntry": {
         "message": "ഡാഷ്ബോര്‍ഡിലേക്ക് പോകുക",
         "description": "A menu entry in the matrix popup"
+    },
+    "matrixNoTabFound": {
+        "message": "No web page found",
+        "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
         "message": "യുമാട്രിക്സ്‌ &ndash; സ്റ്ററ്റിസ്റ്റിക്സ്‌",
