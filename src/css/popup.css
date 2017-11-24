@@ -305,8 +305,16 @@ body .toolbar #specificScope > span {
     display: inline-block;
     height: 100%;
     }
+body .toolbar #specificScope > span:hover,
+body .toolbar #specificScope > span:hover ~ span {
+    background-color: #999;
+    }
 body .toolbar #specificScope > span.on {
     background-color: #24c;
+    }
+body .toolbar #specificScope > span.on:hover,
+body .toolbar #specificScope > span:hover ~ span.on {
+    background-color: #139;
     }
 body .toolbar #specificScope > span:first-of-type {
     flex: 1;
