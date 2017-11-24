@@ -328,6 +328,10 @@ body .toolbar #globalScope.on {
     background-color: #000;
     border-color: #000;
     }
+body .toolbar #globalScope:hover {
+    background-color: #999;
+    border-color: #999;
+    }
 body .toolbar .scopeRel {
     color: #24c;
     }
