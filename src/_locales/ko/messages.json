@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+        "message": "클릭 한번으로 모든 종류의 요청도 거부 \/ 허용 할 수 있습니다. 스크립트, Iframe, 광고, Facebook 등을 차단합니다.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -28,7 +28,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Hosts files",
+        "message": "Hosts 파일",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -36,11 +36,11 @@
         "description": "a tab in dashboard"
     },
     "allPrettyName": {
-        "message": "all",
+        "message": "전체",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cookiePrettyName": {
-        "message": "cookie",
+        "message": "쿠키",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cssPrettyName": {
@@ -48,19 +48,19 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "imagePrettyName": {
-        "message": "image",
+        "message": "이미지",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
-        "message": "media",
+        "message": "미디어",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
-        "message": "plugin",
+        "message": "플러그인",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "scriptPrettyName": {
-        "message": "script",
+        "message": "스크립트",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "xhrPrettyName": {
@@ -68,31 +68,31 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "framePrettyName": {
-        "message": "frame",
+        "message": "프레임",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "otherPrettyName": {
-        "message": "other",
+        "message": "그 외",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "matrixNoNetTrafficPrompt": {
-        "message": "No net traffic seen for this tab so far.",
+        "message": "이 탭에서는 네트워크 트래픽을 감지 할 수 없습니다.",
         "description": ""
     },
     "matrixMtxButtonTip": {
-        "message": "Disable\/enable matrix filtering for this scope.",
+        "message": "현재 페이지에 대한 matrix 사용 여부 설정",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
-        "message": "Save all temporary changes for this scope.",
+        "message": "현재 페이지 임시 변경 사항 저장",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip": {
-        "message": "Revert temporary changes for this scope.",
+        "message": "현재 페이지 임시 변경 사항 초기화",
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Reload the page.\nPress Shift to bypass the browser cache.",
+        "message": "페이지 새로고침.\nShift를 누르면서 클릭 할 경우 브라우저 캐시를 건너 뜀",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -100,15 +100,15 @@
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
-        "message": "{{count}} blacklisted hostname(s)",
+        "message": "{{count}} 블럭된 호스트 이름",
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Strict HTTPS",
+        "message": "전체 HTTPS",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchUASpoof": {
-        "message": "User agent spoofing",
+        "message": "User agent 변경 적용",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
@@ -116,23 +116,23 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
-        "message": "Revert all temporary changes",
+        "message": "모든 임시 변경 사항 초기화",
         "description": "A menu entry in the matrix popup"
     },
     "matrixLoggerMenuEntry": {
-        "message": "Go to logger",
+        "message": "로그로 이동",
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry": {
-        "message": "Go to dashboard",
+        "message": "대시보드로 이동",
         "description": "A menu entry in the matrix popup"
     },
     "statsPageTitle": {
-        "message": "uMatrix &ndash; Statistics",
+        "message": "uMatrix &ndash; 통계",
         "description": ""
     },
     "statsPageGenericStats": {
-        "message": "Generic statistics",
+        "message": "일반 통계",
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
@@ -148,55 +148,55 @@
         "description": ""
     },
     "statsPageCookiesRemoved": {
-        "message": "Local cookies removed: {{count}}",
+        "message": "로컬 쿠기 삭제: {{count}}",
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>로컬 저장소<\/a> 삭제한 수: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
-        "message": "Browser caches cleared: {{count}}",
+        "message": "브라우저 케시 삭제: {{count}}",
         "description": ""
     },
     "statsPageDetailedStats": {
-        "message": "Detailed statistics",
+        "message": "상세 통계",
         "description": ""
     },
     "statsPageDetailedAllPages": {
-        "message": "All",
+        "message": "전체",
         "description": ""
     },
     "statsPageDetailedBehindTheScenePage": {
-        "message": "Behind the scene",
+        "message": "백그라운드 요청",
         "description": ""
     },
     "statsPageOverview": {
-        "message": "Overview",
+        "message": "요약",
         "description": ""
     },
     "statsPageRequests": {
-        "message": "Requests",
+        "message": "리퀘스트",
         "description": "header for the stat type column"
     },
     "statsPageAllowed": {
-        "message": "Allowed",
+        "message": "허용",
         "description": "header for the allowed requests column"
     },
     "statsPageBlocked": {
-        "message": "Blocked",
+        "message": "차단",
         "description": "header for the blocked requests column"
     },
     "statsPageAll": {
-        "message": "All",
+        "message": "전체",
         "description": ""
     },
     "statsPagePages": {
-        "message": "Pages",
+        "message": "페이지",
         "description": ""
     },
     "statsPageCookies": {
-        "message": "Cookies",
+        "message": "쿠키",
         "description": ""
     },
     "statsPageCSS": {
@@ -204,15 +204,15 @@
         "description": ""
     },
     "statsPageImages": {
-        "message": "Images",
+        "message": "이미지",
         "description": ""
     },
     "statsPagePlugins": {
-        "message": "Plugins",
+        "message": "플러그인",
         "description": ""
     },
     "statsPageScripts": {
-        "message": "Scripts",
+        "message": "스크립트",
         "description": ""
     },
     "statsPageXHRs": {
@@ -220,15 +220,15 @@
         "description": ""
     },
     "statsPageFrames": {
-        "message": "Frames",
+        "message": "프레임",
         "description": ""
     },
     "statsPageOthers": {
-        "message": "Others",
+        "message": "그 외",
         "description": ""
     },
     "statsPageDetailed": {
-        "message": "Logger",
+        "message": "로그",
         "description": ""
     },
     "statsPageLogSizePrompt1": {
@@ -236,7 +236,7 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "HTTP requests <b>per page<\/b>.",
+        "message": "HTTP 요청<b>페이지 당<\/b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
@@ -264,11 +264,11 @@
         "description": ""
     },
     "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Large",
+        "message": "큼",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
-        "message": "Color-blind friendly",
+        "message": "색약자 설정",
         "description": ""
     },
     "settingsMatrixConvenienceHeader": {
@@ -280,15 +280,15 @@
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "전체",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "도메인",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "사이트",
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
@@ -296,7 +296,7 @@
         "description": ""
     },
     "settingsMatrixAutoReloadNone": {
-        "message": "None",
+        "message": "없음",
         "description": ""
     },
     "settingsMatrixAutoReloadCurrent": {
@@ -304,7 +304,7 @@
         "description": ""
     },
     "settingsMatrixAutoReloadAll": {
-        "message": "All",
+        "message": "전체",
         "description": ""
     },
     "settingsMatrixAutoReloadInfo": {
@@ -328,7 +328,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCloudStorageEnabled": {
-        "message": "Enable cloud storage support",
+        "message": "클라우드 스토리지 지원 사용",
         "description": ""
     },
     "privacyPageTitle": {
@@ -336,7 +336,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesPrompt": {
-        "message": "Delete blocked cookies.",
+        "message": "차단된 쿠키 삭제",
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
@@ -368,7 +368,7 @@
         "description": "First part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCachePrompt2": {
-        "message": "minutes.",
+        "message": "분",
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
@@ -404,7 +404,7 @@
         "description": "First part of UA-spoofing prompt"
     },
     "privacySpoofUserAgentPrompt2": {
-        "message": "minutes.",
+        "message": "분 간격으로 변경)",
         "description": "Second part"
     },
     "privacySpoofUserAgentHelp": {
@@ -412,19 +412,19 @@
         "description": ""
     },
     "userRulesPermanentHeader": {
-        "message": "Permanent rules",
+        "message": "저장된 규칙",
         "description": ""
     },
     "userRulesTemporaryHeader": {
-        "message": "Temporary rules",
+        "message": "임시 규칙",
         "description": ""
     },
     "userRulesRevert": {
-        "message": "Revert",
+        "message": "되돌리기",
         "description": "Will remove all temporary rules"
     },
     "userRulesCommit": {
-        "message": "Commit",
+        "message": "저장",
         "description": "Will save all temporary rules"
     },
     "userRulesEdit": {
@@ -436,11 +436,11 @@
         "description": "Will save manually-edited content and exit manual-edit mode"
     },
     "userRulesEditDicard": {
-        "message": "Discard",
+        "message": "삭제",
         "description": "Will discard manually-edited content and exit manual-edit mode"
     },
     "userRulesImport": {
-        "message": "Import from file...",
+        "message": "파일에서 가져오기",
         "description": ""
     },
     "userRulesExport": {
@@ -456,11 +456,11 @@
         "description": "default file name to use"
     },
     "hostsFilesPrompt": {
-        "message": "All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+        "message": "도메인 이름에있는 호스트 파일은 글로벌 블랙리스트에 포함됩니다.",
         "description": ""
     },
     "hostsFilesStats": {
-        "message": "{{blockedHostnameCount}} distinct blocked hostnames from:",
+        "message": "{{blockedHostnameCount}} 차단된 호스트 네임:",
         "description": ""
     },
     "hostsFilesPerFileStats": {
@@ -468,7 +468,7 @@
         "description": ""
     },
     "hostsFilesLastUpdate": {
-        "message": "Last update: {{ago}}",
+        "message": "마지막 업데이트: {{ago}}",
         "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
     },
     "hostsFilesApplyChanges": {
@@ -476,7 +476,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update hosts files.",
+        "message": "Hosts 파일 자동 업데이트",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -484,19 +484,19 @@
         "description": ""
     },
     "hostsFilesPurgeAll": {
-        "message": "Purge all caches",
+        "message": "케시 초기화",
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+        "message": "한 줄에 하나의 URL. 시작이 &lsquo;#&rsquo; 일 경우 적용되지 않습니다. 유효하지 않은 URL은 자동으로 무시됩니다.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
-        "message": "Parse",
+        "message": "읽기",
         "description": ""
     },
     "hostsFilesExternalListPurge": {
-        "message": "purge cache",
+        "message": "케시 지우기",
         "description": ""
     },
     "hostsFilesExternalListNew": {
@@ -528,19 +528,19 @@
         "description": ""
     },
     "aboutIssues": {
-        "message": "Bugs and issues",
+        "message": "오류 혹은 이슈",
         "description": ""
     },
     "aboutContributors": {
-        "message": "Contributors",
+        "message": "도음 주신 분",
         "description": "English: Contributors"
     },
     "aboutCodeContributors": {
-        "message": "Code:",
+        "message": "코드:",
         "description": ""
     },
     "aboutIssueContributors": {
-        "message": "Issues:",
+        "message": "이슈:",
         "description": ""
     },
     "aboutTranslationContributors": {
@@ -548,7 +548,7 @@
         "description": ""
     },
     "aboutUserDataHeader": {
-        "message": "Your data",
+        "message": "사용자 데이터",
         "description": ""
     },
     "aboutBackupButton": {
@@ -560,7 +560,7 @@
         "description": "default filename to use"
     },
     "aboutRestoreButton": {
-        "message": "Restore from file...",
+        "message": "파일에서 복원...",
         "description": ""
     },
     "aboutRestoreConfirm": {
@@ -568,11 +568,11 @@
         "description": "Message asking user to confirm restore"
     },
     "aboutRestoreError": {
-        "message": "The data could not be read or is invalid",
+        "message": "데이터를 읽을 수 없거나 유효하지 않습니다.",
         "description": ""
     },
     "aboutOr": {
-        "message": "... or ...",
+        "message": "... 혹은 ...",
         "description": "English: ... or ..."
     },
     "aboutResetButton": {
@@ -584,59 +584,59 @@
         "description": "Message asking user to confirm reset"
     },
     "loggerFilterInputPlaceholder": {
-        "message": "filter expression(s)",
+        "message": "필터링",
         "description": "Appears in the input filed where filter expressions are entered"
     },
     "loggerMaxEntriesTip": {
-        "message": "Maximum number of entries",
+        "message": "최대 항목 수",
         "description": "Appears as a tooltip when hovering the input field"
     },
     "loggerEntryUserAgentSpoofing": {
-        "message": "spoofing user agent with: {{value}}",
+        "message": "user agent 위장: {{value}}",
         "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
-        "message": "cookie deleted: {{value}}",
+        "message": "쿠키 삭제: {{value}}",
         "description": "An entry for when a cookie is deleted"
     },
     "loggerEntryDeleteCookieError": {
-        "message": "failed to delete cookie: {{value}}",
+        "message": "삭제 못 한 쿠키: {{value}}",
         "description": "An entry for when the browser cache is cleared"
     },
     "loggerEntryBrowserCacheCleared": {
-        "message": "browser cache cleared",
+        "message": "브라우저 케시 삭제 완료",
         "description": "An entry for when a cookie can't be deleted"
     },
     "loggerEntryAssetUpdated": {
-        "message": "asset updated: {{value}}",
+        "message": "자원 업데이트 완료：{{value}}",
         "description": "An entry for when an asset was updated"
     },
     "mainBlockedPrompt1": {
-        "message": "uMatrix has prevented the following page from loading:",
+        "message": "uMatrix가 다음 페이지를 불러오지 못하게했습니다.",
         "description": "English: uMatrix has prevented the following page from loading:"
     },
     "mainBlockedPrompt2": {
-        "message": "Because of the following rule",
+        "message": "다음 규칙에 따라",
         "description": "English: Because of the following rule"
     },
     "mainBlockedBack": {
-        "message": "Go back",
+        "message": "뒤로 가기",
         "description": "English: Go back"
     },
     "mainBlockedClose": {
-        "message": "Close",
+        "message": "닫기",
         "description": "English: Close"
     },
     "commandRevertAll": {
-        "message": "Revert all temporary changes",
+        "message": "모든 임시 변경 사항 초기화",
         "description": ""
     },
     "commandWhitelistPageDomain": {
-        "message": "Temporarily whitelist page domain",
+        "message": "이 페이지의 도메인을 임시로 화이트리스트에 등록 하였습니다.",
         "description": ""
     },
     "commandWhitelistAll": {
-        "message": "Temporarily whitelist all",
+        "message": "임시로 모두 허용 목록에 추가",
         "description": ""
     },
     "commandOpenDashboard": {
@@ -644,43 +644,43 @@
         "description": ""
     },
     "elapsedOneMinuteAgo": {
-        "message": "a minute ago",
+        "message": "1분 전",
         "description": "English: a minute ago"
     },
     "elapsedManyMinutesAgo": {
-        "message": "{{value}} minutes ago",
+        "message": "{{value}} 분 전",
         "description": "English: {{value}} minutes ago"
     },
     "elapsedOneHourAgo": {
-        "message": "an hour ago",
+        "message": "한시간 전",
         "description": "English: an hour ago"
     },
     "elapsedManyHoursAgo": {
-        "message": "{{value}} hours ago",
+        "message": "{{value}} 시간 전",
         "description": "English: {{value}} hours ago"
     },
     "elapsedOneDayAgo": {
-        "message": "a day ago",
+        "message": "어제",
         "description": "English: a day ago"
     },
     "elapsedManyDaysAgo": {
-        "message": "{{value}} days ago",
+        "message": "{{value}} 일 전",
         "description": "English: {{value}} days ago"
     },
     "showDashboardButton": {
-        "message": "Dashboard",
+        "message": "대시보드",
         "description": "Appears in Firefox's add-on preferences"
     },
     "showLoggerButton": {
-        "message": "Logger",
+        "message": "로그",
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
-        "message": "Export to cloud storage",
+        "message": "클라우드에 저장",
         "description": "tooltip"
     },
     "cloudPull": {
-        "message": "Import from cloud storage",
+        "message": "클라우드 저장소에서 내려받기",
         "description": "tooltip"
     },
     "cloudNoData": {
@@ -688,19 +688,19 @@
         "description": ""
     },
     "cloudDeviceNamePrompt": {
-        "message": "This device name:",
+        "message": "디바이스 이름:",
         "description": "used as a prompt for the user to provide a custom device name"
     },
     "genericSubmit": {
-        "message": "Submit",
+        "message": "저장",
         "description": "for generic 'submit' buttons"
     },
     "genericRevert": {
-        "message": "Revert",
+        "message": "되돌리기",
         "description": "for generic 'revert' buttons"
     },
     "errorCantConnectTo": {
-        "message": "Network error: Unable to connect to {{url}}",
+        "message": "네트워크 오류: 연결할 수 없습니다 {{url}}",
         "description": ""
     }
 }
