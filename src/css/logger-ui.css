@@ -12,6 +12,7 @@ body {
 #toolbar {
     background-color: white;
     border: 0;
+    border-bottom: 1px solid #ccc;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     left: 0;
@@ -125,16 +126,12 @@ body.f table tr.f {
 
 body #content td {
     border: 1px solid #ccc;
-    border-top: none;
     min-width: 0.5em;
     padding: 3px;
     vertical-align: top;
     white-space: normal;
     word-break: break-all;
     word-wrap: break-word;
-    }
-#content table tr td {
-    border-top: 1px solid #ccc;
     }
 #content table tr td:first-of-type {
     border-left: none;

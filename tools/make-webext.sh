@@ -16,15 +16,13 @@ cp    platform/chromium/*.js               $DES/js/
 cp -R platform/chromium/img/*              $DES/img/
 cp    LICENSE.txt                          $DES/
 
-cp    platform/webext/options_ui.html      $DES/
-rm    $DES/js/options_ui.js
 cp    platform/webext/polyfill.js          $DES/js/
 cp    platform/webext/vapi-cachestorage.js $DES/js/
 cp    platform/webext/manifest.json        $DES/
 
 # webext-specific
 rm $DES/options_ui.html
-rm $DES/options_ui.js
+rm $DES/js/options_ui.js
 
 echo "*** uMatrix.webext: Generating meta..."
 python tools/make-webext-meta.py           $DES/

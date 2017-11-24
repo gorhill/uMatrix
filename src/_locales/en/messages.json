@@ -11,6 +11,10 @@
         "message": "uMatrix — Dashboard",
         "description": ""
     },
+    "loggerPageName": {
+        "message": "uMatrix — Logger",
+        "description": "Title for the logger window"
+    },
     "settingsPageName": {
         "message": "Settings",
         "description": "a tab in dashboard"

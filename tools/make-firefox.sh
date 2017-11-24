@@ -19,7 +19,8 @@ cp -R src/*                             $DES/
 
 mv    $DES/img/icon_128.png             $DES/icon.png
 cp    platform/firefox/css/*            $DES/css/
-cp    platform/firefox/*.js             $DES/js/
+cp    platform/firefox/polyfill.js      $DES/js/
+cp    platform/firefox/vapi-*.js        $DES/js/
 cp    platform/firefox/bootstrap.js     $DES/
 cp    platform/firefox/frame*.js        $DES/
 cp -R platform/chromium/img             $DES/
