@@ -55,6 +55,10 @@ body[dir="rtl"] {
     position: relative;
     cursor: pointer;
     }
+*[data-i18n-tip]:after {
+    content: "";
+    opacity: 0;
+    }
 *[data-i18n-tip]:hover:after {
     background-color: #fffffa;
     border: 1px solid gray;
@@ -65,10 +69,14 @@ body[dir="rtl"] {
     font: 12px sans-serif;
     line-height: 140%;
     min-width: 25vw;
+    opacity: 1;
     padding: 4px 6px;
+    pointer-events: none;
     position: absolute;
     text-align: start;
     top: 110%;
+    -webkit-transition: opacity 0.15s 0.5s;
+    transition: opacity 0.15s 0.5s;
     white-space: pre-line;
     z-index: 20;
     }
