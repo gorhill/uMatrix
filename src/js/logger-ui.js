@@ -68,7 +68,7 @@ var dateOptions = {
 
 document.getElementById('content').style.setProperty(
     'margin-top',
-    document.getElementById('toolbar').offsetHeight + 'px'
+    document.getElementById('toolbar').clientHeight + 'px'
 );
 
 /******************************************************************************/
