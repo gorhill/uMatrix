@@ -166,8 +166,8 @@ var messager = vAPI.messaging.channel('popup.js');
 /******************************************************************************/
 
 function getUserSetting(setting) {
-    return matrixSnapshot.userSettings[setting];
-}
+        return matrixSnapshot.userSettings[setting];
+    }
 
 function setUserSetting(setting, value) {
     matrixSnapshot.userSettings[setting] = value;
@@ -1078,9 +1078,15 @@ var makeMenu = function() {
 // Do all the stuff that needs to be done before building menu et al.
 
 function initMenuEnvironment() {
-    uDom('body').css('font-size', getUserSetting('displayTextSize'));
-    uDom('body').toggleClass('colorblind', getUserSetting('colorBlindFriendly') === true);
-    uDom('#version').text(matrixSnapshot.appVersion || '');
+    document.body.style.setProperty(
+        'font-size',
+        getUserSetting('displayTextSize')
+    );
+    document.body.classList.toggle(
+        'font-size',
+        getUserSetting('colorBlindFriendly')
+    );
+    uDom.nodeFromId('version').textContent = matrixSnapshot.appVersion || '';
 
     var prettyNames = matrixHeaderPrettyNames;
     var keys = Object.keys(prettyNames);
@@ -1330,6 +1336,13 @@ function dropDownMenuHide() {
 /******************************************************************************/
 
 var onMatrixSnapshotReady = function(response) {
+    if ( response === 'ENOTFOUND' ) {
+        uDom.nodeFromId('noTabFound').textContent =
+            vAPI.i18n('matrixNoTabFound');
+        document.body.classList.add('noTabFound');
+        return;
+    }
+
     // Now that tabId and pageURL are set, we can build our menu
     initMenuEnvironment();
     makeMenu();
@@ -1443,7 +1456,7 @@ var matrixSnapshotPoller = (function() {
             if ( typeof response === 'object' ) {
                 matrixSnapshot = response;
             }
-            onMatrixSnapshotReady();
+            onMatrixSnapshotReady(response);
             pollAsync();
         };
 

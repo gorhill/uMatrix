@@ -288,7 +288,7 @@ var matrixSnapshotFromTabId = function(details, callback) {
 
     // Fall back to currently active tab
     var onTabReady = function(tab) {
-        if ( typeof tab !== 'object' ) {
+        if ( tab instanceof Object === false ) {
             callback('ENOTFOUND');
             return;
         }

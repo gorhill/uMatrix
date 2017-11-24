@@ -623,6 +623,21 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
     opacity: 1;
     }
 
+/* No data was found for the tab */
+
+body.noTabFound .paneHead,
+body.noTabFound .paneContent {
+    display: none;
+    }
+body.noTabFound #noTabFound {
+    align-items: center;
+    color: gray;
+    display: flex;
+    font-size: xx-large;
+    height: 100vh;
+    justify-content: center;
+    }
+
 /* Mobile-friendly rules */
 
 body.hConstrained {
