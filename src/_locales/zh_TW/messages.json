@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — 日誌記錄",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "沒有找到網頁",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
