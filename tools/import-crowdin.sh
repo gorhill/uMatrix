@@ -67,3 +67,5 @@ cp $SRCDIR/zh_TW/messages.json  $DESDIR/zh_TW/messages.json
 
 rm -r $ARCDIR
 echo "*** uMatrix: Import done."
+
+git status
