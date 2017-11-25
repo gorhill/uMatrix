@@ -1083,7 +1083,7 @@ function initMenuEnvironment() {
         getUserSetting('displayTextSize')
     );
     document.body.classList.toggle(
-        'font-size',
+        'colorblind',
         getUserSetting('colorBlindFriendly')
     );
     uDom.nodeFromId('version').textContent = matrixSnapshot.appVersion || '';
