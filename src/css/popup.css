@@ -305,15 +305,19 @@ body .toolbar #specificScope > span {
     display: inline-block;
     height: 100%;
     }
-body .toolbar #specificScope > span:hover,
-body .toolbar #specificScope > span:hover ~ span {
-    background-color: #999;
-    }
 body .toolbar #specificScope > span.on {
     background-color: #24c;
     }
-body .toolbar #specificScope > span.on:hover,
-body .toolbar #specificScope > span:hover ~ span.on {
+body .toolbar #specificScope > span:first-of-type:not(.on):hover,
+body .toolbar #specificScope > span:first-of-type:not(.on):hover ~ span:not(.on),
+body .toolbar #specificScope > span:not(.on) + span:not(.on):hover,
+body .toolbar #specificScope > span:not(.on) + span:not(.on):hover ~ span:not(.on) {
+    background-color: #999;
+    }
+body .toolbar #specificScope > span:first-of-type:not(.on):hover ~ span,
+body .toolbar #specificScope > span:not(.on) + span:not(.on):hover ~ span,
+body .toolbar #specificScope > span.on + span:hover,
+body .toolbar #specificScope > span.on + span:hover ~ span {
     background-color: #139;
     }
 body .toolbar #specificScope > span:first-of-type {
@@ -328,7 +332,7 @@ body .toolbar #globalScope.on {
     background-color: #000;
     border-color: #000;
     }
-body .toolbar #globalScope:hover {
+body .toolbar #globalScope:not(.on):hover {
     background-color: #999;
     border-color: #999;
     }
