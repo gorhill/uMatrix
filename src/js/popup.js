@@ -1174,11 +1174,11 @@ function initScopeCell() {
 
 function updateScopeCell() {
     var specificScope = uDom.nodeFromId('specificScope'),
-        globalScope = uDom.nodeFromId('globalScope');
-    var isGlobal = matrixSnapshot.scope === '*';
+        isGlobal = matrixSnapshot.scope === '*';
+    document.body.classList.toggle('globalScope', isGlobal);
     specificScope.classList.toggle('on', !isGlobal);
-    globalScope.classList.toggle('on', isGlobal);
-    for ( var node of uDom.nodeFromId('specificScope').children ) {
+    uDom.nodeFromId('globalScope').classList.toggle('on', isGlobal);
+    for ( var node of specificScope.children ) {
         node.classList.toggle(
             'on', 
             !isGlobal &&
