@@ -32,10 +32,12 @@
 
 var µm = µMatrix;
 var magicId = 'axyorpwxtmnf';
+var uniqueIdGenerator = 1;
 
 /******************************************************************************/
 
 var Matrix = function() {
+    this.id = uniqueIdGenerator++;
     this.reset();
 };
 
@@ -556,14 +558,16 @@ Matrix.prototype.evaluateSwitchZ = function(switchName, srcHostname) {
 
 Matrix.prototype.extractAllSourceHostnames = (function() {
     var cachedResult = new Set();
+    var matrixId = 0;
     var readTime = 0;
 
     return function() {
-        if ( readTime !== this.modifiedTime ) {
+        if ( matrixId !== this.id || readTime !== this.modifiedTime ) {
             cachedResult.clear();
             for ( var rule of this.rules.keys() ) {
                 cachedResult.add(rule.slice(0, rule.indexOf(' ')));
             }
+            matrixId = this.id;
             readTime = this.modifiedTime;
         }
         return cachedResult;
