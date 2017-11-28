@@ -130,9 +130,8 @@ var RowSnapshot = function(srcHostname, desHostname, desDomain) {
 };
 
 RowSnapshot.counts = (function() {
-    var i = Object.keys(µm.Matrix.getColumnHeaders()).length;
-    var aa = new Array(i);
-    while ( i-- ) {
+    var aa = [];
+    for ( var i = 0, n = µm.Matrix.columnHeaderIndices.size; i < n; i++ ) {
         aa[i] = 0;
     }
     return aa;
@@ -142,12 +141,14 @@ RowSnapshot.counts = (function() {
 
 var matrixSnapshot = function(pageStore, details) {
     var µmuser = µm.userSettings;
+    var headerIndices = µm.Matrix.columnHeaderIndices;
+
     var r = {
         appVersion: vAPI.app.version,
         blockedCount: pageStore.requestStats.blocked.all,
         diff: [],
         domain: pageStore.pageDomain,
-        headers: µm.Matrix.getColumnHeaders(),
+        headerIndices: Array.from(headerIndices),
         hostname: pageStore.pageHostname,
         mtxContentModified: pageStore.mtxContentModifiedTime !== details.mtxContentModifiedTime,
         mtxCountModified: pageStore.mtxCountModifiedTime !== details.mtxCountModifiedTime,
@@ -171,8 +172,6 @@ var matrixSnapshot = function(pageStore, details) {
         }
     };
 
-    var headers = r.headers;
-
     if ( typeof details.scope === 'string' ) {
         r.scope = details.scope;
     } else if ( µmuser.popupScopeLevel === 'site' ) {
@@ -181,11 +180,7 @@ var matrixSnapshot = function(pageStore, details) {
         r.scope = r.domain;
     }
 
-    var switchNames = µm.Matrix.getSwitchNames();
-    for ( var switchName in switchNames ) {
-        if ( switchNames.hasOwnProperty(switchName) === false ) {
-            continue;
-        }
+    for ( var switchName of µm.Matrix.switchNames ) {
         r.tSwitches[switchName] = µm.tMatrix.evaluateSwitchZ(switchName, r.scope);
         r.pSwitches[switchName] = µm.pMatrix.evaluateSwitchZ(switchName, r.scope);
     }
@@ -199,7 +194,7 @@ var matrixSnapshot = function(pageStore, details) {
     var reqKey, reqType, reqHostname, reqDomain;
     var desHostname;
     var row, typeIndex;
-    var anyIndex = headers['*'];
+    var anyIndex = headerIndices.get('*');
 
     var pageRequests = pageStore.requests;
     var reqKeys = pageRequests.getRequestKeys();
@@ -236,7 +231,7 @@ var matrixSnapshot = function(pageStore, details) {
             desHostname = desHostname.slice(pos + 1);
         }
 
-        typeIndex = headers[reqType];
+        typeIndex = headerIndices.get(reqType);
 
         row = r.rows[reqHostname];
         row.counts[typeIndex] += 1;

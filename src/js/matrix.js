@@ -31,7 +31,7 @@
 /******************************************************************************/
 
 var µm = µMatrix;
-var magicId = 'tckuvvpyvswo';
+var magicId = 'axyorpwxtmnf';
 
 /******************************************************************************/
 
@@ -58,24 +58,24 @@ Matrix.GrayIndirect  = Matrix.Gray | Matrix.Indirect;
 
 /******************************************************************************/
 
-var typeBitOffsets = {
-         '*':  0,
-       'doc':  2,
-    'cookie':  4,
-       'css':  6,
-     'image':  8,
-     'media': 10,
-    'script': 12,
-       'xhr': 14,
-     'frame': 16,
-     'other': 18
-};
+var typeBitOffsets = new Map([
+    [      '*',  0 ],
+    [    'doc',  2 ],
+    [ 'cookie',  4 ],
+    [    'css',  6 ],
+    [  'image',  8 ],
+    [  'media', 10 ],
+    [ 'script', 12 ],
+    [    'xhr', 14 ],
+    [  'frame', 16 ],
+    [  'other', 18 ]
+]);
 
-var stateToNameMap = {
-    '1': 'block',
-    '2': 'allow',
-    '3': 'inherit'
-};
+var stateToNameMap = new Map([
+    [ 1, 'block' ],
+    [ 2, 'allow' ],
+    [ 3, 'inherit' ]
+]);
 
 var nameToStateMap = {
       'block': 1,
@@ -84,63 +84,36 @@ var nameToStateMap = {
     'inherit': 3
 };
 
-var switchBitOffsets = {
-        'matrix-off': 0,
-      'https-strict': 2,
-          'ua-spoof': 4,
-    'referrer-spoof': 6
-};
+var switchBitOffsets = new Map([
+    [     'matrix-off', 0 ],
+    [   'https-strict', 2 ],
+    [       'ua-spoof', 4 ],
+    [ 'referrer-spoof', 6 ]
+]);
 
-var switchStateToNameMap = {
-    '1': 'true',
-    '2': 'false'
-};
+var switchStateToNameMap = new Map([
+    [ 1, 'true' ],
+    [ 2, 'false' ]
+]);
 
 var nameToSwitchStateMap = {
      'true': 1,
-    'false': 2,
-       'on': 2,  // backward compatibility
-      'off': 1   // backward compatibility
+    'false': 2
 };
 
 /******************************************************************************/
 
-var columnHeaders = (function() {
-    var out = {};
-    var i = 0;
-    for ( var type in typeBitOffsets ) {
-        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
-            continue;
-        }
-        out[type] = i++;
+Matrix.columnHeaderIndices = (function() {
+    var out = new Map(),
+        i = 0;
+    for ( var type of typeBitOffsets.keys() ) {
+        out.set(type, i++);
     }
     return out;
 })();
 
-/******************************************************************************/
 
-Matrix.getColumnHeaders = function() {
-    return columnHeaders;
-};
-
-/******************************************************************************/
-
-var switchNames = (function() {
-    var out = {};
-    for ( var switchName in switchBitOffsets ) {
-        if ( switchBitOffsets.hasOwnProperty(switchName) === false ) {
-            continue;
-        }
-        out[switchName] = true;
-    }
-    return out;
-})();
-
-/******************************************************************************/
-
-Matrix.getSwitchNames = function() {
-    return switchNames;
-};
+Matrix.switchNames = new Set(switchBitOffsets.keys());
 
 /******************************************************************************/
 
@@ -208,8 +181,8 @@ var extractFirstPartyDesDomain = function(srcHostname, desHostname) {
 /******************************************************************************/
 
 Matrix.prototype.reset = function() {
-    this.switches = {};
-    this.rules = {};
+    this.switches = new Map();
+    this.rules = new Map();
     this.rootValue = Matrix.RedIndirect;
     this.modifiedTime = 0;
 };
@@ -220,38 +193,26 @@ Matrix.prototype.reset = function() {
 // a live matrix.
 
 Matrix.prototype.assign = function(other) {
-    var k;
+    var k, entry;
     // Remove rules not in other
-    for ( k in this.rules ) {
-        if ( this.rules.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        if ( other.rules.hasOwnProperty(k) === false ) {
-            delete this.rules[k];
+    for ( k of this.rules.keys() ) {
+        if ( other.rules.has(k) === false ) {
+            this.rules.delete(k);
         }
     }
     // Remove switches not in other
-    for ( k in this.switches ) {
-        if ( this.switches.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        if ( other.switches.hasOwnProperty(k) === false ) {
-            delete this.switches[k];
+    for ( k of this.switches.keys() ) {
+        if ( other.switches.has(k) === false ) {
+            this.switches.delete(k);
         }
     }
     // Add/change rules in other
-    for ( k in other.rules ) {
-        if ( other.rules.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        this.rules[k] = other.rules[k];
+    for ( entry of other.rules ) {
+        this.rules.set(entry[0], entry[1]);
     }
     // Add/change switches in other
-    for ( k in other.switches ) {
-        if ( other.switches.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        this.switches[k] = other.switches[k];
+    for ( entry of other.switches ) {
+        this.switches.set(entry[0], entry[1]);
     }
     this.modifiedTime = other.modifiedTime;
     return this;
@@ -264,20 +225,20 @@ Matrix.prototype.assign = function(other) {
 // If value is undefined, the switch is removed
 
 Matrix.prototype.setSwitch = function(switchName, srcHostname, newVal) {
-    var bitOffset = switchBitOffsets[switchName];
+    var bitOffset = switchBitOffsets.get(switchName);
     if ( bitOffset === undefined ) {
         return false;
     }
     if ( newVal === this.evaluateSwitch(switchName, srcHostname) ) {
         return false;
     }
-    var bits = this.switches[srcHostname] || 0;
+    var bits = this.switches.get(srcHostname) || 0;
     bits &= ~(3 << bitOffset);
     bits |= newVal << bitOffset;
     if ( bits === 0 ) {
-        delete this.switches[srcHostname];
+        this.switches.delete(srcHostname);
     } else {
-        this.switches[srcHostname] = bits;
+        this.switches.set(srcHostname, bits);
     }
     this.modifiedTime = Date.now();
     return true;
@@ -286,9 +247,9 @@ Matrix.prototype.setSwitch = function(switchName, srcHostname, newVal) {
 /******************************************************************************/
 
 Matrix.prototype.setCell = function(srcHostname, desHostname, type, state) {
-    var bitOffset = typeBitOffsets[type];
-    var k = srcHostname + ' ' + desHostname;
-    var oldBitmap = this.rules[k];
+    var bitOffset = typeBitOffsets.get(type),
+        k = srcHostname + ' ' + desHostname,
+        oldBitmap = this.rules.get(k);
     if ( oldBitmap === undefined ) {
         oldBitmap = 0;
     }
@@ -297,9 +258,9 @@ Matrix.prototype.setCell = function(srcHostname, desHostname, type, state) {
         return false;
     }
     if ( newBitmap === 0 ) {
-        delete this.rules[k];
+        this.rules.delete(k);
     } else {
-        this.rules[k] = newBitmap;
+        this.rules.set(k, newBitmap);
     }
     this.modifiedTime = Date.now();
     return true;
@@ -357,21 +318,21 @@ Matrix.prototype.graylistCell = function(srcHostname, desHostname, type) {
 
 Matrix.prototype.evaluateCell = function(srcHostname, desHostname, type) {
     var key = srcHostname + ' ' + desHostname;
-    var bitmap = this.rules[key];
+    var bitmap = this.rules.get(key);
     if ( bitmap === undefined ) {
         return 0;
     }
-    return bitmap >> typeBitOffsets[type] & 3;
+    return bitmap >> typeBitOffsets.get(type) & 3;
 };
 
 /******************************************************************************/
 
 Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
-    var bitOffset = typeBitOffsets[type];
+    var bitOffset = typeBitOffsets.get(type);
     var s = srcHostname;
     var v;
     for (;;) {
-        v = this.rules[s + ' ' + desHostname];
+        v = this.rules.get(s + ' ' + desHostname);
         if ( v !== undefined ) {
             v = v >> bitOffset & 3;
             if ( v !== 0 ) {
@@ -380,9 +341,7 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
         }
         // TODO: external rules? (for presets)
         s = toBroaderHostname(s);
-        if ( s === '' ) {
-            break;
-        }
+        if ( s === '' ) { break; }
     }
     // srcHostname is '*' at this point
 
@@ -396,6 +355,7 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
     if ( type === 'doc' && desHostname === '*' ) {
         return 2;
     }
+
     return 0;
 };
 
@@ -495,10 +455,7 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 
 Matrix.prototype.evaluateRowZXY = function(srcHostname, desHostname) {
     var out = [];
-    for ( var type in typeBitOffsets ) {
-        if ( typeBitOffsets.hasOwnProperty(type) === false ) {
-            continue;
-        }
+    for ( var type of typeBitOffsets.keys() ) {
         out.push(this.evaluateCellZXY(srcHostname, desHostname, type));
     }
     return out;
@@ -525,7 +482,7 @@ Matrix.prototype.desHostnameFromRule = function(rule) {
 /******************************************************************************/
 
 Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
-    var bitOffset = switchBitOffsets[switchName];
+    var bitOffset = switchBitOffsets.get(switchName);
     if ( bitOffset === undefined ) {
         return false;
     }
@@ -536,19 +493,19 @@ Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
     if ( newState === undefined ) {
         newState = !state;
     }
-    var bits = this.switches[srcHostname] || 0;
+    var bits = this.switches.get(srcHostname) || 0;
     bits &= ~(3 << bitOffset);
     if ( bits === 0 ) {
-        delete this.switches[srcHostname];
+        this.switches.delete(srcHostname);
     } else {
-        this.switches[srcHostname] = bits;
+        this.switches.set(srcHostname, bits);
     }
     this.modifiedTime = Date.now();
     state = this.evaluateSwitchZ(switchName, srcHostname);
     if ( state === newState ) {
         return true;
     }
-    this.switches[srcHostname] = bits | ((newState ? 1 : 2) << bitOffset);
+    this.switches.set(srcHostname, bits | ((newState ? 1 : 2) << bitOffset));
     return true;
 };
 
@@ -559,11 +516,11 @@ Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
 // 2 = forced default state (to override a broader non-default state)
 
 Matrix.prototype.evaluateSwitch = function(switchName, srcHostname) {
-    var bits = this.switches[srcHostname] || 0;
+    var bits = this.switches.get(srcHostname) || 0;
     if ( bits === 0 ) {
         return 0;
     }
-    var bitOffset = switchBitOffsets[switchName];
+    var bitOffset = switchBitOffsets.get(switchName);
     if ( bitOffset === undefined ) {
         return 0;
     }
@@ -573,14 +530,14 @@ Matrix.prototype.evaluateSwitch = function(switchName, srcHostname) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateSwitchZ = function(switchName, srcHostname) {
-    var bitOffset = switchBitOffsets[switchName];
+    var bitOffset = switchBitOffsets.get(switchName);
     if ( bitOffset === undefined ) {
         return false;
     }
     var bits;
     var s = srcHostname;
     for (;;) {
-        bits = this.switches[s] || 0;
+        bits = this.switches.get(s) || 0;
         if ( bits !== 0 ) {
             bits = bits >> bitOffset & 3;
             if ( bits !== 0 ) {
@@ -602,11 +559,7 @@ Matrix.prototype.evaluateSwitchZ = function(switchName, srcHostname) {
 
 Matrix.prototype.extractAllSourceHostnames = function() {
     var srcHostnames = {};
-    var rules = this.rules;
-    for ( var rule in rules ) {
-        if ( rules.hasOwnProperty(rule) === false ) {
-            continue;
-        }
+    for ( var rule of this.rules.keys() ) {
         srcHostnames[rule.slice(0, rule.indexOf(' '))] = true;
     }
     return srcHostnames;
@@ -619,11 +572,7 @@ Matrix.prototype.extractAllSourceHostnames = function() {
 
 Matrix.prototype.extractAllDestinationHostnames = function() {
     var desHostnames = {};
-    var rules = this.rules;
-    for ( var rule in rules ) {
-        if ( rules.hasOwnProperty(rule) === false ) {
-            continue;
-        }
+    for ( var rule of this.rules.keys() ) {
         desHostnames[this.desHostnameFromRule(rule)] = true;
     }
     return desHostnames;
@@ -635,41 +584,25 @@ Matrix.prototype.toString = function() {
     var out = [];
     var rule, type, switchName, val;
     var srcHostname, desHostname;
-    for ( rule in this.rules ) {
-        if ( this.rules.hasOwnProperty(rule) === false ) {
-            continue;
-        }
+    for ( rule of this.rules.keys() ) {
         srcHostname = this.srcHostnameFromRule(rule);
         desHostname = this.desHostnameFromRule(rule);
-        for ( type in typeBitOffsets ) {
-            if ( typeBitOffsets.hasOwnProperty(type) === false ) {
-                continue;
-            }
+        for ( type of typeBitOffsets.keys() ) {
             val = this.evaluateCell(srcHostname, desHostname, type);
-            if ( val === 0 ) {
-                continue;
-            }
+            if ( val === 0 ) { continue; }
             out.push(
                 punycode.toUnicode(srcHostname) + ' ' +
                 punycode.toUnicode(desHostname) + ' ' +
                 type + ' ' +
-                stateToNameMap[val]
+                stateToNameMap.get(val)
             );
         }
     }
-    for ( srcHostname in this.switches ) {
-        if ( this.switches.hasOwnProperty(srcHostname) === false ) {
-            continue;
-        }
-        for ( switchName in switchBitOffsets ) {
-            if ( switchBitOffsets.hasOwnProperty(switchName) === false ) {
-                continue;
-            }
+    for ( srcHostname of this.switches.keys() ) {
+        for ( switchName of switchBitOffsets.keys() ) {
             val = this.evaluateSwitch(switchName, srcHostname);
-            if ( val === 0 ) {
-                continue;
-            }
-            out.push(switchName + ': ' + srcHostname + ' ' + switchStateToNameMap[val]);
+            if ( val === 0 ) { continue; }
+            out.push(switchName + ': ' + srcHostname + ' ' + switchStateToNameMap.get(val));
         }
     }
     return out.sort().join('\n');
@@ -744,7 +677,7 @@ Matrix.prototype.fromString = function(text, append) {
         if ( pos !== -1 ) {
             switchName = fieldVal.slice(0, pos);
         }
-        if ( switchBitOffsets.hasOwnProperty(switchName) ) {
+        if ( switchBitOffsets.has(switchName) ) {
             srcHostname = punycode.toASCII(fields[1]);
 
             // No state field: reject
@@ -801,7 +734,7 @@ Matrix.prototype.fromString = function(text, append) {
                 type = 'media';
             }
             // Unknown type: reject
-            if ( typeBitOffsets.hasOwnProperty(type) === false ) {
+            if ( typeBitOffsets.has(type) === false ) {
                 continue;
             }
         } else {
@@ -835,17 +768,19 @@ Matrix.prototype.fromString = function(text, append) {
 Matrix.prototype.toSelfie = function() {
     return {
         magicId: magicId,
-        switches: this.switches,
-        rules: this.rules
+        switches: Array.from(this.switches),
+        rules: Array.from(this.rules)
     };
 };
 
 /******************************************************************************/
 
 Matrix.prototype.fromSelfie = function(selfie) {
-    this.switches = selfie.switches;
-    this.rules = selfie.rules;
+    if ( selfie.magicId !== magicId ) { return false; }
+    this.switches = new Map(selfie.switches);
+    this.rules = new Map(selfie.rules);
     this.modifiedTime = Date.now();
+    return true;
 };
 
 /******************************************************************************/
@@ -855,10 +790,7 @@ Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
     var desHostname, type;
     var switchName, i, thisVal, otherVal;
     for (;;) {
-        for ( switchName in switchBitOffsets ) {
-            if ( switchBitOffsets.hasOwnProperty(switchName) === false ) {
-                continue;
-            }
+        for ( switchName of switchBitOffsets.keys() ) {
             thisVal = this.evaluateSwitch(switchName, srcHostname);
             otherVal = other.evaluateSwitch(switchName, srcHostname);
             if ( thisVal !== otherVal ) {
@@ -871,15 +803,10 @@ Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
         i = desHostnames.length;
         while ( i-- ) {
             desHostname = desHostnames[i];
-            for ( type in typeBitOffsets ) {
-                if ( typeBitOffsets.hasOwnProperty(type) === false ) {
-                    continue;
-                }
+            for ( type of typeBitOffsets.keys() ) {
                 thisVal = this.evaluateCell(srcHostname, desHostname, type);
                 otherVal = other.evaluateCell(srcHostname, desHostname, type);
-                if ( thisVal === otherVal ) {
-                    continue;
-                }
+                if ( thisVal === otherVal ) { continue; }
                 out.push({
                     'what': 'rule',
                     'src': srcHostname,
@@ -909,7 +836,7 @@ Matrix.prototype.applyDiff = function(diff, from) {
             changed = this.setCell(action.src, action.des, action.type, val) || changed;
             continue;
         }
-        if ( switchBitOffsets.hasOwnProperty(action.what) ) {
+        if ( switchBitOffsets.has(action.what) ) {
             val = from.evaluateSwitch(action.what, action.src);
             changed = this.setSwitch(action.what, action.src, val) || changed;
             continue;

@@ -224,8 +224,7 @@ function getGroupStats() {
     // hierarchy is white or blacklisted
     var pageDomain = matrixSnapshot.domain;
     var rows = matrixSnapshot.rows;
-    var columnOffsets = matrixSnapshot.headers;
-    var anyTypeOffset = columnOffsets['*'];
+    var anyTypeOffset = matrixSnapshot.headerIndices.get('*');
     var hostname, domain;
     var row, color, count, groupIndex;
     var domainToGroupMap = {};
@@ -349,11 +348,11 @@ function getGroupStats() {
 // helpers
 
 function getTemporaryColor(hostname, type) {
-    return matrixSnapshot.rows[hostname].temporary[matrixSnapshot.headers[type]];
+    return matrixSnapshot.rows[hostname].temporary[matrixSnapshot.headerIndices.get(type)];
 }
 
 function getPermanentColor(hostname, type) {
-    return matrixSnapshot.rows[hostname].permanent[matrixSnapshot.headers[type]];
+    return matrixSnapshot.rows[hostname].permanent[matrixSnapshot.headerIndices.get(type)];
 }
 
 function addCellClass(cell, hostname, type) {
@@ -429,7 +428,7 @@ function updateMatrixCounts() {
     var matCells = uDom('.matrix .matRow.rw > .matCell'),
         i = matCells.length,
         matRow, matCell, count, counts,
-        headers = matrixSnapshot.headers,
+        headerIndices = matrixSnapshot.headerIndices,
         rows = matrixSnapshot.rows,
         expandos;
     while ( i-- ) {
@@ -440,7 +439,7 @@ function updateMatrixCounts() {
         }
         matRow = matCell.parentNode;
         counts = matRow.classList.contains('meta') ? 'totals' : 'counts';
-        count = rows[expandos.hostname][counts][headers[expandos.reqType]];
+        count = rows[expandos.hostname][counts][headerIndices.get(expandos.reqType)];
         if ( count === expandos.count ) { continue; }
         expandos.count = count;
         matCell.textContent = count ? count : '\u00A0';
@@ -705,15 +704,15 @@ function renderMatrixCellType(cell, hostname, type, count) {
 
 function renderMatrixCellTypes(cells, hostname, countName) {
     var counts = matrixSnapshot.rows[hostname][countName];
-    var countIndices = matrixSnapshot.headers;
-    renderMatrixCellType(cells.at(1), hostname, 'cookie', counts[countIndices.cookie]);
-    renderMatrixCellType(cells.at(2), hostname, 'css', counts[countIndices.css]);
-    renderMatrixCellType(cells.at(3), hostname, 'image', counts[countIndices.image]);
-    renderMatrixCellType(cells.at(4), hostname, 'media', counts[countIndices.media]);
-    renderMatrixCellType(cells.at(5), hostname, 'script', counts[countIndices.script]);
-    renderMatrixCellType(cells.at(6), hostname, 'xhr', counts[countIndices.xhr]);
-    renderMatrixCellType(cells.at(7), hostname, 'frame', counts[countIndices.frame]);
-    renderMatrixCellType(cells.at(8), hostname, 'other', counts[countIndices.other]);
+    var headerIndices = matrixSnapshot.headerIndices;
+    renderMatrixCellType(cells.at(1), hostname, 'cookie', counts[headerIndices.get('cookie')]);
+    renderMatrixCellType(cells.at(2), hostname, 'css', counts[headerIndices.get('css')]);
+    renderMatrixCellType(cells.at(3), hostname, 'image', counts[headerIndices.get('image')]);
+    renderMatrixCellType(cells.at(4), hostname, 'media', counts[headerIndices.get('media')]);
+    renderMatrixCellType(cells.at(5), hostname, 'script', counts[headerIndices.get('script')]);
+    renderMatrixCellType(cells.at(6), hostname, 'xhr', counts[headerIndices.get('xhr')]);
+    renderMatrixCellType(cells.at(7), hostname, 'frame', counts[headerIndices.get('frame')]);
+    renderMatrixCellType(cells.at(8), hostname, 'other', counts[headerIndices.get('other')]);
 }
 
 /******************************************************************************/
@@ -760,36 +759,37 @@ function renderMatrixMetaCellType(cell, count) {
 }
 
 function makeMatrixMetaRow(totals) {
-    var typeOffsets = matrixSnapshot.headers;
-    var matrixRow = createMatrixRow().at(0).addClass('ro');
-    var cells = matrixRow.descendants('.matCell');
-    var contents = cells.at(0).addClass('t81').contents();
-    var expandos = expandosFromNode(cells.nodeAt(0));
+    var headerIndices = matrixSnapshot.headerIndices,
+        matrixRow = createMatrixRow().at(0).addClass('ro'),
+        cells = matrixRow.descendants('.matCell'),
+        contents = cells.at(0).addClass('t81').contents(),
+        expandos = expandosFromNode(cells.nodeAt(0));
     expandos.hostname = '';
     expandos.reqType = '*';
     contents.nodeAt(0).textContent = ' ';
     contents.nodeAt(1).textContent = blacklistedHostnamesLabel.replace(
         '{{count}}',
-        totals[typeOffsets['*']].toLocaleString()
+        totals[headerIndices.get('*')].toLocaleString()
     );
-    renderMatrixMetaCellType(cells.at(1), totals[typeOffsets.cookie]);
-    renderMatrixMetaCellType(cells.at(2), totals[typeOffsets.css]);
-    renderMatrixMetaCellType(cells.at(3), totals[typeOffsets.image]);
-    renderMatrixMetaCellType(cells.at(4), totals[typeOffsets.media]);
-    renderMatrixMetaCellType(cells.at(5), totals[typeOffsets.script]);
-    renderMatrixMetaCellType(cells.at(6), totals[typeOffsets.xhr]);
-    renderMatrixMetaCellType(cells.at(7), totals[typeOffsets.frame]);
-    renderMatrixMetaCellType(cells.at(8), totals[typeOffsets.other]);
+    renderMatrixMetaCellType(cells.at(1), totals[headerIndices.get('cookie')]);
+    renderMatrixMetaCellType(cells.at(2), totals[headerIndices.get('css')]);
+    renderMatrixMetaCellType(cells.at(3), totals[headerIndices.get('image')]);
+    renderMatrixMetaCellType(cells.at(4), totals[headerIndices.get('media')]);
+    renderMatrixMetaCellType(cells.at(5), totals[headerIndices.get('script')]);
+    renderMatrixMetaCellType(cells.at(6), totals[headerIndices.get('xhr')]);
+    renderMatrixMetaCellType(cells.at(7), totals[headerIndices.get('frame')]);
+    renderMatrixMetaCellType(cells.at(8), totals[headerIndices.get('other')]);
     return matrixRow;
 }
 
 /******************************************************************************/
 
 function computeMatrixGroupMetaStats(group) {
-    var headers = matrixSnapshot.headers;
-    var n = Object.keys(headers).length;
-    var totals = new Array(n);
-    var i = n;
+    var headerIndices = matrixSnapshot.headerIndices,
+        anyTypeIndex = headerIndices.get('*'),
+        n = headerIndices.size,
+        totals = new Array(n),
+        i = n;
     while ( i-- ) {
         totals[i] = 0;
     }
@@ -802,7 +802,7 @@ function computeMatrixGroupMetaStats(group) {
         if ( group.hasOwnProperty(row.domain) === false ) {
             continue;
         }
-        if ( row.counts[headers['*']] === 0 ) {
+        if ( row.counts[anyTypeIndex] === 0 ) {
             continue;
         }
         totals[0] += 1;
@@ -1367,6 +1367,13 @@ var onMatrixSnapshotReady = function(response) {
 var matrixSnapshotPoller = (function() {
     var timer = null;
 
+    var preprocessMatrixSnapshot = function(snapshot) {
+        if ( Array.isArray(snapshot.headerIndices) ) {
+            snapshot.headerIndices = new Map(snapshot.headerIndices);
+        }
+        return snapshot;
+    };
+
     var processPollResult = function(response) {
         if ( typeof response !== 'object' ) {
             return;
@@ -1379,7 +1386,8 @@ var matrixSnapshotPoller = (function() {
         ) {
             return;
         }
-        matrixSnapshot = response;
+        matrixSnapshot = preprocessMatrixSnapshot(response);
+
         if ( response.mtxContentModified ) {
             makeMenu();
             return;
@@ -1454,7 +1462,7 @@ var matrixSnapshotPoller = (function() {
 
         var snapshotFetched = function(response) {
             if ( typeof response === 'object' ) {
-                matrixSnapshot = response;
+                matrixSnapshot = preprocessMatrixSnapshot(response);
             }
             onMatrixSnapshotReady(response);
             pollAsync();
