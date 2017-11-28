@@ -475,7 +475,7 @@ var canRemoveCookie = function(cookieKey, srcHostnames) {
     srcHostname = cookieHostname;
     var pos;
     for (;;) {
-        if ( srcHostnames.hasOwnProperty(srcHostname) ) {
+        if ( srcHostnames.has(srcHostname) ) {
             if ( µm.mustAllow(srcHostname, cookieHostname, 'cookie') ) {
                 return false;
             }

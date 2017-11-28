@@ -554,29 +554,21 @@ Matrix.prototype.evaluateSwitchZ = function(switchName, srcHostname) {
 
 /******************************************************************************/
 
-// TODO: In all likelyhood, will have to optmize here, i.e. keeping an
-// up-to-date collection of src hostnames with reference count etc.
+Matrix.prototype.extractAllSourceHostnames = (function() {
+    var cachedResult = new Set();
+    var readTime = 0;
 
-Matrix.prototype.extractAllSourceHostnames = function() {
-    var srcHostnames = {};
-    for ( var rule of this.rules.keys() ) {
-        srcHostnames[rule.slice(0, rule.indexOf(' '))] = true;
-    }
-    return srcHostnames;
-};
-
-/******************************************************************************/
-
-// TODO: In all likelyhood, will have to optmize here, i.e. keeping an
-// up-to-date collection of src hostnames with reference count etc.
-
-Matrix.prototype.extractAllDestinationHostnames = function() {
-    var desHostnames = {};
-    for ( var rule of this.rules.keys() ) {
-        desHostnames[this.desHostnameFromRule(rule)] = true;
-    }
-    return desHostnames;
-};
+    return function() {
+        if ( readTime !== this.modifiedTime ) {
+            cachedResult.clear();
+            for ( var rule of this.rules.keys() ) {
+                cachedResult.add(rule.slice(0, rule.indexOf(' ')));
+            }
+            readTime = this.modifiedTime;
+        }
+        return cachedResult;
+    };
+})();
 
 /******************************************************************************/
 
