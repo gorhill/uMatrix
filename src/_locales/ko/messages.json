@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "클릭 한번으로 모든 종류의 요청도 거부 \/ 허용 할 수 있습니다. 스크립트, Iframe, 광고, Facebook 등을 차단합니다.",
+        "message": "클릭 한번으로 모든 종류의 요청에 대해 거부 \/ 허용을 할 수 있습니다. 스크립트, Iframe, 광고, Facebook 등을 차단합니다.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -44,7 +44,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cookiePrettyName": {
-        "message": "쿠키",
+        "message": "cookie",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cssPrettyName": {
@@ -52,7 +52,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "imagePrettyName": {
-        "message": "이미지",
+        "message": "image",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
@@ -60,11 +60,11 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
-        "message": "플러그인",
+        "message": "plugin",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "scriptPrettyName": {
-        "message": "스크립트",
+        "message": "script",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "xhrPrettyName": {
@@ -72,11 +72,11 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "framePrettyName": {
-        "message": "프레임",
+        "message": "frame",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "otherPrettyName": {
-        "message": "그 외",
+        "message": "other",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "matrixNoNetTrafficPrompt": {
@@ -112,11 +112,11 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchUASpoof": {
-        "message": "User agent 변경 적용",
+        "message": "User agent 위장",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Referrer spoofing",
+        "message": "참조 주소 위조",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "statsPageCookies": {
-        "message": "쿠키",
+        "message": "Cookie",
         "description": ""
     },
     "statsPageCSS": {
@@ -212,15 +212,15 @@
         "description": ""
     },
     "statsPageImages": {
-        "message": "이미지",
+        "message": "image",
         "description": ""
     },
     "statsPagePlugins": {
-        "message": "플러그인",
+        "message": "plugin",
         "description": ""
     },
     "statsPageScripts": {
-        "message": "스크립트",
+        "message": "script",
         "description": ""
     },
     "statsPageXHRs": {
@@ -228,11 +228,11 @@
         "description": ""
     },
     "statsPageFrames": {
-        "message": "프레임",
+        "message": "frame",
         "description": ""
     },
     "statsPageOthers": {
-        "message": "그 외",
+        "message": "other",
         "description": ""
     },
     "statsPageDetailed": {
@@ -280,11 +280,11 @@
         "description": ""
     },
     "settingsMatrixConvenienceHeader": {
-        "message": "Convenience",
+        "message": "편의 설정",
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "기본 범위",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
@@ -328,15 +328,15 @@
         "description": "English: Opacity"
     },
     "settingsIconBadgeEnabled": {
-        "message": "Show the number of distinct requests on the icon",
+        "message": "아이콘에 요청 수 표시",
         "description": "English: Show the number of distinct requests on the icon"
     },
     "settingsCollapseBlocked": {
-        "message": "Collapse placeholder of blocked elements",
+        "message": "차단 된 요청과 관련된 페이지 콘텐츠를 숨 깁니다.",
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCloudStorageEnabled": {
-        "message": "클라우드 스토리지 지원 사용",
+        "message": "클라우드 저장소 활성화",
         "description": ""
     },
     "privacyPageTitle": {
@@ -356,7 +356,7 @@
         "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt2": {
-        "message": " minutes after the last time they have been used.",
+        "message": " 분 동안 사용되지 않은 경우",
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
@@ -364,7 +364,7 @@
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+        "message": "차단 호스트 이름으로 설정된 <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>로컬 저장소<\/a> 삭제",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -372,7 +372,7 @@
         "description": ""
     },
     "privacyClearCachePrompt1": {
-        "message": "Clear browser cache every",
+        "message": "설정한 시간마다 브라우저 캐시 지우기:",
         "description": "First part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCachePrompt2": {
@@ -384,7 +384,7 @@
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+        "message": "제 3 자 요청의 <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP 리퍼러<\/a> 문자열을 위조 합니다.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
-        "message": "Strict HTTPS: forbid mixed content.",
+        "message": "전체 HTTPS: 혼합 된 콘텐츠 금지",
         "description": ""
     },
     "privacyNoMixedContentHelp": {
@@ -400,7 +400,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+        "message": "모든 <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'> 하이퍼 링크 추적 <\/a> 거부",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
@@ -408,11 +408,11 @@
         "description": ""
     },
     "privacySpoofUserAgentPrompt1": {
-        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> string by randomly picking a new one below every",
+        "message": "매번 새로운 항목을 무작위로 선택하여 <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> 문자열을 위장합니다.",
         "description": "First part of UA-spoofing prompt"
     },
     "privacySpoofUserAgentPrompt2": {
-        "message": "분 간격으로 변경)",
+        "message": "분 간격으로 변경",
         "description": "Second part"
     },
     "privacySpoofUserAgentHelp": {
@@ -464,7 +464,7 @@
         "description": "default file name to use"
     },
     "hostsFilesPrompt": {
-        "message": "도메인 이름에있는 호스트 파일은 글로벌 블랙리스트에 포함됩니다.",
+        "message": "호스트 파일에있 도메인은 글로벌 블랙리스트에 포함됩니다.",
         "description": ""
     },
     "hostsFilesStats": {
@@ -472,7 +472,7 @@
         "description": ""
     },
     "hostsFilesPerFileStats": {
-        "message": "{{used}} used out of {{total}}",
+        "message": "{{total}} 개 중 {{used}} 개 사용 중",
         "description": ""
     },
     "hostsFilesLastUpdate": {
@@ -520,15 +520,15 @@
         "description": ""
     },
     "aboutStorageUsed": {
-        "message": "Storage used: {{storageUsed}} bytes",
+        "message": "저장공간 사용: {{storageUsed}} bytes",
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>문서<\/a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>확장기능 요구 권한<\/a>",
         "description": ""
     },
     "aboutCode": {
@@ -540,7 +540,7 @@
         "description": ""
     },
     "aboutContributors": {
-        "message": "도음 주신 분",
+        "message": "기여해 주신 분들",
         "description": "English: Contributors"
     },
     "aboutCodeContributors": {
