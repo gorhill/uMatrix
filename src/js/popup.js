@@ -373,7 +373,7 @@ function getCollapseState(domain) {
     if ( typeof states === 'object' && states[domain] !== undefined ) {
         return states[domain];
     }
-    return getUISetting('popupCollapseDomains') === true;
+    return matrixSnapshot.collapseAllDomains === true;
 }
 
 function toggleCollapseState(elem) {
@@ -388,7 +388,7 @@ function toggleMainCollapseState(uelem) {
     var matHead = uelem.ancestors('#matHead.collapsible').toggleClass('collapsed');
     var collapsed = matHead.hasClass('collapsed');
     uDom('#matList .matSection.collapsible').toggleClass('collapsed', collapsed);
-    setUISetting('popupCollapseDomains', collapsed);
+    setUserSetting('popupCollapseAllDomains', collapsed);
 
     var specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
     var domains = Object.keys(specificCollapseStates);
@@ -409,7 +409,7 @@ function toggleSpecificCollapseState(uelem) {
     var section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed'),
         domain = expandosFromNode(section).domain,
         collapsed = section.hasClass('collapsed'),
-        mainCollapseState = getUISetting('popupCollapseDomains') === true,
+        mainCollapseState = matrixSnapshot.collapseAllDomains === true,
         specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
     if ( collapsed !== mainCollapseState ) {
         specificCollapseStates[domain] = collapsed;
@@ -605,7 +605,7 @@ var createMatrixRow = function() {
 
 function renderMatrixHeaderRow() {
     var matHead = uDom('#matHead.collapsible');
-    matHead.toggleClass('collapsed', getUISetting('popupCollapseDomains') === true);
+    matHead.toggleClass('collapsed', matrixSnapshot.collapseAllDomains === true);
     var cells = matHead.descendants('.matCell'), cell, expandos;
     cell = cells.nodeAt(0);
     expandos = expandosFromNode(cell);
@@ -1033,7 +1033,7 @@ function makeMatrixGroup4(group) {
     var groupDiv = createMatrixGroup().addClass('g4');
     createMatrixSection()
         .addClass('g4Meta')
-        .toggleClass('g4Collapsed', !!getUISetting('popupHideBlacklisted'))
+        .toggleClass('g4Collapsed', !!matrixSnapshot.collapseBlacklistedDomains)
         .appendTo(groupDiv);
     makeMatrixMetaRow(computeMatrixGroupMetaStats(group), 'g4')
         .appendTo(groupDiv);
@@ -1518,7 +1518,7 @@ uDom('#matList').on('click', '.g4Meta', function() {
     var collapsed = uDom(this)
         .toggleClass('g4Collapsed')
         .hasClass('g4Collapsed');
-    setUISetting('popupHideBlacklisted', collapsed);
+    setUserSetting('popupCollapseBlacklistedDomains', collapsed);
 });
 
 /******************************************************************************/

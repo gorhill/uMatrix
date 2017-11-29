@@ -117,6 +117,8 @@ return {
         externalHostsFiles: '',
         iconBadgeEnabled: false,
         maxLoggedRequests: 1000,
+        popupCollapseAllDomains: false,
+        popupCollapseBlacklistedDomains: false,
         popupScopeLevel: 'domain',
         processHyperlinkAuditing: true,
         processReferer: false,
