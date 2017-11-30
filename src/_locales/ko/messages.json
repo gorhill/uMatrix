@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "클릭 한번으로 모든 종류의 요청에 대해 거부 \/ 허용을 할 수 있습니다. 스크립트, Iframe, 광고, Facebook 등을 차단합니다.",
+        "message": "클릭 한번으로 모든 종류의 요청에 대한 거부 \/ 허용을 설정 할 수 있습니다. 스크립트, Iframe, 광고, Facebook 등을 차단합니다.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — 로그",
         "description": "Title for the logger window"
     },
     "settingsPageName": {

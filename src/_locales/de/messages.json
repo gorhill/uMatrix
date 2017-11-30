@@ -96,7 +96,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Seite neu laden.",
+        "message": "Seite neu laden.\nShift drücken um den Browser Cache zu ignorieren.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "Keine Seite gefunden",
+        "message": "Keine Webseite gefunden",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
@@ -260,7 +260,7 @@
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "Erscheinungsbild",
+        "message": "Matrix",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
