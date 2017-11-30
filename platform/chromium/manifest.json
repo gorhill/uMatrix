@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "uMatrix",
     "short_name": "uMatrix",
-    "version": "1.1.12",
+    "version": "1.1.13.0",
     "description": "__MSG_extShortDesc__",
     "icons": {
         "16": "img/icon_16.png",
