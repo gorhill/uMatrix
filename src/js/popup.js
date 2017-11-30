@@ -386,7 +386,7 @@ function toggleCollapseState(elem) {
 
 function toggleMainCollapseState(uelem) {
     var matHead = uelem.ancestors('#matHead.collapsible').toggleClass('collapsed');
-    var collapsed = matHead.hasClass('collapsed');
+    var collapsed = matrixSnapshot.collapseAllDomains = matHead.hasClass('collapsed');
     uDom('#matList .matSection.collapsible').toggleClass('collapsed', collapsed);
     setUserSetting('popupCollapseAllDomains', collapsed);
 
@@ -1514,11 +1514,13 @@ uDom('.extensionURL').on('click', gotoExtensionURL);
 uDom('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
 uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
 
-uDom('#matList').on('click', '.g4Meta', function() {
-    var collapsed = uDom(this)
-        .toggleClass('g4Collapsed')
-        .hasClass('g4Collapsed');
-    setUserSetting('popupCollapseBlacklistedDomains', collapsed);
+uDom('#matList').on('click', '.g4Meta', function(ev) {
+    matrixSnapshot.collapseBlacklistedDomains =
+        ev.target.classList.toggle('g4Collapsed');
+    setUserSetting(
+        'popupCollapseBlacklistedDomains',
+        matrixSnapshot.collapseBlacklistedDomains
+    );
 });
 
 /******************************************************************************/
