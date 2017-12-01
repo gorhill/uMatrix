@@ -266,6 +266,12 @@ vAPI.tabs.open = function(details) {
             });
         };
 
+        // Open in a standalone window
+        if ( details.popup === true ) {
+            chrome.windows.create({ url: details.url, type: 'popup' });
+            return;
+        }
+
         if ( details.index !== -1 ) {
             subWrapper();
             return;

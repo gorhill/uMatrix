@@ -1298,7 +1298,11 @@ function mouseleaveMatrixCellHandler() {
 function gotoExtensionURL(ev) {
     var url = uDom(ev.currentTarget).attr('data-extension-url');
     if ( url ) {
-        messager.send({ what: 'gotoExtensionURL', url: url });
+        messager.send({
+            what: 'gotoExtensionURL',
+            url: url,
+            shiftKey: ev.shiftKey
+        });
     }
     dropDownMenuHide();
     vAPI.closePopup();

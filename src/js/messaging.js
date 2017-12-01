@@ -74,11 +74,11 @@ function onMessage(request, sender, callback) {
         break;
 
     case 'gotoExtensionURL':
-        µm.utils.gotoExtensionURL(request.url);
+        µm.gotoExtensionURL(request);
         break;
 
     case 'gotoURL':
-        µm.utils.gotoURL(request);
+        µm.gotoURL(request);
         break;
 
     case 'mustBlock':

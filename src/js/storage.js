@@ -97,14 +97,14 @@
     var out = new Set(),
         reIgnore = /^[!#]/,
         reValid = /^[a-z-]+:\/\/\S+/,
-        lineIter = new this.utils.LineIterator(raw),
+        lineIter = new this.LineIterator(raw),
         location;
     while ( lineIter.eot() === false ) {
         location = lineIter.next().trim();
         if ( reIgnore.test(location) || !reValid.test(location) ) { continue; }
         out.add(location);
     }
-    return this.utils.setToArray(out);
+    return this.setToArray(out);
 };
 
 /******************************************************************************/
@@ -391,7 +391,7 @@
                 title: assetKey
             };
         }
-        externalHostsFiles = this.utils.setToArray(importedSet).sort().join('\n');
+        externalHostsFiles = this.setToArray(importedSet).sort().join('\n');
     }
 
     if ( externalHostsFiles !== this.userSettings.externalHostsFiles ) {

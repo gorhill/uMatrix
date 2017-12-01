@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
+    uMatrix - a Chromium browser extension to black/white list requests.
     Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -23,70 +23,70 @@
 
 /******************************************************************************/
 
-// This will inserted as a module in the µMatrix object.
-
-µMatrix.utils = (function() {
-
-/******************************************************************************/
-
-var gotoURL = function(details) {
+µMatrix.gotoURL = function(details) {
     vAPI.tabs.open(details);
 };
 
 /******************************************************************************/
 
-var gotoExtensionURL = function(url) {
-    vAPI.tabs.open({
-        url: url,
-        index: -1,
-        select: true
-    });
+µMatrix.gotoExtensionURL = function(details) {
+    if ( details.url.startsWith('logger-ui.html') ) {
+        if ( details.shiftKey ) {
+            this.changeUserSettings(
+                'alwaysDetachLogger',
+                !this.userSettings.alwaysDetachLogger
+            );
+        }
+        details.popup = this.userSettings.alwaysDetachLogger;
+    }
+    details.select = true;
+    vAPI.tabs.open(details);
 };
 
 /******************************************************************************/
 
-var LineIterator = function(text, offset) {
+µMatrix.LineIterator = function(text, offset) {
     this.text = text;
     this.textLen = this.text.length;
     this.offset = offset || 0;
 };
 
-LineIterator.prototype.next = function() {
-    var lineEnd = this.text.indexOf('\n', this.offset);
-    if ( lineEnd === -1 ) {
-        lineEnd = this.text.indexOf('\r', this.offset);
+µMatrix.LineIterator.prototype = {
+    next: function() {
+        var lineEnd = this.text.indexOf('\n', this.offset);
         if ( lineEnd === -1 ) {
-            lineEnd = this.textLen;
+            lineEnd = this.text.indexOf('\r', this.offset);
+            if ( lineEnd === -1 ) {
+                lineEnd = this.textLen;
+            }
         }
-    }
-    var line = this.text.slice(this.offset, lineEnd);
-    this.offset = lineEnd + 1;
-    return line;
-};
-
-LineIterator.prototype.rewind = function() {
-    if ( this.offset <= 1 ) {
-        this.offset = 0;
-        return;
-    }
-    var lineEnd = this.text.lastIndexOf('\n', this.offset - 2);
-    if ( lineEnd !== -1 ) {
+        var line = this.text.slice(this.offset, lineEnd);
         this.offset = lineEnd + 1;
-    } else {
-        lineEnd = this.text.lastIndexOf('\r', this.offset - 2);
-        this.offset = lineEnd !== -1 ? lineEnd + 1 : 0;
+        return line;
+    },
+    rewind: function() {
+        if ( this.offset <= 1 ) {
+            this.offset = 0;
+            return;
+        }
+        var lineEnd = this.text.lastIndexOf('\n', this.offset - 2);
+        if ( lineEnd !== -1 ) {
+            this.offset = lineEnd + 1;
+        } else {
+            lineEnd = this.text.lastIndexOf('\r', this.offset - 2);
+            this.offset = lineEnd !== -1 ? lineEnd + 1 : 0;
+        }
+    },
+    eot: function() {
+        return this.offset >= this.textLen;
     }
-};
-
-LineIterator.prototype.eot = function() {
-    return this.offset >= this.textLen;
 };
 
 /******************************************************************************/
 
-var setToArray = typeof Array.from === 'function'
-    ? Array.from
-    : function(dict) {
+µMatrix.setToArray = typeof Array.from === 'function' ?
+    Array.from :
+    function(dict) {
         var out = [],
             entries = dict.values(),
             entry;
@@ -98,22 +98,8 @@ var setToArray = typeof Array.from === 'function'
         return out;
     };
 
-var setFromArray = function(arr) {
+µMatrix.setFromArray = function(arr) {
     return new Set(arr);
 };
-
-/******************************************************************************/
-
-return {
-    gotoURL: gotoURL,
-    gotoExtensionURL: gotoExtensionURL,
-    LineIterator: LineIterator,
-    setToArray: setToArray,
-    setFromArray: setFromArray
-};
-
-/******************************************************************************/
-
-})();
 
 /******************************************************************************/

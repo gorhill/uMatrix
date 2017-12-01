@@ -86,6 +86,7 @@ return {
     onBeforeStartQueue: [],
 
     userSettings: {
+        alwaysDetachLogger: false,
         autoUpdate: false,
         clearBrowserCache: true,
         clearBrowserCacheAfter: 60,
