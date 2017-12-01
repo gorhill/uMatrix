@@ -111,10 +111,6 @@
         "message": "严格遵守 HTTPS 协议",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "伪造 User Agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "伪造 Referrer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>超链接审查容许<b>任何人<\/b>得知用户于特定网页上点击了某个链接。其本质为一种跟踪手段：经由容许网站或任何第三方获知您于哪个页面点击了哪个链接，以达到追踪您的浏览活动这一特定目的。<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "每隔 ",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": " 分钟从下方随机抽取一行用来伪造 <a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86'>User Agent<\/a>：",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>电子前哨基金会<\/i><\/a>告知：“……您的浏览器会向网站发送一个‘用户代理’标识，以精确地向网站报告您所使用的操作系统及浏览器。对不同的人而言，操作系统与浏览器的版本通常存在不少差异，故此，以上信息可被用于识别互联网用户。……<b>用户代理标识成为了一个实实在在的私隐问题<\/b>。”<p>该选项有助您处理由电子前哨基金会提出的隐私问题。<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>请注意，目前尚无法彻底阻止 WebSocket 泄漏您的用户代理标识。<\/a><\/p><p>您可以自行提供用户代理列表。每行一个字符串。空行以及以“#”启始的行将被忽略。<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "永久规则",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "日志条数限制",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "当前 User Agent 被伪造成：{{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "已删除 Cookie：{{value}}",

@@ -111,10 +111,6 @@
         "message": "전체 HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "User agent 위장",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "참조 주소 위조",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "매번 새로운 항목을 무작위로 선택하여 <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> 문자열을 위장합니다.",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "분 간격으로 변경",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>According to the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>This option allows you to address the privacy issue raised by the EFF. Please note that <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>your actual User Agent string can be leaked<\/a> through WebSockets.<\/p><p>You can supply your own list of user agent strings. One string per line. Blank lines and lines prefixed with &lsquo;#&rsquo; will be ignored.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "저장된 규칙",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "최대 항목 수",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "user agent 위장: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "쿠키 삭제: {{value}}",

@@ -111,10 +111,6 @@
         "message": "HTTPS estricto",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Falsificar cadena User-Agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Falsificar Referer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>La auditoría de hipervínculos o enlaces es un mecanismo que permite a alguien, <b>cualquiera<\/b>, ser informado acerca de a que enlace accedió un usuario en una página web particular. Es esencialmente un mecanismo de rastreo: permite a un sitio web, o a un tercero, ser informado sobre cuales enlaces, en cuales páginas, fueron accedidos por el usuario. Su único motivo es rastrear la actividad de navegación del usuario.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Falsificar cadena <a href='https:\/\/es.wikipedia.org\/wiki\/Agente_de_usuario'>User-Agent<\/a>, escogiendo una de éstas al azar cada",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minutos.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Según la <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] su navegador envía un encabezado &lsquo;User Agent&rsquo;  al sitio web, estableciendo de manera precisa que combinación de sistema operativo y navegador está usando. Esto puede ayudar a diferenciar los usuarios en Internet, pues esta información varía a menudo considerablemente de un usuario a otro. [...] <b>la cadena User Agent se convierte en un verdadero problema de privacidad<\/b>.&rdquo;<p>Esta opción le permite resolver este problema puesto de relieve por la EFF.<\/p><p>Usted puede suministrar su propia lista de cadenas <i>user agent<\/i>. Una cadena por línea. Las líneas en blanco o con prefijo &lsquo;#&rsquo; serán ignoradas.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Reglas permanentes",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Número máximo de registros",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "falsificar cadena User-Agent con: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "cookie eliminada: {{value}}",

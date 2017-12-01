@@ -111,10 +111,6 @@
         "message": "מצב HTTPS נוקשה",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "זיוף מזהה משתמש",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "זיוף מפנה",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Hyperlink auditing זהו מנגנון אשר מאפשר לצד, <b>כל צד<\/b>, להיות מודע על איזה קישור בדיוק המשתמש לחץ בדף אינטרנט ספציפי. במהות שלו זוהי תכונת מעקב: היא מאפשרת לדף אינטרנט, או לכל אתר צד שלישי לדף אינטרנט זה, להיות מודע לגבי איזה קישור לחצת באיזה דף של האתר שלהם. המטרה היחידה היא לעקוב אחר פעילות הגלישה שלך.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "החלף את הערך של <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>מזהה המשתמש<\/a> על ידי בחירה באקראי במזהה חדש מהרשימה למטה כל",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "דקות.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>לפי ה <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] הדפדפן שלך שולח כותרת (header) של &lsquo;מזהה משתמש&rsquo; לאתר שאומר בדיוק באיזו מערכת הפעלה ודפדפן אתה משתמש. מידע זה יכול לעזור להבדיל בין משתמש אינטרנט אחד לשני בגלל שוני הגרסאות, שלפעמים מהותי, מאדם לאדם. [...] <b> התוכן של מזהה המשתמש הופך לבעיית פרטיות אמיתית<\/b>.&rdquo;<p>אפשרות זו מאפשרת לך להתייחס לבעיית הפרטיות שהועלתה על ידי ה EFF.<\/p><p>אתה יכול להכניס רשימה משלך של מזהי משתמשים. מזהה משתמש אחד בכל שורה. שורות ריקות ושורות עם קידומת &lsquo;#&rsquo; לא יפורשו.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "חוקים קבועים",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "מספר רשומות מקסימליות",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "מחליף את ה user agent שלך ב: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "עוגייה נמחקה: {{value}}",

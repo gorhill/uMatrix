@@ -35,23 +35,6 @@ var oneDay = 24 * oneHour;
 /******************************************************************************/
 /******************************************************************************/
 
-var defaultUserAgentStrings = [
-    '# http://techblog.willshouse.com/2012/01/03/most-common-user-agents/',
-    '# using ua string which are same browser as real one may work better overall',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.5.17 (KHTML, like Gecko) Version/8.0.5 Safari/600.5.17',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0',
-    ''
-].join('\n').trim();
-
-/******************************************************************************/
-/******************************************************************************/
-
 var _RequestStats = function() {
     this.reset();
 };
@@ -121,10 +104,7 @@ return {
         popupCollapseBlacklistedDomains: false,
         popupScopeLevel: 'domain',
         processHyperlinkAuditing: true,
-        processReferer: false,
-        spoofUserAgent: false,
-        spoofUserAgentEvery: 5,
-        spoofUserAgentWith: defaultUserAgentStrings
+        processReferer: false
     },
 
     clearBrowserCacheCycle: 0,
@@ -160,8 +140,6 @@ return {
     hyperlinkAuditingFoiledCounter: 0,
     browserCacheClearedCounter: 0,
     storageUsed: 0,
-    userAgentReplaceStr: '',
-    userAgentReplaceStrBirth: 0,
 
     // record what the browser is doing behind the scene
     behindTheSceneScope: 'behind-the-scene',

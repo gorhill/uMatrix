@@ -111,10 +111,6 @@
         "message": "HTTPS Estrito",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Ocultação do User agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Ocultar Referrer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Hyperlink auditing é um mecanismo que permite que um ente, <b>qualquer ente<\/b>, de ser informado sobre o que vincular um usuário clicou em uma página web em particular. É essencialmente um recurso de rastreamento: ele permite que um site, ou qualquer terceira parte para esse site, para ser informado sobre qual link você clicou em que uma das suas páginas web. O único objetivo é rastrear sua atividade de navegação.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Sequência de Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a>, escolhendo aleatoriamente um novo abaixo a cada",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minutos.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>De acordo com o <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] o seu navegador envia uma &lsquo;User Agent&rsquo; cabeçalho para o site dizendo exatamente qual sistema operacional e navegador que você está usando. Esta informação pode ajudar a distinguir os utilizadores da Internet a partir de um outro, pois essas versões são diferentes, muitas vezes consideravelmente, de pessoa para pessoa. [...] <b>a seqüência de agente do usuário torna-se um problema real privacidade<\/b>.&rdquo;<p>Esta opção permite-lhe abordar a questão da privacidade levantadas pelo EFF.<\/p><p>Você pode fornecer a sua própria lista de cadeias de agente de usuário. Um por linha.As linhas em branco e linhas com prefixo &lsquo;#&rsquo; serão ignorados.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Regras permanentes",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Número máximo de entradas",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "falsificando user agent com: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "cookie apagado: {{value}}",

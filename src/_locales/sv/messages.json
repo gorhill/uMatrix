@@ -111,10 +111,6 @@
         "message": "Strikt HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Förvanskning av användaragent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Hänvisningsförvanskning",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Granskning av hyperlänkar är en mekanism som tillåter en part, <b>vilken som helst<\/b>, att få tillgång till information om en användare har klickat på en särskild webbplats. Det är praktiskt taget en spårningsfunktion: det möjliggör för en websida, eller en tredjepart till den sidan, att få information om vilken sida du var på och vilken länk du har tryckt på. Syftet är endast att kartlägga ditt beteende när du surfar.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Förvanska <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>användaragent<\/a> genom att slumpvist ange en ny var",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minuter.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Enligt <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] skickar din webbläsare ett &lsquo;användaragent&rsquo;-sidhuvud till webbplatser för att tala om precis vilket operativsystem och vilken webbläsare du använder. Denna information kan hjälpa sidan att unikt särskilja internetanvändare från varandra, eftersom informationen ofta skiljer sig markant från person till person. [...]<b>Användaragenten blir ett riktigt integritetsproblem<\/b>.&rdquo;<p>Denna inställning åtgärdar integritetsproblemet som EFF har lyft fram. Observera att <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>din riktiga användaragent kan läcka<\/a> genom WebSockets.<\/p><p>Du kan skriva in en egen lista med användaragenter. En sträng per rad. Tomma rader och rader som börjar med &lsquo;#&rsquo; ignoreras.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Permanenta regler",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Högst antal inlägg",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "användaragenten förvanskad med: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "borttagna kakor: {{value}}",

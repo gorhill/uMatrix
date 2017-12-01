@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@
 
 /* global vAPI, uDom */
 
+'use strict';
+
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -75,7 +75,6 @@ function onChangeValueHandler(uelem, setting, min, max) {
 function prepareToDie() {
     onChangeValueHandler(uDom('#delete-unused-session-cookies-after'), 'deleteUnusedSessionCookiesAfter', 15, 1440);
     onChangeValueHandler(uDom('#clear-browser-cache-after'), 'clearBrowserCacheAfter', 15, 1440);
-    onChangeValueHandler(uDom('#spoof-user-agent-every'), 'spoofUserAgentEvery', 2, 999);
 }
 
 /******************************************************************************/
@@ -100,12 +99,6 @@ var installEventHandlers = function() {
     });
     uDom('#clear-browser-cache-after').on('change', function(){
         onChangeValueHandler(uDom(this), 'clearBrowserCacheAfter', 15, 1440);
-    });
-    uDom('#spoof-user-agent-every').on('change', function(){
-        onChangeValueHandler(uDom(this), 'spoofUserAgentEvery', 2, 999);
-    });
-    uDom('#spoof-user-agent-with').on('change', function(){
-        changeUserSettings('spoofUserAgentWith', uDom(this).val());
     });
 
     // https://github.com/gorhill/httpswitchboard/issues/197
@@ -138,8 +131,6 @@ uDom.onLoad(function() {
 
         uDom('#delete-unused-session-cookies-after').val(userSettings.deleteUnusedSessionCookiesAfter);
         uDom('#clear-browser-cache-after').val(userSettings.clearBrowserCacheAfter);
-        uDom('#spoof-user-agent-every').val(userSettings.spoofUserAgentEvery);
-        uDom('#spoof-user-agent-with').val(userSettings.spoofUserAgentWith);
 
         installEventHandlers();
     };

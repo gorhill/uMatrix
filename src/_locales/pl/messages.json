@@ -111,10 +111,6 @@
         "message": "Rygorystyczny HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Fałszowanie nagłówka User-Agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Fałszowanie referrera",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Audytowanie linków to mechanizm wysyłający informację o linkach klikniętych przez użytkownika na stronie internetowej. Jest to funkcja przeznaczona głównie do śledzenia: pozwala witrynie internetowej lub dowolnej stronie trzeciej, być informowanym o linkach jakie kliknąłeś na stronie internetowej. Jedynym celem jest śledzenie twojej aktywności w sieci.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Fałszuj nagłówek <a href='https:\/\/pl.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> wybierając losowo jeden z poniższej listy",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minut.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Według <i>Electronic Frontier Foundation<\/i>[ang.]<\/a>: &ldquo;[...] twoja przeglądarka wysyła do witryny internetowej nagłówek &lsquo;User Agent&rsquo; mówiący dokładnie jakiej wersji przeglądarki i systemu operacyjnego używasz. Ta informacja może pomóc odróżnić poszczególnych użytkowników Internetu, ponieważ wersje [systemu i przeglądarki] różnią się, często znacząco, od użytkownika do użytkownika. [...] <b>nagłówek User Agent staje się realnym problemem prywatności<\/b>.&rdquo;<p>Ta opcja pozwala ci odnieść się do problemu podniesionego przez EFF.<\/p><p>Możesz podać swoją własną listę nagłówków User Agent. Jeden ja linię. Puste linie i linie zaczynające się od &lsquo;#&rsquo; będą zignorowane.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Stałe zasady",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Maksymalna ilość wpisów",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "fałszowanie user agenta ciągiem: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "ciastko usunięte: {{value}}",

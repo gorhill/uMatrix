@@ -111,10 +111,6 @@
         "message": "嚴格遵守 HTTPS 協議",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "偽裝使用者代理",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "偽造參照位址",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>超連結審查容許<b>任何人<\/b>獲知用戶於特定網頁上點擊了某個連結。其本質為一種追蹤手段：經由容許網站或任何第三方獲告知您於哪個頁面點擊了哪個連結，以達到追蹤您的瀏覽動向此一特定目的。<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "每隔 ",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": " 分鐘從下方隨機選取一行用以偽造<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86'>使用者代理<\/a>：",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子前哨基金會<\/i><\/a>告知：「……您的瀏覽器會向網站發送一個『使用者代理』標識，以精確地向網站報告您所使用的作業系統及瀏覽器。對不同的人而言，作業系統與瀏覽器的版本通常存在不少差異，故此，以上信息可被用於識別互聯網用戶。……<b>使用者代理標識成為了一個實實在在的私隱問題<\/b>。」<p>該選項有助您處理由電子前哨基金會提出的隱私問題。<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>請注意，目前尚無法徹底阻止 WebSocket 洩漏您的使用者代理標識。<\/a><\/p><p>您可以自行提供使用者代理列表。每行一個字串。空行以及以「#」啟始的行將被忽略。<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "永久規則",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "日誌條數限制",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "當前使用者代理被偽造為：{{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "已刪除 Cookie：{{value}}",

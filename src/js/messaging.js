@@ -536,12 +536,6 @@ var onMessage = function(request, sender, callback) {
         response = evaluateURLs(tabId, request.requests);
         break;
 
-    case 'getUserAgentReplaceStr':
-        response = µm.tMatrix.evaluateSwitchZ('ua-spoof', request.hostname) ?
-            µm.userAgentReplaceStr : 
-            undefined;
-        break;
-
     case 'shutdown?':
         var tabContext = µm.tabContextManager.lookup(tabId);
         if ( tabContext !== null ) {

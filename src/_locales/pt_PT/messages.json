@@ -111,10 +111,6 @@
         "message": "HTTPS rigoroso",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Falsificação do User-Agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Falsificação do referrer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Auditoria de hiperlinks é um mecanismo que permite que uma entidade, <b>qualquer entidade<\/b>, seja informada do link em que um utilizador clicou, numa determinada página web. É essencialmente monitorização: permite que um site, ou terceiros, relativos a esse site, sejam informados do link em que clicou, numa das suas páginas web. O único propósito disto é a monitorização da sua actividade.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Falsifica a string do <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> escolhendo aleatoriamente uma nova, a cada",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minutos.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>De acordo com a <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] o seu browser manda um &lsquo;User Agent&rsquo; header para o site, que diz precisamente qual o sistema operativo e browser que está a usar. Esta informação pode ajudar a dinstinguir utilizadores da internet um do outro, pois essas versões diferem, por vezes considerávelmente, de uma pessoa para outra. [...] <b>a string do User-Agent torna-se um verdadeiro problema de privacidade.<\/b>.&rdquo;<p>Esta opção permite que corrija o problema de privacidade abordado pela EFF.<\/p><p>Pode fornecer a sua própria lista de strings de user-agent. Uma por linha. Linhas em branco e linhas prefixadas por &lsquo;#&rsquo; serão ignoradas.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Regras permanentes",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Número máximo de entradas",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "falsificando o user-agent com: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "cookie apagado: {{value}}",

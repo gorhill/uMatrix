@@ -111,10 +111,6 @@
         "message": "Benyt kun HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Forfalsking af brugeragent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Forfalsking af referer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Hyperlink overvågning er en mekanisme der gør det muligt for første eller <b>tredjepart<\/b>, at indsamle data om hvilke brugeren klikker på en hjemmeside. Det er altså tale om en tracking funktion, der gør informerer første eller tredjepart om, hvilke links en bruger vælger at klikke på under sit besøg på en hvilken som helst hjemmeside. Det eneste formål med hyperlink overvågning er altså, at tracke din browser aktivitet.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Forfalsk <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a>-streng ved at vælge tilfældigt blandt nedenstående hver",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minutter.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Ifølge the <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] your browser sends a &lsquo;User Agent&rsquo; header to the website saying precisely which operating system and web browser you are using. This information could help distinguish Internet users from one another because these versions differ, often considerably, from person to person. [...] <b>the User Agent string becomes a real privacy problem<\/b>.&rdquo;<p>Denne indstilling tillader dig at imødegå dette privacy problem som bliver fremført af EFF.<\/p><p>Du kan tilføje din egen liste af bruger agent strings. En string per linje. Blanke linje og linjer præfikset med &lsquo;#&rsquo; vil blive ignoreret.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Permanente regler",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Det maksimale antal af linjer",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "Forfalsk bruger agent med: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "cookie slettet: {{value}}",

@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 
     Home: https://github.com/gorhill/uMatrix
 */
+
+'use strict';
 
 /******************************************************************************/
 
@@ -48,11 +50,6 @@
     // Post-change
     switch ( name ) {
     
-    // https://github.com/gorhill/httpswitchboard/issues/344
-    case 'spoofUserAgentWith':
-        this.userAgentSpoofer.shuffle();
-        break;
-
     default:        
         break;
     }

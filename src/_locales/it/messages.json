@@ -111,10 +111,6 @@
         "message": "Strict HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Spoof user agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Spoof referer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>La revisione degli hyperlink è un meccanismo che consente a una parte, <b>qualsiasi parte<\/b>, di essere informata su quale link ha cliccato l'utente in una pagina web. Si tratta essenzialmente di una funzione di tracciamento: permette a un sito, o a qualsiasi terza parte di quel sito, di essere informato su quale link hai cliccato su quale delle sue pagine web. L'unico scopo è quello di tracciare la tua attività di navigazione.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Falsifica (spoof) la stringa <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> scegliendone casualmente una nuova qua sotto ogni",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minuti.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Secondo la <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] il tuo browser invia un'intestazione &lsquo;User Agent&rsquo; al sito web dicendo con precisione quale sistema operativo e browser stai usando. Queste informazioni potrebbero aiutare a distinguere gli utenti Internet tra loro perché queste versioni differiscono, spesso notevolmente, da una persona all'altra. [...] <b>la stringa User Agent diventa un vero problema di privacy<\/b>.&rdquo;<p>Questa opzione ti consente di affrontare il problema della privacy sollevato dalla EFF. Tieni presente che <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>la tua vera stringa User Agent può trapelare<\/a> attraverso i WebSocket.<\/p><p>Puoi fornire la tua lista di stringhe user agent. Una stringa per riga. Le righe vuote e quelle con prefisso &lsquo;#&rsquo; saranno ignorate.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Regole permanenti",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Numero massimo di voci",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "spoof dello user agent con: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "cookie eliminato: {{value}}",

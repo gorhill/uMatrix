@@ -111,10 +111,6 @@
         "message": "Trafic HTTPS uniquement",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Modifier l'Identification du navigateur",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Modifier le Référant HTTP",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>L'audit hyperlien est un méchanisme qui permet à <b>n'importe quel parti<\/b> de connaître le lien sur lequel une personne clique dans une page Web précise. C'est surtout une fonctionnalité de pistage, qui peut donc être désactivée sans crainte.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Modifier l'<a href='https:\/\/fr.wikipedia.org\/wiki\/User-Agent'>Identification du navigateur<\/a> toutes les",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "minutes en choisissant au hasard une des chaînes de caractères suivantes :",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>D'après l'<i>Electronic Frontier Foundation<\/i><\/a>, &ldquo;votre navigateur envoit un entête d’ &lsquo;Identification du navigateur&rsquo; vers le site Web visité, indiquant à ce dernier le Système d'Exploitation et le Navigateur Web que vous utilisez. Cette information peut permettre la distinction entre deux internautes puisque leurs versions employées diffèrent, parfois même de manière considérable. [...] <b>la chaine de caractères d’Identification du navigateur devient un réel problème de confidentialité<\/b>.&rdquo;<p><i>µMatrix<\/i> vous offre ainsi la possibilité de falsifier votre Identification du navigateur pour améliorer votre vie privée.<\/p><p>Sachez cependant qu'en fonction de la fausse identification aléatoirement choisie et utilisée, certains sites Web peuvent avoir un comportement qui vous paraitra un peu étrange, si cela devenait un obstacle pour un site précis, pensez à désactiver provisoirement cette option.<\/p><p>Vous pouvez fournir votre propre liste d'Identifications du navigateur. N'en saisissez qu'une par ligne. Les lignes vides et les lignes commençant par &lsquo;#&rsquo; seront ignorées.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Règles permanentes",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Nombre maximum d'entrées",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "Remplacement de l'Identification du navigateur par : {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "Cookie supprimé : {{value}}",

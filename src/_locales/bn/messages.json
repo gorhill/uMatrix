@@ -111,10 +111,6 @@
         "message": "স্ক্রিপ্ট HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "ব্যবহারকারী এজেন্ট স্পুফিং",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "রেফারার স্পুফিং",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>হাইপারলিঙ্ক নিরীক্ষণ একটি প্রক্রিয়া যা একটি দল, <b>যে কোন দলকে<\/b> একজন ব্যবহারকারীর একটি নির্দিষ্ট ওয়েব পাতার লিঙ্ক ক্লিক করা সম্পর্কে অবগত করার অনুমতি দেয়। এটি মূলত একটি ট্র্যাকিং বৈশিষ্ট্য: যা একটি ওয়েব সাইট বা কোনো তৃতীয় পক্ষকে আপনি কোন ওয়েব সাইটের কোন ওয়েব পাতা ক্লিক করেছেন তা অবগত করার অনুমতি দেয়। একমাত্র উদ্দেশ্য হল আপনার ব্রাউজিং কার্যকলাপ অনুসরণ করা।<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "<a href='https:\/\/bn.wikipedia.org\/wiki\/ইউজার_এজেন্ট'>ইউজার-এজেন্ট<\/a> স্ট্রিং দ্বারা দৈবচয়নে তোলা নিচের একটি নতুন স্পুফ করুন প্রতি",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "মিনিট।",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<i>ইলেক্ট্রনিক ফ্রন্টিয়ার ফাউন্ডেশনের<\/i> <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>মতে<\/a>: &ldquo;[...] আপনার ব্রাউজার ওয়েবসাইটে আপনি কোন অপারেটিং সিস্টেম এবং ওয়েব ব্রাউজার ব্যবহার করছেন তার একটি &lsquo;ইউজার এজেন্ট&rsquo; হেডার পাঠায়। এই তথ্য ইন্টারনেট ব্যবহারকারীকে একে অপরের থেকে পার্থক্য করতে সাহায্য করে, কারণ এইসব সংস্করণ ব্যক্তি থেকে ব্যক্তি, প্রায়ই যথেষ্ট, পৃথক হয়। [...] <b>ইউজার এজেন্ট স্ট্রিং একটি বাস্তব গোপনীয়তা সমস্যায় পরিণত হয়েছে<\/b>।&rdquo;<p>EFF দ্বারা উত্থাপিত গোপনীয়তা সমস্যা এই অপশনের সাহায্যে আপনি মোকাবেলা করতে পারবেন।<\/p><p>আপনি আপনার নিজস্ব তালিকার ইউজার এজেন্ট স্ট্রিং সরবরাহ করতে পারবেন। লাইন প্রতি একটি স্ট্রিং। খালি লাইন এবং &lsquo;#&rsquo; উপসর্গসহ লাইন উপেক্ষা করা হবে।<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "স্থায়ী নিয়ম",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "ভুক্তির সর্বাধিক সংখ্যা",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "{{value}}: এর সাথে স্পুফিং ব্যবহারকারী এজেন্ট",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "কুকি অপসারিত: {{value}}",

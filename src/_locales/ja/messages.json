@@ -111,10 +111,6 @@
         "message": "完全な HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "ユーザーエージェントの偽装",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "リファラの偽装",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か<\/b> に通知することを可能にする仕組みです。これは本質的にトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "以下のリストからランダムに選択した <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>ユーザーエージェント<\/a> で偽装する（",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "分おきに変更する）",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>電子フロンティア財団（EFF）<\/i>によると<\/a>: &ldquo;[...] ブラウザは利用している OS と Web ブラウザについての詳細を、&lsquo;User Agent&rsquo; ヘッダによりウェブサイトに通知します。この情報は、インターネット上のユーザを識別するのに役立っています。なぜなら、この情報はしばしば人それぞれ大幅に違うことがあるためです。[...] <b>ユーザーエージェント文字列は、現実のプライバシーの問題となっています。<\/b>&rdquo;<p>このオプションによって、EFF が提起したプライバシーの問題に対処することができます。実際のユーザーエージェント文字列は WebSocket から<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>漏洩することがある<\/a>のでご注意ください。<\/p><p>ユーザーエージェント文字列のリストを独自に定義することができます。1 行にひとつずつ記述してください。空の行と &lsquo;#&rsquo; で始まる行は無視されます。<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "永続的なルール",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "エントリの最大数",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "偽装しているユーザーエージェント: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "削除した Cookie：{{value}}",

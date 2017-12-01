@@ -111,10 +111,6 @@
         "message": "HTTPS követelése",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "User-Agent hamisítás",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Referrer hamisítás",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>A hiperlink-auditálás egy olyan mechanizmus, ami egy hardmadik- <b>vagy bármely<\/b> fél számára lehetővé teszi, hogy visszajelzést kapjanak egy a felhasználó által az oldalon lévő linkre történő kattintásról. Lényegében ez egy követési módszer: lehetővé teszi egy oldalnak, vagy bármely harmadik fél számára, hogy tudomást szerezzenek arról, hogy a felhasználó melyik linkre kattintott az oldalon. Egyetlen célja, hogy a felhasználó böngészési aktivitását nyomonkövesse.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "A <a href='https:\/\/hu.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> header felülírása egy véletlenszerűen kiválasztott stringgel az alábbiak közül",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "percenként.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Az <i>Electronic Frontier Foundation<\/i> szerint<\/a>: &ldquo;[...] a böngészője &lsquo;User Agent&rsquo; headert küld a weboldalnak, ami pontosan meghatározza milyen operációs rendszert és webböngészőt használ. Ez az információ megkönnyíti az internetfelhasználók egymástól való megkülönböztetését, mivel a verziószámok gyakran lényegesen eltérhetnek személyenként. [...] <b>egy User Agent string igazi adatvédelmi problémává válik<\/b>.&rdquo;<p>Ez a beállítás lehetőséget ad az EFF által ismertetett probléma megoldására. Érdemes megjegyezni, hogy <a href='https:\/\/bugs.chromium.org\/p\/chromium\/issues\/detail?id=129353'>a tényleges User Agent string kinyerhető<\/a> WebSocket-en keresztül.<\/p><p>Saját User-Agent string lista megadására is lehetőség van a következő formátumban: Soronként egy string; az üres, valamint &lsquo;#&rsquo; karakterrel kezdődő sorok figyelmen kívül lesznek hagyva.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Állandó szabályok",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Maximális bejegyzések száma",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "User-Agent a következőre cserélve: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "süti törölve: {{value}}",

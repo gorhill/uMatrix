@@ -111,10 +111,6 @@
         "message": "Только HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Подмена user agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Подмена referrer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Проверка гиперссылок — это механизм, позволяющий <b>любой стороне<\/b> получать информацию о том, по каким ссылкам переходил пользователь на каждой конкретной веб-странице. Единственная цель — отслеживание вашей интернет-активности.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Подменять строку <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a>, случайно выбирая из расположенных снизу, каждые",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "минут.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "Согласно <a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] браузер посылает веб-сайту заголовок &lsquo;User Agent&rsquo;, в котором содержится точная информация об используемой операционной системе и браузере. Эта информация позволяет отличать пользователей друг от друга, потому что версии ОС и браузера часто существенно различаются. [...] <b>Строка User Agent становится настоящей проблемой для тех, кто заботится о своей конфиденциальности<\/b>.&rdquo;<p>Данная опция позволяет решить эту проблему.<\/p><p>Вы можете составить собственный список заголовков user agent. Одна запись на строку. Пустые строки и строки, начинающиеся с символа &lsquo;#&rsquo;, будут проигнорированы.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Постоянные правила",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Максимальное число записей",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "строка user-agent подменена на: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "куки удален: {{value}}",

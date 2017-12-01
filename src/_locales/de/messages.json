@@ -111,10 +111,6 @@
         "message": "Nur HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "User-Agent verschleiern",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Referrer verschleiern",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Hyperlink-Auditing ist ein Mechanismus, der es <b>allen beteiligten Parteien<\/b> erlaubt herauszufinden, auf welchen Link ein Benutzer auf einer bestimmten Webseite klickt. Im Grunde ist es eine Tracking-Funktion: Es erlaubt einer Webseite oder auch Drittparteien auf dieser Webseite, sich darüber zu informieren, auf welche Links du auf eine dieser Seiten geklickt hast. Der einzige Zweck besteht darin, deine Browsing-Aktivitäten zu verfolgen.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Verschleiere den <a href='https:\/\/de.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a> durch die zufällige Wahl eines neuen aus der Liste alle",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "Minuten.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Laut der <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] sendet dein Browser einen &lsquo;User Agent&rsquo; Header an die Webseite und sagt damit präzise, welches Betriebssystem und welchen Webbrowser du benutzt. Diese Informationen tragen dazu bei, Internet-Nutzer von anderen zu unterscheiden, da diese Versionen häufig beträchtlich von Person zu Person unterschiedlich sind. [...] <b>der User Agent wird damit zu einer reellen Gefahr für die Privatsphäre<\/b>.&rdquo;<p>Diese Option ermöglicht dir, auf diese Bedrohung zu reagieren.<\/p><p>Du kannst deine eigene Liste von User Agents einstellen, und zwar eine Variante pro Zeile. Leere Zeilen und Zeilen mit einem vorangestellten &lsquo;#&rsquo; werden ignoriert.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Permanente Regeln",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Maximale Zahl an Einträgen",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "Verschleiere den User-Agent mit: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "Cookie gelöscht: {{value}}",

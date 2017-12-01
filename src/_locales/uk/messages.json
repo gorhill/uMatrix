@@ -111,10 +111,6 @@
         "message": "Строге HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Підміна User agent",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Підміна referrer",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Підміняти <a href='https:\/\/ru.wikipedia.org\/wiki\/User_Agent'>User-Agent<\/a>, випадково вибираючи одну з наведених нижче, кожні",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "хвилин.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Згідно з <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...] Ваш переглядач відправляє заголовок &lsquo;User Agent&rsquo; що містить точну версію Вашої операційної системи та веб-переглядача. Ця інформація допомогає розрізняти відвідувачів сайтів, тому що ці версії різні у різних користувачів. [...] <b>заголовок User Agent є справжньою проблемою для приватності<\/b>. &rdquo;<p>Ця опція дозволяє уникнути цієї проблеми.<\/p><p>Ви можете вказати власний перелік цих значень. Одне значення User Agent на рядок. Порожні рядки, а також рядки що починаються з &lsquo;#&rsquo; не мають значення.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Постійні правила",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Максимальна кількість записів",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "підміна user agent на: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "кукі видалено: {{value}}",

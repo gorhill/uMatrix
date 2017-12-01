@@ -61,9 +61,6 @@
 
         µm.userSettings = store;
 
-        // https://github.com/gorhill/httpswitchboard/issues/344
-        µm.userAgentSpoofer.shuffle();
-
         callback(µm.userSettings);
     };
 

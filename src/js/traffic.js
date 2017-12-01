@@ -221,10 +221,6 @@ var onBeforeSendHeadersHandler = function(details) {
     if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', pageStore.pageHostname) ) {
         foilRefererHeaders(µm, requestHostname, details);
     }
-
-    if ( µm.tMatrix.evaluateSwitchZ('ua-spoof', pageStore.pageHostname) ) {
-        details.requestHeaders.setHeader('user-agent', µm.userAgentReplaceStr);
-    }
 };
 
 /******************************************************************************/

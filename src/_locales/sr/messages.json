@@ -111,10 +111,6 @@
         "message": "Само HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "User agent лажирање",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Referrer лажирање",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Надгледање хипервеза је механизам који дозвољава страни, <b>било којој страни<\/b>, да се информише о томе коју везу је корисник отворио на одређеној страници. То је у суштини функција праћења: дозвољава веб сајту или некој трећој страни да се информише о томе коју везу сте отворили на којој веб страници. Једина сврха је праћење активности корисника.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "Лажирај <a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>User-Agent<\/a> низ насумичним избором новог са листе испод, сваких",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "минута.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'>Према <i>Electronic Frontier Foundation<\/i><\/a>: &ldquo;[...]ваш прегледач шаље &lsquo;User Agent&rsquo; заглавље веб сајту одајући тачно који оперативни систем и веб прегледач користите. Ова информација може помоћи у разликовању интернет корисника једних од других, зато што се ове верзије разликују, често знатно, од особе до особе.[...] <b>User Agent низ постаје стварни проблем приватности<\/b>.&rdquo;<p>Ова опција вам омогућује да решите питање приватности покренуто од стране EFF. Имајте на уму да <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=129353'>ваш тренутни User Agent низ може бити одат<\/a> преко WebSockets.<\/p><p>Можете креирати сопствени списак user agent низова. Један низ по линији.Празне линије и линије које почињу са &lsquo;#&rsquo; ће бити игнорисане.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Трајна правила",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Највећи број уноса",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "лажирање user agentа са: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "колачића избрисано: {{value}}",

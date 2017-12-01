@@ -111,10 +111,6 @@
         "message": "Katı HTTPS",
         "description": "A menu entry in the matrix popup"
     },
-    "matrixSwitchUASpoof": {
-        "message": "Kullanıcı aracını aldat",
-        "description": "A menu entry in the matrix popup"
-    },
     "matrixSwitchReferrerSpoof": {
         "message": "Başvuran aldat",
         "description": "A menu entry in the matrix popup"
@@ -407,18 +403,6 @@
         "message": "<p>Köprü denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü tarafın o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
         "description": ""
     },
-    "privacySpoofUserAgentPrompt1": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/User_agent'>Kullanıcı Aracı<\/a> bilgisini aldatmak için aşağıdaki dizelerden birini rastgele seçerek her",
-        "description": "First part of UA-spoofing prompt"
-    },
-    "privacySpoofUserAgentPrompt2": {
-        "message": "dakikada bir kullan.",
-        "description": "Second part"
-    },
-    "privacySpoofUserAgentHelp": {
-        "message": "<a href='https:\/\/www.eff.org\/deeplinks\/2010\/01\/tracking-by-user-agent'><i>Electronic Frontier Foundation'a<\/i> göre<\/a>: &ldquo;[...] tarayıcınız web sitesine kullandığınız işletim sistemini ve tarayıcıyı bilgisini içeren &lsquo;Kullanıcı Aracı&rsquo; başlığı gönderir. Bu bilgi Internet kullanıcılarının birbirlerinden ayırt edilmesine yardımcı olabilir. [...] <b>Kullanıcı Aracı dizesi gerçek bir gizlilik problemine yol açar<\/b>.&rdquo;<p>Bu seçenek EFF tarafından dile getirilen gizlilik sorununu çözmenizi sağlar. <\/p><p>Kendi kullanıcı aracı dizesi listelerinizi sağlayabilirsiniz. Satır başına bir dize. Boş satırlar ve &lsquo;#&rsquo; işareti ile başlayan satırlar yok sayılacaktır.<\/p>",
-        "description": ""
-    },
     "userRulesPermanentHeader": {
         "message": "Kalıcı kurallar",
         "description": ""
@@ -598,10 +582,6 @@
     "loggerMaxEntriesTip": {
         "message": "Maksimum giriş sayısı",
         "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryUserAgentSpoofing": {
-        "message": "kullanıcı aracı bununla aldatılıyor: {{value}}",
-        "description": "An entry for when a new user agent string is selected"
     },
     "loggerEntryCookieDeleted": {
         "message": "çerez silindi: {{value}}",
