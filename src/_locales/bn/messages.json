@@ -115,6 +115,10 @@
         "message": "রেফারার স্পুফিং",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoscriptSpoof": {
+        "message": "<code><noscript><\/code> tags spoofing",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixRevertAllEntry": {
         "message": "সব অস্থায়ী পরিবর্তন প্রত্যাবর্তন করুন",
         "description": "A menu entry in the matrix popup"
@@ -330,6 +334,10 @@
     "settingsCollapseBlocked": {
         "message": "অবরুদ্ধ উপাদান সংকোচনের স্থানধারক",
         "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsNoscriptTagsSpoofed": {
+        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
         "message": "ক্লাউড সঞ্চয়স্থান সমর্থন সক্রিয় করুন",

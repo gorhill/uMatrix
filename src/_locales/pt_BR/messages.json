@@ -115,6 +115,10 @@
         "message": "Ocultar Referrer",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoscriptSpoof": {
+        "message": "<code><noscript><\/code> tags spoofing",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixRevertAllEntry": {
         "message": "Reverter todas mudanças temporárias",
         "description": "A menu entry in the matrix popup"
@@ -330,6 +334,10 @@
     "settingsCollapseBlocked": {
         "message": "Colapsar espaço reservado de elementos bloqueados",
         "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsNoscriptTagsSpoofed": {
+        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
         "message": "Habilitar suporte à armazenagem em nuvem",

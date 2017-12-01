@@ -115,6 +115,10 @@
         "message": "Başvuran aldat",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoscriptSpoof": {
+        "message": "<code><noscript><\/code> tags spoofing",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixRevertAllEntry": {
         "message": "Geçici değişikliklerin tümünü geri al",
         "description": "A menu entry in the matrix popup"
@@ -330,6 +334,10 @@
     "settingsCollapseBlocked": {
         "message": "Engellenmiş elementlerin yertutucularını daralt",
         "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsNoscriptTagsSpoofed": {
+        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
         "message": "Bulut depo desteğini etkinleştir",
