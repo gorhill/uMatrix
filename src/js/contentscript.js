@@ -504,13 +504,16 @@ var nodeListsAddedHandler = function(nodeLists) {
 
     var renderNoscriptTags = function(response) {
         if ( response !== true ) { return; }
-
-        var parent, span;
+        var parser = new DOMParser();
+        var doc, parent, span, meta;
         for ( var noscript of noscripts ) {
             parent = noscript.parentNode;
             if ( parent === null ) { continue; }
-            span = document.createElement('span');
-            span.innerHTML = noscript.textContent;
+            doc = parser.parseFromString(
+                '<span>' + noscript.textContent + '</span>',
+                'text/html'
+            );
+            span = document.adoptNode(doc.querySelector('span'));
             span.style.setProperty('display', 'inline', 'important');
             parent.replaceChild(span, noscript);
         }
