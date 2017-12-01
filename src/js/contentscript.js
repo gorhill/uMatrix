@@ -495,6 +495,9 @@ var nodeListsAddedHandler = function(nodeLists) {
 
 // Executed only once.
 
+// https://github.com/gorhill/uMatrix/issues/232
+//   Force `display` property, Firefox is still affected by the issue.
+
 (function() {
     var noscripts = document.querySelectorAll('noscript');
     if ( noscripts.length === 0 ) { return; }
@@ -508,6 +511,7 @@ var nodeListsAddedHandler = function(nodeLists) {
             if ( parent === null ) { continue; }
             span = document.createElement('span');
             span.innerHTML = noscript.textContent;
+            span.style.setProperty('display', 'inline', 'important');
             parent.replaceChild(span, noscript);
         }
     };
