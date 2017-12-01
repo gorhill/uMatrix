@@ -35,7 +35,7 @@
 
 // https://github.com/chrisaljoudi/uBlock/issues/464
 if ( document instanceof HTMLDocument === false ) {
-    //console.debug('contentscript-end.js > not a HTLMDocument');
+    //console.debug('contentscript.js > not a HTLMDocument');
     return;
 }
 
@@ -46,21 +46,21 @@ if ( !window.location ) {
 
 // This can happen
 if ( typeof vAPI !== 'object' ) {
-    //console.debug('contentscript-end.js > vAPI not found');
+    //console.debug('contentscript.js > vAPI not found');
     return;
 }
 
 // https://github.com/chrisaljoudi/uBlock/issues/456
 // Already injected?
 if ( vAPI.contentscriptEndInjected ) {
-    //console.debug('contentscript-end.js > content script already injected');
+    //console.debug('contentscript.js > content script already injected');
     return;
 }
 vAPI.contentscriptEndInjected = true;
 
 /******************************************************************************/
 
-var localMessager = vAPI.messaging.channel('contentscript-end.js');
+var localMessager = vAPI.messaging.channel('contentscript.js');
 
 vAPI.shutdown.add(function() {
     localMessager.close();
@@ -420,7 +420,7 @@ var nodeListsAddedHandler = function(nodeLists) {
     // https://github.com/gorhill/httpswitchboard/issues/131
     hasInlineScript(document.querySelectorAll('a[href^="javascript:"],script'), summary);
 
-    //console.debug('contentscript-end.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
+    //console.debug('contentscript.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
 
     localMessager.send(summary);
 

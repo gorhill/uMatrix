@@ -36,7 +36,6 @@
     µm.pMatrix.setSwitch('matrix-off', 'opera-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', 'behind-the-scene', 1);
     µm.pMatrix.setSwitch('referrer-spoof', 'behind-the-scene', 2);
-    µm.pMatrix.setSwitch('ua-spoof', 'behind-the-scene', 2);
     µm.pMatrix.setSwitch('https-strict', 'behind-the-scene', 2);
     µm.pMatrix.setCell('*', '*', '*', µm.Matrix.Red);
     µm.pMatrix.setCell('*', '*', 'css', µm.Matrix.Green);

@@ -458,7 +458,7 @@ var evaluateURLs = function(tabId, requests) {
     }
     var rootHostname = tabContext.rootHostname;
 
-    //console.debug('messaging.js/contentscript-end.js: processing %d requests', requests.length);
+    //console.debug('messaging.js/contentscript.js: processing %d requests', requests.length);
 
     var pageStore = µm.pageStoreFromTabId(tabId);
     var µmuri = µm.URI;
@@ -550,8 +550,7 @@ var onMessage = function(request, sender, callback) {
     callback(response);
 };
 
-vAPI.messaging.listen('contentscript-start.js', onMessage);
-vAPI.messaging.listen('contentscript-end.js', onMessage);
+vAPI.messaging.listen('contentscript.js', onMessage);
 
 /******************************************************************************/
 
@@ -673,7 +672,6 @@ var onMessage = function(request, sender, callback) {
             userSettings: µm.userSettings,
             matrixSwitches: {
                 'https-strict': µm.pMatrix.evaluateSwitch('https-strict', '*') === 1,
-                'ua-spoof': µm.pMatrix.evaluateSwitch('ua-spoof', '*') === 1,
                 'referrer-spoof': µm.pMatrix.evaluateSwitch('referrer-spoof', '*') === 1
             }
         };
