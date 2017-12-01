@@ -63,7 +63,14 @@ function onMessage(request, sender, callback) {
         break;
 
     case 'getUserSettings':
-        response = µm.userSettings;
+        response = {
+            userSettings: µm.userSettings,
+            matrixSwitches: {
+                'https-strict': µm.pMatrix.evaluateSwitch('https-strict', '*') === 1,
+                'referrer-spoof': µm.pMatrix.evaluateSwitch('referrer-spoof', '*') === 1,
+                'noscript-spoof': µm.pMatrix.evaluateSwitch('noscript-spoof', '*') === 1
+            }
+        };
         break;
 
     case 'gotoExtensionURL':
@@ -84,6 +91,13 @@ function onMessage(request, sender, callback) {
 
     case 'reloadHostsFiles':
         µm.reloadHostsFiles();
+        break;
+
+    case 'setMatrixSwitch':
+        µm.tMatrix.setSwitch(request.switchName, '*', request.state);
+        if ( µm.pMatrix.setSwitch(request.switchName, '*', request.state) ) {
+            µm.saveMatrix();
+        }
         break;
 
     case 'userSettings':
@@ -519,6 +533,7 @@ var onMessage = function(request, sender, callback) {
     }
 
     var tabId = sender && sender.tab ? sender.tab.id || 0 : 0;
+    var tabContext = µm.tabContextManager.lookup(tabId);
 
     // Sync
     var response;
@@ -536,8 +551,15 @@ var onMessage = function(request, sender, callback) {
         response = evaluateURLs(tabId, request.requests);
         break;
 
+    case 'mustRenderNoscriptTags?':
+        if ( tabContext !== null ) {
+            response =
+                µm.tMatrix.mustBlock(tabContext.rootHostname, tabContext.rootHostname, 'script') &&
+                µm.tMatrix.evaluateSwitchZ('noscript-spoof', tabContext.rootHostname);
+        }
+        break;
+
     case 'shutdown?':
-        var tabContext = µm.tabContextManager.lookup(tabId);
         if ( tabContext !== null ) {
             response = µm.tMatrix.evaluateSwitchZ('matrix-off', tabContext.rootHostname);
         }
@@ -613,85 +635,6 @@ var onMessage = function(request, sender, callback) {
 /******************************************************************************/
 
 vAPI.messaging.listen('cloud-ui.js', onMessage);
-
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// settings.js
-
-(function() {
-
-var onMessage = function(request, sender, callback) {
-    var µm = µMatrix;
-
-    // Async
-    switch ( request.what ) {
-    default:
-        break;
-    }
-
-    // Sync
-    var response;
-
-    switch ( request.what ) {
-    default:
-        return vAPI.messaging.UNHANDLED;
-    }
-
-    callback(response);
-};
-
-vAPI.messaging.listen('settings.js', onMessage);
-
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// privacy.js
-
-(function() {
-
-var onMessage = function(request, sender, callback) {
-    var µm = µMatrix;
-
-    // Async
-    switch ( request.what ) {
-    default:
-        break;
-    }
-
-    // Sync
-    var response;
-
-    switch ( request.what ) {
-    case 'getPrivacySettings':
-        response = {
-            userSettings: µm.userSettings,
-            matrixSwitches: {
-                'https-strict': µm.pMatrix.evaluateSwitch('https-strict', '*') === 1,
-                'referrer-spoof': µm.pMatrix.evaluateSwitch('referrer-spoof', '*') === 1
-            }
-        };
-        break;
-
-    case 'setMatrixSwitch':
-        µm.tMatrix.setSwitch(request.switchName, '*', request.state);
-        if ( µm.pMatrix.setSwitch(request.switchName, '*', request.state) ) {
-            µm.saveMatrix();
-        }
-        break;
-
-    default:
-        return vAPI.messaging.UNHANDLED;
-    }
-
-    callback(response);
-};
-
-vAPI.messaging.listen('privacy.js', onMessage);
 
 })();
 

@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,17 +22,17 @@
 /* global vAPI, uDom */
 /* jshint multistr: true */
 
+'use strict';
+
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 
 var messager = vAPI.messaging.channel('settings.js');
 
-var cachedUserSettings = {};
+var cachedSettings = {};
 
 /******************************************************************************/
 
@@ -46,24 +46,68 @@ function changeUserSettings(name, value) {
 
 /******************************************************************************/
 
+function changeMatrixSwitch(name, state) {
+    messager.send({
+        what: 'setMatrixSwitch',
+        switchName: name,
+        state: state
+    });
+}
+
+/******************************************************************************/
+
+function onChangeValueHandler(uelem, setting, min, max) {
+    var oldVal = cachedSettings.userSettings[setting];
+    var newVal = Math.round(parseFloat(uelem.val()));
+    if ( typeof newVal !== 'number' ) {
+        newVal = oldVal;
+    } else {
+        newVal = Math.max(newVal, min);
+        newVal = Math.min(newVal, max);
+    }
+    uelem.val(newVal);
+    if ( newVal !== oldVal ) {
+        changeUserSettings(setting, newVal);
+    }
+}
+
+/******************************************************************************/
+
 function prepareToDie() {
+    onChangeValueHandler(uDom('#delete-unused-session-cookies-after'), 'deleteUnusedSessionCookiesAfter', 15, 1440);
+    onChangeValueHandler(uDom('#clear-browser-cache-after'), 'clearBrowserCacheAfter', 15, 1440);
 }
 
 /******************************************************************************/
 
 var installEventHandlers = function() {
-    // `data-range` allows to add/remove bool properties without 
-    // changing code.
-    uDom('input[data-range="bool"]').on('change', function() {
-        changeUserSettings(this.id, this.checked);
-    });
-
     uDom('input[name="displayTextSize"]').on('change', function(){
         changeUserSettings('displayTextSize', this.value);
     });
 
     uDom('#popupScopeLevel').on('change', function(){
         changeUserSettings('popupScopeLevel', this.value);
+    });
+
+    uDom('[data-setting-bool]').on('change', function(){
+        var settingName = this.getAttribute('data-setting-bool');
+        if ( typeof settingName === 'string' && settingName !== '' ) {
+            changeUserSettings(settingName, this.checked);
+        }
+    });
+
+    uDom('[data-matrix-switch]').on('change', function(){
+        var switchName = this.getAttribute('data-matrix-switch');
+        if ( typeof switchName === 'string' && switchName !== '' ) {
+            changeMatrixSwitch(switchName, this.checked);
+        }
+    });
+
+    uDom('#delete-unused-session-cookies-after').on('change', function(){
+        onChangeValueHandler(uDom(this), 'deleteUnusedSessionCookiesAfter', 15, 1440);
+    });
+    uDom('#clear-browser-cache-after').on('change', function(){
+        onChangeValueHandler(uDom(this), 'clearBrowserCacheAfter', 15, 1440);
     });
 
     // https://github.com/gorhill/httpswitchboard/issues/197
@@ -73,14 +117,25 @@ var installEventHandlers = function() {
 /******************************************************************************/
 
 uDom.onLoad(function() {
-    var onUserSettingsReceived = function(userSettings) {
+    var onSettingsReceived = function(settings) {
         // Cache copy
-        cachedUserSettings = userSettings;
+        cachedSettings = settings;
 
-        // `data-range` allows to add/remove bool properties without 
-        // changing code.
-        uDom('input[data-range="bool"]').forEach(function(elem) {
-            elem.prop('checked', userSettings[elem.attr('id')] === true);
+        var userSettings = settings.userSettings;
+        var matrixSwitches = settings.matrixSwitches;
+
+        uDom('[data-setting-bool]').forEach(function(elem){
+            var settingName = elem.attr('data-setting-bool');
+            if ( typeof settingName === 'string' && settingName !== '' ) {
+                elem.prop('checked', userSettings[settingName] === true);
+            }
+        });
+
+        uDom('[data-matrix-switch]').forEach(function(elem){
+            var switchName = elem.attr('data-matrix-switch');
+            if ( typeof switchName === 'string' && switchName !== '' ) {
+                elem.prop('checked', matrixSwitches[switchName] === true);
+            }
         });
 
         uDom('input[name="displayTextSize"]').forEach(function(elem) {
@@ -89,9 +144,12 @@ uDom.onLoad(function() {
 
         uDom.nodeFromId('popupScopeLevel').value = userSettings.popupScopeLevel;
 
+        uDom('#delete-unused-session-cookies-after').val(userSettings.deleteUnusedSessionCookiesAfter);
+        uDom('#clear-browser-cache-after').val(userSettings.clearBrowserCacheAfter);
+
         installEventHandlers();
     };
-    messager.send({ what: 'getUserSettings' }, onUserSettingsReceived);
+    messager.send({ what: 'getUserSettings' }, onSettingsReceived);
 });
 
 /******************************************************************************/

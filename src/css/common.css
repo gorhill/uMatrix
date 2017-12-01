@@ -113,3 +113,6 @@ button.custom[disabled] {
     opacity: 0.6;
     pointer-events: none;
     }
+code {
+    font-size: 90%;
+    }

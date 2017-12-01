@@ -493,6 +493,31 @@ var nodeListsAddedHandler = function(nodeLists) {
 /******************************************************************************/
 /******************************************************************************/
 
+// Executed only once.
+
+(function() {
+    var noscripts = document.querySelectorAll('noscript');
+    if ( noscripts.length === 0 ) { return; }
+
+    var renderNoscriptTags = function(response) {
+        if ( response !== true ) { return; }
+
+        var parent, span;
+        for ( var noscript of noscripts ) {
+            parent = noscript.parentNode;
+            if ( parent === null ) { continue; }
+            span = document.createElement('span');
+            span.innerHTML = noscript.textContent;
+            parent.replaceChild(span, noscript);
+        }
+    };
+
+    localMessager.send({ what: 'mustRenderNoscriptTags?' }, renderNoscriptTags);
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
 localMessager.send({ what: 'shutdown?' }, function(response) {
     if ( response === true ) {
         vAPI.shutdown.exec();
