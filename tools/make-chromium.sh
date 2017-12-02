@@ -18,6 +18,9 @@ cp -R ./platform/chromium/img/*         $DES/img/
 cp    ./platform/chromium/manifest.json $DES/
 cp    LICENSE.txt                       $DES/
 
+echo "*** uMatrix.chromium: Generating meta..."
+python tools/make-chromium-meta.py $DES/
+
 if [ "$1" = all ]; then
     echo "*** uMatrix.chromium: Creating package..."
     pushd $(dirname $DES/)
