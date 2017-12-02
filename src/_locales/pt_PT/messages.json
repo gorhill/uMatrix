@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "Nenhuma página encontrada",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
@@ -292,7 +292,7 @@
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "Domínio",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
