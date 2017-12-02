@@ -56,6 +56,10 @@
     }
 })();
 
+var popupWasResized = function() {
+    document.body.setAttribute('data-resize-popup', '');
+};
+
 var resizePopup = (function() {
     var timer;
     var fix = function() {
@@ -73,6 +77,7 @@ var resizePopup = (function() {
             'hConstrained',
             window.innerWidth < document.body.clientWidth
         );
+        popupWasResized();
     };
     return function() {
         if ( timer !== undefined ) {
@@ -371,6 +376,7 @@ function toggleCollapseState(elem) {
     } else {
         toggleSpecificCollapseState(elem);
     }
+    popupWasResized();
 }
 
 function toggleMainCollapseState(uelem) {
@@ -449,6 +455,7 @@ function updateMatrixColors() {
         expandos = expandosFromNode(cell);
         addCellClass(cell, expandos.hostname, expandos.reqType);
     }
+    popupWasResized();
 }
 
 /******************************************************************************/

@@ -762,7 +762,7 @@ var popupManager = (function() {
 
     var onResizeRequested = function() {
         var popupBody = popup.contentWindow.document.body;
-        if ( popupBody.getAttribute('data-resize-popup') !== 'true' ) {
+        if ( popupBody.hasAttribute('data-resize-popup') === false ) {
             return;
         }
         popupBody.removeAttribute('data-resize-popup');
