@@ -250,7 +250,7 @@ var matrixSnapshot = function(pageStore, details) {
         row.totals[anyIndex] += count;
     }
 
-    r.diff = µm.tMatrix.diff(µm.pMatrix, r.hostname, r.rowCount + 1);
+    r.diff = µm.tMatrix.diff(µm.pMatrix, r.hostname, Object.keys(r.rows));
 
     return r;
 };
