@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2013-2106 Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2013-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@
 // to record cookie for a web page *only* when its value changes.
 // https://github.com/gorhill/httpswitchboard/issues/79
 
+"use strict";
+
 /******************************************************************************/
 
 // Isolate from global namespace
@@ -34,8 +36,6 @@
 // of the implementation do not need to be visible
 
 µMatrix.cookieHunter = (function() {
-
-"use strict";
 
 /******************************************************************************/
 
@@ -424,26 +424,26 @@ var processClean = function() {
 
 /******************************************************************************/
 
-var findAndRecordPageCookies = function(pageStats) {
+var findAndRecordPageCookies = function(pageStore) {
     for ( var cookieKey in cookieDict ) {
         if ( !cookieDict.hasOwnProperty(cookieKey) ) {
             continue;
         }
-        if ( cookieMatchDomains(cookieKey, pageStats.allHostnamesString) === false ) {
+        if ( cookieMatchDomains(cookieKey, pageStore.allHostnamesString) === false ) {
             continue;
         }
-        recordPageCookie(pageStats, cookieKey);
+        recordPageCookie(pageStore, cookieKey);
     }
 };
 
 /******************************************************************************/
 
-var findAndRemovePageCookies = function(pageStats) {
+var findAndRemovePageCookies = function(pageStore) {
     for ( var cookieKey in cookieDict ) {
         if ( !cookieDict.hasOwnProperty(cookieKey) ) {
             continue;
         }
-        if ( !cookieMatchDomains(cookieKey, pageStats.allHostnamesString) ) {
+        if ( !cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
             continue;
         }
         removeCookieAsync(cookieKey);

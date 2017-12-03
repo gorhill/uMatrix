@@ -91,18 +91,11 @@ var resizePopup = (function() {
 /******************************************************************************/
 
 // Must be consistent with definitions in matrix.js
-var Pale        = 0x00;
-var Dark        = 0x80;
-var Transparent = 0;
-var Red         = 1;
-var Green       = 2;
-var Gray        = 3;
-var DarkRed     = Dark | Red;
-var PaleRed     = Pale | Red;
-var DarkGreen   = Dark | Green;
-var PaleGreen   = Pale | Green;
-var DarkGray    = Dark | Gray;
-var PaleGray    = Pale | Gray;
+var Dark      = 0x80;
+var Red       = 1;
+var Green     = 2;
+var DarkRed   = Dark | Red;
+var DarkGreen = Dark | Green;
 
 var matrixSnapshot = {};
 var groupsSnapshot = [];
@@ -351,9 +344,9 @@ function getPermanentColor(hostname, type) {
 
 function addCellClass(cell, hostname, type) {
     var cl = cell.classList;
-    cell.classList.add('matCell');
-    cell.classList.add('t' + getTemporaryColor(hostname, type).toString(16));
-    cell.classList.add('p' + getPermanentColor(hostname, type).toString(16));
+    cl.add('matCell');
+    cl.add('t' + getTemporaryColor(hostname, type).toString(16));
+    cl.add('p' + getPermanentColor(hostname, type).toString(16));
 }
 
 /******************************************************************************/

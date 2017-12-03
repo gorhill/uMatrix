@@ -207,13 +207,13 @@ var matrixSnapshot = function(pageStore, details) {
     r.rowCount += 1;
 
     var µmuri = µm.URI;
-    var reqKey, reqType, reqHostname, reqDomain;
+    var reqType, reqHostname, reqDomain;
     var desHostname;
     var row, typeIndex;
     var anyIndex = headerIndices.get('*');
     var pos, count;
 
-    for ( var entry of pageStore.requests.hostnameTypeCells ) {
+    for ( var entry of pageStore.hostnameTypeCells ) {
         pos = entry[0].indexOf(' ');
         reqHostname = entry[0].slice(0, pos);
         reqType = entry[0].slice(pos + 1);

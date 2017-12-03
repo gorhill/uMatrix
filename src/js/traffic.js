@@ -340,18 +340,6 @@ var onHeadersReceived = function(details) {
 
 /******************************************************************************/
 
-var headerValue = function(headers, name) {
-    var i = headers.length;
-    while ( i-- ) {
-        if ( headers[i].name.toLowerCase() === name ) {
-            return headers[i].value.trim();
-        }
-    }
-    return '';
-};
-
-/******************************************************************************/
-
 // Caller must ensure headerName is normalized to lower case.
 
 var headerIndexFromName = function(headerName, headers) {

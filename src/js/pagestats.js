@@ -19,31 +19,19 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* jshint bitwise: false, boss: true */
-
 'use strict';
 
-/*******************************************************************************
+/******************************************************************************/
 
-    A PageRequestStats object is used to store distinct network requests.
-    This is used to:
-
-    - remember which hostname/type were seen
-    - count the number of distinct URLs for any given hostname-type pair
-
-**/
-
-µMatrix.pageRequestStatsFactory = (function() {
+µMatrix.pageStoreFactory = (function() {
 
     var µm = µMatrix;
-    var µmuri;
-    var pageRequestStoreJunkyard = [];
+    var pageStoreJunkyard = [];
 
     // Ref: Given a URL, returns a (somewhat) unique 32-bit value
     // Based on: FNV32a
     // http://www.isthe.com/chongo/tech/comp/fnv/index.html#FNV-reference-source
     // The rest is custom, suited for µMatrix.
-
     var uidFromURL = function(uri) {
         var hint = 0x811c9dc5;
         var i = uri.length;
@@ -54,50 +42,6 @@
         }
         return hint;
     };
-
-    var PageRequestStats = function() {
-        this.hostnameTypeCells = new Map();
-    };
-
-    PageRequestStats.prototype = {
-        dispose: function() {
-            this.hostnameTypeCells.clear();
-            if ( pageRequestStoreJunkyard.length < 8 ) {
-                pageRequestStoreJunkyard.push(this);
-            }
-        },
-        createEntryIfNotExists: function(url, type) {
-            var hn = µmuri.hostnameFromURI(url),
-                key = hn + ' ' + type,
-                uids = this.hostnameTypeCells.get(key);
-            if ( uids === undefined ) {
-                this.hostnameTypeCells.set(key, (uids = new Set()));
-            } else {
-                if ( uids.size > 99 ) { return false; }
-            }
-            var uid = uidFromURL(url);
-            if ( uids.has(uid) ) { return false; }
-            uids.add(uid);
-            return true;
-        }
-    };
-
-    return function pageRequestStatsFactory() {
-        if ( pageRequestStoreJunkyard.length !== 0 ) {
-            return pageRequestStoreJunkyard.pop();
-        }
-        if ( µmuri === undefined ) { µmuri = µm.URI; }
-        return new PageRequestStats();
-    };
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-µMatrix.pageStoreFactory = (function() {
-
-    var µm = µMatrix;
-    var pageStoreJunkyard = [];
 
     function PageStore(tabContext) {
         this.requestStats = µm.requestStatsFactory();
@@ -113,8 +57,8 @@
             this.pageHostname = tabContext.rootHostname;
             this.pageDomain =  tabContext.rootDomain;
             this.title = '';
-            this.requests = µm.pageRequestStatsFactory();
-            this.domains = {};
+            this.hostnameTypeCells = new Map();
+            this.domains = new Set();
             this.allHostnamesString = ' ';
             this.requestStats.reset();
             this.distinctRequestCount = 0;
@@ -126,13 +70,13 @@
             return this;
         },
         dispose: function() {
-            this.requests.dispose();
+            this.hostnameTypeCells.clear();
             this.rawUrl = '';
             this.pageUrl = '';
             this.pageHostname = '';
             this.pageDomain = '';
             this.title = '';
-            this.domains = {};
+            this.domains.clear();
             this.allHostnamesString = ' ';
             if ( this.incinerationTimer !== null ) {
                 clearTimeout(this.incinerationTimer);
@@ -143,9 +87,22 @@
             }
         },
         recordRequest: function(type, url, block) {
-            if ( this.requests.createEntryIfNotExists(url, type) === false ) {
+            var hostname = µm.URI.hostnameFromURI(url);
+
+            // Store distinct network requests. This is used to:
+            // - remember which hostname/type were seen
+            // - count the number of distinct URLs for any given
+            //   hostname-type pair
+            var key = hostname + ' ' + type,
+                uids = this.hostnameTypeCells.get(key);
+            if ( uids === undefined ) {
+                this.hostnameTypeCells.set(key, (uids = new Set()));
+            } else if ( uids.size > 99 ) {
                 return;
             }
+            var uid = uidFromURL(url);
+            if ( uids.has(uid) ) { return; }
+            uids.add(uid);
 
             // Count blocked/allowed requests
             this.requestStats.record(type, block);
@@ -161,13 +118,11 @@
                 this.perLoadAllowedRequestCount++;
             }
 
-            var hostname = µm.URI.hostnameFromURI(url);
-
             this.distinctRequestCount++;
             this.mtxCountModifiedTime = Date.now();
 
-            if ( this.domains.hasOwnProperty(hostname) === false ) {
-                this.domains[hostname] = true;
+            if ( this.domains.has(hostname) === false ) {
+                this.domains.add(hostname);
                 this.allHostnamesString += hostname + ' ';
                 this.mtxContentModifiedTime = Date.now();
             }
