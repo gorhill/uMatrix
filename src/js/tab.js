@@ -445,7 +445,7 @@ vAPI.tabs.registerListeners();
     // Try to resurrect first.
     pageStore = this.resurrectPageStore(tabId, normalURL);
     if ( pageStore === null ) {
-        pageStore = this.PageStore.factory(tabContext);
+        pageStore = this.pageStoreFactory(tabContext);
     }
     this.pageStores[tabId] = pageStore;
     this.updateTitle(tabId);

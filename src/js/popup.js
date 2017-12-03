@@ -437,8 +437,14 @@ function updateMatrixCounts() {
         count = rows[expandos.hostname][counts][headerIndices.get(expandos.reqType)];
         if ( count === expandos.count ) { continue; }
         expandos.count = count;
-        matCell.textContent = count ? count : '\u00A0';
+        matCell.textContent = cellTextFromCount(count);
     }
+}
+
+function cellTextFromCount(count) {
+    if ( count === 0 ) { return '\u00A0'; }
+    if ( count < 100 ) { return count; }
+    return '99+';
 }
 
 /******************************************************************************/
@@ -686,16 +692,13 @@ function renderMatrixMetaCellDomain(cell, domain) {
 }
 
 function renderMatrixCellType(cell, hostname, type, count) {
-    var expandos = expandosFromNode(cell);
+    var node = cell.nodeAt(0),
+        expandos = expandosFromNode(node);
     expandos.hostname = hostname;
     expandos.reqType = type;
     expandos.count = count;
-    addCellClass(cell.nodeAt(0), hostname, type);
-    if ( count ) {
-        cell.text(count);
-    } else {
-        cell.text('\u00A0');
-    }
+    addCellClass(node, hostname, type);
+    node.textContent = cellTextFromCount(count);
 }
 
 function renderMatrixCellTypes(cells, hostname, countName) {
@@ -742,16 +745,13 @@ function makeMatrixMetaRowDomain(domain) {
 function renderMatrixMetaCellType(cell, count) {
     // https://github.com/gorhill/uMatrix/issues/24
     // Don't forget to reset cell properties
-    var expandos = expandosFromNode(cell);
+    var node = cell.nodeAt(0),
+        expandos = expandosFromNode(node);
     expandos.hostname = '';
     expandos.reqType = '';
     expandos.count = count;
     cell.addClass('t1');
-    if ( count ) {
-        cell.text(count);
-    } else {
-        cell.text('\u00A0');
-    }
+    node.textContent = cellTextFromCount(count);
 }
 
 function makeMatrixMetaRow(totals) {

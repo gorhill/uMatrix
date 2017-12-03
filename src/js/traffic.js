@@ -374,7 +374,6 @@ var requestTypeNormalizer = {
     'media'         : 'media',
     'object'        : 'media',
     'other'         : 'other',
-    'ping'          : 'ping',
     'script'        : 'script',
     'stylesheet'    : 'css',
     'sub_frame'     : 'frame',

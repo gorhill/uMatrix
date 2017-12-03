@@ -187,7 +187,7 @@ var onPSLReady = function() {
     // rhill 2013-11-24: bind behind-the-scene virtual tab/url manually, since the
     // normal way forbid binding behind the scene tab.
     // https://github.com/gorhill/httpswitchboard/issues/67
-    µm.pageStores[vAPI.noTabId] = µm.PageStore.factory(µm.tabContextManager.mustLookup(vAPI.noTabId));
+    µm.pageStores[vAPI.noTabId] = µm.pageStoreFactory(µm.tabContextManager.mustLookup(vAPI.noTabId));
     µm.pageStores[vAPI.noTabId].title = vAPI.i18n('statsPageDetailedBehindTheScenePage');
 
     vAPI.tabs.getAll(onTabsReady);

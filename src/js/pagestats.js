@@ -25,393 +25,162 @@
 
 /*******************************************************************************
 
-A PageRequestStore object is used to store net requests in two ways:
+    A PageRequestStats object is used to store distinct network requests.
+    This is used to:
 
-To record distinct net requests
+    - remember which hostname/type were seen
+    - count the number of distinct URLs for any given hostname-type pair
 
 **/
 
-µMatrix.PageRequestStats = (function() {
+µMatrix.pageRequestStatsFactory = (function() {
 
-/******************************************************************************/
+    var µm = µMatrix;
+    var µmuri;
+    var pageRequestStoreJunkyard = [];
 
-// Caching useful global vars
-
-var µm = µMatrix;
-var µmuri = null;
-
-/******************************************************************************/
-
-// Hidden vars
-
-var typeToCode = {
-    'doc'   : 'a',
-    'frame' : 'b',
-    'css'   : 'c',
-    'script': 'd',
-    'image' : 'e',
-    'media' : 'f',
-    'xhr'   : 'g',
-    'other' : 'h',
-    'cookie': 'i'
-};
-
-var codeToType = {
-    'a': 'doc',
-    'b': 'frame',
-    'c': 'css',
-    'd': 'script',
-    'e': 'image',
-    'f': 'media',
-    'g': 'xhr',
-    'h': 'other',
-    'i': 'cookie'
-};
-
-/******************************************************************************/
-
-// It's just a dict-based "packer"
-
-var stringPacker = {
-    codeGenerator: 1,
-    codeJunkyard: [],
-    mapStringToEntry: {},
-    mapCodeToString: {},
-
-    Entry: function(code) {
-        this.count = 0;
-        this.code = code;
-    },
-
-    remember: function(code) {
-        if ( code === '' ) {
-            return;
-        }
-        var s = this.mapCodeToString[code];
-        if ( s ) {
-            var entry = this.mapStringToEntry[s];
-            entry.count++;
-        }
-    },
-
-    forget: function(code) {
-        if ( code === '' ) {
-            return;
-        }
-        var s = this.mapCodeToString[code];
-        if ( s ) {
-            var entry = this.mapStringToEntry[s];
-            entry.count--;
-            if ( !entry.count ) {
-                // console.debug('stringPacker > releasing code "%s" (aka "%s")', code, s);
-                this.codeJunkyard.push(entry);
-                delete this.mapCodeToString[code];
-                delete this.mapStringToEntry[s];
-            }
-        }
-    },
-
-    pack: function(s) {
-        var entry = this.entryFromString(s);
-        if ( !entry ) {
-            return '';
-        }
-        return entry.code;
-    },
-
-    unpack: function(packed) {
-        return this.mapCodeToString[packed] || '';
-    },
-
-    stringify: function(code) {
-        if ( code <= 0xFFFF ) {
-            return String.fromCharCode(code);
-        }
-        return String.fromCharCode(code >>> 16) + String.fromCharCode(code & 0xFFFF);
-    },
-
-    entryFromString: function(s) {
-        if ( s === '' ) {
-            return null;
-        }
-        var entry = this.mapStringToEntry[s];
-        if ( !entry ) {
-            entry = this.codeJunkyard.pop();
-            if ( !entry ) {
-                entry = new this.Entry(this.stringify(this.codeGenerator++));
-            } else {
-                // console.debug('stringPacker > recycling code "%s" (aka "%s")', entry.code, s);
-                entry.count = 0;
-            }
-            this.mapStringToEntry[s] = entry;
-            this.mapCodeToString[entry.code] = s;
-        }
-        return entry;
-    }
-};
-
-/******************************************************************************/
-
-var PageRequestStats = function() {
-    this.requests = {};
-    if ( !µmuri ) {
-        µmuri = µm.URI;
-    }
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.init = function() {
-    return this;
-};
-
-/******************************************************************************/
-
-var pageRequestStoreJunkyard = [];
-
-var pageRequestStoreFactory = function() {
-    var pageRequestStore = pageRequestStoreJunkyard.pop();
-    if ( pageRequestStore ) {
-        pageRequestStore.init();
-    } else {
-        pageRequestStore = new PageRequestStats();
-    }
-    return pageRequestStore;
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.disposeOne = function(reqKey) {
-    if ( this.requests[reqKey] ) {
-        delete this.requests[reqKey];
-        forgetRequestKey(reqKey);
-    }
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.dispose = function() {
-    var requests = this.requests;
-    for ( var reqKey in requests ) {
-        if ( requests.hasOwnProperty(reqKey) === false ) {
-            continue;
-        }
-        stringPacker.forget(reqKey.slice(3));
-    }
-    this.requests = {};
-    if ( pageRequestStoreJunkyard.length < 8 ) {
-        pageRequestStoreJunkyard.push(this);
-    }
-};
-
-/******************************************************************************/
-
-// Request key:
-// index: 0123
-//        THHN
-//        ^^ ^
-//        || |
-//        || +--- short string code for hostname (dict-based)
-//        |+--- FNV32a hash of whole URI (irreversible)
-//        +--- single char code for type of request
-
-var makeRequestKey = function(uri, reqType) {
-    // Ref: Given a URL, returns a unique 4-character long hash string
+    // Ref: Given a URL, returns a (somewhat) unique 32-bit value
     // Based on: FNV32a
     // http://www.isthe.com/chongo/tech/comp/fnv/index.html#FNV-reference-source
     // The rest is custom, suited for µMatrix.
-    var hint = 0x811c9dc5;
-    var i = uri.length;
-    while ( i-- ) {
-        hint ^= uri.charCodeAt(i) | 0;
-        hint += (hint<<1) + (hint<<4) + (hint<<7) + (hint<<8) + (hint<<24) | 0;
-        hint >>>= 0;
-    }
-    var key  = typeToCode[reqType] || 'z';
-    return key +
-           String.fromCharCode(hint >>> 22, hint >>> 12 & 0x3FF, hint & 0xFFF) +
-           stringPacker.pack(µmuri.hostnameFromURI(uri));
-};
 
-/******************************************************************************/
+    var uidFromURL = function(uri) {
+        var hint = 0x811c9dc5;
+        var i = uri.length;
+        while ( i-- ) {
+            hint ^= uri.charCodeAt(i) | 0;
+            hint += (hint<<1) + (hint<<4) + (hint<<7) + (hint<<8) + (hint<<24) | 0;
+            hint >>>= 0;
+        }
+        return hint;
+    };
 
-var rememberRequestKey = function(reqKey) {
-    stringPacker.remember(reqKey.slice(4));
-};
+    var PageRequestStats = function() {
+        this.hostnameTypeCells = new Map();
+    };
 
-var forgetRequestKey = function(reqKey) {
-    stringPacker.forget(reqKey.slice(4));
-};
+    PageRequestStats.prototype = {
+        dispose: function() {
+            this.hostnameTypeCells.clear();
+            if ( pageRequestStoreJunkyard.length < 8 ) {
+                pageRequestStoreJunkyard.push(this);
+            }
+        },
+        createEntryIfNotExists: function(url, type) {
+            var hn = µmuri.hostnameFromURI(url),
+                key = hn + ' ' + type,
+                uids = this.hostnameTypeCells.get(key);
+            if ( uids === undefined ) {
+                this.hostnameTypeCells.set(key, (uids = new Set()));
+            } else {
+                if ( uids.size > 99 ) { return false; }
+            }
+            var uid = uidFromURL(url);
+            if ( uids.has(uid) ) { return false; }
+            uids.add(uid);
+            return true;
+        }
+    };
 
-/******************************************************************************/
-
-// Exported
-
-var hostnameFromRequestKey = function(reqKey) {
-    return stringPacker.unpack(reqKey.slice(4));
-};
-
-PageRequestStats.prototype.hostnameFromRequestKey = hostnameFromRequestKey;
-
-var typeFromRequestKey = function(reqKey) {
-    return codeToType[reqKey.charAt(0)];
-};
-
-PageRequestStats.prototype.typeFromRequestKey = typeFromRequestKey;
-
-/******************************************************************************/
-
-PageRequestStats.prototype.createEntryIfNotExists = function(url, type) {
-    var reqKey = makeRequestKey(url, type);
-    if ( this.requests[reqKey] ) {
-        return false;
-    }
-    rememberRequestKey(reqKey);
-    this.requests[reqKey] = Date.now();
-    return true;
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.getRequestKeys = function() {
-    return Object.keys(this.requests);
-};
-
-/******************************************************************************/
-
-PageRequestStats.prototype.getRequestDict = function() {
-    return this.requests;
-};
-
-/******************************************************************************/
-
-// Export
-
-return {
-    factory: pageRequestStoreFactory,
-    hostnameFromRequestKey: hostnameFromRequestKey,
-    typeFromRequestKey: typeFromRequestKey
-};
-
-/******************************************************************************/
-
+    return function pageRequestStatsFactory() {
+        if ( pageRequestStoreJunkyard.length !== 0 ) {
+            return pageRequestStoreJunkyard.pop();
+        }
+        if ( µmuri === undefined ) { µmuri = µm.URI; }
+        return new PageRequestStats();
+    };
 })();
 
 /******************************************************************************/
 /******************************************************************************/
 
-µMatrix.PageStore = (function() {
+µMatrix.pageStoreFactory = (function() {
 
-/******************************************************************************/
+    var µm = µMatrix;
+    var pageStoreJunkyard = [];
 
-var µm = µMatrix;
-var pageStoreJunkyard = [];
-
-/******************************************************************************/
-
-var pageStoreFactory = function(tabContext) {
-    var entry = pageStoreJunkyard.pop();
-    if ( entry ) {
-        return entry.init(tabContext);
-    }
-    return new PageStore(tabContext);
-};
-
-/******************************************************************************/
-
-function PageStore(tabContext) {
-    this.requestStats = µm.requestStatsFactory();
-    this.off = false;
-    this.init(tabContext);
-}
-
-/******************************************************************************/
-
-PageStore.prototype.init = function(tabContext) {
-    this.tabId = tabContext.tabId;
-    this.rawUrl = tabContext.rawURL;
-    this.pageUrl = tabContext.normalURL;
-    this.pageHostname = tabContext.rootHostname;
-    this.pageDomain =  tabContext.rootDomain;
-    this.title = '';
-    this.requests = µm.PageRequestStats.factory();
-    this.domains = {};
-    this.allHostnamesString = ' ';
-    this.requestStats.reset();
-    this.distinctRequestCount = 0;
-    this.perLoadAllowedRequestCount = 0;
-    this.perLoadBlockedRequestCount = 0;
-    this.incinerationTimer = null;
-    this.mtxContentModifiedTime = 0;
-    this.mtxCountModifiedTime = 0;
-    return this;
-};
-
-/******************************************************************************/
-
-PageStore.prototype.dispose = function() {
-    this.requests.dispose();
-    this.rawUrl = '';
-    this.pageUrl = '';
-    this.pageHostname = '';
-    this.pageDomain = '';
-    this.title = '';
-    this.domains = {};
-    this.allHostnamesString = ' ';
-
-    if ( this.incinerationTimer !== null ) {
-        clearTimeout(this.incinerationTimer);
-        this.incinerationTimer = null;
+    function PageStore(tabContext) {
+        this.requestStats = µm.requestStatsFactory();
+        this.off = false;
+        this.init(tabContext);
     }
 
-    if ( pageStoreJunkyard.length < 8 ) {
-        pageStoreJunkyard.push(this);
-    }
-};
+    PageStore.prototype = {
+        init: function(tabContext) {
+            this.tabId = tabContext.tabId;
+            this.rawUrl = tabContext.rawURL;
+            this.pageUrl = tabContext.normalURL;
+            this.pageHostname = tabContext.rootHostname;
+            this.pageDomain =  tabContext.rootDomain;
+            this.title = '';
+            this.requests = µm.pageRequestStatsFactory();
+            this.domains = {};
+            this.allHostnamesString = ' ';
+            this.requestStats.reset();
+            this.distinctRequestCount = 0;
+            this.perLoadAllowedRequestCount = 0;
+            this.perLoadBlockedRequestCount = 0;
+            this.incinerationTimer = null;
+            this.mtxContentModifiedTime = 0;
+            this.mtxCountModifiedTime = 0;
+            return this;
+        },
+        dispose: function() {
+            this.requests.dispose();
+            this.rawUrl = '';
+            this.pageUrl = '';
+            this.pageHostname = '';
+            this.pageDomain = '';
+            this.title = '';
+            this.domains = {};
+            this.allHostnamesString = ' ';
+            if ( this.incinerationTimer !== null ) {
+                clearTimeout(this.incinerationTimer);
+                this.incinerationTimer = null;
+            }
+            if ( pageStoreJunkyard.length < 8 ) {
+                pageStoreJunkyard.push(this);
+            }
+        },
+        recordRequest: function(type, url, block) {
+            if ( this.requests.createEntryIfNotExists(url, type) === false ) {
+                return;
+            }
 
-/******************************************************************************/
+            // Count blocked/allowed requests
+            this.requestStats.record(type, block);
 
-PageStore.prototype.recordRequest = function(type, url, block) {
-    if ( !this.requests.createEntryIfNotExists(url, type, block) ) {
-        return;
-    }
+            // https://github.com/gorhill/httpswitchboard/issues/306
+            // If it is recorded locally, record globally
+            µm.requestStats.record(type, block);
+            µm.updateBadgeAsync(this.tabId);
 
-    // Count blocked/allowed requests
-    this.requestStats.record(type, block);
+            if ( block !== false ) {
+                this.perLoadBlockedRequestCount++;
+            } else {
+                this.perLoadAllowedRequestCount++;
+            }
 
-    // https://github.com/gorhill/httpswitchboard/issues/306
-    // If it is recorded locally, record globally
-    µm.requestStats.record(type, block);
-    µm.updateBadgeAsync(this.tabId);
+            var hostname = µm.URI.hostnameFromURI(url);
 
-    if ( block !== false ) {
-        this.perLoadBlockedRequestCount++;
-    } else {
-        this.perLoadAllowedRequestCount++;
-    }
+            this.distinctRequestCount++;
+            this.mtxCountModifiedTime = Date.now();
 
-    var hostname = µm.URI.hostnameFromURI(url);
+            if ( this.domains.hasOwnProperty(hostname) === false ) {
+                this.domains[hostname] = true;
+                this.allHostnamesString += hostname + ' ';
+                this.mtxContentModifiedTime = Date.now();
+            }
+        }
+    };
 
-    this.distinctRequestCount++;
-    this.mtxCountModifiedTime = Date.now();
-
-    if ( this.domains.hasOwnProperty(hostname) === false ) {
-        this.domains[hostname] = true;
-        this.allHostnamesString += hostname + ' ';
-        this.mtxContentModifiedTime = Date.now();
-    }
-
-    // console.debug("pagestats.js > PageStore.recordRequest(): %o: %s @ %s", this, type, url);
-};
-
-/******************************************************************************/
-
-return {
-    factory: pageStoreFactory
-};
-
-/******************************************************************************/
-
+    return function pageStoreFactory(tabContext) {
+        var entry = pageStoreJunkyard.pop();
+        if ( entry ) {
+            return entry.init(tabContext);
+        }
+        return new PageStore(tabContext);
+    };
 })();
 
 /******************************************************************************/

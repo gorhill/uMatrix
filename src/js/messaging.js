@@ -211,16 +211,12 @@ var matrixSnapshot = function(pageStore, details) {
     var desHostname;
     var row, typeIndex;
     var anyIndex = headerIndices.get('*');
+    var pos, count;
 
-    var pageRequests = pageStore.requests;
-    var reqKeys = pageRequests.getRequestKeys();
-    var iReqKey = reqKeys.length;
-    var pos;
-
-    while ( iReqKey-- ) {
-        reqKey = reqKeys[iReqKey];
-        reqType = pageRequests.typeFromRequestKey(reqKey);
-        reqHostname = pageRequests.hostnameFromRequestKey(reqKey);
+    for ( var entry of pageStore.requests.hostnameTypeCells ) {
+        pos = entry[0].indexOf(' ');
+        reqHostname = entry[0].slice(0, pos);
+        reqType = entry[0].slice(pos + 1);
         // rhill 2013-10-23: hostname can be empty if the request is a data url
         // https://github.com/gorhill/httpswitchboard/issues/26
         if ( reqHostname === '' ) {
@@ -230,39 +226,31 @@ var matrixSnapshot = function(pageStore, details) {
 
         // We want rows of self and ancestors
         desHostname = reqHostname;
-        for ( ;; ) {
+        for (;;) {
             // If row exists, ancestors exist
-            if ( r.rows.hasOwnProperty(desHostname) !== false ) {
-                break;
-            }
+            if ( r.rows.hasOwnProperty(desHostname) !== false ) { break; }
             r.rows[desHostname] = new RowSnapshot(r.scope, desHostname, reqDomain);
             r.rowCount += 1;
-            if ( desHostname === reqDomain ) {
-                break;
-            }
+            if ( desHostname === reqDomain ) { break; }
             pos = desHostname.indexOf('.');
-            if ( pos === -1 ) {
-                break;
-            }
+            if ( pos === -1 ) { break; }
             desHostname = desHostname.slice(pos + 1);
         }
 
+        count = entry[1].size;
         typeIndex = headerIndices.get(reqType);
-
         row = r.rows[reqHostname];
-        row.counts[typeIndex] += 1;
-        row.counts[anyIndex] += 1;
-
+        row.counts[typeIndex] += count;
+        row.counts[anyIndex] += count;
         row = r.rows[reqDomain];
-        row.totals[typeIndex] += 1;
-        row.totals[anyIndex] += 1;
-
+        row.totals[typeIndex] += count;
+        row.totals[anyIndex] += count;
         row = r.rows['*'];
-        row.totals[typeIndex] += 1;
-        row.totals[anyIndex] += 1;
+        row.totals[typeIndex] += count;
+        row.totals[anyIndex] += count;
     }
 
-    r.diff = µm.tMatrix.diff(µm.pMatrix, r.hostname, Object.keys(r.rows));
+    r.diff = µm.tMatrix.diff(µm.pMatrix, r.hostname, r.rowCount + 1);
 
     return r;
 };
