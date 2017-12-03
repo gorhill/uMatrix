@@ -116,7 +116,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> tags spoofing",
+        "message": "<code><noscript><\/code> Tags verschleiern",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -336,7 +336,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "Verschleiere <code><noscript><\/code> Tags wenn Skripte der aktuellen Domain blockiert werden",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
