@@ -1,8 +1,11 @@
 {
 	"browser": true,
 	"devel": true,
+	"eqeqeq": true,
 	"esnext": true,
 	"strict": "global",
+	"undef": true,
+	"unused": true,
 	"globals": {
 		"self": false,
 		"chrome": false,
