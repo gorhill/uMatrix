@@ -336,7 +336,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "Falsifica i tag <code><noscript><\/code> quando gli script del dominio sono bloccati",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {

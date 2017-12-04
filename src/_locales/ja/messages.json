@@ -56,7 +56,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
-        "message": "media",
+        "message": "Media",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
@@ -96,7 +96,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "このページを再読み込みする",
+        "message": "このページを再読み込みする\nShift キーを押しながら実行すると、キャッシュを無視した再読み込みを行います",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -116,7 +116,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> tags spoofing",
+        "message": "<code><noscript><\/code> タグの偽装",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "ページが見つかりません",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
@@ -284,19 +284,19 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "デフォルトのスコープレベル：",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "グローバル",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "ドメイン",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "サイト",
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
@@ -336,7 +336,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "訪れているサイトのスクリプトがブロックされている場合に <code><noscript><\/code> タグを偽装する",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -384,7 +384,7 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>ユーザの行動を追跡するのに必死な Web サイトもあります。こうした Web サイトは行儀の悪い方法を使って、追跡されないようにするための対策を回避しようとします。<\/p><p>こうした手法の一部は、<a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>ブラウザのキャッシュ<\/a>に依存<sup style='font-size:smaller'>[1, 2]<\/sup> しています。なぜなら、ブラウザのキャッシュを消去する人はまれで、多くの場合に長期間にわたって残り続けるためです。<\/p><p>定期的にブラウザのキャッシュを消去することによる不都合はほとんどありません（あるとすれば、消去されるときユーザが気づかないということです）。メリットは、こうした不愉快なトラッカーによってあなたのプライバシーが侵害されるのを防げるという点です。<\/p><p>このオプションを設定することで、任意の間隔で <i>uMatrix<\/i> がブラウザのキャッシュを消去するようになります。<\/p><p style='font-size:smaller'>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>ユーザの行動を追跡するのに必死な Web サイトもあります。こうした Web サイトは行儀の悪い方法を使って、追跡されないようにするための対策を回避しようとします。<\/p><p>こうした手法の一部は、<a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>ブラウザのキャッシュ<\/a>に依存 <sup>[1, 2]<\/sup> しています。なぜなら、ブラウザのキャッシュを消去する人はまれで、多くの場合に長期間にわたって残り続けるためです。<\/p><p>定期的にブラウザのキャッシュを消去することによる不都合はほとんどありません（あるとすれば、消去されるときユーザが気づかないということです）。メリットは、こうした不愉快なトラッカーによってあなたのプライバシーが侵害されるのを防げるという点です。<\/p><p>このオプションを設定することで、任意の間隔で <i>uMatrix<\/i> がブラウザのキャッシュを消去するようになります。<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "<p>Wikipedia から引用：<\/p><blockquote>HTTP リファラは、要求しているリソースにリンクしたウェブページのアドレスを識別する HTTP ヘッダのフィールドです。<b>リファラはプライバシーを侵害するおそれがあるため、一部の Web ブラウザでは、ユーザーがリファラの送信を無効にすることができます<\/b>。<\/blockquote><p>この設定をオンにすると、HTTP リファラのドメイン名がアクセスしている Web サイトのドメイン名と異なる場合（サードパーティリクエストである場合）、<i>uMatrix<\/i> は HTTP リファラを偽装します。",
+        "message": "Wikipedia から引用：<blockquote>HTTP リファラは、要求しているリソースにリンクしたウェブページのアドレスを識別する HTTP ヘッダのフィールドです。<b>リファラはプライバシーを侵害するおそれがあるため、一部の Web ブラウザでは、ユーザーがリファラの送信を無効にすることができます<\/b>。<\/blockquote>この設定をオンにすると、HTTP リファラのドメイン名がアクセスしている Web サイトのドメイン名と異なる場合（サードパーティリクエストである場合）、<i>uMatrix<\/i> は HTTP リファラを偽装します。",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -456,11 +456,11 @@
         "description": "default file name to use"
     },
     "hostsFilesPrompt": {
-        "message": "ホストファイルに記載されたすべてのホストは、あらゆるリクエストをブロックする対象として扱われます。",
+        "message": "ホストファイルに記載されたすべてのホストへの、あらゆるリクエストはブロックされます。",
         "description": ""
     },
     "hostsFilesStats": {
-        "message": "{{blockedHostnameCount}} 件のホストをブロック対象として使用しています：",
+        "message": "{{blockedHostnameCount}} 件のホストをブロックしています：",
         "description": ""
     },
     "hostsFilesPerFileStats": {
@@ -536,15 +536,15 @@
         "description": "English: Contributors"
     },
     "aboutCodeContributors": {
-        "message": "ソースコード:",
+        "message": "ソースコード：",
         "description": ""
     },
     "aboutIssueContributors": {
-        "message": "問題点:",
+        "message": "問題点：",
         "description": ""
     },
     "aboutTranslationContributors": {
-        "message": "翻訳:",
+        "message": "翻訳：",
         "description": ""
     },
     "aboutUserDataHeader": {
