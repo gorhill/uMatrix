@@ -1,5 +1,7 @@
 <!--
 
+Read first: https://github.com/gorhill/uMatrix/blob/master/CONTRIBUTING.md
+
 No feature requests please. Issue tracker is for PROVEN issues with uMatrix
 itself. Do not open an issue because your ruleset is interfering negatively
 with a web site or with the browser's proper functioning. Use the logger to
