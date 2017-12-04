@@ -54,7 +54,7 @@ var µm = µMatrix;
 
 */
 
-var defaultLocalUserSettings = {
+µm.defaultLocalUserSettings = {
     // data-URI background courtesy of https://github.com/dev-random
     // https://github.com/gorhill/uMatrix/issues/429#issuecomment-194548243
     placeholderBackground: [
@@ -135,15 +135,15 @@ var onAllDone = function() {
     µm.assets.addObserver(µm.assetObserver.bind(µm));
     µm.scheduleAssetUpdater(µm.userSettings.autoUpdate ? 7 * 60 * 1000 : 0);
 
-    for ( var key in defaultLocalUserSettings ) {
-        if ( defaultLocalUserSettings.hasOwnProperty(key) === false ) {
+    for ( var key in µm.defaultLocalUserSettings ) {
+        if (µm. defaultLocalUserSettings.hasOwnProperty(key) === false ) {
             continue;
         }
         if (
             vAPI.localStorage.getItem(key) === null ||
             rwLocalUserSettings.hasOwnProperty(key) === false
         ) {
-            vAPI.localStorage.setItem(key, defaultLocalUserSettings[key]);
+            vAPI.localStorage.setItem(key, µm.defaultLocalUserSettings[key]);
         }
     }
 

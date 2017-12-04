@@ -489,13 +489,22 @@ var evaluateURLs = function(tabId, requests) {
     }
 
     if ( placeholders === null ) {
-        var bg = vAPI.localStorage.getItem('placeholderBackground');
         placeholders = {
-            background: bg,
-            border: vAPI.localStorage.getItem('placeholderBorder'),
-            iframe: vAPI.localStorage.getItem('placeholderDocument').replace('{{bg}}', bg),
-            img: vAPI.localStorage.getItem('placeholderImage')
+            background:
+                vAPI.localStorage.getItem('placeholderBackground') ||
+                µm.defaultLocalUserSettings.placeholderBackground,
+            border:
+                vAPI.localStorage.getItem('placeholderBorder') ||
+                µm.defaultLocalUserSettings.placeholderBorder,
+            iframe:
+                vAPI.localStorage.getItem('placeholderDocument') ||
+                µm.defaultLocalUserSettings.placeholderDocument,
+            img:
+                vAPI.localStorage.getItem('placeholderImage') ||
+                µm.defaultLocalUserSettings.placeholderImage
         };
+        placeholders.iframe =
+            placeholders.iframe.replace('{{bg}}', placeholders.background);
     }
     response.placeholders = placeholders;
 
