@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Hosts 파일",
+        "message": "호스트 파일",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -56,7 +56,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
-        "message": "미디어",
+        "message": "media",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
-        "message": "Delete non-blocked session cookies ",
+        "message": "차단되지 않은 세션 쿠키 삭제 ",
         "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt2": {
@@ -452,7 +452,7 @@
         "description": ""
     },
     "userRulesDefaultFileName": {
-        "message": "내-umatrix-규칙.txt",
+        "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
     "hostsFilesPrompt": {
@@ -460,7 +460,7 @@
         "description": ""
     },
     "hostsFilesStats": {
-        "message": "{{blockedHostnameCount}} 차단된 호스트 네임:",
+        "message": "차단된 호스트 네임: {{blockedHostnameCount}}",
         "description": ""
     },
     "hostsFilesPerFileStats": {
@@ -476,7 +476,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Hosts 파일 자동 업데이트",
+        "message": "호스트 파일 자동 업데이트",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutContributors": {
-        "message": "기여해 주신 분들",
+        "message": "기여자",
         "description": "English: Contributors"
     },
     "aboutCodeContributors": {
@@ -564,7 +564,7 @@
         "description": ""
     },
     "aboutRestoreConfirm": {
-        "message": "{{time}}에 백업된 데이터가 모든 설정을 덮어쓰기한 뒤, µBlock이 재시작합니다.\n\n존재하는 모든 설정을 백업 데이터로 덮어쓰시겠습니까?",
+        "message": "{{time}} 에 백업된 데이터가 모든 설정을 덮어쓰기한 뒤, uMatrix이 재시작합니다.\n\n존재하는 모든 설정을 백업 데이터로 덮어쓰시겠습니까?",
         "description": "Message asking user to confirm restore"
     },
     "aboutRestoreError": {

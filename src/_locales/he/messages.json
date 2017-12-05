@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — מתעד הבקשות",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -56,7 +56,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
-        "message": "media",
+        "message": "מדיה",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
@@ -96,7 +96,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "טען מחדש את העמוד.",
+        "message": "טען מחדש את העמוד.\nהחזק את מקש ה Shift על מנת להתעלם מזיכרון מטמון של הדפדפן.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -116,7 +116,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> tags spoofing",
+        "message": "זיוף תגיות <code><noscript><\/code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "לא נמצא עמוד",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
@@ -152,7 +152,7 @@
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "ניסיונות <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a> שסוכלו: {{count}}",
+        "message": "ניסיונות <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> שסוכלו: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -260,7 +260,7 @@
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "תצוגה",
+        "message": "מטריצה",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
@@ -284,19 +284,19 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "רמת הגדרות דיפולטיבית:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "גלובלי",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "דומיין",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "אתר",
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
@@ -336,7 +336,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "זייף תגיות <code><noscript><\/code> כאשר סקריפטים צד-1 חסומים",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -384,7 +384,7 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>יש אתרי אינטרנט שממש רוצים לעקוב אחרייך, כל כך שהם ישתמשו בטריקים לא כל כך יפים על מנת לעקוף את כל הדברים שאתה עושה כדי לא להיות במעקב.<\/p><p>כמה מהטריקים האלה מתבססים<sup style='font-size:smaller'>[1, 2]<\/sup> על <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>הזיכרון מטמון של הדפדפן<\/a>, אשר תוכנו לרוב נמצא הרבה זמן על המחשב מכיוון שלעיתים רחוקות משתמשים ישקיעו מזמנם לנקות באופן קבוע את הזיכרון מטמון של הדפדפן שלהם.<\/p><p>יש אי נעימות קלה לנקות את הזיכרון מטמון של הדפדפן באופן קבוע (רוב הסיכויים שלא תשים לב כשזה קורה), והתועלת היא במניעה של העוקבים המגעילים האלה מחדירה לפרטיות שלך.<\/p><p>אפשר אפשרות זו בשביל ש <i>uMatrix<\/i> יעשה את זה בשבילך, כל כמה זמן שתרצה.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;מניעה מעקב אינטרנטי על ידי שימוש בזיכרון מטמון של הדפדפן&rdquo;<\/a><br>[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;עוגיות חסרי העוגיות&rdquo;<\/a><\/p>",
+        "message": "<p>יש אתרי אינטרנט שממש רוצים לעקוב אחרייך, כל כך שהם ישתמשו בטריקים לא כל כך יפים על מנת לעקוף את כל הדברים שאתה עושה כדי לא להיות במעקב.<\/p><p>כמה מהטריקים האלה מתבססים<sup>[1, 2]<\/sup> על <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>הזיכרון מטמון של הדפדפן<\/a>, אשר תוכנו לרוב נמצא הרבה זמן על המחשב מכיוון שלעיתים רחוקות משתמשים ישקיעו מזמנם לנקות באופן קבוע את הזיכרון מטמון של הדפדפן שלהם.<\/p><p>יש אי נעימות קלה לנקות את הזיכרון מטמון של הדפדפן באופן קבוע (רוב הסיכויים שלא תשים לב כשזה קורה), והתועלת היא במניעה של העוקבים הנתעבים האלה מחדירה לפרטיות שלך.<\/p><p>סמן אפשרות זו בשביל ש <i>uMatrix<\/i> יעשה זאת בשבילך, כל כמה זמן שתרצה.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;מניעה מעקב אינטרנטי על ידי שימוש בזיכרון מטמון של הדפדפן&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;עוגיות חסרי העוגיות&rdquo;<\/a><\/p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "<p>מתוך ויקיפדיה:<\/p><blockquote>HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לפגוע בפרטיות, מספר דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע של המפנה.<\/b><\/blockquote><p>אם אפשרות זו מאופשרת, <i>uMatrix<\/i> יזייף את המידע של ה HTTP referer אם שם הדומיין של ה HTTP referrer הוא צד שלישי לשם הדומיין של בקשת הרשת.",
+        "message": "מתוך ויקיפדיה:<blockquote>HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לפגוע בפרטיות, מספר דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע של המפנה.<\/b><\/blockquote>אם אפשרות זו מאופשרת, <i>uMatrix<\/i> יזייף את המידע של ה HTTP referrer אם שם הדומיין של ה HTTP referrer הוא צד שלישי לשם הדומיין של בקשת הרשת.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -404,7 +404,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "חסום את כל הניסיונות ל <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>Hyperlink auditing<\/a>.",
+        "message": "חסום את כל הניסיונות ל<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a>.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
