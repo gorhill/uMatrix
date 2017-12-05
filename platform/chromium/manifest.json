@@ -29,7 +29,7 @@
     ],
     "default_locale": "en",
     "homepage_url": "https://github.com/gorhill/uMatrix/wiki",
-    "minimum_chrome_version": "22.0",
+    "minimum_chrome_version": "45.0",
     "options_page": "dashboard.html",
     "permissions": [
         "browsingData",
