@@ -41,10 +41,10 @@
 
 var µm = µMatrix;
 
-var recordPageCookiesQueue = {};
-var removePageCookiesQueue = {};
-var removeCookieQueue = {};
-var cookieDict = {};
+var recordPageCookiesQueue = new Map();
+var removePageCookiesQueue = new Map();
+var removeCookieQueue = new Set();
+var cookieDict = new Map();
 var cookieEntryJunkyard = [];
 var processRemoveQueuePeriod = 2 * 60 * 1000;
 var processCleanPeriod = 10 * 60 * 1000;
@@ -54,10 +54,11 @@ var processPageRemoveQueueTimer = null;
 /******************************************************************************/
 
 var CookieEntry = function(cookie) {
-    this.set(cookie);
+    this.usedOn = new Set();
+    this.init(cookie);
 };
 
-CookieEntry.prototype.set = function(cookie) {
+CookieEntry.prototype.init = function(cookie) {
     this.secure = cookie.secure;
     this.session = cookie.session;
     this.anySubdomain = cookie.domain.charAt(0) === '.';
@@ -67,36 +68,37 @@ CookieEntry.prototype.set = function(cookie) {
     this.name = cookie.name;
     this.value = cookie.value;
     this.tstamp = Date.now();
-    this.usedOn = {};
+    this.usedOn.clear();
     return this;
 };
 
 // Release anything which may consume too much memory
 
-CookieEntry.prototype.unset = function() {
+CookieEntry.prototype.dispose = function() {
     this.hostname = '';
     this.domain = '';
     this.path = '';
     this.name = '';
     this.value = '';
-    this.usedOn = {};
+    this.usedOn.clear();
     return this;
 };
 
 /******************************************************************************/
 
 var addCookieToDict = function(cookie) {
-    var cookieKey = cookieKeyFromCookie(cookie);
-    if ( cookieDict.hasOwnProperty(cookieKey) === false ) {
-        var cookieEntry = cookieEntryJunkyard.pop();
+    var cookieKey = cookieKeyFromCookie(cookie),
+        cookieEntry = cookieDict.get(cookieKey);
+    if ( cookieEntry === undefined ) {
+        cookieEntry = cookieEntryJunkyard.pop();
         if ( cookieEntry ) {
-            cookieEntry.set(cookie);
+            cookieEntry.init(cookie);
         } else {
             cookieEntry = new CookieEntry(cookie);
         }
-        cookieDict[cookieKey] = cookieEntry;
+        cookieDict.set(cookieKey, cookieEntry);
     }
-    return cookieDict[cookieKey];
+    return cookieEntry;
 };
 
 /******************************************************************************/
@@ -111,13 +113,11 @@ var addCookiesToDict = function(cookies) {
 /******************************************************************************/
 
 var removeCookieFromDict = function(cookieKey) {
-    if ( cookieDict.hasOwnProperty(cookieKey) === false ) {
-        return false;
-    }
-    var cookieEntry = cookieDict[cookieKey];
-    delete cookieDict[cookieKey];
+    var cookieEntry = cookieDict.get(cookieKey);
+    if ( cookieEntry === undefined ) { return false; }
+    cookieDict.delete(cookieKey);
     if ( cookieEntryJunkyard.length < 25 ) {
-        cookieEntryJunkyard.push(cookieEntry.unset());
+        cookieEntryJunkyard.push(cookieEntry.dispose());
     }
     return true;
 };
@@ -159,12 +159,6 @@ var cookieKeyFromCookieURL = function(url, type, name) {
 
 /******************************************************************************/
 
-var cookieEntryFromCookie = function(cookie) {
-    return cookieDict[cookieKeyFromCookie(cookie)];
-};
-
-/******************************************************************************/
-
 var cookieURLFromCookieEntry = function(entry) {
     if ( !entry ) {
         return '';
@@ -175,10 +169,8 @@ var cookieURLFromCookieEntry = function(entry) {
 /******************************************************************************/
 
 var cookieMatchDomains = function(cookieKey, allHostnamesString) {
-    var cookieEntry = cookieDict[cookieKey];
-    if ( !cookieEntry ) {
-        return false;
-    }
+    var cookieEntry = cookieDict.get(cookieKey);
+    if ( cookieEntry === undefined ) { return false; }
     if ( allHostnamesString.indexOf(' ' + cookieEntry.hostname + ' ') < 0 ) {
         if ( !cookieEntry.anySubdomain ) {
             return false;
@@ -202,7 +194,7 @@ var recordPageCookiesAsync = function(pageStats) {
     if ( !pageStats ) {
         return;
     }
-    recordPageCookiesQueue[pageStats.pageUrl] = pageStats;
+    recordPageCookiesQueue.set(pageStats.pageUrl, pageStats);
     if ( processPageRecordQueueTimer === null ) {
         processPageRecordQueueTimer = vAPI.setTimeout(processPageRecordQueue, 1000);
     }
@@ -220,11 +212,9 @@ var cookieLogEntryBuilder = [
 ];
 
 var recordPageCookie = function(pageStore, cookieKey) {
-    if ( vAPI.isBehindTheSceneTabId(pageStore.tabId) ) {
-        return;
-    }
+    if ( vAPI.isBehindTheSceneTabId(pageStore.tabId) ) { return; }
 
-    var cookieEntry = cookieDict[cookieKey];
+    var cookieEntry = cookieDict.get(cookieKey);
     var pageHostname = pageStore.pageHostname;
     var block = µm.mustBlock(pageHostname, cookieEntry.hostname, 'cookie');
 
@@ -240,7 +230,7 @@ var recordPageCookie = function(pageStore, cookieKey) {
     pageStore.recordRequest('cookie', cookieURL, block);
     µm.logger.writeOne(pageStore.tabId, 'net', pageHostname, cookieURL, 'cookie', block);
 
-    cookieEntry.usedOn[pageHostname] = true;
+    cookieEntry.usedOn.add(pageHostname);
 
     // rhill 2013-11-21:
     // https://github.com/gorhill/httpswitchboard/issues/65
@@ -267,7 +257,7 @@ var removePageCookiesAsync = function(pageStats) {
     if ( !pageStats ) {
         return;
     }
-    removePageCookiesQueue[pageStats.pageUrl] = pageStats;
+    removePageCookiesQueue.set(pageStats.pageUrl, pageStats);
     if ( processPageRemoveQueueTimer === null ) {
         processPageRemoveQueueTimer = vAPI.setTimeout(processPageRemoveQueue, 15 * 1000);
     }
@@ -278,7 +268,7 @@ var removePageCookiesAsync = function(pageStats) {
 // Candidate for removal
 
 var removeCookieAsync = function(cookieKey) {
-    removeCookieQueue[cookieKey] = true;
+    removeCookieQueue.add(cookieKey);
 };
 
 /******************************************************************************/
@@ -318,13 +308,10 @@ var i18nCookieDeleteFailure = vAPI.i18n('loggerEntryDeleteCookieError');
 var processPageRecordQueue = function() {
     processPageRecordQueueTimer = null;
 
-    for ( var pageURL in recordPageCookiesQueue ) {
-        if ( !recordPageCookiesQueue.hasOwnProperty(pageURL) ) {
-            continue;
-        }
-        findAndRecordPageCookies(recordPageCookiesQueue[pageURL]);
-        delete recordPageCookiesQueue[pageURL];
+    for ( var pageStore of recordPageCookiesQueue.values() ) {
+        findAndRecordPageCookies(pageStore);
     }
+    recordPageCookiesQueue.clear();
 };
 
 /******************************************************************************/
@@ -332,13 +319,10 @@ var processPageRecordQueue = function() {
 var processPageRemoveQueue = function() {
     processPageRemoveQueueTimer = null;
 
-    for ( var pageURL in removePageCookiesQueue ) {
-        if ( !removePageCookiesQueue.hasOwnProperty(pageURL) ) {
-            continue;
-        }
-        findAndRemovePageCookies(removePageCookiesQueue[pageURL]);
-        delete removePageCookiesQueue[pageURL];
+    for ( var pageStore of removePageCookiesQueue.values() ) {
+        findAndRemovePageCookies(pageStore);
     }
+    removePageCookiesQueue.clear();
 };
 
 /******************************************************************************/
@@ -359,19 +343,12 @@ var processRemoveQueue = function() {
     var srcHostnames;
     var cookieEntry;
 
-    for ( var cookieKey in removeCookieQueue ) {
-        if ( removeCookieQueue.hasOwnProperty(cookieKey) === false ) {
-            continue;
-        }
-        delete removeCookieQueue[cookieKey];
-
+    for ( var cookieKey of removeCookieQueue ) {
         // rhill 2014-05-12: Apparently this can happen. I have to
         // investigate how (A session cookie has same name as a
         // persistent cookie?)
-        cookieEntry = cookieDict[cookieKey];
-        if ( !cookieEntry ) {
-            continue;
-        }
+        cookieEntry = cookieDict.get(cookieKey);
+        if ( cookieEntry === undefined ) { continue; }
 
         // Delete obsolete session cookies: enabled.
         if ( tstampObsolete !== 0 && cookieEntry.session ) {
@@ -399,6 +376,8 @@ var processRemoveQueue = function() {
         }
     }
 
+    removeCookieQueue.clear();
+
     vAPI.setTimeout(processRemoveQueue, processRemoveQueuePeriod);
 };
 
@@ -407,16 +386,29 @@ var processRemoveQueue = function() {
 // Once in a while, we go ahead and clean everything that might have been
 // left behind.
 
+// Remove only some of the cookies which are candidate for removal: who knows,
+// maybe a user has 1000s of cookies sitting in his browser...
+
 var processClean = function() {
-    // Remove only some of the cookies which are candidate for removal:
-    // who knows, maybe a user has 1000s of cookies sitting in his
-    // browser...
-    var cookieKeys = Object.keys(cookieDict);
-    if ( cookieKeys.length > 25 ) {
-        cookieKeys = cookieKeys.sort(function(){return Math.random() < 0.5;}).splice(0, 50);
-    }
-    while ( cookieKeys.length ) {
-        removeCookieAsync(cookieKeys.pop());
+    var us = µm.userSettings;
+    if ( us.deleteCookies || us.deleteUnusedSessionCookies ) {
+        var cookieKeys = Array.from(cookieDict.keys()),
+            len = cookieKeys.length,
+            step, offset, n;
+        if ( len > 25 ) {
+            step = len / 25;
+            offset = Math.floor(Math.random() * len);
+            n = 25;
+        } else {
+            step = 1;
+            offset = 0;
+            n = len;
+        }
+        var i = offset;
+        while ( n-- ) {
+            removeCookieAsync(cookieKeys[Math.floor(i % len)]);
+            i += step;
+        }
     }
 
     vAPI.setTimeout(processClean, processCleanPeriod);
@@ -425,45 +417,33 @@ var processClean = function() {
 /******************************************************************************/
 
 var findAndRecordPageCookies = function(pageStore) {
-    for ( var cookieKey in cookieDict ) {
-        if ( !cookieDict.hasOwnProperty(cookieKey) ) {
-            continue;
+    for ( var cookieKey of cookieDict.keys() ) {
+        if ( cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
+            recordPageCookie(pageStore, cookieKey);
         }
-        if ( cookieMatchDomains(cookieKey, pageStore.allHostnamesString) === false ) {
-            continue;
-        }
-        recordPageCookie(pageStore, cookieKey);
     }
 };
 
 /******************************************************************************/
 
 var findAndRemovePageCookies = function(pageStore) {
-    for ( var cookieKey in cookieDict ) {
-        if ( !cookieDict.hasOwnProperty(cookieKey) ) {
-            continue;
+    for ( var cookieKey of cookieDict.keys() ) {
+        if ( cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
+            removeCookieAsync(cookieKey);
         }
-        if ( !cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
-            continue;
-        }
-        removeCookieAsync(cookieKey);
     }
 };
 
 /******************************************************************************/
 
 var canRemoveCookie = function(cookieKey, srcHostnames) {
-    var cookieEntry = cookieDict[cookieKey];
-    if ( !cookieEntry ) {
-        return false;
-    }
+    var cookieEntry = cookieDict.get(cookieKey);
+    if ( cookieEntry === undefined ) { return false; }
+
     var cookieHostname = cookieEntry.hostname;
     var srcHostname;
 
-    for ( srcHostname in cookieEntry.usedOn ) {
-        if ( cookieEntry.usedOn.hasOwnProperty(srcHostname) === false ) {
-            continue;
-        }
+    for ( srcHostname of cookieEntry.usedOn ) {
         if ( µm.mustAllow(srcHostname, cookieHostname, 'cookie') ) {
             return false;
         }
@@ -500,14 +480,12 @@ vAPI.cookies.onChanged = function(cookie) {
     // rhill 2013-12-11: If cookie value didn't change, no need to record.
     // https://github.com/gorhill/httpswitchboard/issues/79
     var cookieKey = cookieKeyFromCookie(cookie);
-    var cookieEntry = cookieDict[cookieKey];
-    if ( !cookieEntry ) {
+    var cookieEntry = cookieDict.get(cookieKey);
+    if ( cookieEntry === undefined ) {
         cookieEntry = addCookieToDict(cookie);
     } else {
         cookieEntry.tstamp = Date.now();
-        if ( cookie.value === cookieEntry.value ) {
-            return;
-        }
+        if ( cookie.value === cookieEntry.value ) { return; }
         cookieEntry.value = cookie.value;
     }
 
@@ -543,8 +521,8 @@ vAPI.cookies.onRemoved = function(cookie) {
 // Listen to any change in cookieland, we will update page stats accordingly.
 
 vAPI.cookies.onAllRemoved = function() {
-    for ( var cookieKey in cookieDict ) {
-        if ( cookieDict.hasOwnProperty(cookieKey) && removeCookieFromDict(cookieKey) ) {
+    for ( var cookieKey of cookieDict.keys() ) {
+        if ( removeCookieFromDict(cookieKey) ) {
             µm.logger.writeOne('', 'info', 'cookie', i18nCookieDeleteSuccess.replace('{{value}}', cookieKey));
         }
     }
