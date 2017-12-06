@@ -291,6 +291,7 @@ body .toolbar .scope {
     white-space: nowrap;
     }
 body .toolbar #specificScope {
+    direction: ltr;
     display: inline-flex;
     justify-content: flex-end;
     text-align: right;
