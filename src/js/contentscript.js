@@ -503,7 +503,7 @@ var nodeListsAddedHandler = function(nodeLists) {
     if ( noscripts.length === 0 ) { return; }
 
     var redirectTimer,
-        reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)([^'"]+)\2/;
+        reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)(https?:\/\/[^'"]+)\2/;
 
     var autoRefresh = function(root) {
         var meta = root.querySelector('meta[http-equiv="refresh"][content]');
