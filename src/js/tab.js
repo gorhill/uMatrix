@@ -259,9 +259,7 @@ housekeep itself.
 
     // Called whenever a candidate root URL is spotted for the tab.
     TabContext.prototype.push = function(url, context) {
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
-        }
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) { return; }
         var committed = context !== undefined;
         var count = this.stack.length;
         var topEntry = this.stack[count - 1];
@@ -348,28 +346,27 @@ housekeep itself.
         entry.rootDomain = µm.URI.domainFromHostname(entry.rootHostname) || entry.rootHostname;
     })();
 
+    // https://github.com/gorhill/uMatrix/issues/513
+    //   Force a badge update here, it could happen that all the subsequent
+    //   network requests are already in the page store, which would cause
+    //   the badge to no be updated for these network requests.
+
     vAPI.tabs.onNavigation = function(details) {
         var tabId = details.tabId;
-        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-            return;
-        }
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) { return; }
         push(tabId, details.url, 'newURL');
-        // https://github.com/gorhill/uMatrix/issues/513
-        // Force a badge update here, it could happen that all the subsequent
-        // network requests are already in the page store, which would cause
-        // the badge to no be updated for these network requests.
         µm.updateBadgeAsync(tabId);
     };
 
+    // https://github.com/gorhill/uMatrix/issues/872
+    //   `changeInfo.url` may not always be available (Firefox).
+
     vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
-        if ( typeof tab.url !== 'string' || tab.url === '' ) {
-            return;
-        }
-        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-            return;
-        }
-        if ( changeInfo.url ) {
-            push(tabId, changeInfo.url, 'updateURL');
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) { return; }
+        if ( typeof tab.url !== 'string' || tab.url === '' ) { return; }
+        var url = changeInfo.url || tab.url;
+        if ( url ) {
+            push(tabId, url, 'updateURL');
         }
     };
 
