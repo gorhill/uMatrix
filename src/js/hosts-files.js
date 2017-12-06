@@ -36,7 +36,7 @@ var listDetails = {},
 
 /******************************************************************************/
 
-var onMessage = function(msg) {
+vAPI.messaging.addListener(function onMessage(msg) {
     switch ( msg.what ) {
     case 'assetUpdated':
         updateAssetStatus(msg);
@@ -50,9 +50,7 @@ var onMessage = function(msg) {
     default:
         break;
     }
-};
-
-var messager = vAPI.messaging.channel('hosts-files.js', onMessage);
+});
 
 /******************************************************************************/
 
@@ -190,7 +188,7 @@ var renderHostsFiles = function(soft) {
         renderWidgets();
     };
 
-    messager.send({ what: 'getLists' }, onListsReceived);
+    vAPI.messaging.send('hosts-files.js', { what: 'getLists' }, onListsReceived);
 };
 
 /******************************************************************************/
@@ -274,7 +272,7 @@ var onPurgeClicked = function() {
         listKey = liEntry.attr('data-listkey');
     if ( !listKey ) { return; }
 
-    messager.send({ what: 'purgeCache', assetKey: listKey });
+    vAPI.messaging.send('hosts-files.js', { what: 'purgeCache', assetKey: listKey });
     liEntry.addClass('obsolete');
     liEntry.removeClass('cached');
 
@@ -311,7 +309,9 @@ var selectHostsFiles = function(callback) {
         toImport = externalListsElem.value.trim();
     externalListsElem.value = '';
 
-    messager.send({
+    vAPI.messaging.send(
+        'hosts-files.js',
+        {
             what: 'selectHostsFiles',
             toSelect: toSelect,
             toImport: toImport,
@@ -328,7 +328,7 @@ var selectHostsFiles = function(callback) {
 var buttonApplyHandler = function() {
     uDom('#buttonApply').removeClass('enabled');
     selectHostsFiles(function() {
-        messager.send({ what: 'reloadHostsFiles' });
+        vAPI.messaging.send('hosts-files.js', { what: 'reloadHostsFiles' });
     });
     renderWidgets();
 };
@@ -339,7 +339,7 @@ var buttonUpdateHandler = function() {
     uDom('#buttonUpdate').removeClass('enabled');
     selectHostsFiles(function() {
         document.body.classList.add('updating');
-        messager.send({ what: 'forceUpdateAssets' });
+        vAPI.messaging.send('hosts-files.js', { what: 'forceUpdateAssets' });
         renderWidgets();
     });
     renderWidgets();
@@ -349,19 +349,26 @@ var buttonUpdateHandler = function() {
 
 var buttonPurgeAllHandler = function() {
     uDom('#buttonPurgeAll').removeClass('enabled');
-    messager.send({ what: 'purgeAllCaches' }, function() {
-        renderHostsFiles(true);
-    });
+    vAPI.messaging.send(
+        'hosts-files.js',
+        { what: 'purgeAllCaches' },
+        function() {
+            renderHostsFiles(true);
+        }
+    );
 };
 
 /******************************************************************************/
 
 var autoUpdateCheckboxChanged = function() {
-    messager.send({
-        what: 'userSettings',
-        name: 'autoUpdate',
-        value: this.checked
-    });
+    vAPI.messaging.send(
+        'hosts-files.js',
+        {
+            what: 'userSettings',
+            name: 'autoUpdate',
+            value: this.checked
+        }
+    );
 };
 
 /******************************************************************************/

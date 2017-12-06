@@ -19,8 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global vAPI, uDom */
-/* jshint multistr: true */
+/* global uDom */
 
 'use strict';
 
@@ -30,14 +29,12 @@
 
 /******************************************************************************/
 
-var messager = vAPI.messaging.channel('settings.js');
-
 var cachedSettings = {};
 
 /******************************************************************************/
 
 function changeUserSettings(name, value) {
-    messager.send({
+    vAPI.messaging.send('settings.js', {
         what: 'userSettings',
         name: name,
         value: value
@@ -47,7 +44,7 @@ function changeUserSettings(name, value) {
 /******************************************************************************/
 
 function changeMatrixSwitch(name, state) {
-    messager.send({
+    vAPI.messaging.send('settings.js', {
         what: 'setMatrixSwitch',
         switchName: name,
         state: state
@@ -149,7 +146,11 @@ uDom.onLoad(function() {
 
         installEventHandlers();
     };
-    messager.send({ what: 'getUserSettings' }, onSettingsReceived);
+    vAPI.messaging.send(
+        'settings.js',
+        { what: 'getUserSettings' },
+        onSettingsReceived
+    );
 });
 
 /******************************************************************************/

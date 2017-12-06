@@ -19,17 +19,16 @@
     Home: https://github.com/gorhill/sessbench
 */
 
-/* global vAPI, uDom */
-
-/******************************************************************************/
-
-(function() {
+/* global uDom */
 
 'use strict';
 
 /******************************************************************************/
 
-var messager = vAPI.messaging.channel('logger-ui.js');
+(function() {
+
+/******************************************************************************/
+
 var tbody = document.querySelector('#content tbody');
 var trJunkyard = [];
 var tdJunkyard = [];
@@ -58,16 +57,6 @@ document.getElementById('content').style.setProperty(
     'margin-top',
     document.getElementById('toolbar').clientHeight + 'px'
 );
-
-/******************************************************************************/
-
-var escapeHTML = function(s) {
-    return s.replace(reEscapeLeftBracket, '&lt;')
-            .replace(reEscapeRightBracket, '&gt;');
-};
-
-var reEscapeLeftBracket = /</g;
-var reEscapeRightBracket = />/g;
 
 /******************************************************************************/
 
@@ -377,7 +366,7 @@ var synchronizeTabIds = function(newTabIds) {
     var select = document.getElementById('pageSelector');
     var selectValue = select.value;
     var tabIds = Object.keys(newTabIds).sort(function(a, b) {
-        return newTabIds[a].localeCompare(newTabIds[a]);
+        return newTabIds[a].localeCompare(newTabIds[b]);
     });
     var option;
     for ( var i = 0, j = 2; i < tabIds.length; i++ ) {
@@ -473,7 +462,7 @@ var onLogBufferRead = function(response) {
 // require a bit more code to ensure no multi time out events.
 
 var readLogBuffer = function() {
-    messager.send({ what: 'readMany' }, onLogBufferRead);
+    vAPI.messaging.send('logger-ui.js', { what: 'readMany' }, onLogBufferRead);
 };
 
 /******************************************************************************/
@@ -508,7 +497,10 @@ var refreshTab = function() {
     if ( matches[1] === 'bts' ) {
         return;
     }
-    messager.send({ what: 'forceReloadTab', tabId: matches[1] });
+    vAPI.messaging.send(
+        'logger-ui.js',
+        { what: 'forceReloadTab', tabId: matches[1] }
+    );
 };
 
 /******************************************************************************/
@@ -524,7 +516,7 @@ var onMaxEntriesChanged = function() {
         maxEntries = 0;
     }
 
-    messager.send({
+    vAPI.messaging.send('logger-ui.js', {
         what: 'userSettings',
         name: 'maxLoggedRequests',
         value: maxEntries

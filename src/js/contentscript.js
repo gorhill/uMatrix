@@ -19,8 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global HTMLDocument, vAPI */
-/* jshint multistr: true */
+/* global HTMLDocument */
 
 'use strict';
 
@@ -59,14 +58,6 @@ if ( vAPI.contentscriptEndInjected ) {
 vAPI.contentscriptEndInjected = true;
 
 /******************************************************************************/
-
-var localMessager = vAPI.messaging.channel('contentscript.js');
-
-vAPI.shutdown.add(function() {
-    localMessager.close();
-});
-
-/******************************************************************************/
 /******************************************************************************/
 
 // Executed only once.
@@ -88,9 +79,9 @@ vAPI.shutdown.add(function() {
         var hasLocalStorage = window.localStorage && window.localStorage.length;
         var hasSessionStorage = window.sessionStorage && window.sessionStorage.length;
         if ( hasLocalStorage || hasSessionStorage ) {
-            localMessager.send({
-                    what: 'contentScriptHasLocalStorage',
-                    url: window.location.href
+            vAPI.messaging.send('contentscript.js', {
+                what: 'contentScriptHasLocalStorage',
+                url: window.location.href
             }, localStorageHandler);
         }
 
@@ -214,7 +205,7 @@ var collapser = (function() {
 
     var send = function() {
         timer = null;
-        localMessager.send({
+        vAPI.messaging.send('contentscript.js', {
             what: 'evaluateURLs',
             requests: newRequests
         }, onProcessed);
@@ -397,7 +388,7 @@ var nodeListsAddedHandler = function(nodeLists) {
         collapser.addBranches(nodeLists[i]);
     }
     if ( summary.mustReport ) {
-        localMessager.send(summary);
+        vAPI.messaging.send('contentscript.js', summary);
     }
     collapser.process();
 };
@@ -422,7 +413,7 @@ var nodeListsAddedHandler = function(nodeLists) {
 
     //console.debug('contentscript.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
 
-    localMessager.send(summary);
+    vAPI.messaging.send('contentscript.js', summary);
 
     collapser.addNodes(document.querySelectorAll('iframe,img'));
     collapser.process();
@@ -539,17 +530,25 @@ var nodeListsAddedHandler = function(nodeLists) {
         }
     };
 
-    localMessager.send({ what: 'mustRenderNoscriptTags?' }, renderNoscriptTags);
+    vAPI.messaging.send(
+        'contentscript.js',
+        { what: 'mustRenderNoscriptTags?' },
+        renderNoscriptTags
+    );
 })();
 
 /******************************************************************************/
 /******************************************************************************/
 
-localMessager.send({ what: 'shutdown?' }, function(response) {
-    if ( response === true ) {
-        vAPI.shutdown.exec();
+vAPI.messaging.send(
+    'contentscript.js',
+    { what: 'shutdown?' },
+    function(response) {
+        if ( response === true ) {
+            vAPI.shutdown.exec();
+        }
     }
-});
+);
 
 /******************************************************************************/
 /******************************************************************************/

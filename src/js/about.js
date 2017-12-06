@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,17 +19,13 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global vAPI, uDom */
+/* global uDom */
 
 'use strict';
 
 /******************************************************************************/
 
 uDom.onLoad(function() {
-
-/******************************************************************************/
-
-var messager = vAPI.messaging.channel('about.js');
 
 /******************************************************************************/
 
@@ -41,7 +37,7 @@ var backupUserDataToFile = function() {
         });
     };
 
-    messager.send({ what: 'getAllUserData' }, userDataReady);
+    vAPI.messaging.send('about.js', { what: 'getAllUserData' }, userDataReady);
 };
 
 /******************************************************************************/
@@ -58,12 +54,14 @@ function restoreUserDataFromFile() {
         if ( userData === null ) {
             return null;
         }
-        if ( typeof userData !== 'object' ||
-             typeof userData.version !== 'string' ||
-             typeof userData.when !== 'number' ||
-             typeof userData.settings !== 'object' ||
-             typeof userData.rules !== 'string' ||
-             typeof userData.hostsFiles !== 'object' ) {
+        if (
+            typeof userData !== 'object' ||
+            typeof userData.version !== 'string' ||
+            typeof userData.when !== 'number' ||
+            typeof userData.settings !== 'object' ||
+            typeof userData.rules !== 'string' ||
+            typeof userData.hostsFiles !== 'object'
+        ) {
             return null;
         }
         return userData;
@@ -80,7 +78,10 @@ function restoreUserDataFromFile() {
             .replace('{{time}}', time.toLocaleString());
         var proceed = window.confirm(msg);
         if ( proceed ) {
-            messager.send({ what: 'restoreAllUserData', userData: userData });
+            vAPI.messaging.send(
+                'about.js',
+                { what: 'restoreAllUserData', userData: userData }
+            );
         }
     };
 
@@ -112,7 +113,7 @@ var startRestoreFilePicker = function() {
 var resetUserData = function() {
     var proceed = window.confirm(uDom('[data-i18n="aboutResetConfirm"]').text());
     if ( proceed ) {
-        messager.send({ what: 'resetAllUserData' });
+        vAPI.messaging.send('about.js', { what: 'resetAllUserData' });
     }
 };
 
@@ -129,7 +130,7 @@ var resetUserData = function() {
         document.getElementById('aboutStorageUsed').textContent =
             template.replace('{{storageUsed}}', storageUsed);
     };
-    messager.send({ what: 'getSomeStats' }, renderStats);
+    vAPI.messaging.send('about.js', { what: 'getSomeStats' }, renderStats);
 })();
 
 /******************************************************************************/

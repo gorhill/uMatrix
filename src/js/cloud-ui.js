@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2015 Raymond Hill
+    Copyright (C) 2015-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 */
 
 /* global uDom */
+
 'use strict';
 
 /******************************************************************************/
@@ -47,10 +48,6 @@ self.cloud.datakey = widget.getAttribute('data-cloud-entry') || '';
 if ( self.cloud.datakey === '' ) {
     return;
 }
-
-/******************************************************************************/
-
-var messager = vAPI.messaging.channel('cloud-ui.js');
 
 /******************************************************************************/
 
@@ -84,7 +81,8 @@ var onCloudDataReceived = function(entry) {
 /******************************************************************************/
 
 var fetchCloudData = function() {
-    messager.send(
+    vAPI.messaging.send(
+        'cloud-ui.js',
         {
             what: 'cloudPull',
             datakey: self.cloud.datakey
@@ -99,7 +97,8 @@ var pushData = function() {
     if ( typeof self.cloud.onPush !== 'function' ) {
         return;
     }
-    messager.send(
+    vAPI.messaging.send(
+        'cloud-ui.js',
         {
             what: 'cloudPush',
             datakey: self.cloud.datakey,
@@ -154,7 +153,7 @@ var submitOptions = function() {
         self.cloud.options = options;
     };
 
-    messager.send({
+    vAPI.messaging.send('cloud-ui.js', {
         what: 'cloudSetOptions',
         options: {
             deviceName: uDom.nodeFromId('cloudDeviceName').value
@@ -205,7 +204,7 @@ var onInitialize = function(options) {
     xhr.send();
 };
 
-messager.send({ what: 'cloudGetOptions' }, onInitialize);
+vAPI.messaging.send('cloud-ui.js', { what: 'cloudGetOptions' }, onInitialize);
 
 /******************************************************************************/
 

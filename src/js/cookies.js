@@ -19,8 +19,6 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global µMatrix */
-
 // rhill 2013-12-14: the whole cookie management has been rewritten so as
 // to avoid having to call chrome API whenever a single cookie changes, and
 // to record cookie for a web page *only* when its value changes.

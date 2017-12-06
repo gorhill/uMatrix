@@ -147,8 +147,6 @@ var expandosFromNode = function(node) {
     return node;
 };
 
-var messager = vAPI.messaging.channel('popup.js');
-
 /******************************************************************************/
 /******************************************************************************/
 
@@ -158,7 +156,7 @@ function getUserSetting(setting) {
 
 function setUserSetting(setting, value) {
     matrixSnapshot.userSettings[setting] = value;
-    messager.send({
+    vAPI.messaging.send('popup.js', {
         what: 'userSettings',
         name: setting,
         value: value
@@ -518,7 +516,7 @@ function handleFilter(button, leaning) {
         desHostname: desHostname,
         type: type
     };
-    messager.send(request, updateMatrixSnapshot);
+    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
 }
 
 function handleWhitelistFilter(button) {
@@ -1212,7 +1210,7 @@ function toggleMatrixSwitch(ev) {
         switchName: switchName,
         srcHostname: matrixSnapshot.scope
     };
-    messager.send(request, updateMatrixSnapshot);
+    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1237,7 +1235,7 @@ function persistMatrix() {
         what: 'applyDiffToPermanentMatrix',
         diff: matrixSnapshot.diff
     };
-    messager.send(request, updateMatrixSnapshot);
+    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1250,7 +1248,7 @@ function revertMatrix() {
         what: 'applyDiffToTemporaryMatrix',
         diff: matrixSnapshot.diff
     };
-    messager.send(request, updateMatrixSnapshot);
+    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
 }
 
 /******************************************************************************/
@@ -1269,14 +1267,14 @@ function revertAll() {
     var request = {
         what: 'revertTemporaryMatrix'
     };
-    messager.send(request, updateMatrixSnapshot);
+    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
     dropDownMenuHide();
 }
 
 /******************************************************************************/
 
 function buttonReloadHandler(ev) {
-    messager.send({
+    vAPI.messaging.send('popup.js', {
         what: 'forceReloadTab',
         tabId: matrixSnapshot.tabId,
         bypassCache: ev.shiftKey
@@ -1298,7 +1296,7 @@ function mouseleaveMatrixCellHandler() {
 function gotoExtensionURL(ev) {
     var url = uDom(ev.currentTarget).attr('data-extension-url');
     if ( url ) {
-        messager.send({
+        vAPI.messaging.send('popup.js', {
             what: 'gotoExtensionURL',
             url: url,
             shiftKey: ev.shiftKey
@@ -1406,7 +1404,7 @@ var matrixSnapshotPoller = (function() {
 
     var pollNow = function() {
         unpollAsync();
-        messager.send({
+        vAPI.messaging.send('popup.js', {
             what: 'matrixSnapshot',
             tabId: matrixSnapshot.tabId,
             scope: matrixSnapshot.scope,
@@ -1461,7 +1459,7 @@ var matrixSnapshotPoller = (function() {
             pollAsync();
         };
 
-        messager.send({
+        vAPI.messaging.send('popup.js', {
             what: 'matrixSnapshot',
             tabId: tabId
         }, snapshotFetched);

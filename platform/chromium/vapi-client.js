@@ -45,8 +45,8 @@ if ( vAPI.vapiClientInjected ) {
 }
 vAPI.vapiClientInjected = true;
 
-vAPI.sessionId = String.fromCharCode(Date.now() % 25 + 97) +
-    Math.random().toString(36).slice(2);
+vAPI.sessionId = String.fromCharCode(Date.now() % 26 + 97) +
+                 Math.random().toString(36).slice(2);
 vAPI.chrome = true;
 
 /******************************************************************************/
@@ -74,101 +74,159 @@ vAPI.shutdown = (function() {
 
 /******************************************************************************/
 
-var messagingConnector = function(response) {
-    if ( !response ) {
-        return;
-    }
-
-    var channels = vAPI.messaging.channels;
-    var channel, listener;
-
-    if ( response.broadcast === true && !response.channelName ) {
-        for ( channel in channels ) {
-            if ( channels.hasOwnProperty(channel) === false ) {
-                continue;
-            }
-            listener = channels[channel].listener;
-            if ( typeof listener === 'function' ) {
-                listener(response.msg);
-            }
-        }
-        return;
-    }
-
-    if ( response.requestId ) {
-        listener = vAPI.messaging.listeners[response.requestId];
-        delete vAPI.messaging.listeners[response.requestId];
-        delete response.requestId;
-    }
-
-    if ( !listener ) {
-        channel = channels[response.channelName];
-        listener = channel && channel.listener;
-    }
-
-    if ( typeof listener === 'function' ) {
-        listener(response.msg);
-    }
-};
-
-/******************************************************************************/
-
 vAPI.messaging = {
     port: null,
-    channels: {},
-    listeners: {},
-    requestId: 1,
+    portTimer: null,
+    portTimerDelay: 10000,
+    listeners: new Set(),
+    pending: new Map(),
+    auxProcessId: 1,
+    shuttingDown: false,
 
-    setup: function() {
-        this.port = chrome.runtime.connect({name: vAPI.sessionId});
-        this.port.onMessage.addListener(messagingConnector);
+    shutdown: function() {
+        this.shuttingDown = true;
+        this.destroyPort();
     },
 
-    close: function() {
-        if ( this.port === null ) {
-            return;
-        }
-        this.port.disconnect();
-        this.port.onMessage.removeListener(messagingConnector);
+    disconnectListener: function() {
         this.port = null;
-        this.channels = {};
-        this.listeners = {};
+        vAPI.shutdown.exec();
     },
+    disconnectListenerBound: null,
 
-    channel: function(channelName, callback) {
-        if ( !channelName ) {
+    messageListener: function(details) {
+        if ( !details ) { return; }
+
+        // Sent to all listeners
+        if ( details.broadcast ) {
+            this.sendToListeners(details.msg);
             return;
         }
 
-        this.channels[channelName] = {
-            channelName: channelName,
-            listener: typeof callback === 'function' ? callback : null,
-            send: function(message, callback) {
-                if ( vAPI.messaging.port === null ) {
-                    vAPI.messaging.setup();
-                }
+        // Response to specific message previously sent
+        var listener;
+        if ( details.auxProcessId ) {
+            listener = this.pending.get(details.auxProcessId);
+            if ( listener !== undefined ) {
+                this.pending.delete(details.auxProcessId);
+                listener(details.msg);
+                return;
+            }
+        }
+    },
+    messageListenerCallback: null,
 
-                message = {
-                    channelName: this.channelName,
-                    msg: message
-                };
+    portPoller: function() {
+        this.portTimer = null;
+        if (
+            this.port !== null &&
+            this.listeners.size === 0 &&
+            this.pending.size === 0
+        ) {
+            return this.destroyPort();
+        }
+        this.portTimer = vAPI.setTimeout(this.portPollerBound, this.portTimerDelay);
+        this.portTimerDelay = Math.min(this.portTimerDelay * 2, 60 * 60 * 1000);
+    },
+    portPollerBound: null,
 
-                if ( callback ) {
-                    message.requestId = vAPI.messaging.requestId++;
-                    vAPI.messaging.listeners[message.requestId] = callback;
-                }
-
-                vAPI.messaging.port.postMessage(message);
-            },
-            close: function() {
-                delete vAPI.messaging.channels[this.channelName];
-                if ( Object.keys(vAPI.messaging.channels).length === 0 ) {
-                    vAPI.messaging.close();
+    destroyPort: function() {
+        if ( this.portTimer !== null ) {
+            clearTimeout(this.portTimer);
+            this.portTimer = null;
+        }
+        var port = this.port;
+        if ( port !== null ) {
+            port.disconnect();
+            port.onMessage.removeListener(this.messageListenerCallback);
+            port.onDisconnect.removeListener(this.disconnectListenerBound);
+            this.port = null;
+        }
+        this.listeners.clear();
+        // service pending callbacks
+        if ( this.pending.size !== 0 ) {
+            var pending = this.pending;
+            this.pending = new Map();
+            for ( var callback of pending.values() ) {
+                if ( typeof callback === 'function' ) {
+                    callback(null);
                 }
             }
-        };
+        }
+    },
 
-        return this.channels[channelName];
+    createPort: function() {
+        if ( this.shuttingDown ) { return null; }
+        if ( this.messageListenerCallback === null ) {
+            this.messageListenerCallback = this.messageListener.bind(this);
+            this.disconnectListenerBound = this.disconnectListener.bind(this);
+            this.portPollerBound = this.portPoller.bind(this);
+        }
+        try {
+            this.port = chrome.runtime.connect({name: vAPI.sessionId}) || null;
+        } catch (ex) {
+            this.port = null;
+        }
+        if ( this.port !== null ) {
+            this.port.onMessage.addListener(this.messageListenerCallback);
+            this.port.onDisconnect.addListener(this.disconnectListenerBound);
+            this.portTimerDelay = 10000;
+            if ( this.portTimer === null ) {
+                this.portTimer = vAPI.setTimeout(
+                    this.portPollerBound,
+                    this.portTimerDelay
+                );
+            }
+        }
+        return this.port;
+    },
+
+    getPort: function() {
+        return this.port !== null ? this.port : this.createPort();
+    },
+
+    send: function(channelName, message, callback) {
+        // Too large a gap between the last request and the last response means
+        // the main process is no longer reachable: memory leaks and bad
+        // performance become a risk -- especially for long-lived, dynamic
+        // pages. Guard against this.
+        if ( this.pending.size > 25 ) {
+            vAPI.shutdown.exec();
+        }
+        var port = this.getPort();
+        if ( port === null ) {
+            if ( typeof callback === 'function' ) { callback(); }
+            return;
+        }
+        var auxProcessId;
+        if ( callback ) {
+            auxProcessId = this.auxProcessId++;
+            this.pending.set(auxProcessId, callback);
+        }
+        port.postMessage({
+            channelName: channelName,
+            auxProcessId: auxProcessId,
+            msg: message
+        });
+    },
+
+    addListener: function(listener) {
+        this.listeners.add(listener);
+        this.getPort();
+    },
+
+    removeListener: function(listener) {
+        this.listeners.delete(listener);
+    },
+
+    removeAllListeners: function() {
+        this.listeners.clear();
+    },
+
+    sendToListeners: function(msg) {
+        for ( var listener of this.listeners ) {
+            listener(msg);
+        }
     }
 };
 
@@ -191,6 +249,6 @@ vAPI.setTimeout = vAPI.setTimeout || function(callback, delay) {
 
 /******************************************************************************/
 
-})(this);
+})(this); // jshint ignore: line
 
 /******************************************************************************/

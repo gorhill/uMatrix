@@ -21,11 +21,11 @@
 
 /* global uDom */
 
+'use strict';
+
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -157,9 +157,7 @@ if ( window.history.length > 1 ) {
 
 // See if the target hostname is still blacklisted, and if not, navigate to it.
 
-var messager = vAPI.messaging.channel('main-blocked.js');
-
-messager.send({
+vAPI.messaging.send('main-blocked.js', {
     what: 'mustBlock',
     scope: details.hn,
     hostname: details.hn,
