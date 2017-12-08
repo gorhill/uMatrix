@@ -474,16 +474,19 @@ var nodeListsAddedHandler = function(nodeLists) {
     if ( noscripts.length === 0 ) { return; }
 
     var redirectTimer,
-        reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)(https?:\/\/[^'"]+)\2/;
+        reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)([^'"]+)\2/,
+        reSafeURL = /^https?:\/\//;
 
     var autoRefresh = function(root) {
         var meta = root.querySelector('meta[http-equiv="refresh"][content]');
         if ( meta === null ) { return; }
         var match = reMetaContent.exec(meta.getAttribute('content'));
         if ( match === null || match[3].trim() === '' ) { return; }
+        var url = new URL(match[3], document.baseURI);
+        if ( reSafeURL.test(url.href) === false ) { return; }
         redirectTimer = setTimeout(
             function() {
-                location.assign(match[3]);
+                location.assign(url.href);
             },
             parseInt(match[1], 10) * 1000 + 1
         );
