@@ -39,6 +39,9 @@ var uniqueIdGenerator = 1;
 var Matrix = function() {
     this.id = uniqueIdGenerator++;
     this.reset();
+    this.sourceRegister = '';
+    this.decomposedSourceRegister = [''];
+    this.specificityRegister = 0;
 };
 
 /******************************************************************************/
@@ -141,9 +144,7 @@ var isIPAddress = function(hostname) {
 /******************************************************************************/
 
 var toBroaderHostname = function(hostname) {
-    if ( hostname === '*' ) {
-        return '';
-    }
+    if ( hostname === '*' ) { return ''; }
     if ( isIPAddress(hostname) ) {
         return toBroaderIPAddress(hostname);
     }
@@ -188,6 +189,20 @@ Matrix.prototype.reset = function() {
     this.rules = new Map();
     this.rootValue = Matrix.RedIndirect;
     this.modifiedTime = 0;
+};
+
+/******************************************************************************/
+
+Matrix.prototype.decomposeSource = function(srcHostname) {
+    if ( srcHostname === this.sourceRegister ) { return; }
+    var hn = srcHostname;
+    this.decomposedSourceRegister[0] = this.sourceRegister = hn;
+    var i = 1;
+    for (;;) {
+        hn = toBroaderHostname(hn);
+        this.decomposedSourceRegister[i++] = hn;
+        if ( hn === '' ) { break; }
+    }
 };
 
 /******************************************************************************/
@@ -331,10 +346,13 @@ Matrix.prototype.evaluateCell = function(srcHostname, desHostname, type) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
-    var bitOffset = typeBitOffsets.get(type);
-    var s = srcHostname;
-    var v;
+    this.decomposeSource(srcHostname);
+
+    var bitOffset = typeBitOffsets.get(type),
+        s, v, i = 0;
     for (;;) {
+        s = this.decomposedSourceRegister[i++];
+        if ( s === '' ) { break; }
         v = this.rules.get(s + ' ' + desHostname);
         if ( v !== undefined ) {
             v = v >> bitOffset & 3;
@@ -342,9 +360,6 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
                 return v;
             }
         }
-        // TODO: external rules? (for presets)
-        s = toBroaderHostname(s);
-        if ( s === '' ) { break; }
     }
     // srcHostname is '*' at this point
 
@@ -366,6 +381,7 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
 
 Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     // Matrix filtering switch
+    this.specificityRegister = 0;
     if ( this.evaluateSwitchZ('matrix-off', srcHostname) ) {
         return Matrix.GreenIndirect;
     }
@@ -377,11 +393,13 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     // evaluating net requests.
 
     // Specific-hostname specific-type cell
+    this.specificityRegister = 1;
     var r = this.evaluateCellZ(srcHostname, desHostname, type);
     if ( r === 1 ) { return Matrix.RedDirect; }
     if ( r === 2 ) { return Matrix.GreenDirect; }
 
     // Specific-hostname any-type cell
+    this.specificityRegister = 2;
     var rl = this.evaluateCellZ(srcHostname, desHostname, '*');
     if ( rl === 1 ) { return Matrix.RedIndirect; }
 
@@ -390,10 +408,9 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 
     // Ancestor cells, up to 1st-party destination domain
     if ( firstPartyDesDomain !== '' ) {
+        this.specificityRegister = 3;
         for (;;) {
-            if ( d === firstPartyDesDomain ) {
-                break;
-            }
+            if ( d === firstPartyDesDomain ) { break; }
             d = d.slice(d.indexOf('.') + 1);
 
             // specific-hostname specific-type cell
@@ -420,11 +437,10 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     }
 
     // Keep going, up to root
+    this.specificityRegister = 4;
     for (;;) {
         d = toBroaderHostname(d);
-        if ( d === '*' ) {
-            break;
-        }
+        if ( d === '*' ) { break; }
 
         // specific-hostname specific-type cell
         r = this.evaluateCellZ(srcHostname, d, type);
@@ -438,6 +454,7 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     }
 
     // Any-hostname specific-type cells
+    this.specificityRegister = 5;
     r = this.evaluateCellZ(srcHostname, '*', type);
     // Line below is strict-blocking
     if ( r === 1 ) { return Matrix.RedIndirect; }
@@ -446,6 +463,7 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
     if ( r === 2 ) { return Matrix.GreenIndirect; }
 
     // Any-hostname any-type cell
+    this.specificityRegister = 6;
     r = this.evaluateCellZ(srcHostname, '*', '*');
     if ( r === 1 ) { return Matrix.RedIndirect; }
     if ( r === 2 ) { return Matrix.GreenIndirect; }
@@ -534,22 +552,20 @@ Matrix.prototype.evaluateSwitch = function(switchName, srcHostname) {
 
 Matrix.prototype.evaluateSwitchZ = function(switchName, srcHostname) {
     var bitOffset = switchBitOffsets.get(switchName);
-    if ( bitOffset === undefined ) {
-        return false;
-    }
-    var bits;
-    var s = srcHostname;
+    if ( bitOffset === undefined ) { return false; }
+
+    this.decomposeSource(srcHostname);
+
+    var s, bits, i = 0;
     for (;;) {
+        s = this.decomposedSourceRegister[i++];
+        if ( s === '' ) { break; }
         bits = this.switches.get(s) || 0;
         if ( bits !== 0 ) {
             bits = bits >> bitOffset & 3;
             if ( bits !== 0 ) {
                 return bits === 1;
             }
-        }
-        s = toBroaderHostname(s);
-        if ( s === '' ) {
-            break;
         }
     }
     return false;

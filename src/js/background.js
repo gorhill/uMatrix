@@ -91,6 +91,7 @@ return {
         clearBrowserCache: true,
         clearBrowserCacheAfter: 60,
         cloudStorageEnabled: false,
+        collapseBlacklisted: true,
         collapseBlocked: false,
         colorBlindFriendly: false,
         deleteCookies: false,

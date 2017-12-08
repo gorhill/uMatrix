@@ -33,17 +33,17 @@ ul > li.separator {
 
 <h2 data-i18n="settingsMatrixConvenienceHeader"></h2>
 <ul>
-    <li>
-        <input id="iconBadgeEnabled" type="checkbox" data-setting-bool="iconBadgeEnabled">
+    <li><input id="iconBadgeEnabled" type="checkbox" data-setting-bool>
         <label data-i18n="settingsIconBadgeEnabled" for="iconBadgeEnabled"></label>
-    <li>
-        <input id="collapseBlocked" type="checkbox" data-setting-bool="collapseBlocked">
+    <li><input id="collapseBlocked" type="checkbox" data-setting-bool>
         <label data-i18n="settingsCollapseBlocked" for="collapseBlocked"></label>
-    <li>
-        <input id="noscriptTagsSpoofed" type="checkbox" data-matrix-switch="noscript-spoof">
+        <ul>
+            <li><input id="collapseBlacklisted" type="checkbox" data-setting-bool>
+                <label data-i18n="settingsCollapseBlacklisted" for="collapseBlacklisted"></label>
+        </ul>
+    <li><input id="noscriptTagsSpoofed" type="checkbox" data-matrix-switch="noscript-spoof">
         <label data-i18n="settingsNoscriptTagsSpoofed" for="noscriptTagsSpoofed"></label>
-    <li>
-        <input id="cloudStorageEnabled" type="checkbox" data-setting-bool="cloudStorageEnabled">
+    <li><input id="cloudStorageEnabled" type="checkbox" data-setting-bool>
         <label data-i18n="settingsCloudStorageEnabled" for="cloudStorageEnabled"></label>
 </ul>
 <h2 data-i18n="settingsMatrixDisplayHeader"></h2>
@@ -56,18 +56,18 @@ ul > li.separator {
         <label data-i18n="settingsDefaultScopeLevel"></label> <select id="popupScopeLevel"><option data-i18n="settingsDefaultScopeLevel2" value="site"><option data-i18n="settingsDefaultScopeLevel1" value="domain"><option data-i18n="settingsDefaultScopeLevel0" value="*"></select>
     <li class="separator">
     <li>
-        <input id="colorBlindFriendly" type="checkbox" data-setting-bool="colorBlindFriendly">
+        <input id="colorBlindFriendly" type="checkbox" data-setting-bool>
         <label data-i18n="settingsMatrixDisplayColorBlind" for="colorBlindFriendly"></label>
 </ul>
 <h2 data-i18n="privacyPageName"></h2>
 <ul>
     <li>
-        <input id="delete-blacklisted-cookies" type="checkbox" data-setting-bool="deleteCookies"><label data-i18n="privacyDeleteBlockedCookiesPrompt" for="delete-blacklisted-cookies"></label>
+        <input id="deleteCookies" type="checkbox" data-setting-bool><label data-i18n="privacyDeleteBlockedCookiesPrompt" for="deleteCookies"></label>
         <span class="whatisthis"></span>
         <div class="whatisthis-expandable para" data-i18n="privacyDeleteBlockedCookiesHelp"></div>
     <li>
-        <input id="delete-unused-session-cookies" type="checkbox" data-setting-bool="deleteUnusedSessionCookies"><label data-i18n="privacyDeleteNonBlockedSessionCookiesPrompt1" for="delete-unused-session-cookies"></label>
-        <input id="delete-unused-session-cookies-after" type="text" value="60" size="3"><span data-i18n="privacyDeleteNonBlockedSessionCookiesPrompt2"></span>
+        <input id="deleteUnusedSessionCookies" type="checkbox" data-setting-bool><label data-i18n="privacyDeleteNonBlockedSessionCookiesPrompt1" for="deleteUnusedSessionCookies"></label>
+        <input id="deleteUnusedSessionCookiesAfter" type="text" value="60" size="3"><span data-i18n="privacyDeleteNonBlockedSessionCookiesPrompt2"></span>
         <span class="whatisthis"></span>
         <div class="whatisthis-expandable para" data-i18n="privacyDeleteNonBlockedSessionCookiesHelp"></div>
     <!--
@@ -89,22 +89,22 @@ ul > li.separator {
         of these cookies so that they cannot be used to track you.
     -->
     <li>
-        <input id="delete-blacklisted-localstorage" type="checkbox" data-setting-bool="deleteLocalStorage"><label data-i18n="privacyDeleteBlockedLocalStoragePrompt" for="delete-blacklisted-localstorage"></label>
+        <input id="deleteLocalStorage" type="checkbox" data-setting-bool><label data-i18n="privacyDeleteBlockedLocalStoragePrompt" for="deleteLocalStorage"></label>
     <li>
-        <input id="clear-browser-cache" type="checkbox" data-setting-bool="clearBrowserCache"><label data-i18n="privacyClearCachePrompt1" for="clear-browser-cache"></label> 
-        <input id="clear-browser-cache-after" type="text" value="60" size="3"> <label data-i18n="privacyClearCachePrompt2" for="clear-browser-cache-after"></label>
+        <input id="clearBrowserCache" type="checkbox" data-setting-bool><label data-i18n="privacyClearCachePrompt1" for="clearBrowserCache"></label> 
+        <input id="clearBrowserCacheAfter" type="text" value="60" size="3"> <label data-i18n="privacyClearCachePrompt2" for="clearBrowserCacheAfter"></label>
         <span class="whatisthis"></span>
         <div class="whatisthis-expandable para" data-i18n="privacyClearCacheHelp"></div>
     <li>
-        <input id="process-referer" type="checkbox" data-matrix-switch="referrer-spoof"><label data-i18n="privacyProcessRefererPrompt" for="process-referer"></label>
+        <input id="processReferer" type="checkbox" data-matrix-switch="referrer-spoof"><label data-i18n="privacyProcessRefererPrompt" for="processReferer"></label>
         <span class="whatisthis"></span>
         <div class="whatisthis-expandable para" data-i18n="privacyProcessRefererHelp"></div>
     <li>
-        <input id="no-mixed-content" type="checkbox" data-matrix-switch="https-strict"><label data-i18n="privacyNoMixedContentPrompt" for="no-mixed-content"></label>
+        <input id="noMixedContent" type="checkbox" data-matrix-switch="https-strict"><label data-i18n="privacyNoMixedContentPrompt" for="noMixedContent"></label>
         <span class="whatisthis"></span>
         <div class="whatisthis-expandable para" data-i18n="privacyNoMixedContentHelp"></div>
     <li>
-        <input id="process-hyperlink-auditing" type="checkbox" data-setting-bool="processHyperlinkAuditing"><label data-i18n="privacyProcessHyperlinkAuditingPrompt" for="process-hyperlink-auditing"></label>
+        <input id="processHyperlinkAuditing" type="checkbox" data-setting-bool><label data-i18n="privacyProcessHyperlinkAuditingPrompt" for="processHyperlinkAuditing"></label>
         <span class="whatisthis"></span>
         <div class="whatisthis-expandable para" data-i18n="privacyProcessHyperlinkAuditingHelp"></div>
 </ul>

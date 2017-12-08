@@ -427,68 +427,58 @@ var contentScriptSummaryHandler = function(tabId, details) {
 /******************************************************************************/
 
 var contentScriptLocalStorageHandler = function(tabId, pageURL) {
-    var µmuri = µm.URI.set(pageURL);
-    var response = µm.mustBlock(µm.scopeFromURL(pageURL), µmuri.hostname, 'cookie');
-    µm.recordFromTabId(
-        tabId,
-        'cookie',
-        µmuri.rootURL() + '/{localStorage}',
-        response
+    var tabContext = µm.tabContextManager.lookup(tabId);
+    if ( tabContext === null ) { return; }
+
+    var blocked = µm.mustBlock(
+        tabContext.rootHostname,
+        µm.URI.hostnameFromURI(pageURL),
+        'cookie'
     );
-    response = response && µm.userSettings.deleteLocalStorage;
-    if ( response ) {
+
+    var pageStore = µm.pageStoreFromTabId(tabId);
+    if ( pageStore !== null ) {
+        var requestURL = µm.URI.originFromURI(pageURL) + '/{localStorage}';
+        pageStore.recordRequest('cookie', requestURL, blocked);
+        µm.logger.writeOne(tabId, 'net', tabContext.rootHostname, requestURL, 'cookie', blocked);
+    }
+
+    var removeStorage = blocked && µm.userSettings.deleteLocalStorage;
+    if ( removeStorage ) {
         µm.localStorageRemovedCounter++;
     }
-    return response;
+
+    return removeStorage;
 };
 
 /******************************************************************************/
 
 // Evaluate many URLs against the matrix.
 
-var evaluateURLs = function(tabId, requests) {
-    var collapse = µm.userSettings.collapseBlocked;
+var lookupBlockedCollapsibles = function(tabId, requests) {
     var response = {
-        collapse: collapse,
-        requests: requests
+        blockedResources: [],
+        hash: requests.hash,
+        id: requests.id,
+        placeholders: placeholders
     };
 
-    // Create evaluation context
     var tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) {
         return response;
     }
-    var rootHostname = tabContext.rootHostname;
-
-    //console.debug('messaging.js/contentscript.js: processing %d requests', requests.length);
 
     var pageStore = µm.pageStoreFromTabId(tabId);
-    var µmuri = µm.URI;
-    var typeMap = tagNameToRequestTypeMap;
-    var request, type;
-    var i = requests.length;
-    while ( i-- ) {
-        request = requests[i];
-        type = typeMap[request.tagName];
-        request.blocked = µm.mustBlock(
-            rootHostname,
-            µmuri.hostnameFromURI(request.url),
-            type
-        );
-        // https://github.com/gorhill/uMatrix/issues/205
-        // If blocked, the URL must be recorded by the page store, so as to ensure
-        // they are properly reflected in the matrix.
-        if ( request.blocked && pageStore ) {
-            pageStore.recordRequest(type, request.url, true);
-        }
+    if ( pageStore !== null ) {
+        pageStore.lookupBlockedCollapsibles(requests, response);
     }
 
-    if ( collapse ) {
-        placeholders = null;
-        return response;
-    }
+    // TODO: evaluate whether the issue reported below still exists.
+    //   https://github.com/gorhill/uMatrix/issues/205
+    //   If blocked, the URL must be recorded by the page store, so as to
+    //   ensure they are properly reflected in the matrix.
 
-    if ( placeholders === null ) {
+    if ( response.placeholders === null ) {
         placeholders = {
             background:
                 vAPI.localStorage.getItem('placeholderBackground') ||
@@ -505,17 +495,10 @@ var evaluateURLs = function(tabId, requests) {
         };
         placeholders.iframe =
             placeholders.iframe.replace('{{bg}}', placeholders.background);
+        response.placeholders = placeholders;
     }
-    response.placeholders = placeholders;
 
     return response;
-};
-
-/******************************************************************************/
-
-var tagNameToRequestTypeMap = {
-    'iframe': 'frame',
-       'img': 'image'
 };
 
 var placeholders = null;
@@ -544,8 +527,8 @@ var onMessage = function(request, sender, callback) {
         contentScriptSummaryHandler(tabId, request);
         break;
 
-    case 'evaluateURLs':
-        response = evaluateURLs(tabId, request.requests);
+    case 'lookupBlockedCollapsibles':
+        response = lookupBlockedCollapsibles(tabId, request);
         break;
 
     case 'mustRenderNoscriptTags?':

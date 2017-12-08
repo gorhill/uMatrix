@@ -75,26 +75,19 @@ var onBeforeRootFrameRequestHandler = function(details) {
 // Intercept and filter web requests according to white and black lists.
 
 var onBeforeRequestHandler = function(details) {
-    var µm = µMatrix,
-        µmuri = µm.URI;
-
-    // rhill 2014-02-17: Ignore 'filesystem:': this can happen when listening
-    // to 'chrome-extension://'.
-    var requestScheme = µmuri.schemeFromURI(details.url);
-    if ( requestScheme === 'filesystem' ) {
-        return;
-    }
-
     var requestType = requestTypeNormalizer[details.type] || 'other';
 
     // https://github.com/gorhill/httpswitchboard/issues/303
     // Wherever the main doc comes from, create a receiver page URL: synthetize
     // one if needed.
-    if ( requestType === 'doc' && details.parentFrameId < 0 ) {
+    if ( requestType === 'doc' && details.parentFrameId === -1 ) {
         return onBeforeRootFrameRequestHandler(details);
     }
 
-    var requestURL = details.url;
+    var µm = µMatrix,
+        µmuri = µm.URI,
+        requestURL = details.url,
+        requestScheme = µmuri.schemeFromURI(requestURL);
 
     // Ignore non-network schemes
     if ( µmuri.isNetworkScheme(requestScheme) === false ) {
@@ -109,23 +102,29 @@ var onBeforeRequestHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabContext = µm.tabContextManager.mustLookup(details.tabId);
-    var tabId = tabContext.tabId;
-    var rootHostname = tabContext.rootHostname;
+    var tabContext = µm.tabContextManager.mustLookup(details.tabId),
+        tabId = tabContext.tabId,
+        rootHostname = tabContext.rootHostname,
+        specificity = 0;
+
+    // Filter through matrix
+    var block = µm.tMatrix.mustBlock(
+        rootHostname,
+        µmuri.hostnameFromURI(requestURL),
+        requestType
+    );
+    if ( block ) {
+        specificity = µm.tMatrix.specificityRegister;
+    }
 
     // Enforce strict secure connection?
-    var block = false;
     if (
+        block === false &&
         tabContext.secure &&
         µmuri.isSecureScheme(requestScheme) === false &&
         µm.tMatrix.evaluateSwitchZ('https-strict', rootHostname)
     ) {
         block = true;
-    }
-
-    // Disallow request as per temporary matrix?
-    if ( block === false ) {
-        block = µm.mustBlock(rootHostname, µmuri.hostnameFromURI(requestURL), requestType);
     }
 
     // Record request.
@@ -138,16 +137,10 @@ var onBeforeRequestHandler = function(details) {
     pageStore.recordRequest(requestType, requestURL, block);
     µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, details.type, block);
 
-    // Allowed?
-    if ( !block ) {
-        // console.debug('onBeforeRequestHandler()> ALLOW "%s": %o', details.url, details);
-        return;
+    if ( block ) {
+        pageStore.cacheBlockedCollapsible(requestType, requestURL, specificity);
+        return { 'cancel': true };
     }
-
-    // Blocked
-    // console.debug('onBeforeRequestHandler()> BLOCK "%s": %o', details.url, details);
-
-    return { 'cancel': true };
 };
 
 /******************************************************************************/

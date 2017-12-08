@@ -552,19 +552,6 @@ vAPI.tabs.registerListeners();
 
 /******************************************************************************/
 
-// Log a request
-
-µm.recordFromTabId = function(tabId, type, url, blocked) {
-    var pageStore = this.pageStoreFromTabId(tabId);
-    if ( pageStore === null ) {
-        return;
-    }
-    pageStore.recordRequest(type, url, blocked);
-    this.logger.writeOne(tabId, 'net', pageStore.pageHostname, url, type, blocked);
-};
-
-/******************************************************************************/
-
 µm.forceReload = function(tabId, bypassCache) {
     vAPI.tabs.reload(tabId, bypassCache);
 };
