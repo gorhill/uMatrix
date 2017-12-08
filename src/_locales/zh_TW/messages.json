@@ -335,6 +335,10 @@
         "message": "隱藏已阻擋請求所關聯的頁面內容",
         "description": "English: Collapse placeholder of blocked elements"
     },
+    "settingsCollapseBlacklisted": {
+        "message": "Collapse placeholder of blacklisted elements",
+        "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
+    },
     "settingsNoscriptTagsSpoofed": {
         "message": "當第一方指令碼被阻擋時嘗試模擬還原 <code><noscript><\/code> 網頁元素",
         "description": "This appears in the Settings pane in the dashboard"

@@ -100,7 +100,7 @@
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
-        "message": "주",
+        "message": "최상위 도메인",
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
@@ -334,6 +334,10 @@
     "settingsCollapseBlocked": {
         "message": "차단 된 요청과 관련된 페이지 콘텐츠를 숨 깁니다.",
         "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsCollapseBlacklisted": {
+        "message": "Collapse placeholder of blacklisted elements",
+        "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
         "message": "웹페이지의 도메인 스크립트가 차단되면 <code><noscript><\/code> 태그를 위장합니다.",

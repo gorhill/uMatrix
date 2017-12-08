@@ -335,6 +335,10 @@
         "message": "Cacher les espaces réservés aux éléments bloqués",
         "description": "English: Collapse placeholder of blocked elements"
     },
+    "settingsCollapseBlacklisted": {
+        "message": "Cacher les espaces réservés aux éléments de la liste noire",
+        "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
+    },
     "settingsNoscriptTagsSpoofed": {
         "message": "Modifier les balises <code><noscript><\/code> lorsque les scripts du domaine de la page Web sont bloqués",
         "description": "This appears in the Settings pane in the dashboard"

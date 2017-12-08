@@ -332,8 +332,12 @@
         "description": "English: Show the number of distinct requests on the icon"
     },
     "settingsCollapseBlocked": {
-        "message": "Colapsar espaço reservado de elementos bloqueados",
+        "message": "Agrupar espaços reservados à elementos bloqueados",
         "description": "English: Collapse placeholder of blocked elements"
+    },
+    "settingsCollapseBlacklisted": {
+        "message": "Agrupar espaços reservados à elementos da lista negra",
+        "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
         "message": "Disfarçar <code><noscript><\/code> tags quando scripts de 1° nível são bloqueados",

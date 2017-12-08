@@ -335,6 +335,10 @@
         "message": "ブロックした要素のプレースホルダを折りたたむ",
         "description": "English: Collapse placeholder of blocked elements"
     },
+    "settingsCollapseBlacklisted": {
+        "message": "Collapse placeholder of blacklisted elements",
+        "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
+    },
     "settingsNoscriptTagsSpoofed": {
         "message": "訪れているサイトのスクリプトがブロックされている場合に <code><noscript><\/code> タグを偽装する",
         "description": "This appears in the Settings pane in the dashboard"
