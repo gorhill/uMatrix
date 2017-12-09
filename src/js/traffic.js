@@ -212,9 +212,9 @@ var onBeforeSendHeadersHandler = function(details) {
         headerIndex !== -1 &&
         µm.mustBlock(rootHostname, requestHostname, 'cookie')
     ) {
+        modified = true;
         headerValue = requestHeaders[headerIndex].value;
         requestHeaders.splice(headerIndex, 1);
-        modified = true;
         µm.cookieHeaderFoiledCounter++;
         if ( requestType === 'doc' ) {
             µm.logger.writeOne(tabId, 'net', '', headerValue, 'COOKIE', true);
@@ -236,7 +236,10 @@ var onBeforeSendHeadersHandler = function(details) {
     //   "Origin header field."
 
     // https://github.com/gorhill/uMatrix/issues/358
-    // Do not spoof `Origin` header for the time being. This will be revisited.
+    //   Do not spoof `Origin` header for the time being.
+
+    // https://github.com/gorhill/uMatrix/issues/773
+    //   For non-GET requests, remove `Referer` header instead of spoofing it.
 
     headerIndex = headerIndexFromName('referer', requestHeaders);
     if ( headerIndex !== -1 ) {
@@ -247,13 +250,20 @@ var onBeforeSendHeadersHandler = function(details) {
         ) {
             var toDomain = µmuri.domainFromHostname(requestHostname);
             if ( toDomain !== '' && toDomain !== µmuri.domainFromURI(headerValue) ) {
-                var newValue = requestScheme + '://' + requestHostname + '/';
-                requestHeaders[headerIndex].value = newValue;
                 modified = true;
+                var newValue;
+                if ( details.method === 'GET' ) {
+                    newValue = requestHeaders[headerIndex].value =
+                        requestScheme + '://' + requestHostname + '/';
+                } else {
+                    requestHeaders.splice(headerIndex, 1);
+                }
                 µm.refererHeaderFoiledCounter++;
                 if ( requestType === 'doc' ) {
                     µm.logger.writeOne(tabId, 'net', '', headerValue, 'REFERER', true);
-                    µm.logger.writeOne(tabId, 'net', '', newValue, 'REFERER', false);
+                    if ( newValue !== undefined ) {
+                        µm.logger.writeOne(tabId, 'net', '', newValue, 'REFERER', false);
+                    }
                 }
             }
         }
@@ -276,14 +286,10 @@ var onBeforeSendHeadersHandler = function(details) {
 
 var onHeadersReceived = function(details) {
     // Ignore schemes other than 'http...'
-    var requestURL = details.url;
-    if ( requestURL.lastIndexOf('http', 0) !== 0 ) {
-        return;
-    }
-
-    var µm = µMatrix;
-    var tabId = details.tabId;
-    var requestType = requestTypeNormalizer[details.type] || 'other';
+    var µm = µMatrix,
+        tabId = details.tabId,
+        requestURL = details.url,
+        requestType = requestTypeNormalizer[details.type] || 'other';
 
     // https://github.com/gorhill/uMatrix/issues/145
     // Check if the main_frame is a download
@@ -292,9 +298,7 @@ var onHeadersReceived = function(details) {
     }
 
     var tabContext = µm.tabContextManager.lookup(tabId);
-    if ( tabContext === null ) {
-        return;
-    }
+    if ( tabContext === null ) { return; }
 
     if ( µm.mustAllow(tabContext.rootHostname, µm.URI.hostnameFromURI(requestURL), 'script') ) {
         return;
@@ -305,20 +309,21 @@ var onHeadersReceived = function(details) {
     // We block only inline-script tags, all the external javascript will be
     // blocked by our request handler.
 
-    var csp = "script-src 'unsafe-eval' *",
+    var csp = "script-src 'unsafe-eval' blob: *",
         headers = details.responseHeaders,
         i = headerIndexFromName('content-security-policy', headers);
     // A CSP header is already present: just add our own directive as a
     // separate disposition (i.e. use comma).
     if ( i !== -1 ) {
-        csp = headers[i].value.trim() + ', ' + csp;
-        headers.splice(i, 1);
+        headers[i].value += ', ' + csp;
+    } else {
+        headers.push({ name: 'Content-Security-Policy', value: csp });
     }
 
-    // TODO: We are currently forced to add the CSP header at the end of the
-    //       headers array, because this is what the platform specific code
-    //       expect (Firefox).
-    headers.push({ name: 'Content-Security-Policy', value: csp });
+    if ( requestType === 'doc' ) {
+        µm.logger.writeOne(tabId, 'net', '', csp, 'CSP', false);
+    }
+
     return { responseHeaders: headers };
 };
 

@@ -51,6 +51,7 @@ var prettyRequestTypes = {
 
 var dontEmphasizeSet = new Set([
     'COOKIE',
+    'CSP',
     'REFERER'
 ]);
 
