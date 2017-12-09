@@ -49,6 +49,11 @@ var prettyRequestTypes = {
     'xmlhttprequest': 'xhr'
 };
 
+var dontEmphasizeSet = new Set([
+    'COOKIE',
+    'REFERER'
+]);
+
 /******************************************************************************/
 
 // Adjust top padding of content table, to match that of toolbar height.
@@ -245,7 +250,9 @@ var renderLogEntry = function(entry) {
             tr.cells[fvdc].textContent = '';
         }
         tr.cells[fvdc+1].textContent = (prettyRequestTypes[entry.d2] || entry.d2);
-        if ( entry.d2 === 'cookie' ) {
+        if ( dontEmphasizeSet.has(entry.d2) ) {
+            tr.cells[fvdc+2].textContent = entry.d1;
+        } else if ( entry.d2 === 'cookie' ) {
             tr.cells[fvdc+2].appendChild(emphasizeCookie(entry.d1));
         } else {
             tr.cells[fvdc+2].appendChild(emphasizeHostname(entry.d1));

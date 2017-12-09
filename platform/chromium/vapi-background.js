@@ -55,9 +55,7 @@ var noopFunc = function(){};
 
 // https://github.com/gorhill/uMatrix/issues/234
 // https://developer.chrome.com/extensions/privacy#property-network
-chrome.privacy.network.networkPredictionEnabled.set({
-    value: false
-});
+chrome.privacy.network.networkPredictionEnabled.set({ value: false });
 
 /******************************************************************************/
 
@@ -125,9 +123,7 @@ vAPI.tabs.registerListeners = function() {
 
     var onCreatedNavigationTarget = function(details) {
         //console.debug('onCreatedNavigationTarget: tab id %d = "%s"', details.tabId, details.url);
-        if ( reGoodForWebRequestAPI.test(details.url) ) {
-            return;
-        }
+        if ( reGoodForWebRequestAPI.test(details.url) ) { return; }
         details.tabId = details.tabId.toString();
         onNavigationClient(details);
     };
@@ -563,78 +559,7 @@ vAPI.net = {};
 /******************************************************************************/
 
 vAPI.net.registerListeners = function() {
-    var µm = µMatrix,
-        reNetworkURL = /^(?:https?|wss?):\/\//,
-        httpRequestHeadersJunkyard = [];
-
-    // Abstraction layer to deal with request headers
-    // >>>>>>>>
-    var httpRequestHeadersFactory = function(headers) {
-        var entry = httpRequestHeadersJunkyard.pop();
-        if ( entry ) {
-            return entry.init(headers);
-        }
-        return new HTTPRequestHeaders(headers);
-    };
-
-    var HTTPRequestHeaders = function(headers) {
-        this.init(headers);
-    };
-
-    HTTPRequestHeaders.prototype.init = function(headers) {
-        this.modified = false;
-        this.headers = headers;
-        return this;
-    };
-
-    HTTPRequestHeaders.prototype.dispose = function() {
-        var r = this.modified ? this.headers : null;
-        this.headers = null;
-        httpRequestHeadersJunkyard.push(this);
-        return r;
-    };
-
-    HTTPRequestHeaders.prototype.getHeader = function(target) {
-        var headers = this.headers;
-        var header, name;
-        var i = headers.length;
-        while ( i-- ) {
-            header = headers[i];
-            name = header.name.toLowerCase();
-            if ( name === target ) {
-                return header.value;
-            }
-        }
-        return '';
-    };
-
-    HTTPRequestHeaders.prototype.setHeader = function(target, value, create) {
-        var headers = this.headers;
-        var header, name;
-        var i = headers.length;
-        while ( i-- ) {
-            header = headers[i];
-            name = header.name.toLowerCase();
-            if ( name === target ) {
-                break;
-            }
-        }
-        if ( i < 0 && !create ) {       // Header not found, don't add it
-            return false;
-        }
-        if ( i < 0 ) {                  // Header not found, add it
-            headers.push({ name: target, value: value });
-        } else if ( value === '' ) {    // Header found, remove it
-            headers.splice(i, 1);
-        } else {                        // Header found, modify it
-            header.value = value;
-        }
-        this.modified = true;
-        return true;
-    };
-    // <<<<<<<<
-    // End of: Abstraction layer to deal with request headers
-
+    var µm = µMatrix;
 
     // Normalizing request types
     // >>>>>>>>
@@ -647,30 +572,17 @@ vAPI.net.registerListeners = function() {
     var normalizeRequestDetails = function(details) {
         details.tabId = details.tabId.toString();
 
-        var type = details.type;
-
-        if ( type === 'imageset' ) {
-            details.type = 'image';
-            return;
-        }
-
         // The rest of the function code is to normalize request type
-        if ( type !== 'other' ) {
-            return;
-        }
-
-        if ( details.requestHeaders instanceof HTTPRequestHeaders ) {
-            if ( details.requestHeaders.getHeader('ping-to') !== '' ) {
-                details.type = 'ping';
-                return;
-            }
-        }
+        if ( details.type !== 'other' ) { return; }
 
         // Try to map known "extension" part of URL to request type.
         var path = µm.URI.pathFromURI(details.url),
             pos = path.indexOf('.', path.length - 6);
-        if ( pos !== -1 && (type = extToTypeMap.get(path.slice(pos + 1))) ) {
-            details.type = type;
+        if ( pos !== -1 ) {
+            var type = extToTypeMap.get(path.slice(pos + 1));
+            if ( type !== undefined ) {
+                details.type = type;
+            }
         }
     };
     // <<<<<<<<
@@ -681,17 +593,9 @@ vAPI.net.registerListeners = function() {
     var onBeforeRequestClient = this.onBeforeRequest.callback;
     chrome.webRequest.onBeforeRequest.addListener(
         function(details) {
-            if ( reNetworkURL.test(details.url) ) {
-                normalizeRequestDetails(details);
-                return onBeforeRequestClient(details);
-            }
+            normalizeRequestDetails(details);
+            return onBeforeRequestClient(details);
         },
-        //function(details) {
-        //    quickProfiler.start('onBeforeRequest');
-        //    var r = onBeforeRequest(details);
-        //    quickProfiler.stop();
-        //    return r;
-        //},
         {
             'urls': this.onBeforeRequest.urls || [ '<all_urls>' ],
             'types': this.onBeforeRequest.types || undefined
@@ -701,16 +605,8 @@ vAPI.net.registerListeners = function() {
 
     var onBeforeSendHeadersClient = this.onBeforeSendHeaders.callback;
     var onBeforeSendHeaders = function(details) {
-        details.requestHeaders = httpRequestHeadersFactory(details.requestHeaders);
         normalizeRequestDetails(details);
-        var result = onBeforeSendHeadersClient(details);
-        if ( typeof result === 'object' ) {
-            return result;
-        }
-        var modifiedHeaders = details.requestHeaders.dispose();
-        if ( modifiedHeaders !== null ) {
-            return { requestHeaders: modifiedHeaders };
-        }
+        return onBeforeSendHeadersClient(details);
     };
     chrome.webRequest.onBeforeSendHeaders.addListener(
         onBeforeSendHeaders,
