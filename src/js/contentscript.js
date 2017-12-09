@@ -67,7 +67,6 @@ vAPI.contentscriptEndInjected = true;
         if ( mustRemove ) {
             window.localStorage.clear();
             window.sessionStorage.clear();
-            // console.debug('HTTP Switchboard > found and removed non-empty localStorage');
         }
     };
 
@@ -76,12 +75,14 @@ vAPI.contentscriptEndInjected = true;
     // to site data is disabled.
     // https://github.com/gorhill/httpswitchboard/issues/215
     try {
-        var hasLocalStorage = window.localStorage && window.localStorage.length;
-        var hasSessionStorage = window.sessionStorage && window.sessionStorage.length;
+        var hasLocalStorage =
+            window.localStorage && window.localStorage.length !== 0;
+        var hasSessionStorage =
+            window.sessionStorage && window.sessionStorage.length !== 0;
         if ( hasLocalStorage || hasSessionStorage ) {
             vAPI.messaging.send('contentscript.js', {
                 what: 'contentScriptHasLocalStorage',
-                url: window.location.href
+                originURL: window.location.origin
             }, localStorageHandler);
         }
 

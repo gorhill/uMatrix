@@ -426,19 +426,19 @@ var contentScriptSummaryHandler = function(tabId, details) {
 
 /******************************************************************************/
 
-var contentScriptLocalStorageHandler = function(tabId, pageURL) {
+var contentScriptLocalStorageHandler = function(tabId, originURL) {
     var tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) { return; }
 
     var blocked = µm.mustBlock(
         tabContext.rootHostname,
-        µm.URI.hostnameFromURI(pageURL),
+        µm.URI.hostnameFromURI(originURL),
         'cookie'
     );
 
     var pageStore = µm.pageStoreFromTabId(tabId);
     if ( pageStore !== null ) {
-        var requestURL = µm.URI.originFromURI(pageURL) + '/{localStorage}';
+        var requestURL = originURL + '/{localStorage}';
         pageStore.recordRequest('cookie', requestURL, blocked);
         µm.logger.writeOne(tabId, 'net', tabContext.rootHostname, requestURL, 'cookie', blocked);
     }
@@ -520,7 +520,7 @@ var onMessage = function(request, sender, callback) {
 
     switch ( request.what ) {
     case 'contentScriptHasLocalStorage':
-        response = contentScriptLocalStorageHandler(tabId, request.url);
+        response = contentScriptLocalStorageHandler(tabId, request.originURL);
         break;
 
     case 'contentScriptSummary':
