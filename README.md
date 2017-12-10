@@ -4,7 +4,7 @@ Definitely for advanced users.
 
 ***
 
-Keep Github issues for actual bugs. User support is [Mozilla's add-on-support](https://discourse.mozilla-community.org/t/support-umatrix/5131).
+Keep Github issues for actual bugs. User support is [/r/uMatrix](https://www.reddit.com/r/uMatrix/).
 
 Forked and refactored from [HTTP Switchboard](https://github.com/gorhill/httpswitchboard).
 
