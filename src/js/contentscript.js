@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global HTMLDocument */
+/* global HTMLDocument, XMLDocument */
 
 'use strict';
 
@@ -33,8 +33,11 @@
 /******************************************************************************/
 
 // https://github.com/chrisaljoudi/uBlock/issues/464
-if ( document instanceof HTMLDocument === false ) {
-    //console.debug('contentscript.js > not a HTLMDocument');
+// https://github.com/gorhill/uMatrix/issues/621
+if (
+    document instanceof HTMLDocument === false &&
+    document instanceof XMLDocument === false
+) {
     return;
 }
 
