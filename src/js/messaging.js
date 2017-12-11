@@ -391,9 +391,7 @@ var contentScriptSummaryHandler = function(tabId, details) {
     // TODO: Investigate "Error in response to tabs.executeScript: TypeError:
     // Cannot read property 'locationURL' of null" (2013-11-12). When can this
     // happens? 
-    if ( !details || !details.locationURL ) {
-        return;
-    }
+    if ( !details || !details.locationURL ) { return; }
 
     // scripts
     if ( details.inlineScript !== true ) {
@@ -402,9 +400,7 @@ var contentScriptSummaryHandler = function(tabId, details) {
 
     // https://github.com/gorhill/httpswitchboard/issues/25
     var pageStore = µm.pageStoreFromTabId(tabId);
-    if ( pageStore === null ) {
-        return;
-    }
+    if ( pageStore === null ) { return; }
 
     var pageHostname = pageStore.pageHostname;
     var µmuri = µm.URI.set(details.locationURL);

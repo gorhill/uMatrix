@@ -97,11 +97,11 @@ vAPI.contentscriptEndInjected = true;
         //}
 
         // TODO: Web SQL
-       // if ( window.openDatabase ) {
+        // if ( window.openDatabase ) {
             // Sad:
             // "There is no way to enumerate or delete the databases available for an origin from this API."
             // Ref.: http://www.w3.org/TR/webdatabase/#databases
-       // }
+        // }
     }
     catch (e) {
     }
@@ -334,84 +334,6 @@ var collapser = (function() {
 /******************************************************************************/
 /******************************************************************************/
 
-var hasInlineScript = function(nodeList, summary) {
-    var i = 0;
-    var node, text;
-    while ( (node = nodeList.item(i++)) ) {
-        if ( node.nodeType !== 1 ) {
-            continue;
-        }
-        if ( node.localName === 'script' ) {
-            text = node.textContent.trim();
-            if ( text === '' ) {
-                continue;
-            }
-            summary.inlineScript = true;
-            break;
-        }
-        if ( node.localName === 'a' && node.href.lastIndexOf('javascript', 0) === 0 ) {
-            summary.inlineScript = true;
-            break;
-        }
-    }
-    if ( summary.inlineScript ) {
-        summary.mustReport = true;
-    }
-};
-
-var nodeListsAddedHandler = function(nodeLists) {
-    var i = nodeLists.length;
-    if ( i === 0 ) {
-        return;
-    }
-    var summary = {
-        what: 'contentScriptSummary',
-        locationURL: window.location.href,
-        inlineScript: false,
-        mustReport: false
-    };
-    while ( i-- ) {
-        if ( summary.inlineScript === false ) {
-            hasInlineScript(nodeLists[i], summary);
-        }
-        collapser.addNodeList(nodeLists[i]);
-    }
-    if ( summary.mustReport ) {
-        vAPI.messaging.send('contentscript.js', summary);
-    }
-    collapser.process();
-};
-
-/******************************************************************************/
-/******************************************************************************/
-
-// Executed only once.
-
-(function() {
-    var summary = {
-        what: 'contentScriptSummary',
-        locationURL: window.location.href,
-        inlineScript: false,
-        mustReport: true
-    };
-    // https://github.com/gorhill/httpswitchboard/issues/25
-    // &
-    // Looks for inline javascript also in at least one a[href] element.
-    // https://github.com/gorhill/httpswitchboard/issues/131
-    hasInlineScript(document.querySelectorAll('a[href^="javascript:"],script'), summary);
-
-    //console.debug('contentscript.js > firstObservationHandler(): found %d script tags in "%s"', Object.keys(summary.scriptSources).length, window.location.href);
-
-    vAPI.messaging.send('contentscript.js', summary);
-
-    collapser.addMany(document.querySelectorAll('img'));
-    collapser.addIFrames(document.querySelectorAll('iframe'));
-    collapser.process();
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
 // Observe changes in the DOM
 
 // Added node lists will be cumulated here before being processed
@@ -421,11 +343,15 @@ var nodeListsAddedHandler = function(nodeLists) {
     if ( !document.body ) { return; }
 
     var addedNodeLists = [];
-    var addedNodeListsTimer = null;
+    var addedNodeListsTimer;
 
     var treeMutationObservedHandler = function() {
-        nodeListsAddedHandler(addedNodeLists);
-        addedNodeListsTimer = null;
+        addedNodeListsTimer = undefined;
+        var i = addedNodeLists.length;
+        while ( i-- ) {
+            collapser.addNodeList(addedNodeLists[i]);
+        }
+        collapser.process();
         addedNodeLists = [];
     };
 
@@ -440,7 +366,7 @@ var nodeListsAddedHandler = function(nodeLists) {
                 addedNodeLists.push(nodeList);
             }
         }
-        if ( addedNodeListsTimer === null ) {
+        if ( addedNodeListsTimer === undefined ) {
             addedNodeListsTimer = vAPI.setTimeout(treeMutationObservedHandler, 47);
         }
     };
@@ -453,16 +379,44 @@ var nodeListsAddedHandler = function(nodeLists) {
     });
 
     vAPI.shutdown.add(function() {
-        if ( addedNodeListsTimer !== null ) {
+        if ( addedNodeListsTimer !== undefined ) {
             clearTimeout(addedNodeListsTimer);
-            addedNodeListsTimer = null;
+            addedNodeListsTimer = undefined;
         }
         if ( treeObserver !== null ) {
             treeObserver.disconnect();
-            treeObserver = null;
+            treeObserver = undefined;
         }
         addedNodeLists = [];
     });
+})();
+
+/******************************************************************************/
+/******************************************************************************/
+
+// Executed only once.
+
+// https://github.com/gorhill/httpswitchboard/issues/25
+
+// https://github.com/gorhill/httpswitchboard/issues/131
+//   Looks for inline javascript also in at least one a[href] element.
+
+// https://github.com/gorhill/uMatrix/issues/485
+//   Mind "on..." attributes.
+
+(function() {
+    vAPI.messaging.send('contentscript.js', {
+        what: 'contentScriptSummary',
+        locationURL: window.location.href,
+        inlineScript:
+            document.querySelector('script:not([src])') !== null ||
+            document.querySelector('a[href^="javascript:"]') !== null ||
+            document.querySelector('[onabort],[onblur],[oncancel],[oncanplay],[oncanplaythrough],[onchange],[onclick],[onclose],[oncontextmenu],[oncuechange],[ondblclick],[ondrag],[ondragend],[ondragenter],[ondragexit],[ondragleave],[ondragover],[ondragstart],[ondrop],[ondurationchange],[onemptied],[onended],[onerror],[onfocus],[oninput],[oninvalid],[onkeydown],[onkeypress],[onkeyup],[onload],[onloadeddata],[onloadedmetadata],[onloadstart],[onmousedown],[onmouseenter],[onmouseleave],[onmousemove],[onmouseout],[onmouseover],[onmouseup],[onwheel],[onpause],[onplay],[onplaying],[onprogress],[onratechange],[onreset],[onresize],[onscroll],[onseeked],[onseeking],[onselect],[onshow],[onstalled],[onsubmit],[onsuspend],[ontimeupdate],[ontoggle],[onvolumechange],[onwaiting],[onafterprint],[onbeforeprint],[onbeforeunload],[onhashchange],[onlanguagechange],[onmessage],[onoffline],[ononline],[onpagehide],[onpageshow],[onrejectionhandled],[onpopstate],[onstorage],[onunhandledrejection],[onunload],[oncopy],[oncut],[onpaste]') !== null
+    });
+
+    collapser.addMany(document.querySelectorAll('img'));
+    collapser.addIFrames(document.querySelectorAll('iframe'));
+    collapser.process();
 })();
 
 /******************************************************************************/
