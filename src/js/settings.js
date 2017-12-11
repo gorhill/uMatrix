@@ -106,6 +106,7 @@ function onInputChanged(ev) {
         changeUserSettings(target.id, target.checked);
         break;
     case 'noMixedContent':
+    case 'noscriptTagsSpoofed':
     case 'processReferer':
         changeMatrixSwitch(
             target.getAttribute('data-matrix-switch'),
