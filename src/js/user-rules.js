@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to block requests.
-    Copyright (C) 2014 Raymond Hill
+    uMatrix - a Chromium browser extension to block requests.
+    Copyright (C) 2014-2017 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -145,7 +145,7 @@ var fromNoScript = function(content) {
     ) {
         return;
     }
-    var out = {};
+    var out = new Set();
     var reBad = /[a-z]+:\w*$/;
     var reURL = /[a-z]+:\/\/([0-9a-z.-]+)/;
     var directives = noscript.whitelist.split(/\s+/);
@@ -163,9 +163,11 @@ var fromNoScript = function(content) {
         if ( matches !== null ) {
             directive = matches[1];
         }
-        out['* ' + directive + ' script allow'] = true;
+        out.add('* ' + directive + ' * allow');
+        out.add('* ' + directive + ' script allow');
+        out.add('* ' + directive + ' frame allow');
     }
-    return Object.keys(out).join('\n');
+    return Array.from(out).join('\n');
 };
 
 /******************************************************************************/
