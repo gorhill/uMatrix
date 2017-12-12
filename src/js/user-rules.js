@@ -118,7 +118,7 @@ var processUserRules = function(response) {
 var fromRequestPolicy = function(content) {
     var matches = /\[origins-to-destinations\]([^\[]+)/.exec(content);
     if ( matches === null || matches.length !== 2 ) {
-        return '';
+        return;
     }
     return matches[1].trim()
                      .replace(/\|/g, ' ')
@@ -143,7 +143,7 @@ var fromNoScript = function(content) {
         typeof noscript.whitelist !== 'string' ||
         typeof noscript.V !== 'string'
     ) {
-        return '';
+        return;
     }
     var out = {};
     var reBad = /[a-z]+:\w*$/;
@@ -176,12 +176,13 @@ var handleImportFilePicker = function() {
             return;
         }
         var result = fromRequestPolicy(this.result);
-        if ( result === '' ) {
+        if ( result === undefined ) {
             result = fromNoScript(this.result);
-            if ( result === '' ) {
+            if ( result === undefined ) {
                 result = this.result;
             }
         }
+        if ( this.result === '' ) { return; }
         var request = {
             'what': 'setUserRules',
             'temporaryRules': rulesFromHTML('#diff .right li') + '\n' + result
