@@ -432,7 +432,7 @@ var collapser = (function() {
     if ( noscripts.length === 0 ) { return; }
 
     var redirectTimer,
-        reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)([^'"]+)\2/,
+        reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)([^'"]+)\2/i,
         reSafeURL = /^https?:\/\//;
 
     var autoRefresh = function(root) {
