@@ -1203,8 +1203,8 @@ function updateMatrixSwitches() {
 }
 
 function toggleMatrixSwitch(ev) {
+    if ( ev.target.localName === 'a' ) { return; }
     var elem = ev.currentTarget;
-    if ( elem.target.localName === 'a' ) { return; }
     var pos = elem.id.indexOf('_');
     if ( pos === -1 ) { return; }
     var switchName = elem.id.slice(pos + 1);
