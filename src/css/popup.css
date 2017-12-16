@@ -2,7 +2,7 @@ body {
     background-color: white;
     border: 0;
     float: left;
-    font: 13px httpsb,sans-serif;
+    font: 14px httpsb,sans-serif;
     margin: 0;
     min-height: 16em;
     min-width: 32em;
@@ -72,88 +72,103 @@ body[dir="rtl"] #gotoDashboard > span:last-of-type {
     font-family: sans-serif;
     line-height: 12px;
     margin: 0;
-    padding: 02px 0;
+    padding: 2px 0;
     text-align: center;
     }
 #toolbarContainer {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
 }
 .toolbar {
     border: 0;
-    display: inline-block;
+    display: inline-flex;
     margin: 0;
     padding: 0;
-    vertical-align: top;
-    white-space: nowrap;
     }
 
 body .toolbar button {
-    margin: 0;
-    border: 0;
-    padding: 4px;
-    font: inherit;
     background-color: white;
+    border: 0;
     color: black;
-    opacity: 0.9;
     cursor: pointer;
-    vertical-align: top;
+    margin: 0;
+    padding: 0.2em 0.2em 0.1em 0.2em;
+    position: relative;
     }
 body .toolbar button:hover {
     background-color: #eee;
-    opacity: 1;
     }
 body .toolbar button.disabled {
     color: #ccc;
     }
 body .toolbar button.fa {
-    font: 1.75em FontAwesome;
-    min-width: 1.1em;
+    font: 1.7em FontAwesome;
+    min-width: 1.4em;
     }
 #mtxSwitch_matrix-off.switchTrue {
     color: #a00;
     }
 
 #mtxSwitches > li  {
+    align-items: baseline;
     color: #888;
+    display: flex;
+    justify-content: space-between;
     }
 #mtxSwitches > li.switchTrue {
     color: #000;
     }
-#mtxSwitches > li:before {
+#mtxSwitches > li > span:before {
     font: 110% FontAwesome;
     }
-body[dir="ltr"] #mtxSwitches > li:before {
-    padding-right: 0.5em;
+#mtxSwitches > li > span:first-of-type:before {
+    content: '\f204\a0';
     }
-body[dir="rtl"] #mtxSwitches > li:before {
-    padding-left: 0.5em;
+#mtxSwitches > li.switchTrue > span:first-of-type:before {
+    content: '\f205\a0';
     }
-#mtxSwitches > li:before {
-    content: '\f204';
-    }
-#mtxSwitches > li.switchTrue:before {
+#mtxSwitches > li > a {
     color: #000;
-    content: '\f205';
+    opacity: 0;
+    }
+#mtxSwitches > li:hover > a {
+    opacity: 0.1;
+    }
+#mtxSwitches > li > a:hover {
+    opacity: 0.8;
     }
 
-.dropdown-menu {
-    margin: 0;
+.dropdown-menu-capture {
+    background-color: transparent;
     border: 0;
+    bottom: 0;
     display: none;
-    font-size: 110%;
-    padding: 3px 0 0 0;
+    font: 1rem httpsb,sans-serif;
+    left: 0;
+    margin: 0;
+    padding: 0;
     position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 300;
+    }
+.dropdown-menu-capture.show {
+    display: block;
+    }
+.dropdown-menu {
+    border: 0;
+    display: inline-block;
+    margin: 0;
+    padding: 3px 0 0 0;
+    position: absolute;
     white-space: normal;
-    z-index: 50;
     }
 .dropdown-menu > ul {
     margin: 0;
     border: 0;
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 0.25em;
+    padding: 0;
     background-color: white;
     list-style-type: none;
     }
@@ -162,7 +177,7 @@ body[dir="rtl"] #mtxSwitches > li:before {
     color: black;
     cursor: pointer;
     margin: 0;
-    padding: 4px 0.5em;
+    padding: 0.2em 0.25em;
     white-space: nowrap;
     }
 .dropdown-menu > ul > li.dropdown-menu-entry:hover {
@@ -173,23 +188,6 @@ body[dir="rtl"] #mtxSwitches > li:before {
     margin: 0.5em 0;
     }
 .dropdown-menu.show {
-    display: block;
-    }
-.dropdown-menu-capture {
-    margin: 0;
-    border: 0;
-    padding: 0;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: transparent;
-    opacity: 0.1;
-    display: none;
-    z-index: 40;
-    }
-.dropdown-menu.show ~ .dropdown-menu-capture {
     display: block;
     }
 
@@ -282,19 +280,22 @@ body .toolbar .scope {
     border: 1px solid #ccc;
     box-sizing: content-box;
     -moz-box-sizing: content-box;
+    display: inline-flex;
     color: white;
-    display: inline-block;
-    line-height: 2em;
     margin: 0;
     padding: 1px;
     cursor: pointer;
-    white-space: nowrap;
+    }
+body .toolbar .scope > span {
+    align-items: center;
+    display: inline-flex;
+    }
+body .toolbar .scope > span > span {
+    pointer-events: none;
     }
 body .toolbar #specificScope {
     direction: ltr;
-    display: inline-flex;
     justify-content: flex-end;
-    text-align: right;
     width: 16em;
     }
 body .toolbar #specificScope.on {
@@ -303,8 +304,7 @@ body .toolbar #specificScope.on {
     }
 body .toolbar #specificScope > span {
     background-color: #ccc;
-    display: inline-block;
-    height: 100%;
+    justify-content: flex-end;
     }
 body .toolbar #specificScope > span.on {
     background-color: #24c;
@@ -325,9 +325,9 @@ body .toolbar #specificScope > span:first-of-type {
     flex: 1;
     }
 body .toolbar #globalScope {
+    justify-content: center;
     margin-left: 1px;
-    text-align: center;
-    width: 2em;
+    width: 1.8em;
     }
 body .toolbar #globalScope.on {
     background-color: #000;

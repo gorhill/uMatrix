@@ -1134,7 +1134,7 @@ function initScopeCell() {
         tld = matrixSnapshot.domain.slice(pos + 1);
         labels = matrixSnapshot.hostname.slice(0, -tld.length);
     }
-    var beg = 0, span;
+    var beg = 0, span, label;
     while ( beg < labels.length ) {
         pos = labels.indexOf('.', beg);
         if ( pos === -1 ) {
@@ -1142,18 +1142,22 @@ function initScopeCell() {
         } else {
             pos += 1;
         }
-        span = document.createElement('span');
-        span.setAttribute('data-scope', labels.slice(beg) + tld);
-        span.appendChild(
+        label = document.createElement('span');
+        label.appendChild(
             document.createTextNode(punycode.toUnicode(labels.slice(beg, pos)))
         );
+        span = document.createElement('span');
+        span.setAttribute('data-scope', labels.slice(beg) + tld);
+        span.appendChild(label);
         specificScope.appendChild(span);
         beg = pos;
     }
     if ( tld !== '' ) {
+        label = document.createElement('span');
+        label.appendChild(document.createTextNode(punycode.toUnicode(tld)));
         span = document.createElement('span');
         span.setAttribute('data-scope', tld);
-        span.appendChild(document.createTextNode(punycode.toUnicode(tld)));
+        span.appendChild(label);
         specificScope.appendChild(span);
     }
     updateScopeCell();
@@ -1200,10 +1204,9 @@ function updateMatrixSwitches() {
 
 function toggleMatrixSwitch(ev) {
     var elem = ev.currentTarget;
+    if ( elem.target.localName === 'a' ) { return; }
     var pos = elem.id.indexOf('_');
-    if ( pos === -1 ) {
-        return;
-    }
+    if ( pos === -1 ) { return; }
     var switchName = elem.id.slice(pos + 1);
     var request = {
         what: 'toggleMatrixSwitch',
@@ -1310,18 +1313,20 @@ function gotoExtensionURL(ev) {
 
 function dropDownMenuShow(ev) {
     var button = ev.target;
-    var menu = button.nextElementSibling;
+    var menuOverlay = document.getElementById(button.getAttribute('data-dropdown-menu'));
     var butnRect = button.getBoundingClientRect();
     var viewRect = document.body.getBoundingClientRect();
     var butnNormalLeft = butnRect.left / (viewRect.width - butnRect.width);
-    menu.classList.add('show');
+    menuOverlay.classList.add('show');
+    var menu = menuOverlay.querySelector('.dropdown-menu');
     var menuRect = menu.getBoundingClientRect();
     var menuLeft = butnNormalLeft * (viewRect.width - menuRect.width);
     menu.style.left = menuLeft.toFixed(0) + 'px';
+    menu.style.top = butnRect.bottom + 'px';
 }
 
 function dropDownMenuHide() {
-    uDom('.dropdown-menu').removeClass('show');
+    uDom('.dropdown-menu-capture').removeClass('show');
 }
 
 /******************************************************************************/
@@ -1502,7 +1507,7 @@ uDom('#buttonRevertAll').on('click', revertAll);
 uDom('#buttonReload').on('click', buttonReloadHandler);
 uDom('.extensionURL').on('click', gotoExtensionURL);
 
-uDom('body').on('click', '.dropdown-menu-button', dropDownMenuShow);
+uDom('body').on('click', '[data-dropdown-menu]', dropDownMenuShow);
 uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
 
 uDom('#matList').on('click', '.g4Meta', function(ev) {

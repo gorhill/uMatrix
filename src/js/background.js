@@ -98,7 +98,7 @@ return {
         deleteUnusedSessionCookies: false,
         deleteUnusedSessionCookiesAfter: 60,
         deleteLocalStorage: false,
-        displayTextSize: '13px',
+        displayTextSize: '14px',
         externalHostsFiles: '',
         iconBadgeEnabled: false,
         maxLoggedRequests: 1000,

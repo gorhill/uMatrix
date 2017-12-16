@@ -89,9 +89,8 @@ function onInputChanged(ev) {
     var target = ev.target;
 
     switch ( target.id ) {
-    case 'displayTextSizeNormal':
-    case 'displayTextSizeLarge':
-        changeUserSettings('displayTextSize', target.value);
+    case 'displayTextSize':
+        changeUserSettings('displayTextSize', target.value + 'px');
         break;
     case 'clearBrowserCache':
     case 'cloudStorageEnabled':
@@ -172,9 +171,8 @@ vAPI.messaging.send(
             }
         });
 
-        uDom('input[name="displayTextSize"]').forEach(function(elem) {
-            elem.prop('checked', elem.val() === userSettings.displayTextSize);
-        });
+        uDom.nodeFromId('displayTextSize').value =
+            parseInt(userSettings.displayTextSize, 10) || 14;
 
         uDom.nodeFromId('popupScopeLevel').value = userSettings.popupScopeLevel;
         uDom.nodeFromId('deleteUnusedSessionCookiesAfter').value =

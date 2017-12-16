@@ -163,18 +163,6 @@ var onTabsReady = function(tabs) {
 };
 
 var onUserSettingsLoaded = function() {
-    // Version 0.9.0.0
-    // Remove obsolete user settings which may have been loaded.
-    // These are now stored as local settings:
-    delete µm.userSettings.popupCollapseDomains;
-    delete µm.userSettings.popupCollapseSpecificDomains;
-    delete µm.userSettings.popupHideBlacklisted;
-    // These do not exist anymore:
-    delete µm.smartAutoReload;
-    delete µm.userSettings.statsFilters;
-    delete µm.userSettings.subframeColor;
-    delete µm.userSettings.subframeOpacity;
-
     µm.loadHostsFiles();
 };
 
