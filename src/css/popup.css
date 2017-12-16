@@ -292,6 +292,7 @@ body .toolbar .scope > span {
     }
 body .toolbar .scope > span > span {
     pointer-events: none;
+    white-space: nowrap;
     }
 body .toolbar #specificScope {
     direction: ltr;
