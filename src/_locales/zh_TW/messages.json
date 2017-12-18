@@ -108,7 +108,11 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "嚴格遵守 HTTPS 協議",
+        "message": "禁止混雜 HTTPS 與非 HTTPS 網頁內容",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchNoWorker": {
+        "message": "禁用 Web Worker",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
@@ -404,7 +408,7 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p><a href='https:\/\/developer.mozilla.org\/zh-TW\/docs\/Security\/MixedContent'>Mozilla 開發者網絡<\/a>告知：<\/p><blockquote>若 HTTPS 頁面包含未經加密的普通 HTTP 網頁內容，則當前連結只是部分加密；未加密的部分或會遭他人窺視甚至篡改內容，故連結並非完全安全。當此情況發生時，該頁面即稱之為混合內容頁面。<\/blockquote>",
+        "message": "<p><a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla 開發者網絡<\/a>告知：<\/p><blockquote>若 HTTPS 頁面包含未經加密的普通 HTTP 網頁內容，則當前連結只是部分加密；未加密的部分或會遭他人窺視甚至篡改內容，故連結並非完全安全。當此情況發生時，該頁面即為混合內容頁面。<\/blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {

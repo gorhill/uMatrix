@@ -111,6 +111,10 @@
         "message": "Rygorystyczny HTTPS",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoWorker": {
+        "message": "Forbid web workers",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixSwitchReferrerSpoof": {
         "message": "Fałszowanie referrera",
         "description": "A menu entry in the matrix popup"

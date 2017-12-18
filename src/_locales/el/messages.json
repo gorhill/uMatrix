@@ -108,15 +108,19 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Strict HTTPS",
+        "message": "Forbid mixed content",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchNoWorker": {
+        "message": "Forbid web workers",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Referrer spoofing",
+        "message": "Spoof <code>Referer<\/code> header",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> tags spoofing",
+        "message": "Spoof <code><noscript><\/code> tags",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {

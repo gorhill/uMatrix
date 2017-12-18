@@ -104,15 +104,19 @@
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
-        "message": "{{count}} tiltott weboldalnév",
+        "message": "{{count}} tiltott hostnév",
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "HTTPS követelése",
+        "message": "Kevert tartalom tiltása",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchNoWorker": {
+        "message": "Web worker-ek tiltása",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Referrer hamisítás",
+        "message": "<code>Referer<\/code> header hamisítása",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
@@ -700,7 +704,7 @@
         "description": "for generic 'revert' buttons"
     },
     "errorCantConnectTo": {
-        "message": "Hálózati hiba: sikertelen kapcsolódás {{url}}",
+        "message": "Hálózati hiba: {{url}} betöltése sikertelen",
         "description": ""
     }
 }

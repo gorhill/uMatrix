@@ -111,6 +111,10 @@
         "message": "전체 HTTPS",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoWorker": {
+        "message": "Forbid web workers",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixSwitchReferrerSpoof": {
         "message": "참조 주소 위조",
         "description": "A menu entry in the matrix popup"
@@ -336,7 +340,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "차단 된 요청과 관련된 페이지 콘텐츠 숨김",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
@@ -460,7 +464,7 @@
         "description": "default file name to use"
     },
     "hostsFilesPrompt": {
-        "message": "호스트 파일에있 도메인은 글로벌 블랙리스트에 포함됩니다.",
+        "message": "호스트 파일에있는 도메인은 글로벌 블랙리스트에 포함됩니다.",
         "description": ""
     },
     "hostsFilesStats": {

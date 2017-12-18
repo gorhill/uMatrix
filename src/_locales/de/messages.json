@@ -111,6 +111,10 @@
         "message": "Nur HTTPS",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoWorker": {
+        "message": "Web Worker verbieten",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixSwitchReferrerSpoof": {
         "message": "Referrer verschleiern",
         "description": "A menu entry in the matrix popup"
@@ -336,7 +340,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "Verstecke die Platzhalter für Elemente auf der Blacklist",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {

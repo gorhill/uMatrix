@@ -96,7 +96,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Recarregar a página.",
+        "message": "Recarregar a página.\nPressione Shift para ignorar o cache do navegador.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -111,12 +111,16 @@
         "message": "HTTPS Estrito",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoWorker": {
+        "message": "Proibir web workers",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixSwitchReferrerSpoof": {
         "message": "Ocultar Referrer",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> disfarçando tags",
+        "message": "Disfarçar <code><noscript><\/code> tags",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -284,7 +288,7 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Nível Padrão de Escopo:",
+        "message": "Nível padrão do escopo:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {

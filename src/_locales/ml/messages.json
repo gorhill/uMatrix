@@ -111,12 +111,16 @@
         "message": "സ്ട്രിക്റ്റ് എച്ച്ടിടിപിഎസ്",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoWorker": {
+        "message": "Forbid web workers",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixSwitchReferrerSpoof": {
         "message": "റഫറര്‍ അനുകരണം",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> tags spoofing",
+        "message": "Spoof <code><noscript><\/code> tags",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {

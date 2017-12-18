@@ -111,6 +111,10 @@
         "message": "Только HTTPS",
         "description": "A menu entry in the matrix popup"
     },
+    "matrixSwitchNoWorker": {
+        "message": "Запретить web workers",
+        "description": "A menu entry in the matrix popup"
+    },
     "matrixSwitchReferrerSpoof": {
         "message": "Подмена referrer",
         "description": "A menu entry in the matrix popup"
