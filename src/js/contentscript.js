@@ -209,6 +209,8 @@ var collapser = (function() {
                 continue;
             }
             target.setAttribute(src1stProps[tag], placeholders[tag]);
+            target.style.setProperty('min-width', '20px', 'important');
+            target.style.setProperty('min-height', '20px', 'important');
             target.style.setProperty('border', placeholders.border, 'important');
             target.style.setProperty('background', placeholders.background, 'important');
         }
