@@ -75,10 +75,10 @@ var reIPAddressNaive         = /^\d+\.\d+\.\d+\.\d+$|^\[[\da-zA-Z:]+\]$/;
 
 // Accurate tests
 // Source.: http://stackoverflow.com/questions/5284147/validating-ipv4-addresses-with-regexp/5284410#5284410
-var reIPv4                   = /^((25[0-5]|2[0-4]\d|[01]?\d\d?)(\.|$)){4}/;
+//var reIPv4                   = /^((25[0-5]|2[0-4]\d|[01]?\d\d?)(\.|$)){4}/;
 
 // Source: http://forums.intermapper.com/viewtopic.php?p=1096#1096
-var reIPv6                   = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/;
+//var reIPv6                   = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/;
 
 /******************************************************************************/
 
@@ -308,7 +308,7 @@ URI.hostnameFromURI = function(uri) {
 
 URI.domainFromHostname = function(hostname) {
     // Try to skip looking up the PSL database
-    var entry = domainCache[hostname];
+    var entry = domainCache.get(hostname);
     if ( entry !== undefined ) {
         entry.tstamp = Date.now();
         return entry.domain;
@@ -342,8 +342,7 @@ URI.pathFromURI = function(uri) {
 // specific set of hostnames within a narrow time span -- in other words, I
 // believe probability of cache hit are high in uBlock.
 
-var domainCache = Object.create(null);
-var domainCacheCount = 0;
+var domainCache = new Map();
 var domainCacheCountLowWaterMark = 75;
 var domainCacheCountHighWaterMark = 100;
 var domainCacheEntryJunkyard = [];
@@ -375,13 +374,12 @@ var domainCacheEntryFactory = function(domain) {
 };
 
 var domainCacheAdd = function(hostname, domain) {
-    var entry = domainCache[hostname];
+    var entry = domainCache.get(hostname);
     if ( entry !== undefined ) {
         entry.tstamp = Date.now();
     } else {
-        domainCache[hostname] = domainCacheEntryFactory(domain);
-        domainCacheCount += 1;
-        if ( domainCacheCount === domainCacheCountHighWaterMark ) {
+        domainCache.set(hostname, domainCacheEntryFactory(domain));
+        if ( domainCache.size === domainCacheCountHighWaterMark ) {
             domainCachePrune();
         }
     }
@@ -389,26 +387,24 @@ var domainCacheAdd = function(hostname, domain) {
 };
 
 var domainCacheEntrySort = function(a, b) {
-    return domainCache[b].tstamp - domainCache[a].tstamp;
+    return domainCache.get(b).tstamp - domainCache.get(a).tstamp;
 };
 
 var domainCachePrune = function() {
-    var hostnames = Object.keys(domainCache)
-                          .sort(domainCacheEntrySort)
-                          .slice(domainCacheCountLowWaterMark);
+    var hostnames = Array.from(domainCache.keys())
+                         .sort(domainCacheEntrySort)
+                         .slice(domainCacheCountLowWaterMark);
     var i = hostnames.length;
-    domainCacheCount -= i;
     var hostname;
     while ( i-- ) {
         hostname = hostnames[i];
-        domainCache[hostname].dispose();
-        delete domainCache[hostname];
+        domainCache.get(hostname).dispose();
+        domainCache.delete(hostname);
     }
 };
 
 var domainCacheReset = function() {
-    domainCache = Object.create(null);
-    domainCacheCount = 0;
+    domainCache.clear();
 };
 
 psl.onChanged.addListener(domainCacheReset);
