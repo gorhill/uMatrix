@@ -1185,21 +1185,30 @@ function updateMatrixSwitches() {
         enabled,
         switches = matrixSnapshot.tSwitches;
     for ( var switchName in switches ) {
-        if ( switches.hasOwnProperty(switchName) === false ) {
-            continue;
-        }
+        if ( switches.hasOwnProperty(switchName) === false ) { continue; }
         enabled = switches[switchName];
         if ( enabled && switchName !== 'matrix-off' ) {
             count += 1;
         }
         uDom('#mtxSwitch_' + switchName).toggleClass('switchTrue', enabled);
     }
-    uDom('#buttonMtxSwitches').descendants('span.badge').text(count.toLocaleString());
-    count = matrixSnapshot.blockedCount;
-    var button = uDom('#mtxSwitch_matrix-off');
-    button.descendants('span.badge').text(count.toLocaleString());
-    button.attr('data-tip', button.attr('data-tip').replace('{{count}}', count));
-    uDom('body').toggleClass('powerOff', switches['matrix-off']);
+    uDom.nodeFromId('mtxSwitch_https-strict').classList.toggle(
+        'relevant',
+        matrixSnapshot.hasMixedContent
+    );
+    uDom.nodeFromId('mtxSwitch_referrer-spoof').classList.toggle(
+        'relevant',
+        matrixSnapshot.has3pReferrer
+    );
+    uDom.nodeFromId('mtxSwitch_noscript-spoof').classList.toggle(
+        'relevant',
+        matrixSnapshot.hasNoscriptTags
+    );
+    uDom.nodeFromSelector('#buttonMtxSwitches span.badge').textContent =
+        count.toLocaleString();
+    uDom.nodeFromSelector('#mtxSwitch_matrix-off span.badge').textContent =
+        matrixSnapshot.blockedCount.toLocaleString();
+    document.body.classList.toggle('powerOff', switches['matrix-off']);
 }
 
 function toggleMatrixSwitch(ev) {

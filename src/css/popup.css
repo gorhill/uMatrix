@@ -110,22 +110,36 @@ body .toolbar button.fa {
     }
 
 #mtxSwitches > li  {
-    align-items: baseline;
+    align-items: center;
     color: #888;
     display: flex;
-    justify-content: space-between;
     }
 #mtxSwitches > li.switchTrue {
     color: #000;
     }
-#mtxSwitches > li > span:before {
-    font: 110% FontAwesome;
+#mtxSwitches > li > svg {
+    display: inline;
+    height: 1em;
+    margin-right: 0.4em;
+    width: 1.5em;
     }
-#mtxSwitches > li > span:first-of-type:before {
-    content: '\f204\a0';
+#mtxSwitches > li > svg * {
+    fill-opacity: 1;
+    opacity: 1;
+    stroke: none;
     }
-#mtxSwitches > li.switchTrue > span:first-of-type:before {
-    content: '\f205\a0';
+#mtxSwitches > li > svg .off,
+#mtxSwitches > li.switchTrue > svg .on,
+#mtxSwitches > li.relevant > svg .dot {
+    display: block;
+    }
+#mtxSwitches > li > svg .on,
+#mtxSwitches > li > svg .dot,
+#mtxSwitches > li.switchTrue > svg .off {
+    display: none;
+    }
+#mtxSwitches > li > span[data-i18n] {
+    flex-grow: 1;
     }
 #mtxSwitches > li > a {
     color: #000;
@@ -143,7 +157,6 @@ body .toolbar button.fa {
     border: 0;
     bottom: 0;
     display: none;
-    font: 1rem httpsb,sans-serif;
     left: 0;
     margin: 0;
     padding: 0;

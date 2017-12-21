@@ -90,11 +90,12 @@ var nameToStateMap = {
 };
 
 var switchBitOffsets = new Map([
-    [     'matrix-off', 0 ],
-    [   'https-strict', 2 ],
+    [     'matrix-off',  0 ],
+    [   'https-strict',  2 ],
     /* 4 is now unused, formerly assigned to UA spoofing */
-    [ 'referrer-spoof', 6 ],
-    [ 'noscript-spoof', 8 ]
+    [ 'referrer-spoof',  6 ],
+    [ 'noscript-spoof',  8 ],
+    [     'no-workers', 10 ]
 ]);
 
 var switchStateToNameMap = new Map([

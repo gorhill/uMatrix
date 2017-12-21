@@ -164,6 +164,9 @@ var matrixSnapshot = function(pageStore, details) {
         collapseBlacklistedDomains: µmuser.popupCollapseBlacklistedDomains,
         diff: [],
         domain: pageStore.pageDomain,
+        has3pReferrer: pageStore.has3pReferrer,
+        hasMixedContent: pageStore.hasMixedContent,
+        hasNoscriptTags: pageStore.hasNoscriptTags,
         headerIndices: Array.from(headerIndices),
         hostname: pageStore.pageHostname,
         mtxContentModified: pageStore.mtxContentModifiedTime !== details.mtxContentModifiedTime,
@@ -508,8 +511,9 @@ var onMessage = function(request, sender, callback) {
         break;
     }
 
-    var tabId = sender && sender.tab ? sender.tab.id || 0 : 0;
-    var tabContext = µm.tabContextManager.lookup(tabId);
+    var tabId = sender && sender.tab ? sender.tab.id || 0 : 0,
+        tabContext = µm.tabContextManager.lookup(tabId),
+        pageStore = µm.pageStoreFromTabId(tabId);
 
     // Sync
     var response;
@@ -528,10 +532,12 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'mustRenderNoscriptTags?':
-        if ( tabContext !== null ) {
-            response =
-                µm.tMatrix.mustBlock(tabContext.rootHostname, tabContext.rootHostname, 'script') &&
-                µm.tMatrix.evaluateSwitchZ('noscript-spoof', tabContext.rootHostname);
+        if ( tabContext === null ) { break; }
+        response =
+            µm.tMatrix.mustBlock(tabContext.rootHostname, tabContext.rootHostname, 'script') &&
+            µm.tMatrix.evaluateSwitchZ('noscript-spoof', tabContext.rootHostname);
+        if ( pageStore !== null ) {
+            pageStore.hasNoscriptTags = true;
         }
         break;
 

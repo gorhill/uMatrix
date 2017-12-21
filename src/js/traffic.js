@@ -111,16 +111,6 @@ var onBeforeRequestHandler = function(details) {
         specificity = µm.tMatrix.specificityRegister;
     }
 
-    // Enforce strict secure connection?
-    if (
-        block === false &&
-        tabContext.secure &&
-        µmuri.isSecureScheme(requestScheme) === false &&
-        µm.tMatrix.evaluateSwitchZ('https-strict', rootHostname)
-    ) {
-        block = true;
-    }
-
     // Record request.
     // https://github.com/gorhill/httpswitchboard/issues/342
     // The way requests are handled now, it may happen at this point some
@@ -128,6 +118,15 @@ var onBeforeRequestHandler = function(details) {
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
     var pageStore = µm.mustPageStoreFromTabId(tabId);
+
+    // Enforce strict secure connection?
+    if ( tabContext.secure && µmuri.isSecureScheme(requestScheme) === false ) {
+        pageStore.hasMixedContent = true;
+        if ( block === false ) {
+            block = µm.tMatrix.evaluateSwitchZ('https-strict', rootHostname);
+        }
+    }
+
     pageStore.recordRequest(requestType, requestURL, block);
     µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, details.type, block);
 
@@ -244,25 +243,25 @@ var onBeforeSendHeadersHandler = function(details) {
     headerIndex = headerIndexFromName('referer', requestHeaders);
     if ( headerIndex !== -1 ) {
         headerValue = requestHeaders[headerIndex].value;
-        if (
-            headerValue !== '' &&
-            µm.tMatrix.evaluateSwitchZ('referrer-spoof', rootHostname)
-        ) {
+        if ( headerValue !== '' ) {
             var toDomain = µmuri.domainFromHostname(requestHostname);
             if ( toDomain !== '' && toDomain !== µmuri.domainFromURI(headerValue) ) {
-                modified = true;
-                var newValue;
-                if ( details.method === 'GET' ) {
-                    newValue = requestHeaders[headerIndex].value =
-                        requestScheme + '://' + requestHostname + '/';
-                } else {
-                    requestHeaders.splice(headerIndex, 1);
-                }
-                µm.refererHeaderFoiledCounter++;
-                if ( requestType === 'doc' ) {
-                    µm.logger.writeOne(tabId, 'net', '', headerValue, 'REFERER', true);
-                    if ( newValue !== undefined ) {
-                        µm.logger.writeOne(tabId, 'net', '', newValue, 'REFERER', false);
+                pageStore.has3pReferrer = true;
+                if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', rootHostname) ) {
+                    modified = true;
+                    var newValue;
+                    if ( details.method === 'GET' ) {
+                        newValue = requestHeaders[headerIndex].value =
+                            requestScheme + '://' + requestHostname + '/';
+                    } else {
+                        requestHeaders.splice(headerIndex, 1);
+                    }
+                    µm.refererHeaderFoiledCounter++;
+                    if ( requestType === 'doc' ) {
+                        µm.logger.writeOne(tabId, 'net', '', headerValue, 'REFERER', true);
+                        if ( newValue !== undefined ) {
+                            µm.logger.writeOne(tabId, 'net', '', newValue, 'REFERER', false);
+                        }
                     }
                 }
             }
