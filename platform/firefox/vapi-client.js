@@ -78,43 +78,26 @@ var messagingConnector = function(response) {
         return;
     }
 
-    var channels = vAPI.messaging.channels;
-    var channel, listener;
-
-    if ( response.broadcast && !response.channelName ) {
-        for ( channel in channels ) {
-            if ( channels.hasOwnProperty(channel) === false ) {
-                continue;
-            }
-            listener = channels[channel].listener;
-            if ( typeof listener === 'function' ) {
-                listener(response.msg);
-            }
-        }
+    if ( response.broadcast ) {
+        vAPI.messaging.sendToListeners(response.msg);
         return;
     }
 
     if ( response.requestId ) {
-        listener = vAPI.messaging.listeners[response.requestId];
-        delete vAPI.messaging.listeners[response.requestId];
-        delete response.requestId;
-    }
-
-    if ( !listener ) {
-        channel = channels[response.channelName];
-        listener = channel && channel.listener;
-    }
-
-    if ( typeof listener === 'function' ) {
-        listener(response.msg);
+        var listener = vAPI.messaging.pending.get(response.requestId);
+        if ( listener !== undefined ) {
+            vAPI.messaging.pending.delete(response.requestId);
+            listener(response.msg);
+            return;
+        }
     }
 };
 
 /******************************************************************************/
 
 vAPI.messaging = {
-    channels: {},
-    listeners: {},
+    listeners: new Set(),
+    pending: new Map(),
     requestId: 1,
 
     setup: function() {
@@ -124,17 +107,17 @@ vAPI.messaging = {
 
         addMessageListener(this.connector);
 
-        this.channels.vAPI = {
-            listener: function(msg) {
-                if ( typeof msg.cmd === 'string' && msg.cmd === 'injectScript' ) {
-                    var details = msg.details;
-                    if ( !details.allFrames && window !== window.top ) {
-                        return;
-                    }
-                    self.injectScript(details.file);
+        var builtinListener = function(msg) {
+            if ( typeof msg.cmd === 'string' && msg.cmd === 'injectScript' ) {
+                var details = msg.details;
+                if ( !details.allFrames && window !== window.top ) {
+                    return;
                 }
+                self.injectScript(details.file);
             }
         };
+
+        this.listeners.add(builtinListener)
     },
 
     close: function() {
@@ -144,41 +127,26 @@ vAPI.messaging = {
 
         removeMessageListener();
         this.connector = null;
-        this.channels = {};
-        this.listeners = {};
+        this.listeners.clear();
+        this.pending.clear();
     },
 
-    channel: function(channelName, callback) {
-        if ( !channelName ) {
-            return;
+    send: function(channelName, message, callback) {
+        if ( !this.connector ) {
+            this.setup();
         }
 
-        this.channels[channelName] = {
-            channelName: channelName,
-            listener: typeof callback === 'function' ? callback : null,
-            send: function(message, callback) {
-                if ( !vAPI.messaging.connector ) {
-                    vAPI.messaging.setup();
-                }
-
-                message = {
-                    channelName: self._sandboxId_ + '|' + this.channelName,
-                    msg: message
-                };
-
-                if ( callback ) {
-                    message.requestId = vAPI.messaging.requestId++;
-                    vAPI.messaging.listeners[message.requestId] = callback;
-                }
-
-                sendAsyncMessage('umatrix:background', message);
-            },
-            close: function() {
-                delete vAPI.messaging.channels[this.channelName];
-            }
+        message = {
+            channelName: self._sandboxId_ + '|' + channelName,
+            msg: message
         };
 
-        return this.channels[channelName];
+        if ( callback ) {
+            message.requestId = this.requestId++;
+            this.pending.set(message.requestId, callback);
+        }
+
+        sendAsyncMessage('umatrix:background', message);
     },
 
     toggleListener: function({type, persisted}) {
@@ -193,6 +161,19 @@ vAPI.messaging = {
 
         if ( persisted ) {
             addMessageListener(vAPI.messaging.connector);
+        }
+    },
+
+    sendToListeners: function(msg) {
+        for ( var listener of this.listeners ) {
+            listener(msg);
+        }
+    },
+
+    addListener: function(listener) {
+        this.listeners.add(listener);
+        if ( !this.connector ) {
+            this.setup();
         }
     }
 };
