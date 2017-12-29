@@ -80,8 +80,12 @@ vAPI.messaging = {
     connected: false,
 
     setup: function() {
-        this.connect();
-        this.listeners.add(this.builtinListener)
+        this.addListener(this.builtinListener);
+        if ( this.toggleListenerCallback === null ) {
+            this.toggleListenerCallback = this.toggleListener.bind(this);
+        }
+        window.addEventListener('pagehide', this.toggleListenerCallback, true);
+        window.addEventListener('pageshow', this.toggleListenerCallback, true);
     },
 
     close: function() {
@@ -140,9 +144,7 @@ vAPI.messaging = {
     },
 
     send: function(channelName, message, callback) {
-        if ( !this.connected ) {
-            this.setup();
-        }
+        this.connect()
 
         message = {
             channelName: self._sandboxId_ + '|' + channelName,
@@ -163,14 +165,15 @@ vAPI.messaging = {
         }
 
         if ( type === 'pagehide' ) {
-            vAPI.messaging.disconnect();
+            this.disconnect();
             return;
         }
 
         if ( persisted ) {
-            vAPI.messaging.connect();
+            this.connect();
         }
     },
+    toggleListenerCallback: null,
 
     sendToListeners: function(msg) {
         for ( var listener of this.listeners ) {
@@ -180,14 +183,11 @@ vAPI.messaging = {
 
     addListener: function(listener) {
         this.listeners.add(listener);
-        if ( !this.connected ) {
-            this.setup();
-        }
+        this.connect()
     }
 };
 
-window.addEventListener('pagehide', vAPI.messaging.toggleListener, true);
-window.addEventListener('pageshow', vAPI.messaging.toggleListener, true);
+vAPI.messaging.setup()
 
 /******************************************************************************/
 
