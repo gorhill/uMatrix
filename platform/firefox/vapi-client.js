@@ -88,10 +88,20 @@ vAPI.messaging = {
         window.addEventListener('pageshow', this.toggleListenerCallback, true);
     },
 
-    close: function() {
-        this.disconnect();
-        this.listeners.clear();
+    shutdown: function() {
+        if ( this.toggleListenerCallback !== null ) {
+            window.removeEventListener('pagehide', this.toggleListenerCallback, true);
+            window.removeEventListener('pageshow', this.toggleListenerCallback, true);
+        }
+        this.removeAllListeners();
+        //service pending callbacks
+        var pending = this.pending;
         this.pending.clear();
+        for ( var callback of pending.values() ) {
+            if ( typeof callback === 'function' ) {
+                callback(null);
+            }
+        }
     },
 
     connect: function() {
@@ -160,16 +170,15 @@ vAPI.messaging = {
     },
 
     toggleListener: function({type, persisted}) {
-        if ( !vAPI.messaging.connected ) {
+        if ( type === 'pagehide' && !persisted ) {
+            vAPI.shutdown.exec();
+            this.shutdown();
             return;
         }
 
         if ( type === 'pagehide' ) {
             this.disconnect();
-            return;
-        }
-
-        if ( persisted ) {
+        } else /* if ( type === 'pageshow' ) */ {
             this.connect();
         }
     },
@@ -184,6 +193,15 @@ vAPI.messaging = {
     addListener: function(listener) {
         this.listeners.add(listener);
         this.connect()
+    },
+
+    removeListener: function(listener) {
+        this.listeners.delete(listener);
+    },
+
+    removeAllListeners: function() {
+        this.disconnect();
+        this.listeners.clear();;
     }
 };
 
@@ -195,7 +213,9 @@ vAPI.messaging.setup()
 // we are not a top window (because element picker can still
 // be injected in top window).
 if ( window !== window.top ) {
-    // Can anything be done?
+    vAPI.shutdown.add(function() {
+        vAPI = null;
+    });
 }
 
 /******************************************************************************/
