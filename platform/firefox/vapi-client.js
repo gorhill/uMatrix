@@ -73,66 +73,74 @@ vAPI.shutdown = (function() {
 
 /******************************************************************************/
 
-var messagingConnector = function(response) {
-    if ( !response ) {
-        return;
-    }
-
-    if ( response.broadcast ) {
-        vAPI.messaging.sendToListeners(response.msg);
-        return;
-    }
-
-    if ( response.requestId ) {
-        var listener = vAPI.messaging.pending.get(response.requestId);
-        if ( listener !== undefined ) {
-            vAPI.messaging.pending.delete(response.requestId);
-            listener(response.msg);
-            return;
-        }
-    }
-};
-
-/******************************************************************************/
-
 vAPI.messaging = {
     listeners: new Set(),
     pending: new Map(),
     requestId: 1,
+    connected: false,
 
     setup: function() {
-        this.connector = function(msg) {
-            messagingConnector(JSON.parse(msg));
-        };
-
-        addMessageListener(this.connector);
-
-        var builtinListener = function(msg) {
-            if ( typeof msg.cmd === 'string' && msg.cmd === 'injectScript' ) {
-                var details = msg.details;
-                if ( !details.allFrames && window !== window.top ) {
-                    return;
-                }
-                self.injectScript(details.file);
-            }
-        };
-
-        this.listeners.add(builtinListener)
+        this.connect();
+        this.listeners.add(this.builtinListener)
     },
 
     close: function() {
-        if ( !this.connector ) {
-            return;
-        }
-
-        removeMessageListener();
-        this.connector = null;
+        this.disconnect();
         this.listeners.clear();
         this.pending.clear();
     },
 
+    connect: function() {
+        if ( !this.connected ) {
+            if ( this.messageListenerCallback === null ) {
+                this.messageListenerCallback = this.messageListener.bind(this);
+            }
+            addMessageListener(this.messageListenerCallback);
+            this.connected = true;
+        }
+    },
+
+    disconnect: function() {
+        if ( this.connected ) {
+            removeMessageListener();
+            this.connected = false;
+        }
+    },
+
+    messageListener: function(msg) {
+        var details = JSON.parse(msg);
+        if ( !details ) {
+            return;
+        }
+
+        if ( details.broadcast ) {
+            this.sendToListeners(details.msg);
+            return;
+        }
+
+        if ( details.requestId ) {
+            var listener = this.pending.get(details.requestId);
+            if ( listener !== undefined ) {
+                this.pending.delete(details.requestId);
+                listener(details.msg);
+                return;
+            }
+        }
+    },
+    messageListenerCallback: null,
+
+    builtinListener: function(msg) {
+        if ( typeof msg.cmd === 'string' && msg.cmd === 'injectScript' ) {
+            var details = msg.details;
+            if ( !details.allFrames && window !== window.top ) {
+                return;
+            }
+            self.injectScript(details.file);
+        }
+    },
+
     send: function(channelName, message, callback) {
-        if ( !this.connector ) {
+        if ( !this.connected ) {
             this.setup();
         }
 
@@ -150,17 +158,17 @@ vAPI.messaging = {
     },
 
     toggleListener: function({type, persisted}) {
-        if ( !vAPI.messaging.connector ) {
+        if ( !vAPI.messaging.connected ) {
             return;
         }
 
         if ( type === 'pagehide' ) {
-            removeMessageListener();
+            vAPI.messaging.disconnect();
             return;
         }
 
         if ( persisted ) {
-            addMessageListener(vAPI.messaging.connector);
+            vAPI.messaging.connect();
         }
     },
 
@@ -172,7 +180,7 @@ vAPI.messaging = {
 
     addListener: function(listener) {
         this.listeners.add(listener);
-        if ( !this.connector ) {
+        if ( !this.connected ) {
             this.setup();
         }
     }
