@@ -73,132 +73,139 @@ vAPI.shutdown = (function() {
 
 /******************************************************************************/
 
-var messagingConnector = function(response) {
-    if ( !response ) {
-        return;
-    }
-
-    var channels = vAPI.messaging.channels;
-    var channel, listener;
-
-    if ( response.broadcast && !response.channelName ) {
-        for ( channel in channels ) {
-            if ( channels.hasOwnProperty(channel) === false ) {
-                continue;
-            }
-            listener = channels[channel].listener;
-            if ( typeof listener === 'function' ) {
-                listener(response.msg);
-            }
-        }
-        return;
-    }
-
-    if ( response.requestId ) {
-        listener = vAPI.messaging.listeners[response.requestId];
-        delete vAPI.messaging.listeners[response.requestId];
-        delete response.requestId;
-    }
-
-    if ( !listener ) {
-        channel = channels[response.channelName];
-        listener = channel && channel.listener;
-    }
-
-    if ( typeof listener === 'function' ) {
-        listener(response.msg);
-    }
-};
-
-/******************************************************************************/
-
 vAPI.messaging = {
-    channels: {},
-    listeners: {},
+    listeners: new Set(),
+    pending: new Map(),
     requestId: 1,
+    connected: false,
 
     setup: function() {
-        this.connector = function(msg) {
-            messagingConnector(JSON.parse(msg));
-        };
-
-        addMessageListener(this.connector);
-
-        this.channels.vAPI = {
-            listener: function(msg) {
-                if ( typeof msg.cmd === 'string' && msg.cmd === 'injectScript' ) {
-                    var details = msg.details;
-                    if ( !details.allFrames && window !== window.top ) {
-                        return;
-                    }
-                    self.injectScript(details.file);
-                }
-            }
-        };
+        this.addListener(this.builtinListener);
+        if ( this.toggleListenerCallback === null ) {
+            this.toggleListenerCallback = this.toggleListener.bind(this);
+        }
+        window.addEventListener('pagehide', this.toggleListenerCallback, true);
+        window.addEventListener('pageshow', this.toggleListenerCallback, true);
     },
 
-    close: function() {
-        if ( !this.connector ) {
+    shutdown: function() {
+        if ( this.toggleListenerCallback !== null ) {
+            window.removeEventListener('pagehide', this.toggleListenerCallback, true);
+            window.removeEventListener('pageshow', this.toggleListenerCallback, true);
+        }
+        this.removeAllListeners();
+        //service pending callbacks
+        var pending = this.pending;
+        this.pending.clear();
+        for ( var callback of pending.values() ) {
+            if ( typeof callback === 'function' ) {
+                callback(null);
+            }
+        }
+    },
+
+    connect: function() {
+        if ( !this.connected ) {
+            if ( this.messageListenerCallback === null ) {
+                this.messageListenerCallback = this.messageListener.bind(this);
+            }
+            addMessageListener(this.messageListenerCallback);
+            this.connected = true;
+        }
+    },
+
+    disconnect: function() {
+        if ( this.connected ) {
+            removeMessageListener();
+            this.connected = false;
+        }
+    },
+
+    messageListener: function(msg) {
+        var details = JSON.parse(msg);
+        if ( !details ) {
             return;
         }
 
-        removeMessageListener();
-        this.connector = null;
-        this.channels = {};
-        this.listeners = {};
-    },
-
-    channel: function(channelName, callback) {
-        if ( !channelName ) {
+        if ( details.broadcast ) {
+            this.sendToListeners(details.msg);
             return;
         }
 
-        this.channels[channelName] = {
-            channelName: channelName,
-            listener: typeof callback === 'function' ? callback : null,
-            send: function(message, callback) {
-                if ( !vAPI.messaging.connector ) {
-                    vAPI.messaging.setup();
-                }
-
-                message = {
-                    channelName: self._sandboxId_ + '|' + this.channelName,
-                    msg: message
-                };
-
-                if ( callback ) {
-                    message.requestId = vAPI.messaging.requestId++;
-                    vAPI.messaging.listeners[message.requestId] = callback;
-                }
-
-                sendAsyncMessage('umatrix:background', message);
-            },
-            close: function() {
-                delete vAPI.messaging.channels[this.channelName];
+        if ( details.requestId ) {
+            var listener = this.pending.get(details.requestId);
+            if ( listener !== undefined ) {
+                this.pending.delete(details.requestId);
+                listener(details.msg);
+                return;
             }
+        }
+    },
+    messageListenerCallback: null,
+
+    builtinListener: function(msg) {
+        if ( typeof msg.cmd === 'string' && msg.cmd === 'injectScript' ) {
+            var details = msg.details;
+            if ( !details.allFrames && window !== window.top ) {
+                return;
+            }
+            self.injectScript(details.file);
+        }
+    },
+
+    send: function(channelName, message, callback) {
+        this.connect()
+
+        message = {
+            channelName: self._sandboxId_ + '|' + channelName,
+            msg: message
         };
 
-        return this.channels[channelName];
+        if ( callback ) {
+            message.requestId = this.requestId++;
+            this.pending.set(message.requestId, callback);
+        }
+
+        sendAsyncMessage('umatrix:background', message);
     },
 
     toggleListener: function({type, persisted}) {
-        if ( !vAPI.messaging.connector ) {
+        if ( type === 'pagehide' && !persisted ) {
+            vAPI.shutdown.exec();
+            this.shutdown();
             return;
         }
 
         if ( type === 'pagehide' ) {
-            removeMessageListener();
-            return;
+            this.disconnect();
+        } else /* if ( type === 'pageshow' ) */ {
+            this.connect();
         }
+    },
+    toggleListenerCallback: null,
 
-        if ( persisted ) {
-            addMessageListener(vAPI.messaging.connector);
+    sendToListeners: function(msg) {
+        for ( var listener of this.listeners ) {
+            listener(msg);
         }
+    },
+
+    addListener: function(listener) {
+        this.listeners.add(listener);
+        this.connect()
+    },
+
+    removeListener: function(listener) {
+        this.listeners.delete(listener);
+    },
+
+    removeAllListeners: function() {
+        this.disconnect();
+        this.listeners.clear();;
     }
 };
 
-window.addEventListener('pagehide', vAPI.messaging.toggleListener, true);
-window.addEventListener('pageshow', vAPI.messaging.toggleListener, true);
+vAPI.messaging.setup()
 
 /******************************************************************************/
 
@@ -206,7 +213,9 @@ window.addEventListener('pageshow', vAPI.messaging.toggleListener, true);
 // we are not a top window (because element picker can still
 // be injected in top window).
 if ( window !== window.top ) {
-    // Can anything be done?
+    vAPI.shutdown.add(function() {
+        vAPI = null;
+    });
 }
 
 /******************************************************************************/
