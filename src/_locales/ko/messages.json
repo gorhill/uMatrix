@@ -344,7 +344,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "웹 페이지의 도메인 스크립트가 차단되면 <code><noscript><\/code> 태그 수정",
+        "message": "웹 페이지의 도메인 스크립트 차단 시 <code><noscript><\/code> 태그 수정",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {

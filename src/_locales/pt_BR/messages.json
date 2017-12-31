@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "Apontar\/clicar para proibir\/permitir quaisquer pedidos feitos pelo seu navegador. Bloqueia scripts, iframes, anúncios, Facebook, etc.",
+        "message": "Apontar & clicar para proibir\/permitir quaisquer pedidos feitos pelo seu navegador. Bloqueia scripts, iframes, anúncios, facebook, etc.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -84,7 +84,7 @@
         "description": ""
     },
     "matrixMtxButtonTip": {
-        "message": "Desativar\/Ativar filtragem pela matriz para este escopo.\nPedidos bloqueados através da filtragem pela matriz nesta página: {{count}}.",
+        "message": "Desabilitar\/habilitar filtragem pela matrix para este escopo.",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -108,7 +108,7 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "HTTPS Estrito",
+        "message": "Proibir conteúdo misto",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
@@ -116,7 +116,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Ocultar Referrer",
+        "message": "Disfarçar <code>Referer<\/code> header",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
@@ -168,7 +168,7 @@
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
-        "message": "Caches do navegador limpadas: {{count}}",
+        "message": "Caches do navegador limpas: {{count}}",
         "description": ""
     },
     "statsPageDetailedStats": {
@@ -188,7 +188,7 @@
         "description": ""
     },
     "statsPageRequests": {
-        "message": "Solicitações",
+        "message": "Pedidos",
         "description": "header for the stat type column"
     },
     "statsPageAllowed": {
@@ -260,11 +260,11 @@
         "description": ""
     },
     "settingsPageTitle": {
-        "message": "uMatrix &ndash; Definições",
+        "message": "uMatrix &ndash; Configurações",
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "Aparência",
+        "message": "Matrix",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
@@ -396,7 +396,7 @@
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Remover pedidos informações de terceiros via <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> para nomes de host não-lista branca.",
+        "message": "Disfarçar linhas <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> dos pedidos de terceiros.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
@@ -464,11 +464,11 @@
         "description": "default file name to use"
     },
     "hostsFilesPrompt": {
-        "message": "Todos os hostnames no arquivo de hosts estão carregados como hostnames na lista negra no escopo global.",
+        "message": "Todos os hostnames no arquivo de hosts são carregados como hostnames da lista negra no escopo global.",
         "description": ""
     },
     "hostsFilesStats": {
-        "message": "{{blockedHostnameCount}} hostnames bloqueadas distintas de:",
+        "message": "{{blockedHostnameCount}} hostnames distintos bloqueados de:",
         "description": ""
     },
     "hostsFilesPerFileStats": {
@@ -496,7 +496,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Uma URL por linha. Linhas pré-fixadas com &lsquo;#&rsquo; irão ser ignorados. URLs inválidas irão ser silenciosamente ignoradas.",
+        "message": "Uma URL por linha. Linhas pré-fixadas com &lsquo;#&rsquo; irão ser ignoradas. URLs inválidas irão ser silenciosamente ignoradas.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
