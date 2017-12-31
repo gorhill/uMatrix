@@ -167,6 +167,7 @@ var matrixSnapshot = function(pageStore, details) {
         has3pReferrer: pageStore.has3pReferrer,
         hasMixedContent: pageStore.hasMixedContent,
         hasNoscriptTags: pageStore.hasNoscriptTags,
+        hasWebWorkers: pageStore.hasWebWorkers,
         headerIndices: Array.from(headerIndices),
         hostname: pageStore.pageHostname,
         mtxContentModified: pageStore.mtxContentModifiedTime !== details.mtxContentModifiedTime,
@@ -538,6 +539,24 @@ var onMessage = function(request, sender, callback) {
             µm.tMatrix.evaluateSwitchZ('noscript-spoof', tabContext.rootHostname);
         if ( pageStore !== null ) {
             pageStore.hasNoscriptTags = true;
+        }
+        break;
+
+    case 'securityPolicyViolation':
+        if ( request.policy !== µm.cspNoWorkerSrc ) { break; }
+        if ( pageStore !== null ) {
+            pageStore.hasWebWorkers = true;
+            pageStore.recordRequest('script', request.url, true);
+        }
+        if ( tabContext !== null ) {
+            µm.logger.writeOne(
+                tabId,
+                'net',
+                tabContext.rootHostname,
+                request.url,
+                'worker',
+                true
+            );
         }
         break;
 

@@ -126,6 +126,7 @@ PageStore.prototype = {
         this.has3pReferrer = false;
         this.hasMixedContent = false;
         this.hasNoscriptTags = false;
+        this.hasWebWorkers = false;
         this.incinerationTimer = null;
         this.mtxContentModifiedTime = 0;
         this.mtxCountModifiedTime = 0;

@@ -299,24 +299,44 @@ var onHeadersReceived = function(details) {
     var tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) { return; }
 
-    if ( µm.mustAllow(tabContext.rootHostname, µm.URI.hostnameFromURI(requestURL), 'script') ) {
-        return;
+    var csp = [];
+
+    if (
+        µm.mustAllow(
+            tabContext.rootHostname,
+            µm.URI.hostnameFromURI(requestURL),
+            'script'
+        ) !== true
+    ) {
+        csp.push("script-src 'unsafe-eval' blob: *");
     }
+
+    if ( µm.cspNoWorkerSrc === undefined ) {
+        µm.cspNoWorkerSrc = vAPI.webextFlavor.startsWith('Mozilla-') ?
+            "child-src 'none'; frame-src data: blob: *" :
+            "worker-src 'none'" ;
+    }
+
+    if ( µm.tMatrix.evaluateSwitchZ('no-workers', tabContext.rootHostname) ) {
+        csp.push(µm.cspNoWorkerSrc);
+    }
+
+    if ( csp.length === 0 ) { return; }
 
     // If javascript is not allowed, say so through a `Content-Security-Policy`
     // directive.
     // We block only inline-script tags, all the external javascript will be
     // blocked by our request handler.
 
-    var csp = "script-src 'unsafe-eval' blob: *",
+    var cspDirectives = csp.join(','),
         headers = details.responseHeaders,
         i = headerIndexFromName('content-security-policy', headers);
     // A CSP header is already present: just add our own directive as a
     // separate disposition (i.e. use comma).
     if ( i !== -1 ) {
-        headers[i].value += ', ' + csp;
+        headers[i].value += ', ' + cspDirectives;
     } else {
-        headers.push({ name: 'Content-Security-Policy', value: csp });
+        headers.push({ name: 'Content-Security-Policy', value: cspDirectives });
     }
 
     if ( requestType === 'doc' ) {

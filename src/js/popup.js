@@ -1196,6 +1196,10 @@ function updateMatrixSwitches() {
         'relevant',
         matrixSnapshot.hasMixedContent
     );
+    uDom.nodeFromId('mtxSwitch_no-workers').classList.toggle(
+        'relevant',
+        matrixSnapshot.hasWebWorkers
+    );
     uDom.nodeFromId('mtxSwitch_referrer-spoof').classList.toggle(
         'relevant',
         matrixSnapshot.has3pReferrer

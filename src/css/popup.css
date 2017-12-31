@@ -128,6 +128,12 @@ body .toolbar button.fa {
     opacity: 1;
     stroke: none;
     }
+#mtxSwitches > li.relevant > svg .dot {
+    fill: #888;
+    }
+#mtxSwitches > li.switchTrue.relevant > svg .dot {
+    fill: #eee;
+    }
 #mtxSwitches > li > svg .off,
 #mtxSwitches > li.switchTrue > svg .on,
 #mtxSwitches > li.relevant > svg .dot {

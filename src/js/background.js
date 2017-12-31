@@ -110,6 +110,7 @@ return {
     },
 
     clearBrowserCacheCycle: 0,
+    cspNoWorkerSrc: undefined,
     updateAssetsEvery: 11 * oneDay + 1 * oneHour + 1 * oneMinute + 1 * oneSecond,
     firstUpdateAfter: 11 * oneMinute,
     nextUpdateAfter: 11 * oneHour,
