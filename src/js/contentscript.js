@@ -407,14 +407,21 @@ var collapser = (function() {
 //   Mind "on..." attributes.
 
 (function() {
-    vAPI.messaging.send('contentscript.js', {
-        what: 'contentScriptSummary',
-        locationURL: window.location.href,
-        inlineScript:
-            document.querySelector('script:not([src])') !== null ||
-            document.querySelector('a[href^="javascript:"]') !== null ||
-            document.querySelector('[onabort],[onblur],[oncancel],[oncanplay],[oncanplaythrough],[onchange],[onclick],[onclose],[oncontextmenu],[oncuechange],[ondblclick],[ondrag],[ondragend],[ondragenter],[ondragexit],[ondragleave],[ondragover],[ondragstart],[ondrop],[ondurationchange],[onemptied],[onended],[onerror],[onfocus],[oninput],[oninvalid],[onkeydown],[onkeypress],[onkeyup],[onload],[onloadeddata],[onloadedmetadata],[onloadstart],[onmousedown],[onmouseenter],[onmouseleave],[onmousemove],[onmouseout],[onmouseover],[onmouseup],[onwheel],[onpause],[onplay],[onplaying],[onprogress],[onratechange],[onreset],[onresize],[onscroll],[onseeked],[onseeking],[onselect],[onshow],[onstalled],[onsubmit],[onsuspend],[ontimeupdate],[ontoggle],[onvolumechange],[onwaiting],[onafterprint],[onbeforeprint],[onbeforeunload],[onhashchange],[onlanguagechange],[onmessage],[onoffline],[ononline],[onpagehide],[onpageshow],[onrejectionhandled],[onpopstate],[onstorage],[onunhandledrejection],[onunload],[oncopy],[oncut],[onpaste]') !== null
-    });
+    if (
+        vAPI.reportedViolations === undefined ||
+        vAPI.reportedViolations.has('script-src') === false
+    ) {
+        if ( document.querySelector('script:not([src])') !== null ) {
+            vAPI.messaging.send('contentscript.js', {
+                what: 'securityPolicyViolation',
+                directive: 'script-src',
+                documentURI: window.location.href
+            });
+            if ( vAPI.reportedViolations ) {
+                vAPI.reportedViolations.add('script-src');
+            }
+        }
+    }
 
     collapser.addMany(document.querySelectorAll('img'));
     collapser.addIFrames(document.querySelectorAll('iframe'));

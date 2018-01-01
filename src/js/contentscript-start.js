@@ -30,16 +30,68 @@
 
     if ( typeof vAPI !== 'object' ) { return; }
 
-    window.addEventListener('securitypolicyviolation', function(ev) {
+    vAPI.reportedViolations = vAPI.reportedViolations || new Set();
+
+    var cspReportURI = 'about:blank';
+    var reportedViolations = vAPI.reportedViolations;
+
+    var handler = function(ev) {
+        if (
+            ev.isTrusted !== true ||
+            ev.originalPolicy.includes(cspReportURI) === false
+        ) {
+            return false;
+        }
+
+        // Firefox and Chromium differs in how they fill the
+        // 'effectiveDirective' property. Need to normalize here.
+        var directive = ev.effectiveDirective;
+        if ( directive.startsWith('script-src') ) {
+            directive = 'script-src';
+        } else if ( directive.startsWith('worker-src') ) {
+            directive = 'worker-src';
+        } else if ( directive.startsWith('child-src') ) {
+            directive = 'worker-src';
+        } else {
+            return false;
+        }
+
+        var blockedURL;
+        try {
+            blockedURL = new URL(ev.blockedURI);
+        } catch(ex) {
+        }
+        blockedURL = blockedURL !== undefined ? blockedURL.href || '' : '';
+
+        // Avoid reporting same violations repeatedly.
+        var violationKey = (directive + ' ' + blockedURL).trim();
+        if ( reportedViolations.has(violationKey) ) {
+            return true;
+        }
+        reportedViolations.add(violationKey);
+
         vAPI.messaging.send(
             'contentscript.js',
             {
                 what: 'securityPolicyViolation',
-                policy: ev.originalPolicy,
-                blockedURI: ev.blockedURI,
-                documentURI: ev.documentURI
+                directive: directive,
+                blockedURI: blockedURL,
+                documentURI: ev.documentURI,
+                blocked: ev.disposition === 'enforce'
             }
         );
-    });
+
+        return true;
+    };
+
+    document.addEventListener(
+        'securitypolicyviolation',
+        function(ev) {
+            if ( !handler(ev) ) { return; }
+            ev.stopPropagation();
+            ev.preventDefault();
+        },
+        true
+    );
 
 })();

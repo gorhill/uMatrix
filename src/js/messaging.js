@@ -391,32 +391,23 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
-var contentScriptSummaryHandler = function(tabId, details) {
-    // TODO: Investigate "Error in response to tabs.executeScript: TypeError:
-    // Cannot read property 'locationURL' of null" (2013-11-12). When can this
-    // happens? 
-    if ( !details || !details.locationURL ) { return; }
-
-    // scripts
-    if ( details.inlineScript !== true ) {
-        return;
-    }
-
-    // https://github.com/gorhill/httpswitchboard/issues/25
-    var pageStore = µm.pageStoreFromTabId(tabId);
+var contentScriptSummaryHandler = function(tabId, pageStore, details) {
     if ( pageStore === null ) { return; }
 
     var pageHostname = pageStore.pageHostname;
-    var µmuri = µm.URI.set(details.locationURL);
+    var µmuri = µm.URI.set(details.documentURI);
     var frameURL = µmuri.normalizedURI();
-    var frameHostname = µmuri.hostname;
+
+    var blocked = details.blocked;
+    if ( blocked === undefined ) {
+        blocked = µm.mustBlock(pageHostname, µmuri.hostname, 'script');
+    }
 
     // https://github.com/gorhill/httpswitchboard/issues/333
     // Look-up here whether inline scripting is blocked for the frame.
-    var inlineScriptBlocked = µm.mustBlock(pageHostname, frameHostname, 'script');
     var url = frameURL + '{inline_script}';
-    pageStore.recordRequest('script', url, inlineScriptBlocked);
-    µm.logger.writeOne(tabId, 'net', pageHostname, url, 'script', inlineScriptBlocked);
+    pageStore.recordRequest('script', url, blocked);
+    µm.logger.writeOne(tabId, 'net', pageHostname, url, 'script', blocked);
 
     // https://github.com/gorhill/uMatrix/issues/225
     // A good place to force an update of the page title, as at this point
@@ -544,16 +535,19 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'securityPolicyViolation':
-        if ( request.policy !== µm.cspNoWorkerSrc ) { break; }
-        var url = µm.URI.hostnameFromURI(request.blockedURI) !== '' ?
-            request.blockedURI :
-            request.documentURI;
-        if ( pageStore !== null ) {
-            pageStore.hasWebWorkers = true;
-            pageStore.recordRequest('script', url, true);
-        }
-        if ( tabContext !== null ) {
-            µm.logger.writeOne(tabId, 'net', rootHostname, url, 'worker', true);
+        if ( request.directive === 'worker-src' ) {
+            var url = µm.URI.hostnameFromURI(request.blockedURI) !== '' ?
+                request.blockedURI :
+                request.documentURI;
+            if ( pageStore !== null ) {
+                pageStore.hasWebWorkers = true;
+                pageStore.recordRequest('script', url, true);
+            }
+            if ( tabContext !== null ) {
+                µm.logger.writeOne(tabId, 'net', rootHostname, url, 'worker', request.blocked);
+            }
+        } else if ( request.directive === 'script-src' ) {
+            contentScriptSummaryHandler(tabId, pageStore, request);
         }
         break;
 
