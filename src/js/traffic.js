@@ -300,23 +300,15 @@ var onHeadersReceived = function(details) {
     if ( tabContext === null ) { return; }
 
     var csp = [],
-        cspReport = [];
+        cspReport = [],
+        rootHostname = tabContext.rootHostname,
+        requestHostname = µm.URI.hostnameFromURI(requestURL);
 
     // If javascript is not allowed, say so through a `Content-Security-Policy`
     // directive.
     // We block only inline-script tags, all the external javascript will be
     // blocked by our request handler.
-    if ( µm.cspNoInlineScript === undefined ) {
-        µm.cspNoInlineScript =
-            "script-src 'unsafe-eval' blob: *;report-uri " + µm.cspReportURI;
-    }
-    if (
-        µm.mustAllow(
-            tabContext.rootHostname,
-            µm.URI.hostnameFromURI(requestURL),
-            'script'
-        ) !== true
-    ) {
+    if ( µm.mustAllow(rootHostname, requestHostname, 'script' ) !== true ) {
         csp.push(µm.cspNoInlineScript);
     } else {
         cspReport.push(µm.cspNoInlineScript);
@@ -326,12 +318,11 @@ var onHeadersReceived = function(details) {
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1231788
     if ( µm.cspNoWorker === undefined ) {
         µm.cspNoWorker = vAPI.webextFlavor.startsWith('Mozilla-') ?
-            "child-src 'none'; frame-src data: blob: *;report-uri " :
-            "worker-src 'none';report-uri " ;
-        µm.cspNoWorker += µm.cspReportURI;
+            "child-src 'none'; frame-src data: blob: *; report-uri about:blank" :
+            "worker-src 'none'; report-uri about:blank" ;
     }
 
-    if ( µm.tMatrix.evaluateSwitchZ('no-workers', tabContext.rootHostname) ) {
+    if ( µm.tMatrix.evaluateSwitchZ('no-workers', rootHostname) ) {
         csp.push(µm.cspNoWorker);
     } else {
         cspReport.push(µm.cspNoWorker);
@@ -346,7 +337,10 @@ var onHeadersReceived = function(details) {
         if ( i !== -1 ) {
             headers[i].value += ',' + cspDirectives;
         } else {
-            headers.push({ name: 'Content-Security-Policy', value: cspDirectives });
+            headers.push({
+                name: 'Content-Security-Policy',
+                value: cspDirectives
+            });
         }
         if ( requestType === 'doc' ) {
             µm.logger.writeOne(tabId, 'net', '', cspDirectives, 'CSP', false);

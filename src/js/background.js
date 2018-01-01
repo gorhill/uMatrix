@@ -110,9 +110,8 @@ return {
     },
 
     clearBrowserCacheCycle: 0,
-    cspNoInlineScript: undefined,
+    cspNoInlineScript: "script-src 'unsafe-eval' blob: *; report-uri about:blank",
     cspNoWorker: undefined,
-    cspReportURI: 'about:blank',
     updateAssetsEvery: 11 * oneDay + 1 * oneHour + 1 * oneMinute + 1 * oneSecond,
     firstUpdateAfter: 11 * oneMinute,
     nextUpdateAfter: 11 * oneHour,

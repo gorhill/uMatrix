@@ -32,13 +32,12 @@
 
     vAPI.reportedViolations = vAPI.reportedViolations || new Set();
 
-    var cspReportURI = 'about:blank';
     var reportedViolations = vAPI.reportedViolations;
 
     var handler = function(ev) {
         if (
             ev.isTrusted !== true ||
-            ev.originalPolicy.includes(cspReportURI) === false
+            ev.originalPolicy.includes('about:blank') === false
         ) {
             return false;
         }
