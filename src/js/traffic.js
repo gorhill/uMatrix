@@ -313,7 +313,7 @@ var onHeadersReceived = function(details) {
 
     if ( µm.cspNoWorkerSrc === undefined ) {
         µm.cspNoWorkerSrc = vAPI.webextFlavor.startsWith('Mozilla-') ?
-            "child-src 'none';frame-src data: blob: *" :
+            "child-src 'none'; frame-src data: blob: *" :
             "worker-src 'none'" ;
     }
 
