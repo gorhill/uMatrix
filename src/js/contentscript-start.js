@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2017 Raymond Hill
+    Copyright (C) 2017-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,51 +30,69 @@
 
     if ( typeof vAPI !== 'object' ) { return; }
 
-    vAPI.reportedViolations = vAPI.reportedViolations || new Set();
+    vAPI.selfScriptSrcReported = vAPI.selfScriptSrcReported || false;
+    vAPI.selfWorkerSrcReported = vAPI.selfWorkerSrcReported || false;
 
-    var reportedViolations = vAPI.reportedViolations;
+    var reBadScriptSrc = /script-src[^;,]+?'(?:unsafe-inline|nonce-[^']+)'/,
+        reGoodWorkerSrc = /(?:child|worker)-src[^;,]+?'none'/;
 
     var handler = function(ev) {
         if (
             ev.isTrusted !== true ||
-            ev.originalPolicy.includes('about:blank') === false
+            ev.originalPolicy.includes('report-uri about:blank') === false
         ) {
             return false;
         }
+
+        // We do not want to report internal resources more than once.
+        // However, we do want to report external resources each time.
+        // TODO: this could eventually lead to duplicated reports for external
+        //       resources if another extension uses the same approach as
+        //       uMatrix. Think about what could be done to avoid duplicate
+        //       reports.
+        var internal = ev.blockedURI.includes('://') === false;
 
         // Firefox and Chromium differs in how they fill the
         // 'effectiveDirective' property. Need to normalize here.
         var directive = ev.effectiveDirective;
         if ( directive.startsWith('script-src') ) {
+            if ( internal && vAPI.selfScriptSrcReported ) { return true; }
             directive = 'script-src';
-        } else if ( directive.startsWith('worker-src') ) {
-            directive = 'worker-src';
-        } else if ( directive.startsWith('child-src') ) {
+        } else if (
+            directive.startsWith('worker-src') ||
+            directive.startsWith('child-src')
+        ) {
+            if ( internal && vAPI.selfWorkerSrcReported ) { return true; }
             directive = 'worker-src';
         } else {
             return false;
         }
 
-        var blockedURL;
-        try {
-            blockedURL = new URL(ev.blockedURI);
-        } catch(ex) {
+        // Further validate that the policy violation is relevant to uMatrix:
+        // the event still could have been fired as a result of a CSP header
+        // not injected by uMatrix.
+        if ( directive === 'script-src' ) {
+            if ( reBadScriptSrc.test(ev.originalPolicy) === true ) {
+                return false;
+            }
+            if ( internal ) {
+                vAPI.selfScriptSrcReported = true;
+            }
+        } else /* if ( directive === 'worker-src' ) */ {
+            if ( reGoodWorkerSrc.test(ev.originalPolicy) === false ) {
+                return false;
+            }
+            if ( internal ) {
+                vAPI.selfWorkerSrcReported = true;
+            }
         }
-        blockedURL = blockedURL !== undefined ? blockedURL.href || '' : '';
-
-        // Avoid reporting same violations repeatedly.
-        var violationKey = (directive + ' ' + blockedURL).trim();
-        if ( reportedViolations.has(violationKey) ) {
-            return true;
-        }
-        reportedViolations.add(violationKey);
 
         vAPI.messaging.send(
             'contentscript.js',
             {
                 what: 'securityPolicyViolation',
                 directive: directive,
-                blockedURI: blockedURL,
+                blockedURI: ev.blockedURI,
                 documentURI: ev.documentURI,
                 blocked: ev.disposition === 'enforce'
             }

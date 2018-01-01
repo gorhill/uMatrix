@@ -408,19 +408,15 @@ var collapser = (function() {
 
 (function() {
     if (
-        vAPI.reportedViolations === undefined ||
-        vAPI.reportedViolations.has('script-src') === false
+        vAPI.selfScriptSrcReported !== true &&
+        document.querySelector('script:not([src])') !== null
     ) {
-        if ( document.querySelector('script:not([src])') !== null ) {
-            vAPI.messaging.send('contentscript.js', {
-                what: 'securityPolicyViolation',
-                directive: 'script-src',
-                documentURI: window.location.href
-            });
-            if ( vAPI.reportedViolations ) {
-                vAPI.reportedViolations.add('script-src');
-            }
-        }
+        vAPI.messaging.send('contentscript.js', {
+            what: 'securityPolicyViolation',
+            directive: 'script-src',
+            documentURI: window.location.href
+        });
+        vAPI.selfScriptSrcReported = true;
     }
 
     collapser.addMany(document.querySelectorAll('img'));
