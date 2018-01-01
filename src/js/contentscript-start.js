@@ -36,7 +36,8 @@
             {
                 what: 'securityPolicyViolation',
                 policy: ev.originalPolicy,
-                url: ev.documentURI
+                blockedURI: ev.blockedURI,
+                documentURI: ev.documentURI
             }
         );
     });
