@@ -408,15 +408,15 @@ var collapser = (function() {
 
 (function() {
     if (
-        vAPI.selfScriptSrcReported !== true &&
-        document.querySelector('script:not([src])') !== null
+        document.querySelector('script:not([src])') !== null ||
+        document.querySelector('a[href^="javascript:"]') !== null ||
+        document.querySelector('[onabort],[onblur],[oncancel],[oncanplay],[oncanplaythrough],[onchange],[onclick],[onclose],[oncontextmenu],[oncuechange],[ondblclick],[ondrag],[ondragend],[ondragenter],[ondragexit],[ondragleave],[ondragover],[ondragstart],[ondrop],[ondurationchange],[onemptied],[onended],[onerror],[onfocus],[oninput],[oninvalid],[onkeydown],[onkeypress],[onkeyup],[onload],[onloadeddata],[onloadedmetadata],[onloadstart],[onmousedown],[onmouseenter],[onmouseleave],[onmousemove],[onmouseout],[onmouseover],[onmouseup],[onwheel],[onpause],[onplay],[onplaying],[onprogress],[onratechange],[onreset],[onresize],[onscroll],[onseeked],[onseeking],[onselect],[onshow],[onstalled],[onsubmit],[onsuspend],[ontimeupdate],[ontoggle],[onvolumechange],[onwaiting],[onafterprint],[onbeforeprint],[onbeforeunload],[onhashchange],[onlanguagechange],[onmessage],[onoffline],[ononline],[onpagehide],[onpageshow],[onrejectionhandled],[onpopstate],[onstorage],[onunhandledrejection],[onunload],[oncopy],[oncut],[onpaste]') !== null
     ) {
         vAPI.messaging.send('contentscript.js', {
             what: 'securityPolicyViolation',
             directive: 'script-src',
             documentURI: window.location.href
         });
-        vAPI.selfScriptSrcReported = true;
     }
 
     collapser.addMany(document.querySelectorAll('img'));

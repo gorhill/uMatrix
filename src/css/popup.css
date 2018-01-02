@@ -129,7 +129,7 @@ body .toolbar button.fa {
     stroke: none;
     }
 #mtxSwitches > li.relevant > svg .dot {
-    fill: #888;
+    fill: #aaa;
     }
 #mtxSwitches > li.switchTrue.relevant > svg .dot {
     fill: #eee;

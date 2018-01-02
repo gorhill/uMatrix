@@ -310,8 +310,6 @@ var onHeadersReceived = function(details) {
     // blocked by our request handler.
     if ( µm.mustAllow(rootHostname, requestHostname, 'script' ) !== true ) {
         csp.push(µm.cspNoInlineScript);
-    } else {
-        cspReport.push(µm.cspNoInlineScript);
     }
 
     // TODO: Firefox will eventually support `worker-src`:

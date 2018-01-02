@@ -30,11 +30,9 @@
 
     if ( typeof vAPI !== 'object' ) { return; }
 
-    vAPI.selfScriptSrcReported = vAPI.selfScriptSrcReported || false;
     vAPI.selfWorkerSrcReported = vAPI.selfWorkerSrcReported || false;
 
-    var reBadScriptSrc = /script-src[^;,]+?'(?:unsafe-inline|nonce-[^']+)'/,
-        reGoodWorkerSrc = /(?:child|worker)-src[^;,]+?'none'/;
+    var reGoodWorkerSrc = /(?:child|worker)-src[^;,]+?'none'/;
 
     var handler = function(ev) {
         if (
@@ -44,54 +42,38 @@
             return false;
         }
 
-        // We do not want to report internal resources more than once.
-        // However, we do want to report external resources each time.
-        // TODO: this could eventually lead to duplicated reports for external
-        //       resources if another extension uses the same approach as
-        //       uMatrix. Think about what could be done to avoid duplicate
-        //       reports.
-        var internal = ev.blockedURI.includes('://') === false;
-
         // Firefox and Chromium differs in how they fill the
-        // 'effectiveDirective' property. Need to normalize here.
-        var directive = ev.effectiveDirective;
-        if ( directive.startsWith('script-src') ) {
-            if ( internal && vAPI.selfScriptSrcReported ) { return true; }
-            directive = 'script-src';
-        } else if (
-            directive.startsWith('worker-src') ||
-            directive.startsWith('child-src')
+        // 'effectiveDirective' property.
+        if (
+            ev.effectiveDirective.startsWith('worker-src') === false &&
+            ev.effectiveDirective.startsWith('child-src') === false
         ) {
-            if ( internal && vAPI.selfWorkerSrcReported ) { return true; }
-            directive = 'worker-src';
-        } else {
             return false;
         }
 
         // Further validate that the policy violation is relevant to uMatrix:
         // the event still could have been fired as a result of a CSP header
         // not injected by uMatrix.
-        if ( directive === 'script-src' ) {
-            if ( reBadScriptSrc.test(ev.originalPolicy) === true ) {
-                return false;
-            }
-            if ( internal ) {
-                vAPI.selfScriptSrcReported = true;
-            }
-        } else /* if ( directive === 'worker-src' ) */ {
-            if ( reGoodWorkerSrc.test(ev.originalPolicy) === false ) {
-                return false;
-            }
-            if ( internal ) {
-                vAPI.selfWorkerSrcReported = true;
-            }
+        if ( reGoodWorkerSrc.test(ev.originalPolicy) === false ) {
+            return false;
+        }
+
+        // We do not want to report internal resources more than once.
+        // However, we do want to report external resources each time.
+        // TODO: this could eventually lead to duplicated reports for external
+        //       resources if another extension uses the same approach as
+        //       uMatrix. Think about what could be done to avoid duplicate
+        //       reports.
+        if ( ev.blockedURI.includes('://') === false ) {
+            if ( vAPI.selfWorkerSrcReported ) { return true; }
+            vAPI.selfWorkerSrcReported = true;
         }
 
         vAPI.messaging.send(
             'contentscript.js',
             {
                 what: 'securityPolicyViolation',
-                directive: directive,
+                directive: 'worker-src',
                 blockedURI: ev.blockedURI,
                 documentURI: ev.documentURI,
                 blocked: ev.disposition === 'enforce'
