@@ -56,7 +56,7 @@
     ],
     "short_name": "uMatrix",
     "sidebar_action": {
-        "default_title": "uMatrix logger",
+        "default_title": "__MSG_loggerPageName__",
         "default_panel": "logger-ui.html",
         "default_icon": {
             "16": "img/icon_16.png",
