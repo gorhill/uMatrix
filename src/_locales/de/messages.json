@@ -108,7 +108,7 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Nur HTTPS",
+        "message": "Gemischte Inhalte verbieten",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {

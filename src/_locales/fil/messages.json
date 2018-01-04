@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+        "message": "Ituro at i-click ang pagbawalan \/ pahintulutan ang anumang uri ng mga kahilingan na ginawa ng iyong browser. Gamitin ito upang i-block ang mga script, iframe, ad, facebook, atbp.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -16,7 +16,7 @@
         "description": "Title for the logger window"
     },
     "settingsPageName": {
-        "message": "Settings",
+        "message": "Mga Setting",
         "description": "a tab in dashboard"
     },
     "privacyPageName": {
@@ -24,23 +24,23 @@
         "description": "a tab in dashboard"
     },
     "statsPageName": {
-        "message": "Statistics",
+        "message": "Istatistika",
         "description": "a tab in dashboard"
     },
     "userRulesPageName": {
-        "message": "My rules",
+        "message": "Ang aking mga panuntunan",
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Hosts files",
+        "message": "Mga host file",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
-        "message": "About",
+        "message": "Tungkol sa",
         "description": "a tab in dashboard"
     },
     "allPrettyName": {
-        "message": "all",
+        "message": "lahat",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cookiePrettyName": {
@@ -52,7 +52,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "imagePrettyName": {
-        "message": "image",
+        "message": "larawan",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
@@ -76,27 +76,27 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "otherPrettyName": {
-        "message": "other",
+        "message": "iba pa",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "matrixNoNetTrafficPrompt": {
-        "message": "No net traffic seen for this tab so far.",
+        "message": "Walang nakikitang trapiko sa net para sa tab na ito sa ngayon.",
         "description": ""
     },
     "matrixMtxButtonTip": {
-        "message": "Disable\/enable matrix filtering for this scope.",
+        "message": "Huwag paganahin \/ paganahin ang pag-filter ng matris para sa saklaw na ito.",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
-        "message": "Save all temporary changes for this scope.",
+        "message": "I-save ang lahat ng mga pansamantalang pagbabago para sa saklaw na ito.",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip": {
-        "message": "Revert temporary changes for this scope.",
+        "message": "Ibalik ang mga pansamantalang pagbabago para sa saklaw na ito.",
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Reload the page.\nPress Shift to bypass the browser cache.",
+        "message": "I-reload ang pahina.\nPindutin ang Shift upang lampasan ang cache ng browser.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -104,15 +104,15 @@
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
-        "message": "{{count}} blacklisted hostname(s)",
+        "message": "{{count}} naka-blacklist na hostname (s)",
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Forbid mixed content",
+        "message": "Ipagbawal ang halo-halong nilalaman",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
-        "message": "Forbid web workers",
+        "message": "Ipagbawal ang mga web workers",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
@@ -124,27 +124,27 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
-        "message": "Revert all temporary changes",
+        "message": "Ibalik ang lahat ng mga pansamantalang pagbabago",
         "description": "A menu entry in the matrix popup"
     },
     "matrixLoggerMenuEntry": {
-        "message": "Go to logger",
+        "message": "Pumunta sa logger",
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry": {
-        "message": "Go to dashboard",
+        "message": "Pumunta sa dashboard",
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "Walang nakitang pahina ng web",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
-        "message": "uMatrix &ndash; Statistics",
+        "message": "uMatrix &ndash; Istatistika",
         "description": ""
     },
     "statsPageGenericStats": {
-        "message": "Generic statistics",
+        "message": "Generic na istatistika",
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
@@ -152,59 +152,59 @@
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers foiled: {{count}}",
+        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> hinabol ang mga header: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> attempts foiled: {{count}}",
+        "message": "<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> ang mga pagtatangka ay napawalang-saysay:{{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
-        "message": "Local cookies removed: {{count}}",
+        "message": "Inalis na mga lokal na cookies: {{count}}",
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+        "message": "<a href = 'http: \/\/diveintohtml5.info\/storage.html'> Mga lokal na storage <\/a> ay walang laman: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
-        "message": "Browser caches cleared: {{count}}",
+        "message": "Naka-clear ang mga cache ng browser: {{count}}",
         "description": ""
     },
     "statsPageDetailedStats": {
-        "message": "Detailed statistics",
+        "message": "Detalyadong istatistika",
         "description": ""
     },
     "statsPageDetailedAllPages": {
-        "message": "All",
+        "message": "Lahat",
         "description": ""
     },
     "statsPageDetailedBehindTheScenePage": {
-        "message": "Behind the scene",
+        "message": "Sa likod ng mga eksena",
         "description": ""
     },
     "statsPageOverview": {
-        "message": "Overview",
+        "message": "Pangkalahatang-ideya",
         "description": ""
     },
     "statsPageRequests": {
-        "message": "Requests",
+        "message": "Mga Hiling",
         "description": "header for the stat type column"
     },
     "statsPageAllowed": {
-        "message": "Allowed",
+        "message": "Pinayagan",
         "description": "header for the allowed requests column"
     },
     "statsPageBlocked": {
-        "message": "Blocked",
+        "message": "Naka-block",
         "description": "header for the blocked requests column"
     },
     "statsPageAll": {
-        "message": "All",
+        "message": "Lahat",
         "description": ""
     },
     "statsPagePages": {
-        "message": "Pages",
+        "message": "Mga Pahina",
         "description": ""
     },
     "statsPageCookies": {
@@ -216,27 +216,27 @@
         "description": ""
     },
     "statsPageImages": {
-        "message": "Images",
+        "message": "Mga Larawan",
         "description": ""
     },
     "statsPagePlugins": {
-        "message": "Plugins",
+        "message": "Mga Plugin",
         "description": ""
     },
     "statsPageScripts": {
-        "message": "Scripts",
+        "message": "Mga Script",
         "description": ""
     },
     "statsPageXHRs": {
-        "message": "XHRs",
+        "message": "Mga XHR",
         "description": ""
     },
     "statsPageFrames": {
-        "message": "Frames",
+        "message": "Mga Frame",
         "description": ""
     },
     "statsPageOthers": {
-        "message": "Others",
+        "message": "Iba pa",
         "description": ""
     },
     "statsPageDetailed": {
@@ -244,15 +244,15 @@
         "description": ""
     },
     "statsPageLogSizePrompt1": {
-        "message": "Remember the last",
+        "message": "Tandaan ang huli",
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "HTTP requests <b>per page<\/b>.",
+        "message": "Hinihiling ng HTTP sa <b> bawat pahina <\/ b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
+        "message": "<p> Maaari mong siyasatin ang mga detalye ng pinakahuling mga kahilingan sa HTTP na ginawa ng isang web page (tingnan sa ibaba). <\/p> <p> Ito ay kapaki-pakinabang sa mga advanced na user na nais mag-imbestiga nang eksakto kung ano ang ginagawa ng isang web page. Ngunit ang pag-log ng mga kahilingan sa HTTP ay nangangailangan ng memorya, at kung hindi mo pinapahalagahan ang tungkol sa teknikal na impormasyon, pagkatapos ay ang memory ay nasayang. <\/p> <p> Samakatuwid ang patlang na ito na nagpapahintulot sa iyo na ayusin ang maximum na bilang ng mga pinakahuling mga kahilingan sa HTTP ay dapat ma-log para sa karagdagang inspeksyon. <\/p> <p> Ipasok ang &ldquo; <code> 0 <\/code> &rdquo; upang patayin ang detalyadong pag-log (at dahil dito ay bawasan ang memory footprint ng <i> uMatrix <\/i>). <\/p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -268,7 +268,7 @@
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
-        "message": "Text size:",
+        "message": "Laki ng teksto:",
         "description": ""
     },
     "settingsMatrixDisplayTextSizeNormal": {
@@ -276,7 +276,7 @@
         "description": ""
     },
     "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Large",
+        "message": "Malaki",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -284,11 +284,11 @@
         "description": ""
     },
     "settingsMatrixConvenienceHeader": {
-        "message": "Convenience",
+        "message": "Kaginhawaan",
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "Pangunahing antas ng saklaw:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
@@ -304,27 +304,27 @@
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
-        "message": "When the matrix is closed, smart reload these tabs:",
+        "message": "Kapag isinara ang matrix, ang smart na i-reload ang mga tab na ito:",
         "description": ""
     },
     "settingsMatrixAutoReloadNone": {
-        "message": "None",
+        "message": "Wala",
         "description": ""
     },
     "settingsMatrixAutoReloadCurrent": {
-        "message": "Current",
+        "message": "Kasalukuyan",
         "description": ""
     },
     "settingsMatrixAutoReloadAll": {
-        "message": "All",
+        "message": "Lahat",
         "description": ""
     },
     "settingsMatrixAutoReloadInfo": {
-        "message": "Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>uMatrix<\/i> will reload affected pages automatically when you close the matrix.",
+        "message": "Sa tuwing gumawa ka ng mga pagbabago sa matrix na maaaring makaapekto sa display at \/ o pag-uugali ng isa o higit pang mga pahina, awtomatikong i-reload ng <i>uMatrix<\/i> ang mga apektadong pahina kapag isinara mo ang matris.",
         "description": ""
     },
     "settingsSubframeColor": {
-        "message": "Blocked frames:&ensp;Color",
+        "message": "Blocked frames:&ensp;Kulay",
         "description": "English: Blocked frames:&ensp;Color"
     },
     "settingsSubframeOpacity": {
@@ -332,23 +332,23 @@
         "description": "English: Opacity"
     },
     "settingsIconBadgeEnabled": {
-        "message": "Show the number of distinct requests on the icon",
+        "message": "Ipakita ang bilang ng mga natatanging kahilingan sa icon",
         "description": "English: Show the number of distinct requests on the icon"
     },
     "settingsCollapseBlocked": {
-        "message": "Collapse placeholder of blocked elements",
+        "message": "I-collapse ang mga placeholder ng mga naka-block na elemento",
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "I-collapse ang mga placeholder ng mga naka-blacklist na elemento",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "Spoof <code><noscript><\/code> na mga tag kapag naka-block ang mga script ng 1st-party",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
-        "message": "Enable cloud storage support",
+        "message": "Paganahin ang suporta sa cloud storage",
         "description": ""
     },
     "privacyPageTitle": {
@@ -356,71 +356,71 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesPrompt": {
-        "message": "Delete blocked cookies.",
+        "message": "Tanggalin ang naka-block na cookies.",
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+        "message": "<p> Ang mga blacklist na cookies ay hindi napigilan ng <i>uMatrix<\/i> mula sa pagpasok ng iyong browser. Gayunpaman, pinigilan sila sa pag-alis ng iyong browser, na kung saan ay talagang mahalaga. Ang hindi pagharang ng mga cookies bago sila ipasok ang iyong browser ay nagbibigay sa iyo ng pagkakataong maabisuhan na sinubukan ng isang site na gumamit ng mga cookies, at higit pa upang siyasatin ang mga nilalaman nito kung nais mo. <\/p><p> Kapag ang mga naka-blacklist na cookies ay na-accounted sa pamamagitan ng <i>uMatrix<\/i>, maaari silang alisin mula sa iyong browser kung nais mo. <\/p><p><b>Mahalagang paalala: <\/b> Maaaring gawing mga extension ang mga kahilingan sa web sa panahon ng kanilang normal na operasyon. Ang mga kahilingan na ito ay maaaring magresulta sa mga cookies na nilikha sa browser. Kung ang hostname mula sa kung saan ang isang cookie na nagmula ay hindi whitelisted, ang cookie ay aalisin mula sa browser sa pamamagitan ng <i> uMatrix <\/i> kung naka-check ang opsyong ito. Kaya siguraduhin na ang (mga) host na kung saan ang isang extension na nakikipag-ugnay ay whitelisted. <\/p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
-        "message": "Delete non-blocked session cookies ",
+        "message": "Tanggalin ang mga hindi naka-block na cookies ng session ",
         "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt2": {
-        "message": " minutes after the last time they have been used.",
+        "message": " ilang minuto pagkatapos ng huling pagkakataon na ginamit na ang mga ito.",
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Ang session cookie ... ay mabubura kapag tinapos mo ang session ng browser. Ang session cookie ay naka-imbak sa pansamantalang memorya at hindi mananatili pagkatapos na sarado ang browser.&rdquo;<\/p><p>Maliban na ito <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>maaaring hindi nangyayari<\/a>sa ilang mga browser. Gayundin, sa ilang, ang pagkakaroon ng pagsara sa browser upang ang mga cookies ng cookies ay maaring hindi maaaring maagang maaga.<\/p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Delete <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> content set by blocked hostnames",
+        "message": "Tanggalin ang nilalamang <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'> lokal na imbakan <\/a> na itinakda ng mga naka-block na mga hostname",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
-        "message": "TODO",
+        "message": "GAGAWIN",
         "description": ""
     },
     "privacyClearCachePrompt1": {
-        "message": "Clear browser cache every",
+        "message": "I-clear ang cache ng browser bawat",
         "description": "First part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCachePrompt2": {
-        "message": "minutes.",
+        "message": "minuto.",
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>Ang ilang mga web site ay tunay na baluktot sa pagsubaybay sa iyo, kaya magkano na sila ay gumamit ng hindi-magandang-trick upang gumana sa paligid ng anumang mga panukala mong gawin upang hindi masubaybayan.<\/p><p>Ang ilan sa mga trick na ito ay umaasa<sup>[1, 2]<\/sup> sa <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, kung aling nilalaman ay madalas na matagal na dahil hindi gaanong magagawa ng mga gumagamit ang oras upang regular na i-clear ang cache ng kanilang browser.<\/p><p>May kaunting abala na regular na i-clear ang cache ng browser (posibilidad na hindi mo mapansin kapag nangyari ito), at ang benepisyo ay upang maiwasan ang mga kasuklam-suklam na tagasubaybay mula sa pagsalakay sa iyong privacy.<\/p><p>Suriin ang opsyong ito upang magkaroon ng <i> uMatrix <\/i> gawin ito para sa iyo, sa pagitan na nais mo.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Ppag-iwas sa Pagsubaybay sa Web sa pamamagitan ng Cache Browser&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'> HTTP referrer <\/a> string ng mga kahilingan ng third-party.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+        "message": "Mula sa Wikipedia:<blockquote> Ang HTTP referer ay isang header ng HTTP na nagpapakilala sa address ng webpage na naka-link sa mapagkukunan na hiniling. ...<b>Dahil ang impormasyon ng referer ay maaaring lumalabag sa privacy, pinapayagan ng ilang mga browser ng web ang gumagamit na huwag paganahin ang pagpapadala ng impormasyon ng referer.<\/b><\/blockquote>Kung naka-check ang setting na ito,<i>uMatrix<\/i>ay i-spoof ang impormasyon ng HTTP referrer kung ang pangalan ng domain ng HTTP referrer ay third-party sa pangalan ng domain na net request.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
-        "message": "Strict HTTPS: forbid mixed content.",
+        "message": "Strict HTTPS: pagbawalan ang halo-halong nilalaman.",
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+        "message": "<p>Mula sa <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Kung ang [a] pahina ng HTTPS ay kinabibilangan ng nilalaman na nakuha sa pamamagitan ng regular, cleartext HTTP, at pagkatapos ang koneksyon ay bahagyang naka-encrypt lamang: ang hindi naka-encrypt na nilalaman ay naa-access sa mga sniffer at maaaring mabago ng mga man-in-the-middle attackers, at samakatuwid ang koneksyon ay hindi na-safeguarded ngayon. Kapag nagpapakita ang isang webpage ng pag-uugali na ito, ito ay tinatawag na isang halo-halong pahina ng nilalaman.<\/blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+        "message": "Harangan ang lahat ng<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>pag-audit ng hyperlink<\/a> mga pagtatangka.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+        "message": "<p> Ang pag-audit ng hyperlink ay isang mekanismo na nagbibigay-daan sa isang partido, <b> anumang partido <\/b>, na ipaalam kung anong link ang na-click ng isang user sa isang partikular na web page. Ito ay talagang isang tampok sa pagsubaybay: pinapayagan nito ang isang web site, o anumang ikatlong partido sa web site na iyon, na ipaalam kung aling link ang iyong na-click sa alin sa mga web page nito. Ang tanging layunin ay upang masubaybayan ang iyong aktibidad sa pagba-browse. <\/p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
-        "message": "Permanent rules",
+        "message": "Permanenteng panuntunan",
         "description": ""
     },
     "userRulesTemporaryHeader": {
@@ -428,7 +428,7 @@
         "description": ""
     },
     "userRulesRevert": {
-        "message": "Revert",
+        "message": "Ibalik",
         "description": "Will remove all temporary rules"
     },
     "userRulesCommit": {
@@ -436,27 +436,27 @@
         "description": "Will save all temporary rules"
     },
     "userRulesEdit": {
-        "message": "Edit",
+        "message": "I-edit",
         "description": "Will enable manual-edit mode (textarea)"
     },
     "userRulesEditSave": {
-        "message": "Save",
+        "message": "I-save",
         "description": "Will save manually-edited content and exit manual-edit mode"
     },
     "userRulesEditDicard": {
-        "message": "Discard",
+        "message": "Itapon",
         "description": "Will discard manually-edited content and exit manual-edit mode"
     },
     "userRulesImport": {
-        "message": "Import from file...",
+        "message": "Mag-import mula sa file...",
         "description": ""
     },
     "userRulesExport": {
-        "message": "Export to file...",
+        "message": "I-export upang mag-file...",
         "description": ""
     },
     "userRulesFormatHint": {
-        "message": "See this page for rule syntax.",
+        "message": "Tingnan ang pahinang ito para sa syntax ng panuntunan.",
         "description": ""
     },
     "userRulesDefaultFileName": {
@@ -464,39 +464,39 @@
         "description": "default file name to use"
     },
     "hostsFilesPrompt": {
-        "message": "All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
+        "message": "Ang lahat ng mga hostname sa isang nagho-host na file ay nai-load bilang naka-blacklist na mga hostname sa global na saklaw.",
         "description": ""
     },
     "hostsFilesStats": {
-        "message": "{{blockedHostnameCount}} distinct blocked hostnames from:",
+        "message": "{{blockedHostnameCount}} naiiba ang nai-block na mga hostname mula sa:",
         "description": ""
     },
     "hostsFilesPerFileStats": {
-        "message": "{{used}} used out of {{total}}",
+        "message": "{{used}} na ginamit sa {{total}}",
         "description": ""
     },
     "hostsFilesLastUpdate": {
-        "message": "Last update: {{ago}}",
+        "message": "Huling pag-update: {{ago}}",
         "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
     },
     "hostsFilesApplyChanges": {
-        "message": "Apply changes",
+        "message": "Mag-apply ng mga pagbabago",
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update hosts files.",
+        "message": "I-auto-update ang mga hosts files.",
         "description": ""
     },
     "hostsFilesUpdateNow": {
-        "message": "Update now",
+        "message": "I-update ngayon",
         "description": ""
     },
     "hostsFilesPurgeAll": {
-        "message": "Purge all caches",
+        "message": "Tanggalin ang lahat ng mga cache",
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+        "message": "Isang URL sa bawat linya. Mga prefix na linya na may &lsquo;#&rsquo; hindi papansinin. Ang di-wastong mga URL ay tahimik na hindi papansinin.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -508,7 +508,7 @@
         "description": ""
     },
     "hostsFilesExternalListNew": {
-        "message": "new version available",
+        "message": "mayroong bagong bersyon",
         "description": ""
     },
     "hostsFilesExternalListObsolete": {
@@ -520,15 +520,15 @@
         "description": ""
     },
     "aboutStorageUsed": {
-        "message": "Storage used: {{storageUsed}} bytes",
+        "message": "Ginamit ang imbakan: {{storageUsed}} bytes",
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentasyon<\/a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Mga Pahintulot<\/a>",
         "description": ""
     },
     "aboutCode": {
@@ -536,11 +536,11 @@
         "description": ""
     },
     "aboutIssues": {
-        "message": "Bugs and issues",
+        "message": "Mga bug at mga isyu",
         "description": ""
     },
     "aboutContributors": {
-        "message": "Contributors",
+        "message": "Mga kontribyutor",
         "description": "English: Contributors"
     },
     "aboutCodeContributors": {
@@ -548,15 +548,15 @@
         "description": ""
     },
     "aboutIssueContributors": {
-        "message": "Issues:",
+        "message": "Mga isyu:",
         "description": ""
     },
     "aboutTranslationContributors": {
-        "message": "Translations:",
+        "message": "Mga Pagsasalin:",
         "description": ""
     },
     "aboutUserDataHeader": {
-        "message": "Your data",
+        "message": "Ang iyong datos",
         "description": ""
     },
     "aboutBackupButton": {
@@ -568,107 +568,107 @@
         "description": "default filename to use"
     },
     "aboutRestoreButton": {
-        "message": "Restore from file...",
+        "message": "Ibalik mula sa file...",
         "description": ""
     },
     "aboutRestoreConfirm": {
-        "message": "All your settings will be overwritten using data backed up on {{time}}, and uMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+        "message": "Ang lahat ng iyong mga setting ay mapapatungan gamit ang data na naka-back up sa {{time}}, at uMatrix ay muling simulan.\n\nI-overwrite ang lahat ng umiiral na mga setting gamit ang naka-back up na data?",
         "description": "Message asking user to confirm restore"
     },
     "aboutRestoreError": {
-        "message": "The data could not be read or is invalid",
+        "message": "Ang data ay hindi mabasa o hindi wasto",
         "description": ""
     },
     "aboutOr": {
-        "message": "... or ...",
+        "message": "... o ...",
         "description": "English: ... or ..."
     },
     "aboutResetButton": {
-        "message": "Reset to default settings",
+        "message": "I-reset sa mga default na setting",
         "description": "English: Reset to default settings"
     },
     "aboutResetConfirm": {
-        "message": "Caution! this will remove all your custom settings. Are you sure you want to proceed?",
+        "message": "Mag-ingat! aalisin nito ang lahat ng iyong mga pasadyang setting. Sigurado ka bang gusto mong magpatuloy?",
         "description": "Message asking user to confirm reset"
     },
     "loggerFilterInputPlaceholder": {
-        "message": "filter expression(s)",
+        "message": "(mga) expression ng filter",
         "description": "Appears in the input filed where filter expressions are entered"
     },
     "loggerMaxEntriesTip": {
-        "message": "Maximum number of entries",
+        "message": "Pinakamataas na bilang ng mga entry",
         "description": "Appears as a tooltip when hovering the input field"
     },
     "loggerEntryCookieDeleted": {
-        "message": "cookie deleted: {{value}}",
+        "message": "tinanggal ang cookie: {{value}}",
         "description": "An entry for when a cookie is deleted"
     },
     "loggerEntryDeleteCookieError": {
-        "message": "failed to delete cookie: {{value}}",
+        "message": "bigo na tanggalin ang cookie: {{value}}",
         "description": "An entry for when the browser cache is cleared"
     },
     "loggerEntryBrowserCacheCleared": {
-        "message": "browser cache cleared",
+        "message": "naka-clear ang cache ng browser",
         "description": "An entry for when a cookie can't be deleted"
     },
     "loggerEntryAssetUpdated": {
-        "message": "asset updated: {{value}}",
+        "message": "na-update ang asset: {{value}}",
         "description": "An entry for when an asset was updated"
     },
     "mainBlockedPrompt1": {
-        "message": "uMatrix has prevented the following page from loading:",
+        "message": "Pinigilan ng uMatrix ang sumusunod na pahina mula sa paglo-load:",
         "description": "English: uMatrix has prevented the following page from loading:"
     },
     "mainBlockedPrompt2": {
-        "message": "Because of the following rule",
+        "message": "Dahil sa sumusunod na tuntunin",
         "description": "English: Because of the following rule"
     },
     "mainBlockedBack": {
-        "message": "Go back",
+        "message": "Bumalik",
         "description": "English: Go back"
     },
     "mainBlockedClose": {
-        "message": "Close",
+        "message": "Isara",
         "description": "English: Close"
     },
     "commandRevertAll": {
-        "message": "Revert all temporary changes",
+        "message": "Ibalik ang lahat ng mga pansamantalang pagbabago",
         "description": ""
     },
     "commandWhitelistPageDomain": {
-        "message": "Temporarily whitelist page domain",
+        "message": "Pansamantalang i-whitelist ang domain ng pahina",
         "description": ""
     },
     "commandWhitelistAll": {
-        "message": "Temporarily whitelist all",
+        "message": "Pansamantalang i-whitelist lahat",
         "description": ""
     },
     "commandOpenDashboard": {
-        "message": "Open dashboard",
+        "message": "Buksan ang dashboard",
         "description": ""
     },
     "elapsedOneMinuteAgo": {
-        "message": "a minute ago",
+        "message": "isang minuto ang nakalipas",
         "description": "English: a minute ago"
     },
     "elapsedManyMinutesAgo": {
-        "message": "{{value}} minutes ago",
+        "message": "{{value}} mga minuto ang nakalipas",
         "description": "English: {{value}} minutes ago"
     },
     "elapsedOneHourAgo": {
-        "message": "an hour ago",
+        "message": "isang oras ang nakalipas",
         "description": "English: an hour ago"
     },
     "elapsedManyHoursAgo": {
-        "message": "{{value}} hours ago",
+        "message": "{{value}} mga oras na nakalipas",
         "description": "English: {{value}} hours ago"
     },
     "elapsedOneDayAgo": {
-        "message": "a day ago",
+        "message": "kahapon",
         "description": "English: a day ago"
     },
     "elapsedManyDaysAgo": {
-        "message": "{{value}} days ago",
+        "message": "{{value}} mga araw na nakalipas",
         "description": "English: {{value}} days ago"
     },
     "showDashboardButton": {
@@ -680,11 +680,11 @@
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
-        "message": "Export to cloud storage",
+        "message": "I-export sa cloud storage",
         "description": "tooltip"
     },
     "cloudPull": {
-        "message": "Import from cloud storage",
+        "message": "Mag-import mula sa cloud storage",
         "description": "tooltip"
     },
     "cloudNoData": {
@@ -692,19 +692,19 @@
         "description": ""
     },
     "cloudDeviceNamePrompt": {
-        "message": "This device name:",
+        "message": "Ang pangalan ng device na ito:",
         "description": "used as a prompt for the user to provide a custom device name"
     },
     "genericSubmit": {
-        "message": "Submit",
+        "message": "Ipasa",
         "description": "for generic 'submit' buttons"
     },
     "genericRevert": {
-        "message": "Revert",
+        "message": "Ibalik",
         "description": "for generic 'revert' buttons"
     },
     "errorCantConnectTo": {
-        "message": "Network error: Unable to connect to {{url}}",
+        "message": "Error sa network: Hindi nakakonekta sa {{url}}",
         "description": ""
     }
 }

@@ -108,7 +108,7 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Zabroń nieszyfrowanych połączeń",
+        "message": "Zabroń mieszanej zawartości",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
