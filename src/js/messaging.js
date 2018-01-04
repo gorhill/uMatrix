@@ -874,7 +874,8 @@ vAPI.messaging.listen('about.js', onMessage);
 
 /******************************************************************************/
 
-var µm = µMatrix;
+var µm = µMatrix,
+    loggerURL = vAPI.getURL('logger-ui.html');
 
 /******************************************************************************/
 
@@ -890,27 +891,34 @@ var onMessage = function(request, sender, callback) {
 
     switch ( request.what ) {
     case 'readMany':
+        if (
+            µm.logger.ownerId !== undefined &&
+            request.ownerId !== µm.logger.ownerId
+        ) {
+            response = { unavailable: true };
+            break;
+        }
         var tabIds = {};
-        var loggerURL = vAPI.getURL('logger-ui.html');
-        var pageStore;
         for ( var tabId in µm.pageStores ) {
-            pageStore = µm.pageStoreFromTabId(tabId);
-            if ( pageStore === null ) {
-                continue;
-            }
-            if ( pageStore.rawUrl.lastIndexOf(loggerURL, 0) === 0 ) {
-                continue;
-            }
+            var pageStore = µm.pageStoreFromTabId(tabId);
+            if ( pageStore === null ) { continue; }
+            if ( pageStore.rawUrl.startsWith(loggerURL) ) { continue; }
             tabIds[tabId] = pageStore.title || pageStore.rawUrl;
         }
         response = {
             colorBlind: false,
-            entries: µm.logger.readAll(),
+            entries: µm.logger.readAll(request.ownerId),
             maxLoggedRequests: µm.userSettings.maxLoggedRequests,
             noTabId: vAPI.noTabId,
             tabIds: tabIds,
             tabIdsToken: µm.pageStoresToken
         };
+        break;
+
+    case 'releaseView':
+        if ( request.ownerId === µm.logger.ownerId ) {
+            µm.logger.ownerId = undefined;
+        }
         break;
 
     default:

@@ -76,7 +76,8 @@ input:focus {
     background-color: #ffe;
     }
 #content {
-    font: 13px sans-serif;
+    font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 13px;
     width: 100%;
     }
 
@@ -88,19 +89,19 @@ input:focus {
     width: 100%;
     }
 #content table > colgroup > col:nth-of-type(1) {
-    width: 5.5em;
+    width: 4.6em;
     }
 #content table > colgroup > col:nth-of-type(2) {
-    width: 2.5em;
+    width: 2.2em;
     }
 #content table > colgroup > col:nth-of-type(3) {
-    width: 2.5em;
+    width: 2.2em;
     }
 #content table > colgroup > col:nth-of-type(4) {
-    width: 5.5em;
+    width: 5.4em;
     }
 #content table > colgroup > col:nth-of-type(5) {
-    width: calc(100% - 16em);
+    width: calc(100% - 14.4em);
     }
 #content table tr {
     background-color: #fafafa;

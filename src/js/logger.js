@@ -46,7 +46,7 @@
 
     // After 60 seconds without being read, a buffer will be considered
     // unused, and thus removed from memory.
-    var logBufferObsoleteAfter = 60 * 1000;
+    var logBufferObsoleteAfter = 30 * 1000;
 
     var janitor = function() {
         if (
@@ -55,13 +55,15 @@
         ) {
             buffer = null;
             writePtr = 0;
+            api.ownerId = undefined;
         }
         if ( buffer !== null ) {
             vAPI.setTimeout(janitor, logBufferObsoleteAfter);
         }
     };
 
-    return {
+    var api = {
+        ownerId: undefined,
         writeOne: function() {
             if ( buffer === null ) { return; }
             if ( writePtr === buffer.length ) {
@@ -71,7 +73,8 @@
             }
             writePtr += 1;
         },
-        readAll: function() {
+        readAll: function(ownerId) {
+            this.ownerId = ownerId;
             if ( buffer === null ) {
                 buffer = [];
                 vAPI.setTimeout(janitor, logBufferObsoleteAfter);
@@ -83,6 +86,7 @@
         }
     };
 
+    return api;
 })();
 
 /******************************************************************************/

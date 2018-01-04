@@ -55,5 +55,13 @@
         "<all_urls>"
     ],
     "short_name": "uMatrix",
+    "sidebar_action": {
+        "default_title": "uMatrix logger",
+        "default_panel": "logger-ui.html",
+        "default_icon": {
+            "16": "img/icon_16.png",
+            "128": "img/icon_128.png"
+        }
+    },
     "version": "0.9.9"
 }

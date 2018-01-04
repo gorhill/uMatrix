@@ -38,6 +38,7 @@ var maxEntries = 0;
 var noTabId = '';
 var allTabIds = {};
 var allTabIdsToken;
+var ownerId = Date.now();
 
 var emphasizeTemplate = document.querySelector('#emphasizeTemplate > span');
 var hiddenTemplate = document.querySelector('#hiddenTemplate > span');
@@ -429,6 +430,11 @@ var truncateLog = function(size) {
 /******************************************************************************/
 
 var onLogBufferRead = function(response) {
+    if ( !response || response.unavailable ) {
+        readLogBufferAsync();
+        return;
+    }
+
     // This tells us the behind-the-scene tab id
     noTabId = response.noTabId;
 
@@ -460,7 +466,7 @@ var onLogBufferRead = function(response) {
         tbody.querySelector('tr') === null
     );
 
-    vAPI.setTimeout(readLogBuffer, 1200);
+    readLogBufferAsync();
 };
 
 /******************************************************************************/
@@ -470,7 +476,17 @@ var onLogBufferRead = function(response) {
 // require a bit more code to ensure no multi time out events.
 
 var readLogBuffer = function() {
-    vAPI.messaging.send('logger-ui.js', { what: 'readMany' }, onLogBufferRead);
+    if ( ownerId === undefined ) { return; }
+    vAPI.messaging.send(
+        'logger-ui.js',
+        { what: 'readMany', ownerId: ownerId },
+        onLogBufferRead
+    );
+};
+
+var readLogBufferAsync = function() {
+    if ( ownerId === undefined ) { return; }
+    vAPI.setTimeout(readLogBuffer, 1200);
 };
 
 /******************************************************************************/
@@ -850,17 +866,38 @@ var popupManager = (function() {
 
 /******************************************************************************/
 
-uDom.onLoad(function() {
-    readLogBuffer();
+var grabView = function() {
+    if ( ownerId === undefined ) {
+        ownerId = Date.now();
+    }
+    readLogBufferAsync();
+};
 
-    uDom('#pageSelector').on('change', pageSelectorChanged);
-    uDom('#refresh').on('click', refreshTab);
-    uDom('#compactViewToggler').on('click', toggleCompactView);
-    uDom('#clean').on('click', cleanBuffer);
-    uDom('#clear').on('click', clearBuffer);
-    uDom('#maxEntries').on('change', onMaxEntriesChanged);
-    uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(2)', popupManager.toggleOn);
-});
+var releaseView = function() {
+    if ( ownerId === undefined ) { return; }
+    vAPI.messaging.send(
+        'logger-ui.js',
+        { what: 'releaseView', ownerId: ownerId }
+    );
+    ownerId = undefined;
+};
+
+window.addEventListener('pagehide', releaseView);
+window.addEventListener('pageshow', grabView);
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1398625
+window.addEventListener('beforeunload', releaseView);
+
+/******************************************************************************/
+
+readLogBuffer();
+
+uDom('#pageSelector').on('change', pageSelectorChanged);
+uDom('#refresh').on('click', refreshTab);
+uDom('#compactViewToggler').on('click', toggleCompactView);
+uDom('#clean').on('click', cleanBuffer);
+uDom('#clear').on('click', clearBuffer);
+uDom('#maxEntries').on('change', onMaxEntriesChanged);
+uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(2)', popupManager.toggleOn);
 
 /******************************************************************************/
 
