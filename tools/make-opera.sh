@@ -2,8 +2,8 @@
 #
 # This script assumes a linux environment
 
-echo "*** uMatrix(Opera): Creating package"
-echo "*** uMatrix(Opera): Copying files"
+echo "*** uMatrix.opera: Creating package"
+echo "*** uMatrix.opera: Copying files"
 
 DES=./dist/build/uMatrix.opera
 rm -r $DES
@@ -32,4 +32,8 @@ cp -R ./src/_locales/pt_BR $DES/_locales/
 cp -R ./src/_locales/pt_PT $DES/_locales/
 cp -R ./src/_locales/tr    $DES/_locales/
 cp -R ./src/_locales/zh_TW $DES/_locales/
-echo "*** uMatrix(Opera): Package done."
+
+echo "*** uMatrix.opera: Generating meta..."
+python tools/make-opera-meta.py         $DES/
+
+echo "*** uMatrix.opera: Package done."
