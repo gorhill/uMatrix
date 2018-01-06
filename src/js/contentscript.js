@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -187,11 +187,16 @@ var collapser = (function() {
                 target.hidden = true;
                 continue;
             }
-            if ( tag === 'iframe' ) {
+            switch ( tag ) {
+            case 'iframe':
+                if ( placeholders.frame !== true ) { break; }
                 docurl =
                     'data:text/html,' +
                     encodeURIComponent(
-                        placeholders.iframe.replace(reURLPlaceholder, src)
+                        placeholders.frameDocument.replace(
+                            reURLPlaceholder,
+                            src
+                        )
                     );
                 replaced = false;
                 // Using contentWindow.location prevent tainting browser
@@ -206,14 +211,24 @@ var collapser = (function() {
                 if ( !replaced ) {
                     target.setAttribute('src', docurl);
                 }
-                continue;
+                break;
+            case 'img':
+                if ( placeholders.image !== true ) { break; }
+                target.style.setProperty('display', 'inline-block');
+                target.style.setProperty('min-width', '20px', 'important');
+                target.style.setProperty('min-height', '20px', 'important');
+                target.style.setProperty(
+                    'border',
+                    placeholders.imageBorder,
+                    'important'
+                );
+                target.style.setProperty(
+                    'background',
+                    placeholders.imageBackground,
+                    'important'
+                );
+                break;
             }
-            target.setAttribute(src1stProps[tag], placeholders[tag]);
-            target.style.setProperty('display', 'inline-block');
-            target.style.setProperty('min-width', '20px', 'important');
-            target.style.setProperty('min-height', '20px', 'important');
-            target.style.setProperty('border', placeholders.border, 'important');
-            target.style.setProperty('background', placeholders.background, 'important');
         }
     };
 

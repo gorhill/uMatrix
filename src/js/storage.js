@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,8 +47,6 @@
     );
 };
 
-/******************************************************************************/
-
 µMatrix.loadUserSettings = function(callback) {
     var µm = this;
 
@@ -65,6 +63,98 @@
     };
 
     vAPI.storage.get(this.userSettings, settingsLoaded);
+};
+
+/******************************************************************************/
+
+µMatrix.loadRawSettings = function() {
+    var µm = this;
+
+    var onLoaded = function(bin) {
+        if ( !bin || bin.rawSettings instanceof Object === false ) { return; }
+        for ( var key of Object.keys(bin.rawSettings) ) {
+            if (
+                µm.rawSettings.hasOwnProperty(key) === false ||
+                typeof bin.rawSettings[key] !== typeof µm.rawSettings[key]
+            ) {
+                continue;
+            }
+            µm.rawSettings[key] = bin.rawSettings[key];
+        }
+        µm.rawSettingsWriteTime = Date.now();
+    };
+
+    vAPI.storage.get('rawSettings', onLoaded);
+};
+
+µMatrix.saveRawSettings = function(rawSettings, callback) {
+    var keys = Object.keys(rawSettings);
+    if ( keys.length === 0 ) {
+        if ( typeof callback === 'function' ) {
+            callback();
+        }
+        return;
+    }
+    for ( var key of keys ) {
+        if (
+            this.rawSettingsDefault.hasOwnProperty(key) &&
+            typeof rawSettings[key] === typeof this.rawSettingsDefault[key]
+        ) {
+            this.rawSettings[key] = rawSettings[key];
+        }
+    }
+    vAPI.storage.set({ rawSettings: this.rawSettings }, callback);
+    this.rawSettingsWriteTime = Date.now();
+};
+
+µMatrix.rawSettingsFromString = function(raw) {
+    var result = {},
+        lineIter = new this.LineIterator(raw),
+        line, matches, name, value;
+    while ( lineIter.eot() === false ) {
+        line = lineIter.next().trim();
+        matches = /^(\S+)(\s+(.+))?$/.exec(line);
+        if ( matches === null ) { continue; }
+        name = matches[1];
+        if ( this.rawSettingsDefault.hasOwnProperty(name) === false ) {
+            continue;
+        }
+        value = (matches[2] || '').trim();
+        switch ( typeof this.rawSettingsDefault[name] ) {
+        case 'boolean':
+            if ( value === 'true' ) {
+                value = true;
+            } else if ( value === 'false' ) {
+                value = false;
+            }
+            break;
+        case 'string':
+            if ( value === '' ) {
+                value = this.rawSettingsDefault[name];
+            }
+            break;
+        case 'number':
+            value = parseInt(value, 10);
+            if ( isNaN(value) ) {
+                value = this.rawSettingsDefault[name];
+            }
+            break;
+        default:
+            break;
+        }
+        if ( this.rawSettings[name] !== value ) {
+            result[name] = value;
+        }
+    }
+    this.saveRawSettings(result);
+};
+
+µMatrix.stringFromRawSettings = function() {
+    var out = [];
+    for ( var key of Object.keys(this.rawSettings).sort() ) {
+        out.push(key + ' ' + this.rawSettings[key]);
+    }
+    return out.join('\n');
 };
 
 /******************************************************************************/

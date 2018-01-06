@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -89,6 +89,10 @@ function onMessage(request, sender, callback) {
         );
         break;
 
+    case 'readRawSettings':
+        response = µm.stringFromRawSettings();
+        break;
+
     case 'reloadHostsFiles':
         µm.reloadHostsFiles();
         break;
@@ -105,6 +109,10 @@ function onMessage(request, sender, callback) {
             request.value = undefined;
         }
         response = µm.changeUserSettings(request.name, request.value);
+        break;
+
+    case 'writeRawSettings':
+        µm.rawSettingsFromString(request.content);
         break;
 
     default:
@@ -447,6 +455,37 @@ var contentScriptLocalStorageHandler = function(tabId, originURL) {
 // Evaluate many URLs against the matrix.
 
 var lookupBlockedCollapsibles = function(tabId, requests) {
+    if ( placeholdersReadTime < µm.rawSettingsWriteTime ) {
+        placeholders = undefined;
+    }
+
+    if ( placeholders === undefined ) {
+        placeholders = {
+            frame: µm.rawSettings.framePlaceholder,
+            image: µm.rawSettings.imagePlaceholder
+        };
+        if ( placeholders.frame ) {
+            placeholders.frameDocument =
+                µm.rawSettings.framePlaceholderDocument.replace(
+                    '{{bg}}',
+                    µm.rawSettings.framePlaceholderBackground !== 'default' ?
+                        µm.rawSettings.framePlaceholderBackground :
+                        µm.rawSettings.placeholderBackground
+                );
+        }
+        if ( placeholders.image ) {
+            placeholders.imageBorder =
+                µm.rawSettings.imagePlaceholderBorder !== 'default' ?
+                    µm.rawSettings.imagePlaceholderBorder :
+                    µm.rawSettings.placeholderBorder;
+            placeholders.imageBackground =
+                µm.rawSettings.imagePlaceholderBackground !== 'default' ?
+                    µm.rawSettings.imagePlaceholderBackground :
+                    µm.rawSettings.placeholderBackground;
+        }
+        placeholdersReadTime = Date.now();
+    }
+
     var response = {
         blockedResources: [],
         hash: requests.hash,
@@ -464,35 +503,11 @@ var lookupBlockedCollapsibles = function(tabId, requests) {
         pageStore.lookupBlockedCollapsibles(requests, response);
     }
 
-    // TODO: evaluate whether the issue reported below still exists.
-    //   https://github.com/gorhill/uMatrix/issues/205
-    //   If blocked, the URL must be recorded by the page store, so as to
-    //   ensure they are properly reflected in the matrix.
-
-    if ( response.placeholders === null ) {
-        placeholders = {
-            background:
-                vAPI.localStorage.getItem('placeholderBackground') ||
-                µm.defaultLocalUserSettings.placeholderBackground,
-            border:
-                vAPI.localStorage.getItem('placeholderBorder') ||
-                µm.defaultLocalUserSettings.placeholderBorder,
-            iframe:
-                vAPI.localStorage.getItem('placeholderDocument') ||
-                µm.defaultLocalUserSettings.placeholderDocument,
-            img:
-                vAPI.localStorage.getItem('placeholderImage') ||
-                µm.defaultLocalUserSettings.placeholderImage
-        };
-        placeholders.iframe =
-            placeholders.iframe.replace('{{bg}}', placeholders.background);
-        response.placeholders = placeholders;
-    }
-
     return response;
 };
 
-var placeholders = null;
+var placeholders,
+    placeholdersReadTime = 0;
 
 /******************************************************************************/
 
@@ -788,7 +803,7 @@ var µm = µMatrix;
 /******************************************************************************/
 
 var restoreUserData = function(userData) {
-    var countdown = 3;
+    var countdown = 4;
     var onCountdown = function() {
         countdown -= 1;
         if ( countdown === 0 ) {
@@ -797,10 +812,12 @@ var restoreUserData = function(userData) {
     };
 
     var onAllRemoved = function() {
-        // Be sure to adjust `countdown` if adding/removing anything below
-        µm.XAL.keyvalSetMany(userData.settings, onCountdown);
-        µm.XAL.keyvalSetOne('userMatrix', userData.rules, onCountdown);
-        µm.XAL.keyvalSetOne('liveHostsFiles', userData.hostsFiles, onCountdown);
+        vAPI.storage.set(userData.settings, onCountdown);
+        vAPI.storage.set({ userMatrix: userData.rules }, onCountdown);
+        vAPI.storage.set({ liveHostsFiles: userData.hostsFiles }, onCountdown);
+        if ( userData.rawSettings instanceof Object ) {
+            µMatrix.saveRawSettings(userData.rawSettings, onCountdown);
+        }
     };
 
     // If we are going to restore all, might as well wipe out clean local
@@ -837,7 +854,8 @@ var onMessage = function(request, sender, callback) {
             when: Date.now(),
             settings: µm.userSettings,
             rules: µm.pMatrix.toString(),
-            hostsFiles: µm.liveHostsFiles
+            hostsFiles: µm.liveHostsFiles,
+            rawSettings: µm.rawSettings
         };
         break;
 

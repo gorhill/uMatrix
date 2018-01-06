@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font: 15px sans-serif;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    }
+#dashboard-nav {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 50px;
+    z-index: 10;
+    }
+#dashboard-nav-widgets {
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 4px 0 0 0;
+    white-space: nowrap;
+    background-color: white;
+    }
+#dashboard-nav-widgets span {
+    padding: 0 0.5em;
+    font-size: larger;
+    }
+.tabButton {
+    margin: 0;
+    border: 1px solid #ccc;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 4px;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    color: black;
+    background-color: #eee;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    }
+.tabButton:focus {
+    outline: 0;
+    }
+.tabButton:active,.tabButton:visited {
+    color: inherited;
+    }
+.tabButton.selected {
+    border-bottom: 1px solid white;
+    background-color: white;
+    }
+iframe {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    overflow: auto;
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    height: calc(100% - 50px);
+    }

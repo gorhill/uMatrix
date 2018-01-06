@@ -1,0 +1,18 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+    }
+p {
+    margin: 0.5em 0;
+    }
+textarea {
+    box-sizing: border-box;
+    flex-grow: 1;
+    resize: none;
+    text-align: left;
+    white-space: pre;
+    width: 100%;
+    word-wrap: normal;
+    }
