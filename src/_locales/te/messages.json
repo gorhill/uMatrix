@@ -35,6 +35,10 @@
         "message": "హోస్ట్ ఫైల్లు",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "More",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "మా గురించి",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "outdated",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "Network error: Unable to connect to {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Apply changes",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

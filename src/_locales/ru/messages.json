@@ -35,6 +35,10 @@
         "message": "Hosts файлы",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "Ещё",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "О расширении",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "список устарел",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Внимание! Изменяйте эти настройки конфигурации на свой страх и риск.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Список изменений<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "Ошибка сети: Не удается соединиться с {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Применить изменения",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

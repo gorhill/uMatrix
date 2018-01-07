@@ -35,6 +35,10 @@
         "message": "호스트 파일",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "More",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "정보",
         "description": "a tab in dashboard"
@@ -340,7 +344,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "차단 된 요청과 관련된 페이지 콘텐츠 숨김",
+        "message": "블랙리스트와 관련된 페이지 콘텐츠 숨김",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
@@ -513,6 +517,10 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "구버전입니다",
+        "description": ""
+    },
+    "rawSettingsWarning": {
+        "message": "Warning! Change these raw configuration settings at your own risk.",
         "description": ""
     },
     "aboutChangelog": {
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "네트워크 오류: 연결할 수 없습니다 {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Apply changes",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

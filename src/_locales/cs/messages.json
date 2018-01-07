@@ -35,6 +35,10 @@
         "message": "Soubory hostů",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "More",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "O rozšíření",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "zastaralé",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Přehled změn<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "Chyba sítě: Nelze se připojit k {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Apply changes",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

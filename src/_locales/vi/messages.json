@@ -35,6 +35,10 @@
         "message": "Tập tin máy chủ",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "More",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "Thông tin",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "đã cũ",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Thay đổi<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "Lỗi mạng: Không thể kết nối đến {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Apply changes",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

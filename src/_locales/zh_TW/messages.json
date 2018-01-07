@@ -35,6 +35,10 @@
         "message": "Hosts檔案",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "更多",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "關於",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "已過期",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "警告！若要自行編輯原始設定數據則後果自負。",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>更新日誌<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "網絡錯誤：無法連接至 {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "應用變更",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

@@ -35,6 +35,10 @@
         "message": "ഹോസ്റ്റ് ഫയലുകള്‍",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "More",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "യുമാട്രിക്സിനെ കുറിച്ച്",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "കാലഹരണപ്പെട്ടത്",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>മാറ്റത്തിന്റെ കുറിപ്പുകള്‍<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "നെറ്റ്‌വര്‍ക്ക് പ്രശ്നം: {{url}} ലേക്ക് കണക്റ്റ് ചെയ്യാന്‍ ഒക്കുന്നില്ല",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Apply changes",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

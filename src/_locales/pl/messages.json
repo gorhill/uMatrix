@@ -35,6 +35,10 @@
         "message": "Pliki hosts",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "Więcej",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "O rozszerzeniu",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "nieaktualna",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Ostrzeżenie! Te ustawienia zmieniasz na własne ryzyko.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Historia zmian<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "Błąd sieci: nie można połączyć z {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Zastosuj zmiany",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

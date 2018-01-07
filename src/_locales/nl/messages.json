@@ -35,6 +35,10 @@
         "message": "Hosts-bestanden",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "Meer",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "Over",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "verouderd",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Waarschuwing! U wijzigt deze configuratie-instellingen op eigen risico.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Wijzigingenlogboek<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "Netwerkfout: kan geen verbinding maken met {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Wijzigingen toepassen",
+        "description": "for generic 'Apply changes' buttons"
     }
 }

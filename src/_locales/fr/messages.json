@@ -35,6 +35,10 @@
         "message": "Fichiers hosts",
         "description": "a tab in dashboard"
     },
+    "rawSettingsPageName": {
+        "message": "Plus",
+        "description": "a tab in dashboard"
+    },
     "aboutPageName": {
         "message": "À propos",
         "description": "a tab in dashboard"
@@ -515,6 +519,10 @@
         "message": "Potentiellement obsolète",
         "description": ""
     },
+    "rawSettingsWarning": {
+        "message": "Attention, modifiez ces paramètres bruts à vos risques et périls.",
+        "description": ""
+    },
     "aboutChangelog": {
         "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Journal des changements (en Anglais)<\/a>",
         "description": ""
@@ -706,5 +714,9 @@
     "errorCantConnectTo": {
         "message": "Erreur réseau : Ne peut se connecter à {{url}}",
         "description": ""
+    },
+    "genericApplyChanges": {
+        "message": "Appliquer",
+        "description": "for generic 'Apply changes' buttons"
     }
 }
