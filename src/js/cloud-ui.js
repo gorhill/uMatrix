@@ -174,8 +174,6 @@ var onInitialize = function(options) {
     }
     self.cloud.options = options;
 
-    fetchCloudData();
-
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'cloud-ui.html', true);
     xhr.overrideMimeType('text/html;charset=utf-8');
@@ -200,6 +198,8 @@ var onInitialize = function(options) {
         uDom('#cloudCog').on('click', openOptions);
         uDom('#cloudOptions').on('click', closeOptions);
         uDom('#cloudOptionsSubmit').on('click', submitOptions);
+
+        fetchCloudData();
     };
     xhr.send();
 };
