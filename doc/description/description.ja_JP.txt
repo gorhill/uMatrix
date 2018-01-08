@@ -1,93 +1,81 @@
-µMatrix: A point-and-click matrix-based firewall, with many privacy-enhancing tools. For advanced users.
+uMatrix：格子状のマトリクスで管理するファイヤウォール。様々なプライバシー強化ツールを兼ね備えます。
 
-µMatrix put you in full control of where your browser is allowed to connect, what type of data it is allowed to download, and what it is allowed to execute. Nobody else decides for you: You choose. You are in full control of your privacy.
+* 上級ユーザー向けです *
 
-Out of the box, µMatrix works in relax block-all/allow-exceptionally mode, meaning web sites which require 3rd-party scripts are likely to be "broken". With two clicks, µMatrix can be set to work in allow-all/block-exceptionally mode, which generally will not break web sites. See https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views for more details on this topic.
+uMatrix を使うと、ブラウザーがどこと通信して良いのか、どの種類のデータをダウンロードするのか、何を実行して良いのかを決定することができます。誰か他の人があなたの代わりに決めてくれることはありません。自分のプライバシーを自分で制御するのです。
 
-Regarding the myth that "Chromium-based browsers can't reliably block javascript", see: https://github.com/gorhill/httpswitchboard/wiki/Blocking-javascript-execution-reliably-in-Chromium-based-browsers. Summary: Yes, javascript can be blocked reliably in Chromium.
+初期設定では、uMatrix は安心できる「すべてブロック・必要なら許可」の設定になっています。つまり、サードパーティーのスクリプトを必要とするウェブサイトは“壊れる”ことが多いでしょう。２クリックで、「すべて許可・必要ならブロック」の設定に変えることもでき、この場合、ウェブサイトを壊すことはほとんどありません。より詳しくは https://github.com/gorhill/httpswitchboard/wiki/How-to-use-HTTP-Switchboard:-Two-opposing-views を見て下さい。
 
-* See ALL the remote connections, failed or attempted, depending on whether they were blocked or allowed (you decide).
+* あなたが選んだブロック／許可の結果による“すべての”リクエストの失敗／実施の状況を確認できます。
 
-* A single-click to whitelist/blacklist one or multiple classes of requests according to the destination and type of data (a blocked request will NEVER leave your browser).
+* ワンクリックで、接続先やデータの種類に応じてリクエストを許可／ブロックすることができます。ブロックされたリクエストがブラウザーから外に出ることは決してありません。
 
-* Efficient blacklisting: cookies won't leave your browser, javascript won't execute, plugins won't play, tracking pixels won't download, etc.
+* 効率的なブラックリスト：Cookie はブラウザーの外には出ず、JavaScript もプラグインも実行されず、追跡ピクセルがダウンロードされることもありません。
 
-* You do not have to solely rely on just one particular curated blacklist (arguably with many missing entries) outside which nothing else can be blocked: You are in full control.
+* リストにないとブロックしてくれない（そして多くの漏れがあるであろう）ブラックリストだけに頼る必要はありません。自分で制御できるのです。
 
-* Ease of use: µMatrix lets you easily whitelist/blacklist net requests which originate from within a web page according to a point-and-click matrix:
+* 使い勝手の良さ：uMatrix では、ウェブページが発したリクエストを、マトリクスをクリックすることで簡単に許可／ブロックすることができます。
 
-- domain names (left column)
-  * from very specific
-  * to very generic
+- ドメイン名（左の列）
+  * 具体的なドメインから
+  * 汎用的なドメインまで 選ぶことができます
 
-- type of requests (top row)
-  * cookies
-  * CSS-related resources (stylesheets and web fonts)
-  * images
-  * plugins
-  * scripts
-  * XHR (requests made by scripts)
-  * frames
-  * others
+- リクエストの種類（先頭の行）
+  * Cookie
+  * CSS 関連のリソース（スタイルシートと Web フォント）
+  * 画像
+  * メディア
+  * スクリプト
+  * XHR（スクリプトにより生成されるリクエスト）
+  * フレーム
+  * その他
 
-You can blacklist/whitelist a single cell, an entire row, a group of rows, an entire column, or the whole matrix with just one click.
+ワンクリックで、特定のセル、特定のドメイン、グループ化されたドメイン、特定のリクエストの種類、そしてマトリクス全体を許可／ブロックできます。
 
-µMatrix's filtering engine uses precedence logic to evaluate what is blocked/allowed according to which cells are blacklisted/whitelisted. For example, this allows you to whitelist a whole page with one click, without having to repeatedly whitelist whatever new data appear on the page.
+uMatrix のフィルタリングエンジンは、どのセルが許可／ブロックされているかによって、優先順位に基づくロジックでリクエストを処理します。これにより、例えば、あるページ全体をワンクリックで許可しておけば、このページに新しいリクエストが見つかるたびに許可を追加する必要がなくなります。
 
-All rules are scoped. For example, you can block `facebook.com` and `facebook.net` everywhere except when visiting a page on `www.facebook.com`. This way Facebook won't be able to build a profile of your browsing habits.
+それぞれのルールには有効範囲があります。例えば、www.facebook.com にアクセスしていない時だけ facebook.com と facebook.net をブロックすることができます。これにより、Facebook が、あなたのブラウジング習慣からあなたの人物像を作成することを防ぎます。
 
-The goal of this extension is to make the allowing or blocking of web sites, wholly or partly, as straightforward as possible, so as to encourage users to care about their privacy.
+この拡張機能の最終目標は、ユーザーが自身のプライバシーに気を配れるよう、可能な限り簡潔に、ウェブサイトを包括的あるいは部分的に許可／ブロックできるようにすることです。
 
-The extension comes with 3rd-party hosts files totaling over 58,000 distinct hostnames (lists can be selectively disabled/enabled according to your choice).
+この拡張機能には、合計 62,000 件以上のホスト名からなるサードパーティーのホストファイルが含まれます。これらのファイルは好みに応じてオンオフすることができます。
 
-Ultimately, you can choose however you browse the net:
+まとめると、あなたはネットをブラウジングする方法を次のように選ぶことができます。
 
-* Blacklist all by default, and whitelist as needed (default mode).
+* はじめはすべてブロック、必要に応じて許可していく（初期設定）
 
-* Whitelist all by default, and blacklist as needed.
+* はじめはすべて許可、必要に応じてブロックしていく
 
-Either way, you still benefit from the preset blacklists so that at least you get basic protection from trackers, malware sites, etc. Or you can disable all of these preset blacklists.
+どちらの方法でも、組み込みのホストファイルのおかげで、トラッカーやマルウェアサイトなどに対する基礎的な保護を得ることができます。もしくはこれらをすべて無効にすることもできます。
 
-Your choice.
+決めるのはあなたです。
 
-Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
-
-=====
-
-FEEDBACK:
-
-For any question/issue you might have, use the "Send Feedback" button on the right, in order for me to be able to answer readily. I can't answer directly to reviews, but I will be more than happy to answer you directly in the feedback section.
+ドキュメント： https://github.com/gorhill/uMatrix/wiki
 
 =====
 
-BUGS, ISSUES, SUGEGSTIONS:
+この拡張機能のもう一つの使い道は、知識なしでも、ブラウザーの中でウェブページが何をしているか理解することです。あなたはウェブページがどこと通信するのかをすべて見た上で決断し、ウェブページ中の特定の種類の通信を制限できます。
 
-https://github.com/gorhill/uMatrix/issues
+拡張機能アイコンに表示される数値は、ウェブページによっていくつのリクエストが試みられたかの総数（許可／ブロック合わせて）を示します。
 
-You are very welcomed to contribute your views on open issues and suggestions, various arguments for/against help me in deciding what is needed to improve the extension.
+マトリクスの適切なセルをクリックして、許可／ブロック／グレーのいずれにするかを決めます。“グレー”では、マトリクス内のより優先度の高いセルからブロック／許可の状態を引き継ぎます。
 
-Ease of use is the primary goal. I've seen users give up on Firefox's NoScript because it gets too much in the way according to them, so rather than blame these users for poor security habits, I prefer to blame developers and this project is a tentative to address the issues which cause some users to give up on basic security.
+赤いセル は事実上ブロックされている状態であり、リクエストは接続先に届きません。
+* 濃い赤：そのドメイン名とリクエスト種類の組み合わせは、明示的にブロックされています。
+* 淡い赤：セルが“グレー”状態のため、ブロック状態が引き継がれました。
 
-This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
+緑のセル は事実上許可されている状態であり、リクエストは接続先に届きます。
+* 濃い緑：そのドメイン名とリクエスト種類の組み合わせは、明示的に許可されています。
+* 淡い緑：セルが“グレー”状態のため、許可が引き継がれました。
 
-The number which appear in the extension icon correspond to the total number of distinct requests attempted (successfully or not depending on whether these were allowed or blocked) by the web page.
+マトリクスの一番左上にある「すべて」のセルはデフォルトのグローバル設定を示し、「すべてを許可」と「すべてをブロック」のどちらをデフォルトにするかを選ぶことができます。人によっては、すべてを許可した上で必要に応じてブロックすることを好むでしょう。私の個人的な設定はもちろんその逆、すべてをブロックした上で必要なものを許可します。
 
-Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
-
-Red square = effectively blacklisted, i.e. requests are prevented from reaching their intended destination:
-* Dark red square: the domain name and/or type of request is specifically blacklisted.
-* Faded red square: the blacklist status is inherited because the entry is graylisted.
-
-Green square = effectively whitelisted, i.e. requests are allowed to reach their intended destination:
-* Dark green square: the domain name and/or type of request is specifically whitelisted.
-* Faded green square: the whitelist status is inherited because the entry is graylisted.
-
-The top-left cell in the matrix, the "all" cell, represents the default global setting, which allows you to choose whether allowing or blocking everything is the default behavior. Some prefer to allow everything while blocking exceptionally. My personal preference is of course the reverse, blocking everything and allowing exceptionally.
-
-This extension is also useful if you wish to speed up your browsing, by globally blocking all requests for images as an example.
+この拡張機能は、例えば画像の読み込みをすべてブロックすることで、ブラウジングスピードを上げるのにも役立ちます。
 
 =====
 
-SOURCE CODE: https://github.com/gorhill/uMatrix (GPLv3)
+バグ・問題報告： https://github.com/gorhill/uMatrix/issues
 
-CHANGE LOG: https://github.com/gorhill/uMatrix/releases
+ソースコード： https://github.com/gorhill/uMatrix (GPLv3)
+
+更新履歴： https://github.com/gorhill/uMatrix/releases
