@@ -1293,7 +1293,7 @@ function buttonReloadHandler(ev) {
     vAPI.messaging.send('popup.js', {
         what: 'forceReloadTab',
         tabId: matrixSnapshot.tabId,
-        bypassCache: ev.shiftKey
+        bypassCache: ev.ctrlKey || ev.metaKey || ev.shiftKey
     });
 }
 
