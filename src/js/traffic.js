@@ -322,7 +322,7 @@ var onHeadersReceived = function(details) {
 
     if ( µm.tMatrix.evaluateSwitchZ('no-workers', rootHostname) ) {
         csp.push(µm.cspNoWorker);
-    } else {
+    } else if ( µm.rawSettings.disableCSPReportInjection === false ) {
         cspReport.push(µm.cspNoWorker);
     }
 

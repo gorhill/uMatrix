@@ -126,6 +126,8 @@
                 value = true;
             } else if ( value === 'false' ) {
                 value = false;
+            } else {
+                value = this.rawSettingsDefault[name];
             }
             break;
         case 'string':

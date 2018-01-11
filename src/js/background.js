@@ -101,6 +101,7 @@ var requestStatsFactory = function() {
 */
 
 var rawSettingsDefault = {
+    disableCSPReportInjection: false,
     placeholderBackground:
         [
             'url("data:image/png;base64,',
