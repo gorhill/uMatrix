@@ -2,7 +2,7 @@ body {
     background-color: #fff;
     color: #000;
     margin: 0;
-    padding: 0 0.5em 5em 0.5em;
+    padding: 0 0.5em 0 0.5em;
     font: 15px/1.4 sans-serif;
     }
 body > *:first-child {
