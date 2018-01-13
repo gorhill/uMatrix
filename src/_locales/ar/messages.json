@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — المسجل",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -36,7 +36,7 @@
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "المزيد",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -60,7 +60,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
-        "message": "media",
+        "message": "ميديا",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
@@ -116,7 +116,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
-        "message": "Forbid web workers",
+        "message": "منع web workers",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
@@ -124,7 +124,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Spoof <code><noscript><\/code> tags",
+        "message": "محاكات وسمات <code><noscript><\/code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -140,7 +140,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "لم يتم العثور على أي صفحة ويب",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
@@ -292,19 +292,19 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "المستوى الافتراضي للمنظار:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "عام",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "النطاق",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "الموقع",
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
@@ -344,11 +344,11 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "تقليص مكان العناصر المدرجة في القائمة السوداء",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "محاكات وسمات <code><noscript><\/code> عند حظر سكريبتات الطرف الأول",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -520,7 +520,7 @@
         "description": ""
     },
     "rawSettingsWarning": {
-        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "message": "تحذير! غير إعدادات الضبط الخام على مسؤوليتك الخاصة.",
         "description": ""
     },
     "aboutChangelog": {
@@ -716,7 +716,7 @@
         "description": ""
     },
     "genericApplyChanges": {
-        "message": "Apply changes",
+        "message": "تطبيق التغييرات",
         "description": "for generic 'Apply changes' buttons"
     }
 }

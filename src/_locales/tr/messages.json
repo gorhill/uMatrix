@@ -36,7 +36,7 @@
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "Daha",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -520,7 +520,7 @@
         "description": ""
     },
     "rawSettingsWarning": {
-        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "message": "Uyarı! Bu ham yapılandırma ayarlarını değiştirmenin sorumluluğu size aittir.",
         "description": ""
     },
     "aboutChangelog": {
@@ -716,7 +716,7 @@
         "description": ""
     },
     "genericApplyChanges": {
-        "message": "Apply changes",
+        "message": "Değişiklikleri uygula",
         "description": "for generic 'Apply changes' buttons"
     }
 }
