@@ -257,7 +257,7 @@ var removePageCookiesAsync = function(pageStats) {
     }
     removePageCookiesQueue.set(pageStats.pageUrl, pageStats);
     if ( processPageRemoveQueueTimer === null ) {
-        processPageRemoveQueueTimer = vAPI.setTimeout(processPageRemoveQueue, 15 * 1000);
+        processPageRemoveQueueTimer = vAPI.setTimeout(processPageRemoveQueue, 1 * 1000);
     }
 };
 
