@@ -32,14 +32,14 @@
 // Browser data jobs
 
 var clearCache = function() {
-    vAPI.setTimeout(clearCache, 15 * 60 * 1000);
+    vAPI.setTimeout(clearCache, 1 * 60 * 1000);
 
     var µm = µMatrix;
     if ( !µm.userSettings.clearBrowserCache ) {
         return;
     }
 
-    µm.clearBrowserCacheCycle -= 15;
+    µm.clearBrowserCacheCycle -= 1;
     if ( µm.clearBrowserCacheCycle > 0 ) {
         return;
     }
@@ -55,7 +55,7 @@ var clearCache = function() {
     //console.debug('clearBrowserCacheCallback()> vAPI.browserData.clearCache() called');
 };
 
-vAPI.setTimeout(clearCache, 15 * 60 * 1000);
+vAPI.setTimeout(clearCache, 1 * 60 * 1000);
 
 /******************************************************************************/
 
