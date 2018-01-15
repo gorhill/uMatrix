@@ -140,13 +140,14 @@ body #content td {
 #content table tr td:last-of-type {
     border-right: none;
     }
-body.compactView #content td {
+body.compactView #content tr:not(.vExpanded) td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     }
 
 #content table tr td:nth-of-type(1) {
+    cursor: default;
     text-align: right;
     white-space: nowrap;
     }

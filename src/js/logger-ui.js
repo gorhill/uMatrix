@@ -724,10 +724,12 @@ var cleanBuffer = function() {
 /******************************************************************************/
 
 var toggleCompactView = function() {
-    document.body.classList.toggle(
-        'compactView',
-        document.body.classList.contains('compactView') === false
-    );
+    document.body.classList.toggle('compactView');
+    uDom('#content table .vExpanded').removeClass('vExpanded');
+};
+
+var toggleCompactRow = function(ev) {
+    ev.target.parentElement.classList.toggle('vExpanded');
 };
 
 /******************************************************************************/
@@ -897,6 +899,7 @@ uDom('#compactViewToggler').on('click', toggleCompactView);
 uDom('#clean').on('click', cleanBuffer);
 uDom('#clear').on('click', clearBuffer);
 uDom('#maxEntries').on('change', onMaxEntriesChanged);
+uDom('#content table').on('click', 'tr > td:nth-of-type(1)', toggleCompactRow);
 uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(2)', popupManager.toggleOn);
 
 /******************************************************************************/
