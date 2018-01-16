@@ -304,12 +304,14 @@ var onHeadersReceived = function(details) {
         rootHostname = tabContext.rootHostname,
         requestHostname = µm.URI.hostnameFromURI(requestURL);
 
-    // If javascript is not allowed, say so through a `Content-Security-Policy`
-    // directive.
-    // We block only inline-script tags, all the external javascript will be
-    // blocked by our request handler.
+    // Inline script tags.
     if ( µm.mustAllow(rootHostname, requestHostname, 'script' ) !== true ) {
         csp.push(µm.cspNoInlineScript);
+    }
+
+    // Inline style tags.
+    if ( µm.mustAllow(rootHostname, requestHostname, 'css' ) !== true ) {
+        csp.push(µm.cspNoInlineStyle);
     }
 
     // TODO: Firefox will eventually support `worker-src`:
