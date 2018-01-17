@@ -39,7 +39,7 @@ var manifest = chrome.runtime.getManifest();
 
 vAPI.chrome = true;
 
-vAPI.webextFlavor = '';
+vAPI.webextFlavor = undefined;
 if (
     self.browser instanceof Object &&
     typeof self.browser.runtime.getBrowserInfo === 'function'
@@ -47,6 +47,8 @@ if (
     self.browser.runtime.getBrowserInfo().then(function(info) {
         vAPI.webextFlavor = info.vendor + '-' + info.name + '-' + info.version;
     });
+} else {
+    vAPI.webextFlavor = '';
 }
 
 var noopFunc = function(){};
@@ -776,7 +778,11 @@ vAPI.cloud = (function() {
     //  actual data, but all of this is provided for free by browser vendors,
     //  so we need to accept and deal with these limitations.
     var initialize = function() {
-        var ratio = vAPI.webextFlavor.startsWith('Mozilla-Firefox-') ? 0.6 : 0.75;
+        var ratio =
+            vAPI.webextFlavor === undefined ||
+            vAPI.webextFlavor.startsWith('Mozilla-Firefox-') ?
+                0.6 :
+                0.75;
         maxChunkSize = Math.floor(maxChunkSize * ratio);
         initialize = function(){};
     };
