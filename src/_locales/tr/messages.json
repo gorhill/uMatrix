@@ -108,7 +108,7 @@
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
-        "message": "{{count}} alan adı kara listede",
+        "message": "{{count}} kara listelenmiş alan adı",
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
@@ -344,7 +344,7 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Kara listede bulunan elementlerin yertutucularını daralt",
+        "message": "Kara listelenmiş ögelerin yertutucularını daralt",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
