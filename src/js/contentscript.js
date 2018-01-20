@@ -472,18 +472,29 @@ var collapser = (function() {
         meta.parentNode.removeChild(meta);
     };
 
+    var morphNoscript = function(from) {
+        if ( document instanceof XMLDocument ) {
+            var to = document.createElement('span');
+            while ( from.firstChild !== null ) {
+                to.appendChild(from.firstChild);
+            }
+            return to;
+        }
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(
+            '<span>' + from.textContent + '</span>',
+            'text/html'
+        );
+        return document.adoptNode(doc.querySelector('span'));
+    };
+
     var renderNoscriptTags = function(response) {
         if ( response !== true ) { return; }
-        var parser = new DOMParser();
-        var doc, parent, span;
+        var parent, span;
         for ( var noscript of noscripts ) {
             parent = noscript.parentNode;
             if ( parent === null ) { continue; }
-            doc = parser.parseFromString(
-                '<span>' + noscript.textContent + '</span>',
-                'text/html'
-            );
-            span = document.adoptNode(doc.querySelector('span'));
+            span = morphNoscript(noscript);
             span.style.setProperty('display', 'inline', 'important');
             if ( redirectTimer === undefined ) {
                 autoRefresh(span);
