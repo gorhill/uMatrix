@@ -473,7 +473,7 @@ var collapser = (function() {
     };
 
     var morphNoscript = function(from) {
-        if ( document instanceof XMLDocument ) {
+        if ( /^application\/(?:xhtml\+)?xml/.test(document.contentType) ) {
             var to = document.createElement('span');
             while ( from.firstChild !== null ) {
                 to.appendChild(from.firstChild);
