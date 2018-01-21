@@ -12,6 +12,7 @@
 		"updateAfter": 19,
 		"contentURL": [
 			"https://publicsuffix.org/list/public_suffix_list.dat",
+			"assets/thirdparties/publicsuffix.org/list/public_suffix_list.dat",
 			"assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat"
 		]
 	},
@@ -41,7 +42,10 @@
 		"group": "multipurpose",
 		"updateAfter": 11,
 		"title": "Dan Pollock’s hosts file",
-		"contentURL": "http://someonewhocares.org/hosts/hosts",
+		"contentURL": [
+			"http://someonewhocares.org/hosts/hosts",
+			"assets/thirdparties/someonewhocares.org/hosts/hosts.txt"
+		],
 		"supportURL": "http://someonewhocares.org/hosts/"
 	},
 	"hphosts": {
@@ -49,7 +53,10 @@
 		"group": "multipurpose",
 		"updateAfter": 11,
 		"title": "hpHosts’ Ad and tracking servers",
-		"contentURL": "https://hosts-file.net/.%5Cad_servers.txt",
+		"contentURL": [
+			"https://hosts-file.net/.%5Cad_servers.txt",
+			"assets/thirdparties/hosts-file.net/ad_servers.txt"
+		],
 		"supportURL": "https://hosts-file.net/"
 	},
 	"mvps-0": {
@@ -57,7 +64,10 @@
 		"group": "multipurpose",
 		"updateAfter": 11,
 		"title": "MVPS HOSTS",
-		"contentURL": "http://winhelp2002.mvps.org/hosts.txt",
+		"contentURL": [
+			"http://winhelp2002.mvps.org/hosts.txt",
+			"assets/thirdparties/winhelp2002.mvps.org/hosts.txt"
+		],
 		"supportURL": "http://winhelp2002.mvps.org/"
 	},
 	"plowe-0": {

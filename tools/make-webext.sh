@@ -9,7 +9,8 @@ DES=dist/build/uMatrix.webext
 rm -rf $DES
 mkdir -p $DES
 
-cp -R ./assets                             $DES/
+bash ./tools/make-assets.sh $DES
+
 cp -R ./src/*                              $DES/
 cp    platform/chromium/*.html             $DES/
 cp    platform/chromium/*.js               $DES/js/
