@@ -413,14 +413,17 @@ var collapser = (function() {
 /******************************************************************************/
 
 // Executed only once.
-
+//
 // https://github.com/gorhill/httpswitchboard/issues/25
-
+//
 // https://github.com/gorhill/httpswitchboard/issues/131
 //   Looks for inline javascript also in at least one a[href] element.
-
+//
 // https://github.com/gorhill/uMatrix/issues/485
 //   Mind "on..." attributes.
+//
+// https://github.com/gorhill/uMatrix/issues/924
+//   Report inline styles.
 
 (function() {
     if (
@@ -431,6 +434,14 @@ var collapser = (function() {
         vAPI.messaging.send('contentscript.js', {
             what: 'securityPolicyViolation',
             directive: 'script-src',
+            documentURI: window.location.href
+        });
+    }
+
+    if ( document.querySelector('style,[style]') !== null ) {
+        vAPI.messaging.send('contentscript.js', {
+            what: 'securityPolicyViolation',
+            directive: 'style-src',
             documentURI: window.location.href
         });
     }

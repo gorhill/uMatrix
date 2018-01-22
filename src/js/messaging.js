@@ -399,28 +399,28 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
-var contentScriptSummaryHandler = function(tabId, pageStore, details) {
+var foundInlineCode = function(tabId, pageStore, details, type) {
     if ( pageStore === null ) { return; }
 
-    var pageHostname = pageStore.pageHostname;
-    var µmuri = µm.URI.set(details.documentURI);
-    var frameURL = µmuri.normalizedURI();
+    var pageHostname = pageStore.pageHostname,
+        µmuri = µm.URI.set(details.documentURI),
+        frameURL = µmuri.normalizedURI();
 
     var blocked = details.blocked;
     if ( blocked === undefined ) {
-        blocked = µm.mustBlock(pageHostname, µmuri.hostname, 'script');
+        blocked = µm.mustBlock(pageHostname, µmuri.hostname, type);
     }
+
+    var mapTo = {
+        css: 'style',
+        script: 'script'
+    };
 
     // https://github.com/gorhill/httpswitchboard/issues/333
     // Look-up here whether inline scripting is blocked for the frame.
-    var url = frameURL + '{inline_script}';
-    pageStore.recordRequest('script', url, blocked);
-    µm.logger.writeOne(tabId, 'net', pageHostname, url, 'script', blocked);
-
-    // https://github.com/gorhill/uMatrix/issues/225
-    // A good place to force an update of the page title, as at this point
-    // the DOM has been loaded.
-    µm.updateTitle(tabId);
+    var url = frameURL + '{inline_' + mapTo[type] + '}';
+    pageStore.recordRequest(type, url, blocked);
+    µm.logger.writeOne(tabId, 'net', pageHostname, url, type, blocked);
 };
 
 /******************************************************************************/
@@ -531,10 +531,6 @@ var onMessage = function(request, sender, callback) {
         response = contentScriptLocalStorageHandler(tabId, request.originURL);
         break;
 
-    case 'contentScriptSummary':
-        contentScriptSummaryHandler(tabId, request);
-        break;
-
     case 'lookupBlockedCollapsibles':
         response = lookupBlockedCollapsibles(tabId, request);
         break;
@@ -547,6 +543,10 @@ var onMessage = function(request, sender, callback) {
         if ( pageStore !== null ) {
             pageStore.hasNoscriptTags = true;
         }
+        // https://github.com/gorhill/uMatrix/issues/225
+        //   A good place to force an update of the page title, as at
+        //   this point the DOM has been loaded.
+        µm.updateTitle(tabId);
         break;
 
     case 'securityPolicyViolation':
@@ -562,7 +562,9 @@ var onMessage = function(request, sender, callback) {
                 µm.logger.writeOne(tabId, 'net', rootHostname, url, 'worker', request.blocked);
             }
         } else if ( request.directive === 'script-src' ) {
-            contentScriptSummaryHandler(tabId, pageStore, request);
+            foundInlineCode(tabId, pageStore, request, 'script');
+        } else if ( request.directive === 'style-src' ) {
+            foundInlineCode(tabId, pageStore, request, 'css');
         }
         break;
 
