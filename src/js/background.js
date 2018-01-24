@@ -165,7 +165,7 @@ return {
 
     userSettings: {
         alwaysDetachLogger: false,
-        autoUpdate: false,
+        autoUpdate: true,
         clearBrowserCache: true,
         clearBrowserCacheAfter: 60,
         cloudStorageEnabled: false,
