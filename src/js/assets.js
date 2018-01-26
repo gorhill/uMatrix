@@ -53,9 +53,10 @@ api.removeObserver = function(observer) {
 
 var fireNotification = function(topic, details) {
     var result;
-    for ( var i = 0; i < observers.length; i++ ) {
-        if ( observers[i](topic, details) === false ) {
-            result = false;
+    for ( let i = 0; i < observers.length; i++ ) {
+        let r = observers[i](topic, details);
+        if ( r !== undefined && result === undefined ) {
+            result = r;
         }
     }
     return result;
@@ -821,7 +822,7 @@ var updateNext = function() {
             if ( cacheEntry && (cacheEntry.writeTime + assetEntry.updateAfter * 86400000) > now ) {
                 continue;
             }
-            if ( fireNotification('before-asset-updated', { assetKey: assetKey }) !== false ) {
+            if ( fireNotification('before-asset-updated', { assetKey: assetKey }) ) {
                 return assetKey;
             }
             garbageCollectOne(assetKey);

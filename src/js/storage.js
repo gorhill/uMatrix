@@ -558,9 +558,9 @@
     if ( topic === 'before-asset-updated' ) {
         if (
             this.liveHostsFiles.hasOwnProperty(details.assetKey) === false ||
-            this.liveHostsFiles[details.assetKey].off === true
+            this.liveHostsFiles[details.assetKey].off !== true
         ) {
-            return false;
+            return true;
         }
         return;
     }
