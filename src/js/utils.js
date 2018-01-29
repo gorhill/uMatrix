@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -100,6 +100,35 @@
 
 µMatrix.setFromArray = function(arr) {
     return new Set(arr);
+};
+
+/******************************************************************************/
+
+µMatrix.toMap = function(input) {
+    if ( input instanceof Map ) {
+        return input;
+    }
+    if ( Array.isArray(input) ) {
+        return new Map(input);
+    }
+    let out = new Map();
+    if ( input instanceof Object ) {
+        for ( let key in input ) {
+            if ( input.hasOwnProperty(key) ) {
+                out.set(key, input[key]);
+            }
+        }
+    }
+    return out;
+};
+
+/******************************************************************************/
+
+µMatrix.arraysIntersect = function(a1, a2) {
+    for ( let v of a1 ) {
+        if ( a2.indexOf(v) !== -1 ) { return true; }
+    }
+    return false;
 };
 
 /******************************************************************************/

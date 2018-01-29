@@ -8,7 +8,8 @@ printf "*** Packaging assets in $DES... "
 
 rm -rf $DES
 mkdir $DES
-cp    ./assets/assets.json $DES/
+
+cp ./assets/assets.json $DES/
 
 if [ -n "${TRAVIS_TAG}" ]; then
   pushd .. > /dev/null
@@ -24,5 +25,7 @@ cp -R ../uAssets/thirdparties/publicsuffix.org           $DES/thirdparties/
 cp -R ../uAssets/thirdparties/someonewhocares.org        $DES/thirdparties/
 cp -R ../uAssets/thirdparties/winhelp2002.mvps.org       $DES/thirdparties/
 cp -R ../uAssets/thirdparties/www.malwaredomainlist.com  $DES/thirdparties/
+mkdir $DES/umatrix
+cp -R ../uAssets/recipes/*                               $DES/umatrix/
 
 echo "done."

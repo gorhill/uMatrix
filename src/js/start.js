@@ -76,6 +76,7 @@ var onTabsReady = function(tabs) {
 
 var onUserSettingsLoaded = function() {
     µm.loadHostsFiles();
+    µm.loadRecipes();
 };
 
 /******************************************************************************/

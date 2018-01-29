@@ -1058,6 +1058,7 @@ var makeMenu = function() {
     initScopeCell();
     updateMatrixButtons();
     resizePopup();
+    recipeManager.fetch();
 };
 
 /******************************************************************************/
@@ -1279,22 +1280,132 @@ function updateMatrixButtons() {
 
 /******************************************************************************/
 
-function revertAll() {
-    var request = {
-        what: 'revertTemporaryMatrix'
-    };
-    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
-    dropDownMenuHide();
-}
-
-/******************************************************************************/
-
 function buttonReloadHandler(ev) {
     vAPI.messaging.send('popup.js', {
         what: 'forceReloadTab',
         tabId: matrixSnapshot.tabId,
         bypassCache: ev.ctrlKey || ev.metaKey || ev.shiftKey
     });
+}
+
+/******************************************************************************/
+
+let recipeManager = (function() {
+    let recipes = [];
+    let reScopeAlias = /(^|\s+)_(\s+|$)/g;
+
+    function createEntry(name, ruleset, parent) {
+        let li = document.querySelector('#templates li.recipe')
+                         .cloneNode(true);
+        li.querySelector('.name').textContent = name;
+        li.querySelector('.ruleset').textContent = ruleset;
+        if ( parent ) {
+            parent.appendChild(li);
+        }
+        return li;
+    }
+
+    function apply(ev) {
+        if ( ev.target.classList.contains('expander') ) {
+            ev.currentTarget.classList.toggle('expanded');
+            return;
+        }
+        let root = ev.currentTarget;
+        let ruleset = root.querySelector('.ruleset');
+        let commit = ev.target.classList.contains('committer');
+        vAPI.messaging.send(
+            'popup.js',
+            {
+                what: 'applyRecipe',
+                ruleset: ruleset.textContent,
+                commit: commit
+            },
+            updateMatrixSnapshot
+        );
+        if ( commit ) {
+            root.classList.remove('mustCommit');
+        }
+        //dropDownMenuHide();
+    }
+
+    function show(details) {
+        let root = document.querySelector('#dropDownMenuRecipes .dropdown-menu');
+        let ul = document.createElement('ul');
+        for ( let recipe of details.recipes ) {
+            let li = createEntry(
+                recipe.name,
+                recipe.ruleset.replace(reScopeAlias, '$1' + details.scope + '$2'),
+                ul
+            );
+            li.classList.toggle('mustCommit', recipe.mustCommit === true);
+            li.addEventListener('click', apply);
+        }
+        root.replaceChild(ul, root.querySelector('ul'));
+        dropDownMenuShow(uDom.nodeFromId('buttonRecipes'));
+    }
+
+    function beforeShow() {
+        if ( recipes.length === 0 ) { return; }
+        vAPI.messaging.send(
+            'popup.js',
+            {
+                what: 'fetchRecipeCommitStatuses',
+                scope: matrixSnapshot.scope,
+                recipes: recipes
+            },
+            show
+        );
+    }
+
+    function fetch() {
+        let onResponse = function(response) {
+            recipes = Array.isArray(response) ? response : [];
+            let button = uDom.nodeFromId('buttonRecipes');
+            if ( recipes.length === 0 ) {
+                button.classList.add('disabled');
+                return;
+            }
+            button.classList.remove('disabled');
+            button.querySelector('span.badge').textContent = recipes.length;
+        };
+
+        let desHostnames = [];
+        for ( let hostname in matrixSnapshot.rows ) {
+            if ( matrixSnapshot.rows.hasOwnProperty(hostname) === false ) {
+                continue;
+            }
+            let row = matrixSnapshot.rows[hostname];
+            if ( row.domain === matrixSnapshot.domain ) { continue; }
+            if ( row.counts[0] !== 0 || row.domain === hostname ) {
+                desHostnames.push(hostname);
+            }
+        }
+
+        vAPI.messaging.send('popup.js',
+            {
+                what: 'fetchRecipes',
+                srcHostname: matrixSnapshot.hostname,
+                desHostnames: desHostnames
+            },
+            onResponse
+        );
+    }
+
+    return {
+        fetch: fetch,
+        show: beforeShow,
+        apply: apply
+    };
+})();
+
+/******************************************************************************/
+
+function revertAll() {
+    vAPI.messaging.send(
+        'popup.js',
+        { what: 'revertTemporaryMatrix' },
+        updateMatrixSnapshot
+    );
 }
 
 /******************************************************************************/
@@ -1324,8 +1435,7 @@ function gotoExtensionURL(ev) {
 
 /******************************************************************************/
 
-function dropDownMenuShow(ev) {
-    var button = ev.target;
+function dropDownMenuShow(button) {
     var menuOverlay = document.getElementById(button.getAttribute('data-dropdown-menu'));
     var butnRect = button.getBoundingClientRect();
     var viewRect = document.body.getBoundingClientRect();
@@ -1512,15 +1622,20 @@ uDom('body')
     .on('mouseleave', '.matCell', mouseleaveMatrixCellHandler);
 uDom('#specificScope').on('click', selectSpecificScope);
 uDom('#globalScope').on('click', selectGlobalScope);
+uDom('#buttonMtxSwitches').on('click', function(ev) {
+    dropDownMenuShow(ev.target);
+});
 uDom('[id^="mtxSwitch_"]').on('click', toggleMatrixSwitch);
 uDom('#buttonPersist').on('click', persistMatrix);
 uDom('#buttonRevertScope').on('click', revertMatrix);
 
+uDom('#buttonRecipes').on('click', function() {
+    recipeManager.show();
+});
+
 uDom('#buttonRevertAll').on('click', revertAll);
 uDom('#buttonReload').on('click', buttonReloadHandler);
 uDom('.extensionURL').on('click', gotoExtensionURL);
-
-uDom('body').on('click', '[data-dropdown-menu]', dropDownMenuShow);
 uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
 
 uDom('#matList').on('click', '.g4Meta', function(ev) {

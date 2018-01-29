@@ -18,7 +18,6 @@ div > p:last-child {
     padding: 0;
     position: relative;
     vertical-align: top;
-    white-space: normal;
     width: calc(50% - 2px);
     }
 #diff > .pane > div {

@@ -210,10 +210,6 @@ body .toolbar button.fa {
     display: block;
     }
 
-#buttonReload {
-    margin-left: 1em;
-    }
-
 button > span.badge {
     padding: 1px 1px;
     display: inline-block;
@@ -232,66 +228,66 @@ button.disabled > span.badge {
     left: 10vw;
     width: 80vw;
     }
-.presetInfo {
-    margin: 0.25em 0.5em;
-    text-align: center;
+#dropDownMenuRecipes > .dropdown-menu > ul {
+    max-height: 70vh;
+    min-width: 50vw;
+    overflow: auto;
     }
-.presetEntry {
-    margin: 0.25em 0.25em;
-    border-radius: 3px;
-    padding: 0.5em;
-    display: inline-block;
-    cursor: pointer;
-    background-color: #eee;
-    }
-.presetEntry .fa {
-    margin-right: 0.25em;
-    font-size: 110%;
-    }
-.presetEntry:hover {
-    background-color: #80e2ff;
-    }
-#presetMore > *:first-child {
-    margin: 0;
+#dropDownMenuRecipes li > ul {
+    margin-left: 1em;
     padding: 0;
-    text-align: center;
-    color: #888;
+    }
+.recipe {
     cursor: pointer;
-    font-size: 13px;
+    list-style-type: none;
+    white-space: nowrap;
     }
-#presetMore > *:first-child + div {
-    margin: 0.25em 0 0 0;
-    padding: 0.25em 0 0 0;
-    display: none;
-    text-align: center;
+.recipe > div {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
     }
-#presetMore > *:first-child + div.show {
-    display: block;
-    }
-#presetMore > *:first-child + div > * {
-    vertical-align: middle;
-    }
-#presetMoreRecipe {
-    border: 1px solid #aaa;
-    width: 75%;
-    height: 4em;
-    overflow: hidden;
-    resize: none;
-    font-size: 10px;
+.recipe > div > span {
     color: #888;
     }
-#presetMoreRecipe.bad {
-    border: 1px solid #fcc;
-    color: #aaa;
+.recipe > div > span:hover {
+    color: #000;
     }
-#presetMoreWrite.bad {
-    visibility: hidden;
+.recipe .expander {
+    display: inline-block;
+    padding: 0.4em;
+    width: 0.8em;
     }
-
-/* I think this is obsolete */
-.dropdown-menu > li > a > i {
-    padding: 0 6px;
-    font-size: 1.2em;
+.recipe .expander::before {
+    content: '\2BC8';
+    }
+.recipe.expanded .expander::before {
+    content: '\2BC6';
+    }
+.recipe .name {
+    color: #000;
+    flex-grow: 1;
+    }
+.recipe .committer {
+    display: none;
+    font-size: 120%;
+    padding: 0.4em;
+    width: 0.8em;
+    }
+.recipe.mustCommit .committer {
+    display: inline;
+    }
+.recipe:hover {
+    background-color: #eef;
+    }
+.recipe .ruleset {
+    display: none;
+    font: smaller monospace;
+    padding: 0 0.5em 0.5em 2em;
+    white-space: pre;
+    }
+.recipe.expanded .ruleset {
+    display: block;
     }
 
 body .toolbar .scope {
@@ -347,7 +343,7 @@ body .toolbar #specificScope > span:first-of-type {
 body .toolbar #globalScope {
     justify-content: center;
     margin-left: 1px;
-    width: 1.8em;
+    width: 1.6em;
     }
 body .toolbar #globalScope.on {
     background-color: #000;

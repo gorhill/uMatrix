@@ -54,12 +54,92 @@
         callback = this.noopFunc;
     }
 
-    var settingsLoaded = function(store) {
-        // console.log('storage.js > loaded user settings');
-
-        µm.userSettings = store;
-
+    var onAvailableRulesetFilesReady = function(availableRulesetFiles) {
+        let selectedAssetKeys = new Set();
+        for ( let entry of availableRulesetFiles ) {
+            let assetKey = entry[0];
+            let assetLang = entry[1].lang;
+            if ( assetLang === undefined ) {
+                selectedAssetKeys.add(assetKey);
+                continue;
+            }
+            for ( let lang of navigator.languages ) {
+                if ( assetLang.indexOf(lang) !== -1 ) {
+                    selectedAssetKeys.add(assetKey);
+                    break;
+                }
+            }
+        }
+        µm.userSettings.selectedRecipeFiles = Array.from(selectedAssetKeys);
+        vAPI.storage.set({
+            selectedRecipeFiles: µm.userSettings.selectedRecipeFiles
+        });
         callback(µm.userSettings);
+    };
+
+    var initializeSelectedRulesetFiles = function() {
+        if (
+            µm.userSettings.selectedRecipeFiles.length === 1 &&
+            µm.userSettings.selectedRecipeFiles[0] === ''
+        ) {
+            µm.getAvailableRecipeFiles(onAvailableRulesetFilesReady);
+            return;
+        }
+        callback(µm.userSettings);
+    };
+
+    var onAvailableHostsFilesReady = function(availableHostFiles) {
+        µm.userSettings.selectedHostsFiles =
+            Array.from(availableHostFiles.keys());
+        vAPI.storage.set({
+            selectedHostsFiles: µm.userSettings.selectedHostsFiles
+        });
+        initializeSelectedRulesetFiles();
+    };
+
+    var migrateSelectedHostsFiles = function(bin) {
+        if (
+            bin instanceof Object === false ||
+            bin.liveHostsFiles instanceof Object === false
+        ) {
+            µm.getAvailableHostsFiles(onAvailableHostsFilesReady);
+            return;
+        }
+        let selectedHostsFiles = new Set();
+        for ( let entry of µm.toMap(bin.liveHostsFiles) ) {
+            if ( entry[1].off !== true ) {
+                selectedHostsFiles.add(entry[0]);
+            }
+        }
+        µm.userSettings.selectedHostsFiles = Array.from(selectedHostsFiles);
+        vAPI.storage.set({
+            selectedHostsFiles: µm.userSettings.selectedHostsFiles
+        });
+        initializeSelectedRulesetFiles();
+    };
+
+    var initializeSelectedHostsFiles = function() {
+        // Backward-compatibility: populate the new list selection array with
+        // existing data.
+        if (
+            µm.userSettings.selectedHostsFiles.length === 1 &&
+            µm.userSettings.selectedHostsFiles[0] === ''
+        ) {
+            vAPI.storage.get('liveHostsFiles', migrateSelectedHostsFiles);
+            return;
+        }
+        initializeSelectedRulesetFiles();
+    };
+
+    var settingsLoaded = function(store) {
+        µm.userSettings = store;
+        if ( typeof µm.userSettings.externalHostsFiles === 'string' ) {
+            µm.userSettings.externalHostsFiles =
+                µm.userSettings.externalHostsFiles.length !== 0 ?
+                    µm.userSettings.externalHostsFiles.split('\n') :
+                    [];
+        }
+        initializeSelectedHostsFiles();
     };
 
     vAPI.storage.get(this.userSettings, settingsLoaded);
@@ -161,12 +241,9 @@
 
 /******************************************************************************/
 
-// save white/blacklist
 µMatrix.saveMatrix = function() {
     µMatrix.XAL.keyvalSetOne('userMatrix', this.pMatrix.toString());
 };
-
-/******************************************************************************/
 
 µMatrix.loadMatrix = function(callback) {
     if ( typeof callback !== 'function' ) {
@@ -185,72 +262,95 @@
 
 /******************************************************************************/
 
-µMatrix.listKeysFromCustomHostsFiles = function(raw) {
+µMatrix.loadRecipes = function(reset, callback) {
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
+
+    let µm = this,
+        countdownCount = µm.userSettings.selectedRecipeFiles.length;
+
+    if ( reset ) {
+        µm.recipeManager.reset();
+    }
+
+    var onLoaded = function(details) {
+        if ( details.content ) {
+            µm.recipeManager.fromString(details.content);
+        }
+        countdownCount -= 1;
+        if ( countdownCount === 0 ) {
+            callback();
+        }
+    };
+
+    for ( let assetKey of µm.userSettings.selectedRecipeFiles ) {
+        this.assets.get(assetKey, onLoaded);
+    }
+};
+
+/******************************************************************************/
+
+µMatrix.assetKeysFromImportedAssets = function(raw) {
     var out = new Set(),
         reIgnore = /^[!#]/,
-        reValid = /^[a-z-]+:\/\/\S+/,
-        lineIter = new this.LineIterator(raw),
-        location;
+        reValid = /^[a-z-]+:\/\/\S+\/./,
+        lineIter = new this.LineIterator(raw);
     while ( lineIter.eot() === false ) {
-        location = lineIter.next().trim();
+        let location = lineIter.next().trim();
         if ( reIgnore.test(location) || !reValid.test(location) ) { continue; }
         out.add(location);
     }
-    return this.setToArray(out);
+    return out;
 };
 
 /******************************************************************************/
 
 µMatrix.getAvailableHostsFiles = function(callback) {
     var µm = this,
-        availableHostsFiles = {};
+        availableHostsFiles = new Map();
 
     // Custom filter lists.
-    var importedListKeys = this.listKeysFromCustomHostsFiles(µm.userSettings.externalHostsFiles),
-        i = importedListKeys.length,
-        listKey, entry;
-    while ( i-- ) {
-        listKey = importedListKeys[i];
-        entry = {
-            content: 'filters',
-            contentURL: listKey,
+    var importedListKeys = new Set(µm.userSettings.externalHostsFiles);
+
+    for ( let assetKey of importedListKeys ) {
+        let entry = {
+            type: 'filters',
+            contentURL: assetKey,
             external: true,
             submitter: 'user',
-            title: listKey
+            title: assetKey
         };
-        availableHostsFiles[listKey] = entry;
-        this.assets.registerAssetSource(listKey, entry);
+        this.assets.registerAssetSource(assetKey, entry);
+        availableHostsFiles.set(assetKey, entry);
     }
 
-    // selected lists
-    var onSelectedHostsFilesLoaded = function(bin) {
-        // Now get user's selection of lists
-        for ( var assetKey in bin.liveHostsFiles ) {
-            var availableEntry = availableHostsFiles[assetKey];
-            if ( availableEntry === undefined ) { continue; }
-            var liveEntry = bin.liveHostsFiles[assetKey];
-            availableEntry.off = liveEntry.off || false;
-            if ( liveEntry.entryCount !== undefined ) {
-                availableEntry.entryCount = liveEntry.entryCount;
-            }
-            if ( liveEntry.entryUsedCount !== undefined ) {
-                availableEntry.entryUsedCount = liveEntry.entryUsedCount;
-            }
-            // This may happen if the list name was pulled from the list content
-            if ( availableEntry.title === '' && liveEntry.title !== undefined ) {
-                availableEntry.title = liveEntry.title;
+    // Populate available lists with useful data.
+    var onHostsFilesDataReady = function(bin) {
+        if ( bin && bin.liveHostsFiles ) {
+            for ( let entry of µm.toMap(bin.liveHostsFiles) ) {
+                let assetKey = entry[0];
+                let availableAsset = availableHostsFiles.get(assetKey);
+                if ( availableAsset === undefined ) { continue; }
+                let liveAsset = entry[1];
+                if ( liveAsset.entryCount !== undefined ) {
+                    availableAsset.entryCount = liveAsset.entryCount;
+                }
+                if ( liveAsset.entryUsedCount !== undefined ) {
+                    availableAsset.entryUsedCount = liveAsset.entryUsedCount;
+                }
+                // This may happen if the list name was pulled from the list content
+                if ( availableAsset.title === '' && liveAsset.title !== undefined ) {
+                    availableAsset.title = liveAsset.title;
+                }
             }
         }
 
-        // Remove unreferenced imported filter lists.
-        var dict = new Set(importedListKeys);
-        for ( assetKey in availableHostsFiles ) {
-            var entry = availableHostsFiles[assetKey];
-            if ( entry.submitter !== 'user' ) { continue; }
-            if ( dict.has(assetKey) ) { continue; }
-            delete availableHostsFiles[assetKey];
-            µm.assets.unregisterAssetSource(assetKey);
-            µm.assets.remove(assetKey);
+        for ( let asseyKey of µm.userSettings.selectedHostsFiles ) {
+            let asset = availableHostsFiles.get(asseyKey);
+            if ( asset !== undefined ) {
+                asset.selected = true;
+            }
         }
 
         callback(availableHostsFiles);
@@ -258,21 +358,75 @@
 
     // built-in lists
     var onBuiltinHostsFilesLoaded = function(entries) {
-        for ( var assetKey in entries ) {
+        for ( let assetKey in entries ) {
             if ( entries.hasOwnProperty(assetKey) === false ) { continue; }
-            entry = entries[assetKey];
-            if ( entry.content !== 'filters' ) { continue; }
-            availableHostsFiles[assetKey] = objectAssign({}, entry);
+            let entry = entries[assetKey];
+            if ( entry.type !== 'filters' ) { continue; }
+            if (
+                entry.submitter === 'user' &&
+                importedListKeys.has(assetKey) === false
+            ) {
+                µm.assets.unregisterAssetSource(assetKey);
+                µm.assets.remove(assetKey);
+                continue;
+            }
+            availableHostsFiles.set(assetKey, objectAssign({}, entry));
         }
 
-        // Now get user's selection of lists
-        vAPI.storage.get(
-            { 'liveHostsFiles': availableHostsFiles },
-            onSelectedHostsFilesLoaded   
-        );
+        vAPI.storage.get('liveHostsFiles', onHostsFilesDataReady);
     };
 
     this.assets.metadata(onBuiltinHostsFilesLoaded);
+};
+
+/******************************************************************************/
+
+µMatrix.getAvailableRecipeFiles = function(callback) {
+    var µm = this,
+        availableRecipeFiles = new Map();
+
+    // Imported recipe resources.
+    var importedResourceKeys = new Set(µm.userSettings.externalRecipeFiles);
+
+    for ( let assetKey of importedResourceKeys ) {
+        let entry = {
+            type: 'recipes',
+            contentURL: assetKey,
+            external: true,
+            submitter: 'user',
+            title: assetKey
+        };
+        this.assets.registerAssetSource(assetKey, entry);
+        availableRecipeFiles.set(assetKey, entry);
+    }
+
+    var onBuiltinRecipeFilesLoaded = function(entries) {
+        for ( let assetKey in entries ) {
+            if ( entries.hasOwnProperty(assetKey) === false ) { continue; }
+            let entry = entries[assetKey];
+            if ( entry.type !== 'recipes' ) { continue; }
+            if (
+                entry.submitter === 'user' &&
+                importedResourceKeys.has(assetKey) === false
+            ) {
+                µm.assets.unregisterAssetSource(assetKey);
+                µm.assets.remove(assetKey);
+                continue;
+            }
+            availableRecipeFiles.set(assetKey, objectAssign({}, entry));
+        }
+
+        for ( let asseyKey of µm.userSettings.selectedRecipeFiles ) {
+            let asset = availableRecipeFiles.get(asseyKey);
+            if ( asset !== undefined ) {
+                asset.selected = true;
+            }
+        }
+
+        callback(availableRecipeFiles);
+    };
+
+    this.assets.metadata(onBuiltinRecipeFilesLoaded);
 };
 
 /******************************************************************************/
@@ -287,7 +441,7 @@
 
     var loadHostsFilesEnd = function() {
         µm.ubiquitousBlacklist.freeze();
-        vAPI.storage.set({ 'liveHostsFiles': µm.liveHostsFiles });
+        vAPI.storage.set({ liveHostsFiles: Array.from(µm.liveHostsFiles) });
         vAPI.messaging.broadcast({ what: 'loadHostsFilesCompleted' });
         µm.getBytesInUse();
         callback();
@@ -304,17 +458,11 @@
     var loadHostsFilesStart = function(hostsFiles) {
         µm.liveHostsFiles = hostsFiles;
         µm.ubiquitousBlacklist.reset();
-        var locations = Object.keys(hostsFiles);
-        hostsFileLoadCount = locations.length;
+        hostsFileLoadCount = µm.userSettings.selectedHostsFiles.length;
 
         // Load all hosts file which are not disabled.
-        var location;
-        while ( (location = locations.pop()) ) {
-            if ( hostsFiles[location].off ) {
-                hostsFileLoadCount -= 1;
-                continue;
-            }
-            µm.assets.get(location, mergeHostsFile);
+        for ( let assetKey of µm.userSettings.selectedHostsFiles ) {
+            µm.assets.get(assetKey, mergeHostsFile);
         }
 
         // https://github.com/gorhill/uMatrix/issues/2
@@ -338,9 +486,9 @@
     usedCount = this.ubiquitousBlacklist.count - usedCount;
     duplicateCount = this.ubiquitousBlacklist.duplicateCount - duplicateCount;
 
-    var hostsFilesMeta = this.liveHostsFiles[details.assetKey];
-    hostsFilesMeta.entryCount = usedCount + duplicateCount;
-    hostsFilesMeta.entryUsedCount = usedCount;
+    let hostsFileMeta = this.liveHostsFiles.get(details.assetKey);
+    hostsFileMeta.entryCount = usedCount + duplicateCount;
+    hostsFileMeta.entryUsedCount = usedCount;
 };
 
 /******************************************************************************/
@@ -402,99 +550,123 @@
 
 /******************************************************************************/
 
-// `switches` contains the filter lists for which the switch must be revisited.
+µMatrix.selectAssets = function(details, callback) {
+    var µm = this;
 
-µMatrix.selectHostsFiles = function(details, callback) {
-    var µm = this,
-        externalHostsFiles = this.userSettings.externalHostsFiles,
-        i, n, assetKey;
+    var applyAssetSelection = function(
+        metadata,
+        details,
+        propSelectedAssetKeys,
+        propImportedAssetKeys
+    ) {
+        let µmus = µm.userSettings;
+        let selectedAssetKeys = new Set();
+        let importedAssetKeys = new Set(µmus[propImportedAssetKeys]);
 
-    // Hosts file to select
-    if ( Array.isArray(details.toSelect) ) {
-        for ( assetKey in this.liveHostsFiles ) {
-            if ( this.liveHostsFiles.hasOwnProperty(assetKey) === false ) {
-                continue;
-            }
-            if ( details.toSelect.indexOf(assetKey) !== -1 ) {
-                this.liveHostsFiles[assetKey].off = false;
-            } else if ( details.merge !== true ) {
-                this.liveHostsFiles[assetKey].off = true;
-            }
-        }
-    }
-
-    // Imported hosts files to remove
-    if ( Array.isArray(details.toRemove) ) {
-        var removeURLFromHaystack = function(haystack, needle) {
-            return haystack.replace(
-                new RegExp(
-                    '(^|\\n)' +
-                    needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
-                    '(\\n|$)', 'g'),
-                '\n'
-            ).trim();
-        };
-        for ( i = 0, n = details.toRemove.length; i < n; i++ ) {
-            assetKey = details.toRemove[i];
-            delete this.liveHostsFiles[assetKey];
-            externalHostsFiles = removeURLFromHaystack(externalHostsFiles, assetKey);
-            this.assets.remove(assetKey);
-        }
-    }
-
-    // Hosts file to import
-    if ( typeof details.toImport === 'string' ) {
-        // https://github.com/gorhill/uBlock/issues/1181
-        //   Try mapping the URL of an imported filter list to the assetKey of an
-        //   existing stock list.
-        var assetKeyFromURL = function(url) {
-            var needle = url.replace(/^https?:/, '');
-            var assets = µm.liveHostsFiles, asset;
-            for ( var assetKey in assets ) {
-                asset = assets[assetKey];
-                if ( asset.content !== 'filters' ) { continue; }
-                if ( typeof asset.contentURL === 'string' ) {
-                    if ( asset.contentURL.endsWith(needle) ) { return assetKey; }
-                    continue;
+        if ( Array.isArray(details.toSelect) ) {
+            for ( let assetKey of details.toSelect ) {
+                if ( metadata.has(assetKey) ) {
+                    selectedAssetKeys.add(assetKey);
                 }
-                if ( Array.isArray(asset.contentURL) === false ) { continue; }
-                for ( i = 0, n = asset.contentURL.length; i < n; i++ ) {
-                    if ( asset.contentURL[i].endsWith(needle) ) {
-                        return assetKey;
+            }
+        }
+
+        if ( Array.isArray(details.toRemove) ) {
+            for ( let assetKey of details.toRemove ) {
+                importedAssetKeys.delete(assetKey);
+                µm.assets.remove(assetKey);
+            }
+        }
+
+        // Hosts file to import
+        // https://github.com/gorhill/uBlock/issues/1181
+        //   Try mapping the URL of an imported filter list to the assetKey of
+        //   an existing stock list.
+        if ( typeof details.toImport === 'string' ) {
+            var assetKeyFromURL = function(url) {
+                var needle = url.replace(/^https?:/, '');
+                for ( let entry of metadata ) {
+                    let asset = entry[1];
+                    if ( asset.type === 'internal' ) { continue; }
+                    let assetKey = entry[0];
+                    if ( typeof asset.contentURL === 'string' ) {
+                        if ( asset.contentURL.endsWith(needle) ) { return assetKey; }
+                        continue;
+                    }
+                    if ( Array.isArray(asset.contentURL) === false ) { continue; }
+                    for ( let i = 0, n = asset.contentURL.length; i < n; i++ ) {
+                        if ( asset.contentURL[i].endsWith(needle) ) {
+                            return assetKey;
+                        }
                     }
                 }
-            }
-            return url;
-        };
-        var importedSet = new Set(this.listKeysFromCustomHostsFiles(externalHostsFiles)),
-            toImportSet = new Set(this.listKeysFromCustomHostsFiles(details.toImport)),
-            iter = toImportSet.values();
-        for (;;) {
-            var entry = iter.next();
-            if ( entry.done ) { break; }
-            if ( importedSet.has(entry.value) ) { continue; }
-            assetKey = assetKeyFromURL(entry.value);
-            if ( assetKey === entry.value ) {
-                importedSet.add(entry.value);
-            }
-            this.liveHostsFiles[assetKey] = {
-                content: 'filters',
-                contentURL: [ assetKey ],
-                title: assetKey
+                return url;
             };
+            var toImport = µm.assetKeysFromImportedAssets(details.toImport);
+            for ( let url of toImport ) {
+                if ( importedAssetKeys.has(url) ) { continue; }
+                let assetKey = assetKeyFromURL(url);
+                if ( assetKey === url ) {
+                    importedAssetKeys.add(assetKey);
+                }
+                selectedAssetKeys.add(assetKey);
+            }
         }
-        externalHostsFiles = this.setToArray(importedSet).sort().join('\n');
-    }
 
-    if ( externalHostsFiles !== this.userSettings.externalHostsFiles ) {
-        this.userSettings.externalHostsFiles = externalHostsFiles;
-        vAPI.storage.set({ externalHostsFiles: externalHostsFiles });
-    }
-    vAPI.storage.set({ 'liveHostsFiles': this.liveHostsFiles });
+        let bin = {},
+            changed = false;
 
-    if ( typeof callback === 'function' ) {
-        callback();
-    }
+        selectedAssetKeys = Array.from(selectedAssetKeys).sort();
+        µmus[propSelectedAssetKeys].sort();
+        if ( selectedAssetKeys.join() !== µmus[propSelectedAssetKeys].join() ) {
+            µmus[propSelectedAssetKeys] = selectedAssetKeys;
+            bin[propSelectedAssetKeys] = selectedAssetKeys;
+            changed = true;
+        }
+
+        importedAssetKeys = Array.from(importedAssetKeys).sort();
+        µmus[propImportedAssetKeys].sort();
+        if ( importedAssetKeys.join() !== µmus[propImportedAssetKeys].join() ) {
+            µmus[propImportedAssetKeys] = importedAssetKeys;
+            bin[propImportedAssetKeys] = importedAssetKeys;
+            changed = true;
+        }
+
+        if ( changed ) {
+            vAPI.storage.set(bin);
+        }
+
+        return changed;
+    };
+
+    var onMetadataReady = function(response) {
+        let metadata = µm.toMap(response);
+        let hostsChanged = applyAssetSelection(
+            metadata,
+            details.hosts,
+            'selectedHostsFiles',
+            'externalHostsFiles'
+        );
+        let recipesChanged = applyAssetSelection(
+            metadata,
+            details.recipes,
+            'selectedRecipeFiles',
+            'externalRecipeFiles'
+        );
+        if ( recipesChanged ) {
+            µm.recipeManager.reset();
+            µm.loadRecipes(true);
+        }
+
+        if ( typeof callback === 'function' ) {
+            callback({
+                hostsChanged: hostsChanged,
+                recipesChanged: recipesChanged
+            });
+        }
+    };
+
+    this.assets.metadata(onMetadataReady);
 };
 
 /******************************************************************************/
@@ -533,6 +705,7 @@
             timer = undefined;
         }
         if ( updateDelay === 0 ) {
+            this.assets.updateStop();
             next = 0;
             return;
         }
@@ -556,9 +729,13 @@
 µMatrix.assetObserver = function(topic, details) {
     // Do not update filter list if not in use.
     if ( topic === 'before-asset-updated' ) {
+        let µmus = this.userSettings;
         if (
-            this.liveHostsFiles.hasOwnProperty(details.assetKey) === false ||
-            this.liveHostsFiles[details.assetKey].off !== true
+            details.type === 'internal' ||
+            details.type === 'filters' &&
+                µmus.selectedHostsFiles.indexOf(details.assetKey) !== -1 ||
+            details.type === 'recipes' &&
+                µmus.selectedRecipeFiles.indexOf(details.assetKey) !== -1
         ) {
             return true;
         }
@@ -586,7 +763,20 @@
 
     // Reload all filter lists if needed.
     if ( topic === 'after-assets-updated' ) {
-        if ( details.assetKeys.length !== 0 ) {
+        if (
+            this.arraysIntersect(
+                details.assetKeys,
+                this.userSettings.selectedRecipeFiles
+            )
+        ) {
+            this.loadRecipes(true);
+        }
+        if (
+            this.arraysIntersect(
+                details.assetKeys,
+                this.userSettings.selectedHostsFiles
+            )
+        ) {
             this.loadHostsFiles();
         }
         if ( this.userSettings.autoUpdate ) {
@@ -598,17 +788,6 @@
             what: 'assetsUpdated',
             assetKeys: details.assetKeys
         });
-        return;
-    }
-
-    // New asset source became available, if it's a filter list, should we
-    // auto-select it?
-    if ( topic === 'builtin-asset-source-added' ) {
-        if ( details.entry.content === 'filters' ) {
-            if ( details.entry.off !== true ) {
-                this.saveSelectedFilterLists([ details.assetKey ], true);
-            }
-        }
         return;
     }
 };

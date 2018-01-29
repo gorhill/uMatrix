@@ -177,14 +177,17 @@ return {
         deleteUnusedSessionCookiesAfter: 60,
         deleteLocalStorage: false,
         displayTextSize: '14px',
-        externalHostsFiles: '',
+        externalHostsFiles: [],
+        externalRecipeFiles: [],
         iconBadgeEnabled: false,
         maxLoggedRequests: 1000,
         popupCollapseAllDomains: false,
         popupCollapseBlacklistedDomains: false,
         popupScopeLevel: 'domain',
         processHyperlinkAuditing: true,
-        processReferer: false
+        processReferer: false,
+        selectedHostsFiles: [ '' ],
+        selectedRecipeFiles: [ '' ]
     },
 
     rawSettingsDefault: rawSettingsDefault,
@@ -202,8 +205,7 @@ return {
     pslAssetKey: 'public_suffix_list.dat',
 
     // list of live hosts files
-    liveHostsFiles: {
-    },
+    liveHostsFiles: new Map(),
 
     // urls stats are kept on the back burner while waiting to be reactivated
     // in a tab or another.

@@ -18,6 +18,19 @@ ul#options {
 ul#options li {
     margin-bottom: 0.5em;
     }
+.assets {
+    border: 1px solid #ccc;
+    margin: 0.5em 0 0 0;
+    padding: 0;
+    }
+.assets > div:first-of-type {
+    background-color: #eee;
+    margin: 0;
+    padding: 0.25em 0.5em;
+    }
+.assets > div + div {
+    padding: 0.5em 1em;
+    }
 ul#lists {
     margin: 0.5em 0 0 0;
     padding: 0;
@@ -40,7 +53,6 @@ li.listEntry > * {
     unicode-bidi: embed;
     }
 li.listEntry > a:nth-of-type(2) {
-    font-size: 13px;
     opacity: 0.5;
     }
 li.listEntry.toRemove > input[type="checkbox"] {
@@ -59,8 +71,11 @@ li.listEntry > .fa {
 li.listEntry > a.fa:hover {
     opacity: 1;
     }
-li.listEntry.support > a.support {
+li.listEntry > a.support {
     display: inline-block;
+    }
+li.listEntry > a.support[href=""] {
+    display: none;
     }
 li.listEntry > a.remove,
 li.listEntry > a.remove:visited {
@@ -124,19 +139,20 @@ body.updating li.listEntry.obsolete > input[type="checkbox"]:checked ~ span.upda
 .dim {
     opacity: 0.5;
     }
-#externalLists {
-    margin: 2em auto 0 auto;
+li.listEntry.importURL > input[type="checkbox"] ~ textarea {
+    display: none;
+    margin-left: 1.6em;
     }
-body[dir="ltr"] #externalListsDiv {
-    margin-left: 1em;
+li.listEntry.importURL > input[type="checkbox"]:checked ~ textarea {
+    display: block;
     }
-body[dir="rtl"] #externalListsDiv {
-    margin-right: 1em;
-    }
-#externalHostsFiles {
+li.listEntry.importURL > textarea {
+    border: 1px solid #ddd;
     box-sizing: border-box;
+    display: block;
     font-size: smaller;
-    width: 100%;
-    height: 12em;
+    width: calc(100% - 4em);
+    height: 6em;
+    resize: none;
     white-space: pre;
     }

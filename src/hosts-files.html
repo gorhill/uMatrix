@@ -10,7 +10,6 @@
 
 <body>
 
-<p data-i18n="hostsFilesPrompt"></p>
 <p>
     <button id="buttonApply" class="custom important reloadAll disabled" data-i18n="hostsFilesApplyChanges"></button>
     <button id="buttonUpdate" class="custom important reloadAll disabled" data-i18n="hostsFilesUpdateNow"></button>
@@ -18,14 +17,28 @@
 </p>
 <ul id="options">
     <li><input type="checkbox" id="autoUpdate"><label data-i18n="hostsFilesAutoUpdatePrompt" for="autoUpdate"></label>
-    <li><span id="listsOfBlockedHostsPrompt"></span>
 </ul>
-<ul id="lists">
-</ul>
+<div class="assets">
+    <div data-i18n="assetsHostsSection"></div>
+    <div>
+        <p data-i18n="hostsFilesPrompt"></p>
+        <p id="listsOfBlockedHostsPrompt"></p>
+        <ul id="hosts">
+            <li class="listEntry importURL"><input type="checkbox" id="importHosts"><label for="importHosts"data-i18n="assetsImportLabel"></label><!--
+                --><textarea dir="ltr" spellcheck="false" placeholder="hostsFilesExternalListsHint"></textarea>
+        </ul>
+    </div>
+</div>
 
-<div id="externalLists">
-<p data-i18n="hostsFilesExternalListsHint" style="margin: 0 0 0.25em 0; font-size: 13px;"></p>
-<textarea id="externalHostsFiles" dir="ltr" spellcheck="false"></textarea>
+<div class="assets">
+    <div data-i18n="assetsRecipesSection"></div>
+    <div>
+        <p data-i18n="assetsRecipesSummary"></p>
+        <ul id="recipes">
+            <li class="listEntry importURL"><input type="checkbox" id="importRecipes"><label for="importRecipes"data-i18n="assetsImportLabel"></label><!--
+                --><textarea dir="ltr" spellcheck="false" placeholder="hostsFilesExternalListsHint"></textarea>
+        </ul>
+    </div>
 </div>
 
 <div id="templates" style="display: none;">

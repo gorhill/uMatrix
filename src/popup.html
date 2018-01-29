@@ -11,29 +11,6 @@
 
 <body>
 
-<div id="templates" style="display:none">
-    <div class="groupSeparator"></div>
-    <div class="domainSeparator"></div>
-    <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
-    <div id="cellHotspots"><div id="whitelist"></div><div id="blacklist"></div><div id="domainOnly"><span class="fa"></span></div></div>
-    <!-- Use once min supported browser version allows for use of CSS variables
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <symbol id="toggleButton" viewBox="0 0 152 96">
-          <g>
-            <path d="m 48,24 a 24,24 0 0 0 -24,24 24,24 0 0 0 24,24 l 48,0 A 24,24 0 0 0 120,48 24,24 0 0 0 96,24 l -48,0 z" style="opacity:1;fill:#bbb;fill-opacity:1;stroke:none;" />
-            <g style="display:var(--off);">
-              <ellipse style="fill:#bbb;fill-opacity:1;stroke:none;" cx="48" cy="48" rx="48" ry="48" />
-              <ellipse style="opacity:1;fill:#fff;fill-opacity:1;stroke:none;" cx="48" cy="48" rx="40" ry="40" />
-              <ellipse style="display:var(--dot);fill:#bbb;fill-opacity:1;stroke:none;" cx="48" cy="48" rx="12" ry="12" /></g>
-            <g style="display:var(--on);">
-              <ellipse style="opacity:1;fill:#444;fill-opacity:1;stroke:none;" cx="104" cy="48" rx="48" ry="48" />
-              <ellipse style="display:var(--dot);fill:#bbb;fill-opacity:1;stroke:none;" cx="104" cy="48" rx="12" ry="12" /></g>
-          </g>
-        </symbol>
-    </svg>
-    -->
-</div>
-
 <div class="paneHead">
     <a id="gotoDashboard" class="extensionURL" href="#" data-extension-url="dashboard.html" data-i18n-tip="matrixDashboardMenuEntry">uMatrix <span id="version"> </span><span class="fa">&#xf013;</span></a>
     <div id="toolbarContainer">
@@ -44,12 +21,15 @@
             <button id="buttonMtxSwitches" type="button" class="fa scopeRel" tabindex="-1" data-dropdown-menu="dropDownMenuSwitches">&#xf142;<span class="badge"></span></button>
             <button id="buttonPersist" type="button" class="fa scopeRel tip-anchor-left" data-i18n-tip="matrixPersistButtonTip">&#xf023;<span class="badge"></span></button>
             <button id="buttonRevertScope" type="button" class="fa scopeRel tip-anchor-left" tabindex="-1" data-i18n-tip="matrixRevertButtonTip">&#xf12d;</button>
+            <button id="buttonRecipes" type="button" class="fa scopeRel tip-anchor-right" data-dropdown-menu="dropDownMenuRecipes">&#xf12e;<span class="badge"></span></button>
+            </div>
+        <div class="toolbar">
             <button id="buttonReload" type="button" class="fa tip-anchor-left" data-i18n-tip="matrixReloadButton">&#xf021;</button>
-        </div>
+            </div>
         <div class="toolbar">
             <button id="buttonRevertAll" class="fa tip-anchor-right" data-i18n-tip="matrixRevertAllEntry">&#xf122;</button>
             <button type="button" class="fa extensionURL tip-anchor-right" data-extension-url="logger-ui.html" data-i18n-tip="matrixLoggerMenuEntry">&#xf022;</button>
-        </div>
+            </div>
     </div>
     <div id="matHead" class="matrix collapsible">
         <div class="matRow rw" style="display:none"><div class="matCell" data-req-type="all">all</div><div class="matCell" data-req-type="cookie">cookie</div><div class="matCell" data-req-type="css">css</div><div class="matCell" data-req-type="image">img</div><div class="matCell" data-req-type="media">media</div><div class="matCell" data-req-type="script">script</div><div class="matCell" data-req-type="xhr">XHR</div><div class="matCell" data-req-type="frame">frame</div><div class="matCell" data-req-type="other">other</div></div>
@@ -94,6 +74,12 @@
     </div>
 </div>
 
+<div id="dropDownMenuRecipes" class="dropdown-menu-capture">
+    <div class="dropdown-menu">
+        <ul></ul>
+    </div>
+</div>
+
 <div id="noTabFound"></div>
 
 <!-- Convenient to auto-fetch locale strings used in scripts -->
@@ -103,6 +89,30 @@
 </div>
 
 <div style="clear: both; height: 0px;"></div>
+
+<div id="templates" style="display:none">
+    <div class="groupSeparator"></div>
+    <div class="domainSeparator"></div>
+    <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
+    <div id="cellHotspots"><div id="whitelist"></div><div id="blacklist"></div><div id="domainOnly"><span class="fa"></span></div></div>
+    <!-- Use once min supported browser version allows for use of CSS variables
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <symbol id="toggleButton" viewBox="0 0 152 96">
+          <g>
+            <path d="m 48,24 a 24,24 0 0 0 -24,24 24,24 0 0 0 24,24 l 48,0 A 24,24 0 0 0 120,48 24,24 0 0 0 96,24 l -48,0 z" style="opacity:1;fill:#bbb;fill-opacity:1;stroke:none;" />
+            <g style="display:var(--off);">
+              <ellipse style="fill:#bbb;fill-opacity:1;stroke:none;" cx="48" cy="48" rx="48" ry="48" />
+              <ellipse style="opacity:1;fill:#fff;fill-opacity:1;stroke:none;" cx="48" cy="48" rx="40" ry="40" />
+              <ellipse style="display:var(--dot);fill:#bbb;fill-opacity:1;stroke:none;" cx="48" cy="48" rx="12" ry="12" /></g>
+            <g style="display:var(--on);">
+              <ellipse style="opacity:1;fill:#444;fill-opacity:1;stroke:none;" cx="104" cy="48" rx="48" ry="48" />
+              <ellipse style="display:var(--dot);fill:#bbb;fill-opacity:1;stroke:none;" cx="104" cy="48" rx="12" ry="12" /></g>
+          </g>
+        </symbol>
+    </svg>
+    -->
+    <li class="recipe"><div><span class="expander"></span><span class="name"></span><span class="fa committer">&#xf13e;</span></div><div class="ruleset"></div></li>
+</div>
 
 <script src="lib/punycode.js"></script>
 <script src="js/vapi-common.js"></script>

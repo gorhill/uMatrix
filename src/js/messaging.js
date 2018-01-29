@@ -41,8 +41,8 @@ function onMessage(request, sender, callback) {
         µm.assets.get(request.url, { dontCache: true }, callback);
         return;
 
-    case 'selectHostsFiles':
-        µm.selectHostsFiles(request, callback);
+    case 'selectAssets':
+        µm.selectAssets(request, callback);
         return;
 
     default:
@@ -319,6 +319,14 @@ var matrixSnapshotFromTabId = function(details, callback) {
 var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
+    case 'fetchRecipes':
+        µm.recipeManager.fetch(
+            request.srcHostname,
+            request.desHostnames,
+            callback
+        );
+        return;
+
     case 'matrixSnapshot':
         matrixSnapshotFromTabId(request, callback);
         return;
@@ -331,6 +339,14 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
+    case 'applyRecipe':
+        µm.recipeManager.apply(request);
+        break;
+
+    case 'fetchRecipeCommitStatuses':
+        response = µm.recipeManager.commitStatuses(request);
+        break;
+
     case 'toggleMatrixSwitch':
         µm.tMatrix.setSwitchZ(
             request.switchName,
@@ -713,40 +729,25 @@ var µm = µMatrix;
 
 /******************************************************************************/
 
-var prepEntries = function(entries) {
-    var µmuri = µm.URI;
-    var entry;
-    for ( var k in entries ) {
-        if ( entries.hasOwnProperty(k) === false ) {
-            continue;
-        }
-        entry = entries[k];
-        if ( typeof entry.homeURL === 'string' ) {
-            entry.homeHostname = µmuri.hostnameFromURI(entry.homeURL);
-            entry.homeDomain = µmuri.domainFromHostname(entry.homeHostname);
-        }
-    }
-};
-
-/******************************************************************************/
-
-var getLists = function(callback) {
+var getAssets = function(callback) {
     var r = {
         autoUpdate: µm.userSettings.autoUpdate,
-        available: null,
-        cache: null,
-        current: µm.liveHostsFiles,
-        blockedHostnameCount: µm.ubiquitousBlacklist.count
+        blockedHostnameCount: µm.ubiquitousBlacklist.count,
+        hosts: null,
+        recipes: null,
+        cache: null
     };
     var onMetadataReady = function(entries) {
         r.cache = entries;
-        prepEntries(r.cache);
         callback(r);
     };
-    var onAvailableHostsFilesReady = function(lists) {
-        r.available = lists;
-        prepEntries(r.available);
+    var onAvailableRecipeFilesReady = function(collection) {
+        r.recipes = Array.from(collection);
         µm.assets.metadata(onMetadataReady);
+    };
+    var onAvailableHostsFilesReady = function(collection) {
+        r.hosts = Array.from(collection);
+        µm.getAvailableRecipeFiles(onAvailableRecipeFilesReady);
     };
     µm.getAvailableHostsFiles(onAvailableHostsFilesReady);
 };
@@ -758,8 +759,8 @@ var onMessage = function(request, sender, callback) {
 
     // Async
     switch ( request.what ) {
-    case 'getLists':
-        return getLists(callback);
+    case 'getAssets':
+        return getAssets(callback);
 
     default:
         break;
@@ -805,7 +806,7 @@ var µm = µMatrix;
 /******************************************************************************/
 
 var restoreUserData = function(userData) {
-    var countdown = 4;
+    var countdown = 0;
     var onCountdown = function() {
         countdown -= 1;
         if ( countdown === 0 ) {
@@ -814,11 +815,18 @@ var restoreUserData = function(userData) {
     };
 
     var onAllRemoved = function() {
+        let µm = µMatrix;
+        countdown += 1;
         vAPI.storage.set(userData.settings, onCountdown);
-        vAPI.storage.set({ userMatrix: userData.rules }, onCountdown);
-        vAPI.storage.set({ liveHostsFiles: userData.hostsFiles }, onCountdown);
+        countdown += 1;
+        let bin = { userMatrix: userData.rules };
+        if ( userData.hostsFiles instanceof Object ) {
+            bin.liveHostsFiles = userData.hostsFiles;
+        }
+        vAPI.storage.set(bin, onCountdown);
         if ( userData.rawSettings instanceof Object ) {
-            µMatrix.saveRawSettings(userData.rawSettings, onCountdown);
+            countdown += 1;
+            µm.saveRawSettings(userData.rawSettings, onCountdown);
         }
     };
 
@@ -856,7 +864,6 @@ var onMessage = function(request, sender, callback) {
             when: Date.now(),
             settings: µm.userSettings,
             rules: µm.pMatrix.toString(),
-            hostsFiles: µm.liveHostsFiles,
             rawSettings: µm.rawSettings
         };
         break;
