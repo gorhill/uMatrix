@@ -18,7 +18,6 @@
 	},
 	"malware-0": {
 		"content": "filters",
-		"group": "malware",
 		"title": "Malware Domain List",
 		"contentURL": [
 			"https://www.malwaredomainlist.com/hostslist/hosts.txt",
@@ -27,7 +26,6 @@
 	},
 	"malware-1": {
 		"content": "filters",
-		"group": "malware",
 		"title": "Malware domains",
 		"contentURL": [
 			"https://mirror.cedia.org.ec/malwaredomains/justdomains",
@@ -39,7 +37,6 @@
 	},
 	"dpollock-0": {
 		"content": "filters",
-		"group": "multipurpose",
 		"updateAfter": 11,
 		"title": "Dan Pollock’s hosts file",
 		"contentURL": [
@@ -50,7 +47,6 @@
 	},
 	"hphosts": {
 		"content": "filters",
-		"group": "multipurpose",
 		"updateAfter": 11,
 		"title": "hpHosts’ Ad and tracking servers",
 		"contentURL": [
@@ -61,7 +57,6 @@
 	},
 	"mvps-0": {
 		"content": "filters",
-		"group": "multipurpose",
 		"updateAfter": 11,
 		"title": "MVPS HOSTS",
 		"contentURL": [
@@ -72,7 +67,6 @@
 	},
 	"plowe-0": {
 		"content": "filters",
-		"group": "multipurpose",
 		"updateAfter": 13,
 		"title": "Peter Lowe’s Ad and tracking server list",
 		"contentURL": [
@@ -81,5 +75,14 @@
 			"assets/thirdparties/pgl.yoyo.org/as/serverlist.txt"
 		],
 		"supportURL": "https://pgl.yoyo.org/adservers/"
+	},
+	"recipes_en-0": {
+		"content": "recipes",
+		"title": "Ruleset recipes for English websites",
+		"contentURL": [
+			"https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/recipes/recipes_en.txt",
+			"assets/umatrix/recipes_en.txt"
+		],
+		"lang": "en"
 	}
 }
