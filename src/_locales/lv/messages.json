@@ -467,6 +467,10 @@
         "message": "mani-umatriksa-noteikumi.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Hosts files",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "All hostnames in a hosts file are loaded as blacklisted hostnames in the global scope.",
         "description": ""
@@ -500,7 +504,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "One URL per line. Lines prefixed with &lsquo;#&rsquo; will be ignored. Invalid URLs will be silently ignored.",
+        "message": "Import external assets here:\nOne URL per line; invalid URLs will be silently ignored.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "novecojis",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Ruleset recipes",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Import...",
         "description": ""
     },
     "rawSettingsWarning": {

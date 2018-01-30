@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Pliki hosts",
+        "message": "Zasoby",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -467,6 +467,10 @@
         "message": "umatrix-moje-reguly.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Pliki hosts",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Wszystkie nazwy hostów z plików hosts są traktowane jako czarno-listowane globalnie.",
         "description": ""
@@ -488,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Automatycznie aktualizuj pliki hosts.",
+        "message": "Automatycznie aktualizuj zasoby.",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -500,7 +504,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Jeden URL na linię. Linie zaczynające się od &lsquo;#&rsquo; będą traktowane jak komentarz. Niepoprawne URLe będą ignorowane.",
+        "message": "Zaimportuj zewnętrzne zasoby:\nJeden URL na linię. Niepoprawne URLe będą ignorowane.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "nieaktualna",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Zestawy reguł",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Zestawy reguł są importowane z panelu popup <em>na żądanie<\/em> użytkownika i <b>tylko<\/b> przy jego interakcji.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Importuj...",
         "description": ""
     },
     "rawSettingsWarning": {

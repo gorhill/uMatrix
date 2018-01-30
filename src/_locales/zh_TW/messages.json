@@ -244,7 +244,7 @@
         "description": ""
     },
     "statsPageDetailed": {
-        "message": "過濾日誌",
+        "message": "日誌",
         "description": ""
     },
     "statsPageLogSizePrompt1": {
@@ -467,6 +467,10 @@
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Hosts files",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Hosts 檔案中的域名將被列入全域黑名單。",
         "description": ""
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "已過期",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Ruleset recipes",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Import...",
         "description": ""
     },
     "rawSettingsWarning": {

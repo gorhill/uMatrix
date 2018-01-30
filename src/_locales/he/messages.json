@@ -467,6 +467,10 @@
         "message": "חוקי-המטריצה-שלי.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Hosts files",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "כל הדומיינים בקובץ ה hosts נטענים כחסומים בטווח הגלובלי.",
         "description": ""
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "לא עדכני",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Ruleset recipes",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Import...",
         "description": ""
     },
     "rawSettingsWarning": {

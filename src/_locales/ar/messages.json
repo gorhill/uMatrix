@@ -56,7 +56,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "imagePrettyName": {
-        "message": "الصُورَة",
+        "message": "صورة",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
@@ -132,11 +132,11 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixLoggerMenuEntry": {
-        "message": "الذهاب إلى مسجل",
+        "message": "الذهاب إلى السجل",
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry": {
-        "message": "انتقل إلى لوحة التحكم الرئيسية",
+        "message": "انتقل إلى لوحة التحكم",
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
@@ -192,7 +192,7 @@
         "description": ""
     },
     "statsPageRequests": {
-        "message": "طلبات",
+        "message": "الطلبات",
         "description": "header for the stat type column"
     },
     "statsPageAllowed": {
@@ -304,11 +304,11 @@
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "الموقع",
+        "message": "موقع",
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
-        "message": "عند إغلاق مصفوفة، وذكية تحميل علامات التبويب هذه:",
+        "message": "عند إغلاق المصفوفة، إعادة تحميل علامات التبويب هذه:",
         "description": ""
     },
     "settingsMatrixAutoReloadNone": {
@@ -316,7 +316,7 @@
         "description": ""
     },
     "settingsMatrixAutoReloadCurrent": {
-        "message": "قائم",
+        "message": "الصفحة الحالية",
         "description": ""
     },
     "settingsMatrixAutoReloadAll": {
@@ -352,7 +352,7 @@
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
-        "message": "تمكين سحابة دعم التخزين",
+        "message": "تمكين دعم سحابة التخزين",
         "description": ""
     },
     "privacyPageTitle": {
@@ -467,6 +467,10 @@
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "ملفات الـ hosts",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "يتم تحميل جميع أسماء المضيفين في ملف المضيفين كما المضيفين القائمة السوداء في نطاق عالمي.",
         "description": ""
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "عفا عليها الزمن",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Ruleset recipes",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "استيراد...",
         "description": ""
     },
     "rawSettingsWarning": {

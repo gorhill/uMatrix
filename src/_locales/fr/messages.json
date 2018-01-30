@@ -467,6 +467,10 @@
         "message": "mes-regles-umatrix.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Fichiers hosts",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Tout nom de domaine énuméré dans un des fichiers choisis ci-dessous est bloqué dans le contexte global (*).",
         "description": ""
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "Potentiellement obsolète",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Recettes de règles",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Les recettes de règles sont importés depuis la fenêtre pop-up <em>à la demande<\/em>, c'est-à-dire <b>uniquement<\/b> à travers l’interaction utilisateur.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Importer...",
         "description": ""
     },
     "rawSettingsWarning": {

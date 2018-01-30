@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Hosts файлы",
+        "message": "Сторонние правила",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -467,6 +467,10 @@
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Файлы hosts",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Каждый список содержит перечень сайтов, запрещённых на глобальном уровне.",
         "description": ""
@@ -488,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Автообновление списков сайтов.",
+        "message": "Автообновление списков правил.",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -500,7 +504,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Один URL на строку. Строки, начинающиеся с символа &lsquo;#&rsquo;, будут проигнорированы. Некорректные ссылки будут пропущены.",
+        "message": "Вставьте ссылки на сторонние списки правил:\nОдна ссылка на строку. Некорректные ссылки будут пропущены.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "список устарел",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Наборы правил",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Наборы правил импортируются из всплывающей панели <em>по требованию<\/em>, т.е. <b>только<\/b> после запроса пользователя.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Импортировать...",
         "description": ""
     },
     "rawSettingsWarning": {
@@ -568,7 +584,7 @@
         "description": ""
     },
     "aboutBackupButton": {
-        "message": "Сделать резервный файл...",
+        "message": "Сохранить в файл...",
         "description": ""
     },
     "aboutBackupFilename": {

@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "Tunjuk & klik untuk larang\/izinkan permintaan yang dibuat peramban anda. Gunakan untuk memblokir skrip, iframe, iklan, dll.",
+        "message": "Tunjuk & klik untuk melarang\/mengizinkan permintaan yang dibuat peramban anda. Gunakan untuk memblokir skrip, iframe, iklan, dll.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — Pencatat Log",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -36,7 +36,7 @@
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "Lainnya",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -100,7 +100,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Muat ulang laman.",
+        "message": "Muat ulang halaman.\nTekan Shift untuk untuk melewati tembolok peramban.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -112,19 +112,19 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "HTTPS Ketat",
+        "message": "Larang konten campuran",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
-        "message": "Forbid web workers",
+        "message": "Larang web worker",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Pemalsuan perujuk",
+        "message": "Palsukan tajuk <code>Perujuk<\/code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Spoof <code><noscript><\/code> tags",
+        "message": "Palsukan tag <code><noscript><\/code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixLoggerMenuEntry": {
-        "message": "Kunjungi pencatat",
+        "message": "Kunjungi pencatat log",
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry": {
@@ -140,7 +140,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "Laman web tidak ditemukan",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "statsPageTitle": {
@@ -176,7 +176,7 @@
         "description": ""
     },
     "statsPageDetailedStats": {
-        "message": "Statistik terperinci",
+        "message": "Statistik detail",
         "description": ""
     },
     "statsPageDetailedAllPages": {
@@ -244,7 +244,7 @@
         "description": ""
     },
     "statsPageDetailed": {
-        "message": "Pencatat",
+        "message": "Pencatat Log",
         "description": ""
     },
     "statsPageLogSizePrompt1": {
@@ -252,7 +252,7 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "permintaan HTTP yang terakhir <b>per halaman<\/b>.",
+        "message": "permintaan HTTP terakhir <b>per halaman<\/b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
@@ -268,7 +268,7 @@
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "Tampilan",
+        "message": "Matriks",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
@@ -292,7 +292,7 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "Level cakupan bawaan:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
@@ -304,7 +304,7 @@
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "Situs",
         "description": "Scope will be full hostname of site"
     },
     "settingsMatrixAutoReloadPrompt": {
@@ -340,19 +340,19 @@
         "description": "English: Show the number of distinct requests on the icon"
     },
     "settingsCollapseBlocked": {
-        "message": "Runtuhkan tempat elemen yang diblokir",
+        "message": "Sembunyikan wadah elemen yang diblokir",
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "Sembunyikan wadah elemen terdaftar hitam",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "Palsukan tag <code><noscript><\/code> saat skrip pihak-pertama diblokir",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
-        "message": "Fungsikan dukungan penyimpanan awan",
+        "message": "Aktifkan dukungan penyimpanan awan",
         "description": ""
     },
     "privacyPageTitle": {
@@ -467,6 +467,10 @@
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Berkas host",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Semua nama host di dalam berkas host dimuat sebagai nama host yang dicekal dalam lingkup global.",
         "description": ""
@@ -519,8 +523,20 @@
         "message": "usang",
         "description": ""
     },
+    "assetsRecipesSection": {
+        "message": "Set aturan",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Set aturan diimpor dari panel popup <em>atas permintaan<\/em> pengguna, mis. <b>hanya<\/b> melalui interaksi pengguna.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Impor...",
+        "description": ""
+    },
     "rawSettingsWarning": {
-        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "message": "Peringatan! Ubah konfigurasi mentah ini dengan risiko anda sendiri.",
         "description": ""
     },
     "aboutChangelog": {
@@ -528,7 +544,7 @@
         "description": ""
     },
     "aboutStorageUsed": {
-        "message": "Penyimpanan digunakan: {{storageUsed}} bita",
+        "message": "Penyimpanan digunakan: {{storageUsed}} byte",
         "description": ""
     },
     "aboutDoc": {
@@ -644,7 +660,7 @@
         "description": ""
     },
     "commandWhitelistPageDomain": {
-        "message": "Sementara daftar-putihkan ranah halaman",
+        "message": "Sementara daftar-putihkan domain laman",
         "description": ""
     },
     "commandWhitelistAll": {
@@ -684,7 +700,7 @@
         "description": "Appears in Firefox's add-on preferences"
     },
     "showLoggerButton": {
-        "message": "Pencatat",
+        "message": "Pencatat Log",
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
@@ -716,7 +732,7 @@
         "description": ""
     },
     "genericApplyChanges": {
-        "message": "Apply changes",
+        "message": "Terapkan perubahan",
         "description": "for generic 'Apply changes' buttons"
     }
 }

@@ -36,7 +36,7 @@
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "고급",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -467,6 +467,10 @@
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Hosts files",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "호스트 파일에있는 도메인은 글로벌 블랙리스트에 포함됩니다.",
         "description": ""
@@ -519,8 +523,20 @@
         "message": "구버전입니다",
         "description": ""
     },
+    "assetsRecipesSection": {
+        "message": "Ruleset recipes",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Import...",
+        "description": ""
+    },
     "rawSettingsWarning": {
-        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "message": "경고! 다음 설정은 고급 사용자만 설정하세요.",
         "description": ""
     },
     "aboutChangelog": {
@@ -716,7 +732,7 @@
         "description": ""
     },
     "genericApplyChanges": {
-        "message": "Apply changes",
+        "message": "변경사항 적용",
         "description": "for generic 'Apply changes' buttons"
     }
 }

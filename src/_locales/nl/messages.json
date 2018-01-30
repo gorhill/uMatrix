@@ -467,6 +467,10 @@
         "message": "mijn-umatrix-regels.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Hosts files",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Alle hostnamen in een hosts-bestand worden in het globale bereik als geblackliste hostnamen geladen.",
         "description": ""
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "verouderd",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Ruleset recipes",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Import...",
         "description": ""
     },
     "rawSettingsWarning": {

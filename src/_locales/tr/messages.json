@@ -124,7 +124,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> etiketi aldat",
+        "message": "<code><noscript><\/code> etiketlerini aldat",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -467,6 +467,10 @@
         "message": "umatrix-kurallarim.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Varlıklar",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Alan adı dosyasındaki tüm alan adları genel kapsamda kara listeye yüklenir.",
         "description": ""
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "eski",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Kural seti tarifleri",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Kural seti tarifleri <em>isteğe bağlı olarak<\/em>, <b>yalnızca<\/b> kullanıcı etkileşimi yoluyla, açılır panelden içe aktarılır.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "İçe aktar...",
         "description": ""
     },
     "rawSettingsWarning": {

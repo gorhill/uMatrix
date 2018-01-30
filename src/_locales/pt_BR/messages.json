@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Arquivos de hosts",
+        "message": "Recursos",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -467,6 +467,10 @@
         "message": "minhas-regras-umatrix.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "Arquivos de hosts",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "Todos os hostnames no arquivo de hosts são carregados como hostnames da lista negra no escopo global.",
         "description": ""
@@ -488,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-atualizar os arquivos hosts.",
+        "message": "Atualizar recursos automaticamente.",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -500,7 +504,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Uma URL por linha. Linhas pré-fixadas com &lsquo;#&rsquo; irão ser ignoradas. URLs inválidas irão ser silenciosamente ignoradas.",
+        "message": "Importar recursos externos aqui:\nUma URL por linha. URLS inválidas irão ser silenciosamente ignoradas.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "desatualizado",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "Receitas de conjunto de regras",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "As receitas de conjunto de regras são importadas pelo painel <em>sob demanda<\/em>, ou seja, <b> apenas<\/b> através da interação do usuário.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Importar...",
         "description": ""
     },
     "rawSettingsWarning": {

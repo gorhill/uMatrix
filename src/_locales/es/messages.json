@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logueador",
+        "message": "uMatrix — Registro",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -32,11 +32,11 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Ficheros hosts",
+        "message": "Recursos",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "Más",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -56,7 +56,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "imagePrettyName": {
-        "message": "image",
+        "message": "imagen",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
@@ -100,7 +100,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Recargar la página.",
+        "message": "Recargar la página.\nMantenga pulsada la tecla Shift para evitar usar la caché del navegador.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -116,7 +116,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
-        "message": "Forbid web workers",
+        "message": "Prohibir web workers",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
@@ -124,7 +124,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Spoof <code><noscript><\/code> tags",
+        "message": "Falsificar etiquetas <code><noscript><\/code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -160,7 +160,7 @@
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "Intentos de <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>auditoría de hipervínculos<\/a> frustrados: {{count}}",
+        "message": "Intentos de <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>auditoría de hipervínculos<\/a> frustrados: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -268,7 +268,7 @@
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "Apariencia",
+        "message": "Matriz",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
@@ -344,11 +344,11 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "Ocultar marcadores de posición de los elementos bloqueados",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "Falsificar etiquetas <code><noscript><\/code> cuando se bloquean scripts del dominio actual",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -404,7 +404,7 @@
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "<p>Según Wikipedia:<\/p><blockquote>Un HTTP referer... identifica la dirección de la página web (es decir, la URI o IRI) que creó el vínculo con el recurso que está siendo solicitado. ... <b>Esto desata preocupaciones en cuanto a la privacidad, y como resultado... algunos navegadores web otorgan a sus usuarios la opción de eliminar el campo referer del encabezado de su solicitud.<\/b><\/blockquote><p>Si se selecciona esta opción, <i>uMatrix<\/i> falsificará la información del HTTP referer si el nombre de dominio del HTTP referer no concuerda con el nombre de dominio de la URL pedida (o sea, el creador del vínculo es un tercero respecto a la página web).<\/p>",
+        "message": "Según Wikipedia:<blockquote>Un HTTP referer... identifica la dirección de la página web (es decir, la URI o IRI) que creó el vínculo con el recurso que está siendo solicitado. ... <b>Esto desata preocupaciones en cuanto a la privacidad, y como resultado, se han desarrollado un cierto número de sistemas para prevenir que los servidores web envíen la URL real.<\/b><\/blockquote><p>Si se selecciona esta opción, <i>uMatrix<\/i> falsificará la información del HTTP referer si el nombre de dominio del HTTP referer no concuerda con el nombre de dominio de la URL pedida (o sea, el creador del vínculo es un tercero respecto a la página web).<\/p>",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -416,7 +416,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Bloquear todos los intentos de <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>auditoría de hipervínculos<\/a>.",
+        "message": "Bloquear todos los intentos de <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>auditoría de hipervínculos<\/a> attempts.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
@@ -466,6 +466,10 @@
     "userRulesDefaultFileName": {
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
+    },
+    "assetsHostsSection": {
+        "message": "Ficheros hosts",
+        "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
         "message": "Todos los nombres de dominio en un fichero <i>hosts<\/i> son cargados como nombres de dominio en lista negra de manera global.",
@@ -519,8 +523,20 @@
         "message": "desactualizado",
         "description": ""
     },
+    "assetsRecipesSection": {
+        "message": "Plantillas de conjunto de reglas",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "Las plantillas de conjunto de reglas se importan desde el panel emergente <em>bajo demanda<\/em>, ej. <b>sólo<\/b> mediante una acción del usuario.",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "Importar...",
+        "description": ""
+    },
     "rawSettingsWarning": {
-        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "message": "¡Atención! Modifique estos parámetros bajo su propio riesgo.",
         "description": ""
     },
     "aboutChangelog": {
@@ -716,7 +732,7 @@
         "description": ""
     },
     "genericApplyChanges": {
-        "message": "Apply changes",
+        "message": "Aplicar cambios",
         "description": "for generic 'Apply changes' buttons"
     }
 }

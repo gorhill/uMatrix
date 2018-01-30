@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "ホストファイル",
+        "message": "アセット",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -467,6 +467,10 @@
         "message": "my-umatrix-rules.txt",
         "description": "default file name to use"
     },
+    "assetsHostsSection": {
+        "message": "ホストファイル",
+        "description": "header to identify the hosts files section"
+    },
     "hostsFilesPrompt": {
         "message": "ホストファイルに記載されたすべてのホストへの、あらゆるリクエストはブロックされます。",
         "description": ""
@@ -488,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "ホストファイルを自動で更新する",
+        "message": "アセットを自動で更新する",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -500,7 +504,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "1 行にひとつずつ記述してください。&lsquo;#&rsquo; で始まる行は無視されます。無効な URL は警告なしに無視されます。",
+        "message": "追加するアセットの URL をここに書きます。\n1 行にひとつずつ書いてください。無効な URL は警告なしに無視されます。",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -517,6 +521,18 @@
     },
     "hostsFilesExternalListObsolete": {
         "message": "古い",
+        "description": ""
+    },
+    "assetsRecipesSection": {
+        "message": "ルールレシピ",
+        "description": "header to identify the ruleset files section"
+    },
+    "assetsRecipesSummary": {
+        "message": "ルールレシピは、ポップアップパネルで<b>ユーザーが選択して初めて<\/b>、ルールに追加されます。",
+        "description": ""
+    },
+    "assetsImportLabel": {
+        "message": "追加...",
         "description": ""
     },
     "rawSettingsWarning": {
