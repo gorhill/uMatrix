@@ -37,9 +37,8 @@
 
 /******************************************************************************/
 
-var exceptions = {};
-var rules = {};
-var selfieMagic = 'iscjsfsaolnm';
+var exceptions = new Map();
+var rules = new Map();
 
 // This value dictate how the search will be performed:
 //    < this.cutoffLength = indexOf()
@@ -92,9 +91,8 @@ function getPublicSuffix(hostname) {
     }
     // Since we slice down the hostname with each pass, the first match
     // is the longest, so no need to find all the matching rules.
-    var pos;
     while ( true ) {
-        pos = hostname.indexOf('.');
+        let pos = hostname.indexOf('.');
         if ( pos < 0 ) {
             return hostname;
         }
@@ -118,17 +116,17 @@ function getPublicSuffix(hostname) {
 
 function search(store, hostname) {
     // Extract TLD
-    var pos = hostname.lastIndexOf('.');
-    var tld, remainder;
-    if ( pos < 0 ) {
+    let tld, remainder;
+    let pos = hostname.lastIndexOf('.');
+    if ( pos === -1 ) {
         tld = hostname;
         remainder = hostname;
     } else {
         tld = hostname.slice(pos + 1);
         remainder = hostname.slice(0, pos);
     }
-    var substore = store[tld];
-    if ( !substore ) {
+    let substore = store.get(tld);
+    if ( substore === undefined ) {
         return false;
     }
     // If substore is a string, use indexOf()
@@ -136,17 +134,19 @@ function search(store, hostname) {
         return substore.indexOf(' ' + remainder + ' ') >= 0;
     }
     // It is an array: use binary search.
-    var l = remainder.length;
-    var haystack = substore[l];
-    if ( !haystack ) {
+    let l = remainder.length;
+    if ( l >= substore.length ) {
         return false;
     }
-    var left = 0;
-    var right = Math.floor(haystack.length / l + 0.5);
-    var i, needle;
+    let haystack = substore[l];
+    if ( haystack === null ) {
+        return false;
+    }
+    let left = 0;
+    let right = Math.floor(haystack.length / l + 0.5);
     while ( left < right ) {
-        i = left + right >> 1;
-        needle = haystack.substr( l * i, l );
+        let i = left + right >> 1;
+        let needle = haystack.substr(l*i, l);
         if ( remainder < needle ) {
             right = i;
         } else if ( remainder > needle ) {
@@ -168,22 +168,21 @@ function search(store, hostname) {
 // Suggestion: use <https://github.com/bestiejs/punycode.js> it's quite good.
 
 function parse(text, toAscii) {
-    exceptions = {};
-    rules = {};
+    exceptions = new Map();
+    rules = new Map();
 
-    var lineBeg = 0, lineEnd;
-    var textEnd = text.length;
-    var line, store, pos, tld;
+    let lineBeg = 0;
+    let textEnd = text.length;
 
     while ( lineBeg < textEnd ) {
-        lineEnd = text.indexOf('\n', lineBeg);
+        let lineEnd = text.indexOf('\n', lineBeg);
         if ( lineEnd < 0 ) {
             lineEnd = text.indexOf('\r', lineBeg);
             if ( lineEnd < 0 ) {
                 lineEnd = textEnd;
             }
         }
-        line = text.slice(lineBeg, lineEnd).trim();
+        let line = text.slice(lineBeg, lineEnd).trim();
         lineBeg = lineEnd + 1;
 
         if ( line.length === 0 ) {
@@ -191,18 +190,19 @@ function parse(text, toAscii) {
         }
 
         // Ignore comments
-        pos = line.indexOf('//');
-        if ( pos >= 0 ) {
+        let pos = line.indexOf('//');
+        if ( pos !== -1 ) {
             line = line.slice(0, pos);
         }
 
         // Ignore surrounding whitespaces
         line = line.trim();
-        if ( !line ) {
+        if ( line.length === 0 ) {
             continue;
         }
 
         // Is this an exception rule?
+        let store;
         if ( line.charAt(0) === '!' ) {
             store = exceptions;
             line = line.slice(1);
@@ -220,8 +220,9 @@ function parse(text, toAscii) {
         line = line.toLowerCase();
 
         // Extract TLD
+        let tld;
         pos = line.lastIndexOf('.');
-        if ( pos < 0 ) {
+        if ( pos === -1 ) {
             tld = line;
         } else {
             tld = line.slice(pos + 1);
@@ -229,13 +230,15 @@ function parse(text, toAscii) {
         }
 
         // Store suffix using tld as key
-        if ( !store.hasOwnProperty(tld) ) {
-            store[tld] = [];
+        let substore = store.get(tld);
+        if ( substore === undefined ) {
+            store.set(tld, substore = []);
         }
         if ( line ) {
-            store[tld].push(line);
+            substore.push(line);
         }
     }
+
     crystallize(exceptions);
     crystallize(rules);
 
@@ -248,69 +251,81 @@ function parse(text, toAscii) {
 // for future look up.
 
 function crystallize(store) {
-    var suffixes, suffix, i, l;
+    for ( let entry of store ) {
+        let tld = entry[0];
+        let suffixes = entry[1];
 
-    for ( var tld in store ) {
-        if ( !store.hasOwnProperty(tld) ) {
-            continue;
-        }
-        suffixes = store[tld].join(' ');
         // No suffix
-        if ( !suffixes ) {
-            store[tld] = '';
+        if ( suffixes.length === 0 ) {
+            store.set(tld, '');
             continue;
         }
+
         // Concatenated list of suffixes less than cutoff length:
         //   Store as string, lookup using indexOf()
-        if ( suffixes.length < cutoffLength ) {
-            store[tld] = ' ' + suffixes + ' ';
+        let s = suffixes.join(' ');
+        if ( s.length < cutoffLength ) {
+            store.set(tld, ' ' + s + ' ');
             continue;
         }
+
         // Concatenated list of suffixes greater or equal to cutoff length
         //   Store as array keyed on suffix length, lookup using binary search.
         // I borrowed the idea to key on string length here:
         //   http://ejohn.org/blog/dictionary-lookups-in-javascript/#comment-392072
-
-        i = store[tld].length;
-        suffixes = [];
-        while ( i-- ) {
-            suffix = store[tld][i];
-            l = suffix.length;
-            if ( !suffixes[l] ) {
-                suffixes[l] = [];
+        let buckets = [];
+        for ( let suffix of suffixes ) {
+            let l = suffix.length;
+            if ( buckets.length <= l ) {
+                extendArray(buckets, l);
             }
-            suffixes[l].push(suffix);
+            if ( buckets[l] === null ) {
+                buckets[l] = [];
+            }
+            buckets[l].push(suffix);
         }
-        l = suffixes.length;
-        while ( l-- ) {
-            if ( suffixes[l] ) {
-                suffixes[l] = suffixes[l].sort().join('');
+        for ( let i = 0; i < buckets.length; i++ ) {
+            let bucket = buckets[i];
+            if ( bucket !== null ) {
+                buckets[i] = bucket.sort().join('');
             }
         }
-        store[tld] = suffixes;
+        store.set(tld, buckets);
     }
+
     return store;
 }
 
+let extendArray = function(aa, rb) {
+    for ( let i = aa.length; i <= rb; i++ ) {
+        aa.push(null);
+    }
+};
+
 /******************************************************************************/
 
-function toSelfie() {
+let selfieMagic = 3;
+
+let toSelfie = function() {
     return {
         magic: selfieMagic,
-        rules: rules,
-        exceptions: exceptions
+        rules: Array.from(rules),
+        exceptions: Array.from(exceptions)
     };
-}
+};
 
-function fromSelfie(selfie) {
-    if ( typeof selfie !== 'object' || typeof selfie.magic !== 'string' || selfie.magic !== selfieMagic ) {
+let fromSelfie = function(selfie) {
+    if (
+        selfie instanceof Object === false ||
+        selfie.magic !== selfieMagic
+    ) {
         return false;
     }
-    rules = selfie.rules;
-    exceptions = selfie.exceptions;
+    rules = new Map(selfie.rules);
+    exceptions = new Map(selfie.exceptions);
     callListeners(onChangedListeners);
     return true;
-}
+};
 
 /******************************************************************************/
 

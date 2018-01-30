@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+'use strict';
+
 /******************************************************************************/
 
 µMatrix.LiquidDict = (function() {
@@ -26,55 +28,37 @@
 /******************************************************************************/
 
 var LiquidDict = function() {
-    this.dict = {};
-    this.count = 0;
-    this.duplicateCount = 0;
-    this.bucketCount = 0;
-    this.frozenBucketCount = 0;
-
-    // Somewhat arbitrary: I need to come up with hard data to know at which
-    // point binary search is better than indexOf.
-    this.cutoff = 500;
+    this.dict = new Map();
+    this.reset();
 };
+
+/******************************************************************************/
+
+// Somewhat arbitrary: I need to come up with hard data to know at which
+// point binary search is better than indexOf.
+
+LiquidDict.prototype.cutoff = 500;
 
 /******************************************************************************/
 
 var meltBucket = function(ldict, len, bucket) {
     ldict.frozenBucketCount -= 1;
-    var map = {};
-    if ( bucket.charAt(0) === ' ' ) {
-        bucket.trim().split(' ').map(function(k) {
-            map[k] = true;
-        });
-    } else {
-        var offset = 0;
-        while ( offset < bucket.length ) {
-            map[bucket.substring(offset, len)] = true;
-            offset += len;
-        }
+    if ( bucket.charCodeAt(0) === 0x20 /* ' ' */ ) {
+        return new Set(bucket.trim().split(' '));
     }
-    return map;
-};
-
-/******************************************************************************/
-
-var melt = function(ldict) {
-    var buckets = ldict.dict;
-    var bucket;
-    for ( var key in buckets ) {
-        bucket = buckets[key];
-        if ( typeof bucket === 'string' ) {
-            buckets[key] = meltBucket(ldict, key.charCodeAt(0) & 0xFF, bucket);
-        }
+    let dict = new Set();
+    let offset = 0;
+    while ( offset < bucket.length ) {
+        dict.add(bucket.substring(offset, len));
+        offset += len;
     }
+    return dict;
 };
-
-/******************************************************************************/
 
 var freezeBucket = function(ldict, bucket) {
     ldict.frozenBucketCount += 1;
-    var words = Object.keys(bucket);
-    var wordLen = words[0].length;
+    let words = Array.from(bucket);
+    let wordLen = words[0].length;
     if ( wordLen * words.length < ldict.cutoff ) {
         return ' ' + words.join(' ') + ' ';
     }
@@ -91,43 +75,38 @@ var freezeBucket = function(ldict, bucket) {
 // helper function?
 
 LiquidDict.prototype.makeKey = function(word) {
-    var len = word.length;
-    if ( len > 255 ) {
-        len = 255;
-    }
-    var i = len >> 2;
-    return String.fromCharCode(
-        (word.charCodeAt(    0) & 0x03) << 14 |
-        (word.charCodeAt(    i) & 0x03) << 12 |
-        (word.charCodeAt(  i+i) & 0x03) << 10 |
-        (word.charCodeAt(i+i+i) & 0x03) <<  8 |
-        len
-    );
+    let len = word.length;
+    if ( len > 255 ) { len = 255; }
+    let i = len >> 2;
+    return (word.charCodeAt(    0) & 0x03) << 14 |
+           (word.charCodeAt(    i) & 0x03) << 12 |
+           (word.charCodeAt(  i+i) & 0x03) << 10 |
+           (word.charCodeAt(i+i+i) & 0x03) <<  8 |
+           len;
 };
 
 /******************************************************************************/
 
 LiquidDict.prototype.test = function(word) {
-    var key = this.makeKey(word);
-    var bucket = this.dict[key];
+    let key = this.makeKey(word);
+    let bucket = this.dict.get(key);
     if ( bucket === undefined ) {
         return false;
     }
     if ( typeof bucket === 'object' ) {
-        return bucket[word] !== undefined;
+        return bucket.has(word);
     }
-    if ( bucket.charAt(0) === ' ' ) {
-        return bucket.indexOf(' ' + word + ' ') >= 0;
+    if ( bucket.charCodeAt(0) === 0x20 /* ' ' */ ) {
+        return bucket.indexOf(' ' + word + ' ') !== -1;
     }
     // binary search
-    var len = word.length;
-    var left = 0;
+    let len = word.length;
+    let left = 0;
     // http://jsperf.com/or-vs-floor/3
-    var right = ~~(bucket.length / len + 0.5);
-    var i, needle;
+    let right = ~~(bucket.length / len + 0.5);
     while ( left < right ) {
-        i = left + right >> 1;
-        needle = bucket.substr( len * i, len );
+        let i = left + right >> 1;
+        let needle = bucket.substr( len * i, len );
         if ( word < needle ) {
             right = i;
         } else if ( word > needle ) {
@@ -142,22 +121,21 @@ LiquidDict.prototype.test = function(word) {
 /******************************************************************************/
 
 LiquidDict.prototype.add = function(word) {
-    var key = this.makeKey(word);
-    if ( key === undefined ) {
-        return false;
-    }
-    var bucket = this.dict[key];
+    let key = this.makeKey(word);
+    let bucket = this.dict.get(key);
     if ( bucket === undefined ) {
-        this.dict[key] = bucket = {};
-        this.bucketCount += 1;
-        bucket[word] = true;
+        bucket = new Set();
+        this.dict.set(key, bucket);
+        bucket.add(word);
         this.count += 1;
         return true;
-    } else if ( typeof bucket === 'string' ) {
-        this.dict[key] = bucket = meltBucket(this, word.len, bucket);
     }
-    if ( bucket[word] === undefined ) {
-        bucket[word] = true;
+    if ( typeof bucket === 'string' ) {
+        bucket = meltBucket(this, word.len, bucket);
+        this.dict.set(key, bucket);
+    }
+    if ( bucket.has(word) === false ) {
+        bucket.add(word);
         this.count += 1;
         return true;
     }
@@ -168,12 +146,9 @@ LiquidDict.prototype.add = function(word) {
 /******************************************************************************/
 
 LiquidDict.prototype.freeze = function() {
-    var buckets = this.dict;
-    var bucket;
-    for ( var key in buckets ) {
-        bucket = buckets[key];
-        if ( typeof bucket === 'object' ) {
-            buckets[key] = freezeBucket(this, bucket);
+    for ( let entry of this.dict ) {
+        if ( typeof entry[1] === 'object' ) {
+            this.dict.set(entry[0], freezeBucket(this, entry[1]));
         }
     }
 };
@@ -181,11 +156,34 @@ LiquidDict.prototype.freeze = function() {
 /******************************************************************************/
 
 LiquidDict.prototype.reset = function() {
-    this.dict = {};
+    this.dict.clear();
     this.count = 0;
     this.duplicateCount = 0;
-    this.bucketCount = 0;
     this.frozenBucketCount = 0;
+};
+
+/******************************************************************************/
+
+let selfieVersion = 1;
+
+LiquidDict.prototype.toSelfie = function() {
+    this.freeze();
+    return {
+        version: selfieVersion,
+        count: this.count,
+        duplicateCount: this.duplicateCount,
+        frozenBucketCount: this.frozenBucketCount,
+        dict: Array.from(this.dict)
+    };
+};
+
+LiquidDict.prototype.fromSelfie = function(selfie) {
+    if ( selfie.version !== selfieVersion ) { return false; }
+    this.count = selfie.count;
+    this.duplicateCount = selfie.duplicateCount;
+    this.frozenBucketCount = selfie.frozenBucketCount;
+    this.dict = new Map(selfie.dict);
+    return true;
 };
 
 /******************************************************************************/
@@ -199,4 +197,3 @@ return LiquidDict;
 /******************************************************************************/
 
 µMatrix.ubiquitousBlacklist = new µMatrix.LiquidDict();
-µMatrix.ubiquitousWhitelist = new µMatrix.LiquidDict();

@@ -439,9 +439,12 @@
         callback = this.noopFunc;
     }
 
-    var loadHostsFilesEnd = function() {
-        µm.ubiquitousBlacklist.freeze();
-        vAPI.storage.set({ liveHostsFiles: Array.from(µm.liveHostsFiles) });
+    var loadHostsFilesEnd = function(fromSelfie) {
+        if ( fromSelfie !== true ) {
+            µm.ubiquitousBlacklist.freeze();
+            vAPI.storage.set({ liveHostsFiles: Array.from(µm.liveHostsFiles) });
+            µm.hostsFilesSelfie.create();
+        }
         vAPI.messaging.broadcast({ what: 'loadHostsFilesCompleted' });
         µm.getBytesInUse();
         callback();
@@ -472,7 +475,14 @@
         }
     };
 
-    this.getAvailableHostsFiles(loadHostsFilesStart);
+    var onSelfieReady = function(status) {
+        if ( status === true ) {
+            return loadHostsFilesEnd(true);
+        }
+        µm.getAvailableHostsFiles(loadHostsFilesStart);
+    };
+
+    this.hostsFilesSelfie.load(onSelfieReady);
 };
 
 /******************************************************************************/
@@ -647,6 +657,9 @@
             'selectedHostsFiles',
             'externalHostsFiles'
         );
+        if ( hostsChanged ) {
+            µm.hostsFilesSelfie.destroy();
+        }
         let recipesChanged = applyAssetSelection(
             metadata,
             details.recipes,
@@ -657,7 +670,6 @@
             µm.recipeManager.reset();
             µm.loadRecipes(true);
         }
-
         if ( typeof callback === 'function' ) {
             callback({
                 hostsChanged: hostsChanged,
@@ -680,7 +692,50 @@
 
 /******************************************************************************/
 
+µMatrix.hostsFilesSelfie = (function() {
+    let timer;
+
+    return {
+        create: function() {
+            this.cancel();
+            timer = vAPI.setTimeout(
+                function() {
+                    timer = undefined;
+                    vAPI.cacheStorage.set({
+                        hostsFilesSelfie: µMatrix.ubiquitousBlacklist.toSelfie()
+                    });
+                },
+                120000
+            );
+        },
+        destroy: function() {
+            this.cancel();
+            vAPI.cacheStorage.remove('hostsFilesSelfie');
+        },
+        load: function(callback) {
+            this.cancel();
+            vAPI.cacheStorage.get('hostsFilesSelfie', function(bin) {
+                callback(
+                    bin instanceof Object &&
+                    bin.hostsFilesSelfie instanceof Object &&
+                    µMatrix.ubiquitousBlacklist.fromSelfie(bin.hostsFilesSelfie)
+                );
+            });
+        },
+        cancel: function() {
+            if ( timer !== undefined ) {
+                clearTimeout(timer);
+            }
+            timer = undefined;
+        }
+    };
+})();
+
+/******************************************************************************/
+
 µMatrix.loadPublicSuffixList = function(callback) {
+    let µm = this;
+
     if ( typeof callback !== 'function' ) {
         callback = this.noopFunc;
     }
@@ -688,12 +743,61 @@
     var applyPublicSuffixList = function(details) {
         if ( !details.error ) {
             publicSuffixList.parse(details.content, punycode.toASCII);
+            µm.publicSuffixListSelfie.create();
         }
         callback();
     };
 
-    this.assets.get(this.pslAssetKey, applyPublicSuffixList);
+    let onSelfieReady = function(status) {
+        if ( status === true ) {
+            return callback();
+        }
+        µm.assets.get(µm.pslAssetKey, applyPublicSuffixList);
+    };
+
+    this.publicSuffixListSelfie.load(onSelfieReady);
 };
+
+/******************************************************************************/
+
+µMatrix.publicSuffixListSelfie = (function() {
+    let timer;
+
+    return {
+        create: function() {
+            this.cancel();
+            timer = vAPI.setTimeout(
+                function() {
+                    timer = undefined;
+                    vAPI.cacheStorage.set({
+                        publicSuffixListSelfie: publicSuffixList.toSelfie()
+                    });
+                },
+                60000
+            );
+        },
+        destroy: function() {
+            this.cancel();
+            vAPI.cacheStorage.remove('publicSuffixListSelfie');
+        },
+        load: function(callback) {
+            this.cancel();
+            vAPI.cacheStorage.get('publicSuffixListSelfie', function(bin) {
+                callback(
+                    bin instanceof Object &&
+                    bin.publicSuffixListSelfie instanceof Object &&
+                    publicSuffixList.fromSelfie(bin.publicSuffixListSelfie)
+                );
+            });
+        },
+        cancel: function() {
+            if ( timer !== undefined ) {
+                clearTimeout(timer);
+            }
+            timer = undefined;
+        }
+    };
+})();
 
 /******************************************************************************/
 
@@ -727,9 +831,10 @@
 /******************************************************************************/
 
 µMatrix.assetObserver = function(topic, details) {
+    let µmus = this.userSettings;
+
     // Do not update filter list if not in use.
     if ( topic === 'before-asset-updated' ) {
-        let µmus = this.userSettings;
         if (
             details.type === 'internal' ||
             details.type === 'filters' &&
@@ -743,6 +848,14 @@
     }
 
     if ( topic === 'after-asset-updated' ) {
+        if (
+            details.type === 'filters' &&
+            µmus.selectedHostsFiles.indexOf(details.assetKey) !== -1
+        ) {
+            this.hostsFilesSelfie.destroy();
+        } else if ( details.assetKey === this.pslAssetKey ) {
+            this.publicSuffixListSelfie.destroy();
+        }
         vAPI.messaging.broadcast({
             what: 'assetUpdated',
             key: details.assetKey,
@@ -766,7 +879,7 @@
         if (
             this.arraysIntersect(
                 details.assetKeys,
-                this.userSettings.selectedRecipeFiles
+                µmus.selectedRecipeFiles
             )
         ) {
             this.loadRecipes(true);
@@ -774,12 +887,12 @@
         if (
             this.arraysIntersect(
                 details.assetKeys,
-                this.userSettings.selectedHostsFiles
+                µmus.selectedHostsFiles
             )
         ) {
             this.loadHostsFiles();
         }
-        if ( this.userSettings.autoUpdate ) {
+        if ( µmus.autoUpdate ) {
             this.scheduleAssetUpdater(25200000);
         } else {
             this.scheduleAssetUpdater(0);
