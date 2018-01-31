@@ -91,6 +91,14 @@
         "message": "No net traffic seen for this tab so far.",
         "description": ""
     },
+    "matrixLocalScopeTip" : {
+        "message": "Select a local scope to see/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip" : {
+        "message": "Select the global scope to see/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip" : {
         "message": "Disable/enable matrix filtering for this scope",
         "description": "Tool tip for matrix button"
@@ -104,7 +112,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton" : {
-        "message": "Reload the page.\n Press Shift to bypass the browser cache.",
+        "message": "Reload the page. \nPress Shift to bypass the browser cache.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel" : {
@@ -282,13 +290,9 @@
         "message": "Text size:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal" : {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge" : {
-        "message": "Large",
-        "description": ""
+    "settingsIconBadgeEnabled":{
+        "message":"Show the number of distinct requests on the icon",
+        "description":""
     },
     "settingsMatrixDisplayColorBlind" : {
         "message": "Color-blind friendly",
@@ -342,10 +346,6 @@
         "message": "Opacity",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled":{
-        "message":"Show the number of distinct requests on the icon",
-        "description":"English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked" : {
         "message": "Collapse placeholder of blocked elements",
         "description": "English: Collapse placeholder of blocked elements"
@@ -360,6 +360,10 @@
     },
     "settingsCloudStorageEnabled" : {
         "message": "Enable cloud storage support",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips" : {
+        "message": "Disable tooltips",
         "description": ""
     },
 
@@ -516,7 +520,7 @@
         "description":""
     },
     "hostsFilesExternalListsHint":{
-        "message":"Import external assets here:\n One URL per line; invalid URLs will be silently ignored.",
+        "message":"Import external assets here: \nOne URL per line; invalid URLs will be silently ignored.",
         "description":""
     },
     "hostsFilesExternalListsParse":{

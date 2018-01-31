@@ -181,6 +181,7 @@ return {
         externalRecipeFiles: [],
         iconBadgeEnabled: false,
         maxLoggedRequests: 1000,
+        noTooltips: false,
         popupCollapseAllDomains: false,
         popupCollapseBlacklistedDomains: false,
         popupScopeLevel: 'domain',

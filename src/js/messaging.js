@@ -196,6 +196,7 @@ var matrixSnapshot = function(pageStore, details) {
         userSettings: {
             colorBlindFriendly: µmuser.colorBlindFriendly,
             displayTextSize: µmuser.displayTextSize,
+            noTooltips: µmuser.noTooltips,
             popupScopeLevel: µmuser.popupScopeLevel
         }
     };
