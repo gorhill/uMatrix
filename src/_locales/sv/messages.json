@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Värdnamnsfiler",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Uppdatera värdnamsfiler automatiskt.",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {

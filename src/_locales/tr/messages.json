@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Alan adı dosyaları",
+        "message": "Varlıklar",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -468,7 +468,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Varlıklar",
+        "message": "Alan adı dosyaları",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Alan adı dosyalarını otomatik olarak güncelle.",
+        "message": "Varlıkları otomatik güncelle",
         "description": ""
     },
     "hostsFilesUpdateNow": {

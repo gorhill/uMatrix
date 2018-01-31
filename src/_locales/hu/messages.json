@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Tiltólisták",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Hosts fájlok automatikus frissítése.",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {

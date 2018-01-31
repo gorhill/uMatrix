@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "アセット",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "アセットを自動で更新する",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {

@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Soubory hostů",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -400,7 +400,7 @@
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests",
         "description": ""
     },
     "privacyProcessRefererHelp": {
@@ -416,7 +416,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Automaticky aktualizovat soubory hostů.",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {

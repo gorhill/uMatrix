@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Fichiers hosts",
+        "message": "Ressources",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Mettre à jour les fichiers hosts automatiquement",
+        "message": "Mettre à jour les ressources automatiquement",
         "description": ""
     },
     "hostsFilesUpdateNow": {

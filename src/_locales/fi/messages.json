@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Host tiedostot",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -372,7 +372,7 @@
         "description": "First part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt2": {
-        "message": " minutes after the last time they have been used.",
+        "message": " minutes after the last time they have been used",
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
@@ -392,7 +392,7 @@
         "description": "First part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCachePrompt2": {
-        "message": "minutes.",
+        "message": "minutes",
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
@@ -400,7 +400,7 @@
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests.",
+        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests",
         "description": ""
     },
     "privacyProcessRefererHelp": {
@@ -408,7 +408,7 @@
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
-        "message": "Strict HTTPS: forbid mixed content.",
+        "message": "Strict HTTPS: forbid mixed content",
         "description": ""
     },
     "privacyNoMixedContentHelp": {
@@ -416,7 +416,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets.",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {

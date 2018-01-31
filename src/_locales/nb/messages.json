@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Vertsfiler",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -416,7 +416,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts.",
+        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-oppdatering av vertsfiler.",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {

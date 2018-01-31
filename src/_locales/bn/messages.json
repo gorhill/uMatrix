@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "নিমন্ত্রক ফাইল",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "হোস্ট ফাইল স্বয়ংক্রিয়-হালনাগাদ করুন।",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {

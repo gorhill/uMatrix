@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Automatycznie aktualizuj zasoby.",
+        "message": "Automatycznie aktualizuj zasoby",
         "description": ""
     },
     "hostsFilesUpdateNow": {

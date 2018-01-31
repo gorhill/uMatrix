@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Hosts-bestanden",
+        "message": "Assets",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -468,7 +468,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Hosts-bestanden",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Hosts-bestanden automatisch bijwerken",
+        "message": "Auto-update assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -504,7 +504,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Eén URL per regel. Regels beginnend met &lsquo;#&rsquo; worden genegeerd. Ongeldige URL’s worden zonder mededeling genegeerd.",
+        "message": "Importeer hier externe middelen:\nEén URL per regel; ongeldige URL’s worden zonder mededeling genegeerd.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -524,15 +524,15 @@
         "description": ""
     },
     "assetsRecipesSection": {
-        "message": "Ruleset recipes",
+        "message": "Regelsetrecepten",
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "Regelsetrecepten worden <em>op aanvraag<\/em> vanuit het pop-uppaneel geïmporteerd, d.w.z. <b>alleen<\/b> via gebruikersinteractie.",
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Importeren...",
         "description": ""
     },
     "rawSettingsWarning": {
