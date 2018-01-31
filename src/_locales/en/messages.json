@@ -92,19 +92,19 @@
         "description": ""
     },
     "matrixMtxButtonTip" : {
-        "message": "Disable/enable matrix filtering for this scope.",
+        "message": "Disable/enable matrix filtering for this scope",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip" : {
-        "message": "Save all temporary changes for this scope.",
+        "message": "Save all temporary changes for this scope",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip" : {
-        "message": "Revert temporary changes for this scope.",
+        "message": "Revert temporary changes for this scope",
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton" : {
-        "message": "Reload the page.\nPress Shift to bypass the browser cache.",
+        "message": "Reload the page.\n Press Shift to bypass the browser cache.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel" : {
@@ -257,7 +257,7 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2" : {
-        "message": "HTTP requests <b>per page</b>.",
+        "message": "HTTP requests <b>per page</b>",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp" : {
@@ -368,7 +368,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesPrompt" : {
-        "message": "Delete blocked cookies.",
+        "message": "Delete blocked cookies",
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp" : {
@@ -598,7 +598,7 @@
         "description": ""
     },
     "aboutBackupButton" : {
-        "message": "Backup to file...",
+        "message": "Back up to file...",
         "description": ""
     },
     "aboutBackupFilename" : {
