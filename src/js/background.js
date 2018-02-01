@@ -179,7 +179,7 @@ return {
         displayTextSize: '14px',
         externalHostsFiles: [],
         externalRecipeFiles: [],
-        iconBadgeEnabled: false,
+        iconBadgeEnabled: true,
         maxLoggedRequests: 1000,
         noTooltips: false,
         popupCollapseAllDomains: false,
