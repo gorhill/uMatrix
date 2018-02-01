@@ -98,7 +98,7 @@ var onPSLReady = function() {
 /******************************************************************************/
 
 processCallbackQueue(µm.onBeforeStartQueue, function() {
-    µm.loadPublicSuffixList(onPSLReady);
+    µm.publicSuffixList.load(onPSLReady);
 });
 
 /******************************************************************************/

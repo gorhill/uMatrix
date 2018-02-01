@@ -733,68 +733,47 @@
 
 /******************************************************************************/
 
-µMatrix.loadPublicSuffixList = function(callback) {
-    let µm = this;
+µMatrix.publicSuffixList = (function() {
+    let µm = µMatrix;
 
-    if ( typeof callback !== 'function' ) {
-        callback = this.noopFunc;
-    }
-
-    var applyPublicSuffixList = function(details) {
-        if ( !details.error ) {
+    var onPSLReady = function(details, callback) {
+        if (
+            !details.error &&
+            typeof details.content === 'string' &&
+            details.content.length !== 0
+        ) {
             publicSuffixList.parse(details.content, punycode.toASCII);
-            µm.publicSuffixListSelfie.create();
+            vAPI.cacheStorage.set({
+                publicSuffixListSelfie: publicSuffixList.toSelfie()
+            });
         }
         callback();
     };
 
-    let onSelfieReady = function(status) {
-        if ( status === true ) {
+    let onSelfieReady = function(bin, callback) {
+        if (
+            bin instanceof Object &&
+            bin.publicSuffixListSelfie instanceof Object &&
+            publicSuffixList.fromSelfie(bin.publicSuffixListSelfie)
+        ) {
             return callback();
         }
-        µm.assets.get(µm.pslAssetKey, applyPublicSuffixList);
+        µm.assets.get(µm.pslAssetKey, function(details) {
+            onPSLReady(details, callback);
+        });
     };
 
-    this.publicSuffixListSelfie.load(onSelfieReady);
-};
-
-/******************************************************************************/
-
-µMatrix.publicSuffixListSelfie = (function() {
-    let timer;
-
     return {
-        create: function() {
-            this.cancel();
-            timer = vAPI.setTimeout(
-                function() {
-                    timer = undefined;
-                    vAPI.cacheStorage.set({
-                        publicSuffixListSelfie: publicSuffixList.toSelfie()
-                    });
-                },
-                60000
-            );
-        },
-        destroy: function() {
-            this.cancel();
-            vAPI.cacheStorage.remove('publicSuffixListSelfie');
+        update: function(details) {
+            onPSLReady(details, µm.noopFunc);
         },
         load: function(callback) {
-            this.cancel();
-            vAPI.cacheStorage.get('publicSuffixListSelfie', function(bin) {
-                callback(
-                    bin instanceof Object &&
-                    bin.publicSuffixListSelfie instanceof Object &&
-                    publicSuffixList.fromSelfie(bin.publicSuffixListSelfie)
-                );
-            });
-        },
-        cancel: function() {
-            if ( timer !== undefined ) {
-                clearTimeout(timer);
+            if ( typeof callback !== 'function' ) {
+                callback = µm.noopFunc;
             }
-            timer = undefined;
+            vAPI.cacheStorage.get('publicSuffixListSelfie', function(bin) {
+                onSelfieReady(bin, callback);
+            });
         }
     };
 })();
@@ -854,7 +833,7 @@
         ) {
             this.hostsFilesSelfie.destroy();
         } else if ( details.assetKey === this.pslAssetKey ) {
-            this.publicSuffixListSelfie.destroy();
+            this.publicSuffixList.update(details);
         }
         vAPI.messaging.broadcast({
             what: 'assetUpdated',
