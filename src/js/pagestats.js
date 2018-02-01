@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2013-2017 Raymond Hill
+    Copyright (C) 2013-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -204,6 +204,12 @@ PageStore.prototype = {
     },
 
     recordRequest: function(type, url, block) {
+        if ( block ) {
+            this.perLoadBlockedRequestCount++;
+        } else {
+            this.perLoadAllowedRequestCount++;
+        }
+
         // Store distinct network requests. This is used to:
         // - remember which hostname/type were seen
         // - count the number of distinct URLs for any given
@@ -227,12 +233,6 @@ PageStore.prototype = {
         // If it is recorded locally, record globally
         µm.requestStats.record(type, block);
         µm.updateBadgeAsync(this.tabId);
-
-        if ( block !== false ) {
-            this.perLoadBlockedRequestCount++;
-        } else {
-            this.perLoadAllowedRequestCount++;
-        }
 
         this.distinctRequestCount++;
         this.mtxCountModifiedTime = Date.now();

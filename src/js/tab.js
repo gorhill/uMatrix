@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    µMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2016  Raymond Hill
+    uMatrix - a Chromium browser extension to black/white list requests.
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -558,46 +558,50 @@ vAPI.tabs.registerListeners();
 
 /******************************************************************************/
 
-// Update badge
-
-// rhill 2013-11-09: well this sucks, I can't update icon/badge
-// incrementally, as chromium overwrite the icon at some point without
-// notifying me, and this causes internal cached state to be out of sync.
-
 µm.updateBadgeAsync = (function() {
-    var tabIdToTimer = Object.create(null);
+    let tabIdToTimer = new Map();
 
-    var updateBadge = function(tabId) {
-        delete tabIdToTimer[tabId];
+    let updateBadge = function(tabId) {
+        tabIdToTimer.delete(tabId);
 
-        var iconId = null;
-        var badgeStr = '';
+        let iconId = 'off';
+        let badgeStr = '';
 
-        var pageStore = this.pageStoreFromTabId(tabId);
+        let pageStore = this.pageStoreFromTabId(tabId);
         if ( pageStore !== null ) {
-            var total = pageStore.perLoadAllowedRequestCount +
+            let total = pageStore.perLoadAllowedRequestCount +
                         pageStore.perLoadBlockedRequestCount;
             if ( total ) {
-                var squareSize = 19;
-                var greenSize = squareSize * Math.sqrt(pageStore.perLoadAllowedRequestCount / total);
-                iconId = greenSize < squareSize/2 ? Math.ceil(greenSize) : Math.floor(greenSize);
+                let squareSize = 19;
+                let greenSize = squareSize * Math.sqrt(
+                    pageStore.perLoadAllowedRequestCount / total
+                );
+                iconId = greenSize < squareSize/2 ?
+                    Math.ceil(greenSize) :
+                    Math.floor(greenSize);
             }
-            if ( this.userSettings.iconBadgeEnabled && pageStore.distinctRequestCount !== 0) {
-                badgeStr = this.formatCount(pageStore.distinctRequestCount);
+            if (
+                this.userSettings.iconBadgeEnabled &&
+                pageStore.perLoadBlockedRequestCount !== 0
+            ) {
+                badgeStr = this.formatCount(pageStore.perLoadBlockedRequestCount);
             }
         }
 
-        vAPI.setIcon(tabId, iconId, badgeStr);
+        vAPI.setIcon(
+            tabId,
+            'img/browsericons/icon19-' + iconId + '.png',
+            { text: badgeStr, color: '#666' }
+        );
     };
 
     return function(tabId) {
-        if ( tabIdToTimer[tabId] ) {
-            return;
-        }
-        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-            return;
-        }
-        tabIdToTimer[tabId] = vAPI.setTimeout(updateBadge.bind(this, tabId), 750);
+        if ( tabIdToTimer.has(tabId) ) { return; }
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) { return; }
+        tabIdToTimer.set(
+            tabId,
+            vAPI.setTimeout(updateBadge.bind(this, tabId), 750)
+        );
     };
 })();
 

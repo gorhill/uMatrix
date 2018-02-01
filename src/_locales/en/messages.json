@@ -291,7 +291,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled":{
-        "message":"Show the number of distinct requests on the icon",
+        "message":"Show the number of blocked resources on the icon",
         "description":""
     },
     "settingsMatrixDisplayColorBlind" : {

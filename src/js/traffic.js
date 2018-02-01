@@ -47,6 +47,8 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
     var pageStore = µm.pageStoreFromTabId(tabId);
     pageStore.recordRequest('doc', requestURL, block);
+    pageStore.perLoadAllowedRequestCount = 0;
+    pageStore.perLoadBlockedRequestCount = 0;
     µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, 'doc', block);
 
     // Not blocked

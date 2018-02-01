@@ -1,8 +1,8 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to block requests.
-    Copyright (C) 2014-2017 The uBlock Origin authors
-    Copyright (C)      2017 Raymond Hill
+    Copyright (C) 2014-2018 The uBlock Origin authors
+    Copyright (C) 2017-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -381,32 +381,32 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
 // Since we may be called asynchronously, the tab id may not exist
 // anymore, so this ensures it does still exist.
 
-vAPI.setIcon = function(tabId, iconId, badge) {
-    tabId = parseInt(tabId, 10);
-    if ( isNaN(tabId) || tabId <= 0 ) {
-        return;
-    }
-    var onIconReady = function() {
-        if ( vAPI.lastError() ) {
-            return;
+vAPI.setIcon = (function() {
+    let onIconReady = function(tabId, badgeDetails) {
+        if ( vAPI.lastError() ) { return; }
+        if ( badgeDetails.text !== undefined ) {
+            chrome.browserAction.setBadgeText({
+                tabId: tabId,
+                text: badgeDetails.text
+            });
         }
-        chrome.browserAction.setBadgeText({ tabId: tabId, text: badge });
-        if ( badge !== '' ) {
+        if ( badgeDetails.color !== undefined ) {
             chrome.browserAction.setBadgeBackgroundColor({
                 tabId: tabId,
-                color: '#000'
+                color: badgeDetails.color
             });
         }
     };
 
-    var iconSelector = typeof iconId === 'number' ? iconId : 'off';
-    var iconPaths = {
-        '19': 'img/browsericons/icon19-' + iconSelector + '.png'/* ,
-        '38': 'img/browsericons/icon38-' + iconSelector + '.png' */
+    return function(tabId, iconDetails, badgeDetails) {
+        tabId = parseInt(tabId, 10);
+        if ( isNaN(tabId) || tabId === -1 ) { return; }
+        chrome.browserAction.setIcon(
+            { tabId: tabId, path: iconDetails },
+            function() { onIconReady(tabId, badgeDetails); }
+        );
     };
-
-    chrome.browserAction.setIcon({ tabId: tabId, path: iconPaths }, onIconReady);
-};
+})();
 
 /******************************************************************************/
 /******************************************************************************/

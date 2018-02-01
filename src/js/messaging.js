@@ -573,7 +573,7 @@ var onMessage = function(request, sender, callback) {
                 request.documentURI;
             if ( pageStore !== null ) {
                 pageStore.hasWebWorkers = true;
-                pageStore.recordRequest('script', url, true);
+                pageStore.recordRequest('script', url, request.blocked);
             }
             if ( tabContext !== null ) {
                 µm.logger.writeOne(tabId, 'net', rootHostname, url, 'worker', request.blocked);
