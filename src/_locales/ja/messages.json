@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "アセット",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -86,6 +86,14 @@
     "matrixNoNetTrafficPrompt": {
         "message": "このタブではネットワークトラフィックを検出できません",
         "description": ""
+    },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
         "message": "このスコープの Matrix フィルタの有効\/無効を切り替える",
@@ -275,12 +283,8 @@
         "message": "文字の大きさ：",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "標準",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "大きい",
+    "settingsIconBadgeEnabled": {
+        "message": "アイコンにリクエスト数を表示する",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "不透明度",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "アイコンにリクエスト数を表示する",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "ブロックした要素のプレースホルダを表示しない",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "クラウドストレージのサポートを有効にする",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {
@@ -492,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "アセットを自動で更新する",
         "description": ""
     },
     "hostsFilesUpdateNow": {

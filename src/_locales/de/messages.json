@@ -87,6 +87,14 @@
         "message": "Bisher keine Netzwerkaktivität für diesen Tab.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Aktiviere\/deaktiviere die Matrix-Filter für diesen Geltungsbereich.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Schriftgröße:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Groß",
+    "settingsIconBadgeEnabled": {
+        "message": "Zeige die Zahl der einzelnen Anfragen auf dem Icon an",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Undurchsuchtigkeit",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Zeige die Zahl der einzelnen Anfragen auf dem Icon an",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Verstecke die Platzhalter für blockierte Elemente",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Aktiviere die Unterstützung der Speicherung in der Cloud",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

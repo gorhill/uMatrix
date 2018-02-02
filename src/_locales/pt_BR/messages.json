@@ -87,6 +87,14 @@
         "message": "Não foi encontrado tráfego de rede nesta aba até agora.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Selecionar um escopo local para ver\/criar regras que se apliquem somente neste escopo",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Selecionar um escopo global para ver\/criar regras quem se apliquem a todos lugares",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Desabilitar\/habilitar filtragem pela matrix para este escopo.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Tamanho do texto:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Grande",
+    "settingsIconBadgeEnabled": {
+        "message": "Mostrar o número de recursos bloqueados sob o ícone",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Opacidade",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Mostrar o número de pedidos distintos sob o ícone",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Agrupar espaços reservados à elementos bloqueados",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Habilitar suporte à armazenagem em nuvem",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Desabilitar dicas",
         "description": ""
     },
     "privacyPageTitle": {
@@ -492,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-atualizar recursos",
+        "message": "Autoatualizar recursos",
         "description": ""
     },
     "hostsFilesUpdateNow": {

@@ -87,6 +87,14 @@
         "message": "Chưa phát hiện lưu lượng mạng trong thẻ này.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Vô hiệu\/kích hoạt lọc ma trận cho phạm vi này.\nYêu cầu đã chặn thông qua lọc ma trận trên trang này: {{count}}.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Cỡ chữ:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Thường",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Lớn",
+    "settingsIconBadgeEnabled": {
+        "message": "Hiển thị số lượng yêu cầu riêng biệt trên biểu tượng",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Độ mờ",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Hiển thị số lượng yêu cầu riêng biệt trên biểu tượng",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Collapse placeholder of blocked elements",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Enable cloud storage support",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

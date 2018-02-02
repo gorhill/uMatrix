@@ -87,6 +87,14 @@
         "message": "Não foi encontrado tráfego nesta aba até agora.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Desactiva\/Activa filtração matriz neste escopo.\nPedidos bloqueados através da filtração da matriz nesta página: {{count}}.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Tamanho do texto:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Grande",
+    "settingsIconBadgeEnabled": {
+        "message": "Mostra o número de pedidos distintos no ícone",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Opacidade",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Mostra o número de pedidos distintos no ícone",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Colapsar espaço reservado dos elementos bloqueados ",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Ativar suporte para armazenamento na nuvem",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

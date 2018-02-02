@@ -87,6 +87,14 @@
         "message": "No se ha detectado tráfico de red en esta pestaña hasta el momento.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Deshabilita\/habilita el filtrado por matriz en este ámbito.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Tamaño del texto:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Grande",
+    "settingsIconBadgeEnabled": {
+        "message": "Mostrar el número de peticiones distintas en el icono",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Opacidad",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Mostrar el número de peticiones distintas en el icono",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Colapsar marcadores de posición de los elementos bloqueados",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Habilitar soporte de almacenamiento en la nube",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

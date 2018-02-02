@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Middelen",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -86,6 +86,14 @@
     "matrixNoNetTrafficPrompt": {
         "message": "Voor dit tabblad is nog geen netwerkverkeer gedetecteerd.",
         "description": ""
+    },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
         "message": "Matrixfiltering voor dit bereik in-\/uitschakelen",
@@ -275,12 +283,8 @@
         "message": "Tekstgrootte:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normaal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Groot",
+    "settingsIconBadgeEnabled": {
+        "message": "Het aantal afzonderlijke aanvragen op het pictogram tonen",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Ondoorzichtigheid",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Het aantal afzonderlijke aanvragen op het pictogram tonen",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Tijdelijke aanduiding van geblokkeerde elementen samenvouwen",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Ondersteuning voor cloudopslag inschakelen",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {
@@ -492,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Middelen automatisch bijwerken",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -596,7 +600,7 @@
         "description": ""
     },
     "aboutRestoreConfirm": {
-        "message": "Al uw instelling zullen met back-upgegevens van {{time}} worden overschreven, en uMatrix zal worden herstart.\n\nWilt u alle bestaande instellingen met back-upgegevens overschrijven?",
+        "message": "Al uw instellingen zullen met back-upgegevens van {{time}} worden overschreven, en uMatrix zal worden herstart.\n\nWilt u alle bestaande instellingen met back-upgegevens overschrijven?",
         "description": "Message asking user to confirm restore"
     },
     "aboutRestoreError": {

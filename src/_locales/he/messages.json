@@ -87,16 +87,24 @@
         "message": "לא נצפו פעולות רשת בלשונית זו עד לעכשיו.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "בחר טווח לוקאלי על מנת לראות\/ליצור חוקים אשר חלים אך ורק לטווח זה",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "בחר טווח גלובאלי על מנת לראות\/ליצור חוקים אשר חלים בכל מקום",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
-        "message": "כבה\/אפשר מטריצת פילטור עבור טווח זה.",
+        "message": "כבה\/אפשר מטריצת פילטור עבור טווח זה",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
-        "message": "שמור את כל השינויים הזמניים עבור טווח זה.",
+        "message": "שמור את כל השינויים הזמניים עבור טווח זה",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip": {
-        "message": "מחק שינויים זמניים עבור טווח זה.",
+        "message": "מחק שינויים זמניים עבור טווח זה",
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
@@ -275,12 +283,8 @@
         "message": "גודל טקסט:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "רגיל",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "גדול",
+    "settingsIconBadgeEnabled": {
+        "message": "הראה את מספר הבקשות החסומות הייחודיות על האייקון",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "אטימות",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "הראה את מספר הבקשות החסומות הייחודיות על האייקון",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "הסתר את המקום שנשאר מחסימה של אלמנטים",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "אפשר תמיכת אחסון ענן",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "כבה רמזים צצים",
         "description": ""
     },
     "privacyPageTitle": {

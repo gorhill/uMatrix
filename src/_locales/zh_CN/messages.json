@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "资源",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -87,6 +87,14 @@
         "message": "该页面暂无网络传输。",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "选择一个域名並检视或创建应用至该域名的规则。",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "切换至全局并检视或创建全局规则。",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "停用或启用在该域名下的过滤。",
         "description": "Tool tip for matrix button"
@@ -96,7 +104,7 @@
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip": {
-        "message": "撤销该域名下的所有临时变更。",
+        "message": "撤销应用至该域名的所有临时变更。",
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
@@ -275,12 +283,8 @@
         "message": "文字大小：",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "标准",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "大",
+    "settingsIconBadgeEnabled": {
+        "message": "在图标上显示被屏蔽资源的数量",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "不透明度",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "在图标上显示页面请求数量",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "隐藏已拦截请求所关联的页面内容",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "启用浏览器自带云储存功能",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "停用使用提示",
         "description": ""
     },
     "privacyPageTitle": {
@@ -468,7 +472,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Hosts 文件",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -492,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "自动更新资源",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -524,15 +528,15 @@
         "description": ""
     },
     "assetsRecipesSection": {
-        "message": "Ruleset recipes",
+        "message": "过滤规则集合",
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "过滤规则集合只能由用户自行添加。",
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "导入…",
         "description": ""
     },
     "rawSettingsWarning": {

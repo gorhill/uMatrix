@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Eszközök",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -86,6 +86,14 @@
     "matrixNoNetTrafficPrompt": {
         "message": "Eddig még nincs ehhez a laphoz tartozó adatátvitel.",
         "description": ""
+    },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
         "message": "Mátrixszűrés engedélyezése\/tiltása ebben a hatáskörben.",
@@ -275,12 +283,8 @@
         "message": "Betűméret:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normál",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Nagy",
+    "settingsIconBadgeEnabled": {
+        "message": "Jelenjen meg az egyedi lekérések száma az ikonon",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Áttetszőség",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Jelenjen meg az egyedi lekérések száma az ikonon",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Blokkolt elemek helyőrzőinek elrejtése",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Felhőszolgáltatások támogatása",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {
@@ -468,7 +472,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Hosts fájlok",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -492,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Eszközök automatikus frissítése",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -524,15 +528,15 @@
         "description": ""
     },
     "assetsRecipesSection": {
-        "message": "Ruleset recipes",
+        "message": "Szabálysablonok",
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "Szabálysablonok importálása a felugró panelen <b>kizárólag<\/b> <em>felhasználói igény szerint<\/em> történik.",
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Importálás...",
         "description": ""
     },
     "rawSettingsWarning": {

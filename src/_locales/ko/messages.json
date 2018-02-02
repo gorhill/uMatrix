@@ -87,6 +87,14 @@
         "message": "이 탭에서는 네트워크 트래픽을 감지 할 수 없습니다.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "현재 페이지에 대한 matrix 사용 여부 설정",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "글자 크기:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "보통",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "큼",
+    "settingsIconBadgeEnabled": {
+        "message": "아이콘에 요청 수 표시",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Opacity",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "아이콘에 요청 수 표시",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "차단 된 요청과 관련된 페이지 콘텐츠를 숨깁니다.",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "클라우드 저장소 활성화",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

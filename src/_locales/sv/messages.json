@@ -87,6 +87,14 @@
         "message": "Ingen nättrafik har hittills upptäckts för den här fliken.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Stäng av\/sätt på matrisfiltrering i detta omfång.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Textstorlek:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Stor",
+    "settingsIconBadgeEnabled": {
+        "message": "Visa antalet distinkta förfrågningar i ikonen",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Genomskinlighet",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Visa antalet distinkta förfrågningar i ikonen",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Kollapsa blockerade objekt",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Stöd för lagring i molnet",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

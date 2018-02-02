@@ -87,6 +87,14 @@
         "message": "لم يحدث اي اتصال بهذا التبويب حتى الآن.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "تعطيل \/ تمكين ميزة التصفيه لهذا النطاق.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "حجم الخط:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "‮عادي",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "كبير",
+    "settingsIconBadgeEnabled": {
+        "message": "عرض عدد من طلبات متميزة على أيقونة",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "الشفافية",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "عرض عدد من طلبات متميزة على أيقونة",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "انهيار نائبا من عناصر المحظورة",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "تمكين دعم سحابة التخزين",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

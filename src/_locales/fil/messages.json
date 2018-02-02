@@ -87,6 +87,14 @@
         "message": "Walang nakikitang trapiko sa net para sa tab na ito sa ngayon.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Huwag paganahin \/ paganahin ang pag-filter ng matris para sa saklaw na ito.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Laki ng teksto:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Malaki",
+    "settingsIconBadgeEnabled": {
+        "message": "Ipakita ang bilang ng mga natatanging kahilingan sa icon",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Opacity",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Ipakita ang bilang ng mga natatanging kahilingan sa icon",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "I-collapse ang mga placeholder ng mga naka-block na elemento",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Paganahin ang suporta sa cloud storage",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

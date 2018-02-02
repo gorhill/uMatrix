@@ -87,6 +87,14 @@
         "message": "Aucune activité réseau n'a été observée sur cet onglet pour l'instant.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Choisissez le contexte local pour voir\/créer des règles à y appliquer",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Choisissez le contexte global pour voir\/créer des règles à appliquer partout",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Désactiver\/Activer les filtres matriciels pour le contexte actuel",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Taille du texte :",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normale",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Grande",
+    "settingsIconBadgeEnabled": {
+        "message": "Montrer le nombre de ressources bloquées sur l'icône",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Opacité :",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Montrer le nombre de requêtes distinctes sur l'icône",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Cacher les espaces réservés aux éléments bloqués",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Activer le stockage des paramètres dans le nuage",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Désactiver les infobulles",
         "description": ""
     },
     "privacyPageTitle": {

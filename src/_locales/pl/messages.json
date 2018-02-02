@@ -87,6 +87,14 @@
         "message": "Brak aktywności sieciowej dla tej karty.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Wybierz kontekst lokalny, by widzieć\/tworzyć reguły które działają tylko na tej stronie",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Wybierz kontekst globalny, by widzieć\/tworzyć reguły które działają wszędzie",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Wyłącz\/włącz filtrowanie matrycowe dla tego kontekstu.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Rozmiar tekstu:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normalny",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Duży",
+    "settingsIconBadgeEnabled": {
+        "message": "Wyświetlaj liczbę zablokowanych żądań na ikonie rozszerzenia",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Przezroczystość",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Pokaż liczbę odrębnych żądań na ikonie rozszerzenia",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Ukryj symbole zastępcze zablokowanych elementów",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Włącz możliwość zapisywania ustawień w chmurze",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Nie wyświetlaj podpowiedzi",
         "description": ""
     },
     "privacyPageTitle": {

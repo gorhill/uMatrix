@@ -87,6 +87,14 @@
         "message": "Deocamdată nu a fost detectat trafic pentru această filă.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Dezactivează\/activează filtrarea matriceală pentru acest context.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Dimensiunea textului:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Mare",
+    "settingsIconBadgeEnabled": {
+        "message": "Arată numărul cererilor distincte pe pictogramă",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Opacitate",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Arată numărul cererilor distincte pe pictogramă",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Collapse placeholder of blocked elements",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Enable cloud storage support",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {
@@ -504,7 +508,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Import external assets here:\nOne URL per line; invalid URLs will be silently ignored.",
+        "message": "Import external assets here: \nOne URL per line; invalid URLs will be silently ignored.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {

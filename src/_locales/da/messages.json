@@ -87,6 +87,14 @@
         "message": "Endnu ingen trafik registreret på denne fane.",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "Deaktiver\/aktiver matrix-filtrering på dette område.",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "Skriftstørrelse:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Normal",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Stor",
+    "settingsIconBadgeEnabled": {
+        "message": "Vis antal separate forespørgsler på ikonet",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Uigennemsigtighed",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Vis antal separate forespørgsler på ikonet",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Sammenfold pladsholder for blokerede elementer",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Aktiver lagring i skyen",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {

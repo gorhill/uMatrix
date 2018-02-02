@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Сторонние правила",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -86,6 +86,14 @@
     "matrixNoNetTrafficPrompt": {
         "message": "Нет сетевой активности на этой вкладке.",
         "description": ""
+    },
+    "matrixLocalScopeTip": {
+        "message": "Выберите локальную область для просмотра\/создания правил, которые применяются только к этой области",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Выберите локальную область для просмотра\/создания правил, которые применяются повсеместно",
+        "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
         "message": "Откл\/вкл фильтрацию запросов для данной области",
@@ -275,12 +283,8 @@
         "message": "Размер текста:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "Средний",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "Крупный",
+    "settingsIconBadgeEnabled": {
+        "message": "Показывать число отдельных запросов на иконке",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "Непрозрачность",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "Показывать число отдельных запросов на иконке",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "Скрывать оставшееся от заблокированных элементов место",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "Включить поддержку облачного хранилища",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Отключить подсказки",
         "description": ""
     },
     "privacyPageTitle": {
@@ -492,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Автообновление списков правил",
         "description": ""
     },
     "hostsFilesUpdateNow": {

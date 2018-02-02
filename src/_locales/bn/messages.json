@@ -87,6 +87,14 @@
         "message": "এখন পর্যন্ত এই ট্যাবের জন্য কোন নেট ট্রাফিক দেখা যায়নি।",
         "description": ""
     },
+    "matrixLocalScopeTip": {
+        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "description": "Tool tip for the local scope button"
+    },
+    "matrixGlobalScopeTip": {
+        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "description": "Tool tip for the global scope button"
+    },
     "matrixMtxButtonTip": {
         "message": "এই ব্যাপ্তির জন্য ম্যাট্রিক্স পরিশোধন সক্রিয়\/নিষ্ক্রিয় করুন।",
         "description": "Tool tip for matrix button"
@@ -275,12 +283,8 @@
         "message": "লেখার মাপ:",
         "description": ""
     },
-    "settingsMatrixDisplayTextSizeNormal": {
-        "message": "সাধারণ",
-        "description": ""
-    },
-    "settingsMatrixDisplayTextSizeLarge": {
-        "message": "বড়",
+    "settingsIconBadgeEnabled": {
+        "message": "আইকনের উপর স্বতন্ত্র অনুরোধের সংখ্যা দেখান",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -335,10 +339,6 @@
         "message": "অস্বচ্ছতা",
         "description": "English: Opacity"
     },
-    "settingsIconBadgeEnabled": {
-        "message": "আইকনের উপর স্বতন্ত্র অনুরোধের সংখ্যা দেখান",
-        "description": "English: Show the number of distinct requests on the icon"
-    },
     "settingsCollapseBlocked": {
         "message": "অবরুদ্ধ উপাদান সংকোচনের স্থানধারক",
         "description": "English: Collapse placeholder of blocked elements"
@@ -353,6 +353,10 @@
     },
     "settingsCloudStorageEnabled": {
         "message": "ক্লাউড সঞ্চয়স্থান সমর্থন সক্রিয় করুন",
+        "description": ""
+    },
+    "settingsMatrixNoTooltips": {
+        "message": "Disable tooltips",
         "description": ""
     },
     "privacyPageTitle": {
