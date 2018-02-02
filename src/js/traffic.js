@@ -218,6 +218,7 @@ var onBeforeSendHeadersHandler = function(details) {
         requestHeaders.splice(headerIndex, 1);
         µm.cookieHeaderFoiledCounter++;
         if ( requestType === 'doc' ) {
+            pageStore.perLoadBlockedRequestCount++;
             µm.logger.writeOne(tabId, 'net', '', headerValue, 'COOKIE', true);
         }
     }
@@ -260,6 +261,7 @@ var onBeforeSendHeadersHandler = function(details) {
                     }
                     µm.refererHeaderFoiledCounter++;
                     if ( requestType === 'doc' ) {
+                        pageStore.perLoadBlockedRequestCount++;
                         µm.logger.writeOne(tabId, 'net', '', headerValue, 'REFERER', true);
                         if ( newValue !== undefined ) {
                             µm.logger.writeOne(tabId, 'net', '', newValue, 'REFERER', false);
