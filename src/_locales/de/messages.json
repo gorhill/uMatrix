@@ -284,7 +284,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "Zeige die Zahl der einzelnen Anfragen auf dem Icon an",
+        "message": "Zeige die Zahl der blockierten Anfragen auf dem Icon an",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Deaktiviere Tooltips",
         "description": ""
     },
     "privacyPageTitle": {
@@ -472,7 +472,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Hosts-Dateien",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -536,7 +536,7 @@
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Importieren...",
         "description": ""
     },
     "rawSettingsWarning": {

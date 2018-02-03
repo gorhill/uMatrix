@@ -100,7 +100,7 @@
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
-        "message": "儲存該域名下的所有臨時變更。",
+        "message": "儲存應用至該域名的所有臨時變更。",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip": {

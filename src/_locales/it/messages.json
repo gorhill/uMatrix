@@ -356,7 +356,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Disattiva i suggerimenti",
         "description": ""
     },
     "privacyPageTitle": {
@@ -528,15 +528,15 @@
         "description": ""
     },
     "assetsRecipesSection": {
-        "message": "Ruleset recipes",
+        "message": "Ricette di regole",
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "Le ricette di regole vengono importate dal pannello popup <em>on demand<\/em>, cioè <b>solo<\/b> da interazione dell'utente.",
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Importa...",
         "description": ""
     },
     "rawSettingsWarning": {

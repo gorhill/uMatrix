@@ -88,7 +88,7 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Her yere uygulanan kuralları görmek\/oluşturmak için genel kapsamı seçin",
+        "message": "Yalnızca bu kapsamda geçerli olan kuralları görmek\/oluşturmak için yerel bir kapsam seçin",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
@@ -284,7 +284,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "Farklı isteklerin sayısını simge üzerinde göster",
+        "message": "Engellenmiş kaynakların sayısını simge üzerinde göster",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {

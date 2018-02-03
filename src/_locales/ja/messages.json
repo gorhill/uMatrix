@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "ルールを作成・表示するスコープを選択する",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "すべてのページに適用するルールを作成・表示する",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -108,7 +108,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "このページを再読み込みする\nShift キーを押しながら実行すると、キャッシュを無視した再読み込みを行います",
+        "message": "このページを再読み込みする。\nShift キーを押しながら実行すると、キャッシュを無視した再読み込みを行います",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -260,7 +260,7 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "<b>1ページあたり<\/b> の HTTP 要求",
+        "message": "個の HTTP リクエストを記録する",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
@@ -284,7 +284,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "アイコンにリクエスト数を表示する",
+        "message": "ブロックしたリソースの数をアイコンに表示する",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "ツールチップを無効にする",
         "description": ""
     },
     "privacyPageTitle": {
