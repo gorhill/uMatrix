@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@
 */
 
 /* global punycode */
-/* jshint bitwise: false */
 
 'use strict';
 
@@ -31,13 +30,11 @@
 /******************************************************************************/
 
 var µm = µMatrix;
-var magicId = 'axyorpwxtmnf';
-var uniqueIdGenerator = 1;
+var selfieVersion = 1;
 
 /******************************************************************************/
 
 var Matrix = function() {
-    this.id = uniqueIdGenerator++;
     this.reset();
     this.sourceRegister = '';
     this.decomposedSourceRegister = [''];
@@ -103,10 +100,10 @@ var switchStateToNameMap = new Map([
     [ 2, 'false' ]
 ]);
 
-var nameToSwitchStateMap = {
-     'true': 1,
-    'false': 2
-};
+var nameToSwitchStateMap = new Map([
+    [  'true', 1 ],
+    [ 'false', 2 ]
+]);
 
 /******************************************************************************/
 
@@ -594,15 +591,13 @@ Matrix.prototype.extractAllSourceHostnames = (function() {
 
 /******************************************************************************/
 
-Matrix.prototype.toString = function() {
-    var out = [];
-    var rule, type, switchName, val;
-    var srcHostname, desHostname;
-    for ( rule of this.rules.keys() ) {
-        srcHostname = this.srcHostnameFromRule(rule);
-        desHostname = this.desHostnameFromRule(rule);
-        for ( type of typeBitOffsets.keys() ) {
-            val = this.evaluateCell(srcHostname, desHostname, type);
+Matrix.prototype.toArray = function() {
+    let out = [];
+    for ( let rule of this.rules.keys() ) {
+        let srcHostname = this.srcHostnameFromRule(rule);
+        let desHostname = this.desHostnameFromRule(rule);
+        for ( let type of typeBitOffsets.keys() ) {
+            let val = this.evaluateCell(srcHostname, desHostname, type);
             if ( val === 0 ) { continue; }
             out.push(
                 punycode.toUnicode(srcHostname) + ' ' +
@@ -612,165 +607,67 @@ Matrix.prototype.toString = function() {
             );
         }
     }
-    for ( srcHostname of this.switches.keys() ) {
-        for ( switchName of switchBitOffsets.keys() ) {
-            val = this.evaluateSwitch(switchName, srcHostname);
+    for ( let srcHostname of this.switches.keys() ) {
+        for ( let switchName of switchBitOffsets.keys() ) {
+            let val = this.evaluateSwitch(switchName, srcHostname);
             if ( val === 0 ) { continue; }
-            out.push(switchName + ': ' + srcHostname + ' ' + switchStateToNameMap.get(val));
+            out.push(
+                switchName + ': ' +
+                srcHostname + ' ' +
+                switchStateToNameMap.get(val)
+            );
         }
     }
-    return out.sort().join('\n');
+    return out;
+};
+
+/******************************************************************************/
+
+Matrix.prototype.fromArray = function(lines, append) {
+    let matrix = append === true ? this : new Matrix();
+    for ( let line of lines ) {
+        matrix.fromLine(line);
+    }
+    if ( append !== true ) {
+        this.assign(matrix);
+    }
+    this.modifiedTime = Date.now();
+};
+
+/******************************************************************************/
+
+Matrix.prototype.toString = function() {
+    return this.toArray().join('\n');
 };
 
 /******************************************************************************/
 
 Matrix.prototype.fromString = function(text, append) {
-    var matrix = append ? this : new Matrix();
-    var textEnd = text.length;
-    var lineBeg = 0, lineEnd;
-    var line, pos;
-    var fields, fieldVal;
-    var switchName;
-    var srcHostname = '';
-    var desHostname = '';
-    var type, state;
+    let matrix = append === true ? this : new Matrix();
+    let textEnd = text.length;
+    let lineBeg = 0;
 
     while ( lineBeg < textEnd ) {
-        lineEnd = text.indexOf('\n', lineBeg);
-        if ( lineEnd < 0 ) {
+        let lineEnd = text.indexOf('\n', lineBeg);
+        if ( lineEnd === -1 ) {
             lineEnd = text.indexOf('\r', lineBeg);
-            if ( lineEnd < 0 ) {
+            if ( lineEnd === -1 ) {
                 lineEnd = textEnd;
             }
         }
-        line = text.slice(lineBeg, lineEnd).trim();
+        let line = text.slice(lineBeg, lineEnd).trim();
         lineBeg = lineEnd + 1;
 
-        pos = line.indexOf('# ');
+        let pos = line.indexOf('# ');
         if ( pos !== -1 ) {
             line = line.slice(0, pos).trim();
         }
-        if ( line === '' ) {
-            continue;
-        }
+        if ( line === '' ) { continue; }
 
-        fields = line.split(/\s+/);
-
-        // Less than 2 fields makes no sense
-        if ( fields.length < 2 ) {
-            continue;
-        }
-
-        fieldVal = fields[0];
-
-        // Special directives:
-
-        // title
-        pos = fieldVal.indexOf('title:');
-        if ( pos !== -1 ) {
-            // TODO
-            continue;
-        }
-
-        // Name
-        pos = fieldVal.indexOf('name:');
-        if ( pos !== -1 ) {
-            // TODO
-            continue;
-        }
-
-        // Switch on/off
-
-        // `switch:` srcHostname state
-        //      state = [`true`, `false`]
-        switchName = '';
-        if ( fieldVal === 'switch:' || fieldVal === 'matrix:' ) {
-            fieldVal = 'matrix-off:';
-        }
-        pos = fieldVal.indexOf(':');
-        if ( pos !== -1 ) {
-            switchName = fieldVal.slice(0, pos);
-        }
-        if ( switchBitOffsets.has(switchName) ) {
-            srcHostname = punycode.toASCII(fields[1]);
-
-            // No state field: reject
-            fieldVal = fields[2];
-            if ( fieldVal === null ) {
-                continue;
-            }
-            // Unknown state: reject
-            if ( nameToSwitchStateMap.hasOwnProperty(fieldVal) === false ) {
-                continue;
-            }
-
-            // Backward compatibility:
-            // `chromium-behind-the-scene` is now `behind-the-scene`
-            if ( srcHostname === 'chromium-behind-the-scene' ) {
-                srcHostname = 'behind-the-scene';
-            }
-
-            matrix.setSwitch(switchName, srcHostname, nameToSwitchStateMap[fieldVal]);
-            continue;
-        }
-
-        // Unknown directive
-        if ( fieldVal.endsWith(':') ) {
-            continue;
-        }
-
-        // Valid rule syntax:
-
-        // srcHostname desHostname [type [state]]
-        //      type = a valid request type
-        //      state = [`block`, `allow`, `inherit`]
-
-        // srcHostname desHostname type
-        //      type = a valid request type
-        //      state = `allow`
-
-        // srcHostname desHostname
-        //      type = `*`
-        //      state = `allow`
-
-        // Lines with invalid syntax silently ignored
-
-        srcHostname = punycode.toASCII(fields[0]);
-        desHostname = punycode.toASCII(fields[1]);
-
-        fieldVal = fields[2];
-
-        if ( fieldVal !== undefined ) {
-            type = fieldVal;
-            // https://github.com/gorhill/uMatrix/issues/759
-            // Backward compatibility.
-            if ( type === 'plugin' ) {
-                type = 'media';
-            }
-            // Unknown type: reject
-            if ( typeBitOffsets.has(type) === false ) {
-                continue;
-            }
-        } else {
-            type = '*';
-        }
-
-        fieldVal = fields[3];
-
-        if ( fieldVal !== undefined ) {
-            // Unknown state: reject
-            if ( nameToStateMap.hasOwnProperty(fieldVal) === false ) {
-                continue;
-            }
-            state = nameToStateMap[fieldVal];
-        } else {
-            state = 2;
-        }
-
-        matrix.setCell(srcHostname, desHostname, type, state);
+        matrix.fromLine(line);
     }
 
-    if ( !append ) {
+    if ( append !== true ) {
         this.assign(matrix);
     }
 
@@ -779,9 +676,71 @@ Matrix.prototype.fromString = function(text, append) {
 
 /******************************************************************************/
 
+// https://github.com/gorhill/uMatrix/issues/759
+//   Backward compatibility: 'plugin' => 'media'
+
+Matrix.prototype.fromLine = function(line) {
+    let fields = line.split(/\s+/);
+    if ( fields.length < 3 ) { return false; }
+    let field0 = fields[0];
+
+    // Switches
+    let pos = field0.indexOf(':');
+    if ( pos !== -1 ) {
+        let switchName = field0.slice(0, pos);
+        let srcHostname = punycode.toASCII(fields[1]);
+        let state = fields[2];
+        if (
+            switchBitOffsets.has(switchName) === false ||
+            nameToSwitchStateMap.has(state) === false
+        ) {
+            return false;
+        }
+        this.setSwitch(
+            switchName,
+            srcHostname,
+            nameToSwitchStateMap.get(state)
+        );
+        return true;
+    }
+
+    // Rules
+    if ( fields.length < 4 ) { return false; }
+
+    let srcHostname = punycode.toASCII(fields[0]);
+    let desHostname = punycode.toASCII(fields[1]);
+    let type = fields[2];
+
+    if ( type !== undefined ) {
+        if ( type === 'plugin' ) {
+            type = 'media';
+        } else if ( typeBitOffsets.has(type) === false ) {
+            return false;
+        }
+    } else {
+        type = '*';
+    }
+
+    let state = fields[3];
+
+    if ( state !== undefined ) {
+        if ( nameToStateMap.hasOwnProperty(state) === false ) {
+            return false;
+        }
+        state = nameToStateMap[state];
+    } else {
+        state = 2;
+    }
+
+    this.setCell(srcHostname, desHostname, type, state);
+    return true;
+};
+
+/******************************************************************************/
+
 Matrix.prototype.toSelfie = function() {
     return {
-        magicId: magicId,
+        version: selfieVersion,
         switches: Array.from(this.switches),
         rules: Array.from(this.rules)
     };
@@ -790,7 +749,7 @@ Matrix.prototype.toSelfie = function() {
 /******************************************************************************/
 
 Matrix.prototype.fromSelfie = function(selfie) {
-    if ( selfie.magicId !== magicId ) { return false; }
+    if ( selfie.version !== selfieVersion ) { return false; }
     this.switches = new Map(selfie.switches);
     this.rules = new Map(selfie.rules);
     this.modifiedTime = Date.now();

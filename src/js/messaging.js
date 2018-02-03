@@ -864,7 +864,7 @@ var onMessage = function(request, sender, callback) {
             version: vAPI.app.version,
             when: Date.now(),
             settings: µm.userSettings,
-            rules: µm.pMatrix.toString(),
+            rules: µm.pMatrix.toArray().sort(),
             rawSettings: µm.rawSettings
         };
         break;

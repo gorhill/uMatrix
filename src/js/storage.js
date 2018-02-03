@@ -242,22 +242,27 @@
 /******************************************************************************/
 
 µMatrix.saveMatrix = function() {
-    µMatrix.XAL.keyvalSetOne('userMatrix', this.pMatrix.toString());
+    vAPI.storage.set({ userMatrix: this.pMatrix.toArray() });
 };
 
 µMatrix.loadMatrix = function(callback) {
     if ( typeof callback !== 'function' ) {
         callback = this.noopFunc;
     }
-    var µm = this;
-    var onLoaded = function(bin) {
-        if ( bin.hasOwnProperty('userMatrix') ) {
-            µm.pMatrix.fromString(bin.userMatrix);
-            µm.tMatrix.assign(µm.pMatrix);
-            callback();
+    let µm = this;
+    let onLoaded = function(bin) {
+        if ( bin instanceof Object === false ) {
+            return callback();
         }
+        if ( typeof bin.userMatrix === 'string' ) {
+            µm.pMatrix.fromString(bin.userMatrix);
+        } else if ( Array.isArray(bin.userMatrix) ) {
+            µm.pMatrix.fromArray(bin.userMatrix);
+        }
+        µm.tMatrix.assign(µm.pMatrix);
+        callback();
     };
-    this.XAL.keyvalGetOne('userMatrix', onLoaded);
+    vAPI.storage.get('userMatrix', onLoaded);
 };
 
 /******************************************************************************/
