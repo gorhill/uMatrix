@@ -551,6 +551,14 @@
         "message": "Import...",
         "description": ""
     },
+    "assetsInlineHostsLabel": {
+        "message": "My hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "My recipes",
+        "description": ""
+    },
 
     "rawSettingsWarning" : {
         "message": "Warning! Change these raw configuration settings at your own risk.",

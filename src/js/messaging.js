@@ -736,7 +736,9 @@ var getAssets = function(callback) {
         blockedHostnameCount: µm.ubiquitousBlacklist.count,
         hosts: null,
         recipes: null,
-        cache: null
+        userRecipes: µm.userSettings.userRecipes,
+        cache: null,
+        contributor: µm.rawSettings.contributorMode
     };
     var onMetadataReady = function(entries) {
         r.cache = entries;

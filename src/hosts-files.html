@@ -24,7 +24,7 @@
         <p data-i18n="hostsFilesPrompt"></p>
         <p id="listsOfBlockedHostsPrompt"></p>
         <ul id="hosts">
-            <li class="listEntry importURL"><input type="checkbox" id="importHosts"><label for="importHosts"data-i18n="assetsImportLabel"></label><!--
+            <li class="listEntry notAnAsset toImport"><input type="checkbox" id="importHosts"><label for="importHosts" data-i18n="assetsImportLabel"></label><!--
                 --><textarea dir="ltr" spellcheck="false" placeholder="hostsFilesExternalListsHint"></textarea>
         </ul>
     </div>
@@ -35,8 +35,10 @@
     <div>
         <p data-i18n="assetsRecipesSummary"></p>
         <ul id="recipes">
-            <li class="listEntry importURL"><input type="checkbox" id="importRecipes"><label for="importRecipes"data-i18n="assetsImportLabel"></label><!--
+            <li class="listEntry notAnAsset toImport"><input type="checkbox" id="importRecipes"><label for="importRecipes" data-i18n="assetsImportLabel"></label><!--
                 --><textarea dir="ltr" spellcheck="false" placeholder="hostsFilesExternalListsHint"></textarea>
+            <li class="listEntry notAnAsset toInline"><input type="checkbox" id="inlineRecipes"><label for="inlineRecipes" data-i18n="assetsInlineRecipesLabel"></label><!--
+                --><textarea dir="ltr" spellcheck="false" placeholder="assetsInlineRecipesHint"></textarea>
         </ul>
     </div>
 </div>

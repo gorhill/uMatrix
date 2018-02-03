@@ -292,6 +292,14 @@
     for ( let assetKey of µm.userSettings.selectedRecipeFiles ) {
         this.assets.get(assetKey, onLoaded);
     }
+
+    let userRecipes = µm.userSettings.userRecipes;
+    if ( userRecipes.enabled ) {
+        µm.recipeManager.fromString(
+            '! uMatrix: Ruleset recipes 1.0\n' + userRecipes.content
+        );
+    }
+
 };
 
 /******************************************************************************/
@@ -572,7 +580,8 @@
         metadata,
         details,
         propSelectedAssetKeys,
-        propImportedAssetKeys
+        propImportedAssetKeys,
+        propInlineAsset
     ) {
         let µmus = µm.userSettings;
         let selectedAssetKeys = new Set();
@@ -629,14 +638,35 @@
         }
 
         let bin = {},
-            changed = false;
+            needReload = false;
 
+        if ( details.toInline instanceof Object ) {
+            let newInline = details.toInline;
+            let oldInline = µmus[propInlineAsset];
+            newInline.content = newInline.content.trim();
+            if ( newInline.content.length !== 0 ) {
+                newInline.content += '\n';
+            }
+            let newContent = newInline.enabled ? newInline.content : '';
+            let oldContent = oldInline.enabled ? oldInline.content : '';
+            if ( newContent !== oldContent ) {
+                needReload = true;
+            }
+            if (
+                newInline.enabled !== oldInline.enabled ||
+                newInline.content !== oldInline.content
+            ) {
+                µmus[propInlineAsset] = newInline;
+                bin[propInlineAsset] = newInline;
+            }
+        }
+    
         selectedAssetKeys = Array.from(selectedAssetKeys).sort();
         µmus[propSelectedAssetKeys].sort();
         if ( selectedAssetKeys.join() !== µmus[propSelectedAssetKeys].join() ) {
             µmus[propSelectedAssetKeys] = selectedAssetKeys;
             bin[propSelectedAssetKeys] = selectedAssetKeys;
-            changed = true;
+            needReload = true;
         }
 
         importedAssetKeys = Array.from(importedAssetKeys).sort();
@@ -644,14 +674,14 @@
         if ( importedAssetKeys.join() !== µmus[propImportedAssetKeys].join() ) {
             µmus[propImportedAssetKeys] = importedAssetKeys;
             bin[propImportedAssetKeys] = importedAssetKeys;
-            changed = true;
+            needReload = true;
         }
 
-        if ( changed ) {
+        if ( Object.keys(bin).length !== 0 ) {
             vAPI.storage.set(bin);
         }
 
-        return changed;
+        return needReload;
     };
 
     var onMetadataReady = function(response) {
@@ -660,7 +690,8 @@
             metadata,
             details.hosts,
             'selectedHostsFiles',
-            'externalHostsFiles'
+            'externalHostsFiles',
+            'userHosts'
         );
         if ( hostsChanged ) {
             µm.hostsFilesSelfie.destroy();
@@ -669,7 +700,8 @@
             metadata,
             details.recipes,
             'selectedRecipeFiles',
-            'externalRecipeFiles'
+            'externalRecipeFiles',
+            'userRecipes'
         );
         if ( recipesChanged ) {
             µm.recipeManager.reset();

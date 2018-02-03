@@ -101,6 +101,7 @@ var requestStatsFactory = function() {
 */
 
 var rawSettingsDefault = {
+    contributorMode: false,
     disableCSPReportInjection: false,
     placeholderBackground:
         [
@@ -188,7 +189,15 @@ return {
         processHyperlinkAuditing: true,
         processReferer: false,
         selectedHostsFiles: [ '' ],
-        selectedRecipeFiles: [ '' ]
+        selectedRecipeFiles: [ '' ],
+        userHosts: {
+            enabled: false,
+            content: ''
+        },
+        userRecipes: {
+            enabled: false,
+            content: ''
+        }
     },
 
     rawSettingsDefault: rawSettingsDefault,

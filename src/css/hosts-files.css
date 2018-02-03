@@ -139,20 +139,29 @@ body.updating li.listEntry.obsolete > input[type="checkbox"]:checked ~ span.upda
 .dim {
     opacity: 0.5;
     }
-li.listEntry.importURL > input[type="checkbox"] ~ textarea {
+li.listEntry.notAnAsset > input[type="checkbox"] ~ textarea {
     display: none;
     margin-left: 1.6em;
     }
-li.listEntry.importURL > input[type="checkbox"]:checked ~ textarea {
+li.listEntry.notAnAsset > input[type="checkbox"]:checked ~ textarea {
     display: block;
     }
-li.listEntry.importURL > textarea {
+li.listEntry.notAnAsset > textarea {
     border: 1px solid #ddd;
     box-sizing: border-box;
     display: block;
     font-size: smaller;
     width: calc(100% - 4em);
     height: 6em;
-    resize: none;
+    resize: vertical;
     white-space: pre;
+    }
+#recipes li.listEntry.toInline {
+    display: none;
+    }
+body.contributor #recipes li.listEntry.toInline {
+    display: block;
+    }
+#recipes li.listEntry.toInline > textarea {
+    height: 18em;
     }

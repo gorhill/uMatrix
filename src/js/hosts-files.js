@@ -145,22 +145,23 @@ var renderHostsFiles = function(soft) {
         });
 
         let ulList = document.querySelector(listSelector),
-            liImport = ulList.querySelector('.importURL');
-        if ( liImport.parentNode !== null ) {
-            liImport.parentNode.removeChild(liImport);
-        }
+            liLast = ulList.querySelector('.notAnAsset');
+
         for ( let i = 0; i < assetKeys.length; i++ ) {
-            let liEntry = liFromListEntry(
-                collection,
-                assetKeys[i],
-                ulList.children[i]
-            );
+            let liReuse = i < ulList.childElementCount ?
+                ulList.children[i] :
+                null;
+            if (
+                liReuse !== null &&
+                liReuse.classList.contains('notAnAsset')
+            ) {
+                liReuse = null;
+            }
+            let liEntry = liFromListEntry(collection, assetKeys[i], liReuse);
             if ( liEntry.parentElement === null ) {
-                ulList.appendChild(liEntry);
+                ulList.insertBefore(liEntry, liLast);
             }
         }
-
-        ulList.appendChild(liImport);
     };
 
     var onAssetDataReceived = function(details) {
@@ -171,9 +172,14 @@ var renderHostsFiles = function(soft) {
         // Before all, set context vars
         listDetails = details;
 
+        document.body.classList.toggle(
+            'contributor',
+            listDetails.contributor === true
+        );
+
         // Incremental rendering: this will allow us to easily discard unused
         // DOM list entries.
-        uDom('#hosts .listEntry:not(.importURL)').addClass('discard');
+        uDom('#hosts .listEntry:not(.notAnAsset)').addClass('discard');
 
         onRenderAssetFiles(details.hosts, '#hosts');
         onRenderAssetFiles(details.recipes, '#recipes');
@@ -187,6 +193,12 @@ var renderHostsFiles = function(soft) {
             )
         );
         uDom('#autoUpdate').prop('checked', listDetails.autoUpdate === true);
+
+        uDom.nodeFromSelector('#recipes .toInline > input[type="checkbox"]').checked =
+            listDetails.userRecipes.enabled === true;
+        uDom.nodeFromSelector('#recipes .toInline > textarea').value =
+            listDetails.userRecipes.content;
+
 
         if ( !soft ) {
             hostsFilesSettingsHash = hashFromCurrentFromSettings();
@@ -231,31 +243,50 @@ var updateAssetStatus = function(details) {
 
 /*******************************************************************************
 
-    Compute a hash from all the settings affecting how filter lists are loaded
+    Compute a hash from all the settings affecting how assets are loaded
     in memory.
 
 **/
 
 var hashFromCurrentFromSettings = function() {
-    var hash = [],
-        listHash = [],
-        listEntries = document.querySelectorAll('.assets .listEntry[data-listkey]:not(.toRemove)'),
-        i = listEntries.length;
-    while ( i-- ) {
-        let liEntry = listEntries[i];
+    let listHash = [],
+        listEntries = document.querySelectorAll(
+            '.assets .listEntry[data-listkey]:not(.toRemove)'
+        );
+    for ( let liEntry of listEntries ) {
         if ( liEntry.querySelector('input[type="checkbox"]:checked') !== null ) {
             listHash.push(liEntry.getAttribute('data-listkey'));
         }
     }
-    let textarea1 = document.querySelector('.assets .importURL > input[type="checkbox"]:checked ~ textarea');
-    let textarea2 = document.querySelector('#recipes .importURL > input[type="checkbox"]:checked ~ textarea');
-    hash.push(
-        listHash.sort().join(),
-        textarea1 !== null && reValidExternalList.test(textarea1.value),
-        textarea2 !== null && reValidExternalList.test(textarea2.value),
-        document.querySelector('.listEntry.toRemove') !== null
-    );
-    return hash.join();
+    return [
+        listHash.join(),
+        document.querySelector('.listEntry.toRemove') !== null,
+        reValidExternalList.test(
+            textFromTextarea(
+                '#hosts .toImport > input[type="checkbox"]:checked ~ textarea'
+            )
+        ),
+        textFromTextarea(
+            '#hosts .toInline > input[type="checkbox"]:checked ~ textarea'
+        ),
+        reValidExternalList.test(
+            textFromTextarea(
+                '#recipes .toImport > input[type="checkbox"]:checked ~ textarea'
+            )
+        ),
+        textFromTextarea(
+            '#recipes .toInline > input[type="checkbox"]:checked ~ textarea'
+        ),
+    ].join('\n');
+};
+
+/******************************************************************************/
+
+var textFromTextarea = function(textarea) {
+    if ( typeof textarea === 'string' ) {
+        textarea = document.querySelector(textarea);
+    }
+    return textarea !== null ? textarea.value.trim() : '';
 };
 
 /******************************************************************************/
@@ -300,35 +331,43 @@ var selectAssets = function(callback) {
         var out = {
             toSelect: [],
             toImport: '',
-            toRemove: []
+            toRemove: [],
+            toInline: {
+                enabled: false,
+                content: ''
+            }
         };
 
         let root = document.querySelector(listSelector);
 
-        let liEntries = root.querySelectorAll('.listEntry[data-listkey]:not(.toRemove)'),
-            i = liEntries.length;
-        while ( i-- ) {
-            let liEntry = liEntries[i];
-            if ( liEntry.querySelector('input[type="checkbox"]:checked') !== null ) {
+        // Lists to select or remove
+        let liEntries = root.querySelectorAll(
+            '.listEntry[data-listkey]:not(.notAnAsset)'
+        );
+        for ( let liEntry of liEntries ) {
+            if ( liEntry.classList.contains('toRemove') ) {
+                out.toRemove.push(liEntry.getAttribute('data-listkey'));
+            } else if ( liEntry.querySelector('input[type="checkbox"]:checked') ) {
                 out.toSelect.push(liEntry.getAttribute('data-listkey'));
             }
         }
 
-        // External hosts files to remove
-        liEntries = root.querySelectorAll('.listEntry.toRemove[data-listkey]');
-        i = liEntries.length;
-        while ( i-- ) {
-            out.toRemove.push(liEntries[i].getAttribute('data-listkey'));
-        }
-
         // External hosts files to import
-        let input = root.querySelector('.importURL > input[type="checkbox"]:checked');
+        let input = root.querySelector(
+            '.toImport > input[type="checkbox"]:checked'
+        );
         if ( input !== null ) {
-            let textarea = root.querySelector('.importURL textarea');
+            let textarea = root.querySelector('.toImport textarea');
             out.toImport = textarea.value.trim();
             textarea.value = '';
             input.checked = false;
         }
+
+        // Inline data
+        out.toInline.enabled = root.querySelector(
+            '.toInline > input[type="checkbox"]:checked'
+        ) !== null;
+        out.toInline.content = textFromTextarea('.toInline > textarea');
 
         return out;
     };
@@ -406,7 +445,7 @@ uDom('#buttonApply').on('click', buttonApplyHandler);
 uDom('#buttonUpdate').on('click', buttonUpdateHandler);
 uDom('#buttonPurgeAll').on('click', buttonPurgeAllHandler);
 uDom('.assets').on('change', '.listEntry > input', onHostsFilesSettingsChanged);
-uDom('.assets').on('input', '.listEntry.importURL textarea', onHostsFilesSettingsChanged);
+uDom('.assets').on('input', '.listEntry > textarea', onHostsFilesSettingsChanged);
 uDom('.assets').on('click', '.listEntry > a.remove', onRemoveExternalAsset);
 uDom('.assets').on('click', 'span.cache', onPurgeClicked);
 
