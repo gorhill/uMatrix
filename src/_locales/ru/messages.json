@@ -92,7 +92,7 @@
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Выберите локальную область для просмотра\/создания правил, которые применяются повсеместно",
+        "message": "Выберите глобальную область для просмотра\/создания правил, которые применяются повсеместно",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -284,7 +284,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "Показывать число отдельных запросов на иконке",
+        "message": "Показывать число заблокированных запросов на иконке",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
