@@ -40,14 +40,25 @@
     var conditionMatch = function(condition, srcHostname, desHostnames) {
         let i = condition.indexOf(' ');
         if ( i === -1 ) { return false; }
-        let hn = condition.slice(0, i).trim();
-        if ( hn !== '*' && srcHostname.endsWith(hn) === false ) {
-            return false;
+        let targetHostname = condition.slice(0, i).trim();
+        if ( targetHostname !== '*' ) {
+            let hn = srcHostname;
+            if ( targetHostname.endsWith('.*') ) {
+                let domain = µMatrix.URI.domainFromHostname(hn);
+                let pos = domain.indexOf('.');
+                if ( pos !== -1 ) {
+                    hn = hn.slice(0, pos + hn.length - domain.length) + '.*';
+                }
+            }
+            if ( hn.endsWith(targetHostname) === false ) {
+                return false;
+            }
         }
-        hn = condition.slice(i + 1).trim();
-        if ( hn === '*' ) { return true; }
-        for ( let desHostname of desHostnames ) {
-            if ( desHostname.endsWith(hn) ) { return true; }
+        targetHostname = condition.slice(i + 1).trim();
+        if ( targetHostname === '*' ) { return true; }
+        for ( let hn of desHostnames ) {
+            if ( hn === srcHostname ) { continue; }
+            if ( hn.endsWith(targetHostname) ) { return true; }
         }
         return false;
     };
@@ -145,14 +156,32 @@
             let mustPersist = false;
             for ( let rule of details.ruleset.split('\n') ) {
                 let parts = rule.split(/\s+/);
-                let action = tMatrix.evaluateCellZXY(parts[0], parts[1], parts[2]);
+                if ( parts.length < 2 ) { continue; }
+                let f0 = parts[0];
+                let f1 = parts[1];
+                // Switch
+                if ( f0.endsWith(':') ) {
+                    f0 = f0.slice(0, -1);
+                    if ( tMatrix.evaluateSwitchZ(f0, f1) !== false ) {
+                        tMatrix.setSwitchZ(f0, f1, false);
+                        if ( details.commit ) {
+                            pMatrix.setSwitchZ(f0, f1, false);
+                            mustPersist = true;
+                        }
+                    }
+                    continue;
+                }
+                // Rule
+                if ( parts.length < 3 ) { continue; }
+                let f2 = parts[2];
+                let action = tMatrix.evaluateCellZXY(f0, f1, f2);
                 if ( action === 1 ) {
-                    tMatrix.whitelistCell(parts[0], parts[1], parts[2]);
+                    tMatrix.whitelistCell(f0, f1, f2);
                 }
                 if ( details.commit !== true ) { continue; }
-                action = pMatrix.evaluateCellZXY(parts[0], parts[1], parts[2]);
+                action = pMatrix.evaluateCellZXY(f0, f1, f2);
                 if ( action === 1 ) {
-                    pMatrix.whitelistCell(parts[0], parts[1], parts[2]);
+                    pMatrix.whitelistCell(f0, f1, f2);
                     mustPersist = true;
                 }
             }
