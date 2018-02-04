@@ -194,7 +194,7 @@ var onBeforeSendHeadersHandler = function(details) {
     // in request log. This way the user is better informed of what went
     // on.
 
-    // https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing
+    // https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing
     //
     // Target URL = the href of the link
     // Doc URL = URL of the document containing the target URL
