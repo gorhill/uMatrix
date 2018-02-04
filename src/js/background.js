@@ -103,6 +103,7 @@ var requestStatsFactory = function() {
 var rawSettingsDefault = {
     contributorMode: false,
     disableCSPReportInjection: false,
+    enforceEscapedFragment: true,
     placeholderBackground:
         [
             'url("data:image/png;base64,',

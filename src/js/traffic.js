@@ -53,7 +53,10 @@ var onBeforeRootFrameRequestHandler = function(details) {
 
     // Not blocked
     if ( !block ) {
-        // rhill 2013-11-07: Senseless to do this for behind-the-scene requests.
+        let redirectURL = maybeRedirectRootFrame(requestHostname, requestURL);
+        if ( redirectURL !== requestURL ) {
+            return { redirectUrl: redirectURL };
+        }
         µm.cookieHunter.recordPageCookies(pageStore);
         return;
     }
@@ -68,6 +71,27 @@ var onBeforeRootFrameRequestHandler = function(details) {
     vAPI.tabs.replace(tabId, vAPI.getURL('main-blocked.html?details=') + query);
 
     return { cancel: true };
+};
+
+/******************************************************************************/
+
+// https://twitter.com/thatcks/status/958776519765225473
+
+var maybeRedirectRootFrame = function(hostname, url) {
+    let µm = µMatrix;
+    if ( µm.rawSettings.enforceEscapedFragment !== true ) { return url; }
+    let block1pScripts = µm.mustBlock(hostname, hostname, 'script');
+    let reEscapedFragment = /[?&]_escaped_fragment_=/;
+    if ( reEscapedFragment.test(url) ) {
+        return block1pScripts ? url : url.replace(reEscapedFragment, '#!') ;
+    }
+    if ( block1pScripts === false ) { return url; }
+    let pos = url.indexOf('#!');
+    if ( pos === -1 ) { return url; }
+    let separator = url.lastIndexOf('?', pos) === -1 ? '?' : '&';
+    return url.slice(0, pos) +
+           separator + '_escaped_fragment_=' +
+           url.slice(pos + 2);
 };
 
 /******************************************************************************/
