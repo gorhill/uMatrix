@@ -97,6 +97,10 @@ function onMessage(request, sender, callback) {
         µm.reloadHostsFiles();
         break;
 
+    case 'reloadRecipeFiles':
+        µm.loadRecipes(true);
+        break;
+
     case 'setMatrixSwitch':
         µm.tMatrix.setSwitch(request.switchName, '*', request.state);
         if ( µm.pMatrix.setSwitch(request.switchName, '*', request.state) ) {

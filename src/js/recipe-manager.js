@@ -175,12 +175,12 @@
                 if ( parts.length < 3 ) { continue; }
                 let f2 = parts[2];
                 let action = tMatrix.evaluateCellZXY(f0, f1, f2);
-                if ( action === 1 ) {
+                if ( (action & 3) === 1 ) {
                     tMatrix.whitelistCell(f0, f1, f2);
                 }
                 if ( details.commit !== true ) { continue; }
                 action = pMatrix.evaluateCellZXY(f0, f1, f2);
-                if ( action === 1 ) {
+                if ( (action & 3) === 1 ) {
                     pMatrix.whitelistCell(f0, f1, f2);
                     mustPersist = true;
                 }

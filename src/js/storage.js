@@ -705,7 +705,6 @@
         );
         if ( recipesChanged ) {
             µm.recipeManager.reset();
-            µm.loadRecipes(true);
         }
         if ( typeof callback === 'function' ) {
             callback({
