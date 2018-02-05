@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Een lokaal bereik selecteren om regels te zien\/maken die alleen in dat gebied van toepassing zijn",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Het globale bereik selecteren om regels te zien\/maken die overal van toepassing zijn",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -108,7 +108,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "De pagina vernieuwen.\nDruk op Shift om de browsercache te omzeilen.",
+        "message": "De pagina vernieuwen. \nDruk op Shift om de browsercache te omzeilen.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -284,7 +284,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "Het aantal afzonderlijke aanvragen op het pictogram tonen",
+        "message": "Het aantal geblokkeerde bronnen op het pictogram tonen",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Tooltips uitschakelen",
         "description": ""
     },
     "privacyPageTitle": {
@@ -508,7 +508,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Importeer hier externe middelen:\nEén URL per regel; ongeldige URL’s worden zonder mededeling genegeerd.",
+        "message": "Importeer hier externe middelen: \nEén URL per regel; ongeldige URL’s worden zonder mededeling genegeerd.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {

@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Wähle einen lokalen Geltungsbereich, um Regeln zu betrachten\/erzeugen, die nur in diesem Geltungsbereich angewandt werden",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Wähle den globalen Geltungsbereich, um Regeln zu betrachten\/erzeugen, die überall angewandt werden",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -496,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Automatische Aktualisierung der Assets",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -528,11 +528,11 @@
         "description": ""
     },
     "assetsRecipesSection": {
-        "message": "Ruleset recipes",
+        "message": "Rezepte für Regelsätze",
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "Rezepte für Regelsätze werden <em>auf Anforderung<\/em>, d.h. <b>nur<\/b> durch eine Aktion des Benutzers, über das Popup-Panel importiert.",
         "description": ""
     },
     "assetsImportLabel": {

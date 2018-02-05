@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Lokális hatáskör kiválasztásakor csak az abban érvényes szabályok láthatóak és módosíthatóak",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "A globális hatáskört választva azok a szabályok láthatóak és módosíthatóak, amik mindenhol érvényesek",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Tooltip kikapcsolása",
         "description": ""
     },
     "privacyPageTitle": {
