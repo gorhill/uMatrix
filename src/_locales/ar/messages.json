@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "مصادر",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "الغي التمليحات",
         "description": ""
     },
     "privacyPageTitle": {
