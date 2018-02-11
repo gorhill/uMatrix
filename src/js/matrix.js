@@ -685,9 +685,8 @@ Matrix.prototype.fromLine = function(line) {
     let field0 = fields[0];
 
     // Switches
-    let pos = field0.indexOf(':');
-    if ( pos !== -1 ) {
-        let switchName = field0.slice(0, pos);
+    if ( this.reSwitchRule.test(field0) ) {
+        let switchName = field0.slice(0, -1);
         let srcHostname = punycode.toASCII(fields[1]);
         let state = fields[2];
         if (
@@ -735,6 +734,8 @@ Matrix.prototype.fromLine = function(line) {
     this.setCell(srcHostname, desHostname, type, state);
     return true;
 };
+
+Matrix.prototype.reSwitchRule = /^[0-9a-z-]+:$/;
 
 /******************************************************************************/
 
