@@ -1,0 +1,14 @@
+{
+ "addons": {
+  "uMatrix@raymondhill.net": {
+   "updates": [
+    {
+     "version": "$version",
+     "applications": { "gecko": { "strict_min_version": "56" } },
+     "update_info_url": "https://github.com/gorhill/uMatrix/releases/tag/$version",
+     "update_link": "https://github.com/gorhill/uMatrix/releases/download/$version/uMatrix.webext.signed.xpi"
+    }
+   ]
+  }
+ }
+}
