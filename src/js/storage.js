@@ -905,6 +905,7 @@
                 µmus.selectedHostsFiles
             )
         ) {
+            this.hostsFilesSelfie.destroy();
             this.loadHostsFiles();
         }
         if ( µmus.autoUpdate ) {
