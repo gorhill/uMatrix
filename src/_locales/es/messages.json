@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Activos",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Seleccione un ámbito local para ver\/crear reglas que se aplican sólo en ese ámbito",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Seleccione el alcance global para ver\/crear reglas que se aplican en todas partes",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -356,7 +356,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Desactivar tooltips",
         "description": ""
     },
     "privacyPageTitle": {
@@ -496,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Actualización automática de activos fijos",
         "description": ""
     },
     "hostsFilesUpdateNow": {

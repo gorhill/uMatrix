@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Attività",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Seleziona un ambito locale per vedere\/creare regole che si applicano solo in tale ambito",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Seleziona lo scopo globale per vedere\/creare regole che si applicano ovunque",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -496,7 +496,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Attivazione automatica",
         "description": ""
     },
     "hostsFilesUpdateNow": {
