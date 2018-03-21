@@ -84,5 +84,11 @@
 			"assets/umatrix/recipes_en.txt"
 		],
 		"lang": "en"
+	},
+	"umatrix-rules":{
+		"content":"recipes",
+		"title": "uMatrix Rules (Third-Party Contributed)",
+		"contentURL": "https://github.com/uMatrix-Rules/uMatrix-Rules-Domain",
+		"supportURL": "https://umatrix-rules.github.io"
 	}
 }
