@@ -68,7 +68,9 @@ var processUserRules = function(response) {
 
     var permanentList = document.createDocumentFragment(),
         temporaryList = document.createDocumentFragment(),
-        li;
+        li,
+        leftOnlyCount = 0,
+        rightOnlyCount = 0;
 
     rules = Object.keys(allRules).sort(directiveSort);
     for ( i = 0; i < rules.length; i++ ) {
@@ -90,6 +92,7 @@ var processUserRules = function(response) {
             li.textContent = rule;
             li.className = 'notRight toRemove';
             temporaryList.appendChild(li);
+            leftOnlyCount++;
         } else if ( onRight ) {
             li = document.createElement('li');
             li.textContent = '\xA0';
@@ -98,6 +101,7 @@ var processUserRules = function(response) {
             li.textContent = rule;
             li.className = 'notLeft';
             temporaryList.appendChild(li);
+            rightOnlyCount++;
         }
     }
 
@@ -108,6 +112,7 @@ var processUserRules = function(response) {
     uDom('#diff > .right > ul > li').remove();
     document.querySelector('#diff > .right > ul').appendChild(temporaryList);
     uDom('#diff').toggleClass('dirty', response.temporaryRules !== response.permanentRules);
+    uDom('#commitButtonCount').text('(+' + rightOnlyCount + '/-' + leftOnlyCount + ')');
 };
 
 /******************************************************************************/
