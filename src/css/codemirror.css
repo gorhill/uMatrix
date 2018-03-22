@@ -1,0 +1,29 @@
+.codeMirrorContainer {
+    font-size: 12px;
+    line-height: 1.25;
+    overflow: hidden;
+    position: relative;
+    }
+.CodeMirror {
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    }
+
+/* For when panels are used */
+.codeMirrorContainer > div:not([class^="CodeMirror"]) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    }
+
+.CodeMirror-merge-l-deleted {
+    background-image: none;
+    font-weight: bold;
+    }
+.CodeMirror-merge-l-inserted {
+    background-image: none;
+    font-weight: bold;
+    }

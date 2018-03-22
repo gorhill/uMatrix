@@ -677,6 +677,22 @@ vAPI.messaging.listen('cloud-ui.js', onMessage);
 
 var µm = µMatrix;
 
+var modifyRuleset = function(details) {
+    let ruleset = details.permanent ? µm.pMatrix : µm.tMatrix,
+        modifiedTime = ruleset.modifiedTime;
+    let toRemove = new Set(details.toRemove.trim().split(/\s*[\n\r]+\s*/));
+    for ( let rule of toRemove ) {
+        ruleset.removeFromLine(rule);
+    }
+    let toAdd = new Set(details.toAdd.trim().split(/\s*[\n\r]+\s*/));
+    for ( let rule of toAdd ) {
+        ruleset.addFromLine(rule);
+    }
+    if ( details.permanent && ruleset.modifiedTime !== modifiedTime ) {
+        µm.saveMatrix();
+    }
+};
+
 /******************************************************************************/
 
 var onMessage = function(request, sender, callback) {
@@ -691,24 +707,14 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
-    case 'getUserRules':
-        response = {
-            temporaryRules: µm.tMatrix.toString(),
-            permanentRules: µm.pMatrix.toString()
-        };
-        break;
+    case 'modifyRuleset':
+        modifyRuleset(request);
+        /* falls through */
 
-    case 'setUserRules':
-        if ( typeof request.temporaryRules === 'string' ) {
-            µm.tMatrix.fromString(request.temporaryRules);
-        }
-        if ( typeof request.permanentRules === 'string' ) {
-            µm.pMatrix.fromString(request.permanentRules);
-            µm.saveMatrix();
-        }
+    case 'getRuleset':
         response = {
-            temporaryRules: µm.tMatrix.toString(),
-            permanentRules: µm.pMatrix.toString()
+            temporaryRules: µm.tMatrix.toArray(),
+            permanentRules: µm.pMatrix.toArray()
         };
         break;
 
