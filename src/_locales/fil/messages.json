@@ -151,6 +151,14 @@
         "message": "Walang nakitang pahina ng web",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "Import rules",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "Save rules",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "uMatrix &ndash; Istatistika",
         "description": ""
@@ -310,34 +318,6 @@
     "settingsDefaultScopeLevel2": {
         "message": "Site",
         "description": "Scope will be full hostname of site"
-    },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "Kapag isinara ang matrix, ang smart na i-reload ang mga tab na ito:",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "Wala",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "Kasalukuyan",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "Lahat",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "Sa tuwing gumawa ka ng mga pagbabago sa matrix na maaaring makaapekto sa display at \/ o pag-uugali ng isa o higit pang mga pahina, awtomatikong i-reload ng <i>uMatrix<\/i> ang mga apektadong pahina kapag isinara mo ang matris.",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "Blocked frames:&ensp;Kulay",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "Opacity",
-        "description": "English: Opacity"
     },
     "settingsCollapseBlocked": {
         "message": "I-collapse ang mga placeholder ng mga naka-block na elemento",
@@ -537,6 +517,14 @@
     },
     "assetsImportLabel": {
         "message": "Import...",
+        "description": ""
+    },
+    "assetsInlineHostsLabel": {
+        "message": "My hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "My recipes",
         "description": ""
     },
     "rawSettingsWarning": {

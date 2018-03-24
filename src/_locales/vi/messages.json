@@ -151,6 +151,14 @@
         "message": "No web page found",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "Import rules",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "Save rules",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "Thống kê µMatrix",
         "description": ""
@@ -310,34 +318,6 @@
     "settingsDefaultScopeLevel2": {
         "message": "Site",
         "description": "Scope will be full hostname of site"
-    },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "Khi đã đóng ma trận, tải lại thông minh những thẻ này:",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "Không có",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "Hiện tại",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "Tất cả",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "Bất cứ khi nào bạn tạo ra thay đổi trong ma trận có thể ảnh hưởng đến việc hiển thị và\/hoặc hành vi của một hoặc nhiều trang, <i>µMatrix<\/i> sẽ tự tải lại trang được ảnh hưởng khi bạn đóng ma trận.",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "Đã chặn frame:&ensp;Màu",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "Độ mờ",
-        "description": "English: Opacity"
     },
     "settingsCollapseBlocked": {
         "message": "Collapse placeholder of blocked elements",
@@ -537,6 +517,14 @@
     },
     "assetsImportLabel": {
         "message": "Import...",
+        "description": ""
+    },
+    "assetsInlineHostsLabel": {
+        "message": "My hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "My recipes",
         "description": ""
     },
     "rawSettingsWarning": {

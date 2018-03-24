@@ -151,6 +151,14 @@
         "message": "没有找到网页",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "Import rules",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "Save rules",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "uMatrix &ndash; 统计",
         "description": ""
@@ -310,34 +318,6 @@
     "settingsDefaultScopeLevel2": {
         "message": "网页域名",
         "description": "Scope will be full hostname of site"
-    },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "关闭 matrix 时智能重载这些标签页：",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "无",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "当前",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "全部",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "任何时候当您做出可能影响一个或多个页面的显示或行为的变更时，<i>uMatrix<\/i> 将在您关闭 matrix 时自动重载受影响的页面。",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "已屏蔽的框架：&ensp;颜色",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "不透明度",
-        "description": "English: Opacity"
     },
     "settingsCollapseBlocked": {
         "message": "隐藏已拦截请求所关联的页面内容",
@@ -537,6 +517,14 @@
     },
     "assetsImportLabel": {
         "message": "导入…",
+        "description": ""
+    },
+    "assetsInlineHostsLabel": {
+        "message": "My hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "My recipes",
         "description": ""
     },
     "rawSettingsWarning": {
