@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
+    uMatrix - a browser extension to black/white list requests.
     Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -296,9 +296,11 @@ var onBeforeSendHeadersHandler = function(details) {
         }
     }
 
-    if ( modified ) {
-        return { requestHeaders: requestHeaders };
-    }
+    if ( modified !== true ) { return; }
+
+    µm.updateBadgeAsync(tabId);
+
+    return { requestHeaders: requestHeaders };
 };
 
 /******************************************************************************/
@@ -354,40 +356,77 @@ var onHeadersReceived = function(details) {
         cspReport.push(cspNoWorker);
     }
 
-    var headers = details.responseHeaders,
-        cspDirectives, i;
+    if ( csp.length === 0 && cspReport.length === 0 ) { return; }
+
+    // https://github.com/gorhill/uMatrix/issues/967
+    //   Inject a new CSP header rather than modify an existing one, except
+    //   if the current environment does not support merging headers:
+    //   Firefox 58/webext and less can't merge CSP headers, so we will merge
+    //   them here.
+    var headers = details.responseHeaders;
 
     if ( csp.length !== 0 ) {
-        cspDirectives = csp.join(',');
-        i = headerIndexFromName('content-security-policy', headers);
-        if ( i !== -1 ) {
-            headers[i].value += ',' + cspDirectives;
-        } else {
-            headers.push({
-                name: 'Content-Security-Policy',
-                value: cspDirectives
-            });
+        let cspRight = csp.join(', ');
+        let cspTotal = cspRight;
+        if ( cantMergeCSPHeaders ) {
+            let i = headerIndexFromName(
+                'content-security-policy',
+                headers
+            );
+            if ( i !== -1 ) {
+                cspTotal = headers[i].value.trim() + ', ' + cspTotal;
+                headers.splice(i, 1);
+            }
         }
+        headers.push({
+            name: 'Content-Security-Policy',
+            value: cspTotal
+        });
         if ( requestType === 'doc' ) {
-            µm.logger.writeOne(tabId, 'net', '', cspDirectives, 'CSP', false);
+            µm.logger.writeOne(tabId, 'net', '', cspRight, 'CSP', false);
         }
     }
 
     if ( cspReport.length !== 0 ) {
-        cspDirectives = cspReport.join(',');
-        i = headerIndexFromName('content-security-policy-report-only', headers);
-        if ( i !== -1 ) {
-            headers[i].value += ',' + cspDirectives;
-        } else {
-            headers.push({
-                name: 'Content-Security-Policy-Report-Only',
-                value: cspDirectives
-            });
+        let cspRight = cspReport.join(', ');
+        let cspTotal = cspRight;
+        if ( cantMergeCSPHeaders ) {
+            let i = headerIndexFromName(
+                'content-security-policy-report-only',
+                headers
+            );
+            if ( i !== -1 ) {
+                cspTotal = headers[i].value.trim() + ', ' + cspTotal;
+                headers.splice(i, 1);
+            }
         }
+        headers.push({
+            name: 'Content-Security-Policy-Report-Only',
+            value: cspTotal
+        });
     }
 
     return { responseHeaders: headers };
 };
+
+/******************************************************************************/
+
+// https://github.com/gorhill/uMatrix/issues/967#issuecomment-373002011
+//   This can be removed once Firefox 60 ESR is released.
+var cantMergeCSPHeaders = (function() {
+    if (
+        self.browser instanceof Object &&
+        typeof self.browser.runtime.getBrowserInfo === 'function'
+    ) {
+        self.browser.runtime.getBrowserInfo().then(function(info) {
+            cantMergeCSPHeaders =
+                info.vendor === 'Mozilla' &&
+                info.name === 'Firefox' &&
+                parseInt(info.version, 10) < 59;
+        });
+    }
+    return false;
+})();
 
 /******************************************************************************/
 
