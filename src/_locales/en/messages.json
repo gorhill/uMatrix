@@ -155,6 +155,14 @@
         "message": "No web page found",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip" : {
+        "message": "Import rules",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip" : {
+        "message": "Save rules",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
 
     "statsPageTitle" : {
         "message": "uMatrix &ndash; Statistics",

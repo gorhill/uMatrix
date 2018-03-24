@@ -349,7 +349,7 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'fetchRecipeCommitStatuses':
-        response = µm.recipeManager.commitStatuses(request);
+        response = µm.recipeManager.statuses(request);
         break;
 
     case 'toggleMatrixSwitch':

@@ -148,99 +148,118 @@
         rawRecipes = [];
     };
 
-    return {
-        apply: function(details) {
-            let µm = µMatrix;
-            let tMatrix = µm.tMatrix;
-            let pMatrix = µm.pMatrix;
-            let mustPersist = false;
-            for ( let rule of details.ruleset.split('\n') ) {
-                let parts = rule.split(/\s+/);
-                if ( parts.length < 2 ) { continue; }
-                let f0 = parts[0];
-                let f1 = parts[1];
-                // Switch
-                if ( f0.endsWith(':') ) {
-                    f0 = f0.slice(0, -1);
-                    if ( tMatrix.evaluateSwitchZ(f0, f1) !== false ) {
-                        tMatrix.setSwitchZ(f0, f1, false);
-                        if ( details.commit ) {
-                            pMatrix.setSwitchZ(f0, f1, false);
-                            mustPersist = true;
-                        }
-                    }
-                    continue;
-                }
-                // Rule
-                if ( parts.length < 3 ) { continue; }
-                let f2 = parts[2];
-                let action = tMatrix.evaluateCellZXY(f0, f1, f2);
-                if ( (action & 3) === 1 ) {
-                    tMatrix.whitelistCell(f0, f1, f2);
-                }
-                if ( details.commit !== true ) { continue; }
-                action = pMatrix.evaluateCellZXY(f0, f1, f2);
-                if ( (action & 3) === 1 ) {
-                    pMatrix.whitelistCell(f0, f1, f2);
-                    mustPersist = true;
-                }
-            }
-            if ( mustPersist ) {
-                µm.saveMatrix();
-            }
-        },
-        fetch: function(srcHostname, desHostnames, callback) {
-            fromPendingStrings();
-            let out = [];
-            let fetched = new Set();
-            let tokens = getTokens(srcHostname + ' ' + desHostnames.join(' '));
-            for ( let token of tokens ) {
-                let recipes = recipeBook.get(token);
-                if ( recipes === undefined ) { continue; }
-                for ( let recipe of recipes ) {
-                    if ( fetched.has(recipe.id) ) { continue; }
-                    if (
-                        conditionMatch(
-                            recipe.condition,
-                            srcHostname,
-                            desHostnames
-                        )
-                    ) {
-                        out.push(recipe);
-                        fetched.add(recipe.id);
+    // true = blocked, false = not blocked
+    var evaluateRuleParts = function(matrix, scope, parts) {
+        if ( parts[0].endsWith(':') ) {
+            return matrix.evaluateSwitchZ(parts[0].slice(0, -1), scope);
+        }
+        return matrix.evaluateCellZXY(scope, parts[1], parts[2]) === 1;
+    };
+
+    var api = {};
+
+    api.apply = function(details) {
+        let µm = µMatrix;
+        let tMatrix = µm.tMatrix;
+        let pMatrix = µm.pMatrix;
+        let mustPersist = false;
+        for ( let rule of details.ruleset.split('\n') ) {
+            let parts = rule.split(/\s+/);
+            if ( parts.length < 2 ) { continue; }
+            let f0 = parts[0];
+            let f1 = parts[1];
+            // Switch
+            if ( f0.endsWith(':') ) {
+                f0 = f0.slice(0, -1);
+                if ( tMatrix.evaluateSwitchZ(f0, f1) !== false ) {
+                    tMatrix.setSwitchZ(f0, f1, false);
+                    if ( details.commit ) {
+                        pMatrix.setSwitchZ(f0, f1, false);
+                        mustPersist = true;
                     }
                 }
+                continue;
             }
-            callback(out);
-        },
-        commitStatuses: function(details) {
-            let matrix = µMatrix.pMatrix;
-            for ( let recipe of details.recipes ) {
-                let ruleIter = new µMatrix.LineIterator(recipe.ruleset);
-                while ( ruleIter.eot() === false ) {
-                    let parts = ruleIter.next().split(/\s+/);
-                    if (
-                        matrix.evaluateCellZXY(
-                            details.scope,
-                            parts[1],
-                            parts[2]
-                        ) === 1
-                    ) {
-                        recipe.mustCommit = true;
-                        break;
-                    }
-                }
+            // Rule
+            if ( parts.length < 3 ) { continue; }
+            let f2 = parts[2];
+            let action = tMatrix.evaluateCellZXY(f0, f1, f2);
+            if ( (action & 3) === 1 ) {
+                tMatrix.whitelistCell(f0, f1, f2);
             }
-            return details;
-        },
-        fromString: function(raw) {
-            rawRecipes.push(raw);
-        },
-        reset: function() {
-            rawRecipes.length = 0;
-            recipeBook.clear();
+            if ( details.commit !== true ) { continue; }
+            action = pMatrix.evaluateCellZXY(f0, f1, f2);
+            if ( (action & 3) === 1 ) {
+                pMatrix.whitelistCell(f0, f1, f2);
+                mustPersist = true;
+            }
+        }
+        if ( mustPersist ) {
+            µm.saveMatrix();
         }
     };
+
+    api.fetch = function(srcHostname, desHostnames, callback) {
+        fromPendingStrings();
+        let out = [];
+        let fetched = new Set();
+        let tokens = getTokens(srcHostname + ' ' + desHostnames.join(' '));
+        for ( let token of tokens ) {
+            let recipes = recipeBook.get(token);
+            if ( recipes === undefined ) { continue; }
+            for ( let recipe of recipes ) {
+                if ( fetched.has(recipe.id) ) { continue; }
+                if (
+                    conditionMatch(
+                        recipe.condition,
+                        srcHostname,
+                        desHostnames
+                    )
+                ) {
+                    out.push(recipe);
+                    fetched.add(recipe.id);
+                }
+            }
+        }
+        callback(out);
+    };
+
+    api.statuses = function(details) {
+        let pMatrix = µMatrix.pMatrix,
+            tMatrix = µMatrix.tMatrix;
+        for ( let recipe of details.recipes ) {
+            let ruleIter = new µMatrix.LineIterator(recipe.ruleset);
+            while ( ruleIter.eot() === false ) {
+                let parts = ruleIter.next().split(/\s+/);
+                if (
+                    recipe.mustCommit !== true &&
+                    evaluateRuleParts(pMatrix, details.scope, parts)
+                ) {
+                    recipe.mustCommit = true;
+                    if ( recipe.mustImport ) { break; }
+                }
+                if (
+                    recipe.mustImport !== true &&
+                    evaluateRuleParts(tMatrix, details.scope, parts)
+                ) {
+                    recipe.mustImport = true;
+                    if ( recipe.mustCommit ) { break; }
+                }
+            }
+        }
+        return details;
+    };
+
+    api.fromString = function(raw) {
+        rawRecipes.push(raw);
+    };
+
+    api.reset = function() {
+        rawRecipes.length = 0;
+        recipeBook.clear();
+    };
+
+    return api;
 })();
 
 /******************************************************************************/
