@@ -152,11 +152,11 @@
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
-        "message": "Import rules",
+        "message": "Importer les règles",
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
-        "message": "Save rules",
+        "message": "Enregistrer les règles",
         "description": "Used as a tooltip for the recipe padlock button"
     },
     "statsPageTitle": {
@@ -520,11 +520,11 @@
         "description": ""
     },
     "assetsInlineHostsLabel": {
-        "message": "My hosts",
+        "message": "Mes hôtes",
         "description": ""
     },
     "assetsInlineRecipesLabel": {
-        "message": "My recipes",
+        "message": "Mes recettes",
         "description": ""
     },
     "rawSettingsWarning": {

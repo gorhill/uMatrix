@@ -152,11 +152,11 @@
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
-        "message": "Import rules",
+        "message": "导入规则",
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
-        "message": "Save rules",
+        "message": "保存规则",
         "description": "Used as a tooltip for the recipe padlock button"
     },
     "statsPageTitle": {
@@ -520,15 +520,15 @@
         "description": ""
     },
     "assetsInlineHostsLabel": {
-        "message": "My hosts",
+        "message": "我的 Hosts 名单",
         "description": ""
     },
     "assetsInlineRecipesLabel": {
-        "message": "My recipes",
+        "message": "我的收集",
         "description": ""
     },
     "rawSettingsWarning": {
-        "message": "警告！若要自行编辑原始设定数据则后果自负。",
+        "message": "警告！可在此编辑原始设定数据。请自负风险。",
         "description": ""
     },
     "aboutChangelog": {
