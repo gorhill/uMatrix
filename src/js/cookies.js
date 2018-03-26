@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2013-2017 Raymond Hill
+    uMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2013-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -184,64 +184,78 @@ var cookieMatchDomains = function(cookieKey, allHostnamesString) {
 
 // Look for cookies to record for a specific web page
 
-var recordPageCookiesAsync = function(pageStats) {
+var recordPageCookiesAsync = function(pageStore) {
     // Store the page stats objects so that it doesn't go away
     // before we handle the job.
-    // rhill 2013-10-19: pageStats could be nil, for example, this can
+    // rhill 2013-10-19: pageStore could be nil, for example, this can
     // happens if a file:// ... makes an xmlHttpRequest
-    if ( !pageStats ) {
-        return;
-    }
-    recordPageCookiesQueue.set(pageStats.pageUrl, pageStats);
-    if ( processPageRecordQueueTimer === null ) {
-        processPageRecordQueueTimer = vAPI.setTimeout(processPageRecordQueue, 1000);
-    }
+    if ( !pageStore ) { return; }
+    recordPageCookiesQueue.set(pageStore.pageUrl, pageStore);
+    if ( processPageRecordQueueTimer !== null ) { return; }
+    processPageRecordQueueTimer = vAPI.setTimeout(processPageRecordQueue, 1000);
 };
 
 /******************************************************************************/
 
-var cookieLogEntryBuilder = [
-    '',
-    '{',
-    '',
-    '-cookie:',
-    '',
-    '}'
-];
+var recordPageCookie = (function() {
+    let queue = new Map();
+    let queueTimer;
+    let cookieLogEntryBuilder = [ '', '{', '', '-cookie:', '', '}' ];
 
-var recordPageCookie = function(pageStore, cookieKey) {
-    if ( vAPI.isBehindTheSceneTabId(pageStore.tabId) ) { return; }
+    let process = function() {
+        queueTimer = undefined;
+        for ( let qentry of queue ) {
+            let pageStore = qentry[0];
+            if ( pageStore.tabId === '' ) { continue; }
+            for ( let cookieKey of qentry[1] ) {
+                let cookieEntry = cookieDict.get(cookieKey);
+                let block = µm.mustBlock(
+                    pageStore.pageHostname,
+                    cookieEntry.hostname,
+                    'cookie'
+                );
+                // https://github.com/gorhill/httpswitchboard/issues/60
+                //   Need to URL-encode cookie name
+                cookieLogEntryBuilder[0] =
+                    cookieURLFromCookieEntry(cookieEntry);
+                cookieLogEntryBuilder[2] =
+                    cookieEntry.session ? 'session' : 'persistent';
+                cookieLogEntryBuilder[4] =
+                    encodeURIComponent(cookieEntry.name);
+                let cookieURL = cookieLogEntryBuilder.join('');
+                pageStore.recordRequest('cookie', cookieURL, block);
+                µm.logger.writeOne(
+                    pageStore.tabId,
+                    'net',
+                    pageStore.pageHostname,
+                    cookieURL,
+                    'cookie',
+                    block
+                );
+                cookieEntry.usedOn.add(pageStore.pageHostname);
+                if ( !block ) { continue; }
+                if ( µm.userSettings.deleteCookies ) {
+                    removeCookieAsync(cookieKey);
+                }
+                µm.updateBadgeAsync(pageStore.tabId);
+            }
+        }
+        queue.clear();
+    };
 
-    var cookieEntry = cookieDict.get(cookieKey);
-    var pageHostname = pageStore.pageHostname;
-    var block = µm.mustBlock(pageHostname, cookieEntry.hostname, 'cookie');
-
-    cookieLogEntryBuilder[0] = cookieURLFromCookieEntry(cookieEntry);
-    cookieLogEntryBuilder[2] = cookieEntry.session ? 'session' : 'persistent';
-    cookieLogEntryBuilder[4] = encodeURIComponent(cookieEntry.name);
-
-    var cookieURL = cookieLogEntryBuilder.join('');
-
-    // rhill 2013-11-20:
-    // https://github.com/gorhill/httpswitchboard/issues/60
-    // Need to URL-encode cookie name
-    pageStore.recordRequest('cookie', cookieURL, block);
-    µm.logger.writeOne(pageStore.tabId, 'net', pageHostname, cookieURL, 'cookie', block);
-
-    cookieEntry.usedOn.add(pageHostname);
-
-    // rhill 2013-11-21:
-    // https://github.com/gorhill/httpswitchboard/issues/65
-    // Leave alone cookies from behind-the-scene requests if
-    // behind-the-scene processing is disabled.
-    if ( !block ) {
-        return;
-    }
-    if ( !µm.userSettings.deleteCookies ) {
-        return;
-    }
-    removeCookieAsync(cookieKey);
-};
+    return function(pageStore, cookieKey) {
+        if ( vAPI.isBehindTheSceneTabId(pageStore.tabId) ) { return; }
+        let entry = queue.get(pageStore);
+        if ( entry === undefined ) {
+            queue.set(pageStore, (entry = new Set()));
+        }
+        if ( entry.has(cookieKey) ) { return; }
+        entry.add(cookieKey);
+        if ( queueTimer === undefined ) {
+            queueTimer = vAPI.setTimeout(process, 277);
+        }
+    };
+})();
 
 /******************************************************************************/
 
@@ -473,35 +487,62 @@ var canRemoveCookie = function(cookieKey, srcHostnames) {
 /******************************************************************************/
 
 // Listen to any change in cookieland, we will update page stats accordingly.
+//
+// https://github.com/gorhill/httpswitchboard/issues/79
+//  If cookie value didn't change, no need to record.
 
-vAPI.cookies.onChanged = function(cookie) {
-    // rhill 2013-12-11: If cookie value didn't change, no need to record.
-    // https://github.com/gorhill/httpswitchboard/issues/79
-    var cookieKey = cookieKeyFromCookie(cookie);
-    var cookieEntry = cookieDict.get(cookieKey);
-    if ( cookieEntry === undefined ) {
-        cookieEntry = addCookieToDict(cookie);
-    } else {
-        cookieEntry.tstamp = Date.now();
-        if ( cookie.value === cookieEntry.value ) { return; }
-        cookieEntry.value = cookie.value;
-    }
+vAPI.cookies.onChanged = (function() {
+    let queue = new Map();
+    let queueTimer;
 
     // Go through all pages and update if needed, as one cookie can be used
     // by many web pages, so they need to be recorded for all these pages.
-    var pageStores = µm.pageStores;
-    var pageStore;
-    for ( var tabId in pageStores ) {
-        if ( pageStores.hasOwnProperty(tabId) === false ) {
-            continue;
+
+    let process = function() {
+        queueTimer = undefined;
+        let now = Date.now();
+        let cookieKeys = [];
+        for ( let qentry of queue ) {
+            if ( qentry[1] > now ) { continue; }
+            if ( cookieDict.has(qentry[0]) === false ) { continue; }
+            cookieKeys.push(qentry[0]);
+            queue.delete(qentry[0]);
         }
-        pageStore = pageStores[tabId];
-        if ( !cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
-            continue;
+        if ( cookieKeys.length !== 0 ) {
+            let pageStores = µm.pageStores;
+            for ( let tabId in pageStores ) {
+                if ( pageStores.hasOwnProperty(tabId) === false ) { continue; }
+                let pageStore = pageStores[tabId];
+                let allHostnamesString = pageStore.allHostnamesString;
+                for ( let cookieKey of cookieKeys ) {
+                    if ( cookieMatchDomains(cookieKey, allHostnamesString) ) {
+                        recordPageCookie(pageStore, cookieKey);
+                    }
+                }
+            }
         }
-        recordPageCookie(pageStore, cookieKey);
-    }
-};
+        if ( queue.size !== 0 ) {
+            queueTimer = vAPI.setTimeout(process, 797);
+        }
+    };
+
+    return function(cookie) {
+        let cookieKey = cookieKeyFromCookie(cookie);
+        let cookieEntry = cookieDict.get(cookieKey);
+        if ( cookieEntry === undefined ) {
+            cookieEntry = addCookieToDict(cookie);
+        } else {
+            cookieEntry.tstamp = Date.now();
+            if ( cookie.value === cookieEntry.value ) { return; }
+            cookieEntry.value = cookie.value;
+        }
+        if ( queue.has(cookieKey) ) { return; }
+        queue.set(cookieKey, Date.now() + 653);
+        if ( queueTimer === undefined ) {
+            queueTimer = vAPI.setTimeout(process, 727);
+        }
+    };
+})();
 
 /******************************************************************************/
 

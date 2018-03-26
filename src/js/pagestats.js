@@ -134,6 +134,7 @@ PageStore.prototype = {
     },
 
     dispose: function() {
+        this.tabId = '';
         this.rawUrl = '';
         this.pageUrl = '';
         this.pageHostname = '';
