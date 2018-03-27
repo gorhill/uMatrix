@@ -112,7 +112,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixRecipesButtonTip" : {
-        "message": "Available recipes for this site",
+        "message": "Import ruleset recipes into this scope",
         "description": "Tool tip for the recipes button"
     },
     "matrixReloadButton" : {
