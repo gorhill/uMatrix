@@ -32,11 +32,11 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "അസറ്റുകൾ",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "കൂടുതൽ",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -60,7 +60,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
-        "message": "media",
+        "message": "മീഡിയ",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
@@ -308,11 +308,11 @@
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "ആഗോള",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "ഡൊമൈന്‍",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {

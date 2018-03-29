@@ -152,11 +152,11 @@
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
-        "message": "Import rules",
+        "message": "Увоз правила",
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
-        "message": "Save rules",
+        "message": "Чување правила",
         "description": "Used as a tooltip for the recipe padlock button"
     },
     "statsPageTitle": {
@@ -336,7 +336,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Онемогући описе алатки",
         "description": ""
     },
     "privacyPageTitle": {
@@ -452,7 +452,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Хост датотеке",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Увези...",
         "description": ""
     },
     "assetsInlineHostsLabel": {
