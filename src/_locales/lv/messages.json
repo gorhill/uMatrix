@@ -151,6 +151,14 @@
         "message": "No web page found",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "Import rules",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "Save rules",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "uMatrix &ndash; Statistics",
         "description": ""
@@ -310,34 +318,6 @@
     "settingsDefaultScopeLevel2": {
         "message": "Site",
         "description": "Scope will be full hostname of site"
-    },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "When the matrix is closed, smart reload these tabs:",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "Neviens",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "Current",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "All",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "Whenever you make changes in the matrix which can affect the display and\/or behavior of one or more pages, <i>uMatrix<\/i> will reload affected pages automatically when you close the matrix.",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "Blocked frames:&ensp;Color",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "Necaurredzamība",
-        "description": "English: Opacity"
     },
     "settingsCollapseBlocked": {
         "message": "Collapse placeholder of blocked elements",
@@ -537,6 +517,14 @@
     },
     "assetsImportLabel": {
         "message": "Import...",
+        "description": ""
+    },
+    "assetsInlineHostsLabel": {
+        "message": "My hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "My recipes",
         "description": ""
     },
     "rawSettingsWarning": {

@@ -141,6 +141,18 @@ var isIPAddress = function(hostname) {
 
 /******************************************************************************/
 
+var punycodeIf = function(hn) {
+    return reNotASCII.test(hn) ? punycode.toASCII(hn) : hn;
+};
+
+var unpunycodeIf = function(hn) {
+    return hn.indexOf('xn--') !== -1 ? punycode.toUnicode(hn) : hn;
+};
+
+var reNotASCII = /[^\x20-\x7F]/;
+
+/******************************************************************************/
+
 var toBroaderHostname = function(hostname) {
     if ( hostname === '*' ) { return ''; }
     if ( isIPAddress(hostname) ) {
@@ -591,6 +603,51 @@ Matrix.prototype.extractAllSourceHostnames = (function() {
 
 /******************************************************************************/
 
+// https://github.com/gorhill/uMatrix/issues/759
+//   Backward compatibility: 'plugin' => 'media'
+
+Matrix.prototype.partsFromLine = function(line) {
+    let fields = line.split(/\s+/);
+    if ( fields.length < 3 ) { return; }
+
+    // Switches
+    if ( this.reSwitchRule.test(fields[0]) ) {
+        fields[0] = fields[0].slice(0, -1);
+        if ( switchBitOffsets.has(fields[0]) === false ) { return; }
+        fields[1] = punycodeIf(fields[1]);
+        fields[2] = nameToSwitchStateMap.get(fields[2]);
+        if ( fields[2] === undefined ) { return; }
+        fields.length = 3;
+        return fields;
+    }
+
+    // Rules
+    if ( fields.length < 4 ) { return; }
+    fields[0] = punycodeIf(fields[0]);
+    fields[1] = punycodeIf(fields[1]);
+    if ( fields[2] === 'plugin' ) { fields[2] = 'media'; }
+    if ( typeBitOffsets.get(fields[2]) === undefined ) { return; }
+    if ( nameToStateMap.hasOwnProperty(fields[3]) === false ) { return; }
+    fields[3] = nameToStateMap[fields[3]];
+    fields.length = 4;
+    return fields;
+};
+
+Matrix.prototype.reSwitchRule = /^[0-9a-z-]+:$/;
+
+/******************************************************************************/
+
+Matrix.prototype.fromArray = function(lines, append) {
+    let matrix = append === true ? this : new Matrix();
+    for ( let line of lines ) {
+        matrix.addFromLine(line);
+    }
+    if ( append !== true ) {
+        this.assign(matrix);
+    }
+    this.modifiedTime = Date.now();
+};
+
 Matrix.prototype.toArray = function() {
     let out = [];
     for ( let rule of this.rules.keys() ) {
@@ -600,8 +657,8 @@ Matrix.prototype.toArray = function() {
             let val = this.evaluateCell(srcHostname, desHostname, type);
             if ( val === 0 ) { continue; }
             out.push(
-                punycode.toUnicode(srcHostname) + ' ' +
-                punycode.toUnicode(desHostname) + ' ' +
+                unpunycodeIf(srcHostname) + ' ' +
+                unpunycodeIf(desHostname) + ' ' +
                 type + ' ' +
                 stateToNameMap.get(val)
             );
@@ -623,25 +680,6 @@ Matrix.prototype.toArray = function() {
 
 /******************************************************************************/
 
-Matrix.prototype.fromArray = function(lines, append) {
-    let matrix = append === true ? this : new Matrix();
-    for ( let line of lines ) {
-        matrix.fromLine(line);
-    }
-    if ( append !== true ) {
-        this.assign(matrix);
-    }
-    this.modifiedTime = Date.now();
-};
-
-/******************************************************************************/
-
-Matrix.prototype.toString = function() {
-    return this.toArray().join('\n');
-};
-
-/******************************************************************************/
-
 Matrix.prototype.fromString = function(text, append) {
     let matrix = append === true ? this : new Matrix();
     let textEnd = text.length;
@@ -657,14 +695,12 @@ Matrix.prototype.fromString = function(text, append) {
         }
         let line = text.slice(lineBeg, lineEnd).trim();
         lineBeg = lineEnd + 1;
-
         let pos = line.indexOf('# ');
         if ( pos !== -1 ) {
             line = line.slice(0, pos).trim();
         }
         if ( line === '' ) { continue; }
-
-        matrix.fromLine(line);
+        matrix.addFromLine(line);
     }
 
     if ( append !== true ) {
@@ -674,77 +710,38 @@ Matrix.prototype.fromString = function(text, append) {
     this.modifiedTime = Date.now();
 };
 
-/******************************************************************************/
-
-// https://github.com/gorhill/uMatrix/issues/759
-//   Backward compatibility: 'plugin' => 'media'
-
-Matrix.prototype.fromLine = function(line) {
-    let fields = line.split(/\s+/);
-    if ( fields.length < 3 ) { return false; }
-    let field0 = fields[0];
-
-    // Switches
-    if ( this.reSwitchRule.test(field0) ) {
-        let switchName = field0.slice(0, -1);
-        let srcHostname = punycode.toASCII(fields[1]);
-        let state = fields[2];
-        if (
-            switchBitOffsets.has(switchName) === false ||
-            nameToSwitchStateMap.has(state) === false
-        ) {
-            return false;
-        }
-        this.setSwitch(
-            switchName,
-            srcHostname,
-            nameToSwitchStateMap.get(state)
-        );
-        return true;
-    }
-
-    // Rules
-    if ( fields.length < 4 ) { return false; }
-
-    let srcHostname = punycode.toASCII(fields[0]);
-    let desHostname = punycode.toASCII(fields[1]);
-    let type = fields[2];
-
-    if ( type !== undefined ) {
-        if ( type === 'plugin' ) {
-            type = 'media';
-        } else if ( typeBitOffsets.has(type) === false ) {
-            return false;
-        }
-    } else {
-        type = '*';
-    }
-
-    let state = fields[3];
-
-    if ( state !== undefined ) {
-        if ( nameToStateMap.hasOwnProperty(state) === false ) {
-            return false;
-        }
-        state = nameToStateMap[state];
-    } else {
-        state = 2;
-    }
-
-    this.setCell(srcHostname, desHostname, type, state);
-    return true;
+Matrix.prototype.toString = function() {
+    return this.toArray().join('\n');
 };
 
-Matrix.prototype.reSwitchRule = /^[0-9a-z-]+:$/;
-
 /******************************************************************************/
 
-Matrix.prototype.toSelfie = function() {
-    return {
-        version: selfieVersion,
-        switches: Array.from(this.switches),
-        rules: Array.from(this.rules)
-    };
+Matrix.prototype.addFromLine = function(line) {
+    let fields = this.partsFromLine(line);
+    if ( fields !== undefined ) {
+        // Switches
+        if ( fields.length === 3 ) {
+            return this.setSwitch(fields[0], fields[1], fields[2]);
+        }
+        // Rules
+        if ( fields.length === 4 ) {
+            return this.setCell(fields[0], fields[1], fields[2], fields[3]);
+        }
+    }
+};
+
+Matrix.prototype.removeFromLine = function(line) {
+    let fields = this.partsFromLine(line);
+    if ( fields !== undefined ) {
+        // Switches
+        if ( fields.length === 3 ) {
+            return this.setSwitch(fields[0], fields[1], 0);
+        }
+        // Rules
+        if ( fields.length === 4 ) {
+            return this.setCell(fields[0], fields[1], fields[2], 0);
+        }
+    }
 };
 
 /******************************************************************************/
@@ -755,6 +752,14 @@ Matrix.prototype.fromSelfie = function(selfie) {
     this.rules = new Map(selfie.rules);
     this.modifiedTime = Date.now();
     return true;
+};
+
+Matrix.prototype.toSelfie = function() {
+    return {
+        version: selfieVersion,
+        switches: Array.from(this.switches),
+        rules: Array.from(this.rules)
+    };
 };
 
 /******************************************************************************/
@@ -790,9 +795,7 @@ Matrix.prototype.diff = function(other, srcHostname, desHostnames) {
             }
         }
         srcHostname = toBroaderHostname(srcHostname);
-        if ( srcHostname === '' ) {
-            break;
-        }
+        if ( srcHostname === '' ) { break; }
     }
     return out;
 };

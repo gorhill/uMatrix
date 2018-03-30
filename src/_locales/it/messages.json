@@ -151,6 +151,14 @@
         "message": "Nessuna pagina trovata",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "Import rules",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "Save rules",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "uMatrix &ndash; Statistiche",
         "description": ""
@@ -310,34 +318,6 @@
     "settingsDefaultScopeLevel2": {
         "message": "Sito",
         "description": "Scope will be full hostname of site"
-    },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "Quando la matrice è chiusa, ricarica queste schede:",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "Nessuna",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "Pagina corrente",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "Tutte",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "Ogni volta che effettui modifiche nella matrice che possono influenzare la visualizzazione e\/o il comportamento di una o più pagine, <i>uMatrix<\/i> ricaricherà automaticamente le pagine in questione quando chiudi la matrice.",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "Frames bloccati:&ensp;Colore",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "Opacità",
-        "description": "English: Opacity"
     },
     "settingsCollapseBlocked": {
         "message": "Nascondi lo spazio riservato agli elementi bloccati",
@@ -537,6 +517,14 @@
     },
     "assetsImportLabel": {
         "message": "Importa...",
+        "description": ""
+    },
+    "assetsInlineHostsLabel": {
+        "message": "My hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "My recipes",
         "description": ""
     },
     "rawSettingsWarning": {

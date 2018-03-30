@@ -151,6 +151,14 @@
         "message": "沒有找到網頁",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "導入規則",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "儲存規則",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "uMatrix &ndash; 統計",
         "description": ""
@@ -310,34 +318,6 @@
     "settingsDefaultScopeLevel2": {
         "message": "網頁域名",
         "description": "Scope will be full hostname of site"
-    },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "關閉矩陣時重新載入以下分頁：",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "無",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "現有",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "全部",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "當你更改矩陣以致其將影響分頁之外觀或行為之時，<i>uMatrix<\/i>將於關閉矩陣時自動重新載入。",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "已封鎖之框架：&ensp;颜色",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "不透明度",
-        "description": "English: Opacity"
     },
     "settingsCollapseBlocked": {
         "message": "隱藏已阻擋請求所關聯的頁面內容",
@@ -539,8 +519,16 @@
         "message": "導入…",
         "description": ""
     },
+    "assetsInlineHostsLabel": {
+        "message": "我的 Hosts 名單",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "我的收集",
+        "description": ""
+    },
     "rawSettingsWarning": {
-        "message": "警告！若要自行編輯原始設定數據則後果自負。",
+        "message": "警告！可在此編輯原始設定數據。請自負风險。",
         "description": ""
     },
     "aboutChangelog": {

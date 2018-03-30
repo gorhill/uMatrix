@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>uMatrix — Your rules</title>
+<link rel="stylesheet" type="text/css" href="lib/codemirror/lib/codemirror.css">
+<link rel="stylesheet" type="text/css" href="lib/codemirror/addon/merge/merge.css">
+
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
 <link rel="stylesheet" type="text/css" href="css/cloud-ui.css">
 <link rel="stylesheet" type="text/css" href="css/user-rules.css">
+<link rel="stylesheet" type="text/css" href="css/codemirror.css">
 </head>
 
 <body>
@@ -15,30 +20,32 @@
 
 <!-- <p data-i18n="userRulesFormatHint"></p> -->
 <div id="diff">
-    <div class="pane left">
-        <div>
-            <h2 data-i18n="userRulesPermanentHeader"></h2>
+    <div class="tools">
+        <div class="ruleActions">
+            <h3 data-i18n="userRulesPermanentHeader"></h3>
             <button type="button" id="exportButton" data-i18n="userRulesExport"></button>
             <button type="button" id="revertButton" data-i18n="userRulesRevert"></button>
-            </div>
-        <ul></ul>
         </div>
-    <div class="pane right">
-        <div>
-            <h2 data-i18n="userRulesTemporaryHeader"></h2>
+        <div class="ruleActions">
+            <h3 data-i18n="userRulesTemporaryHeader"></h3>
             <button type="button" id="commitButton" data-i18n="userRulesCommit"></button>
-            <button type="button" id="editEnterButton" data-i18n="userRulesEdit"></button>
-            <button type="button" id="editStopButton" data-i18n="userRulesEditSave"></button>
-            <button type="button" id="editCancelButton" data-i18n="userRulesEditDicard"></button>
             <button type="button" id="importButton" data-i18n="userRulesImport"></button>
-            </div>
-        <textarea spellcheck="false"></textarea>
-        <ul></ul>
+            <button type="button" id="editSaveButton" data-i18n="userRulesEditSave"></button>
         </div>
+        <div id="ruleFilter"><span class="fa">&#xf0b0;</span>&ensp;<input type="text" size="32"></div>
     </div>
+    <div class="codeMirrorContainer codeMirrorMergeContainer vfill-available"></div>
+</div>
 
-<input class="hidden" id="importFilePicker" type="file" accept="text/plain">
-<span class="hidden" data-i18n="userRulesDefaultFileName"></span>
+<div style="display: none;">
+    <input id="importFilePicker" type="file" accept="text/plain">
+    <span data-i18n="userRulesDefaultFileName"></span>
+</div>
+
+<script src="lib/diff/swatinem_diff.js"></script>
+<script src="lib/codemirror/lib/codemirror.js"></script>
+<script src="lib/codemirror/addon/merge/merge.js"></script>
+<script src="lib/codemirror/addon/selection/active-line.js"></script>
 
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>

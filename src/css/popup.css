@@ -159,7 +159,7 @@ body .toolbar button.fa {
     }
 
 .dropdown-menu-capture {
-    background-color: transparent;
+    background-color: rgba(0,0,0,0.2);
     border: 0;
     bottom: 0;
     display: none;
@@ -170,6 +170,10 @@ body .toolbar button.fa {
     right: 0;
     top: 0;
     z-index: 300;
+    }
+.dropdown-menu-capture.dropdown-menu-centered > .dropdown-menu {
+    left: 4em;
+    right: 4em;
     }
 .dropdown-menu-capture.show {
     display: block;
@@ -211,14 +215,15 @@ body .toolbar button.fa {
     }
 
 button > span.badge {
-    padding: 1px 1px;
-    display: inline-block;
-    font-size: 40%;
-    position: absolute;
-    right: 1px;
+    background-color: rgba(240,240,240,0.75);
     bottom: 1px;
     color: #000;
-    background-color: rgba(240,240,240,0.75)
+    display: inline-block;
+    font-size: 40%;
+    padding: 1px 1px;
+    pointer-events: none;
+    position: absolute;
+    right: 1px;
     }
 button.disabled > span.badge {
     display: none;
@@ -238,7 +243,6 @@ button.disabled > span.badge {
     padding: 0;
     }
 .recipe {
-    cursor: pointer;
     list-style-type: none;
     white-space: nowrap;
     }
@@ -266,15 +270,21 @@ button.disabled > span.badge {
     }
 .recipe .name {
     color: #000;
+    cursor: default;
     flex-grow: 1;
+    padding: 0.4em 0;
     }
+.recipe .importer,
 .recipe .committer {
+    cursor: pointer;
     display: none;
     font-size: 120%;
     padding: 0.4em;
-    width: 0.8em;
+    text-align: center;
+    width: 1em;
     }
-.recipe.mustCommit .committer {
+.recipe.mustImport .importer,
+.recipe.mustCommit:not(.mustImport) .committer {
     display: inline;
     }
 .recipe:hover {

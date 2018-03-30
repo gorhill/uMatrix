@@ -1,8 +1,9 @@
 body {
     background-color: #fff;
+    box-sizing: border-box;
     color: #000;
     margin: 0;
-    padding: 0 0.5em 0 0.5em;
+    padding: 0 0.5em 0.5em 0.5em;
     font: 14px/1.4 sans-serif;
     }
 body > *:first-child {

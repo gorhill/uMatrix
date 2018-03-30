@@ -151,6 +151,14 @@
         "message": "Geen webpagina gevonden",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "Regels importeren",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "Regels opslaan",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "uMatrix &ndash; Statistieken",
         "description": ""
@@ -310,34 +318,6 @@
     "settingsDefaultScopeLevel2": {
         "message": "Website",
         "description": "Scope will be full hostname of site"
-    },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "Wanneer de matrix wordt gesloten, deze tabbladen slim vernieuwen:",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "Geen",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "Huidige",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "Alle",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "Als u wijzigingen aanbrengt die de weergave en\/of het gedrag van een of meer pagina’s kunnen beïnvloeden, zal <i>uMatrix<\/i> de betreffende pagina’s automatisch vernieuwen zodra u de matrix sluit.",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "Geblokkeerde frames:&ensp;kleur",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "Ondoorzichtigheid",
-        "description": "English: Opacity"
     },
     "settingsCollapseBlocked": {
         "message": "Tijdelijke aanduiding van geblokkeerde elementen samenvouwen",
@@ -537,6 +517,14 @@
     },
     "assetsImportLabel": {
         "message": "Importeren...",
+        "description": ""
+    },
+    "assetsInlineHostsLabel": {
+        "message": "Mijn hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "Mijn recepten",
         "description": ""
     },
     "rawSettingsWarning": {

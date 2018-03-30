@@ -1310,8 +1310,17 @@ let recipeManager = (function() {
     }
 
     function apply(ev) {
-        if ( ev.target.classList.contains('expander') ) {
+        if (
+            ev.target.classList.contains('expander') ||
+            ev.target.classList.contains('name')
+        ) {
             ev.currentTarget.classList.toggle('expanded');
+            return;
+        }
+        if (
+            ev.target.classList.contains('importer') === false &&
+            ev.target.classList.contains('committer') === false
+        ) {
             return;
         }
         let root = ev.currentTarget;
@@ -1326,6 +1335,7 @@ let recipeManager = (function() {
             },
             updateMatrixSnapshot
         );
+        root.classList.remove('mustImport');
         if ( commit ) {
             root.classList.remove('mustCommit');
         }
@@ -1341,6 +1351,7 @@ let recipeManager = (function() {
                 recipe.ruleset.replace(reScopeAlias, '$1' + details.scope + '$2'),
                 ul
             );
+            li.classList.toggle('mustImport', recipe.mustImport === true);
             li.classList.toggle('mustCommit', recipe.mustCommit === true);
             li.addEventListener('click', apply);
         }
@@ -1448,8 +1459,10 @@ function dropDownMenuShow(button) {
     var menu = menuOverlay.querySelector('.dropdown-menu');
     var menuRect = menu.getBoundingClientRect();
     var menuLeft = butnNormalLeft * (viewRect.width - menuRect.width);
-    menu.style.left = menuLeft.toFixed(0) + 'px';
     menu.style.top = butnRect.bottom + 'px';
+    if ( menuOverlay.classList.contains('dropdown-menu-centered') === false ) {
+        menu.style.left = menuLeft.toFixed(0) + 'px';
+    }
 }
 
 function dropDownMenuHide() {

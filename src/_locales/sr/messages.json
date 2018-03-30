@@ -151,6 +151,14 @@
         "message": "Ниједна веб страница није пронађена",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
+    "matrixRecipeImportTip": {
+        "message": "Увоз правила",
+        "description": "Used as a tooltip for the recipe import button"
+    },
+    "matrixRecipeSaveTip": {
+        "message": "Чување правила",
+        "description": "Used as a tooltip for the recipe padlock button"
+    },
     "statsPageTitle": {
         "message": "uMatrix &ndash; Статистика",
         "description": ""
@@ -311,34 +319,6 @@
         "message": "Сајт",
         "description": "Scope will be full hostname of site"
     },
-    "settingsMatrixAutoReloadPrompt": {
-        "message": "Приликом затварања матрице, паметно обнови ове картице:",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadNone": {
-        "message": "Ниједан",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadCurrent": {
-        "message": "Тренутни",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadAll": {
-        "message": "Све",
-        "description": ""
-    },
-    "settingsMatrixAutoReloadInfo": {
-        "message": "Када год начините измене у матрици које могу утицати на приказ и\/или понашање једне или више страница, <i>uMatrix<\/i> ће аутоматски поново учитати погођене странице када будете затворили матрицу.",
-        "description": ""
-    },
-    "settingsSubframeColor": {
-        "message": "Блокираних оквира:&ensp;Боја",
-        "description": "English: Blocked frames:&ensp;Color"
-    },
-    "settingsSubframeOpacity": {
-        "message": "Непрозирност",
-        "description": "English: Opacity"
-    },
     "settingsCollapseBlocked": {
         "message": "Скупи држач блокираних елемената",
         "description": "English: Collapse placeholder of blocked elements"
@@ -356,7 +336,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Онемогући описе алатки",
         "description": ""
     },
     "privacyPageTitle": {
@@ -472,7 +452,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Хост датотеке",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -536,7 +516,15 @@
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Увези...",
+        "description": ""
+    },
+    "assetsInlineHostsLabel": {
+        "message": "My hosts",
+        "description": ""
+    },
+    "assetsInlineRecipesLabel": {
+        "message": "My recipes",
         "description": ""
     },
     "rawSettingsWarning": {
