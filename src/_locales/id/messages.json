@@ -152,11 +152,11 @@
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
-        "message": "Import rules",
+        "message": "Impor aturan",
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
-        "message": "Save rules",
+        "message": "Simpan aturan",
         "description": "Used as a tooltip for the recipe padlock button"
     },
     "statsPageTitle": {
@@ -292,7 +292,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "Tampilkan jumlah permintaan yang berbeda pada ikon",
+        "message": "Tampilkan jumlah permintaan yang diblokir pada ikon",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -336,7 +336,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Nonaktifkan tooltip",
         "description": ""
     },
     "privacyPageTitle": {
@@ -520,7 +520,7 @@
         "description": ""
     },
     "assetsInlineHostsLabel": {
-        "message": "My hosts",
+        "message": "Host saya",
         "description": ""
     },
     "assetsInlineRecipesLabel": {
