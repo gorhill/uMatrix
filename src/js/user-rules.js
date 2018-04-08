@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to block requests.
+    uMatrix - a browser extension to block requests.
     Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -32,22 +32,37 @@
 // Move to dashboard-common.js if needed
 
 (function() {
-    if ( document.querySelector('.vfill-available') === null ) { return; }
-    var timer;
-    var resize = function() {
+    let timer;
+    let resize = function() {
         timer = undefined;
-        let prect = document.body.getBoundingClientRect();
         let child = document.querySelector('.vfill-available');
+        if ( child === null ) { return; }
+        let prect = document.documentElement.getBoundingClientRect();
         let crect = child.getBoundingClientRect();
-        let height = Math.max(prect.bottom - crect.top, 80);
-        child.style.height = height + 'px';
-    };
-    resize();
-    window.addEventListener('resize', function() {
-        if ( timer === undefined ) {
-            timer = vAPI.setTimeout(resize, 66);
+        let cssHeight = Math.max(prect.bottom - crect.top, 80) + 'px';
+        if ( child.style.height !== cssHeight ) {
+            child.style.height = cssHeight;
+            if ( typeof mergeView !== 'undefined' ) {
+                mergeView.leftOriginal().refresh();
+                mergeView.editor().refresh();
+            }
         }
+    };
+    let resizeAsync = function(delay) {
+        if ( timer === undefined ) {
+            timer = vAPI.setTimeout(
+                resize,
+                typeof delay === 'number' ? delay : 66
+            );
+        }
+    };
+    window.addEventListener('resize', resizeAsync);
+    var observer = new MutationObserver(resizeAsync);
+    observer.observe(document.querySelector('.body'), {
+        childList: true,
+        subtree: true
     });
+    resizeAsync(1);
 })();
 
 /******************************************************************************/

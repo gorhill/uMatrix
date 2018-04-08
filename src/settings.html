@@ -30,8 +30,9 @@ ul > li.separator {
 </head>
 
 <body>
+<div class="body">
 
-<h2 data-i18n="settingsMatrixConvenienceHeader"></h2>
+<h3 data-i18n="settingsMatrixConvenienceHeader"></h3>
 <ul>
     <li><input id="iconBadgeEnabled" type="checkbox" data-setting-bool>
         <label data-i18n="settingsIconBadgeEnabled" for="iconBadgeEnabled"></label>
@@ -49,7 +50,7 @@ ul > li.separator {
         <input id="noTooltips" type="checkbox" data-setting-bool>
         <label data-i18n="settingsMatrixNoTooltips" for="noTooltips"></label>
 </ul>
-<h2 data-i18n="settingsMatrixDisplayHeader"></h2>
+<h3 data-i18n="settingsMatrixDisplayHeader"></h3>
 <ul>
     <li><span data-i18n="settingsMatrixDisplayTextSizePrompt"></span>&ensp;&minus;<input id="displayTextSize" type="range" min="12" max="18" value="14" style="margin:0 0.2em;vertical-align:bottom;">&plus;
     <li class="separator">
@@ -60,7 +61,7 @@ ul > li.separator {
         <input id="colorBlindFriendly" type="checkbox" data-setting-bool>
         <label data-i18n="settingsMatrixDisplayColorBlind" for="colorBlindFriendly"></label>
 </ul>
-<h2 data-i18n="privacyPageName"></h2>
+<h3 data-i18n="privacyPageName"></h3>
 <ul>
     <li>
         <input id="deleteCookies" type="checkbox" data-setting-bool><label data-i18n="privacyDeleteBlockedCookiesPrompt" for="deleteCookies"></label>
@@ -109,6 +110,8 @@ ul > li.separator {
         <span class="whatisthis"></span>
         <div class="whatisthis-expandable para" data-i18n="privacyProcessHyperlinkAuditingHelp"></div>
 </ul>
+
+</div><!-- end of div.body -->
 
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>

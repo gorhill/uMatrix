@@ -1,21 +1,19 @@
 body {
-    margin: 0;
     border: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
     font: 15px sans-serif;
-    position: relative;
-    width: 100vw;
     height: 100vh;
+    margin: 0;
     overflow: hidden;
+    padding: 0;
+    width: 100vw;
     }
 #dashboard-nav {
-    margin: 0;
     border: 0;
+    margin: 0;
     padding: 0;
-    position: absolute;
-    top: 0;
     width: 100vw;
-    height: 50px;
     z-index: 10;
     }
 #dashboard-nav-widgets {
@@ -55,13 +53,11 @@ body {
     background-color: white;
     }
 iframe {
-    margin: 0;
-    border: 0;
-    padding: 0;
     background-color: transparent;
+    border: 0;
+    flex-grow: 1;
+    margin: 0;
     overflow: auto;
-    position: absolute;
-    top: 50px;
+    padding: 0;
     width: 100%;
-    height: calc(100% - 50px);
     }

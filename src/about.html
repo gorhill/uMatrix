@@ -13,8 +13,9 @@ ul {
 </head>
 
 <body>
+<div class="body">
 
-<h2>uMatrix <span id="aboutVersion"></span></h2>
+<h3>uMatrix <span id="aboutVersion"></span></h3>
 <ul>
     <li><span id="aboutStorageUsed"></span><br>
     <li>&nbsp;
@@ -35,7 +36,7 @@ ul {
     <li><a href="https://github.com/Swatinem/diff" target="_blank">An implementation of Myers' diff algorithm</a> by <a href="https://github.com/Swatinem">Arpad Borsos</a>
 </ul>
 
-<h2 data-i18n="aboutUserDataHeader"></h2>
+<h3 data-i18n="aboutUserDataHeader"></h3>
 <div>
     <p><button type="button" id="backupUserDataButton" data-i18n="aboutBackupButton"></button>
     <button type="button" id="restoreUserDataButton" data-i18n="aboutRestoreButton"></button>
@@ -44,12 +45,15 @@ ul {
     <p><button type="button" id="resetUserDataButton" data-i18n="aboutResetButton"></button>
 </div>
 
-<span style="display: none;" data-i18n="aboutStorageUsed"></span>
-<span style="display: none;" data-i18n="aboutBackupFilename"></span>
-<span style="display: none;" data-i18n="aboutRestoreConfirm"></span>
-<span style="display: none;" data-i18n="aboutRestoreError"></span>
-<span style="display: none;" data-i18n="aboutResetConfirm"></span>
+</div><!-- end of div.body -->
 
+<div style="display: none;">
+    <span data-i18n="aboutStorageUsed"></span>
+    <span data-i18n="aboutBackupFilename"></span>
+    <span data-i18n="aboutRestoreConfirm"></span>
+    <span data-i18n="aboutRestoreError"></span>
+    <span data-i18n="aboutResetConfirm"></span>
+</div>
 
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>

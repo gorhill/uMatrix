@@ -3,27 +3,14 @@ body {
     box-sizing: border-box;
     color: #000;
     margin: 0;
-    padding: 0 0.5em 0.5em 0.5em;
+    padding: 0;
     font: 14px/1.4 sans-serif;
     }
 body > *:first-child {
     margin-top: 0;
     }
-h2, h3 {
-    margin: 1em 0;
-    font-family: sans-serif;
-    }
-h2 {
-    font-size: 18px;
-    }
-h2:nth-of-type(1) {
-    margin-top: 0;
-    }
-h3 {
-    font-size: 16px;
-    }
-h2 + * {
-    padding: 0;
+div.body {
+    padding: 0 0.5em 0.5em 0.5em;
     }
 html.ltr h2 + * {
     margin: 0 0 0 1em;
