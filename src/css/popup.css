@@ -263,10 +263,11 @@ button.disabled > span.badge {
     width: 0.8em;
     }
 .recipe .expander::before {
-    content: '\2BC8';
+    content: '+';
+    font-family: sans-serif;
     }
 .recipe.expanded .expander::before {
-    content: '\2BC6';
+    content: '\2212';
     }
 .recipe .name {
     color: #000;
