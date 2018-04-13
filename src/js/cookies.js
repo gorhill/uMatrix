@@ -509,10 +509,7 @@ vAPI.cookies.onChanged = (function() {
             queue.delete(qentry[0]);
         }
         if ( cookieKeys.length !== 0 ) {
-            let pageStores = µm.pageStores;
-            for ( let tabId in pageStores ) {
-                if ( pageStores.hasOwnProperty(tabId) === false ) { continue; }
-                let pageStore = pageStores[tabId];
+            for ( let pageStore of µm.pageStores.values() ) {
                 let allHostnamesString = pageStore.allHostnamesString;
                 for ( let cookieKey of cookieKeys ) {
                     if ( cookieMatchDomains(cookieKey, allHostnamesString) ) {

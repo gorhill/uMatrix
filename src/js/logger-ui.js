@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to benchmark browser session.
-    Copyright (C) 2015 Raymond Hill
+    Copyright (C) 2015-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,8 +36,8 @@ var firstVarDataCol = 2;  // currently, column 2 (0-based index)
 var lastVarDataIndex = 3; // currently, d0-d3
 var maxEntries = 0;
 var noTabId = '';
-var allTabIds = {};
-var allTabIdsToken;
+var pageStores = new Map();
+var pageStoresToken;
 var ownerId = Date.now();
 
 var emphasizeTemplate = document.querySelector('#emphasizeTemplate > span');
@@ -71,7 +71,7 @@ var classNameFromTabId = function(tabId) {
     if ( tabId === noTabId ) {
         return 'tab_bts';
     }
-    if ( tabId !== '' ) {
+    if ( tabId > 0 ) {
         return 'tab_' + tabId;
     }
     return '';
@@ -298,22 +298,17 @@ var logDate = new Date(),
 
 var renderLogEntries = function(response) {
     var entries = response.entries;
-    if ( entries.length === 0 ) {
-        return;
-    }
+    if ( entries.length === 0 ) { return; }
 
     // Preserve scroll position
     var height = tbody.offsetHeight;
 
-    var tabIds = response.tabIds;
     var n = entries.length;
     var entry;
     for ( var i = 0; i < n; i++ ) {
         entry = entries[i];
         // Unlikely, but it may happen
-        if ( entry.tab && tabIds.hasOwnProperty(entry.tab) === false ) {
-            continue;
-        }
+        if ( entry.tab && pageStores.has(entry.tab) === false ) { continue; }
         renderLogEntry(entries[i]);
     }
 
@@ -346,18 +341,14 @@ var renderLogEntries = function(response) {
 
 /******************************************************************************/
 
-var synchronizeTabIds = function(newTabIds) {
-    var oldTabIds = allTabIds;
+var synchronizeTabIds = function(newPageStores) {
+    var oldPageStores = pageStores;
     var autoDeleteVoidRows = !!vAPI.localStorage.getItem('loggerAutoDeleteVoidRows');
     var rowVoided = false;
     var trs;
-    for ( var tabId in oldTabIds ) {
-        if ( oldTabIds.hasOwnProperty(tabId) === false ) {
-            continue;
-        }
-        if ( newTabIds.hasOwnProperty(tabId) ) {
-            continue;
-        }
+    for ( let entry of oldPageStores ) {
+        let tabId = entry[0];
+        if ( newPageStores.has(tabId) ) { continue; }
         // Mark or remove voided rows
         trs = uDom('.tab_' + tabId);
         if ( autoDeleteVoidRows ) {
@@ -374,22 +365,20 @@ var synchronizeTabIds = function(newTabIds) {
 
     var select = document.getElementById('pageSelector');
     var selectValue = select.value;
-    var tabIds = Object.keys(newTabIds).sort(function(a, b) {
-        return newTabIds[a].localeCompare(newTabIds[b]);
+    var tabIds = Array.from(newPageStores.keys()).sort(function(a, b) {
+        return newPageStores.get(a).localeCompare(newPageStores.get(b));
     });
     var option;
     for ( var i = 0, j = 2; i < tabIds.length; i++ ) {
-        tabId = tabIds[i];
-        if ( tabId === noTabId ) {
-            continue;
-        }
+        let tabId = tabIds[i];
+        if ( tabId === noTabId ) { continue; }
         option = select.options[j];
         j += 1;
         if ( !option ) {
             option = document.createElement('option');
             select.appendChild(option);
         }
-        option.textContent = newTabIds[tabId];
+        option.textContent = newPageStores.get(tabId);
         option.value = classNameFromTabId(tabId);
         if ( option.value === selectValue ) {
             option.setAttribute('selected', '');
@@ -407,7 +396,7 @@ var synchronizeTabIds = function(newTabIds) {
         pageSelectorChanged();
     }
 
-    allTabIds = newTabIds;
+    pageStores = newPageStores;
 
     return rowVoided;
 };
@@ -446,9 +435,11 @@ var onLogBufferRead = function(response) {
 
     // Neuter rows for which a tab does not exist anymore
     var rowVoided = false;
-    if ( response.tabIdsToken !== allTabIdsToken ) {
-        rowVoided = synchronizeTabIds(response.tabIds);
-        allTabIdsToken = response.tabIdsToken;
+    if ( response.pageStoresToken !== pageStoresToken ) {
+        if ( Array.isArray(response.pageStores) ) {
+            rowVoided = synchronizeTabIds(new Map(response.pageStores));
+        }
+        pageStoresToken = response.pageStoresToken;
     }
 
     renderLogEntries(response);
@@ -479,7 +470,11 @@ var readLogBuffer = function() {
     if ( ownerId === undefined ) { return; }
     vAPI.messaging.send(
         'logger-ui.js',
-        { what: 'readMany', ownerId: ownerId },
+        {
+            what: 'readMany',
+            ownerId: ownerId,
+            pageStoresToken: pageStoresToken
+        },
         onLogBufferRead
     );
 };
@@ -515,15 +510,11 @@ var pageSelectorChanged = function() {
 var refreshTab = function() {
     var tabClass = document.getElementById('pageSelector').value;
     var matches = tabClass.match(/^tab_(.+)$/);
-    if ( matches === null ) {
-        return;
-    }
-    if ( matches[1] === 'bts' ) {
-        return;
-    }
+    if ( matches === null ) { return; }
+    if ( matches[1] === 'bts' ) { return; }
     vAPI.messaging.send(
         'logger-ui.js',
-        { what: 'forceReloadTab', tabId: matches[1] }
+        { what: 'forceReloadTab', tabId: parseInt(matches[1], 10) }
     );
 };
 

@@ -20,8 +20,6 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global self, µMatrix */
-
 // For background page
 
 'use strict';
@@ -37,21 +35,12 @@ var vAPI = self.vAPI = self.vAPI || {};
 var chrome = self.chrome;
 var manifest = chrome.runtime.getManifest();
 
-vAPI.chrome = true;
-
-vAPI.webextFlavor = undefined;
-if (
-    self.browser instanceof Object &&
-    typeof self.browser.runtime.getBrowserInfo === 'function'
-) {
-    self.browser.runtime.getBrowserInfo().then(function(info) {
-        vAPI.webextFlavor = info.vendor + '-' + info.name + '-' + info.version;
-    });
-} else {
-    vAPI.webextFlavor = '';
-}
-
 var noopFunc = function(){};
+
+// https://code.google.com/p/chromium/issues/detail?id=410868#c8
+var resetLastError = function() {
+    void chrome.runtime.lastError;
+};
 
 /******************************************************************************/
 
@@ -96,10 +85,13 @@ vAPI.tabs = {};
 /******************************************************************************/
 
 vAPI.isBehindTheSceneTabId = function(tabId) {
-    return tabId.toString() === '-1';
+    if ( typeof tabId === 'string' ) { debugger; }
+    return tabId < 0;
 };
 
-vAPI.noTabId = '-1';
+vAPI.unsetTabId = 0;
+vAPI.noTabId = -1;      // definitely not any existing tab
+vAPI.anyTabId = -2;     // one of the existing tab
 
 /******************************************************************************/
 
@@ -126,12 +118,10 @@ vAPI.tabs.registerListeners = function() {
     var onCreatedNavigationTarget = function(details) {
         //console.debug('onCreatedNavigationTarget: tab id %d = "%s"', details.tabId, details.url);
         if ( reGoodForWebRequestAPI.test(details.url) ) { return; }
-        details.tabId = details.tabId.toString();
         onNavigationClient(details);
     };
 
     var onUpdated = function(tabId, changeInfo, tab) {
-        tabId = tabId.toString();
         onUpdatedClient(tabId, changeInfo, tab);
     };
 
@@ -140,13 +130,12 @@ vAPI.tabs.registerListeners = function() {
         if ( details.frameId !== 0 ) {
             return;
         }
-        details.tabId = details.tabId.toString();
         onNavigationClient(details);
         //console.debug('onCommitted: tab id %d = "%s"', details.tabId, details.url);
     };
 
     var onClosed = function(tabId) {
-        onClosedClient(tabId.toString());
+        onClosedClient(tabId);
     };
 
     chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTarget);
@@ -161,29 +150,18 @@ vAPI.tabs.registerListeners = function() {
 
 vAPI.tabs.get = function(tabId, callback) {
     var onTabReady = function(tab) {
-        // https://code.google.com/p/chromium/issues/detail?id=410868#c8
-        if ( chrome.runtime.lastError ) {
-        }
-        if ( tab instanceof Object ) {
-            tab.id = tab.id.toString();
-        }
+        resetLastError();
         callback(tab);
     };
     if ( tabId !== null ) {
-        if ( typeof tabId === 'string' ) {
-            tabId = parseInt(tabId, 10);
-        }
         chrome.tabs.get(tabId, onTabReady);
         return;
     }
     var onTabReceived = function(tabs) {
-        // https://code.google.com/p/chromium/issues/detail?id=410868#c8
-        if ( chrome.runtime.lastError ) {
-        }
+        resetLastError();
         var tab = null;
         if ( Array.isArray(tabs) && tabs.length !== 0 ) {
             tab = tabs[0];
-            tab.id = tab.id.toString();
         }
         callback(tab);
     };
@@ -193,16 +171,7 @@ vAPI.tabs.get = function(tabId, callback) {
 /******************************************************************************/
 
 vAPI.tabs.getAll = function(callback) {
-    var onTabsReady = function(tabs) {
-        if ( Array.isArray(tabs) ) {
-            var i = tabs.length;
-            while ( i-- ) {
-                tabs[i].id = tabs[i].id.toString();
-            }
-        }
-        callback(tabs);
-    };
-    chrome.tabs.query({ url: '<all_urls>' }, onTabsReady);
+    chrome.tabs.query({ url: '<all_urls>' }, callback);
 };
 
 /******************************************************************************/
@@ -254,7 +223,7 @@ vAPI.tabs.open = function(details) {
             }
 
             // update doesn't accept index, must use move
-            chrome.tabs.update(parseInt(details.tabId, 10), _details, function(tab) {
+            chrome.tabs.update(details.tabId, _details, function(tab) {
                 // if the tab doesn't exist
                 if ( vAPI.lastError() ) {
                     chrome.tabs.create(_details, focusWindow);
@@ -292,7 +261,7 @@ vAPI.tabs.open = function(details) {
     }
 
     chrome.tabs.query({ url: targetURL }, function(tabs) {
-        if ( chrome.runtime.lastError ) { /* noop */ }
+        resetLastError();
         var tab = Array.isArray(tabs) && tabs[0];
         if ( tab ) {
             chrome.tabs.update(tab.id, { active: true }, function(tab) {
@@ -316,40 +285,21 @@ vAPI.tabs.replace = function(tabId, url) {
         targetURL = vAPI.getURL(targetURL);
     }
 
-    if ( typeof tabId !== 'number' ) {
-        tabId = parseInt(tabId, 10);
-        if ( isNaN(tabId) ) {
-            return;
-        }
-    }
+    if ( typeof tabId !== 'number' || tabId < 0 ) { return; }
 
-    chrome.tabs.update(tabId, { url: targetURL }, function() {
-        // this prevent console error
-        if ( chrome.runtime.lastError ) {
-            return;
-        }
-    });
+    chrome.tabs.update(tabId, { url: targetURL }, resetLastError);
 };
 
 /******************************************************************************/
 
 vAPI.tabs.remove = function(tabId) {
-    var onTabRemoved = function() {
-        if ( vAPI.lastError() ) {
-        }
-    };
-    chrome.tabs.remove(parseInt(tabId, 10), onTabRemoved);
+    chrome.tabs.remove(tabId, resetLastError);
 };
 
 /******************************************************************************/
 
 vAPI.tabs.reload = function(tabId, bypassCache) {
-    if ( typeof tabId === 'string' ) {
-        tabId = parseInt(tabId, 10);
-    }
-    if ( isNaN(tabId) ) {
-        return;
-    }
+    if ( typeof tabId !== 'number' || tabId < 0 ) { return; }
     chrome.tabs.reload(tabId, { bypassCache: bypassCache === true });
 };
 
@@ -357,15 +307,12 @@ vAPI.tabs.reload = function(tabId, bypassCache) {
 
 vAPI.tabs.injectScript = function(tabId, details, callback) {
     var onScriptExecuted = function() {
-        // https://code.google.com/p/chromium/issues/detail?id=410868#c8
-        if ( chrome.runtime.lastError ) {
-        }
+        resetLastError();
         if ( typeof callback === 'function' ) {
             callback();
         }
     };
     if ( tabId ) {
-        tabId = parseInt(tabId, 10);
         chrome.tabs.executeScript(tabId, details, onScriptExecuted);
     } else {
         chrome.tabs.executeScript(details, onScriptExecuted);
@@ -399,8 +346,7 @@ vAPI.setIcon = (function() {
     };
 
     return function(tabId, iconDetails, badgeDetails) {
-        tabId = parseInt(tabId, 10);
-        if ( isNaN(tabId) || tabId === -1 ) { return; }
+        if ( typeof tabId !== 'number' || tabId < 0 ) { return; }
         chrome.browserAction.setIcon(
             { tabId: tabId, path: iconDetails },
             function() { onIconReady(tabId, badgeDetails); }
@@ -572,7 +518,13 @@ vAPI.net.registerListeners = function() {
     ]);
 
     var normalizeRequestDetails = function(details) {
-        details.tabId = details.tabId.toString();
+        if (
+            details.tabId === -1 &&
+            details.documentUrl === undefined &&
+            details.initiator !== undefined
+        ) {
+            details.documentUrl = details.initiator;
+        }
 
         // The rest of the function code is to normalize request type
         if ( details.type !== 'other' ) { return; }
@@ -762,30 +714,31 @@ vAPI.cloud = (function() {
     var maxChunkCountPerItem = Math.floor(512 * 0.75) & ~(chunkCountPerFetch - 1);
 
     // Mind chrome.storage.sync.QUOTA_BYTES_PER_ITEM (8192 at time of writing)
-    var maxChunkSize = chrome.storage.sync.QUOTA_BYTES_PER_ITEM || 8192;
+    // https://github.com/gorhill/uBlock/issues/3006
+    //  For Firefox, we will use a lower ratio to allow for more overhead for
+    //  the infrastructure. Unfortunately this leads to less usable space for
+    //  actual data, but all of this is provided for free by browser vendors,
+    //  so we need to accept and deal with these limitations.
+    var evalMaxChunkSize = function() {
+        return Math.floor(
+            (chrome.storage.sync.QUOTA_BYTES_PER_ITEM || 8192) *
+            (vAPI.webextFlavor.soup.has('firefox') ? 0.6 : 0.75)
+        );
+    };
+
+    var maxChunkSize = evalMaxChunkSize();
+
+    // The real actual webextFlavor value may not be set in stone, so listen
+    // for possible future changes.
+    window.addEventListener('webextFlavor', function() {
+        maxChunkSize = evalMaxChunkSize();
+    }, { once: true });
 
     // Mind chrome.storage.sync.QUOTA_BYTES (128 kB at time of writing)
     // Firefox:
     // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/storage/sync
     // > You can store up to 100KB of data using this API/
     var maxStorageSize = chrome.storage.sync.QUOTA_BYTES || 102400;
-
-    // Flavor-specific handling needs to be done here. Reason: to allow time
-    // for vAPI.webextFlavor to be properly set.
-    // https://github.com/gorhill/uBlock/issues/3006
-    //  For Firefox, we will use a lower ratio to allow for more overhead for
-    //  the infrastructure. Unfortunately this leads to less usable space for
-    //  actual data, but all of this is provided for free by browser vendors,
-    //  so we need to accept and deal with these limitations.
-    var initialize = function() {
-        var ratio =
-            vAPI.webextFlavor === undefined ||
-            vAPI.webextFlavor.startsWith('Mozilla-Firefox-') ?
-                0.6 :
-                0.75;
-        maxChunkSize = Math.floor(maxChunkSize * ratio);
-        initialize = function(){};
-    };
 
     var options = {
         defaultDeviceName: window.navigator.platform,
@@ -843,7 +796,6 @@ vAPI.cloud = (function() {
     };
 
     var push = function(dataKey, data, callback) {
-        initialize();
 
         var bin = {
             'source': options.deviceName || options.defaultDeviceName,
@@ -882,7 +834,6 @@ vAPI.cloud = (function() {
     };
 
     var pull = function(dataKey, callback) {
-        initialize();
 
         var assembleChunks = function(bin) {
             if ( chrome.runtime.lastError ) {

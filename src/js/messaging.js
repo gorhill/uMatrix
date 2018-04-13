@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
+    uMatrix - a browser extension to black/white list requests.
     Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -938,20 +938,23 @@ var onMessage = function(request, sender, callback) {
             response = { unavailable: true };
             break;
         }
-        var tabIds = {};
-        for ( var tabId in µm.pageStores ) {
-            var pageStore = µm.pageStoreFromTabId(tabId);
-            if ( pageStore === null ) { continue; }
-            if ( pageStore.rawUrl.startsWith(loggerURL) ) { continue; }
-            tabIds[tabId] = pageStore.title || pageStore.rawUrl;
+        let pageStores;
+        if ( request.pageStoresToken !== µm.pageStoresToken ) {
+            pageStores = [];
+            for ( let entry of µm.pageStores ) {
+                let tabId = entry[0];
+                let pageStore = entry[1];
+                if ( pageStore.rawUrl.startsWith(loggerURL) ) { continue; }
+                pageStores.push([ tabId, pageStore.title || pageStore.rawUrl ]);
+            }
         }
         response = {
             colorBlind: false,
             entries: µm.logger.readAll(request.ownerId),
             maxLoggedRequests: µm.userSettings.maxLoggedRequests,
             noTabId: vAPI.noTabId,
-            tabIds: tabIds,
-            tabIdsToken: µm.pageStoresToken
+            pageStores: pageStores,
+            pageStoresToken: µm.pageStoresToken
         };
         break;
 

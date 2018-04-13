@@ -519,11 +519,32 @@
 µMatrix.mergeHostsFileContent = function(rawText) {
     var rawEnd = rawText.length;
     var ubiquitousBlacklist = this.ubiquitousBlacklist;
-    var reLocalhost = /(^|\s)(localhost\.localdomain|localhost|local|broadcasthost|0\.0\.0\.0|127\.0\.0\.1|::1|fe80::1%lo0)(?=\s|$)/g;
+    var reLocalhost = new RegExp(
+        [
+        '(?:^|\\s+)(?:',
+            [
+            'broadcasthost',
+            'ip6-allnodes',
+            'ip6-allrouters',
+            'ip6-localhost',
+            'ip6-loopback',
+            'localhost\\.localdomain',
+            'localhost',
+            'local',
+            '0\\.0\\.0\\.0',
+            '127\\.0\\.0\\.1',
+            '255\\.255\\.255\\.255',
+            '::1',
+            'ff02::1',
+            'ff02::2',
+            'fe80::1%lo0',
+            ].join('|'),
+        ')(?=\\s+|$)'
+        ].join(''),
+        'g'
+    );
     var reAsciiSegment = /^[\x21-\x7e]+$/;
-    var matches;
     var lineBeg = 0, lineEnd;
-    var line;
 
     while ( lineBeg < rawEnd ) {
         lineEnd = rawText.indexOf('\n', lineBeg);
@@ -537,7 +558,7 @@
         // rhill 2014-04-18: The trim is important here, as without it there
         // could be a lingering `\r` which would cause problems in the
         // following parsing code.
-        line = rawText.slice(lineBeg, lineEnd).trim();
+        let line = rawText.slice(lineBeg, lineEnd).trim();
         lineBeg = lineEnd + 1;
 
         // https://github.com/gorhill/httpswitchboard/issues/15
@@ -550,22 +571,15 @@
 
         // The filter is whatever sequence of printable ascii character without
         // whitespaces
-        matches = reAsciiSegment.exec(line);
-        if ( !matches || matches.length === 0 ) {
-            continue;
-        }
+        let matches = reAsciiSegment.exec(line);
+        if ( matches === null ) { continue; }
 
         // Bypass anomalies
         // For example, when a filter contains whitespace characters, or
         // whatever else outside the range of printable ascii characters.
-        if ( matches[0] !== line ) {
-            continue;
-        }
-
+        if ( matches[0] !== line ) { continue; }
         line = matches[0];
-        if ( line === '' ) {
-            continue;
-        }
+        if ( line === '' ) { continue; }
 
         ubiquitousBlacklist.add(line);
     }

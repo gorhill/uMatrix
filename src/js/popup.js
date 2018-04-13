@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
+    uMatrix - a browser extension to black/white list requests.
     Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -1584,13 +1584,13 @@ var matrixSnapshotPoller = (function() {
     };
 
     (function() {
-        var tabId = matrixSnapshot.tabId;
+        let tabId = matrixSnapshot.tabId;
 
         // If no tab id yet, see if there is one specified in our URL
         if ( tabId === undefined ) {
             var matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
             if ( matches !== null ) {
-                tabId = matches[1];
+                tabId = parseInt(matches[1], 10);
                 // No need for logger button when embedded in logger
                 uDom('[data-extension-url="logger-ui.html"]').remove();
             }

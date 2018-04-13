@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to block requests.
-    Copyright (C) 2014-2017 The uMatrix/uBlock Origin authors
+    Copyright (C) 2014-2018 The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,6 +37,86 @@ if ( self.vAPI === undefined || self.vAPI.uMatrix !== true ) {
 
 var vAPI = self.vAPI;
 var chrome = self.chrome;
+
+/******************************************************************************/
+
+vAPI.setTimeout = vAPI.setTimeout || window.setTimeout.bind(window);
+
+/******************************************************************************/
+
+vAPI.webextFlavor = {
+    major: 0,
+    soup: new Set()
+};
+
+(function() {
+    var ua = navigator.userAgent,
+        flavor = vAPI.webextFlavor,
+        soup = flavor.soup;
+    var dispatch = function() {
+        window.dispatchEvent(new CustomEvent('webextFlavor'));
+    };
+
+    // This is always true.
+    soup.add('ublock');
+
+    if ( /\bMobile\b/.test(ua) ) {
+        soup.add('mobile');
+    }
+
+    // Asynchronous
+    var async = self.browser instanceof Object &&
+                typeof self.browser.runtime.getBrowserInfo === 'function';
+    if ( async ) {
+        self.browser.runtime.getBrowserInfo().then(function(info) {
+            flavor.major = parseInt(info.version, 10) || 0;
+            soup.add(info.vendor.toLowerCase())
+                .add(info.name.toLowerCase());
+            if ( flavor.major >= 53 ) { soup.add('user_stylesheet'); }
+            if ( flavor.major >= 57 ) { soup.add('html_filtering'); }
+            dispatch();
+        });
+    }
+
+    // Synchronous
+    var match = /Firefox\/([\d.]+)/.exec(ua);
+    if ( match !== null ) {
+        flavor.major = parseInt(match[1], 10) || 0;
+        soup.add('mozilla')
+            .add('firefox');
+        if ( flavor.major >= 53 ) { soup.add('user_stylesheet'); }
+        if ( flavor.major >= 57 ) { soup.add('html_filtering'); }
+    } else {
+        match = /OPR\/([\d.]+)/.exec(ua);
+        if ( match !== null ) {
+            var reEx = /Chrom(?:e|ium)\/([\d.]+)/;
+            if ( reEx.test(ua) ) { match = reEx.exec(ua); }
+            flavor.major = parseInt(match[1], 10) || 0;
+            soup.add('opera').add('chromium');
+        } else {
+            match = /Chromium\/([\d.]+)/.exec(ua);
+            if ( match !== null ) {
+                flavor.major = parseInt(match[1], 10) || 0;
+                soup.add('chromium');
+            } else {
+                match = /Chrome\/([\d.]+)/.exec(ua);
+                if ( match !== null ) {
+                    flavor.major = parseInt(match[1], 10) || 0;
+                    soup.add('google').add('chromium');
+                }
+            }
+        }
+        // https://github.com/gorhill/uBlock/issues/3588
+        if ( soup.has('chromium') && flavor.major >= 67 ) {
+            soup.add('user_stylesheet');
+        }
+    }
+
+    // Don't starve potential listeners
+    if ( !async ) {
+        vAPI.setTimeout(dispatch, 97);
+    }
+})();
 
 /******************************************************************************/
 
@@ -118,10 +198,6 @@ vAPI.localStorage = {
         }
     }
 };
-
-/******************************************************************************/
-
-vAPI.setTimeout = vAPI.setTimeout || window.setTimeout.bind(window);
 
 /******************************************************************************/
 

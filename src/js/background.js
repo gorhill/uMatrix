@@ -208,7 +208,8 @@ return {
     clearBrowserCacheCycle: 0,
     cspNoInlineScript: "script-src 'unsafe-eval' blob: *",
     cspNoInlineStyle: "style-src blob: *",
-    cspNoWorker: undefined,
+    cspNoWorker: "worker-src 'none'; report-uri about:blank",
+    cantMergeCSPHeaders: false,
     updateAssetsEvery: 11 * oneDay + 1 * oneHour + 1 * oneMinute + 1 * oneSecond,
     firstUpdateAfter: 11 * oneMinute,
     nextUpdateAfter: 11 * oneHour,
@@ -220,9 +221,9 @@ return {
 
     // urls stats are kept on the back burner while waiting to be reactivated
     // in a tab or another.
-    pageStores: {},
+    pageStores: new Map(),
     pageStoresToken: 0,
-    pageStoreCemetery: {},
+    pageStoreCemetery: new Map(),
 
     // page url => permission scope
     tMatrix: null,

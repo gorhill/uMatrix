@@ -127,6 +127,12 @@ var onBeforeRequestHandler = function(details) {
         rootHostname = tabContext.rootHostname,
         specificity = 0;
 
+    if ( tabId < 0 && details.documentUrl !== undefined ) {
+        rootHostname = µmuri.hostnameFromURI(
+            µm.normalizePageURL(0, details.documentUrl)
+        );
+    }
+
     // Filter through matrix
     var block = µm.tMatrix.mustBlock(
         rootHostname,
@@ -344,16 +350,10 @@ var onHeadersReceived = function(details) {
         csp.push(µm.cspNoInlineStyle);
     }
 
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1302667
-    var cspNoWorker = µm.cspNoWorker;
-    if ( cspNoWorker === undefined ) {
-        cspNoWorker = cspNoWorkerInit();
-    }
-
     if ( µm.tMatrix.evaluateSwitchZ('no-workers', rootHostname) ) {
-        csp.push(cspNoWorker);
+        csp.push(µm.cspNoWorker);
     } else if ( µm.rawSettings.disableCSPReportInjection === false ) {
-        cspReport.push(cspNoWorker);
+        cspReport.push(µm.cspNoWorker);
     }
 
     if ( csp.length === 0 && cspReport.length === 0 ) { return; }
@@ -368,7 +368,7 @@ var onHeadersReceived = function(details) {
     if ( csp.length !== 0 ) {
         let cspRight = csp.join(', ');
         let cspTotal = cspRight;
-        if ( cantMergeCSPHeaders ) {
+        if ( µm.cantMergeCSPHeaders ) {
             let i = headerIndexFromName(
                 'content-security-policy',
                 headers
@@ -390,7 +390,7 @@ var onHeadersReceived = function(details) {
     if ( cspReport.length !== 0 ) {
         let cspRight = cspReport.join(', ');
         let cspTotal = cspRight;
-        if ( cantMergeCSPHeaders ) {
+        if ( µm.cantMergeCSPHeaders ) {
             let i = headerIndexFromName(
                 'content-security-policy-report-only',
                 headers
@@ -411,34 +411,19 @@ var onHeadersReceived = function(details) {
 
 /******************************************************************************/
 
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1302667
 // https://github.com/gorhill/uMatrix/issues/967#issuecomment-373002011
-//   This can be removed once Firefox 60 ESR is released.
-var cantMergeCSPHeaders = (function() {
-    if (
-        self.browser instanceof Object &&
-        typeof self.browser.runtime.getBrowserInfo === 'function'
-    ) {
-        self.browser.runtime.getBrowserInfo().then(function(info) {
-            cantMergeCSPHeaders =
-                info.vendor === 'Mozilla' &&
-                info.name === 'Firefox' &&
-                parseInt(info.version, 10) < 59;
-        });
-    }
-    return false;
-})();
 
-/******************************************************************************/
-
-var cspNoWorkerInit = function() {
-    if ( vAPI.webextFlavor === undefined ) {
-        return "child-src 'none'; frame-src data: blob: *; report-uri about:blank";
+window.addEventListener('webextFlavor', function() {
+    if ( vAPI.webextFlavor.soup.has('firefox') === false ) { return; }
+    if ( vAPI.webextFlavor.major <= 57 ) {
+        µMatrix.cspNoWorker =
+            "child-src 'none'; frame-src data: blob: *; report-uri about:blank";
     }
-    µMatrix.cspNoWorker = /^Mozilla-Firefox-5[67]/.test(vAPI.webextFlavor) ?
-        "child-src 'none'; frame-src data: blob: *; report-uri about:blank" :
-        "worker-src 'none'; report-uri about:blank" ;
-    return µMatrix.cspNoWorker;
-};
+    if ( vAPI.webextFlavor.major <= 58 ) {
+        µMatrix.cantMergeCSPHeaders = true;
+    }
+}, { once: true });
 
 /******************************************************************************/
 

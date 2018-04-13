@@ -3,14 +3,15 @@
 	"devel": true,
 	"eqeqeq": true,
 	"esnext": true,
-	"strict": "global",
-	"undef": true,
-	"unused": true,
 	"globals": {
+		"browser": false,    // global variable in Firefox, Edge
 		"self": false,
 		"chrome": false,
 		"vAPI": false,
-		"µMatrix": false,
-		"Components": false // global variable in Firefox
-	}
+		"µMatrix": false
+	},
+	"strict": "global",
+	"undef": true,
+	"unused": true,
+	"validthis": true
 }

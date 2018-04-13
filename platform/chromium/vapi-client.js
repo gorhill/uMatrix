@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to block requests.
-    Copyright (C) 2014-2017 The uMatrix/uBlock Origin authors
+    Copyright (C) 2014-2018 The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,7 +47,6 @@ vAPI.vapiClientInjected = true;
 
 vAPI.sessionId = String.fromCharCode(Date.now() % 26 + 97) +
                  Math.random().toString(36).slice(2);
-vAPI.chrome = true;
 
 /******************************************************************************/
 

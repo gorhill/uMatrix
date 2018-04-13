@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
+    uMatrix - a browser extension to black/white list requests.
     Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -140,7 +140,7 @@ housekeep itself.
 */
 
 µm.tabContextManager = (function() {
-    var tabContexts = Object.create(null);
+    var tabContexts = new Map();
 
     // https://github.com/chrisaljoudi/uBlock/issues/1001
     // This is to be used as last-resort fallback in case a tab is found to not
@@ -170,18 +170,16 @@ housekeep itself.
         this.commitTimer = null;
         this.gcTimer = null;
 
-        tabContexts[tabId] = this;
+        tabContexts.set(tabId, this);
     };
 
     TabContext.prototype.destroy = function() {
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
-        }
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) { return; }
         if ( this.gcTimer !== null ) {
             clearTimeout(this.gcTimer);
             this.gcTimer = null;
         }
-        delete tabContexts[this.tabId];
+        tabContexts.delete(this.tabId);
     };
 
     TabContext.prototype.onTab = function(tab) {
@@ -285,7 +283,7 @@ housekeep itself.
     // These are to be used for the API of the tab context manager.
 
     var push = function(tabId, url, context) {
-        var entry = tabContexts[tabId];
+        let entry = tabContexts.get(tabId);
         if ( entry === undefined ) {
             entry = new TabContext(tabId);
             entry.autodestroy();
@@ -303,7 +301,7 @@ housekeep itself.
         if ( url !== undefined ) {
             entry = push(tabId, url);
         } else {
-            entry = tabContexts[tabId];
+            entry = tabContexts.get(tabId);
         }
         if ( entry !== undefined ) {
             return entry;
@@ -329,11 +327,11 @@ housekeep itself.
         // about to fall through the cracks.
         // Example: Chromium + case #12 at
         //          http://raymondhill.net/ublock/popup.html
-        return tabContexts[vAPI.noTabId];
+        return tabContexts.get(vAPI.noTabId);
     };
 
     var lookup = function(tabId) {
-        return tabContexts[tabId] || null;
+        return tabContexts.get(tabId) || null;
     };
 
     // Behind-the-scene tab context
@@ -372,7 +370,7 @@ housekeep itself.
 
     vAPI.tabs.onClosed = function(tabId) {
         µm.unbindTabFromPageStats(tabId);
-        var entry = tabContexts[tabId];
+        let entry = tabContexts.get(tabId);
         if ( entry instanceof TabContext ) {
             entry.destroy();
         }
@@ -397,7 +395,7 @@ vAPI.tabs.registerListeners();
 
     // Do not create a page store for URLs which are of no interests
     // Example: dev console
-    var tabContext = this.tabContextManager.lookup(tabId);
+    let tabContext = this.tabContextManager.lookup(tabId);
     if ( tabContext === null ) {
         throw new Error('Unmanaged tab id: ' + tabId);
     }
@@ -406,14 +404,14 @@ vAPI.tabs.registerListeners();
     // virtual tab.
     // https://github.com/gorhill/httpswitchboard/issues/67
     if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-        return this.pageStores[tabId];
+        return this.pageStores.get(tabId);
     }
 
-    var normalURL = tabContext.normalURL;
-    var pageStore = this.pageStores[tabId] || null;
+    let normalURL = tabContext.normalURL;
+    let pageStore = this.pageStores.get(tabId);
 
     // The previous page URL, if any, associated with the tab
-    if ( pageStore !== null ) {
+    if ( pageStore !== undefined ) {
         // No change, do not rebind
         if ( pageStore.pageUrl === normalURL ) {
             return pageStore;
@@ -425,7 +423,10 @@ vAPI.tabs.registerListeners();
         // Example: Google Maps, Github
         // https://github.com/gorhill/uMatrix/issues/72
         // Need to double-check that the new scope is same as old scope
-        if ( context === 'updateURL' && pageStore.pageHostname === tabContext.rootHostname ) {
+        if (
+            context === 'updateURL' &&
+            pageStore.pageHostname === tabContext.rootHostname
+        ) {
             pageStore.rawURL = tabContext.rawURL;
             pageStore.normalURL = normalURL;
             this.updateTitle(tabId);
@@ -442,11 +443,9 @@ vAPI.tabs.registerListeners();
     if ( pageStore === null ) {
         pageStore = this.pageStoreFactory(tabContext);
     }
-    this.pageStores[tabId] = pageStore;
+    this.pageStores.set(tabId, pageStore);
     this.updateTitle(tabId);
     this.pageStoresToken = Date.now();
-
-    // console.debug('tab.js > bindTabToPageStats(): dispatching traffic in tab id %d to page store "%s"', tabId, pageUrl);
 
     return pageStore;
 };
@@ -454,17 +453,12 @@ vAPI.tabs.registerListeners();
 /******************************************************************************/
 
 µm.unbindTabFromPageStats = function(tabId) {
-    // Never unbind behind-the-scene page store.
-    if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-        return;
-    }
+    if ( vAPI.isBehindTheSceneTabId(tabId) ) { return; }
 
-    var pageStore = this.pageStores[tabId] || null;
-    if ( pageStore === null ) {
-        return;
-    }
+    let pageStore = this.pageStores.get(tabId);
+    if ( pageStore === undefined ) { return; }
 
-    delete this.pageStores[tabId];
+    this.pageStores.delete(tabId);
     this.pageStoresToken = Date.now();
 
     if ( pageStore.incinerationTimer ) {
@@ -472,13 +466,13 @@ vAPI.tabs.registerListeners();
         pageStore.incinerationTimer = null;
     }
 
-    if ( this.pageStoreCemetery.hasOwnProperty(tabId) === false ) {
-        this.pageStoreCemetery[tabId] = {};
+    let pageStoreCrypt = this.pageStoreCemetery.get(tabId);
+    if ( pageStoreCrypt === undefined ) {
+        this.pageStoreCemetery.set(tabId, (pageStoreCrypt = new Map()));
     }
-    var pageStoreCrypt = this.pageStoreCemetery[tabId];
 
-    var pageURL = pageStore.pageUrl;
-    pageStoreCrypt[pageURL] = pageStore;
+    let pageURL = pageStore.pageUrl;
+    pageStoreCrypt.set(pageURL, pageStore);
 
     pageStore.incinerationTimer = vAPI.setTimeout(
         this.incineratePageStore.bind(this, tabId, pageURL),
@@ -489,25 +483,21 @@ vAPI.tabs.registerListeners();
 /******************************************************************************/
 
 µm.resurrectPageStore = function(tabId, pageURL) {
-    if ( this.pageStoreCemetery.hasOwnProperty(tabId) === false ) {
-        return null;
-    }
-    var pageStoreCrypt = this.pageStoreCemetery[tabId];
+    let pageStoreCrypt = this.pageStoreCemetery.get(tabId);
+    if ( pageStoreCrypt === undefined ) { return null; }
 
-    if ( pageStoreCrypt.hasOwnProperty(pageURL) === false ) {
-        return null;
-    }
+    let pageStore = pageStoreCrypt.get(pageURL);
+    if ( pageStore === undefined ) { return null; }
 
-    var pageStore = pageStoreCrypt[pageURL];
 
     if ( pageStore.incinerationTimer !== null ) {
         clearTimeout(pageStore.incinerationTimer);
         pageStore.incinerationTimer = null;
     }
 
-    delete pageStoreCrypt[pageURL];
-    if ( Object.keys(pageStoreCrypt).length === 0 ) {
-        delete this.pageStoreCemetery[tabId];
+    pageStoreCrypt.delete(pageURL);
+    if ( pageStoreCrypt.size === 0 ) {
+        this.pageStoreCemetery.delete(tabId);
     }
 
     return pageStore;
@@ -516,24 +506,20 @@ vAPI.tabs.registerListeners();
 /******************************************************************************/
 
 µm.incineratePageStore = function(tabId, pageURL) {
-    if ( this.pageStoreCemetery.hasOwnProperty(tabId) === false ) {
-        return;
-    }
-    var pageStoreCrypt = this.pageStoreCemetery[tabId];
+    let pageStoreCrypt = this.pageStoreCemetery.get(tabId);
+    if ( pageStoreCrypt === undefined ) { return; }
 
-    if ( pageStoreCrypt.hasOwnProperty(pageURL) === false ) {
-        return;
-    }
+    let pageStore = pageStoreCrypt.get(pageURL);
+    if ( pageStore === undefined ) { return; }
 
-    var pageStore = pageStoreCrypt[pageURL];
     if ( pageStore.incinerationTimer !== null ) {
         clearTimeout(pageStore.incinerationTimer);
         pageStore.incinerationTimer = null;
     }
 
-    delete pageStoreCrypt[pageURL];
-    if ( Object.keys(pageStoreCrypt).length === 0 ) {
-        delete this.pageStoreCemetery[tabId];
+    pageStoreCrypt.delete(pageURL);
+    if ( pageStoreCrypt.size === 0 ) {
+        this.pageStoreCemetery.delete(tabId);
     }
 
     pageStore.dispose();
@@ -542,12 +528,12 @@ vAPI.tabs.registerListeners();
 /******************************************************************************/
 
 µm.pageStoreFromTabId = function(tabId) {
-    return this.pageStores[tabId] || null;
+    return this.pageStores.get(tabId) || null;
 };
 
 // Never return null
 µm.mustPageStoreFromTabId = function(tabId) {
-    return this.pageStores[tabId] || this.pageStores[vAPI.noTabId];
+    return this.pageStores.get(tabId) || this.pageStores.get(vAPI.noTabId);
 };
 
 /******************************************************************************/
@@ -608,25 +594,26 @@ vAPI.tabs.registerListeners();
 /******************************************************************************/
 
 µm.updateTitle = (function() {
-    var tabIdToTimer = Object.create(null);
-    var tabIdToTryCount = Object.create(null);
-    var delay = 499;
+    let tabIdToTimer = new Map();
+    let tabIdToTryCount = new Map();
+    let delay = 499;
 
-    var tryNoMore = function(tabId) {
-        delete tabIdToTryCount[tabId];
+    let tryNoMore = function(tabId) {
+        tabIdToTryCount.delete(tabId);
     };
 
-    var tryAgain = function(tabId) {
-        var count = tabIdToTryCount[tabId];
-        if ( count === undefined ) {
-            return false;
-        }
+    let tryAgain = function(tabId) {
+        let count = tabIdToTryCount.get(tabId);
+        if ( count === undefined ) { return false; }
         if ( count === 1 ) {
-            delete tabIdToTryCount[tabId];
+            tabIdToTryCount.delete(tabId);
             return false;
         }
-        tabIdToTryCount[tabId] = count - 1;
-        tabIdToTimer[tabId] = vAPI.setTimeout(updateTitle.bind(µm, tabId), delay);
+        tabIdToTryCount.set(tabId, count - 1);
+        tabIdToTimer.set(
+            tabId,
+            vAPI.setTimeout(updateTitle.bind(µm, tabId), delay)
+        );
         return true;
     };
 
@@ -652,19 +639,21 @@ vAPI.tabs.registerListeners();
     };
 
     var updateTitle = function(tabId) {
-        delete tabIdToTimer[tabId];
+        tabIdToTimer.delete(tabId);
         vAPI.tabs.get(tabId, onTabReady.bind(this, tabId));
     };
 
     return function(tabId) {
-        if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-            return;
+        if ( vAPI.isBehindTheSceneTabId(tabId) ) { return; }
+        let timer = tabIdToTimer.get(tabId);
+        if ( timer !== undefined ) {
+            clearTimeout(timer);
         }
-        if ( tabIdToTimer[tabId] ) {
-            clearTimeout(tabIdToTimer[tabId]);
-        }
-        tabIdToTimer[tabId] = vAPI.setTimeout(updateTitle.bind(this, tabId), delay);
-        tabIdToTryCount[tabId] = 5;
+        tabIdToTimer.set(
+            tabId,
+            vAPI.setTimeout(updateTitle.bind(this, tabId), delay)
+        );
+        tabIdToTryCount.set(tabId, 5);
     };
 })();
 
@@ -680,7 +669,7 @@ vAPI.tabs.registerListeners();
 
     var cleanup = function() {
         var vapiTabs = vAPI.tabs;
-        var tabIds = Object.keys(µm.pageStores).sort();
+        var tabIds = Array.from(µm.pageStores.keys()).sort();
         var checkTab = function(tabId) {
             vapiTabs.get(tabId, function(tab) {
                 if ( !tab ) {
@@ -695,9 +684,7 @@ vAPI.tabs.registerListeners();
         var n = Math.min(cleanupSampleAt + cleanupSampleSize, tabIds.length);
         for ( var i = cleanupSampleAt; i < n; i++ ) {
             tabId = tabIds[i];
-            if ( vAPI.isBehindTheSceneTabId(tabId) ) {
-                continue;
-            }
+            if ( vAPI.isBehindTheSceneTabId(tabId) ) { continue; }
             checkTab(tabId);
         }
         cleanupSampleAt = n;
