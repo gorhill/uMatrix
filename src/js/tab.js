@@ -140,25 +140,52 @@ housekeep itself.
 */
 
 µm.tabContextManager = (function() {
-    var tabContexts = new Map();
+    let tabContexts = new Map();
+
+    let urlToTabIds = {
+        associations: new Map(),
+        associate: function(tabId, url) {
+            let tabIds = this.associations.get(url);
+            if ( tabIds === undefined ) {
+                this.associations.set(url, (tabIds = []));
+            } else {
+                let i = tabIds.indexOf(tabId);
+                if ( i !== -1 ) {
+                    tabIds.splice(i, 1);
+                }
+            }
+            tabIds.push(tabId);
+        },
+        dissociate: function(tabId, url) {
+            let tabIds = this.associations.get(url);
+            if ( tabIds === undefined ) { return; }
+            let i = tabIds.indexOf(tabId);
+            if ( i !== -1 ) {
+                tabIds.splice(i, 1);
+            }
+            if ( tabIds.length === 0 ) {
+                this.associations.delete(url);
+            }
+        }
+    };
 
     // https://github.com/chrisaljoudi/uBlock/issues/1001
     // This is to be used as last-resort fallback in case a tab is found to not
     // be bound while network requests are fired for the tab.
-    var mostRecentRootDocURL = '';
-    var mostRecentRootDocURLTimestamp = 0;
+    let mostRecentRootDocURL = '';
+    let mostRecentRootDocURLTimestamp = 0;
 
-    var gcPeriod = 31 * 60 * 1000; // every 31 minutes
+    let gcPeriod = 31 * 60 * 1000; // every 31 minutes
 
     // A pushed entry is removed from the stack unless it is committed with
     // a set time.
-    var StackEntry = function(url, commit) {
+    let StackEntry = function(url, commit) {
         this.url = url;
         this.committed = commit;
         this.tstamp = Date.now();
     };
 
-    var TabContext = function(tabId) {
+    let TabContext = function(tabId) {
         this.tabId = tabId;
         this.stack = [];
         this.rawURL =
@@ -179,6 +206,7 @@ housekeep itself.
             clearTimeout(this.gcTimer);
             this.gcTimer = null;
         }
+        urlToTabIds.dissociate(this.tabId, this.rawURL);
         tabContexts.delete(this.tabId);
     };
 
@@ -192,9 +220,7 @@ housekeep itself.
 
     TabContext.prototype.onGC = function() {
         this.gcTimer = null;
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
-        }
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) { return; }
         vAPI.tabs.get(this.tabId, this.onTab.bind(this));
     };
 
@@ -202,12 +228,10 @@ housekeep itself.
     // Stack entries have to be committed to stick. Non-committed stack
     // entries are removed after a set delay.
     TabContext.prototype.onCommit = function() {
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
-        }
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) { return; }
         this.commitTimer = null;
         // Remove uncommitted entries at the top of the stack.
-        var i = this.stack.length;
+        let i = this.stack.length;
         while ( i-- ) {
             if ( this.stack[i].committed ) {
                 break;
@@ -232,15 +256,14 @@ housekeep itself.
     // contexts, as the behind-the-scene context is permanent -- so we do not
     // want to flush it.
     TabContext.prototype.autodestroy = function() {
-        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) {
-            return;
-        }
+        if ( vAPI.isBehindTheSceneTabId(this.tabId) ) { return; }
         this.gcTimer = vAPI.setTimeout(this.onGC.bind(this), gcPeriod);
     };
 
     // Update just force all properties to be updated to match the most recent
     // root URL.
     TabContext.prototype.update = function() {
+        urlToTabIds.dissociate(this.tabId, this.rawURL);
         if ( this.stack.length === 0 ) {
             this.rawURL = this.normalURL = this.scheme =
             this.rootHostname = this.rootDomain = '';
@@ -253,14 +276,15 @@ housekeep itself.
         this.rootHostname = µm.URI.hostnameFromURI(this.normalURL);
         this.rootDomain = µm.URI.domainFromHostname(this.rootHostname) || this.rootHostname;
         this.secure = µm.URI.isSecureScheme(this.scheme);
+        urlToTabIds.associate(this.tabId, this.rawURL);
     };
 
     // Called whenever a candidate root URL is spotted for the tab.
     TabContext.prototype.push = function(url, context) {
         if ( vAPI.isBehindTheSceneTabId(this.tabId) ) { return; }
-        var committed = context !== undefined;
-        var count = this.stack.length;
-        var topEntry = this.stack[count - 1];
+        let committed = context !== undefined;
+        let count = this.stack.length;
+        let topEntry = this.stack[count - 1];
         if ( topEntry && topEntry.url === url ) {
             if ( committed ) {
                 topEntry.committed = true;
@@ -282,7 +306,7 @@ housekeep itself.
 
     // These are to be used for the API of the tab context manager.
 
-    var push = function(tabId, url, context) {
+    let push = function(tabId, url, context) {
         let entry = tabContexts.get(tabId);
         if ( entry === undefined ) {
             entry = new TabContext(tabId);
@@ -296,8 +320,8 @@ housekeep itself.
 
     // Find a tab context for a specific tab. If none is found, attempt to
     // fix this. When all fail, the behind-the-scene context is returned.
-    var mustLookup = function(tabId, url) {
-        var entry;
+    let mustLookup = function(tabId, url) {
+        let entry;
         if ( url !== undefined ) {
             entry = push(tabId, url);
         } else {
@@ -330,13 +354,19 @@ housekeep itself.
         return tabContexts.get(vAPI.noTabId);
     };
 
-    var lookup = function(tabId) {
+    let lookup = function(tabId) {
         return tabContexts.get(tabId) || null;
+    };
+
+    let tabIdFromURL = function(url) {
+        let tabIds = urlToTabIds.associations.get(url);
+        if ( tabIds === undefined ) { return -1; }
+        return tabIds[tabIds.length - 1];
     };
 
     // Behind-the-scene tab context
     (function() {
-        var entry = new TabContext(vAPI.noTabId);
+        let entry = new TabContext(vAPI.noTabId);
         entry.stack.push(new StackEntry('', true));
         entry.rawURL = '';
         entry.normalURL = µm.normalizePageURL(entry.tabId);
@@ -350,7 +380,7 @@ housekeep itself.
     //   the badge to no be updated for these network requests.
 
     vAPI.tabs.onNavigation = function(details) {
-        var tabId = details.tabId;
+        let tabId = details.tabId;
         if ( vAPI.isBehindTheSceneTabId(tabId) ) { return; }
         push(tabId, details.url, 'newURL');
         µm.updateBadgeAsync(tabId);
@@ -362,7 +392,7 @@ housekeep itself.
     vAPI.tabs.onUpdated = function(tabId, changeInfo, tab) {
         if ( vAPI.isBehindTheSceneTabId(tabId) ) { return; }
         if ( typeof tab.url !== 'string' || tab.url === '' ) { return; }
-        var url = changeInfo.url || tab.url;
+        let url = changeInfo.url || tab.url;
         if ( url ) {
             push(tabId, url, 'updateURL');
         }
@@ -379,7 +409,8 @@ housekeep itself.
     return {
         push: push,
         lookup: lookup,
-        mustLookup: mustLookup
+        mustLookup: mustLookup,
+        tabIdFromURL: tabIdFromURL
     };
 })();
 

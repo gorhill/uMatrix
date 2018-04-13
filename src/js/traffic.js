@@ -128,6 +128,7 @@ var onBeforeRequestHandler = function(details) {
         specificity = 0;
 
     if ( tabId < 0 && details.documentUrl !== undefined ) {
+        tabId = µm.tabContextManager.tabIdFromURL(details.documentUrl);
         rootHostname = µmuri.hostnameFromURI(
             µm.normalizePageURL(0, details.documentUrl)
         );
