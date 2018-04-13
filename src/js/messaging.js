@@ -944,8 +944,8 @@ var onMessage = function(request, sender, callback) {
             for ( let entry of µm.pageStores ) {
                 let tabId = entry[0];
                 let pageStore = entry[1];
-                if ( pageStore.rawUrl.startsWith(loggerURL) ) { continue; }
-                pageStores.push([ tabId, pageStore.title || pageStore.rawUrl ]);
+                if ( pageStore.rawURL.startsWith(loggerURL) ) { continue; }
+                pageStores.push([ tabId, pageStore.title || pageStore.rawURL ]);
             }
         }
         response = {

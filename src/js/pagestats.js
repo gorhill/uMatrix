@@ -110,7 +110,7 @@ PageStore.prototype = {
 
     init: function(tabContext) {
         this.tabId = tabContext.tabId;
-        this.rawUrl = tabContext.rawURL;
+        this.rawURL = tabContext.rawURL;
         this.pageUrl = tabContext.normalURL;
         this.pageHostname = tabContext.rootHostname;
         this.pageDomain =  tabContext.rootDomain;
@@ -135,7 +135,7 @@ PageStore.prototype = {
 
     dispose: function() {
         this.tabId = '';
-        this.rawUrl = '';
+        this.rawURL = '';
         this.pageUrl = '';
         this.pageHostname = '';
         this.pageDomain = '';

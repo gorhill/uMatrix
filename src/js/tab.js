@@ -50,11 +50,11 @@ var µm = µMatrix;
 
     // If the URL is that of our "blocked page" document, return the URL of
     // the blocked page.
-    if ( pageURL.lastIndexOf(vAPI.getURL('main-blocked.html'), 0) === 0 ) {
-        var matches = /main-blocked\.html\?details=([^&]+)/.exec(pageURL);
+    if ( pageURL.startsWith(vAPI.getURL('main-blocked.html')) ) {
+        let matches = /main-blocked\.html\?details=([^&]+)/.exec(pageURL);
         if ( matches && matches.length === 2 ) {
             try {
-                var details = JSON.parse(atob(matches[1]));
+                let details = JSON.parse(atob(matches[1]));
                 pageURL = details.url;
             } catch (e) {
             }
