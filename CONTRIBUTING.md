@@ -1,5 +1,7 @@
 ### Submitting issues
 
+Submit on <https://www.reddit.com/r/uMatrix/>.
+
 **Do not open feature requests.** I just do not have the time.
 
 **Do not open issues because web pages are broken as a result of uMatrix blocking stuff because of your ruleset.** The issue is with your ruleset, not uMatrix.
