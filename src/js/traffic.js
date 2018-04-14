@@ -127,7 +127,15 @@ var onBeforeRequestHandler = function(details) {
         rootHostname = tabContext.rootHostname,
         specificity = 0;
 
-    if ( tabId < 0 && details.documentUrl !== undefined ) {
+    // https://github.com/gorhill/uMatrix/issues/995
+    //   For now we will not reclassify behind-the-scene contexts which are not
+    //   network-based URIs. Once the logger is able to provide context
+    //   information, the reclassification will be allowed.
+    if (
+        tabId < 0 &&
+        details.documentUrl !== undefined &&
+        µmuri.isNetworkURI(details.documentUrl)
+    ) {
         tabId = µm.tabContextManager.tabIdFromURL(details.documentUrl);
         rootHostname = µmuri.hostnameFromURI(
             µm.normalizePageURL(0, details.documentUrl)

@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    uMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -246,11 +246,16 @@ URI.schemeFromURI = function(uri) {
 
 /******************************************************************************/
 
+const reNetworkScheme = /^(?:https?|wss?|ftps?)\b/;
+const reNetworkURI = /^(?:ftps?|https?|wss?):\/\//;
+
 URI.isNetworkScheme = function(scheme) {
-    return this.reNetworkScheme.test(scheme);
+    return reNetworkScheme.test(scheme);
 };
 
-URI.reNetworkScheme = /^(?:https?|wss?|ftps?)\b/;
+URI.isNetworkURI = function(uri) {
+    return reNetworkURI.test(uri);
+};
 
 /******************************************************************************/
 
@@ -403,11 +408,9 @@ var domainCachePrune = function() {
     }
 };
 
-var domainCacheReset = function() {
+window.addEventListener('publicSuffixList', function() {
     domainCache.clear();
-};
-
-psl.onChanged.addListener(domainCacheReset);
+});
 
 /******************************************************************************/
 

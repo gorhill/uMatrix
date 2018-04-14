@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
+    uMatrix - a browser extension to black/white list requests.
     Copyright (C) 2014-2018 Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -43,6 +43,7 @@ vAPI.messaging.addListener(function onMessage(msg) {
         break;
     case 'assetsUpdated':
         document.body.classList.remove('updating');
+        renderWidgets();
         break;
     case 'loadHostsFilesCompleted':
         renderHostsFiles();

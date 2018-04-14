@@ -21,6 +21,8 @@
 
 /*! Home: https://github.com/gorhill/publicsuffixlist.js */
 
+'use strict';
+
 /*
     This code is mostly dumb: I consider this to be lower-level code, thus
     in order to ensure efficiency, the caller is responsible for sanitizing
@@ -33,8 +35,6 @@
 
 ;(function(root) {
 
-'use strict';
-
 /******************************************************************************/
 
 var exceptions = new Map();
@@ -45,8 +45,6 @@ var rules = new Map();
 //   >= this.cutoffLength = binary search
 var cutoffLength = 256;
 var mustPunycode = /[^\w.*-]/;
-
-var onChangedListeners = [];
 
 /******************************************************************************/
 
@@ -242,7 +240,7 @@ function parse(text, toAscii) {
     crystallize(exceptions);
     crystallize(rules);
 
-    callListeners(onChangedListeners);
+    window.dispatchEvent(new CustomEvent('publicSuffixList'));
 }
 
 /******************************************************************************/
@@ -315,51 +313,13 @@ let toSelfie = function() {
 };
 
 let fromSelfie = function(selfie) {
-    if (
-        selfie instanceof Object === false ||
-        selfie.magic !== selfieMagic
-    ) {
+    if ( selfie instanceof Object === false || selfie.magic !== selfieMagic ) {
         return false;
     }
     rules = new Map(selfie.rules);
     exceptions = new Map(selfie.exceptions);
-    callListeners(onChangedListeners);
+    window.dispatchEvent(new CustomEvent('publicSuffixList'));
     return true;
-};
-
-/******************************************************************************/
-
-var addListener = function(listeners, callback) {
-    if ( typeof callback !== 'function' ) {
-        return;
-    }
-    if ( listeners.indexOf(callback) === -1 ) {
-        listeners.push(callback);
-    }
-};
-
-var removeListener = function(listeners, callback) {
-    var pos = listeners.indexOf(callback);
-    if ( pos !== -1 ) {
-        listeners.splice(pos, 1);
-    }
-};
-
-var callListeners = function(listeners) {
-    for ( var i = 0; i < listeners.length; i++ ) {
-        listeners[i]();
-    }
-};
-
-/******************************************************************************/
-
-var onChanged = {
-    addListener: function(callback) {
-        addListener(onChangedListeners, callback);
-    },
-    removeListener: function(callback) {
-        removeListener(onChangedListeners, callback);
-    }
 };
 
 /******************************************************************************/
@@ -374,8 +334,7 @@ root.publicSuffixList = {
     'getDomain': getDomain,
     'getPublicSuffix': getPublicSuffix,
     'toSelfie': toSelfie,
-    'fromSelfie': fromSelfie,
-    'onChanged': onChanged
+    'fromSelfie': fromSelfie
 };
 
 /******************************************************************************/

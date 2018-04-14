@@ -101,7 +101,11 @@ api.fetchText = function(url, onLoad, onError) {
 
     var onErrorReceived = function() {
         this.onload = this.onerror = this.ontimeout = null;
-        µMatrix.logger.writeOne('', 'error', errorCantConnectTo.replace('{{msg}}', actualUrl));
+        µMatrix.logger.writeOne(
+            '',
+            'error',
+            errorCantConnectTo.replace('{{url}}', actualUrl)
+        );
         onError.call(null, { url: url, content: '' });
     };
 
