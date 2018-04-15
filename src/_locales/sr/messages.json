@@ -544,7 +544,7 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Дозволе<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Дозволе<\/a>",
         "description": ""
     },
     "aboutCode": {
