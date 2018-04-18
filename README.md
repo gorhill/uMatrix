@@ -31,7 +31,7 @@ uMatrix does not guarantee that sites will work fine: it is for advanced users w
 
 **So this means do not file issues to report broken sites when the sites are broken because uMatrix does its job as expected.** I will close any such issue without further comment.
 
-**Using uMatrix logger is key to un-break sites:** the logger will show you all what uMatrix does internally.
+**Using uMatrix logger is key to un-break sites:** the logger will show you all that uMatrix does internally.
 
 I expect there will be community driven efforts for users to help each others. If uMatrix had a home, I would probably set up a forum, but I do not plan for such thing, I really just want to code, not manage web sites. If you need help to un-break a site when using uMatrix, you can try [Wilders Security](http://www.wilderssecurity.com/threads/umatrix-the-http-switchboard-successor.369601/), where you are likely to receive help if needed, whether by me or other users.
 
