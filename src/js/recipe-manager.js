@@ -50,9 +50,9 @@
                     hn = hn.slice(0, pos + hn.length - domain.length) + '.*';
                 }
             }
-            if ( hn.endsWith(targetHostname) === false ) {
-                return false;
-            }
+            if ( hn.endsWith(targetHostname) === false ) { return false; }
+            let pos = hn.length - targetHostname.length;
+            if ( pos !== 0 && hn.charAt(pos - 1) !== '.' ) { return false; }
         }
         targetHostname = condition.slice(i + 1).trim();
         if ( targetHostname === '*' ) { return true; }
@@ -94,9 +94,10 @@
     };
 
     var fromString = function(raw) {
-        var recipeName,
+        let recipeName,
             recipeCondition,
             recipeRuleset;
+        let reComment = /^[!#]/;
         let rawHeader = raw.slice(0, 1024);
         if ( reValidRecipeFile.test(rawHeader) === false ) { return; }
         let maintainer = authorFromHeader(rawHeader);
@@ -118,11 +119,12 @@
                     });
                 }
                 recipeName = undefined;
+                recipeCondition = undefined;
             }
             if ( lineIter.eot() && recipeName === undefined ) { break; }
             if ( line.length === 0 ) { continue; }
-            let c = line.charCodeAt(0);
-            if ( c === 0x23 /* '#' */ || c === 0x21 /* '!' */ ) { continue; }
+            let isComment = reComment.test(line);
+            if ( isComment && recipeCondition === undefined ) { continue; }
             if ( recipeName === undefined ) {
                 recipeName = line;
                 recipeCondition = undefined;
@@ -136,7 +138,7 @@
             if ( recipeRuleset.length !== 0 ) {
                 recipeRuleset += '\n';
             }
-            recipeRuleset += toASCII(line);
+            recipeRuleset += isComment ? line : toASCII(line);
         }
     };
 
@@ -163,7 +165,9 @@
         let tMatrix = µm.tMatrix;
         let pMatrix = µm.pMatrix;
         let mustPersist = false;
+        let reComment = /^[!#]/;
         for ( let rule of details.ruleset.split('\n') ) {
+            if ( reComment.test(rule) ) { continue; }
             let parts = rule.split(/\s+/);
             if ( parts.length < 2 ) { continue; }
             let f0 = parts[0];
@@ -227,10 +231,13 @@
     api.statuses = function(details) {
         let pMatrix = µMatrix.pMatrix,
             tMatrix = µMatrix.tMatrix;
+        let reComment = /^[!#]/;
         for ( let recipe of details.recipes ) {
             let ruleIter = new µMatrix.LineIterator(recipe.ruleset);
             while ( ruleIter.eot() === false ) {
-                let parts = ruleIter.next().split(/\s+/);
+                let rule = ruleIter.next();
+                if ( reComment.test(rule) ) { continue; }
+                let parts = rule.split(/\s+/);
                 if (
                     recipe.mustCommit !== true &&
                     evaluateRuleParts(pMatrix, details.scope, parts)
