@@ -48,6 +48,9 @@ vAPI.messaging.addListener(function onMessage(msg) {
     case 'loadHostsFilesCompleted':
         renderHostsFiles();
         break;
+    case 'loadRecipeFilesCompleted':
+        renderHostsFiles();
+        break;
     default:
         break;
     }
@@ -70,9 +73,7 @@ var renderHostsFiles = function(soft) {
     // Assemble a pretty list name if possible
     var listNameFromListKey = function(collection, listKey) {
         let list = collection.get(listKey);
-        let listTitle = list ? list.title : '';
-        if ( listTitle === '' ) { return listKey; }
-        return listTitle;
+        return list && list.title || listKey;
     };
 
     var liFromListEntry = function(collection, listKey, li) {
@@ -132,13 +133,22 @@ var renderHostsFiles = function(soft) {
         return li;
     };
     var onRenderAssetFiles = function(collection, listSelector) {
+        // Incremental rendering: this will allow us to easily discard unused
+        // DOM list entries.
+        uDom(listSelector + ' .listEntry:not(.notAnAsset)').addClass('discard');
+
         var assetKeys = Array.from(collection.keys());
 
         // Sort works this way:
         // - Send /^https?:/ items at the end (custom hosts file URL)
         assetKeys.sort(function(a, b) {
-            var ta = collection.get(a).title || a,
-                tb = collection.get(b).title || b;
+            let ea = collection.get(a),
+                eb = collection.get(b);
+            if ( ea.submitter !== eb.submitter ) {
+                return ea.submitter !== 'user' ? -1 : 1;
+            }
+            let ta = ea.title || a,
+                tb = eb.title || b;
             if ( reExternalHostFile.test(ta) === reExternalHostFile.test(tb) ) {
                 return ta.localeCompare(tb);
             }
@@ -177,10 +187,6 @@ var renderHostsFiles = function(soft) {
             'contributor',
             listDetails.contributor === true
         );
-
-        // Incremental rendering: this will allow us to easily discard unused
-        // DOM list entries.
-        uDom('#hosts .listEntry:not(.notAnAsset)').addClass('discard');
 
         onRenderAssetFiles(details.hosts, '#hosts');
         onRenderAssetFiles(details.recipes, '#recipes');

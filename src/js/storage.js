@@ -273,33 +273,63 @@
     }
 
     let µm = this,
-        countdownCount = µm.userSettings.selectedRecipeFiles.length;
+        countdownCount = 0;
 
     if ( reset ) {
         µm.recipeManager.reset();
     }
 
-    var onLoaded = function(details) {
+    let recipeMetadata;
+
+    let onDone = function() {
+        vAPI.messaging.broadcast({ what: 'loadRecipeFilesCompleted' });
+        µm.getBytesInUse();
+        callback();
+    };
+
+    let onLoaded = function(details) {
         if ( details.content ) {
+            let entry = recipeMetadata.get(details.assetKey);
+            if ( entry.submitter === 'user' ) {
+                let match = /^! +Title: *(.+)$/im.exec(
+                    details.content.slice(2048)
+                );
+                if ( match !== null && match[1] !== entry.title ) {
+                    µm.assets.registerAssetSource(
+                        details.assetKey,
+                        { title: match[1] }
+                    );
+                }
+            }
             µm.recipeManager.fromString(details.content);
         }
         countdownCount -= 1;
         if ( countdownCount === 0 ) {
-            callback();
+            onDone();
         }
     };
 
-    for ( let assetKey of µm.userSettings.selectedRecipeFiles ) {
-        this.assets.get(assetKey, onLoaded);
-    }
+    let onMetadataReady = function(metadata) {
+        recipeMetadata = metadata;
+        for ( let entry of metadata ) {
+            let assetKey = entry[0];
+            let recipeFile = entry[1];
+            if ( recipeFile.selected !== true ) { continue; }
+            µm.assets.get(assetKey, onLoaded);
+            countdownCount += 1;
+        }
+        let userRecipes = µm.userSettings.userRecipes;
+        if ( userRecipes.enabled ) {
+            µm.recipeManager.fromString(
+                '! uMatrix: Ruleset recipes 1.0\n' + userRecipes.content
+            );
+        }
+        if ( countdownCount === 0 ) {
+            onDone();
+        }
+    };
 
-    let userRecipes = µm.userSettings.userRecipes;
-    if ( userRecipes.enabled ) {
-        µm.recipeManager.fromString(
-            '! uMatrix: Ruleset recipes 1.0\n' + userRecipes.content
-        );
-    }
-
+    this.getAvailableRecipeFiles(onMetadataReady);
 };
 
 /******************************************************************************/
@@ -406,8 +436,7 @@
             type: 'recipes',
             contentURL: assetKey,
             external: true,
-            submitter: 'user',
-            title: assetKey
+            submitter: 'user'
         };
         this.assets.registerAssetSource(assetKey, entry);
         availableRecipeFiles.set(assetKey, entry);
@@ -717,9 +746,6 @@
             'externalRecipeFiles',
             'userRecipes'
         );
-        if ( recipesChanged ) {
-            µm.recipeManager.reset();
-        }
         if ( typeof callback === 'function' ) {
             callback({
                 hostsChanged: hostsChanged,
