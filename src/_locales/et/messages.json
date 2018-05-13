@@ -1,14 +1,14 @@
 {
     "extName": {
-        "message": "µMatrix",
+        "message": "uMatrix",
         "description": ""
     },
     "extShortDesc": {
-        "message": "Suuna ja klõpsa, et keelata\/lubada veebilehitseja kõiki päringud. Sellega saab keelata skripte, i-raame, reklaame, fb-d jne.",
+        "message": "Suuna ja klõpsa, et keelata\/lubada veebilehitseja kõiki päringud. Sellega saab keelata skripte, iframe-e, reklaame, facebook'i jne.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
-        "message": "µMatrix — Esilehekülg",
+        "message": "uMatrix — Töölaud",
         "description": ""
     },
     "loggerPageName": {
@@ -120,7 +120,7 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Range HTTPS",
+        "message": "Keela segatud sisu",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
@@ -152,15 +152,15 @@
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
-        "message": "Import rules",
+        "message": "Impordi reeglid",
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
-        "message": "Save rules",
+        "message": "Salvesta reeglid",
         "description": "Used as a tooltip for the recipe padlock button"
     },
     "statsPageTitle": {
-        "message": "µMatrix &ndash; statistika",
+        "message": "uMatrix&#x27;i &ndash; statistika",
         "description": ""
     },
     "statsPageGenericStats": {
@@ -240,7 +240,7 @@
         "description": ""
     },
     "statsPagePlugins": {
-        "message": "Liidesed",
+        "message": "Pluginad",
         "description": ""
     },
     "statsPageScripts": {
@@ -276,31 +276,31 @@
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
-        "message": "Refresh",
+        "message": "Värskenda",
         "description": ""
     },
     "settingsPageTitle": {
-        "message": "uMatrix &ndash; Settings",
+        "message": "uMatrix&#x27;i &ndash; seaded",
         "description": ""
     },
     "settingsMatrixDisplayHeader": {
-        "message": "Matrix",
+        "message": "Maatriks",
         "description": "header for matrix settings used in Settings page"
     },
     "settingsMatrixDisplayTextSizePrompt": {
-        "message": "Text size:",
+        "message": "Teksti suurus:",
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "Show the number of blocked resources on the icon",
+        "message": "Kuva ikoonil blokeeritud ressursside arv",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
-        "message": "Color-blind friendly",
+        "message": "Värvipimeduse-sõbralik",
         "description": ""
     },
     "settingsMatrixConvenienceHeader": {
-        "message": "Convenience",
+        "message": "Mugavus",
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
@@ -308,15 +308,15 @@
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "Üldine",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "Domeen",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "Sait",
         "description": "Scope will be full hostname of site"
     },
     "settingsCollapseBlocked": {
@@ -332,19 +332,19 @@
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
-        "message": "Enable cloud storage support",
+        "message": "Luba pilve salvestamise tugi",
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "Keela näpunäited",
         "description": ""
     },
     "privacyPageTitle": {
-        "message": "uMatrix &ndash; Privacy",
+        "message": "uMatrix&#x27;i &ndash; privaatsus",
         "description": ""
     },
     "privacyDeleteBlockedCookiesPrompt": {
-        "message": "Delete blocked cookies",
+        "message": "Kustuta blokeeritud küpsised",
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
@@ -368,7 +368,7 @@
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
-        "message": "TODO",
+        "message": "Vaja teha",
         "description": ""
     },
     "privacyClearCachePrompt1": {
@@ -376,7 +376,7 @@
         "description": "First part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCachePrompt2": {
-        "message": "minutes",
+        "message": "minutit",
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
-        "message": "Strict HTTPS: forbid mixed content",
+        "message": "Range HTTPS: keela segatud sisu",
         "description": ""
     },
     "privacyNoMixedContentHelp": {
@@ -408,39 +408,39 @@
         "description": ""
     },
     "userRulesPermanentHeader": {
-        "message": "Permanent rules",
+        "message": "Püsivad reeglid",
         "description": ""
     },
     "userRulesTemporaryHeader": {
-        "message": "Temporary rules",
+        "message": "Ajutised reeglid",
         "description": ""
     },
     "userRulesRevert": {
-        "message": "Revert",
+        "message": "Ennista",
         "description": "Will remove all temporary rules"
     },
     "userRulesCommit": {
-        "message": "Commit",
+        "message": "Sisesta",
         "description": "Will save all temporary rules"
     },
     "userRulesEdit": {
-        "message": "Edit",
+        "message": "Muuda",
         "description": "Will enable manual-edit mode (textarea)"
     },
     "userRulesEditSave": {
-        "message": "Save",
+        "message": "Salvesta",
         "description": "Will save manually-edited content and exit manual-edit mode"
     },
     "userRulesEditDicard": {
-        "message": "Discard",
+        "message": "Loobu",
         "description": "Will discard manually-edited content and exit manual-edit mode"
     },
     "userRulesImport": {
-        "message": "Import from file...",
+        "message": "Impordi failist...",
         "description": ""
     },
     "userRulesExport": {
-        "message": "Export to file...",
+        "message": "Ekspordi faili...",
         "description": ""
     },
     "userRulesFormatHint": {
@@ -448,11 +448,11 @@
         "description": ""
     },
     "userRulesDefaultFileName": {
-        "message": "my-umatrix-rules.txt",
+        "message": "minu-umatrix-reeglid.txt",
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Hostifailid",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -472,7 +472,7 @@
         "description": "English: Last update: {{ago}}, where 'ago' will be replaced with something like '2 days ago'"
     },
     "hostsFilesApplyChanges": {
-        "message": "Apply changes",
+        "message": "Rakenda muudatused",
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
@@ -480,11 +480,11 @@
         "description": ""
     },
     "hostsFilesUpdateNow": {
-        "message": "Update now",
+        "message": "Uuenda kohe",
         "description": ""
     },
     "hostsFilesPurgeAll": {
-        "message": "Purge all caches",
+        "message": "Tühjenda kõik vahemälud",
         "description": ""
     },
     "hostsFilesExternalListsHint": {
@@ -492,11 +492,11 @@
         "description": ""
     },
     "hostsFilesExternalListsParse": {
-        "message": "Parse",
+        "message": "Töötle",
         "description": ""
     },
     "hostsFilesExternalListPurge": {
-        "message": "purge cache",
+        "message": "tühjenda vahemälu",
         "description": ""
     },
     "hostsFilesExternalListNew": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Muudatuste logi<\/a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,7 +540,7 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentatsioon<\/a>",
         "description": ""
     },
     "aboutPermissions": {
@@ -568,7 +568,7 @@
         "description": ""
     },
     "aboutTranslationContributors": {
-        "message": "Translations:",
+        "message": "Tõlked:",
         "description": ""
     },
     "aboutUserDataHeader": {
@@ -580,11 +580,11 @@
         "description": ""
     },
     "aboutBackupFilename": {
-        "message": "my-umatrix-backup.txt",
+        "message": "minu-umatrix-varundus.txt",
         "description": "default filename to use"
     },
     "aboutRestoreButton": {
-        "message": "Restore from file...",
+        "message": "Taasta failist...",
         "description": ""
     },
     "aboutRestoreConfirm": {
@@ -596,7 +596,7 @@
         "description": ""
     },
     "aboutOr": {
-        "message": "... or ...",
+        "message": "... või ...",
         "description": "English: ... or ..."
     },
     "aboutResetButton": {
@@ -640,15 +640,15 @@
         "description": "English: Because of the following rule"
     },
     "mainBlockedBack": {
-        "message": "Go back",
+        "message": "Mine tagasi",
         "description": "English: Go back"
     },
     "mainBlockedClose": {
-        "message": "Close",
+        "message": "Sulge",
         "description": "English: Close"
     },
     "commandRevertAll": {
-        "message": "Revert all temporary changes",
+        "message": "Taasta kõik ajutised muudatused",
         "description": ""
     },
     "commandWhitelistPageDomain": {
@@ -664,35 +664,35 @@
         "description": ""
     },
     "elapsedOneMinuteAgo": {
-        "message": "a minute ago",
+        "message": "minut tagasi",
         "description": "English: a minute ago"
     },
     "elapsedManyMinutesAgo": {
-        "message": "{{value}} minutes ago",
+        "message": "{{value}} minutit tagasi",
         "description": "English: {{value}} minutes ago"
     },
     "elapsedOneHourAgo": {
-        "message": "an hour ago",
+        "message": "tund tagasi",
         "description": "English: an hour ago"
     },
     "elapsedManyHoursAgo": {
-        "message": "{{value}} hours ago",
+        "message": "{{value}} tundi tagasi",
         "description": "English: {{value}} hours ago"
     },
     "elapsedOneDayAgo": {
-        "message": "a day ago",
+        "message": "päev tagasi",
         "description": "English: a day ago"
     },
     "elapsedManyDaysAgo": {
-        "message": "{{value}} days ago",
+        "message": "{{value}} päeva tagasi",
         "description": "English: {{value}} days ago"
     },
     "showDashboardButton": {
-        "message": "Dashboard",
+        "message": "Töölaud",
         "description": "Appears in Firefox's add-on preferences"
     },
     "showLoggerButton": {
-        "message": "Logger",
+        "message": "Logija",
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
@@ -712,11 +712,11 @@
         "description": "used as a prompt for the user to provide a custom device name"
     },
     "genericSubmit": {
-        "message": "Submit",
+        "message": "Sisesta",
         "description": "for generic 'submit' buttons"
     },
     "genericRevert": {
-        "message": "Revert",
+        "message": "Ennista",
         "description": "for generic 'revert' buttons"
     },
     "errorCantConnectTo": {
@@ -724,7 +724,7 @@
         "description": ""
     },
     "genericApplyChanges": {
-        "message": "Apply changes",
+        "message": "Rakenda muudatused",
         "description": "for generic 'Apply changes' buttons"
     }
 }

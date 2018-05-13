@@ -168,11 +168,11 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>Cookie<\/a> の数: {{count}}",
+        "message": "拒否した <a href='https:\/\/ja.wikipedia.org\/wiki\/HTTP_cookie'>Cookie<\/a> の数: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "拒否した <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>リファラ<\/a> の数: {{count}}",
+        "message": "拒否した <a href='https:\/\/ja.wikipedia.org\/wiki\/HTTP%E3%83%AA%E3%83%95%E3%82%A1%E3%83%A9'>リファラ<\/a> の数: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
@@ -384,7 +384,7 @@
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "サードパーティーリクエストの <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP リファラ<\/a> を偽装する",
+        "message": "サードパーティーリクエストの <a href='https:\/\/ja.wikipedia.org\/wiki\/HTTP%E3%83%AA%E3%83%95%E3%82%A1%E3%83%A9'>HTTP リファラ<\/a> を偽装する",
         "description": ""
     },
     "privacyProcessRefererHelp": {
@@ -544,7 +544,7 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/umatrix\/wiki\/Permissions'>パーミッションについて<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>パーミッションについて<\/a>",
         "description": ""
     },
     "aboutCode": {
