@@ -56,7 +56,7 @@ Randomly assembled documentation: https://github.com/gorhill/uMatrix/wiki
 
 This extension is also useful to understand what the web page in your browser is doing, often without your knowledge. You have full ability to see and decide with whom a web page communicates, and to restrict these communications to specific classes of objects within the web page.
 
-The number which appear in the extension icon correspond to the total number of distinct requests blocked by the extension.
+The number which appears in the extension icon correspond to the total number of distinct requests blocked by the extension.
 
 Simply click on the appropriate entry in the matrix in order to white-, black- or graylist a component. Graylisting means the blocked or allowed status will be inherited from another cell with higher precedence in the matrix.
 
