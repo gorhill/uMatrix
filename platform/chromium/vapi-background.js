@@ -170,8 +170,10 @@ vAPI.tabs.get = function(tabId, callback) {
 
 /******************************************************************************/
 
+// https://github.com/uBlockOrigin/uMatrix-issues/issues/9
+
 vAPI.tabs.getAll = function(callback) {
-    chrome.tabs.query({ url: '<all_urls>' }, callback);
+    chrome.tabs.query({}, callback);
 };
 
 /******************************************************************************/

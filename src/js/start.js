@@ -61,14 +61,11 @@ var onAllDone = function() {
 /******************************************************************************/
 
 var onTabsReady = function(tabs) {
-    var tab;
-    var i = tabs.length;
-    // console.debug('start.js > binding %d tabs', i);
+    let i = tabs.length;
     while ( i-- ) {
-        tab = tabs[i];
+        let tab = tabs[i];
         µm.tabContextManager.push(tab.id, tab.url, 'newURL');
     }
-
     onAllDone();
 };
 
