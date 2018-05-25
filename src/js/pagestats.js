@@ -120,7 +120,6 @@ PageStore.prototype = {
         this.allHostnamesString = ' ';
         this.blockedCollapsibles.reset();
         this.requestStats.reset();
-        this.distinctRequestCount = 0;
         this.perLoadAllowedRequestCount = 0;
         this.perLoadBlockedRequestCount = 0;
         this.has3pReferrer = false;
@@ -235,7 +234,6 @@ PageStore.prototype = {
         µm.requestStats.record(type, block);
         µm.updateBadgeAsync(this.tabId);
 
-        this.distinctRequestCount++;
         this.mtxCountModifiedTime = Date.now();
 
         if ( this.domains.has(hostname) === false ) {
