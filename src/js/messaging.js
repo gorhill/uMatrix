@@ -171,7 +171,7 @@ var matrixSnapshot = function(pageStore, details) {
 
     var r = {
         appVersion: vAPI.app.version,
-        blockedCount: pageStore.requestStats.blocked.all,
+        blockedCount: pageStore.perLoadBlockedRequestCount,
         collapseAllDomains: µmuser.popupCollapseAllDomains,
         collapseBlacklistedDomains: µmuser.popupCollapseBlacklistedDomains,
         diff: [],
