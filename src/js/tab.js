@@ -459,7 +459,7 @@ vAPI.tabs.registerListeners();
             pageStore.pageHostname === tabContext.rootHostname
         ) {
             pageStore.rawURL = tabContext.rawURL;
-            pageStore.normalURL = normalURL;
+            pageStore.pageUrl = normalURL;
             this.updateTitle(tabId);
             this.pageStoresToken = Date.now();
             return pageStore;
