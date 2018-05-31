@@ -40,14 +40,12 @@
 var µm = µMatrix;
 
 var recordPageCookiesQueue = new Map();
-var removePageCookiesQueue = new Map();
 var removeCookieQueue = new Set();
 var cookieDict = new Map();
 var cookieEntryJunkyard = [];
 var processRemoveQueuePeriod = 2 * 60 * 1000;
 var processCleanPeriod = 10 * 60 * 1000;
 var processPageRecordQueueTimer = null;
-var processPageRemoveQueueTimer = null;
 
 /******************************************************************************/
 
@@ -259,24 +257,6 @@ var recordPageCookie = (function() {
 
 /******************************************************************************/
 
-// Look for cookies to potentially remove for a specific web page
-
-var removePageCookiesAsync = function(pageStats) {
-    // Hold onto pageStats objects so that it doesn't go away
-    // before we handle the job.
-    // rhill 2013-10-19: pageStats could be nil, for example, this can
-    // happens if a file:// ... makes an xmlHttpRequest
-    if ( !pageStats ) {
-        return;
-    }
-    removePageCookiesQueue.set(pageStats.pageUrl, pageStats);
-    if ( processPageRemoveQueueTimer === null ) {
-        processPageRemoveQueueTimer = vAPI.setTimeout(processPageRemoveQueue, 15 * 1000);
-    }
-};
-
-/******************************************************************************/
-
 // Candidate for removal
 
 var removeCookieAsync = function(cookieKey) {
@@ -324,17 +304,6 @@ var processPageRecordQueue = function() {
         findAndRecordPageCookies(pageStore);
     }
     recordPageCookiesQueue.clear();
-};
-
-/******************************************************************************/
-
-var processPageRemoveQueue = function() {
-    processPageRemoveQueueTimer = null;
-
-    for ( var pageStore of removePageCookiesQueue.values() ) {
-        findAndRemovePageCookies(pageStore);
-    }
-    removePageCookiesQueue.clear();
 };
 
 /******************************************************************************/
@@ -432,16 +401,6 @@ var findAndRecordPageCookies = function(pageStore) {
     for ( var cookieKey of cookieDict.keys() ) {
         if ( cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
             recordPageCookie(pageStore, cookieKey);
-        }
-    }
-};
-
-/******************************************************************************/
-
-var findAndRemovePageCookies = function(pageStore) {
-    for ( var cookieKey of cookieDict.keys() ) {
-        if ( cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
-            removeCookieAsync(cookieKey);
         }
     }
 };
@@ -577,8 +536,7 @@ vAPI.setTimeout(processClean, processCleanPeriod);
 // Expose only what is necessary
 
 return {
-    recordPageCookies: recordPageCookiesAsync,
-    removePageCookies: removePageCookiesAsync
+    recordPageCookies: recordPageCookiesAsync
 };
 
 /******************************************************************************/
