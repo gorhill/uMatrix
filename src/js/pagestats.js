@@ -98,7 +98,6 @@ var PageStore = function(tabContext) {
     this.hostnameTypeCells = new Map();
     this.domains = new Set();
     this.blockedCollapsibles = new BlockedCollapsibles();
-    this.off = false;
     this.init(tabContext);
 };
 
