@@ -123,6 +123,7 @@ PageStore.prototype = {
         this.distinctRequestCount = 0;
         this.perLoadAllowedRequestCount = 0;
         this.perLoadBlockedRequestCount = 0;
+        this.perLoadBlockedReferrerCount = 0;
         this.has3pReferrer = false;
         this.hasMixedContent = false;
         this.hasNoscriptTags = false;

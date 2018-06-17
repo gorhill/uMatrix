@@ -182,7 +182,7 @@ var onBeforeRequestHandler = function(details) {
 // Sanitize outgoing headers as per user settings.
 
 var onBeforeSendHeadersHandler = function(details) {
-    var µm = µMatrix,
+    let µm = µMatrix,
         µmuri = µm.URI,
         requestURL = details.url,
         requestScheme = µmuri.schemeFromURI(requestURL);
@@ -197,11 +197,10 @@ var onBeforeSendHeadersHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabId = details.tabId,
+    let tabId = details.tabId,
         pageStore = µm.mustPageStoreFromTabId(tabId),
         requestType = requestTypeNormalizer[details.type] || 'other',
-        requestHeaders = details.requestHeaders,
-        headerIndex, headerValue;
+        requestHeaders = details.requestHeaders;
 
     // https://github.com/gorhill/httpswitchboard/issues/342
     // Is this hyperlink auditing?
@@ -224,9 +223,9 @@ var onBeforeSendHeadersHandler = function(details) {
     // With hyperlink-auditing, removing header(s) is pointless, the whole
     // request must be cancelled.
 
-    headerIndex = headerIndexFromName('ping-to', requestHeaders);
+    let headerIndex = headerIndexFromName('ping-to', requestHeaders);
     if ( headerIndex !== -1 ) {
-        headerValue = requestHeaders[headerIndex].value;
+        let headerValue = requestHeaders[headerIndex].value;
         if ( headerValue !== '' ) {
             var block = µm.userSettings.processHyperlinkAuditing;
             pageStore.recordRequest('other', requestURL + '{Ping-To:' + headerValue + '}', block);
@@ -241,7 +240,7 @@ var onBeforeSendHeadersHandler = function(details) {
     // If we reach this point, request is not blocked, so what is left to do
     // is to sanitize headers.
 
-    var rootHostname = pageStore.pageHostname,
+    let rootHostname = pageStore.pageHostname,
         requestHostname = µmuri.hostnameFromURI(requestURL),
         modified = false;
         
@@ -253,7 +252,7 @@ var onBeforeSendHeadersHandler = function(details) {
         µm.mustBlock(rootHostname, requestHostname, 'cookie')
     ) {
         modified = true;
-        headerValue = requestHeaders[headerIndex].value;
+        let headerValue = requestHeaders[headerIndex].value;
         requestHeaders.splice(headerIndex, 1);
         µm.cookieHeaderFoiledCounter++;
         if ( requestType === 'doc' ) {
@@ -284,28 +283,28 @@ var onBeforeSendHeadersHandler = function(details) {
 
     headerIndex = headerIndexFromName('referer', requestHeaders);
     if ( headerIndex !== -1 ) {
-        headerValue = requestHeaders[headerIndex].value;
+        let headerValue = requestHeaders[headerIndex].value;
         if ( headerValue !== '' ) {
-            var toDomain = µmuri.domainFromHostname(requestHostname);
+            let toDomain = µmuri.domainFromHostname(requestHostname);
             if ( toDomain !== '' && toDomain !== µmuri.domainFromURI(headerValue) ) {
                 pageStore.has3pReferrer = true;
                 if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', rootHostname) ) {
                     modified = true;
-                    var newValue;
+                    let newValue;
                     if ( details.method === 'GET' ) {
                         newValue = requestHeaders[headerIndex].value =
                             requestScheme + '://' + requestHostname + '/';
                     } else {
                         requestHeaders.splice(headerIndex, 1);
                     }
-                    µm.refererHeaderFoiledCounter++;
-                    if ( requestType === 'doc' ) {
-                        pageStore.perLoadBlockedRequestCount++;
+                    if ( pageStore.perLoadBlockedReferrerCount === 0 ) {
+                        pageStore.perLoadBlockedRequestCount += 1;
                         µm.logger.writeOne(tabId, 'net', '', headerValue, 'REFERER', true);
                         if ( newValue !== undefined ) {
                             µm.logger.writeOne(tabId, 'net', '', newValue, 'REFERER', false);
                         }
                     }
+                    pageStore.perLoadBlockedReferrerCount += 1;
                 }
             }
         }

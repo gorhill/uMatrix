@@ -209,6 +209,7 @@ var recordPageCookie = (function() {
             if ( pageStore.tabId === '' ) { continue; }
             for ( let cookieKey of qentry[1] ) {
                 let cookieEntry = cookieDict.get(cookieKey);
+                if ( cookieEntry === undefined ) { continue; }
                 let block = µm.mustBlock(
                     pageStore.pageHostname,
                     cookieEntry.hostname,

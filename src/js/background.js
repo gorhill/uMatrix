@@ -237,7 +237,6 @@ return {
     cookieRemovedCounter: 0,
     localStorageRemovedCounter: 0,
     cookieHeaderFoiledCounter: 0,
-    refererHeaderFoiledCounter: 0,
     hyperlinkAuditingFoiledCounter: 0,
     browserCacheClearedCounter: 0,
     storageUsed: 0,
