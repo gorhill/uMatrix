@@ -40,11 +40,11 @@ var BlockedCollapsibles = function() {
 
 BlockedCollapsibles.prototype = {
 
-    shelfLife: 10 * 1000,
+    shelfLife: 10,
 
     add: function(type, url, isSpecific) {
         if ( this.blocked.size === 0 ) { this.pruneAsync(); }
-        var now = Date.now() / 1000 | 0;
+        let now = Date.now() / 1000 | 0;
         // The following "trick" is to encode the specifity into the lsb of the
         // time stamp so as to avoid to have to allocate a memory structure to
         // store both time stamp and specificity.
@@ -54,7 +54,7 @@ BlockedCollapsibles.prototype = {
             now &= 0xFFFFFFFE;
         }
         this.blocked.set(type + ' ' + url, now);
-        this.hash = now;
+        this.hash += 1;
     },
 
     reset: function() {
@@ -70,15 +70,15 @@ BlockedCollapsibles.prototype = {
         if ( this.timer === null ) {
             this.timer = vAPI.setTimeout(
                 this.boundPruneAsyncCallback,
-                this.shelfLife * 2
+                this.shelfLife * 2000
             );
         }
     },
 
     pruneAsyncCallback: function() {
         this.timer = null;
-        var obsolete = Date.now() - this.shelfLife;
-        for ( var entry of this.blocked ) {
+        let obsolete = Math.ceil(Date.now() / 1000) - this.shelfLife;
+        for ( let entry of this.blocked ) {
             if ( entry[1] <= obsolete ) {
                 this.blocked.delete(entry[0]);
             }
@@ -168,36 +168,32 @@ PageStore.prototype = {
         var tabContext = µm.tabContextManager.lookup(this.tabId);
         if ( tabContext === null ) { return; }
 
-        var collapseBlacklisted = µm.userSettings.collapseBlacklisted,
-            collapseBlocked = µm.userSettings.collapseBlocked,
-            entry;
-
-        var blockedResources = response.blockedResources;
-
         if (
             Array.isArray(request.toFilter) &&
             request.toFilter.length !== 0
         ) {
-            var roothn = tabContext.rootHostname,
+            let roothn = tabContext.rootHostname,
                 hnFromURI = µm.URI.hostnameFromURI,
                 tMatrix = µm.tMatrix;
-            for ( entry of request.toFilter ) {
-                if ( tMatrix.mustBlock(roothn, hnFromURI(entry.url), entry.type) === false ) {
-                    continue;
+            for ( let entry of request.toFilter ) {
+                if ( tMatrix.mustBlock(roothn, hnFromURI(entry.url), entry.type) ) {
+                    this.blockedCollapsibles.add(
+                        entry.type,
+                        entry.url,
+                        tMatrix.specificityRegister < 5
+                    );
                 }
-                blockedResources.push([
-                    entry.type + ' ' + entry.url,
-                    collapseBlocked ||
-                    collapseBlacklisted && tMatrix.specificityRegister !== 0 &&
-                    tMatrix.specificityRegister < 5
-                ]);
             }
         }
 
         if ( this.blockedCollapsibles.hash === response.hash ) { return; }
         response.hash = this.blockedCollapsibles.hash;
 
-        for ( entry of this.blockedCollapsibles.blocked ) {
+        let collapseBlacklisted = µm.userSettings.collapseBlacklisted,
+            collapseBlocked = µm.userSettings.collapseBlocked,
+            blockedResources = response.blockedResources;
+
+        for ( let entry of this.blockedCollapsibles.blocked ) {
             blockedResources.push([
                 entry[0],
                 collapseBlocked || collapseBlacklisted && (entry[1] & 1) !== 0
