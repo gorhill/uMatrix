@@ -166,21 +166,20 @@ var collapser = (function() {
             return;
         }
 
-        var placeholders = response.placeholders,
-            tag, prop, src, collapsed, docurl, replaced;
+        let placeholders = response.placeholders;
 
-        for ( var target of targets ) {
-            tag = target.localName;
-            prop = src1stProps[tag];
+        for ( let target of targets ) {
+            let tag = target.localName;
+            let prop = src1stProps[tag];
             if ( prop === undefined ) { continue; }
-            src = target[prop];
+            let src = target[prop];
             if ( typeof src !== 'string' || src.length === 0 ) {
                 prop = src2ndProps[tag];
                 if ( prop === undefined ) { continue; }
                 src = target[prop];
                 if ( typeof src !== 'string' || src.length === 0 ) { continue; }
             }
-            collapsed = cachedBlockedMap.get(tagToTypeMap[tag] + ' ' + src);
+            let collapsed = cachedBlockedMap.get(tagToTypeMap[tag] + ' ' + src);
             if ( collapsed === undefined ) { continue; }
             if ( collapsed ) {
                 target.style.setProperty('display', 'none', 'important');
@@ -190,7 +189,7 @@ var collapser = (function() {
             switch ( tag ) {
             case 'iframe':
                 if ( placeholders.frame !== true ) { break; }
-                docurl =
+                let docurl =
                     'data:text/html,' +
                     encodeURIComponent(
                         placeholders.frameDocument.replace(
@@ -198,7 +197,7 @@ var collapser = (function() {
                             src
                         )
                     );
-                replaced = false;
+                let replaced = false;
                 // Using contentWindow.location prevent tainting browser
                 // history -- i.e. breaking back button (seen on Chromium).
                 if ( target.contentWindow ) {
@@ -214,6 +213,16 @@ var collapser = (function() {
                 break;
             case 'img':
                 if ( placeholders.image !== true ) { break; }
+                // Do not insert placeholder if the image was actually loaded.
+                // This can happen if an allow rule was created while the
+                // document was loading.
+                if (
+                    target.complete &&
+                    target.naturalWidth !== 0 &&
+                    target.naturalHeight !== 0
+                ) {
+                    break;
+                }
                 target.style.setProperty('display', 'inline-block');
                 target.style.setProperty('min-width', '20px', 'important');
                 target.style.setProperty('min-height', '20px', 'important');

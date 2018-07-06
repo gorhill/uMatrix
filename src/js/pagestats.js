@@ -36,24 +36,25 @@ var BlockedCollapsibles = function() {
     this.blocked = new Map();
     this.hash = 0;
     this.timer = null;
+    this.tOrigin = Date.now();
 };
 
 BlockedCollapsibles.prototype = {
 
-    shelfLife: 10,
+    shelfLife: 10 * 1000,
 
     add: function(type, url, isSpecific) {
         if ( this.blocked.size === 0 ) { this.pruneAsync(); }
-        let now = Date.now() / 1000 | 0;
+        let tStamp = Date.now() - this.tOrigin;
         // The following "trick" is to encode the specifity into the lsb of the
         // time stamp so as to avoid to have to allocate a memory structure to
         // store both time stamp and specificity.
         if ( isSpecific ) {
-            now |= 0x00000001;
+            tStamp |= 0x00000001;
         } else {
-            now &= 0xFFFFFFFE;
+            tStamp &= 0xFFFFFFFE;
         }
-        this.blocked.set(type + ' ' + url, now);
+        this.blocked.set(type + ' ' + url, tStamp);
         this.hash += 1;
     },
 
@@ -64,26 +65,31 @@ BlockedCollapsibles.prototype = {
             clearTimeout(this.timer);
             this.timer = null;
         }
+        this.tOrigin = Date.now();
     },
 
     pruneAsync: function() {
         if ( this.timer === null ) {
             this.timer = vAPI.setTimeout(
                 this.boundPruneAsyncCallback,
-                this.shelfLife * 2000
+                this.shelfLife * 2
             );
         }
     },
 
     pruneAsyncCallback: function() {
         this.timer = null;
-        let obsolete = Math.ceil(Date.now() / 1000) - this.shelfLife;
+        let tObsolete = Date.now() - this.tOrigin - this.shelfLife;
         for ( let entry of this.blocked ) {
-            if ( entry[1] <= obsolete ) {
+            if ( entry[1] <= tObsolete ) {
                 this.blocked.delete(entry[0]);
             }
         }
-        if ( this.blocked.size !== 0 ) { this.pruneAsync(); }
+        if ( this.blocked.size !== 0 ) {
+            this.pruneAsync();
+        } else {
+            this.tOrigin = Date.now();
+        }
     }
 };
 
