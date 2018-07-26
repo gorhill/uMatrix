@@ -40,10 +40,10 @@
 		"updateAfter": 11,
 		"title": "Dan Pollock’s hosts file",
 		"contentURL": [
-			"http://someonewhocares.org/hosts/hosts",
+			"https://someonewhocares.org/hosts/hosts",
 			"assets/thirdparties/someonewhocares.org/hosts/hosts.txt"
 		],
-		"supportURL": "http://someonewhocares.org/hosts/"
+		"supportURL": "https://someonewhocares.org/hosts/"
 	},
 	"hphosts": {
 		"content": "filters",
