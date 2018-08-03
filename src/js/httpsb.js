@@ -33,6 +33,7 @@
     µm.pMatrix.setSwitch('matrix-off', 'chrome-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', 'moz-extension-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', 'opera-scheme', 1);
+    µm.pMatrix.setSwitch('matrix-off', 'vivaldi-scheme', 1);
     // https://discourse.mozilla.org/t/support-umatrix/5131/157
     µm.pMatrix.setSwitch('matrix-off', 'wyciwyg-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', 'behind-the-scene', 1);
