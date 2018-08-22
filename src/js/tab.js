@@ -48,6 +48,19 @@ var µm = µMatrix;
         return 'http://' + this.behindTheSceneScope + '/';
     }
 
+    // https://github.com/gorhill/uMatrix/issues/992
+    //   Firefox-specific quirk: some top documents are reported by Firefox API
+    //   as loading from `wyciwyg://`, and this breaks uMatrix usability.
+    //   Firefox should probably made such loading from cache seamless through
+    //   its APIs, but since this is not the case, uMatrix inherits the duty to
+    //   make it seamless on its side.
+    if ( pageURL.startsWith('wyciwyg:') ) {
+        let match = /^wyciwyg:\/\/\d+\//.exec(pageURL);
+        if ( match !== null ) {
+            pageURL = pageURL.slice(match[0].length);
+        }
+    }
+
     // If the URL is that of our "blocked page" document, return the URL of
     // the blocked page.
     if ( pageURL.startsWith(vAPI.getURL('main-blocked.html')) ) {
@@ -61,13 +74,13 @@ var µm = µMatrix;
         }
     }
 
-    var uri = this.URI.set(pageURL);
-    var scheme = uri.scheme;
+    let uri = this.URI.set(pageURL);
+    let scheme = uri.scheme;
     if ( scheme === 'https' || scheme === 'http' ) {
         return uri.normalizedURI();
     }
 
-    var fakeHostname = scheme + '-scheme';
+    let fakeHostname = scheme + '-scheme';
 
     if ( uri.hostname !== '' ) {
         fakeHostname = uri.hostname + '.' + fakeHostname;
