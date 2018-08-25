@@ -16,19 +16,19 @@ import zipfile
 from distutils.version import LooseVersion
 from string import Template
 
-# - Download target (raw) uMatrix.webext.xpi from GitHub
+# - Download target (raw) uMatrix.firefox.xpi from GitHub
 #   - This is referred to as "raw" package
 #   - This will fail if not a dev build
 # - Modify raw package to make it self-hosted
 #   - This is referred to as "unsigned" package
-# - Ask AMO to sign uMatrix.webext.xpi
+# - Ask AMO to sign uMatrix.firefox.xpi
 #   - Generate JWT to be used for communication with server
 #   - Upload unsigned package to AMO
 #   - Wait for a valid download URL for signed package
-#   - Download signed package as uMatrix.webext.signed.xpi
+#   - Download signed package as uMatrix.firefox.signed.xpi
 #     - This is referred to as "signed" package
-# - Upload uMatrix.webext.signed.xpi to GitHub
-# - Remove uMatrix.webext.xpi from GitHub
+# - Upload uMatrix.firefox.signed.xpi to GitHub
+# - Remove uMatrix.firefox.xpi from GitHub
 # - Modify updates.json to point to new version
 #   - Commit changes to repo
 
@@ -44,10 +44,10 @@ if not os.path.isfile(version_filepath):
 
 extension_id = 'uMatrix@raymondhill.net'
 tmpdir = tempfile.TemporaryDirectory()
-raw_xpi_filename = 'uMatrix.webext.xpi'
+raw_xpi_filename = 'uMatrix.firefox.xpi'
 raw_xpi_filepath = os.path.join(tmpdir.name, raw_xpi_filename)
-unsigned_xpi_filepath = os.path.join(tmpdir.name, 'uMatrix.webext.unsigned.xpi')
-signed_xpi_filename = 'uMatrix.webext.signed.xpi'
+unsigned_xpi_filepath = os.path.join(tmpdir.name, 'uMatrix.firefox.unsigned.xpi')
+signed_xpi_filename = 'uMatrix.firefox.signed.xpi'
 signed_xpi_filepath = os.path.join(tmpdir.name, signed_xpi_filename)
 github_owner = 'gorhill'
 github_repo = 'uMatrix'
@@ -111,7 +111,7 @@ release_info = response.json()
 # Extract URL to raw package from metadata
 #
 
-# Find url for uMatrix.webext.xpi
+# Find url for uMatrix.firefox.xpi
 raw_xpi_url = ''
 for asset in release_info['assets']:
     if asset['name'] == signed_xpi_filename:
