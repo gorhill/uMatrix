@@ -2,7 +2,7 @@
 
     uMatrix - a browser extension to block requests.
     Copyright (C) 2014-2018 The uBlock Origin authors
-    Copyright (C) 2017-2018 Raymond Hill
+    Copyright (C) 2017-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -755,8 +755,8 @@ vAPI.cloud = (function() {
     // and chrome.storage.sync.MAX_WRITE_OPERATIONS_PER_HOUR.
 
     var getCoarseChunkCount = function(dataKey, callback) {
-        var bin = {};
-        for ( var i = 0; i < maxChunkCountPerItem; i += 16 ) {
+        let bin = {};
+        for ( let i = 0; i < maxChunkCountPerItem; i += 16 ) {
             bin[dataKey + i.toString()] = '';
         }
 
@@ -767,10 +767,8 @@ vAPI.cloud = (function() {
             }
 
             var chunkCount = 0;
-            for ( var i = 0; i < maxChunkCountPerItem; i += 16 ) {
-                if ( bin[dataKey + i.toString()] === '' ) {
-                    break;
-                }
+            for ( let i = 0; i < maxChunkCountPerItem; i += 16 ) {
+                if ( bin[dataKey + i.toString()] === '' ) { break; }
                 chunkCount = i + 16;
             }
 
@@ -844,18 +842,16 @@ vAPI.cloud = (function() {
             }
 
             // Assemble chunks into a single string.
-            var json = [], jsonSlice;
-            var i = 0;
+            let json = [], jsonSlice;
+            let i = 0;
             for (;;) {
                 jsonSlice = bin[dataKey + i.toString()];
-                if ( jsonSlice === '' ) {
-                    break;
-                }
+                if ( jsonSlice === '' || jsonSlice === undefined ) { break; }
                 json.push(jsonSlice);
                 i += 1;
             }
 
-            var entry = null;
+            let entry = null;
             try {
                 entry = JSON.parse(json.join(''));
             } catch(ex) {
