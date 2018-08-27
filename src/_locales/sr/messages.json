@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Средства",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -476,7 +476,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Авто-ажурирање средства",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -520,11 +520,11 @@
         "description": ""
     },
     "assetsInlineHostsLabel": {
-        "message": "My hosts",
+        "message": "Моје хостове",
         "description": ""
     },
     "assetsInlineRecipesLabel": {
-        "message": "My recipes",
+        "message": "Моји рецепти",
         "description": ""
     },
     "rawSettingsWarning": {
@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "Грешке и проблеми",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Сарадници",

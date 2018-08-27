@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "오류 혹은 이슈",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "기여자",

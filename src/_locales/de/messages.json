@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "Fehler und Probleme",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Mitwirkende",

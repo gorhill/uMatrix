@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "バグや問題点",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "協力者",

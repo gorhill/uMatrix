@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "ബഗ്ഗുകളും പ്രശ്നങ്ങളും",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "സംഭാവന ചെയ്തവര്‍",

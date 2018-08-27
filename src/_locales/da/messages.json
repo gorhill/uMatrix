@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "Fejl og problemer",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Bidragydere",

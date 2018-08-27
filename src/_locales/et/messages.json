@@ -168,11 +168,11 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "<a href='https:\/\/et.wikipedia.org\/wiki\/HTTP-k%C3%BCpsis'>HTTP-küpsise<\/a> tõrjutud päismik: {{count}}",
+        "message": "<a href='https:\/\/et.wikipedia.org\/wiki\/HTTP-k%C3%BCpsis'>HTTP-küpsise<\/a> tõrjutud päiseid: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP päise<\/a> pealkirjad tõrjutud: {{count}}",
+        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a>'i tõrjutud päiseid: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
@@ -516,15 +516,15 @@
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Impordi...",
         "description": ""
     },
     "assetsInlineHostsLabel": {
-        "message": "My hosts",
+        "message": "Minu hostid",
         "description": ""
     },
     "assetsInlineRecipesLabel": {
-        "message": "My recipes",
+        "message": "Minu retseptid",
         "description": ""
     },
     "rawSettingsWarning": {
@@ -544,27 +544,27 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Õigused<\/a>",
         "description": ""
     },
     "aboutCode": {
-        "message": "Source code (GPLv3)",
+        "message": "Lähtekood (GPLv3)",
         "description": ""
     },
     "aboutIssues": {
-        "message": "Bugs and issues",
-        "description": ""
+        "message": "Vead ja probleemid",
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
-        "message": "Contributors",
+        "message": "Toetajad",
         "description": "English: Contributors"
     },
     "aboutCodeContributors": {
-        "message": "Code:",
+        "message": "Kood:",
         "description": ""
     },
     "aboutIssueContributors": {
-        "message": "Issues:",
+        "message": "Probleemid:",
         "description": ""
     },
     "aboutTranslationContributors": {
@@ -572,11 +572,11 @@
         "description": ""
     },
     "aboutUserDataHeader": {
-        "message": "Your data",
+        "message": "Sinu andmed",
         "description": ""
     },
     "aboutBackupButton": {
-        "message": "Back up to file...",
+        "message": "Varunda faili...",
         "description": ""
     },
     "aboutBackupFilename": {
@@ -600,7 +600,7 @@
         "description": "English: ... or ..."
     },
     "aboutResetButton": {
-        "message": "Reset to default settings",
+        "message": "Lähtesta vaikeseadetele",
         "description": "English: Reset to default settings"
     },
     "aboutResetConfirm": {

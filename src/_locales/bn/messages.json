@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "বাগ ও ইস্যু",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "অবদানকারী",

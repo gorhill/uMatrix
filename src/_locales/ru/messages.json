@@ -544,7 +544,7 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Разрешения<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Разрешения<\/a>",
         "description": ""
     },
     "aboutCode": {
@@ -552,8 +552,8 @@
         "description": ""
     },
     "aboutIssues": {
-        "message": "Баги и проблемы",
-        "description": ""
+        "message": "Баг-трекер",
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Участники",

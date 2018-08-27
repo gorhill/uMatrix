@@ -544,7 +544,7 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Permissions<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Permissions<\/a>",
         "description": ""
     },
     "aboutCode": {
@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "Cimoj kaj problemoj",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Kontribuantoj",

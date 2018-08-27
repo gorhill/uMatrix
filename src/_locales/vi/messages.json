@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "Lỗi và vấn đề",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Những người đóng góp",

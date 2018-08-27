@@ -492,7 +492,7 @@
         "description": ""
     },
     "hostsFilesExternalListsParse": {
-        "message": "Elemzés",
+        "message": "Feldolgozás",
         "description": ""
     },
     "hostsFilesExternalListPurge": {
@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "Bugok és problémák",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Közreműködők",

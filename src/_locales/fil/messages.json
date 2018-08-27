@@ -553,7 +553,7 @@
     },
     "aboutIssues": {
         "message": "Mga bug at mga isyu",
-        "description": ""
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "Mga kontribyutor",

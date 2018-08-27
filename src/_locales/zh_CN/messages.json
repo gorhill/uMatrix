@@ -544,7 +544,7 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>权限说明<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>权限说明<\/a>",
         "description": ""
     },
     "aboutCode": {
@@ -552,8 +552,8 @@
         "description": ""
     },
     "aboutIssues": {
-        "message": "问题与报告",
-        "description": ""
+        "message": "问题报告",
+        "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
         "message": "贡献者",
@@ -564,7 +564,7 @@
         "description": ""
     },
     "aboutIssueContributors": {
-        "message": "问题报告：",
+        "message": "问题：",
         "description": ""
     },
     "aboutTranslationContributors": {
