@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — লগার",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -36,7 +36,7 @@
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "আরও",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
@@ -148,15 +148,15 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "No web page found",
+        "message": "কোনও ওয়েব পাতা পাওয়া যায়নি",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
-        "message": "Import rules",
+        "message": "নিয়মগুলি আমদানি করুন",
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
-        "message": "Save rules",
+        "message": "নিয়মগুলি সংরক্ষণ করুন",
         "description": "Used as a tooltip for the recipe padlock button"
     },
     "statsPageTitle": {
@@ -308,15 +308,15 @@
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
-        "message": "Global",
+        "message": "বৈশ্বিক",
         "description": "Scope will be global"
     },
     "settingsDefaultScopeLevel1": {
-        "message": "Domain",
+        "message": "ডোমেইন",
         "description": "Scope will be base domain"
     },
     "settingsDefaultScopeLevel2": {
-        "message": "Site",
+        "message": "সাইট",
         "description": "Scope will be full hostname of site"
     },
     "settingsCollapseBlocked": {
@@ -336,7 +336,7 @@
         "description": ""
     },
     "settingsMatrixNoTooltips": {
-        "message": "Disable tooltips",
+        "message": "পরামর্শ নিষ্ক্রিয় করুন",
         "description": ""
     },
     "privacyPageTitle": {
@@ -516,7 +516,7 @@
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "আমদানি...",
         "description": ""
     },
     "assetsInlineHostsLabel": {
@@ -724,7 +724,7 @@
         "description": ""
     },
     "genericApplyChanges": {
-        "message": "Apply changes",
+        "message": "পরিবর্তনগুলি প্রয়োগ করুন",
         "description": "for generic 'Apply changes' buttons"
     }
 }

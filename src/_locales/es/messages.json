@@ -60,7 +60,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
-        "message": "multimedia",
+        "message": "media",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
@@ -116,7 +116,7 @@
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
-        "message": "{{count}} nombre(s) de dominio en la lista negra",
+        "message": "{{count}} nombres de dominio en la lista negra",
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
@@ -204,7 +204,7 @@
         "description": ""
     },
     "statsPageOverview": {
-        "message": "Información general",
+        "message": "Resumen",
         "description": ""
     },
     "statsPageRequests": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p><i>uMatrix<\/i> no previene la entrada  al navegador de cookies en la lista negra, pero sí su salida, que es lo que realmente importa. El hecho de no bloquear las cookies antes de su entrada, da la oportunidad de saber si un sitio intenta usar cookies, e inspeccionar su contenido si se desea.<\/p><p>Una vez que tales cookies han sido detectadas por <i>uMatrix<\/i>, las mismas pueden ser eliminadas del navegador si lo decide.<\/p><p><b>Nota importante:<\/b> Las extensiones pueden hacer peticiones web como parte de su normal operación. Estas peticiones pueden resultar en la creación de cookies dentro del navegador. Si el nombre de host a partir del cual se generó la cookie no está en la lista de permitidos, la cookie será eliminada por <i>uMatrix<\/i> mientras esta opción esté activa. Así que asegúrese de permitir los nombres de host con los cuales se comunica una extensión determinada.<\/p>",
+        "message": "<p><i>uMatrix<\/i> no previene la entrada al navegador de cookies en la lista negra, pero sí su salida, que es lo que realmente importa. El hecho de no bloquear las cookies antes de su entrada, da la oportunidad de saber si un sitio intenta usar cookies, e inspeccionar su contenido si se desea.<\/p><p>Una vez que tales cookies han sido detectadas por <i>uMatrix<\/i>, las mismas pueden ser eliminadas del navegador si lo decide.<\/p><p><b>Nota importante:<\/b> Las extensiones pueden hacer peticiones web como parte de su normal operación. Estas peticiones pueden resultar en la creación de cookies dentro del navegador. Si el nombre de dominio del cual se generó la cookie no está en la lista de permitidos, la cookie será eliminada por <i>uMatrix<\/i> mientras esta opción esté activa. Así que asegúrese de permitir los nombres de dominio con los cuales se comunica una extensión determinada.<\/p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -384,7 +384,7 @@
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Falsificar información de <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> en las peticiones a nombres de dominios de terceros",
+        "message": "Falsificar información de <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> en las peticiones a nombres de dominio de terceros",
         "description": ""
     },
     "privacyProcessRefererHelp": {
@@ -452,15 +452,15 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Ficheros hosts",
+        "message": "Archivos hosts",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
-        "message": "Todos los nombres de dominio en un fichero hosts son cargados como nombres de dominio en lista negra de manera global.",
+        "message": "Todos los nombres de dominio en un archivo hosts son cargados como nombres de dominio en la lista negra de manera global.",
         "description": ""
     },
     "hostsFilesStats": {
-        "message": "{{blockedHostnameCount}} nombres de dominios únicos bloqueados a partir de:",
+        "message": "{{blockedHostnameCount}} nombres de dominio bloqueados a partir de:",
         "description": ""
     },
     "hostsFilesPerFileStats": {
@@ -496,7 +496,7 @@
         "description": ""
     },
     "hostsFilesExternalListPurge": {
-        "message": "vaciar caché",
+        "message": "vaciar memoria caché",
         "description": ""
     },
     "hostsFilesExternalListNew": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Las plantillas de conjunto de reglas se importan desde el panel emergente <em>bajo demanda<\/em>, ej. <b>sólo<\/b> mediante una acción del usuario.",
+        "message": "Las plantillas de conjunto de reglas se importan desde el panel emergente <em>bajo demanda<\/em>, ej. <b>solo<\/b> mediante una acción del usuario.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -524,7 +524,7 @@
         "description": ""
     },
     "assetsInlineRecipesLabel": {
-        "message": "Mi conjunto de reglas",
+        "message": "Mis plantillas",
         "description": ""
     },
     "rawSettingsWarning": {
@@ -608,7 +608,7 @@
         "description": "Message asking user to confirm reset"
     },
     "loggerFilterInputPlaceholder": {
-        "message": "filtro(s)",
+        "message": "expresiones de filtros",
         "description": "Appears in the input filed where filter expressions are entered"
     },
     "loggerMaxEntriesTip": {
@@ -636,7 +636,7 @@
         "description": "English: uMatrix has prevented the following page from loading:"
     },
     "mainBlockedPrompt2": {
-        "message": "Debido a la regla",
+        "message": "Como resultado de la siguiente regla:",
         "description": "English: Because of the following rule"
     },
     "mainBlockedBack": {

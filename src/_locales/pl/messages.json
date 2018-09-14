@@ -552,7 +552,7 @@
         "description": ""
     },
     "aboutIssues": {
-        "message": "Błędy i problemy",
+        "message": "Lista problemów",
         "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
