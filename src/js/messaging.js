@@ -166,10 +166,10 @@ RowSnapshot.counts = (function() {
 /******************************************************************************/
 
 var matrixSnapshot = function(pageStore, details) {
-    var µmuser = µm.userSettings;
-    var headerIndices = µm.Matrix.columnHeaderIndices;
+    let µmuser = µm.userSettings;
+    let headerIndices = µm.Matrix.columnHeaderIndices;
 
-    var r = {
+    let r = {
         appVersion: vAPI.app.version,
         blockedCount: pageStore.requestStats.blocked.all,
         collapseAllDomains: µmuser.popupCollapseAllDomains,
@@ -205,7 +205,10 @@ var matrixSnapshot = function(pageStore, details) {
         }
     };
 
-    if ( typeof details.scope === 'string' ) {
+    if (
+        typeof details.scope === 'string' &&
+        r.hostname.endsWith(details.scope)
+    ) {
         r.scope = details.scope;
     } else if ( µmuser.popupScopeLevel === 'site' ) {
         r.scope = r.hostname;
@@ -213,7 +216,7 @@ var matrixSnapshot = function(pageStore, details) {
         r.scope = r.domain;
     }
 
-    for ( var switchName of µm.Matrix.switchNames ) {
+    for ( let switchName of µm.Matrix.switchNames ) {
         r.tSwitches[switchName] = µm.tMatrix.evaluateSwitchZ(switchName, r.scope);
         r.pSwitches[switchName] = µm.pMatrix.evaluateSwitchZ(switchName, r.scope);
     }
@@ -223,26 +226,22 @@ var matrixSnapshot = function(pageStore, details) {
     r.rows['1st-party'] = new RowSnapshot(r.scope, '1st-party', '1st-party');
     r.rowCount += 1;
 
-    var µmuri = µm.URI;
-    var reqType, reqHostname, reqDomain;
-    var desHostname;
-    var row, typeIndex;
-    var anyIndex = headerIndices.get('*');
-    var pos, count;
+    let µmuri = µm.URI;
+    let anyIndex = headerIndices.get('*');
 
-    for ( var entry of pageStore.hostnameTypeCells ) {
-        pos = entry[0].indexOf(' ');
-        reqHostname = entry[0].slice(0, pos);
-        reqType = entry[0].slice(pos + 1);
+    for ( let entry of pageStore.hostnameTypeCells ) {
+        let pos = entry[0].indexOf(' ');
+        let reqHostname = entry[0].slice(0, pos);
+        let reqType = entry[0].slice(pos + 1);
         // rhill 2013-10-23: hostname can be empty if the request is a data url
         // https://github.com/gorhill/httpswitchboard/issues/26
         if ( reqHostname === '' ) {
             reqHostname = pageStore.pageHostname;
         }
-        reqDomain = µmuri.domainFromHostname(reqHostname) || reqHostname;
+        let reqDomain = µmuri.domainFromHostname(reqHostname) || reqHostname;
 
         // We want rows of self and ancestors
-        desHostname = reqHostname;
+        let desHostname = reqHostname;
         for (;;) {
             // If row exists, ancestors exist
             if ( r.rows.hasOwnProperty(desHostname) !== false ) { break; }
@@ -254,9 +253,9 @@ var matrixSnapshot = function(pageStore, details) {
             desHostname = desHostname.slice(pos + 1);
         }
 
-        count = entry[1].size;
-        typeIndex = headerIndices.get(reqType);
-        row = r.rows[reqHostname];
+        let count = entry[1].size;
+        let typeIndex = headerIndices.get(reqType);
+        let row = r.rows[reqHostname];
         row.counts[typeIndex] += count;
         row.counts[anyIndex] += count;
         row = r.rows[reqDomain];
