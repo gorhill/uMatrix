@@ -206,8 +206,8 @@ var matrixSnapshot = function(pageStore, details) {
     };
 
     if (
-        typeof details.scope === 'string' &&
-        r.hostname.endsWith(details.scope)
+        (typeof details.scope === 'string') &&
+        (details.scope === '*' || r.hostname.endsWith(details.scope))
     ) {
         r.scope = details.scope;
     } else if ( µmuser.popupScopeLevel === 'site' ) {
