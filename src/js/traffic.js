@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -482,6 +482,97 @@ vAPI.net.onHeadersReceived = {
     extra: [ 'blocking', 'responseHeaders' ],
     callback: onHeadersReceived
 };
+
+/*******************************************************************************
+
+ Use a `http-equiv` `meta` tag to enforce CSP directives for documents
+ which protocol is `file:` (which do not cause our webRequest.onHeadersReceived
+ handler to be called).
+
+ Idea borrowed from NoScript:
+ https://github.com/hackademix/noscript/commit/6e80d3f130773fc9a9123c5c4c2e97d63e90fa2a
+
+**/
+
+(function() {
+    if (
+        typeof self.browser !== 'object' ||
+        typeof browser.contentScripts !== 'object'
+    ) {
+        return;
+    }
+
+    let csRules = [
+        {
+            name: 'script',
+            file: '/js/contentscript-no-inline-script.js',
+            pending: undefined,
+            registered: undefined,
+            mustRegister: false
+        },
+    ];
+
+    let csSwitches = [
+        {
+            name: 'no-workers',
+            file: '/js/contentscript-no-workers.js',
+            pending: undefined,
+            registered: undefined,
+            mustRegister: false
+        },
+    ];
+
+    let register = function(entry) {
+        if ( entry.pending !== undefined ) { return; }
+        entry.pending = browser.contentScripts.register({
+            js: [ { file: entry.file } ],
+            matches: [ 'file:///*' ],
+            runAt: 'document_start'
+        }).then(
+            result => {
+                if ( entry.mustRegister ) {
+                    entry.registered = result;
+                }
+                entry.pending = undefined;
+            },
+            ( ) => {
+                entry.registered = undefined;
+                entry.pending = undefined;
+            }
+        );
+    };
+
+    let unregister = function(entry) {
+        if ( entry.registered === undefined ) { return; }
+        entry.registered.unregister();
+        entry.registered = undefined;
+    };
+
+    let handler = function(ev) {
+        let matrix = ev && ev.detail;
+        if ( matrix !== µMatrix.tMatrix ) { return; }
+        for ( let cs of csRules ) {
+            cs.mustRegister = matrix.mustBlock('file-scheme', 'file-scheme', cs.name);
+            if ( cs.mustRegister === (cs.registered !== undefined) ) { continue; }
+            if ( cs.mustRegister ) {
+                register(cs);
+            } else {
+                unregister(cs);
+            }
+        }
+        for ( let cs of csSwitches ) {
+            cs.mustRegister = matrix.evaluateSwitchZ(cs.name, 'file-scheme');
+            if ( cs.mustRegister === (cs.registered !== undefined) ) { continue; }
+            if ( cs.mustRegister ) {
+                register(cs);
+            } else {
+                unregister(cs);
+            }
+        }
+    };
+
+    window.addEventListener('matrixRulesetChange', handler);
+})();
 
 /******************************************************************************/
 

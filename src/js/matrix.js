@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    uMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -199,6 +199,30 @@ Matrix.prototype.reset = function() {
     this.rules = new Map();
     this.rootValue = Matrix.RedIndirect;
     this.modifiedTime = 0;
+    if ( this.modifyEventTimer !== undefined ) {
+        clearTimeout(this.modifyEventTimer);
+    }
+    this.modifyEventTimer = undefined;
+    this.modified();
+};
+
+/******************************************************************************/
+
+Matrix.prototype.modified = function() {
+    this.modifiedTime = Date.now();
+    if ( this.modifyEventTimer !== undefined ) { return; }
+    this.modifyEventTimer = vAPI.setTimeout(
+        ( ) => {
+            this.modifyEventTimer = undefined;
+            window.dispatchEvent(
+                new CustomEvent(
+                    'matrixRulesetChange',
+                    { detail: this }
+                )
+            );
+        },
+        149
+    );
 };
 
 /******************************************************************************/
@@ -242,7 +266,7 @@ Matrix.prototype.assign = function(other) {
     for ( entry of other.switches ) {
         this.switches.set(entry[0], entry[1]);
     }
-    this.modifiedTime = other.modifiedTime;
+    this.modified();
     return this;
 };
 
@@ -268,7 +292,7 @@ Matrix.prototype.setSwitch = function(switchName, srcHostname, newVal) {
     } else {
         this.switches.set(srcHostname, bits);
     }
-    this.modifiedTime = Date.now();
+    this.modified();
     return true;
 };
 
@@ -290,7 +314,7 @@ Matrix.prototype.setCell = function(srcHostname, desHostname, type, state) {
     } else {
         this.rules.set(k, newBitmap);
     }
-    this.modifiedTime = Date.now();
+    this.modified();
     return true;
 };
 
@@ -531,7 +555,7 @@ Matrix.prototype.setSwitchZ = function(switchName, srcHostname, newState) {
     } else {
         this.switches.set(srcHostname, bits);
     }
-    this.modifiedTime = Date.now();
+    this.modified();
     state = this.evaluateSwitchZ(switchName, srcHostname);
     if ( state === newState ) {
         return true;
@@ -645,7 +669,7 @@ Matrix.prototype.fromArray = function(lines, append) {
     if ( append !== true ) {
         this.assign(matrix);
     }
-    this.modifiedTime = Date.now();
+    this.modified();
 };
 
 Matrix.prototype.toArray = function() {
@@ -707,7 +731,7 @@ Matrix.prototype.fromString = function(text, append) {
         this.assign(matrix);
     }
 
-    this.modifiedTime = Date.now();
+    this.modified();
 };
 
 Matrix.prototype.toString = function() {
@@ -750,7 +774,7 @@ Matrix.prototype.fromSelfie = function(selfie) {
     if ( selfie.version !== selfieVersion ) { return false; }
     this.switches = new Map(selfie.switches);
     this.rules = new Map(selfie.rules);
-    this.modifiedTime = Date.now();
+    this.modified();
     return true;
 };
 

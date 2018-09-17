@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -228,6 +228,13 @@ var matrixSnapshot = function(pageStore, details) {
 
     let µmuri = µm.URI;
     let anyIndex = headerIndices.get('*');
+
+    // Ensure that the current scope is also reported in the matrix. This may
+    // not be the case for documents which are fetched without going through
+    // our webRequest listener (ex. `file:`).
+    if ( pageStore.hostnameTypeCells.has(r.hostname + ' doc') === false ) {
+        pageStore.hostnameTypeCells.set(r.hostname + ' doc', new Set([ 0 ]));
+    }
 
     for ( let entry of pageStore.hostnameTypeCells ) {
         let pos = entry[0].indexOf(' ');
