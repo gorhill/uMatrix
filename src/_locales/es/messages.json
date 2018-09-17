@@ -604,7 +604,7 @@
         "description": "English: Reset to default settings"
     },
     "aboutResetConfirm": {
-        "message": "¡Atención! Esto eliminará todos sus ajustes personalizados. ¿Seguro desea continuar?",
+        "message": "¡Atención! Esto borrará todas sus configuraciones personalizadas. ¿Seguro desea continuar?",
         "description": "Message asking user to confirm reset"
     },
     "loggerFilterInputPlaceholder": {

@@ -80,7 +80,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "otherPrettyName": {
-        "message": "その他",
+        "message": "他",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "matrixNoNetTrafficPrompt": {
