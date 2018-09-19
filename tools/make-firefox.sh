@@ -21,10 +21,6 @@ cp    platform/firefox/polyfill.js          $DES/js/
 cp    platform/firefox/vapi-cachestorage.js $DES/js/
 cp    platform/firefox/manifest.json        $DES/
 
-# firefox-specific
-rm $DES/options_ui.html
-rm $DES/js/options_ui.js
-
 echo "*** uMatrix.firefox: Generating meta..."
 python tools/make-firefox-meta.py           $DES/
 

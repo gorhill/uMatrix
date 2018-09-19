@@ -36,7 +36,10 @@
     "default_locale": "en",
     "homepage_url": "https://github.com/gorhill/uMatrix/wiki",
     "minimum_chrome_version": "45.0",
-    "options_page": "dashboard.html",
+    "options_ui": {
+        "page": "dashboard.html",
+        "open_in_tab": true
+    },
     "permissions": [
         "browsingData",
         "cookies",
