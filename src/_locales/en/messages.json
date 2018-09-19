@@ -111,6 +111,10 @@
         "message": "Revert temporary changes for this scope",
         "description": "Tool tip for the revert local permission button"
     },
+    "matrixRecipesButtonTip" : {
+        "message": "Import ruleset recipes into this scope",
+        "description": "Tool tip for the recipes button"
+    },
     "matrixReloadButton" : {
         "message": "Reload the page. \nPress Shift to bypass the browser cache.",
         "description": "Tool tip for the reload button"
