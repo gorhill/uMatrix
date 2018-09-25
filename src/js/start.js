@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -52,9 +52,6 @@ var processCallbackQueue = function(queue, callback) {
 var onAllDone = function() {
     µm.webRequest.start();
 
-    µm.assets.addObserver(µm.assetObserver.bind(µm));
-    µm.scheduleAssetUpdater(µm.userSettings.autoUpdate ? 7 * 60 * 1000 : 0);
-
     vAPI.cloud.start([ 'myRulesPane' ]);
 };
 
@@ -74,6 +71,12 @@ var onTabsReady = function(tabs) {
 var onUserSettingsLoaded = function() {
     µm.loadHostsFiles();
     µm.loadRecipes();
+
+    // https://github.com/uBlockOrigin/uMatrix-issues/issues/63
+    //   Ensure user settings are fully loaded before launching the
+    //   asset updater.
+    µm.assets.addObserver(µm.assetObserver.bind(µm));
+    µm.scheduleAssetUpdater(µm.userSettings.autoUpdate ? 7 * 60 * 1000 : 0);
 };
 
 /******************************************************************************/
