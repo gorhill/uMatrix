@@ -30,6 +30,11 @@ if match:
     webext_manifest['version'] = match.group(1) + builttype
 else:
     webext_manifest['version'] = version
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=1459007
+    # By design Firefox opens the sidebar with new installation of
+    # uMatrix when sidebar_action is present in the manifest.
+    # Remove sidebarAction support for stable release of uBO.
+    del webext_manifest['sidebar_action']
 
 with open(webext_manifest_file, 'w') as f2:
     json.dump(webext_manifest, f2, indent=2, separators=(',', ': '), sort_keys=True)

@@ -61,7 +61,8 @@
         "default_icon": {
             "16": "img/icon_16.png",
             "128": "img/icon_128.png"
-        }
+        },
+        "open_at_install": false
     },
     "version": "0.9.9"
 }
