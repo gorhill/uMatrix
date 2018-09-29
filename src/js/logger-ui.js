@@ -238,8 +238,10 @@ var createRow = function(layout) {
         if ( !td ) { break; }
         tdJunkyard.push(tr.removeChild(td));
     }
+    tr.removeAttribute('data-tabid');
     tr.removeAttribute('data-srchn');
     tr.removeAttribute('data-deshn');
+    tr.removeAttribute('data-type');
     return tr;
 };
 
@@ -256,7 +258,7 @@ var createGap = function(tabId, url) {
     tr.classList.add('doc');
     tr.classList.add('tab');
     tr.classList.add('canMtx');
-    tr.classList.add('tab_' + tabId);
+    tr.setAttribute('data-tabid', tabId);
     tr.cells[firstVarDataCol].textContent = url;
     tbody.insertBefore(tr, tbody.firstChild);
 };
@@ -398,15 +400,13 @@ var renderLogEntries = function(response) {
 /******************************************************************************/
 
 var synchronizeTabIds = function(newPageStores) {
-    var oldPageStores = pageStores;
-    var autoDeleteVoidRows = !!vAPI.localStorage.getItem('loggerAutoDeleteVoidRows');
-    var rowVoided = false;
-    var trs;
-    for ( let entry of oldPageStores ) {
-        let tabId = entry[0];
+    let oldPageStores = pageStores;
+    let autoDeleteVoidRows = !!vAPI.localStorage.getItem('loggerAutoDeleteVoidRows');
+    let rowVoided = false;
+    for ( let tabId of oldPageStores.keys() ) {
         if ( newPageStores.has(tabId) ) { continue; }
         // Mark or remove voided rows
-        trs = uDom('.tab_' + tabId);
+        let trs = uDom('[data-tabid="' + tabId + '"]');
         if ( autoDeleteVoidRows ) {
             toJunkyard(trs);
         } else {
@@ -415,16 +415,15 @@ var synchronizeTabIds = function(newPageStores) {
         }
     }
 
-    var select = document.getElementById('pageSelector');
-    var selectValue = select.value;
-    var tabIds = Array.from(newPageStores.keys()).sort(function(a, b) {
+    let select = document.getElementById('pageSelector');
+    let selectValue = select.value;
+    let tabIds = Array.from(newPageStores.keys()).sort(function(a, b) {
         return newPageStores.get(a).localeCompare(newPageStores.get(b));
     });
-    var option;
     for ( var i = 0, j = 2; i < tabIds.length; i++ ) {
         let tabId = tabIds[i];
         if ( tabId === noTabId ) { continue; }
-        option = select.options[j];
+        let option = select.options[j];
         j += 1;
         if ( !option ) {
             option = document.createElement('option');
@@ -1085,7 +1084,7 @@ uDom('#clean').on('click', cleanBuffer);
 uDom('#clear').on('click', clearBuffer);
 uDom('#maxEntries').on('change', onMaxEntriesChanged);
 uDom('#content table').on('click', 'tr > td:nth-of-type(1)', toggleCompactRow);
-uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(3)', ruleEditor.start);
+uDom('#content table').on('click', 'tr[data-srchn][data-deshn][data-type] > td:nth-of-type(3)', ruleEditor.start);
 
 /******************************************************************************/
 
