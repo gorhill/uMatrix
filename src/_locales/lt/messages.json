@@ -16,19 +16,19 @@
         "description": "Title for the logger window"
     },
     "settingsPageName": {
-        "message": "Settings",
+        "message": "Nustatymai",
         "description": "a tab in dashboard"
     },
     "privacyPageName": {
-        "message": "Privacy",
+        "message": "Privatumas",
         "description": "a tab in dashboard"
     },
     "statsPageName": {
-        "message": "Statistics",
+        "message": "Statistika",
         "description": "a tab in dashboard"
     },
     "userRulesPageName": {
-        "message": "My rules",
+        "message": "Mano taisyklės",
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
@@ -36,19 +36,19 @@
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
-        "message": "More",
+        "message": "Daugiau",
         "description": "a tab in dashboard"
     },
     "aboutPageName": {
-        "message": "About",
+        "message": "Apie",
         "description": "a tab in dashboard"
     },
     "allPrettyName": {
-        "message": "all",
+        "message": "visi",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cookiePrettyName": {
-        "message": "cookie",
+        "message": "slapukai",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cssPrettyName": {
@@ -56,7 +56,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "imagePrettyName": {
-        "message": "image",
+        "message": "paveikslėlis",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "mediaPrettyName": {
@@ -64,7 +64,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "pluginPrettyName": {
-        "message": "plugin",
+        "message": "papildiniai",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "scriptPrettyName": {
