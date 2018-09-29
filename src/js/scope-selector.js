@@ -49,7 +49,7 @@ let fireChangeEvent = function() {
 };
 
 let init = function(domain, hostname, scope, container) {
-    if ( typeof domain !== 'string' || domain === '' ) { return; }
+    if ( typeof domain !== 'string' ) { return; }
 
     currentScope = '';
 
@@ -111,7 +111,7 @@ let init = function(domain, hostname, scope, container) {
         listening = true;
     }
 
-    update(scope, container);
+    update(scope || hostname, container);
 };
 
 let getScope = function() {
