@@ -33,7 +33,8 @@ var tbody = document.querySelector('#content tbody');
 var trJunkyard = [];
 var tdJunkyard = [];
 var firstVarDataCol = 1;  // currently, column 2 (0-based index)
-var lastVarDataIndex = 4; // currently, 5 columns at most
+var lastVarDataIndex =
+    document.querySelector('#content colgroup').childElementCount - 1;
 var maxEntries = 0;
 var noTabId = '';
 var pageStores = new Map();
@@ -82,6 +83,44 @@ let removeSelf = function(node) {
 let prependChild = function(parent, child) {
     parent.insertBefore(child, parent.firstElementChild);
 };
+
+/******************************************************************************/
+
+// We will lookup domains locally.
+
+let domainFromSrcHostname = (function() {
+    let srcHn = '', srcDn = '';
+    return function(hn) {
+        if ( hn !== srcHn ) {
+            srcHn = hn;
+            srcDn = publicSuffixList.getDomain(hn);
+        }
+        return srcDn;
+    };
+})();
+
+let domainFromDesHostname = (function() {
+    let desHn = '', desDn = '';
+    return function(hn) {
+        if ( hn !== desHn ) {
+            desHn = hn;
+            desDn = publicSuffixList.getDomain(hn);
+        }
+        return desDn;
+     };
+})();
+
+let is3rdParty = function(srcHn, desHn) {
+    return domainFromSrcHostname(srcHn) !== domainFromDesHostname(desHn);
+};
+
+vAPI.messaging.send(
+    'logger-ui.js',
+    { what: 'getPublicSuffixListData' },
+    response => {
+        publicSuffixList.fromSelfie(response);
+    }
+);
 
 /******************************************************************************/
 
@@ -249,7 +288,7 @@ var renderLogEntry = function(entry) {
             tr.cells[fvdc].textContent = details.info;
         }
     } else if ( details.srcHn !== undefined && details.desHn !== undefined ) {
-        tr = createRow('1111');
+        tr = createRow('11111');
         tr.classList.add('canMtx');
         tr.classList.add('cat_net');
         tr.setAttribute('data-srchn', details.srcHn);
@@ -267,14 +306,17 @@ var renderLogEntry = function(entry) {
         } else {
             tr.cells[fvdc+1].textContent = '';
         }
-        tr.cells[fvdc+2].textContent = (prettyRequestTypes[details.type] || details.type);
+        tr.cells[fvdc+2].textContent =
+            prettyRequestTypes[details.type] || details.type;
         if ( dontEmphasizeSet.has(details.type) ) {
             tr.cells[fvdc+3].textContent = details.desURL;
         } else {
             tr.cells[fvdc+3].appendChild(emphasizeHostname(details.desURL));
         }
+        tr.cells[fvdc+4].textContent =
+            is3rdParty(details.srcHn, details.desHn) ? '3p' : '';
     } else if ( details.header ) {
-        tr = createRow('1111');
+        tr = createRow('11111');
         tr.classList.add('canMtx');
         tr.classList.add('cat_net');
         tr.cells[fvdc+0].textContent = details.srcHn || '';
@@ -286,6 +328,7 @@ var renderLogEntry = function(entry) {
         }
         tr.cells[fvdc+2].textContent = details.header.name;
         tr.cells[fvdc+3].textContent = details.header.value;
+        tr.cells[fvdc+4].textContent = '';
     } else {
         tr = createRow('1');
         tr.cells[fvdc].textContent = 'huh?';
@@ -1030,40 +1073,6 @@ window.addEventListener('pagehide', releaseView);
 window.addEventListener('pageshow', grabView);
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1398625
 window.addEventListener('beforeunload', releaseView);
-
-/******************************************************************************/
-
-// We will lookup domains locally.
-
-let domainFromSrcHostname = (function() {
-    let srcHn = '', srcDn = '';
-    return function(hn) {
-        if ( hn !== srcHn ) {
-            srcHn = hn;
-            srcDn = publicSuffixList.getDomain(hn);
-        }
-        return srcDn;
-    };
-})();
-
-let domainFromDesHostname = (function() {
-    let desHn = '', desDn = '';
-    return function(hn) {
-        if ( hn !== desHn ) {
-            desHn = hn;
-            desDn = publicSuffixList.getDomain(hn);
-        }
-        return desDn;
-     };
-})();
-
-vAPI.messaging.send(
-    'logger-ui.js',
-    { what: 'getPublicSuffixListData' },
-    response => {
-        publicSuffixList.fromSelfie(response);
-    }
-);
 
 /******************************************************************************/
 

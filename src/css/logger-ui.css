@@ -101,7 +101,10 @@ input:focus {
     width: 5.4em;
     }
 #content table > colgroup > col:nth-of-type(5) {
-    width: calc(100% - 4.6em - 30% - 2.2em - 5.4em);
+    width: calc(100% - 4.6em - 30% - 2.2em - 5.4em - 1.8em);
+    }
+#content table > colgroup > col:nth-of-type(6) {
+    width: 1.8em;
     }
 #content table tr {
     background-color: #fafafa;
@@ -152,6 +155,7 @@ body.compactView #content tr:not(.vExpanded) td {
     white-space: nowrap;
     }
 #content table tr td:nth-of-type(2):not([colspan]) {
+    direction: rtl;
     text-align: right;
     }
 #content table tr.tab:not(.canMtx) {
