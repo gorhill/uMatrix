@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/scope-selector.css">
 <link rel="stylesheet" type="text/css" href="css/logger-ui.css">
 <link rel="shortcut icon" type="image/png" href="img/icon_16.png">
 <title data-i18n="loggerPageName"></title>
@@ -36,19 +37,45 @@
         </table>
     </div>
 
-<div id="popupContainer">
-    <div><span>&#xf068;</span>&ensp;<span>&#xf00d;</span></div>
-    </div>
+
 
 <div style="display: none;">
     <div id="emphasizeTemplate"><span><span></span><b></b><span></span></span></div>
     <div id="hiddenTemplate"><span style="display:none;"></span></div>
+    <div id="ruleEditor" class="modalDialog">
+        <div class="dialog">
+            <section class="scopeWidget">
+                <span class="scope" id="specificScope"><span>&nbsp;</span></span><!--
+             --><span class="scope" id="globalScope" data-scope="*" data-i18n-tip="matrixGlobalScopeTip"><span><span>&#x2217;</span></span></span>
+                <div class="ruleEditorToolbar">
+                    <button type="button" class="buttonReload fa tip-anchor-right" data-i18n-tip="matrixReloadButton">&#xf021;</button>
+                </div>
+            </section>
+            <section>
+                <div class="ruleWidgets"></div>
+                <div class="ruleEditorToolbar">
+                    <button type="button" class="buttonRevertScope fa scopeRel tip-anchor-right" tabindex="-1" data-i18n-tip="matrixRevertButtonTip">&#xf12d;</button>
+                    <button type="button" class="buttonPersist fa scopeRel tip-anchor-right" data-i18n-tip="matrixPersistButtonTip">&#xf023;<span class="badge"></span></button>
+                </section>
+            </section>
+        </div>
     </div>
+    <div id="ruleRowTemplate" style="display: none;">
+        <div class="ruleRow"><!--
+         --><span class="ruleCell" data-type="*">&nbsp;</span><!--
+         --><span class="ruleCell" data-type>&nbsp;</span><!--
+    --></div>
+    </div>
+    <div id="ruleActionPicker"><div class="allowRule"></div><div class="blockRule"></div></div>
+</div>
 
+<script src="lib/punycode.js"></script>
+<script src="lib/publicsuffixlist.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>
 <script src="js/i18n.js"></script>
+<script src="js/scope-selector.js"></script>
 <script src="js/logger-ui.js"></script>
 
 </body>

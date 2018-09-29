@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to benchmark browser session.
-    Copyright (C) 2015-2018 Raymond Hill
+    Copyright (C) 2015-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/sessbench
 */
 
-/* global uDom */
+/* global publicSuffixList, uDom, uMatrixScopeWidget */
 
 'use strict';
 
@@ -32,8 +32,8 @@
 var tbody = document.querySelector('#content tbody');
 var trJunkyard = [];
 var tdJunkyard = [];
-var firstVarDataCol = 2;  // currently, column 2 (0-based index)
-var lastVarDataIndex = 3; // currently, d0-d3
+var firstVarDataCol = 1;  // currently, column 2 (0-based index)
+var lastVarDataIndex = 4; // currently, 5 columns at most
 var maxEntries = 0;
 var noTabId = '';
 var pageStores = new Map();
@@ -41,7 +41,6 @@ var pageStoresToken;
 var ownerId = Date.now();
 
 var emphasizeTemplate = document.querySelector('#emphasizeTemplate > span');
-var hiddenTemplate = document.querySelector('#hiddenTemplate > span');
 
 var prettyRequestTypes = {
     'main_frame': 'doc',
@@ -67,14 +66,21 @@ document.getElementById('content').style.setProperty(
 
 /******************************************************************************/
 
-var classNameFromTabId = function(tabId) {
-    if ( tabId === noTabId ) {
-        return 'tab_bts';
+let removeChildren = function(node) {
+    while ( node.firstChild ) {
+        node.removeChild(node.firstChild);
     }
-    if ( tabId > 0 ) {
-        return 'tab_' + tabId;
+};
+
+let removeSelf = function(node) {
+    let parent = node && node.parentNode;
+    if ( parent ) {
+        parent.removeChild(node);
     }
-    return '';
+};
+
+let prependChild = function(parent, child) {
+    parent.insertBefore(child, parent.firstElementChild);
 };
 
 /******************************************************************************/
@@ -158,21 +164,21 @@ var createCellAt = function(tr, index) {
 /******************************************************************************/
 
 var createRow = function(layout) {
-    var tr = trJunkyard.pop();
+    let tr = trJunkyard.pop();
     if ( tr ) {
         tr.className = '';
     } else {
         tr = document.createElement('tr');
     }
-    for ( var index = 0; index < firstVarDataCol; index++ ) {
+    let index;
+    for ( index = 0; index < firstVarDataCol; index++ ) {
         createCellAt(tr, index);
     }
-    var i = 1, span = 1, td;
+    let i = 1, span = 1;
+    let td;
     for (;;) {
         td = createCellAt(tr, index);
-        if ( i === lastVarDataIndex ) {
-            break;
-        }
+        if ( i === lastVarDataIndex ) { break; }
         if ( layout.charAt(i) !== '1' ) {
             span += 1;
         } else {
@@ -188,18 +194,14 @@ var createRow = function(layout) {
         td.setAttribute('colspan', span);
     }
     index += 1;
-    while ( (td = tr.cells[index]) ) {
+    for (;;) {
+        td = tr.cells[index];
+        if ( !td ) { break; }
         tdJunkyard.push(tr.removeChild(td));
     }
+    tr.removeAttribute('data-srchn');
+    tr.removeAttribute('data-deshn');
     return tr;
-};
-
-/******************************************************************************/
-
-var createHiddenTextNode = function(text) {
-    var node = hiddenTemplate.cloneNode(true);
-    node.textContent = text;
-    return node;
 };
 
 /******************************************************************************/
@@ -223,66 +225,84 @@ var createGap = function(tabId, url) {
 /******************************************************************************/
 
 var renderLogEntry = function(entry) {
-    var tr;
-    var fvdc = firstVarDataCol;
+    let details;
+    try {
+        details = JSON.parse(entry.details);
+    } catch(ex) {
+        console.error(ex);
+    }
+    if ( details instanceof Object === false ) { return; }
 
-    switch ( entry.cat ) {
-    case 'error':
-    case 'info':
+    let tr;
+    let fvdc = firstVarDataCol;
+
+    if ( details.error !== undefined ) {
         tr = createRow('1');
-        if ( entry.d0 === 'cookie' ) {
-            tr.cells[fvdc].appendChild(emphasizeCookie(entry.d1));
+        tr.classList.add('cat_error');
+        tr.cells[fvdc].textContent = details.error;
+    } else if ( details.info !== undefined ) {
+        tr = createRow('1');
+        tr.classList.add('cat_info');
+        if ( details.prettify === 'cookie' ) {
+            tr.cells[fvdc].appendChild(emphasizeCookie(details.info));
         } else {
-            tr.cells[fvdc].textContent = entry.d0;
+            tr.cells[fvdc].textContent = details.info;
         }
-        break;
-
-    case 'net':
-        tr = createRow('111');
+    } else if ( details.srcHn !== undefined && details.desHn !== undefined ) {
+        tr = createRow('1111');
         tr.classList.add('canMtx');
+        tr.classList.add('cat_net');
+        tr.setAttribute('data-srchn', details.srcHn);
+        tr.setAttribute('data-deshn', details.desHn);
+        tr.setAttribute('data-type', details.type);
         // If the request is that of a root frame, insert a gap in the table
         // in order to visually separate entries for different documents. 
-        if ( entry.d2 === 'doc' && entry.tab !== noTabId ) {
-            createGap(entry.tab, entry.d1);
+        if ( details.type === 'doc' && details.tabId !== noTabId ) {
+            createGap(details.tabId, details.desURL);
         }
-        if ( entry.d3 ) {
+        tr.cells[fvdc+0].textContent = details.srcHn;
+        if ( details.blocked ) {
             tr.classList.add('blocked');
-            tr.cells[fvdc].textContent = '--';
+            tr.cells[fvdc+1].textContent = '--';
         } else {
-            tr.cells[fvdc].textContent = '';
+            tr.cells[fvdc+1].textContent = '';
         }
-        tr.cells[fvdc+1].textContent = (prettyRequestTypes[entry.d2] || entry.d2);
-        if ( dontEmphasizeSet.has(entry.d2) ) {
-            tr.cells[fvdc+2].textContent = entry.d1;
-        } else if ( entry.d2 === 'cookie' ) {
-            tr.cells[fvdc+2].appendChild(emphasizeCookie(entry.d1));
+        tr.cells[fvdc+2].textContent = (prettyRequestTypes[details.type] || details.type);
+        if ( dontEmphasizeSet.has(details.type) ) {
+            tr.cells[fvdc+3].textContent = details.desURL;
         } else {
-            tr.cells[fvdc+2].appendChild(emphasizeHostname(entry.d1));
+            tr.cells[fvdc+3].appendChild(emphasizeHostname(details.desURL));
         }
-        break;
-
-    default:
+    } else if ( details.header ) {
+        tr = createRow('1111');
+        tr.classList.add('canMtx');
+        tr.classList.add('cat_net');
+        tr.cells[fvdc+0].textContent = details.srcHn || '';
+        if ( details.change === -1 ) {
+            tr.classList.add('blocked');
+            tr.cells[fvdc+1].textContent = '--';
+        } else {
+            tr.cells[fvdc+1].textContent = '';
+        }
+        tr.cells[fvdc+2].textContent = details.header.name;
+        tr.cells[fvdc+3].textContent = details.header.value;
+    } else {
         tr = createRow('1');
-        tr.cells[fvdc].textContent = entry.d0;
-        break;
+        tr.cells[fvdc].textContent = 'huh?';
     }
 
     // Fields common to all rows.
-    var time = logDate;
+    let time = logDate;
     time.setTime(entry.tstamp - logDateTimezoneOffset);
     tr.cells[0].textContent = padTo2(time.getUTCHours()) + ':' +
                               padTo2(time.getUTCMinutes()) + ':' +
                               padTo2(time.getSeconds());
 
-    if ( entry.tab ) {
+    if ( details.tabId ) {
         tr.classList.add('tab');
-        tr.classList.add(classNameFromTabId(entry.tab));
-        if ( entry.tab === noTabId ) {
-            tr.cells[1].appendChild(createHiddenTextNode('bts'));
-        }
-    }
-    if ( entry.cat !== '' ) {
-        tr.classList.add('cat_' + entry.cat);
+        tr.setAttribute('data-tabid', details.tabId);
+    } else {
+        tr.removeAttribute('data-tabid');
     }
 
     rowFilterer.filterOne(tr, true);
@@ -297,18 +317,13 @@ var logDate = new Date(),
 /******************************************************************************/
 
 var renderLogEntries = function(response) {
-    var entries = response.entries;
+    let entries = response.entries;
     if ( entries.length === 0 ) { return; }
 
     // Preserve scroll position
-    var height = tbody.offsetHeight;
+    let height = tbody.offsetHeight;
 
-    var n = entries.length;
-    var entry;
-    for ( var i = 0; i < n; i++ ) {
-        entry = entries[i];
-        // Unlikely, but it may happen
-        if ( entry.tab && pageStores.has(entry.tab) === false ) { continue; }
+    for ( let i = 0, n = entries.length; i < n; i++ ) {
         renderLogEntry(entries[i]);
     }
 
@@ -317,10 +332,8 @@ var renderLogEntries = function(response) {
     // dynamically refreshed pages.
     truncateLog(maxEntries);
 
-    var yDelta = tbody.offsetHeight - height;
-    if ( yDelta === 0 ) {
-        return;
-    }
+    let yDelta = tbody.offsetHeight - height;
+    if ( yDelta === 0 ) { return; }
 
     // Chromium:
     //   body.scrollTop = good value
@@ -333,7 +346,7 @@ var renderLogEntries = function(response) {
     // Firefox:
     //   body.scrollTop = 0
     //   body.parentNode.scrollTop = good value
-    var parentNode = document.body.parentNode;
+    let parentNode = document.body.parentNode;
     if ( parentNode && parentNode.scrollTop !== 0 ) {
         parentNode.scrollTop += yDelta;
     }
@@ -357,10 +370,6 @@ var synchronizeTabIds = function(newPageStores) {
             trs.removeClass('canMtx');
             rowVoided = true;
         }
-        // Remove popup if it is currently bound to a removed tab.
-        if ( tabId === popupManager.tabId ) {
-            popupManager.toggleOff();
-        }
     }
 
     var select = document.getElementById('pageSelector');
@@ -379,7 +388,7 @@ var synchronizeTabIds = function(newPageStores) {
             select.appendChild(option);
         }
         option.textContent = newPageStores.get(tabId);
-        option.value = classNameFromTabId(tabId);
+        option.value = tabId;
         if ( option.value === selectValue ) {
             option.setAttribute('selected', '');
         } else {
@@ -487,22 +496,19 @@ var readLogBufferAsync = function() {
 /******************************************************************************/
 
 var pageSelectorChanged = function() {
-    var style = document.getElementById('tabFilterer');
-    var tabClass = document.getElementById('pageSelector').value;
-    var sheet = style.sheet;
+    let style = document.getElementById('tabFilterer');
+    let tabId = document.getElementById('pageSelector').value;
+    let sheet = style.sheet;
     while ( sheet.cssRules.length !== 0 )  {
         sheet.deleteRule(0);
     }
-    if ( tabClass !== '' ) {
+    if ( tabId.length !== 0 ) {
         sheet.insertRule(
-            '#content table tr:not(.' + tabClass + ') { display: none; }',
+            '#content table tr:not([data-tabid="' + tabId + '"]) { display: none; }',
             0
         );
     }
-    uDom('#refresh').toggleClass(
-        'disabled',
-        tabClass === '' || tabClass === 'tab_bts'
-    );
+    uDom('#refresh').toggleClass('disabled', /^\d+$/.test(tabId) === false);
 };
 
 /******************************************************************************/
@@ -679,6 +685,285 @@ var rowFilterer = (function() {
 })();
 
 /******************************************************************************/
+/******************************************************************************/
+
+var ruleEditor = (function() {
+    let ruleEditorNode = document.getElementById('ruleEditor');
+    let ruleActionPicker = document.getElementById('ruleActionPicker');
+    let listeners = [];
+
+    let addListener = function(node, type, handler, bits) {
+        let options;
+        if ( typeof bits === 'number' && (bits & 0b11) !== 0 ) {
+            options = {};
+            if ( bits & 0b01 ) {
+                options.capture = true;
+            }
+            if ( bits & 0b10 ) {
+                options.passive = true;
+            }
+        }
+        listeners.push({ node, type, handler, options });
+        return node.addEventListener(type, handler, options);
+    };
+
+    let setup = function(details) {
+        ruleEditorNode.setAttribute('data-tabid', details.tabId);
+        ruleEditorNode.classList.toggle(
+            'colorblind',
+            details.options.colorBlindFriendly === true
+        );
+
+        // Initialize scope selector
+        let srcDn = domainFromSrcHostname(details.srcHn);
+        let scope = details.options.popupScopeLevel === '*' ?
+            '*' :
+            details.options.popupScopeLevel === 'domain' ?
+                srcDn :
+                details.srcHn;
+        uMatrixScopeWidget.init(srcDn, details.srcHn, scope, ruleEditorNode);
+
+        // Create rule rows
+        let ruleWidgets = ruleEditorNode.querySelector('.ruleWidgets');
+        removeChildren(ruleWidgets);
+        let ruleWidgetTemplate =
+            document.querySelector('#ruleRowTemplate .ruleRow');
+
+        // Rules: specific to desHn, from broadest to narrowest
+        let desHn = details.desHn;
+        let desDn = domainFromDesHostname(desHn);
+        for (;;) {
+            let ruleRow = ruleWidgetTemplate.cloneNode(true);
+            ruleRow.setAttribute('data-deshn', desHn);
+            ruleRow.children[0].textContent = desHn;
+            ruleRow.children[1].setAttribute('data-type', details.type);
+            if ( desHn === details.desHn ) {
+                ruleRow.children[1].textContent = '1';
+            }
+            prependChild(ruleWidgets, ruleRow);
+            if ( desHn === desDn ) { break; }
+            let pos = desHn.indexOf('.');
+            if ( pos === -1 ) { break; }
+            desHn = desHn.slice(pos + 1);
+        }
+
+        // Rules: 1st-party, if needed
+        if ( desDn === srcDn ) {
+            let ruleRow = ruleWidgetTemplate.cloneNode(true);
+            ruleRow.setAttribute('data-deshn', '1st-party');
+            ruleRow.children[0].textContent = '1st-party';
+            ruleRow.children[1].setAttribute('data-type', details.type);
+            prependChild(ruleWidgets, ruleRow);
+        }
+
+        // Rules: unspecific
+        {
+            let ruleRow = ruleWidgetTemplate.cloneNode(true);
+            ruleRow.setAttribute('data-deshn', '*');
+            ruleRow.children[0].textContent = 'all';
+            ruleRow.children[1].setAttribute('data-type', details.type);
+            ruleRow.children[1].textContent = details.type;
+            prependChild(ruleWidgets, ruleRow);
+        }
+
+        colorize();
+
+        addListener(ruleEditorNode, 'click', quitHandler, 0b01);
+        addListener(window, 'uMatrixScopeWidgetChange', scopeChangeHandler);
+        addListener(ruleWidgets, 'mouseenter', attachRulePicker, 0b11);
+        addListener(ruleWidgets, 'mouseleave', removeRulePicker, 0b11);
+        addListener(ruleActionPicker, 'click', rulePickerHandler, 0b11);
+        addListener(ruleEditorNode.querySelector('.buttonReload'), 'click', reload);
+        addListener(ruleEditorNode.querySelector('.buttonRevertScope'), 'click', revert);
+        addListener(ruleEditorNode.querySelector('.buttonPersist'), 'click', persist);
+
+        document.body.appendChild(ruleEditorNode);
+    };
+
+    let colorize = function() {
+        let srcHn = uMatrixScopeWidget.getScope();
+        let ruleCells = ruleEditorNode.querySelectorAll('.ruleCell');
+        let ruleParts = [];
+        for ( let ruleCell of ruleCells ) {
+            ruleParts.push(
+                srcHn,
+                ruleCell.closest('.ruleRow').getAttribute('data-deshn'),
+                ruleCell.getAttribute('data-type')
+            );
+        }
+        vAPI.messaging.send(
+            'default',
+            { what: 'getCellColors', ruleParts },
+            response => {
+                let tColors = response.tColors,
+                    pColors = response.pColors,
+                    diffCount = 0;
+                for ( let i = 0; i < ruleCells.length; i++ ) {
+                    let ruleCell = ruleCells[i];
+                    let tColor = tColors[i];
+                    let pColor = pColors[i];
+                    ruleCell.setAttribute('data-tcolor', tColor);
+                    ruleCell.setAttribute('data-pcolor', pColor);
+                    if ( tColor === pColor ) { continue; }
+                    if ( tColor < 128 && pColor < 128 ) { continue; }
+                    diffCount += 1;
+                }
+                let dirty = diffCount !== 0;
+                ruleEditorNode
+                    .querySelector('.buttonPersist .badge')
+                    .textContent = dirty ? diffCount : '';
+                ruleEditorNode
+                    .querySelector('.buttonRevertScope')
+                    .classList
+                    .toggle('disabled', !dirty);
+                ruleEditorNode
+                    .querySelector('.buttonPersist')
+                    .classList
+                    .toggle('disabled', !dirty);
+            }
+        );
+    };
+
+    let quitHandler = function(ev) {
+        let target = ev.target;
+        if ( target.classList.contains('modalDialog') ) {
+            stop();
+        }
+    };
+
+    let scopeChangeHandler = function() {
+        colorize();
+    };
+
+    let attachRulePicker = function(ev) {
+        let target = ev.target;
+        if (
+            target instanceof HTMLElement === false ||
+            target.classList.contains('ruleCell') === false
+        ) {
+            return;
+        }
+        target.appendChild(ruleActionPicker);
+    };
+
+    let removeRulePicker = function(ev) {
+        let target = ev.target;
+        if (
+            target instanceof HTMLElement === false ||
+            ruleActionPicker.closest('.ruleCell') === target.closest('.ruleCell')
+        ) {
+            return;
+        }
+        removeSelf(ruleActionPicker);
+    };
+
+    let rulePickerHandler = function(ev) {
+        let action = ev.target.className;
+        if ( action !== 'allowRule' && action !== 'blockRule' ) { return; }
+        let cell = ev.target.closest('.ruleCell');
+        if ( cell === null ) { return; }
+        let row = cell.closest('.ruleRow');
+        let desHn = row.getAttribute('data-deshn');
+        let type = cell.getAttribute('data-type');
+        let color = parseInt(cell.getAttribute('data-tcolor'), 10);
+        let what;
+        if ( color === 1 || color === 2 ) {
+            what = action === 'blockRule' ?
+                'blacklistMatrixCell' :
+                'whitelistMatrixCell';
+        } else if ( desHn === '*' && type === '*' ) {
+            what = color === 130 ?
+                'blacklistMatrixCell' :
+                'whitelistMatrixCell';
+        } else {
+            what = 'graylistMatrixCell';
+        }
+        let request = {
+            what,
+            srcHostname: uMatrixScopeWidget.getScope(),
+            desHostname: desHn,
+            type
+        };
+        vAPI.messaging.send('default', request, colorize);
+    };
+
+
+    let reload = function(ev) {
+        vAPI.messaging.send('default', {
+            what: 'forceReloadTab',
+            tabId: parseInt(ruleEditorNode.getAttribute('data-tabid'), 10),
+            bypassCache: ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey)
+        });
+    };
+
+    let diff = function() {
+        let entries = [];
+        let cells = ruleEditorNode.querySelectorAll('.ruleCell');
+        let srcHn = uMatrixScopeWidget.getScope();
+        for ( let cell of cells ) {
+            let tColor = cell.getAttribute('data-tcolor');
+            let pColor = cell.getAttribute('data-pcolor');
+            if ( tColor === pColor || tColor < 128 && pColor < 128 ) {
+                continue;
+            }
+            let row = cell.closest('.ruleRow');
+            entries.push({
+                srcHn,
+                desHn: row.getAttribute('data-deshn'),
+                type: cell.getAttribute('data-type')
+            });
+        }
+        return entries;
+    };
+
+    let persist = function() {
+        let entries = diff();
+        if ( entries.length === 0 ) { return; }
+        vAPI.messaging.send(
+            'default',
+            { what: 'rulesetPersist', entries },
+            colorize
+        );
+    };
+
+    let revert = function() {
+        let entries = diff();
+        if ( entries.length === 0 ) { return; }
+        vAPI.messaging.send(
+            'default',
+            { what: 'rulesetRevert', entries },
+            colorize
+        );
+    };
+
+    let start = function(ev) {
+        let targetRow = ev.target.parentElement;
+        let srcHn = targetRow.getAttribute('data-srchn') || '';
+        let desHn = targetRow.getAttribute('data-deshn') || '';
+        let type = targetRow.getAttribute('data-type') || '';
+        if ( srcHn === '' || desHn === '' || type === '' ) { return; }
+        let tabId = parseInt(targetRow.getAttribute('data-tabid'), 10);
+
+        vAPI.messaging.send(
+            'logger-ui.js',
+            { what: 'getRuleEditorOptions' },
+            options => { setup({ tabId, srcHn, desHn, type, options }); }
+        );
+    };
+
+    let stop = function() {
+        for ( let { node, type, handler, options } of listeners ) {
+            node.removeEventListener(type, handler, options);
+        }
+        listeners = [];
+        ruleEditorNode.querySelector('.buttonReload').removeEventListener('click', reload);
+        removeSelf(ruleEditorNode);
+    };
+
+    return { start, stop };
+})();
+
+/******************************************************************************/
 
 var toJunkyard = function(trs) {
     trs.remove();
@@ -725,140 +1010,6 @@ var toggleCompactRow = function(ev) {
 
 /******************************************************************************/
 
-var popupManager = (function() {
-    var realTabId = null;
-    var localTabId = null;
-    var container = null;
-    var popup = null;
-    var popupObserver = null;
-    var style = null;
-    var styleTemplate = [
-        'tr:not(.tab_{{tabId}}) {',
-            'cursor: not-allowed;',
-            'opacity: 0.2;',
-        '}'
-    ].join('\n');
-
-    var resizePopup = function() {
-        if ( popup === null ) {
-            return;
-        }
-        var popupBody = popup.contentWindow.document.body;
-        if ( popupBody.clientWidth !== 0 && container.clientWidth !== popupBody.clientWidth ) {
-            container.style.setProperty('width', popupBody.clientWidth + 'px');
-        }
-        popup.style.removeProperty('height');
-        if ( popupBody.clientHeight !== 0 && popup.clientHeight !== popupBody.clientHeight ) {
-            popup.style.setProperty('height', popupBody.clientHeight + 'px');
-        }
-        var ph = document.documentElement.clientHeight;
-        var crect = container.getBoundingClientRect();
-        if ( crect.height > ph ) {
-            popup.style.setProperty('height', 'calc(' + ph + 'px - 1.8em)');
-        }
-        // Adjust width for presence/absence of vertical scroll bar which may
-        // have appeared as a result of last operation.
-        var cw = container.clientWidth;
-        var dw = popup.contentWindow.document.documentElement.clientWidth;
-        if ( cw !== dw ) {
-            container.style.setProperty('width', (2 * cw - dw) + 'px');
-        }
-    };
-
-    var toggleSize = function() {
-        container.classList.toggle('hide');
-    };
-
-    var onResizeRequested = function() {
-        var popupBody = popup.contentWindow.document.body;
-        if ( popupBody.hasAttribute('data-resize-popup') === false ) {
-            return;
-        }
-        popupBody.removeAttribute('data-resize-popup');
-        resizePopup();
-    };
-
-    var onLoad = function() {
-        resizePopup();
-        var popupBody = popup.contentDocument.body;
-        popupBody.removeAttribute('data-resize-popup');
-        popupObserver.observe(popupBody, {
-            attributes: true,
-            attributesFilter: [ 'data-resize-popup' ]
-        });
-    };
-
-    var toggleOn = function(td) {
-        var tr = td.parentNode;
-        var matches = tr.className.match(/(?:^| )tab_([^ ]+)/);
-        if ( matches === null ) {
-            return;
-        }
-        realTabId = localTabId = matches[1];
-        if ( localTabId === 'bts' ) {
-            realTabId = noTabId;
-        }
-
-        container = document.getElementById('popupContainer');
-
-        container.querySelector('div > span:nth-of-type(1)').addEventListener('click', toggleSize);
-        container.querySelector('div > span:nth-of-type(2)').addEventListener('click', toggleOff);
-
-        popup = document.createElement('iframe');
-        popup.addEventListener('load', onLoad);
-        popup.setAttribute('src', 'popup.html?tabId=' + realTabId);
-        popupObserver = new MutationObserver(onResizeRequested);
-        container.appendChild(popup);
-
-        style = document.getElementById('popupFilterer');
-        style.textContent = styleTemplate.replace('{{tabId}}', localTabId);
-
-        document.body.classList.add('popupOn');
-    };
-
-    var toggleOff = function() {
-        document.body.classList.remove('popupOn');
-
-        container.querySelector('div > span:nth-of-type(1)').removeEventListener('click', toggleSize);
-        container.querySelector('div > span:nth-of-type(2)').removeEventListener('click', toggleOff);
-        container.classList.remove('hide');
-
-        popup.removeEventListener('load', onLoad);
-        popupObserver.disconnect();
-        popupObserver = null;
-        popup.setAttribute('src', '');
-        container.removeChild(popup);
-        popup = null;
-
-        style.textContent = '';
-        style = null;
-
-        container = null;
-        realTabId = null;
-    };
-
-    var exports = {
-        toggleOn: function(ev) {
-            if ( realTabId === null ) {
-                toggleOn(ev.target);
-            }
-        },
-        toggleOff: function() {
-            if ( realTabId !== null ) {
-                toggleOff();
-            }
-        }
-    };
-
-    Object.defineProperty(exports, 'tabId', {
-        get: function() { return realTabId || 0; }
-    });
-
-    return exports;
-})();
-
-/******************************************************************************/
-
 var grabView = function() {
     if ( ownerId === undefined ) {
         ownerId = Date.now();
@@ -882,6 +1033,40 @@ window.addEventListener('beforeunload', releaseView);
 
 /******************************************************************************/
 
+// We will lookup domains locally.
+
+let domainFromSrcHostname = (function() {
+    let srcHn = '', srcDn = '';
+    return function(hn) {
+        if ( hn !== srcHn ) {
+            srcHn = hn;
+            srcDn = publicSuffixList.getDomain(hn);
+        }
+        return srcDn;
+    };
+})();
+
+let domainFromDesHostname = (function() {
+    let desHn = '', desDn = '';
+    return function(hn) {
+        if ( hn !== desHn ) {
+            desHn = hn;
+            desDn = publicSuffixList.getDomain(hn);
+        }
+        return desDn;
+     };
+})();
+
+vAPI.messaging.send(
+    'logger-ui.js',
+    { what: 'getPublicSuffixListData' },
+    response => {
+        publicSuffixList.fromSelfie(response);
+    }
+);
+
+/******************************************************************************/
+
 readLogBuffer();
 
 uDom('#pageSelector').on('change', pageSelectorChanged);
@@ -891,7 +1076,7 @@ uDom('#clean').on('click', cleanBuffer);
 uDom('#clear').on('click', clearBuffer);
 uDom('#maxEntries').on('change', onMaxEntriesChanged);
 uDom('#content table').on('click', 'tr > td:nth-of-type(1)', toggleCompactRow);
-uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(2)', popupManager.toggleOn);
+uDom('#content table').on('click', 'tr.canMtx > td:nth-of-type(3)', ruleEditor.start);
 
 /******************************************************************************/
 

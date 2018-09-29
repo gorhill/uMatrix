@@ -32,29 +32,29 @@
 // Intercept and filter web requests according to white and black lists.
 
 var onBeforeRootFrameRequestHandler = function(details) {
-    var µm = µMatrix;
-    var requestURL = details.url;
-    var requestHostname = µm.URI.hostnameFromURI(requestURL);
-    var tabId = details.tabId;
+    let µm = µMatrix;
+    let desURL = details.url;
+    let desHn = µm.URI.hostnameFromURI(desURL);
+    let tabId = details.tabId;
 
-    µm.tabContextManager.push(tabId, requestURL);
+    µm.tabContextManager.push(tabId, desURL);
 
-    var tabContext = µm.tabContextManager.mustLookup(tabId);
-    var rootHostname = tabContext.rootHostname;
+    let tabContext = µm.tabContextManager.mustLookup(tabId);
+    let srcHn = tabContext.rootHostname;
 
     // Disallow request as per matrix?
-    var block = µm.mustBlock(rootHostname, requestHostname, 'doc');
+    let blocked = µm.mustBlock(srcHn, desHn, 'doc');
 
-    var pageStore = µm.pageStoreFromTabId(tabId);
-    pageStore.recordRequest('doc', requestURL, block);
+    let pageStore = µm.pageStoreFromTabId(tabId);
+    pageStore.recordRequest('doc', desURL, blocked);
     pageStore.perLoadAllowedRequestCount = 0;
     pageStore.perLoadBlockedRequestCount = 0;
-    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, 'doc', block);
+    µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type: 'doc', blocked });
 
     // Not blocked
-    if ( !block ) {
-        let redirectURL = maybeRedirectRootFrame(requestHostname, requestURL);
-        if ( redirectURL !== requestURL ) {
+    if ( !blocked ) {
+        let redirectURL = maybeRedirectRootFrame(desHn, desURL);
+        if ( redirectURL !== desURL ) {
             return { redirectUrl: redirectURL };
         }
         µm.cookieHunter.recordPageCookies(pageStore);
@@ -62,11 +62,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     }
 
     // Blocked
-    var query = btoa(JSON.stringify({
-        url: requestURL,
-        hn: requestHostname,
-        why: '?'
-    }));
+    let query = btoa(JSON.stringify({ url: desURL, hn: desHn, why: '?' }));
 
     vAPI.tabs.replace(tabId, vAPI.getURL('main-blocked.html?details=') + query);
 
@@ -99,19 +95,19 @@ var maybeRedirectRootFrame = function(hostname, url) {
 // Intercept and filter web requests according to white and black lists.
 
 var onBeforeRequestHandler = function(details) {
-    var µm = µMatrix,
+    let µm = µMatrix,
         µmuri = µm.URI,
-        requestURL = details.url,
-        requestScheme = µmuri.schemeFromURI(requestURL);
+        desURL = details.url,
+        desScheme = µmuri.schemeFromURI(desURL);
 
-    if ( µmuri.isNetworkScheme(requestScheme) === false ) { return; }
+    if ( µmuri.isNetworkScheme(desScheme) === false ) { return; }
 
-    var requestType = requestTypeNormalizer[details.type] || 'other';
+    let type = requestTypeNormalizer[details.type] || 'other';
 
     // https://github.com/gorhill/httpswitchboard/issues/303
     // Wherever the main doc comes from, create a receiver page URL: synthetize
     // one if needed.
-    if ( requestType === 'doc' && details.parentFrameId === -1 ) {
+    if ( type === 'doc' && details.parentFrameId === -1 ) {
         return onBeforeRootFrameRequestHandler(details);
     }
 
@@ -122,9 +118,9 @@ var onBeforeRequestHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    var tabContext = µm.tabContextManager.mustLookup(details.tabId),
+    let tabContext = µm.tabContextManager.mustLookup(details.tabId),
         tabId = tabContext.tabId,
-        rootHostname = tabContext.rootHostname,
+        srcHn = tabContext.rootHostname,
         specificity = 0;
 
     // https://github.com/gorhill/uMatrix/issues/995
@@ -137,18 +133,16 @@ var onBeforeRequestHandler = function(details) {
         µmuri.isNetworkURI(details.documentUrl)
     ) {
         tabId = µm.tabContextManager.tabIdFromURL(details.documentUrl);
-        rootHostname = µmuri.hostnameFromURI(
+        srcHn = µmuri.hostnameFromURI(
             µm.normalizePageURL(0, details.documentUrl)
         );
     }
 
     // Filter through matrix
-    var block = µm.tMatrix.mustBlock(
-        rootHostname,
-        µmuri.hostnameFromURI(requestURL),
-        requestType
-    );
-    if ( block ) {
+    let desHn = µmuri.hostnameFromURI(desURL);
+
+    let blocked = µm.tMatrix.mustBlock(srcHn, desHn, type);
+    if ( blocked ) {
         specificity = µm.tMatrix.specificityRegister;
     }
 
@@ -158,21 +152,23 @@ var onBeforeRequestHandler = function(details) {
     // processing has already been performed, and that a synthetic URL has
     // been constructed for logging purpose. Use this synthetic URL if
     // it is available.
-    var pageStore = µm.mustPageStoreFromTabId(tabId);
+    let pageStore = µm.mustPageStoreFromTabId(tabId);
 
     // Enforce strict secure connection?
-    if ( tabContext.secure && µmuri.isSecureScheme(requestScheme) === false ) {
+    if ( tabContext.secure && µmuri.isSecureScheme(desScheme) === false ) {
         pageStore.hasMixedContent = true;
-        if ( block === false ) {
-            block = µm.tMatrix.evaluateSwitchZ('https-strict', rootHostname);
+        if ( blocked === false ) {
+            blocked = µm.tMatrix.evaluateSwitchZ('https-strict', srcHn);
         }
     }
 
-    pageStore.recordRequest(requestType, requestURL, block);
-    µm.logger.writeOne(tabId, 'net', rootHostname, requestURL, details.type, block);
+    pageStore.recordRequest(type, desURL, blocked);
+    if ( µm.logger.enabled ) {
+        µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type, blocked });
+    }
 
-    if ( block ) {
-        pageStore.cacheBlockedCollapsible(requestType, requestURL, specificity);
+    if ( blocked ) {
+        pageStore.cacheBlockedCollapsible(type, desURL, specificity);
         return { 'cancel': true };
     }
 };
@@ -184,11 +180,11 @@ var onBeforeRequestHandler = function(details) {
 var onBeforeSendHeadersHandler = function(details) {
     let µm = µMatrix,
         µmuri = µm.URI,
-        requestURL = details.url,
-        requestScheme = µmuri.schemeFromURI(requestURL);
+        desURL = details.url,
+        desScheme = µmuri.schemeFromURI(desURL);
 
     // Ignore non-network schemes
-    if ( µmuri.isNetworkScheme(requestScheme) === false ) { return; }
+    if ( µmuri.isNetworkScheme(desScheme) === false ) { return; }
 
     // Re-classify orphan HTTP requests as behind-the-scene requests. There is
     // not much else which can be done, because there are URLs
@@ -227,10 +223,10 @@ var onBeforeSendHeadersHandler = function(details) {
     if ( headerIndex !== -1 ) {
         let headerValue = requestHeaders[headerIndex].value;
         if ( headerValue !== '' ) {
-            var block = µm.userSettings.processHyperlinkAuditing;
-            pageStore.recordRequest('other', requestURL + '{Ping-To:' + headerValue + '}', block);
-            µm.logger.writeOne(tabId, 'net', '', requestURL, 'ping', block);
-            if ( block ) {
+            let blocked = µm.userSettings.processHyperlinkAuditing;
+            pageStore.recordRequest('other', desURL + '{Ping-To:' + headerValue + '}', blocked);
+            µm.logger.writeOne({ tabId, desURL, type: 'ping', blocked });
+            if ( blocked ) {
                 µm.hyperlinkAuditingFoiledCounter += 1;
                 return { 'cancel': true };
             }
@@ -240,8 +236,8 @@ var onBeforeSendHeadersHandler = function(details) {
     // If we reach this point, request is not blocked, so what is left to do
     // is to sanitize headers.
 
-    let rootHostname = pageStore.pageHostname,
-        requestHostname = µmuri.hostnameFromURI(requestURL),
+    let srcHn = pageStore.pageHostname,
+        desHn = µmuri.hostnameFromURI(desURL),
         modified = false;
         
     // Process `Cookie` header.
@@ -249,7 +245,7 @@ var onBeforeSendHeadersHandler = function(details) {
     headerIndex = headerIndexFromName('cookie', requestHeaders);
     if (
         headerIndex !== -1 &&
-        µm.mustBlock(rootHostname, requestHostname, 'cookie')
+        µm.mustBlock(srcHn, desHn, 'cookie')
     ) {
         modified = true;
         let headerValue = requestHeaders[headerIndex].value;
@@ -257,7 +253,12 @@ var onBeforeSendHeadersHandler = function(details) {
         µm.cookieHeaderFoiledCounter++;
         if ( requestType === 'doc' ) {
             pageStore.perLoadBlockedRequestCount++;
-            µm.logger.writeOne(tabId, 'net', '', headerValue, 'COOKIE', true);
+            µm.logger.writeOne({
+                tabId,
+                srcHn,
+                header: { name: 'COOKIE', value: headerValue },
+                change: -1
+            });
         }
     }
 
@@ -285,23 +286,33 @@ var onBeforeSendHeadersHandler = function(details) {
     if ( headerIndex !== -1 ) {
         let headerValue = requestHeaders[headerIndex].value;
         if ( headerValue !== '' ) {
-            let toDomain = µmuri.domainFromHostname(requestHostname);
+            let toDomain = µmuri.domainFromHostname(desHn);
             if ( toDomain !== '' && toDomain !== µmuri.domainFromURI(headerValue) ) {
                 pageStore.has3pReferrer = true;
-                if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', rootHostname) ) {
+                if ( µm.tMatrix.evaluateSwitchZ('referrer-spoof', srcHn) ) {
                     modified = true;
                     let newValue;
                     if ( details.method === 'GET' ) {
                         newValue = requestHeaders[headerIndex].value =
-                            requestScheme + '://' + requestHostname + '/';
+                            desScheme + '://' + desHn + '/';
                     } else {
                         requestHeaders.splice(headerIndex, 1);
                     }
                     if ( pageStore.perLoadBlockedReferrerCount === 0 ) {
                         pageStore.perLoadBlockedRequestCount += 1;
-                        µm.logger.writeOne(tabId, 'net', '', headerValue, 'REFERER', true);
+                        µm.logger.writeOne({
+                            tabId,
+                            srcHn,
+                            header: { name: 'REFERER', value: headerValue },
+                            change: -1
+                        });
                         if ( newValue !== undefined ) {
-                            µm.logger.writeOne(tabId, 'net', '', newValue, 'REFERER', false);
+                            µm.logger.writeOne({
+                                tabId,
+                                srcHn,
+                                header: { name: 'REFERER', value: newValue },
+                                change: +1
+                            });
                         }
                     }
                     pageStore.perLoadBlockedReferrerCount += 1;
@@ -329,7 +340,7 @@ var onBeforeSendHeadersHandler = function(details) {
 
 var onHeadersReceived = function(details) {
     // Ignore schemes other than 'http...'
-    var µm = µMatrix,
+    let µm = µMatrix,
         tabId = details.tabId,
         requestURL = details.url,
         requestType = requestTypeNormalizer[details.type] || 'other';
@@ -340,25 +351,25 @@ var onHeadersReceived = function(details) {
         µm.tabContextManager.push(tabId, requestURL);
     }
 
-    var tabContext = µm.tabContextManager.lookup(tabId);
+    let tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) { return; }
 
-    var csp = [],
+    let csp = [],
         cspReport = [],
-        rootHostname = tabContext.rootHostname,
-        requestHostname = µm.URI.hostnameFromURI(requestURL);
+        srcHn = tabContext.rootHostname,
+        desHn = µm.URI.hostnameFromURI(requestURL);
 
     // Inline script tags.
-    if ( µm.mustAllow(rootHostname, requestHostname, 'script' ) !== true ) {
+    if ( µm.mustBlock(srcHn, desHn, 'script' ) ) {
         csp.push(µm.cspNoInlineScript);
     }
 
     // Inline style tags.
-    if ( µm.mustAllow(rootHostname, requestHostname, 'css' ) !== true ) {
+    if ( µm.mustBlock(srcHn, desHn, 'css' ) ) {
         csp.push(µm.cspNoInlineStyle);
     }
 
-    if ( µm.tMatrix.evaluateSwitchZ('no-workers', rootHostname) ) {
+    if ( µm.tMatrix.evaluateSwitchZ('no-workers', srcHn) ) {
         csp.push(µm.cspNoWorker);
     } else if ( µm.rawSettings.disableCSPReportInjection === false ) {
         cspReport.push(µm.cspNoWorker);
@@ -391,7 +402,12 @@ var onHeadersReceived = function(details) {
             value: cspTotal
         });
         if ( requestType === 'doc' ) {
-            µm.logger.writeOne(tabId, 'net', '', cspRight, 'CSP', false);
+            µm.logger.writeOne({
+                tabId,
+                srcHn,
+                header: { name: 'CSP', value: cspRight },
+                change: +1
+            });
         }
     }
 

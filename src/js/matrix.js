@@ -509,8 +509,8 @@ Matrix.prototype.evaluateCellZXY = function(srcHostname, desHostname, type) {
 /******************************************************************************/
 
 Matrix.prototype.evaluateRowZXY = function(srcHostname, desHostname) {
-    var out = [];
-    for ( var type of typeBitOffsets.keys() ) {
+    let out = [];
+    for ( let type of typeBitOffsets.keys() ) {
         out.push(this.evaluateCellZXY(srcHostname, desHostname, type));
     }
     return out;
@@ -841,6 +841,33 @@ Matrix.prototype.applyDiff = function(diff, from) {
             val = from.evaluateSwitch(action.what, action.src);
             changed = this.setSwitch(action.what, action.src, val) || changed;
             continue;
+        }
+    }
+    return changed;
+};
+
+Matrix.prototype.copyRuleset = function(entries, from, deep) {
+    let changed = false;
+    for ( let entry of entries ) {
+        let srcHn = entry.srcHn;
+        for (;;) {
+            if (
+                entry.switchName !== undefined &&
+                switchBitOffsets.has(entry.switchName)
+            ) {
+                let val = from.evaluateSwitch(entry.switchName, srcHn);
+                if ( this.setSwitch(entry.switchName, srcHn, val) ) {
+                    changed = true;
+                }
+            } else if ( entry.desHn && entry.type ) {
+                let val = from.evaluateCell(srcHn, entry.desHn, entry.type);
+                if ( this.setCell(srcHn, entry.desHn, entry.type, val) ) {
+                    changed = true;
+                }
+            }
+            if ( !deep ) { break; }
+            srcHn = toBroaderHostname(srcHn);
+            if ( srcHn === '' ) { break; }
         }
     }
     return changed;

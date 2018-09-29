@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global punycode, uDom */
+/* global punycode, uDom, uMatrixScopeWidget */
 /* jshint esnext: true, bitwise: false */
 
 'use strict';
@@ -501,22 +501,20 @@ function getCellAction(hostname, type, leaning) {
 
 function handleFilter(button, leaning) {
     // our parent cell knows who we are
-    var cell = button.ancestors('div.matCell'),
+    let cell = button.ancestors('div.matCell'),
         expandos = expandosFromNode(cell),
         type = expandos.reqType,
         desHostname = expandos.hostname;
     // https://github.com/gorhill/uMatrix/issues/24
     // No hostname can happen -- like with blacklist meta row
-    if ( desHostname === '' ) {
-        return;
-    }
-    var request = {
+    if ( desHostname === '' ) { return; }
+    let request = {
         what: getCellAction(desHostname, type, leaning),
         srcHostname: matrixSnapshot.scope,
         desHostname: desHostname,
         type: type
     };
-    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
+    vAPI.messaging.send('default', request, updateMatrixSnapshot);
 }
 
 function handleWhitelistFilter(button) {
@@ -1055,7 +1053,11 @@ var makeMenu = function() {
     makeMatrixGroup4(groupStats[4]);
     endMatrixUpdate();
 
-    initScopeCell();
+    uMatrixScopeWidget.init(
+        matrixSnapshot.domain,
+        matrixSnapshot.hostname,
+        matrixSnapshot.scope
+    );
     updateMatrixButtons();
     resizePopup();
     recipeManager.fetch();
@@ -1098,89 +1100,13 @@ function initMenuEnvironment() {
 
 /******************************************************************************/
 
-// Create page scopes for the web page
-
-function selectGlobalScope() {
-    if ( matrixSnapshot.scope === '*' ) { return; }
-    matrixSnapshot.scope = '*';
-    document.body.classList.add('globalScope');
-    matrixSnapshot.tMatrixModifiedTime = undefined;
-    updateMatrixSnapshot();
-    dropDownMenuHide();
-}
-
-function selectSpecificScope(ev) {
-    var newScope = ev.target.getAttribute('data-scope');
+function scopeChangeHandler(ev) {
+    let newScope = ev.detail.scope;
     if ( !newScope || matrixSnapshot.scope === newScope ) { return; }
-    document.body.classList.remove('globalScope');
     matrixSnapshot.scope = newScope;
     matrixSnapshot.tMatrixModifiedTime = undefined;
     updateMatrixSnapshot();
     dropDownMenuHide();
-}
-
-function initScopeCell() {
-    // It's possible there is no page URL at this point: some pages cannot
-    // be filtered by uMatrix.
-    if ( matrixSnapshot.url === '' ) { return; }
-    var specificScope = uDom.nodeFromId('specificScope');
-
-    while ( specificScope.firstChild !== null ) {
-        specificScope.removeChild(specificScope.firstChild);
-    }
-
-    // Fill in the scope menu entries
-    var pos = matrixSnapshot.domain.indexOf('.');
-    var tld, labels;
-    if ( pos === -1 ) {
-        tld = '';
-        labels = matrixSnapshot.hostname;
-    } else {
-        tld = matrixSnapshot.domain.slice(pos + 1);
-        labels = matrixSnapshot.hostname.slice(0, -tld.length);
-    }
-    var beg = 0, span, label;
-    while ( beg < labels.length ) {
-        pos = labels.indexOf('.', beg);
-        if ( pos === -1 ) {
-            pos = labels.length;
-        } else {
-            pos += 1;
-        }
-        label = document.createElement('span');
-        label.appendChild(
-            document.createTextNode(punycode.toUnicode(labels.slice(beg, pos)))
-        );
-        span = document.createElement('span');
-        span.setAttribute('data-scope', labels.slice(beg) + tld);
-        span.appendChild(label);
-        specificScope.appendChild(span);
-        beg = pos;
-    }
-    if ( tld !== '' ) {
-        label = document.createElement('span');
-        label.appendChild(document.createTextNode(punycode.toUnicode(tld)));
-        span = document.createElement('span');
-        span.setAttribute('data-scope', tld);
-        span.appendChild(label);
-        specificScope.appendChild(span);
-    }
-    updateScopeCell();
-}
-
-function updateScopeCell() {
-    var specificScope = uDom.nodeFromId('specificScope'),
-        isGlobal = matrixSnapshot.scope === '*';
-    document.body.classList.toggle('globalScope', isGlobal);
-    specificScope.classList.toggle('on', !isGlobal);
-    uDom.nodeFromId('globalScope').classList.toggle('on', isGlobal);
-    for ( var node of specificScope.children ) {
-        node.classList.toggle(
-            'on', 
-            !isGlobal &&
-                matrixSnapshot.scope.endsWith(node.getAttribute('data-scope'))
-        );
-    }
 }
 
 /******************************************************************************/
@@ -1277,7 +1203,7 @@ function revertMatrix() {
 // Buttons which are affected by any changes in the matrix
 
 function updateMatrixButtons() {
-    updateScopeCell();
+    uMatrixScopeWidget.update(matrixSnapshot.scope);
     updateMatrixSwitches();
     updatePersistButton();
 }
@@ -1285,7 +1211,7 @@ function updateMatrixButtons() {
 /******************************************************************************/
 
 function buttonReloadHandler(ev) {
-    vAPI.messaging.send('popup.js', {
+    vAPI.messaging.send('default', {
         what: 'forceReloadTab',
         tabId: matrixSnapshot.tabId,
         bypassCache: ev.ctrlKey || ev.metaKey || ev.shiftKey
@@ -1637,8 +1563,7 @@ matrixCellHotspots = uDom('#cellHotspots').detach();
 uDom('body')
     .on('mouseenter', '.matCell', mouseenterMatrixCellHandler)
     .on('mouseleave', '.matCell', mouseleaveMatrixCellHandler);
-uDom('#specificScope').on('click', selectSpecificScope);
-uDom('#globalScope').on('click', selectGlobalScope);
+window.addEventListener('uMatrixScopeWidgetChange', scopeChangeHandler);
 uDom('#buttonMtxSwitches').on('click', function(ev) {
     dropDownMenuShow(ev.target);
 });

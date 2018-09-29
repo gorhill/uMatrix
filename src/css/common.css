@@ -31,6 +31,9 @@
     display: inline-block;
     }
 
+body {
+    font-size: 14px;
+    }
 body[dir="ltr"] {
     direction: ltr;
     }

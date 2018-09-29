@@ -92,7 +92,7 @@ input:focus {
     width: 4.6em;
     }
 #content table > colgroup > col:nth-of-type(2) {
-    width: 2.2em;
+    width: 30%;
     }
 #content table > colgroup > col:nth-of-type(3) {
     width: 2.2em;
@@ -101,7 +101,7 @@ input:focus {
     width: 5.4em;
     }
 #content table > colgroup > col:nth-of-type(5) {
-    width: calc(100% - 14.4em);
+    width: calc(100% - 4.6em - 30% - 2.2em - 5.4em);
     }
 #content table tr {
     background-color: #fafafa;
@@ -151,13 +151,8 @@ body.compactView #content tr:not(.vExpanded) td {
     text-align: right;
     white-space: nowrap;
     }
-#content table tr td:nth-of-type(2) {
-    text-align: center;
-    white-space: nowrap;
-    }
-#content table tr.tab_bts > td:nth-of-type(2):before {
-    content: '\f070';
-    font: 1em FontAwesome;
+#content table tr td:nth-of-type(2):not([colspan]) {
+    text-align: right;
     }
 #content table tr.tab:not(.canMtx) {
     opacity: 0.3;
@@ -165,17 +160,8 @@ body.compactView #content tr:not(.vExpanded) td {
 #content table tr.tab:not(.canMtx):hover {
     opacity: 0.7;
     }
-#content table tr.tab:not(.canMtx) > td:nth-of-type(2):before {
-    content: '\f00d';
-    font: 1em FontAwesome;
-    }
-body:not(.popupOn) #content table tr.canMtx td:nth-of-type(2) {
-    cursor: zoom-in;
-    }
-body:not(.popupOn) #content table tr.canMtx td:nth-of-type(2):hover {
-    background: #ccc;
-    }
 #content table tr.cat_net td:nth-of-type(3) {
+    cursor: pointer;
     font: 12px monospace;
     text-align: center;
     white-space: nowrap;
@@ -189,45 +175,232 @@ body:not(.popupOn) #content table tr.canMtx td:nth-of-type(2):hover {
     opacity: 1;
     }
 
-#popupContainer {
-    background: white;
-    border: 1px solid gray;
-    display: none;
-    overflow: hidden;
+.modalDialog {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
     position: fixed;
-    right: 1em;
     top: 0;
-    z-index: 200;
+    width: 100vw;
+    z-index: 1000;
     }
-body.popupOn #popupContainer {
-    display: block;
+.modalDialog > .dialog {
+    background-color: white;
+    font: 15px httpsb,sans-serif;
+    min-width: fit-content;
+    padding: 0.5em;
+    width: 90%;
     }
-#popupContainer > div {
-    background: #888;
+
+#ruleEditor section {
+    display: flex;
+    }
+.scopeWidget {
+    line-height: 2.5em;
+    margin-bottom: 0.5em;
+    }
+#specificScope, .ruleCell:nth-of-type(1) {
+    flex-grow: 1;
+    }
+#globalScope, .ruleCell:nth-of-type(2) {
+    width: 4em;
+    }
+.ruleEditorToolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 0.5em;
+    }
+.ruleEditorToolbar button {
+    background-color: white;
     border: 0;
+    color: black;
+    cursor: pointer;
+    margin: 0;
+    padding: 0.2em;
+    position: relative;
     }
-#popupContainer > div {
-    text-align: right;
+.ruleEditorToolbar button:hover {
+    background-color: #eee;
     }
-#popupContainer > div > span {
+.ruleEditorToolbar button.disabled {
     color: #ccc;
+    }
+.ruleEditorToolbar button.fa {
+    font: 1.7em FontAwesome;
+    min-width: 1.5em;
+    }
+.ruleEditorToolbar button > span.badge {
+    background-color: rgba(240,240,240,0.75);
+    bottom: 1px;
+    color: #000;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 40%;
+    padding: 1px 1px;
+    pointer-events: none;
+    position: absolute;
+    right: 1px;
+    }
+.ruleEditorToolbar button.disabled > span.badge {
+    display: none;
+    }
+
+button.scopeRel {
+    color: #24c;
+    }
+body[data-scope="*"] button.scopeRel {
+    color: #000;
+    }
+
+.ruleWidgets {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    }
+.ruleRow {
+    display: flex;
+    line-height: 2em;
+    margin-top: 1px;
+    }
+.ruleCell {
+    background-color: #eee;
+    border: 1px dotted rgba(0,0,0,0.2);
     cursor: pointer;
     display: inline-block;
-    font: 14px FontAwesome;
-    padding: 3px;
+    margin-left: 1px;
+    padding: 1px;
+    position: relative;
     }
-#popupContainer > div > span:hover {
+.ruleCell:hover {
+    border-style: solid;
+    }
+.ruleCell:nth-of-type(1) {
+    margin-left: 0;
+    text-align: right;
+    }
+.ruleCell:nth-of-type(2) {
+    text-align: center;
+    }
+.ruleCell[data-tcolor="1"] {
+    border-color: #debaba;
+    color: black;
+    background-color: #f8d0d0;
+    }
+#ruleEditor.colorblind .ruleCell[data-tcolor="1"] {
+    border-color: rgba(0, 19, 110, 0.3);
+    color: black;
+    background-color: rgba(0, 19, 110, 0.2);
+    }
+.ruleCell[data-tcolor="2"] {
+    border-color: #bad6ba;
+    color: black;
+    background-color: #d0f0d0;
+    }
+#ruleEditor.colorblind .ruleCell[data-tcolor="2"] {
+    border-color: rgba(255, 194, 57, 0.3);
+    color: black;
+    background-color: rgba(255, 194, 57, 0.2);
+    }
+.ruleCell[data-tcolor="129"] {
     color: white;
+    background-color: #c00;
     }
-#popupContainer > iframe {
+#ruleEditor.colorblind .ruleCell[data-tcolor="129"] {
+    color: white;
+    background-color: rgb(0, 19, 110);
+    }
+.ruleCell[data-tcolor="130"] {
+    color: white;
+    background-color: #080;
+    }
+#ruleEditor.colorblind .ruleCell[data-tcolor="130"] {
+    border-color: rgb(255, 194, 57);
+    color: black;
+    background-color: rgb(255, 194, 57);
+    }
+.ruleCell[data-pcolor="129"] {
+    background-image: url('../img/permanent-black-small.png');
+    background-repeat: no-repeat;
+    background-position: -1px -1px;
+    }
+#ruleEditor.colorblind .ruleCell[data-pcolor="129"] {
+    background-image: url('../img/permanent-black-small-cb.png');
+    }
+.ruleCell[data-pcolor="130"] {
+    background-image: url('../img/permanent-white-small.png');
+    background-repeat: no-repeat;
+    background-position: -1px -1px;
+    }
+#ruleEditor.colorblind .ruleCell[data-pcolor="130"] {
+    background-image: url('../img/permanent-white-small-cb.png');
+    }
+
+#ruleActionPicker {
+    border: 0;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    }
+.allowRule, .blockRule {
+    margin: 0;
     border: 0;
     padding: 0;
-    margin: 0;
+    position: absolute;
+    left: 0;
     width: 100%;
+    height: 50%;
+    background: transparent;
     }
-#popupContainer.hide {
-    width: 6em !important;
+.allowRule {
+    top: 0;
     }
-#popupContainer.hide > iframe {
-    display: none;
+.blockRule {
+    top: 50%;
+    }
+.ruleCell[data-tcolor="1"] .allowRule:hover {
+    background-color: #080;
+    opacity: 0.25;
+    }
+.ruleCell[data-tcolor="1"] .blockRule:hover {
+    background-color: #c00;
+    opacity: 0.25;
+    }
+.ruleCell[data-tcolor="2"] .allowRule:hover {
+    background-color: #080;
+    opacity: 0.25;
+    }
+.ruleCell[data-tcolor="2"] .blockRule:hover {
+    background-color: #c00;
+    opacity: 0.25;
+    }
+.ruleCell[data-tcolor="129"] .allowRule:hover {
+    background-color: transparent;
+    }
+.ruleCell[data-tcolor="129"] .blockRule:hover {
+    background-color: transparent;
+    }
+.ruleCell[data-pcolor="130"] .allowRule:hover {
+    background-color: transparent;
+    }
+.ruleCell[data-pcolor="130"] .blockRule:hover {
+    background-color: transparent;
+    }
+#ruleEditor.colorblind .ruleCell[data-tcolor="1"] .allowRule:hover,
+#ruleEditor.colorblind .ruleCell[data-tcolor="2"] .allowRule:hover {
+    background-color: rgb(255, 194, 57);
+    opacity: 0.6;
+    }
+#ruleEditor.colorblind .ruleCell[data-tcolor="1"] .blockRule:hover,
+#ruleEditor.colorblind .ruleCell[data-tcolor="2"] .blockRule:hover {
+    background-color: rgb(0, 19, 110);
+    opacity: 0.4;
     }

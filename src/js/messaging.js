@@ -19,6 +19,8 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
+/* globals publicSuffixList */
+
 'use strict';
 
 /******************************************************************************/
@@ -53,6 +55,14 @@ function onMessage(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
+    case 'blacklistMatrixCell':
+        µm.tMatrix.blacklistCell(
+            request.srcHostname,
+            request.desHostname,
+            request.type
+        );
+        break;
+
     case 'forceReloadTab':
         µm.forceReload(request.tabId, request.bypassCache);
         break;
@@ -60,6 +70,25 @@ function onMessage(request, sender, callback) {
     case 'forceUpdateAssets':
         µm.scheduleAssetUpdater(0);
         µm.assets.updateStart({ delay: 2000 });
+        break;
+
+    case 'getCellColors':
+        let ruleParts = request.ruleParts;
+        let tColors = [];
+        let pColors = [];
+        for ( let i = 0, n = ruleParts.length; i < n; i += 3 ) {
+            tColors.push(µm.tMatrix.evaluateCellZXY(
+                ruleParts[i+0],
+                ruleParts[i+1],
+                ruleParts[i+2]
+            ));
+            pColors.push(µm.pMatrix.evaluateCellZXY(
+                ruleParts[i+0],
+                ruleParts[i+1],
+                ruleParts[i+2]
+            ));
+        }
+        response = { tColors, pColors };
         break;
 
     case 'getUserSettings':
@@ -81,12 +110,30 @@ function onMessage(request, sender, callback) {
         µm.gotoURL(request);
         break;
 
+    case 'graylistMatrixCell':
+        µm.tMatrix.graylistCell(
+            request.srcHostname,
+            request.desHostname,
+            request.type
+        );
+        break;
+
     case 'mustBlock':
         response = µm.mustBlock(
             request.scope,
             request.hostname,
             request.type
         );
+        break;
+
+    case 'rulesetRevert':
+        µm.tMatrix.copyRuleset(request.entries, µm.pMatrix, true);
+        break;
+
+    case 'rulesetPersist':
+        if ( µm.pMatrix.copyRuleset(request.entries, µm.tMatrix, true) ) {
+            µm.saveMatrix();
+        }
         break;
 
     case 'readRawSettings':
@@ -113,6 +160,14 @@ function onMessage(request, sender, callback) {
             request.value = undefined;
         }
         response = µm.changeUserSettings(request.name, request.value);
+        break;
+
+    case 'whitelistMatrixCell':
+        µm.tMatrix.whitelistCell(
+            request.srcHostname,
+            request.desHostname,
+            request.type
+        );
         break;
 
     case 'writeRawSettings':
@@ -366,30 +421,6 @@ var onMessage = function(request, sender, callback) {
         );
         break;
 
-    case 'blacklistMatrixCell':
-        µm.tMatrix.blacklistCell(
-            request.srcHostname,
-            request.desHostname,
-            request.type
-        );
-        break;
-
-    case 'whitelistMatrixCell':
-        µm.tMatrix.whitelistCell(
-            request.srcHostname,
-            request.desHostname,
-            request.type
-        );
-        break;
-
-    case 'graylistMatrixCell':
-        µm.tMatrix.graylistCell(
-            request.srcHostname,
-            request.desHostname,
-            request.type
-        );
-        break;
-
     case 'applyDiffToPermanentMatrix': // aka "persist"
         if ( µm.pMatrix.applyDiff(request.diff, µm.tMatrix) ) {
             µm.saveMatrix();
@@ -429,44 +460,44 @@ var µm = µMatrix;
 var foundInlineCode = function(tabId, pageStore, details, type) {
     if ( pageStore === null ) { return; }
 
-    var pageHostname = pageStore.pageHostname,
+    let srcHn = pageStore.pageHostname,
         µmuri = µm.URI.set(details.documentURI),
+        desHn = µmuri.hostname,
         frameURL = µmuri.normalizedURI();
 
-    var blocked = details.blocked;
+    let blocked = details.blocked;
     if ( blocked === undefined ) {
-        blocked = µm.mustBlock(pageHostname, µmuri.hostname, type);
+        blocked = µm.mustBlock(srcHn, desHn, type);
     }
 
-    var mapTo = {
+    let mapTo = {
         css: 'style',
         script: 'script'
     };
 
     // https://github.com/gorhill/httpswitchboard/issues/333
-    // Look-up here whether inline scripting is blocked for the frame.
-    var url = frameURL + '{inline_' + mapTo[type] + '}';
-    pageStore.recordRequest(type, url, blocked);
-    µm.logger.writeOne(tabId, 'net', pageHostname, url, type, blocked);
+    //   Look-up here whether inline scripting is blocked for the frame.
+    let desURL = frameURL + '{inline_' + mapTo[type] + '}';
+    pageStore.recordRequest(type, desURL, blocked);
+    µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type, blocked });
 };
 
 /******************************************************************************/
 
 var contentScriptLocalStorageHandler = function(tabId, originURL) {
-    var tabContext = µm.tabContextManager.lookup(tabId);
+    let tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) { return; }
 
-    var blocked = µm.mustBlock(
-        tabContext.rootHostname,
-        µm.URI.hostnameFromURI(originURL),
-        'cookie'
-    );
+    let srcHn = tabContext.rootHostname,
+        desHn = µm.URI.hostnameFromURI(originURL),
+        type = 'cookie',
+        blocked = µm.mustBlock(srcHn, desHn, type);
 
-    var pageStore = µm.pageStoreFromTabId(tabId);
+    let pageStore = µm.pageStoreFromTabId(tabId);
     if ( pageStore !== null ) {
-        var requestURL = originURL + '/{localStorage}';
-        pageStore.recordRequest('cookie', requestURL, blocked);
-        µm.logger.writeOne(tabId, 'net', tabContext.rootHostname, requestURL, 'cookie', blocked);
+        let desURL = originURL + '/{localStorage}';
+        pageStore.recordRequest(type, desURL, blocked);
+        µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type, blocked });
     }
 
     var removeStorage = blocked && µm.userSettings.deleteLocalStorage;
@@ -545,13 +576,13 @@ var onMessage = function(request, sender, callback) {
         break;
     }
 
-    var tabId = sender && sender.tab ? sender.tab.id || 0 : 0,
+    let tabId = sender && sender.tab ? sender.tab.id || 0 : 0,
         tabContext = µm.tabContextManager.lookup(tabId),
-        rootHostname = tabContext && tabContext.rootHostname,
+        srcHn = tabContext && tabContext.rootHostname,
         pageStore = µm.pageStoreFromTabId(tabId);
 
     // Sync
-    var response;
+    let response;
 
     switch ( request.what ) {
     case 'contentScriptHasLocalStorage':
@@ -565,8 +596,8 @@ var onMessage = function(request, sender, callback) {
     case 'mustRenderNoscriptTags?':
         if ( tabContext === null ) { break; }
         response =
-            µm.tMatrix.mustBlock(rootHostname, rootHostname, 'script') &&
-            µm.tMatrix.evaluateSwitchZ('noscript-spoof', rootHostname);
+            µm.tMatrix.mustBlock(srcHn, srcHn, 'script') &&
+            µm.tMatrix.evaluateSwitchZ('noscript-spoof', srcHn);
         if ( pageStore !== null ) {
             pageStore.hasNoscriptTags = true;
         }
@@ -578,15 +609,25 @@ var onMessage = function(request, sender, callback) {
 
     case 'securityPolicyViolation':
         if ( request.directive === 'worker-src' ) {
-            var url = µm.URI.hostnameFromURI(request.blockedURI) !== '' ?
-                request.blockedURI :
-                request.documentURI;
+            let desURL = request.blockedURI;
+            let desHn = µm.URI.hostnameFromURI(desURL);
+            if ( desHn === '' ) {
+                desURL = request.documentURI;
+                desHn = µm.URI.hostnameFromURI(desURL);
+            }
             if ( pageStore !== null ) {
                 pageStore.hasWebWorkers = true;
-                pageStore.recordRequest('script', url, request.blocked);
+                pageStore.recordRequest('script', desURL, request.blocked);
             }
             if ( tabContext !== null ) {
-                µm.logger.writeOne(tabId, 'net', rootHostname, url, 'worker', request.blocked);
+                µm.logger.writeOne({
+                    tabId,
+                    srcHn,
+                    desHn,
+                    desURL,
+                    type: 'worker',
+                    blocked: request.blocked
+                });
             }
         } else if ( request.directive === 'script-src' ) {
             foundInlineCode(tabId, pageStore, request, 'script');
@@ -597,7 +638,7 @@ var onMessage = function(request, sender, callback) {
 
     case 'shutdown?':
         if ( tabContext !== null ) {
-            response = µm.tMatrix.evaluateSwitchZ('matrix-off', rootHostname);
+            response = µm.tMatrix.evaluateSwitchZ('matrix-off', srcHn);
         }
         break;
 
@@ -936,6 +977,17 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
+    case 'getPublicSuffixListData':
+        response = publicSuffixList.toSelfie();
+        break;
+
+    case 'getRuleEditorOptions':
+        response = {
+            colorBlindFriendly: µm.userSettings.colorBlindFriendly,
+            popupScopeLevel: µm.userSettings.popupScopeLevel
+        };
+        break;
+
     case 'readMany':
         if (
             µm.logger.ownerId !== undefined &&

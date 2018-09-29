@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2015 Raymond Hill
+    uMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2015-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,13 +19,11 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global µMatrix */
+'use strict';
 
 /******************************************************************************/
 
 (function() {
-
-'use strict';
 
 /******************************************************************************/
 
@@ -50,7 +48,7 @@ var clearCache = function() {
     µm.browserCacheClearedCounter++;
 
     // TODO: i18n
-    µm.logger.writeOne('', 'info', vAPI.i18n('loggerEntryBrowserCacheCleared'));
+    µm.logger.writeOne({ info: vAPI.i18n('loggerEntryBrowserCacheCleared') });
 
     //console.debug('clearBrowserCacheCallback()> vAPI.browserData.clearCache() called');
 };

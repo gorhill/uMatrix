@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2013-2018 Raymond Hill
+    Copyright (C) 2013-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -210,7 +210,7 @@ var recordPageCookie = (function() {
             for ( let cookieKey of qentry[1] ) {
                 let cookieEntry = cookieDict.get(cookieKey);
                 if ( cookieEntry === undefined ) { continue; }
-                let block = µm.mustBlock(
+                let blocked = µm.mustBlock(
                     pageStore.pageHostname,
                     cookieEntry.hostname,
                     'cookie'
@@ -224,17 +224,17 @@ var recordPageCookie = (function() {
                 cookieLogEntryBuilder[4] =
                     encodeURIComponent(cookieEntry.name);
                 let cookieURL = cookieLogEntryBuilder.join('');
-                pageStore.recordRequest('cookie', cookieURL, block);
-                µm.logger.writeOne(
-                    pageStore.tabId,
-                    'net',
-                    pageStore.pageHostname,
-                    cookieURL,
-                    'cookie',
-                    block
-                );
+                pageStore.recordRequest('cookie', cookieURL, blocked);
+                µm.logger.writeOne({
+                    tabId: pageStore.tabId,
+                    srcHn: pageStore.pageHostname,
+                    desHn: cookieEntry.hostname,
+                    desURL: cookieURL,
+                    type: 'cookie',
+                    blocked
+                });
                 cookieEntry.usedOn.add(pageStore.pageHostname);
-                if ( !block ) { continue; }
+                if ( !blocked ) { continue; }
                 if ( µm.userSettings.deleteCookies ) {
                     removeCookieAsync(cookieKey);
                 }
@@ -288,9 +288,8 @@ var removeCookieAsync = function(cookieKey) {
 
 var chromeCookieRemove = function(cookieEntry, name) {
     var url = cookieURLFromCookieEntry(cookieEntry);
-    if ( url === '' ) {
-        return;
-    }
+    if ( url === '' ) { return; }
+
     var sessionCookieKey = cookieKeyFromCookieURL(url, 'session', name);
     var persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
     var callback = function(details) {
@@ -300,13 +299,17 @@ var chromeCookieRemove = function(cookieEntry, name) {
             if ( success ) {
                 µm.cookieRemovedCounter += 1;
             }
-            µm.logger.writeOne('', 'info', 'cookie', template.replace('{{value}}', sessionCookieKey));
+            µm.logger.writeOne({
+                info: template.replace('{{value}}', sessionCookieKey)
+            });
         }
         if ( removeCookieFromDict(persistCookieKey) ) {
             if ( success ) {
                 µm.cookieRemovedCounter += 1;
             }
-            µm.logger.writeOne('', 'info', 'cookie', template.replace('{{value}}', persistCookieKey));
+            µm.logger.writeOne({
+                info: template.replace('{{value}}', persistCookieKey)
+            });
         }
     };
 
@@ -549,7 +552,10 @@ vAPI.cookies.onChanged = (function() {
 vAPI.cookies.onRemoved = function(cookie) {
     var cookieKey = cookieKeyFromCookie(cookie);
     if ( removeCookieFromDict(cookieKey) ) {
-        µm.logger.writeOne('', 'info', 'cookie', i18nCookieDeleteSuccess.replace('{{value}}', cookieKey));
+        µm.logger.writeOne({
+            info: i18nCookieDeleteSuccess.replace('{{value}}', cookieKey),
+            prettify: 'cookie'
+        });
     }
 };
 
@@ -560,7 +566,10 @@ vAPI.cookies.onRemoved = function(cookie) {
 vAPI.cookies.onAllRemoved = function() {
     for ( var cookieKey of cookieDict.keys() ) {
         if ( removeCookieFromDict(cookieKey) ) {
-            µm.logger.writeOne('', 'info', 'cookie', i18nCookieDeleteSuccess.replace('{{value}}', cookieKey));
+            µm.logger.writeOne({
+                info: i18nCookieDeleteSuccess.replace('{{value}}', cookieKey),
+                prettify: 'cookie'
+            });
         }
     }
 };
