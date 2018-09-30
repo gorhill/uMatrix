@@ -555,14 +555,16 @@ var pageSelectorChanged = function() {
 
 /******************************************************************************/
 
-var refreshTab = function() {
-    var tabClass = document.getElementById('pageSelector').value;
-    var matches = tabClass.match(/^tab_(.+)$/);
-    if ( matches === null ) { return; }
-    if ( matches[1] === 'bts' ) { return; }
+var reloadTab = function(ev) {
+    let tabId = document.getElementById('pageSelector').value;
+    if ( /^\d+$/.test(tabId) === false ) { return; }
     vAPI.messaging.send(
-        'logger-ui.js',
-        { what: 'forceReloadTab', tabId: parseInt(matches[1], 10) }
+        'default',
+        {
+            what: 'forceReloadTab',
+            tabId: parseInt(tabId, 10),
+            bypassCache: ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey)
+        }
     );
 };
 
@@ -1078,7 +1080,7 @@ window.addEventListener('beforeunload', releaseView);
 readLogBuffer();
 
 uDom('#pageSelector').on('change', pageSelectorChanged);
-uDom('#refresh').on('click', refreshTab);
+uDom('#refresh').on('click', reloadTab);
 uDom('#compactViewToggler').on('click', toggleCompactView);
 uDom('#clean').on('click', cleanBuffer);
 uDom('#clear').on('click', clearBuffer);
