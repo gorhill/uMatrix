@@ -30,6 +30,24 @@
     vertical-align: baseline;
     display: inline-block;
     }
+.fa-icon {
+    align-self: center;
+    background-color: transparent;
+    border: border: 1px solid transparent;
+    display: inline-block;
+    height: 1.2em;
+    vertical-align: middle;
+    width: 1.2em;
+    }
+.fa-icon:hover {
+    background-color: #eee;
+    }
+.fa-icon.disabled {
+    fill: #888;
+    opacity: 0.4;
+    stroke: #fff;
+    pointer-events: none;
+    }
 
 body {
     font-size: 14px;

@@ -9,6 +9,12 @@ body {
     padding: 0;
     width: 100%;
     }
+.fa-icon {
+    cursor: pointer;
+    height: 1.5em;
+    padding: 0.5em 1em;
+    width: 1.5em;
+    }
 #toolbar {
     background-color: white;
     border: 0;
@@ -23,42 +29,73 @@ body {
     width: 100%;
     z-index: 10;
     }
-#toolbar .button {
-    background-color: white;
-    border: none;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 150%;
-    margin: 0;
-    padding: 8px;
-    }
-#toolbar .button.disabled {
-    opacity: 0.2;
-    pointer-events: none;
-    }
-#toolbar .button:hover {
-    background-color: #eee;
-    }
 #toolbar > div {
+    display: flex;
+    padding: 0.5em;
     white-space: nowrap;
-    }
-#toolbar > div:first-of-type {
-    font-size: 120%;
-    }
-#toolbar > div > * {
-    vertical-align: middle;
     }
 #pageSelector {
     width: 28em;
+    margin-right: 0.5em;
     padding: 0.2em 0;
     }
-body #compactViewToggler.button:before {
-    content: '\f102';
+
+@keyframes popupPanelShow {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+#popupPanelContainer {
+    background: white;
+    border: 1px solid gray;
+    display: none;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    /*top: 0;*/
+    z-index: 2000;
     }
-body.compactView #compactViewToggler.button:before {
-    content: '\f103';
+body.popupPanelOn #popupPanelContainer {
+    animation-duration: 0.25s;
+    animation-name: popupPanelShow;
+    display: block;
+    }
+#popupPanelContainer.hide {
+    width: 6em !important;
+}
+#popupPanelContainer > div {
+    background: #888;
+    border: 0;
+    display: none;
+    text-align: right;
+    }
+#popupPanelContainer > div > span {
+    color: #ccc;
+    cursor: pointer;
+    display: inline-block;
+    font: 14px FontAwesome;
+    padding: 3px;
+    }
+#popupPanelContainer > div > span:hover {
+    color: white;
+    }
+#popupPanelContainer > iframe {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    }
+#popupPanelContainer.hide > iframe {
+    display: none;
+    }
+
+#popupPanelButton > use {
+    transform: scaleY(0.4);
+    }
+body.popupPanelOn #popupPanelButton > use {
+    transform: scaleY(1);
+    }
+body.compactView #compactViewToggler {
+    transform: rotateZ(180deg);
     }
 #filterButton {
     opacity: 0.25;
@@ -189,7 +226,7 @@ body.compactView #content tr:not(.vExpanded) td {
     position: fixed;
     top: 0;
     width: 100vw;
-    z-index: 1000;
+    z-index: 5000;
     }
 .modalDialog > .dialog {
     background-color: white;
@@ -218,46 +255,20 @@ body.compactView #content tr:not(.vExpanded) td {
     justify-content: space-around;
     margin-left: 0.5em;
     }
-.ruleEditorToolbar button {
-    background-color: white;
-    border: 0;
-    color: black;
-    cursor: pointer;
-    margin: 0;
-    padding: 0.2em;
-    position: relative;
-    }
-.ruleEditorToolbar button:hover {
-    background-color: #eee;
-    }
-.ruleEditorToolbar button.disabled {
-    color: #ccc;
-    }
-.ruleEditorToolbar button.fa {
-    font: 1.7em FontAwesome;
-    min-width: 1.5em;
-    }
-.ruleEditorToolbar button > span.badge {
-    background-color: rgba(240,240,240,0.75);
-    bottom: 1px;
-    color: #000;
-    display: inline-block;
+.ruleEditorToolbar .fa-icon > .badge {
     font-family: sans-serif;
-    font-size: 40%;
-    padding: 1px 1px;
+    font-size: 80%;
     pointer-events: none;
-    position: absolute;
-    right: 1px;
     }
-.ruleEditorToolbar button.disabled > span.badge {
+.ruleEditorToolbar .fa-icon.disabled > .badge {
     display: none;
     }
 
-button.scopeRel {
-    color: #24c;
+.fa-icon.scopeRel {
+    fill: #24c;
     }
-body[data-scope="*"] button.scopeRel {
-    color: #000;
+body[data-scope="*"] .fa-icon.scopeRel {
+    fill: #000;
     }
 
 .ruleWidgets {

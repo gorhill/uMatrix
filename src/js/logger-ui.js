@@ -537,32 +537,39 @@ var readLogBufferAsync = function() {
 
 /******************************************************************************/
 
+var tabIdFromPageSelector = function() {
+    let tabId = parseInt(document.getElementById('pageSelector').value, 10);
+    return isNaN(tabId) === false ? tabId : 0;
+};
+
 var pageSelectorChanged = function() {
     let style = document.getElementById('tabFilterer');
-    let tabId = document.getElementById('pageSelector').value;
+    let tabId = tabIdFromPageSelector();
     let sheet = style.sheet;
     while ( sheet.cssRules.length !== 0 )  {
         sheet.deleteRule(0);
     }
-    if ( tabId.length !== 0 ) {
+    if ( tabId !== 0 ) {
         sheet.insertRule(
             '#content table tr:not([data-tabid="' + tabId + '"]) { display: none; }',
             0
         );
     }
-    uDom('#refresh').toggleClass('disabled', /^\d+$/.test(tabId) === false);
+    document.getElementById('reloadTab').classList.toggle('disabled', tabId <= 0);
+    document.getElementById('popupPanelButton').classList.toggle('disabled', tabId === 0);
+    popupPanel.update();
 };
 
 /******************************************************************************/
 
 var reloadTab = function(ev) {
-    let tabId = document.getElementById('pageSelector').value;
-    if ( /^\d+$/.test(tabId) === false ) { return; }
+    let tabId = tabIdFromPageSelector();
+    if ( tabId <= 0 ) { return; }
     vAPI.messaging.send(
         'default',
         {
             what: 'forceReloadTab',
-            tabId: parseInt(tabId, 10),
+            tabId: tabId,
             bypassCache: ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey)
         }
     );
@@ -589,6 +596,135 @@ var onMaxEntriesChanged = function() {
 
     truncateLog(maxEntries);
 };
+
+/******************************************************************************/
+
+var popupPanel = (function() {
+    let tabId = 0;
+    let popupObserver = null;
+    let timer;
+
+    let resizePopup = function() {
+        if ( timer !== undefined ) {
+            cancelAnimationFrame(timer);
+            timer = undefined;
+        }
+        let container = document.getElementById('popupPanelContainer');
+        let popup = container.querySelector('iframe');
+        if ( popup === null ) { return; }
+        let popupBody = popup.contentWindow.document.body;
+        if (
+            popupBody.clientWidth !== 0 &&
+            container.clientWidth !== popupBody.clientWidth
+        ) {
+            container.style.setProperty('width', popupBody.clientWidth + 'px');
+        }
+        popup.style.removeProperty('height');
+        if (
+            popupBody.clientHeight !== 0 &&
+            popup.clientHeight !== popupBody.clientHeight
+        ) {
+            popup.style.setProperty('height', popupBody.clientHeight + 'px');
+        }
+        let ph = document.documentElement.clientHeight;
+        let crect = container.getBoundingClientRect();
+        if ( crect.height > ph ) {
+            popup.style.setProperty('height', 'calc(' + ph + 'px - 1.8em)');
+        }
+        // Adjust width for presence/absence of vertical scroll bar which may
+        // have appeared as a result of last operation.
+        let cw = container.clientWidth;
+        let dw = popup.contentWindow.document.documentElement.clientWidth;
+        if ( cw !== dw ) {
+            container.style.setProperty('width', 2 * cw - dw + 'px');
+        }
+    };
+
+    let onResizeRequested = function() {
+        let popup = document.querySelector('#popupPanelContainer iframe');
+        if ( popup === null ) { return; }
+        let popupBody = popup.contentWindow.document.body;
+        if ( popupBody.hasAttribute('data-resize-popup') === false ) { return; }
+        popupBody.removeAttribute('data-resize-popup');
+        if ( timer === undefined ) {
+            timer = requestAnimationFrame(( ) => {
+                timer = undefined;
+                resizePopup();
+            });
+        }
+    };
+
+    let onLoad = function() {
+        resizePopup();
+        let popup = document.querySelector('#popupPanelContainer iframe');
+        if ( popup === null ) { return; }
+        let popupBody = popup.contentDocument.body;
+        popupBody.removeAttribute('data-resize-popup');
+        if ( popupObserver === null ) {
+            popupObserver = new MutationObserver(onResizeRequested);
+        }
+        popupObserver.observe(popupBody, {
+            attributes: true,
+            attributesFilter: [ 'data-resize-popup' ]
+        });
+        document.body.classList.add('popupPanelOn');
+    };
+
+    let start = function() {
+        let newTabId = tabIdFromPageSelector();
+        if ( newTabId === 0 ) {
+            return stop();
+        }
+        if ( newTabId === tabId ) { return; }
+        tabId = newTabId;
+        let container = document.getElementById('popupPanelContainer');
+        let popup = container.querySelector('iframe');
+        if ( popup === null ) {
+            popup = document.createElement('iframe');
+            popup.addEventListener('load', onLoad);
+        }
+        if ( popupObserver !== null ) {
+            popupObserver.disconnect();
+        }
+        popup.setAttribute('src', 'popup.html?tabId=' + tabId);
+        if ( popup.parentNode === null ) {
+            container.appendChild(popup);
+        }
+    };
+
+    let stop = function() {
+        document.body.classList.remove('popupPanelOn');
+        popupObserver.disconnect();
+        popupObserver = null;
+        let popup = document.querySelector('#popupPanelContainer iframe');
+        if ( popup !== null ) {
+            popup.removeEventListener('load', onLoad);
+            removeSelf(popup);
+        }
+        tabId = 0;
+    };
+
+    return {
+        get tabId() {
+            return tabId;
+        },
+        toggle: function(state) {
+            if ( state === undefined ) {
+                state = tabId === 0;
+            }
+            if ( state === false ) {
+                stop();
+            } else {
+                start();
+            }
+        },
+        update: function() {
+            if ( tabId !== 0 ) {
+                start();
+            }
+        }
+    };
+})();
 
 /******************************************************************************/
 
@@ -729,7 +865,6 @@ var rowFilterer = (function() {
 })();
 
 /******************************************************************************/
-/******************************************************************************/
 
 var ruleEditor = (function() {
     let ruleEditorNode = document.getElementById('ruleEditor');
@@ -817,9 +952,9 @@ var ruleEditor = (function() {
         addListener(ruleWidgets, 'mouseenter', attachRulePicker, 0b11);
         addListener(ruleWidgets, 'mouseleave', removeRulePicker, 0b11);
         addListener(ruleActionPicker, 'click', rulePickerHandler, 0b11);
-        addListener(ruleEditorNode.querySelector('.buttonReload'), 'click', reload);
-        addListener(ruleEditorNode.querySelector('.buttonRevertScope'), 'click', revert);
-        addListener(ruleEditorNode.querySelector('.buttonPersist'), 'click', persist);
+        addListener(ruleEditorNode.querySelector('#matrixReloadButton'), 'click', reload);
+        addListener(ruleEditorNode.querySelector('#matrixRevertButton'), 'click', revert);
+        addListener(ruleEditorNode.querySelector('#matrixPersistButton'), 'click', persist);
 
         document.body.appendChild(ruleEditorNode);
     };
@@ -854,14 +989,14 @@ var ruleEditor = (function() {
                 }
                 let dirty = diffCount !== 0;
                 ruleEditorNode
-                    .querySelector('.buttonPersist .badge')
+                    .querySelector('#matrixPersistButton .badge')
                     .textContent = dirty ? diffCount : '';
                 ruleEditorNode
-                    .querySelector('.buttonRevertScope')
+                    .querySelector('#matrixRevertButton')
                     .classList
                     .toggle('disabled', !dirty);
                 ruleEditorNode
-                    .querySelector('.buttonPersist')
+                    .querySelector('#matrixPersistButton')
                     .classList
                     .toggle('disabled', !dirty);
             }
@@ -1000,7 +1135,9 @@ var ruleEditor = (function() {
             node.removeEventListener(type, handler, options);
         }
         listeners = [];
-        ruleEditorNode.querySelector('.buttonReload').removeEventListener('click', reload);
+        ruleEditorNode
+            .querySelector('#matrixReloadButton')
+            .removeEventListener('click', reload);
         removeSelf(ruleEditorNode);
     };
 
@@ -1080,7 +1217,8 @@ window.addEventListener('beforeunload', releaseView);
 readLogBuffer();
 
 uDom('#pageSelector').on('change', pageSelectorChanged);
-uDom('#refresh').on('click', reloadTab);
+uDom('#reloadTab').on('click', reloadTab);
+uDom('#popupPanelButton').on('click', ( ) => popupPanel.toggle());
 uDom('#compactViewToggler').on('click', toggleCompactView);
 uDom('#clean').on('click', cleanBuffer);
 uDom('#clear').on('click', clearBuffer);

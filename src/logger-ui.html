@@ -15,28 +15,30 @@
     <div>
         <select id="pageSelector">
             <option value="" data-i18n="statsPageDetailedAllPages">
-            <option value="tab_bts" data-i18n="statsPageDetailedBehindTheScenePage">
+            <option value="-1" data-i18n="statsPageDetailedBehindTheScenePage">
             </select>
-        <span id="refresh" class="button disabled fa">&#xf021;</span>
-        </div>
-    <div>
-        <span id="compactViewToggler" class="button fa"></span>
-        <span id="clean" class="button fa disabled">&#xf00d;</span>
-        <span id="clear" class="button fa disabled">&#xf12d;</span>
-        <span id="filterButton" class="button fa">&#xf0b0;</span><input id="filterInput" type="text" placeholder="loggerFilterInputPlaceholder">
-        <input id="maxEntries" type="text" size="5" title="loggerMaxEntriesTip">
-        </div>
+        <svg id="reloadTab" class="fa-icon disabled"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_sync-alt"></use></svg>
+        <svg id="popupPanelButton" class="fa-icon disabled"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_th"></use></svg>
     </div>
+    <div>
+        <svg id="compactViewToggler" class="fa-icon"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_angle-double-up"></use></svg>
+        <svg id="clean" class="fa-icon disabled"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_times"></use></svg>
+        <svg id="clear" class="fa-icon disabled"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_eraser"></use></svg>
+        <svg id="filterButton" class="fa-icon"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_filter"></use></svg>
+        <input id="filterInput" type="text" placeholder="loggerFilterInputPlaceholder">
+        <input id="maxEntries" type="text" size="5" title="loggerMaxEntriesTip">
+    </div>
+</div>
+
+<div id="popupPanelContainer"></div>
 
 <div id="content">
     <style id="tabFilterer"></style>
     <table>
-        <colgroup><col><col><col><col><col><col></colgroup>
-        <tbody></tbody>
-        </table>
-    </div>
-
-
+    <colgroup><col><col><col><col><col><col></colgroup>
+    <tbody></tbody>
+    </table>
+</div>
 
 <div style="display: none;">
     <div id="emphasizeTemplate"><span><span></span><b></b><span></span></span></div>
@@ -47,14 +49,14 @@
                 <span class="scope" id="specificScope"><span>&nbsp;</span></span><!--
              --><span class="scope" id="globalScope" data-scope="*" data-i18n-tip="matrixGlobalScopeTip"><span><span>&#x2217;</span></span></span>
                 <div class="ruleEditorToolbar">
-                    <button type="button" class="buttonReload fa tip-anchor-right" data-i18n-tip="matrixReloadButton">&#xf021;</button>
+                    <svg id="matrixReloadButton" class="fa-icon" tip-anchor-right data-i18n-tip="matrixReloadButton"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_sync-alt"></use></svg>
                 </div>
             </section>
             <section>
                 <div class="ruleWidgets"></div>
                 <div class="ruleEditorToolbar">
-                    <button type="button" class="buttonRevertScope fa scopeRel tip-anchor-right" tabindex="-1" data-i18n-tip="matrixRevertButtonTip">&#xf12d;</button>
-                    <button type="button" class="buttonPersist fa scopeRel tip-anchor-right" data-i18n-tip="matrixPersistButtonTip">&#xf023;<span class="badge"></span></button>
+                    <svg id="matrixRevertButton" class="fa-icon scopeRel" tip-anchor-right data-i18n-tip="matrixRevertButtonTip"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_eraser"></use></svg>
+                    <svg id="matrixPersistButton" class="fa-icon scopeRel" tip-anchor-right data-i18n-tip="matrixPersistButtonTip"><use xlink:href="/img/fontawesome/fontawesome-defs.svg#fa-icon_lock"></use><text class="badge" x="100%" y="100%"></text></svg>
                 </section>
             </section>
         </div>
