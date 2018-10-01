@@ -36,6 +36,7 @@
     border: border: 1px solid transparent;
     display: inline-block;
     height: 1.2em;
+    overflow: visible;
     vertical-align: middle;
     width: 1.2em;
     }
