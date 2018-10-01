@@ -49,6 +49,15 @@
     stroke: #fff;
     pointer-events: none;
     }
+.fa-icon > .badge {
+    font-family: sans-serif;
+    font-size: 80%;
+    pointer-events: none;
+    transform: translate(100%, 110%);
+    }
+.fa-icon.disabled > .badge {
+    display: none;
+    }
 
 body {
     font-size: 14px;

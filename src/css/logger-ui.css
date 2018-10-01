@@ -255,14 +255,6 @@ body.compactView #content tr:not(.vExpanded) td {
     justify-content: space-around;
     margin-left: 0.5em;
     }
-.ruleEditorToolbar .fa-icon > .badge {
-    font-family: sans-serif;
-    font-size: 80%;
-    pointer-events: none;
-    }
-.ruleEditorToolbar .fa-icon.disabled > .badge {
-    display: none;
-    }
 
 .fa-icon.scopeRel {
     fill: #24c;
