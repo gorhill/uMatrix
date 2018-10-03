@@ -11,9 +11,8 @@ body {
     }
 .fa-icon {
     cursor: pointer;
-    height: 1.5em;
-    padding: 0.5em 1em;
-    width: 1.5em;
+    font-size: 150%;
+    padding: 0.4em 0.6em;
     }
 #toolbar {
     background-color: white;
@@ -88,14 +87,15 @@ body.popupPanelOn #popupPanelContainer {
     display: none;
     }
 
-#popupPanelButton > use {
-    transform: scaleY(0.4);
+#popupPanelButton use {
+    transform: scale(1, 0.4);
     }
-body.popupPanelOn #popupPanelButton > use {
-    transform: scaleY(1);
+body.popupPanelOn #popupPanelButton use {
+    transform: scale(1, 1);
     }
-body.compactView #compactViewToggler {
-    transform: rotateZ(180deg);
+body.compactView #compactViewToggler use {
+    transform: scale(1, -1);
+    transform-origin: center;
     }
 #filterButton {
     opacity: 0.25;
@@ -254,15 +254,20 @@ body.compactView #content tr:not(.vExpanded) td {
     flex-direction: column;
     justify-content: space-around;
     margin-left: 0.5em;
+    padding: 0.2em;
+    }
+.ruleEditorToolbar .fa-icon {
+    padding: 0.4em;
     }
 
 .fa-icon.scopeRel {
+    color: #24c;
     fill: #24c;
     }
 body[data-scope="*"] .fa-icon.scopeRel {
+    color: #000;
     fill: #000;
     }
-
 .ruleWidgets {
     display: flex;
     flex-direction: column;

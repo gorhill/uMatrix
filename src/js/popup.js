@@ -1139,9 +1139,9 @@ function updateMatrixSwitches() {
         'relevant',
         matrixSnapshot.hasNoscriptTags
     );
-    uDom.nodeFromSelector('#buttonMtxSwitches span.badge').textContent =
+    uDom.nodeFromSelector('#buttonMtxSwitches .fa-icon-badge').textContent =
         count.toLocaleString();
-    uDom.nodeFromSelector('#mtxSwitch_matrix-off span.badge').textContent =
+    uDom.nodeFromSelector('#mtxSwitch_matrix-off .fa-icon-badge').textContent =
         matrixSnapshot.blockedCount.toLocaleString();
     document.body.classList.toggle('powerOff', switches['matrix-off']);
 }
@@ -1169,7 +1169,7 @@ function updatePersistButton() {
           .filter(function(){return this.nodeType===3;})
           .first()
           .text(diffCount > 0 ? '\uf13e' : '\uf023');
-    button.descendants('span.badge').text(diffCount > 0 ? diffCount : '');
+    button.descendants('.fa-icon-badge').text(diffCount > 0 ? diffCount : '');
     var disabled = diffCount === 0;
     button.toggleClass('disabled', disabled);
     uDom('#buttonRevertScope').toggleClass('disabled', disabled);
@@ -1307,7 +1307,7 @@ let recipeManager = (function() {
                 return;
             }
             button.classList.remove('disabled');
-            button.querySelector('span.badge').textContent = recipes.length;
+            button.querySelector('.fa-icon-badge').textContent = recipes.length;
         };
 
         let desHostnames = [];

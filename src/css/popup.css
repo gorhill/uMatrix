@@ -58,16 +58,6 @@ a {
     position: relative;
     text-align: center;
     }
-#gotoDashboard > span:last-of-type {
-    opacity: 0.5;
-    position: absolute;
-    }
-body[dir="ltr"] #gotoDashboard > span:last-of-type {
-    left: 3px;
-    }
-body[dir="rtl"] #gotoDashboard > span:last-of-type {
-    right: 3px;
-    }
 
 .paneHead {
     background-color: white;
@@ -107,6 +97,18 @@ body[dir="rtl"] #gotoDashboard > span:last-of-type {
     padding: 0;
     }
 
+.toolbar .fa-icon {
+    cursor: pointer;
+    font-size: 150%;
+    padding: 0.3em 0.4em;
+    }
+.toolbar .fa-icon.scopeRel {
+    fill: #24c;
+    }
+body[data-scope="*"] .toolbar .fa-icon.scopeRel {
+    fill: #000;
+}
+
 body .toolbar button {
     background-color: white;
     border: 0;
@@ -128,6 +130,7 @@ body .toolbar button.fa {
     }
 #mtxSwitch_matrix-off.switchTrue {
     color: #a00;
+    fill: #a00;
     }
 
 #mtxSwitches > li  {
@@ -274,9 +277,11 @@ button.disabled > span.badge {
     }
 .recipe > div > span {
     color: #888;
+    fill: #888;
     }
 .recipe > div > span:hover {
     color: #000;
+    fill: #000;
     }
 .recipe .expander {
     display: inline-block;
@@ -300,14 +305,12 @@ button.disabled > span.badge {
 .recipe .committer {
     cursor: pointer;
     display: none;
-    font-size: 120%;
-    padding: 0.4em;
+    font-size: 100%;
     text-align: center;
-    width: 1em;
     }
 .recipe.mustImport .importer,
 .recipe.mustCommit:not(.mustImport) .committer {
-    display: inline;
+    display: inline-block;
     }
 .recipe:hover {
     background-color: #eef;
@@ -588,38 +591,31 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
     background-color: transparent;
     }
 #domainOnly {
-    margin: 0;
-    border: 1px solid gray;
-    border-radius: 3px;
-    padding: 0 1px;
-    position: absolute;
-    font-size: 1.1em;
-    left: 20%;
-    bottom: -20%;
-    display: none;
-    color: black;
+    align-items: center;
     background-color: white;
-    opacity: 0.25;
-    z-index: 10000;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    bottom: -20%;
+    color: black;
     cursor: pointer;
+    display: none;
+    fill: black;
+    font-size: 100%;
+    left: 20%;
+    margin: 0;
+    opacity: 0.25;
+    padding: 3px;
+    position: absolute;
+    z-index: 10000;
     }
-.matSection #domainOnly .fa:before {
-    content: '\f106';
+.matSection.collapsed #domainOnly,
+#matHead.collapsed #domainOnly {
+    transform: rotate(0.5turn);
+    transform-origin: center;
     }
-.matSection.collapsed #domainOnly .fa:before {
-    content: '\f107';
-    }
-.matSection.collapsible .matRow.l1 .matCell:nth-of-type(1):hover #domainOnly {
-    display: block;
-    }
-#matHead #domainOnly .fa:before {
-    content: '\f106';
-    }
-#matHead.collapsed #domainOnly .fa:before {
-    content: '\f107';
-    }
+.matSection.collapsible .matRow.l1 .matCell:nth-of-type(1):hover #domainOnly,
 #matHead.collapsible .matRow .matCell:nth-of-type(1):hover #domainOnly {
-    display: block;
+    display: inline-flex;
     }
 #domainOnly:hover {
     opacity: 1;

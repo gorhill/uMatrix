@@ -989,7 +989,7 @@ var ruleEditor = (function() {
                 }
                 let dirty = diffCount !== 0;
                 ruleEditorNode
-                    .querySelector('#matrixPersistButton .badge')
+                    .querySelector('#matrixPersistButton .fa-icon-badge')
                     .textContent = dirty ? diffCount : '';
                 ruleEditorNode
                     .querySelector('#matrixRevertButton')

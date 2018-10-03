@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/common.css" type="text/css">
+<link rel="stylesheet" href="css/fa-icons.css" type="text/css">
 <link rel="stylesheet" href="css/scope-selector.css" type="text/css">
 <link rel="stylesheet" href="css/popup.css" type="text/css">
 <title>uMatrix panel</title>
@@ -13,23 +14,23 @@
 <body>
 
 <div class="paneHead">
-    <a id="gotoDashboard" class="extensionURL" href="#" data-extension-url="dashboard.html" data-i18n-tip="matrixDashboardMenuEntry">uMatrix <span id="version"> </span><span class="fa">&#xf013;</span></a>
+    <a id="gotoDashboard" class="extensionURL" href="#" data-extension-url="dashboard.html" data-i18n-tip="matrixDashboardMenuEntry">uMatrix <span id="version"> </span></a>
     <div id="toolbarContainer">
         <div class="toolbar">
             <span class="scope" id="specificScope"><span>&nbsp;</span></span><!--
          --><span class="scope" id="globalScope" data-scope="*" data-i18n-tip="matrixGlobalScopeTip"><span><span>&#x2217;</span></span></span>
-            <button id="mtxSwitch_matrix-off" type="button" class="fa scopeRel tip-anchor-left" data-i18n-tip="matrixMtxButtonTip">&#xf011;<span class="badge"></span></button>
-            <button id="buttonMtxSwitches" type="button" class="fa scopeRel" tabindex="-1" data-dropdown-menu="dropDownMenuSwitches">&#xf142;<span class="badge"></span></button>
-            <button id="buttonRecipes" type="button" class="fa scopeRel tip-anchor-right" data-dropdown-menu="dropDownMenuRecipes">&#xf12e;<span class="badge"></span></button>
-            <button id="buttonPersist" type="button" class="fa scopeRel tip-anchor-left" data-i18n-tip="matrixPersistButtonTip">&#xf023;<span class="badge"></span></button>
-            <button id="buttonRevertScope" type="button" class="fa scopeRel tip-anchor-left" tabindex="-1" data-i18n-tip="matrixRevertButtonTip">&#xf12d;</button>
+            <span id="mtxSwitch_matrix-off" class="fa-icon fa-icon-badged scopeRel tip-anchor-left" data-i18n-tip="matrixMtxButtonTip">power-off</span>
+            <span id="buttonMtxSwitches" class="fa-icon fa-icon-badged scopeRel" tabindex="-1" data-dropdown-menu="dropDownMenuSwitches">ellipsis-v</span>
+            <span id="buttonRecipes" class="fa-icon fa-icon-badged scopeRel tip-anchor-right" data-dropdown-menu="dropDownMenuRecipes">puzzle-piece</span>
+            <span id="buttonPersist" class="fa-icon fa-icon-badged scopeRel tip-anchor-left" data-i18n-tip="matrixPersistButtonTip">lock</span>
+            <span id="buttonRevertScope" class="fa-icon fa-icon-badged scopeRel tip-anchor-left" data-i18n-tip="matrixRevertButtonTip">reply</span>
             </div>
         <div class="toolbar">
-            <button id="buttonReload" type="button" class="fa tip-anchor-left" data-i18n-tip="matrixReloadButton">&#xf021;</button>
+            <span id="buttonReload" class="fa-icon tip-anchor-left" data-i18n-tip="matrixReloadButton">sync-alt</span>
             </div>
         <div class="toolbar">
-            <button id="buttonRevertAll" class="fa tip-anchor-right" data-i18n-tip="matrixRevertAllEntry">&#xf122;</button>
-            <button type="button" class="fa extensionURL tip-anchor-right" data-extension-url="logger-ui.html" data-i18n-tip="matrixLoggerMenuEntry">&#xf022;</button>
+            <span id="buttonRevertAll" class="fa-icon tip-anchor-right" data-i18n-tip="matrixRevertAllEntry">reply-all</span>
+            <span class="fa-icon extensionURL tip-anchor-right" data-extension-url="logger-ui.html"  data-i18n-tip="matrixLoggerMenuEntry">list-alt</span>
             </div>
     </div>
     <div id="matHead" class="matrix collapsible">
@@ -95,7 +96,7 @@
     <div class="groupSeparator"></div>
     <div class="domainSeparator"></div>
     <div class="matRow"><div class="matCell"><b> </b> </div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div><div class="matCell">&nbsp;</div></div>
-    <div id="cellHotspots"><div id="whitelist"></div><div id="blacklist"></div><div id="domainOnly"><span class="fa"></span></div></div>
+    <div id="cellHotspots"><div id="whitelist"></div><div id="blacklist"></div><div id="domainOnly" class="fa-icon">angle-up</div></div>
     <!-- Use once min supported browser version allows for use of CSS variables
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <symbol id="toggleButton" viewBox="0 0 152 96">
@@ -112,9 +113,10 @@
         </symbol>
     </svg>
     -->
-    <li class="recipe"><div><span class="expander"></span><span class="name"></span><span class="fa importer" title="matrixRecipeImportTip">&#xf019;</span><span class="fa committer" title="matrixRecipeSaveTip">&#xf13e;</span></div><div class="ruleset"></div></li>
+    <li class="recipe"><div><span class="expander"></span><span class="name"></span><span class="fa-icon committer" title="matrixRecipeSaveTip">lock</span><span class="fa-icon importer" title="matrixRecipeImportTip">download</span></div><div class="ruleset"></div></li>
 </div>
 
+<script src="js/fa-icons.js"></script>
 <script src="lib/punycode.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
