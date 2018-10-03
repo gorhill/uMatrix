@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — Loggare",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Resurser",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Välj ett lokalt omfång för att se\/skapa regler för det specifika omfånget",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Välj ett globalt omfång för att se\/skapa som gäller överallt",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -124,7 +124,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
-        "message": "Forbid web workers",
+        "message": "Förbjud bakgrundsscript",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Spoof <code><noscript><\/code> tags",
+        "message": "Förvanska <code><noscript><\/code>-taggar",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -304,7 +304,7 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "Normal omfångsnivå:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
@@ -324,11 +324,11 @@
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "Dölj platshållare för svartlistade element",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "Förvaska <code><noscript><\/code>-taggar när skript från första part är blockerade",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -452,7 +452,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Hosts-filer",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -476,7 +476,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Auto-update assets",
+        "message": "Automatisk uppdatering av resurser",
         "description": ""
     },
     "hostsFilesUpdateNow": {
@@ -508,11 +508,11 @@
         "description": ""
     },
     "assetsRecipesSection": {
-        "message": "Ruleset recipes",
+        "message": "Regelrecept",
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "Regelrecept har importerats från popuppanelen <em>på begäran<\/em>, dvs. <b>endast<\/b> genom användarinteraktion.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -528,7 +528,7 @@
         "description": ""
     },
     "rawSettingsWarning": {
-        "message": "Warning! Change these raw configuration settings at your own risk.",
+        "message": "Varning! Du ändrar dessa råa konfigurationsinställningar på egen risk.",
         "description": ""
     },
     "aboutChangelog": {
