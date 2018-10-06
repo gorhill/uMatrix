@@ -1,0 +1,116 @@
+/*******************************************************************************
+
+    uMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2018-present Raymond Hill
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see {http://www.gnu.org/licenses/}.
+
+    Home: https://github.com/gorhill/uMatrix
+*/
+
+body {
+    font-family: sans-serif;
+    font-size: large;
+    text-align: center;
+    }
+body > div {
+    margin: 1.5em 0;
+    }
+body > div > p {
+    margin: 4px 0;
+    }
+body > div > p:first-child {
+    margin: 1.5em 0 0 0;
+    }
+.code {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-family: monospace;
+    font-size: large;
+    line-height: 1.2;
+    padding: 2px 4px;
+    word-break: break-all;
+    }
+button {
+    cursor: pointer;
+    margin: 0 1em 0.25em 1em;
+    padding: 0.25em 0.5em;
+    font-size: inherit;
+    }
+#theURL {
+    margin: 0.25em 0;
+    padding: 0;
+    }
+#theURL > * {
+    margin: 0;
+    }
+#theURL > p {
+    position: relative;
+    z-index: 10;
+    }
+#parsed {
+    background-color: #f8f8f8;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: none;
+    color: gray;
+    font-size: small;
+    overflow-x: hidden;
+    padding: 4px;
+    text-align: initial;
+    text-overflow: ellipsis; 
+    }
+#theURL.collapsed > #parsed {
+    display: none;
+    }
+#theURL .fa-icon {
+    bottom: -0.5em;
+    cursor: pointer;
+    display: none;
+    opacity: 0.25;
+    position: absolute;
+    right: 0;
+    }
+#theURL .fa-icon:hover {
+    opacity: 1;
+    }
+#theURL.hasParams.collapsed .fa-icon.expand {
+    display: inline-flex;
+    }
+#theURL.hasParams:not(.collapsed) .fa-icon.collapse {
+    display: inline-flex;
+    }
+
+#parsed ul, #parsed li {
+    list-style-type: none;
+    }
+#parsed li {
+    white-space: nowrap;
+    }
+#parsed span {
+    display: inline-block;
+    }
+#parsed span:first-of-type {
+    font-weight: bold;
+    }
+#warningSign {
+    margin: 1e, 0;
+    opacity: 1;
+    pointer-events: none;
+    width: 100%;
+    }
+#warningSign > span {
+    color: #f2a500;
+    fill: #f2a500;
+    font-size: 10em;
+    }
