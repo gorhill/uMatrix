@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -453,8 +453,8 @@ uDom('#buttonUpdate').on('click', buttonUpdateHandler);
 uDom('#buttonPurgeAll').on('click', buttonPurgeAllHandler);
 uDom('.assets').on('change', '.listEntry > input', onHostsFilesSettingsChanged);
 uDom('.assets').on('input', '.listEntry > textarea', onHostsFilesSettingsChanged);
-uDom('.assets').on('click', '.listEntry > a.remove', onRemoveExternalAsset);
-uDom('.assets').on('click', 'span.cache', onPurgeClicked);
+uDom('.assets').on('click', '.listEntry > .remove', onRemoveExternalAsset);
+uDom('.assets').on('click', '.status.cache', onPurgeClicked);
 
 renderHostsFiles();
 

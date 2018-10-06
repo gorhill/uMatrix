@@ -23,8 +23,8 @@
 
 /******************************************************************************/
 
-(function() {
-    let icons = document.querySelectorAll('.fa-icon');
+let faIconsInit = function(root) {
+    let icons = (root || document).querySelectorAll('.fa-icon');
     for ( let icon of icons ) {
         if ( icon.childElementCount !== 0 ) { continue; }
         let name = icon.textContent;
@@ -43,4 +43,6 @@
             icon.appendChild(badge);
         }
     }
-})();
+};
+
+faIconsInit();

@@ -8,15 +8,15 @@
     padding: 0.1em;
     position: relative;
     }
-.fa-icon:hover {
-    background-color: #eee;
-    }
 .fa-icon > * {
     pointer-events: none;
     }
-.fa-icon.disabled {
-    color: #888;
-    fill: #888;
+.fa-icon.disabled,
+.disabled > .fa-icon,
+.fa-icon[disabled],
+[disabled] > .fa-icon {
+    color: #000;
+    fill: #000;
     opacity: 0.25;
     stroke: #888;
     pointer-events: none;
@@ -41,32 +41,50 @@
 
 .fa-icon > svg {
     height: 1em;
+    width: 1em;
     }
-.fa-icon_puzzle-piece,
-.fa-icon_reply-all {
+.fa-icon > .fa-icon_cloud-download-alt,
+.fa-icon > .fa-icon_cloud-upload-alt {
+    width: calc(1em * 640 / 512);
+    }
+.fa-icon > .fa-icon_exclamation-triangle,
+.fa-icon > .fa-icon_home,
+.fa-icon > .fa-icon_puzzle-piece,
+.fa-icon > .fa-icon_reply-all {
     width: calc(1em * 576 / 512);
     }
-.fa-icon_download,
-.fa-icon_eraser,
-.fa-icon_filter,
-.fa-icon_list-alt,
-.fa-icon_power-off,
-.fa-icon_reply,
-.fa-icon_sync-alt,
-.fa-icon_th,
-.fa-icon_th-list {
+.fa-icon > .fa-icon_clock,
+.fa-icon > .fa-icon_cog,
+.fa-icon > .fa-icon_download,
+.fa-icon > .fa-icon_eraser,
+.fa-icon > .fa-icon_filter,
+.fa-icon > .fa-icon_info-circle,
+.fa-icon > .fa-icon_list-alt,
+.fa-icon > .fa-icon_power-off,
+.fa-icon > .fa-icon_question-circle,
+.fa-icon > .fa-icon_reply,
+.fa-icon > .fa-icon_spinner,
+.fa-icon > .fa-icon_sync-alt,
+.fa-icon > .fa-icon_th,
+.fa-icon > .fa-icon_th-list,
+.fa-icon > .fa-icon_unlink {
     width: calc(1em * 512 / 512);
     }
-.fa-icon_lock {
+.fa-icon > .fa-icon_arrow-left,
+.fa-icon > .fa-icon_arrow-right,
+.fa-icon > .fa-icon_lock,
+.fa-icon > .fa-icon_plus,
+.fa-icon > .fa-icon_unlock,
+.fa-icon > .fa-icon_trash-alt {
     width: calc(1em * 448 / 512);
     }
-.fa-icon_times {
+.fa-icon > .fa-icon_times {
     width: calc(1em * 352 / 512);
     }
-.fa-icon_angle-up,
-.fa-icon_angle-double-up {
+.fa-icon > .fa-icon_angle-up,
+.fa-icon > .fa-icon_angle-double-up {
     width: calc(1em * 320 / 512);
     }
-.fa-icon_ellipsis-v {
+.fa-icon > .fa-icon_ellipsis-v {
     width: calc(1em * 192 / 512);
     }

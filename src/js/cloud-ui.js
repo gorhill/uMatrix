@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uBlock
 */
 
-/* global uDom */
+/* global uDom, faIconsInit */
 
 'use strict';
 
@@ -59,7 +59,7 @@ var onCloudDataReceived = function(entry) {
     uDom.nodeFromId('cloudPull').removeAttribute('disabled');
     uDom.nodeFromId('cloudPullAndMerge').removeAttribute('disabled');
 
-    var timeOptions = {
+    let timeOptions = {
         weekday: 'short',
         year: 'numeric',
         month: 'short',
@@ -70,8 +70,8 @@ var onCloudDataReceived = function(entry) {
         timeZoneName: 'short'
     };
 
-    var time = new Date(entry.tstamp);
-    widget.querySelector('span').textContent =
+    let time = new Date(entry.tstamp);
+    widget.querySelector('[data-i18n="cloudNoData"]').textContent =
         entry.source + '\n' +
         time.toLocaleString('fullwide', timeOptions);
 };
@@ -125,7 +125,7 @@ var pullAndMergeData = function() {
 /******************************************************************************/
 
 var openOptions = function() {
-    var input = uDom.nodeFromId('cloudDeviceName');
+    let input = uDom.nodeFromId('cloudDeviceName');
     input.value = self.cloud.options.deviceName;
     input.setAttribute('placeholder', self.cloud.options.defaultDeviceName);
     uDom.nodeFromId('cloudOptions').classList.add('show');
@@ -134,7 +134,7 @@ var openOptions = function() {
 /******************************************************************************/
 
 var closeOptions = function(ev) {
-    var root = uDom.nodeFromId('cloudOptions');
+    let root = uDom.nodeFromId('cloudOptions');
     if ( ev.target !== root ) {
         return;
     }
@@ -144,7 +144,7 @@ var closeOptions = function(ev) {
 /******************************************************************************/
 
 var submitOptions = function() {
-    var onOptions = function(options) {
+    let onOptions = function(options) {
         if ( typeof options !== 'object' || options === null ) {
             return;
         }
@@ -163,22 +163,18 @@ var submitOptions = function() {
 /******************************************************************************/
 
 var onInitialize = function(options) {
-    if ( typeof options !== 'object' || options === null ) {
-        return;
-    }
+    if ( typeof options !== 'object' || options === null ) { return; }
 
-    if ( !options.enabled ) {
-        return;
-    }
+    if ( !options.enabled ) { return; }
     self.cloud.options = options;
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('GET', 'cloud-ui.html', true);
     xhr.overrideMimeType('text/html;charset=utf-8');
     xhr.responseType = 'text';
     xhr.onload = function() {
         this.onload = null;
-        var parser = new DOMParser(),
+        let parser = new DOMParser(),
             parsed = parser.parseFromString(this.responseText, 'text/html'),
             fromParent = parsed.body;
         while ( fromParent.firstElementChild !== null ) {
@@ -186,6 +182,8 @@ var onInitialize = function(options) {
                 document.adoptNode(fromParent.firstElementChild)
             );
         }
+
+        faIconsInit(widget);
 
         vAPI.i18n.render(widget);
         widget.classList.remove('hide');

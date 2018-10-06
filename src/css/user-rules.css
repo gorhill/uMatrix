@@ -20,38 +20,33 @@ html {
     vertical-align: top;
     width: 50%;
     }
-#diff .ruleActions h3 {
+#diff .ruleActions > h3 {
     font-weight: normal;
     margin: 0 0 0.5em 0;
     }
-#ruleFilter {
-    direction: ltr;
-    text-align: center;
+#diff .ruleActions > div {
+    display: flex;
+    justify-content: center;
     }
-#ruleFilter .fa {
+#diff .ruleActions > div > button {
+    margin-right: 1em;
+    }
+#ruleFilter {
+    align-items: center;
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+    }
+#ruleFilter .fa-icon {
     color: #888;
+    fill: #888;
     }
 
-#revertButton:after,
-#commitButton:before {
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    vertical-align: baseline;
-    display: inline-block;
-    }
-body[dir="ltr"] #revertButton:after {
-    content: '\2009\f061';
-    }
-body[dir="rtl"] #revertButton:after {
-    content: '\2009\f060';
-    }
-body[dir="ltr"] #commitButton:before {
-    content: '\f060\2009';
-    }
-body[dir="rtl"] #commitButton:before {
-    content: '\f061\2009';
+body[dir="ltr"] #revertButton > span:nth-of-type(3),
+body[dir="rtl"] #revertButton > span:nth-of-type(2),
+body[dir="ltr"] #commitButton > span:nth-of-type(2),
+body[dir="rtl"] #commitButton > span:nth-of-type(1) {
+    display: none;
     }
 #revertButton,
 #commitButton,

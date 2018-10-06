@@ -41,6 +41,10 @@ a {
     text-decoration: none;
     }
 
+.fa-icon:hover {
+    background-color: #eee;
+    }
+
 #version {
     font-size: 10px;
     font-weight: normal;
@@ -123,10 +127,6 @@ body .toolbar button:hover {
     }
 body .toolbar button.disabled {
     color: #ccc;
-    }
-body .toolbar button.fa {
-    font: 1.7em FontAwesome;
-    min-width: 1.4em;
     }
 #mtxSwitch_matrix-off.switchTrue {
     color: #a00;
@@ -306,6 +306,7 @@ button.disabled > span.badge {
     cursor: pointer;
     display: none;
     font-size: 100%;
+    padding-right: 0.5em;
     text-align: center;
     }
 .recipe.mustImport .importer,

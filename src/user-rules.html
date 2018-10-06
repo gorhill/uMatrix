@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>uMatrix — Your rules</title>
-<link rel="stylesheet" type="text/css" href="lib/codemirror/lib/codemirror.css">
-<link rel="stylesheet" type="text/css" href="lib/codemirror/addon/merge/merge.css">
+<link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="lib/codemirror/addon/merge/merge.css">
 
-<link rel="stylesheet" type="text/css" href="css/common.css">
-<link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
-<link rel="stylesheet" type="text/css" href="css/cloud-ui.css">
-<link rel="stylesheet" type="text/css" href="css/user-rules.css">
-<link rel="stylesheet" type="text/css" href="css/codemirror.css">
+<link rel="stylesheet" href="css/fa-icons.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/dashboard-common.css">
+<link rel="stylesheet" href="css/cloud-ui.css">
+<link rel="stylesheet" href="css/user-rules.css">
+<link rel="stylesheet" href="css/codemirror.css">
 </head>
 
 <body>
@@ -26,16 +27,20 @@
     <div class="tools">
         <div class="ruleActions">
             <h3 data-i18n="userRulesPermanentHeader"></h3>
-            <button type="button" id="exportButton" data-i18n="userRulesExport"></button>
-            <button type="button" id="revertButton" data-i18n="userRulesRevert"></button>
+            <div>
+                <button type="button" id="exportButton" data-i18n="userRulesExport"></button>
+                <button type="button" id="revertButton"><span data-i18n="userRulesRevert"></span><span class="fa-icon">arrow-right</span><span class="fa-icon">arrow-left</span></button>
+            </div>
         </div>
         <div class="ruleActions">
             <h3 data-i18n="userRulesTemporaryHeader"></h3>
-            <button type="button" id="commitButton" data-i18n="userRulesCommit"></button>
-            <button type="button" id="importButton" data-i18n="userRulesImport"></button>
-            <button type="button" id="editSaveButton" data-i18n="userRulesEditSave"></button>
+            <div>
+                <button type="button" id="commitButton"><span class="fa-icon">arrow-left</span><span class="fa-icon">arrow-right</span><span data-i18n="userRulesCommit"></span></button>
+                <button type="button" id="importButton" data-i18n="userRulesImport"></button>
+                <button type="button" id="editSaveButton" data-i18n="userRulesEditSave"></button>
+            </div>
         </div>
-        <div id="ruleFilter"><span class="fa">&#xf0b0;</span>&ensp;<input type="text" size="32"></div>
+        <div id="ruleFilter"><span class="fa-icon">filter</span>&ensp;<input type="text" size="32"></div>
     </div>
     <div class="codeMirrorContainer codeMirrorMergeContainer vfill-available"></div>
 </div>
@@ -50,6 +55,7 @@
 <script src="lib/codemirror/addon/merge/merge.js"></script>
 <script src="lib/codemirror/addon/selection/active-line.js"></script>
 
+<script src="js/fa-icons.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>

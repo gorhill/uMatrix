@@ -3,9 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>uMatrix — Hosts files</title>
-<link rel="stylesheet" type="text/css" href="css/common.css">
-<link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
-<link rel="stylesheet" type="text/css" href="css/hosts-files.css">
+<link rel="stylesheet" href="css/fa-icons.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/dashboard-common.css">
+<link rel="stylesheet" href="css/hosts-files.css">
 </head>
 
 <body>
@@ -22,7 +23,7 @@
 <div class="assets">
     <div data-i18n="assetsHostsSection"></div>
     <div>
-        <p><span data-i18n="hostsFilesPrompt"></span>&nbsp;<a class="fa info" href="https://github.com/gorhill/uMatrix/wiki/Preset-whitelisted-and-blacklisted-domains#preset-blacklist-rules" target="_blank">&#xf05a;</a></p>
+        <p><span data-i18n="hostsFilesPrompt"></span>&nbsp;<a class="fa-icon info" href="https://github.com/gorhill/uMatrix/wiki/Preset-whitelisted-and-blacklisted-domains#preset-blacklist-rules" target="_blank">info-circle</a></p>
         <p id="listsOfBlockedHostsPrompt"></p>
         <ul id="hosts">
             <li class="listEntry notAnAsset toImport"><input type="checkbox" id="importHosts"><label for="importHosts" data-i18n="assetsImportLabel"></label><!--
@@ -34,7 +35,7 @@
 <div class="assets">
     <div data-i18n="assetsRecipesSection"></div>
     <div>
-        <p><span data-i18n="assetsRecipesSummary"></span>&nbsp;<a class="fa info" href="https://github.com/gorhill/uMatrix/wiki/Ruleset-recipes" target="_blank">&#xf05a;</a></p>
+        <p><span data-i18n="assetsRecipesSummary"></span>&nbsp;<a class="fa-icon info" href="https://github.com/gorhill/uMatrix/wiki/Ruleset-recipes" target="_blank">info-circle</a></p>
         <ul id="recipes">
             <li class="listEntry notAnAsset toImport"><input type="checkbox" id="importRecipes"><label for="importRecipes" data-i18n="assetsImportLabel"></label><!--
                 --><textarea dir="ltr" spellcheck="false" placeholder="hostsFilesExternalListsHint"></textarea>
@@ -49,21 +50,22 @@
         <li class="listEntry">
             <input type="checkbox"><!--
          --><a class="content" type="text/plain" target="_blank" href=""></a>&#8203;<!--
-         --><a class="fa support" href="" target="_blank">&#xf015;</a>&#8203;<!--
-         --><a class="fa remove" href="">&#xf014;</a>&#8203;<!--
-         --><a class="fa mustread" href="" target="_blank">&#xf05a;</a>&#8203;<!--
-         --><span class="fa status unsecure" title="http">&#xf13e;</span>&#8203;<!--
-         --><span class="counts dim"></span>&#8203;<!--
-         --><span class="fa status obsolete" title="hostsFilesExternalListObsolete">&#xf071;</span>&#8203;<!--
-         --><span class="fa status cache">&#xf017;</span>&#8203;<!--
-         --><span class="fa status updating">&#xf110;</span>&#8203;<!--
-         --><span class="fa status failed">&#xf06a;</span>
+         --><a class="fa-icon support" href="" target="_blank">home</a>&#8203;<!--
+         --><span class="fa-icon remove" href="">trash-alt</span>&#8203;<!--
+         --><a class="fa-icon mustread" href="" target="_blank">info-circle</a>&#8203;<!--
+         --><span class="fa-icon status unsecure" title="http">unlock</span>&#8203;<!--
+         --><span class="counts dim status"></span>&#8203;<!--
+         --><span class="fa-icon status obsolete" title="hostsFilesExternalListObsolete">exclamation-triangle</span>&#8203;<!--
+         --><span class="fa-icon status cache">clock</span>&#8203;<!--
+         --><span class="fa-icon status updating">spinner</span>&#8203;<!--
+         --><span class="fa-icon status failed">unlink</span>
             </li>
     </ul>
 </div>
 
 </div><!-- end of div.body -->
 
+<script src="js/fa-icons.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>

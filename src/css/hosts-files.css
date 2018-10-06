@@ -1,12 +1,6 @@
 @keyframes spin {
-    0% { transform: rotate(0deg); -webkit-transform: rotate(0deg); }
-    12.5% { transform: rotate(45deg); -webkit-transform: rotate(45deg); }
-    25% { transform: rotate(90deg); -webkit-transform: rotate(90deg); }
-    37.5% { transform: rotate(135deg); -webkit-transform: rotate(135deg); }
-    50% { transform: rotate(180deg); -webkit-transform: rotate(180deg); }
-    67.5% { transform: rotate(225deg); -webkit-transform: rotate(225deg); }
-    75% { transform: rotate(270deg); -webkit-transform: rotate(270deg); }
-    87.5% { transform: rotate(315deg); -webkit-transform: rotate(315deg); }
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
     }
 ul {
     padding: 0;
@@ -36,6 +30,8 @@ ul#lists {
     padding: 0;
     }
 li.listEntry {
+    align-items: baseline;
+    display: flex;
     margin: 0 auto 0 auto;
     padding: 0.2em 0;
     }
@@ -52,92 +48,94 @@ li.listEntry > * {
     text-indent: 0;
     unicode-bidi: embed;
     }
-li.listEntry > a:nth-of-type(2) {
-    opacity: 0.5;
+li.listEntry .content {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
     }
 li.listEntry.toRemove > input[type="checkbox"] {
     visibility: hidden;
     }
-li.listEntry.toRemove > a.content {
+li.listEntry.toRemove .content {
     text-decoration: line-through;
     }
-li.listEntry > .fa {
-    color: inherit;
+li.listEntry > .fa-icon {
+    align-self: flex-end;
+    color: #444;
     display: none;
-    font-size: 110%;
+    fill: #444;
     opacity: 0.5;
-    vertical-align: baseline;
+    padding: 0.2em;
     }
-li.listEntry > a.fa:hover {
+li.listEntry > .status {
+    display: none;
+    }
+li.listEntry .fa-icon.status {
+    cursor: default;
+}
+li.listEntry > .fa-icon:hover {
     opacity: 1;
     }
-li.listEntry > a.support {
-    display: inline-block;
-    }
-li.listEntry > a.support[href=""] {
-    display: none;
-    }
-li.listEntry > a.remove,
-li.listEntry > a.remove:visited {
+li.listEntry.external .remove {
     color: darkred;
+    fill: darkred;
     }
-li.listEntry.external > a.remove {
-    display: inline-block;
+li.listEntry.external .remove {
+    display: inline-flex;
     }
-li.listEntry.mustread > a.mustread {
-    display: inline-block;
+li.listEntry > a.fa-icon:not([href=""]) {
+    display: inline-flex;
     }
-li.listEntry.mustread > a.mustread:hover {
+li.listEntry > a.mustread:hover {
     color: mediumblue;
+    fill: mediumblue;
     }
 li.listEntry > .counts {
-    display: none;
     font-size: smaller;
 }
 li.listEntry > input[type="checkbox"]:checked ~ .counts {
     display: inline;
-}
-li.listEntry span.status {
-    color: #444;
-    cursor: default;
-    display: none;
-}
-li.listEntry span.status:hover {
-    opacity: 1;
     }
-li.listEntry span.unsecure {
+li.listEntry .unsecure {
     color: darkred;
+    fill: darkred;
     }
-li.listEntry.unsecure > input[type="checkbox"]:checked ~ span.unsecure {
-    display: inline-block;
+li.listEntry.unsecure input[type="checkbox"]:checked ~ .unsecure {
+    display: inline-flex;
     }
-li.listEntry span.failed {
-    color: darkred;
-    }
-li.listEntry.failed span.failed {
-    display: inline-block;
-    }
-li.listEntry span.cache {
+li.listEntry .fa-icon.remove,
+li.listEntry .fa-icon.cache {
     cursor: pointer;
     }
-li.listEntry.cached:not(.obsolete) > input[type="checkbox"]:checked ~ span.cache {
-    display: inline-block;
+li.listEntry.cached:not(.obsolete) input[type="checkbox"]:checked ~ .cache {
+    display: inline-flex;
     }
-li.listEntry span.obsolete {
+li.listEntry .obsolete {
     color: hsl(36, 100%, 40%);
+    fill: hsl(36, 100%, 40%);
     }
-body:not(.updating) li.listEntry.obsolete > input[type="checkbox"]:checked ~ span.obsolete {
-    display: inline-block;
+body:not(.updating) li.listEntry.obsolete input[type="checkbox"]:checked ~ .obsolete {
+    display: inline-flex;
     }
-li.listEntry span.updating {
-    transform-origin: 50% 46%;
+li.listEntry .updating {
+    animation: spin 1s steps(8) infinite;
+    transform-origin: 50%;
     }
-body.updating li.listEntry.obsolete > input[type="checkbox"]:checked ~ span.updating {
-    animation: spin 1s step-start infinite;
-    display: inline-block;
+body.updating li.listEntry.obsolete input[type="checkbox"]:checked ~ .updating {
+    display: inline-flex;
+    }
+li.listEntry .failed {
+    color: darkred;
+    fill: darkred;
+    }
+li.listEntry.failed input[type="checkbox"]:checked ~ .failed {
+    display: inline-flex;
     }
 .dim {
     opacity: 0.5;
+    }
+li.listEntry.notAnAsset {
+    flex-wrap: wrap;
     }
 li.listEntry.notAnAsset > input[type="checkbox"] ~ textarea {
     display: none;

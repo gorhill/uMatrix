@@ -3,8 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>uMatrix — Settings</title>
-<link rel="stylesheet" type="text/css" href="css/common.css">
-<link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
+<link rel="stylesheet" href="css/fa-icons.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/dashboard-common.css">
 <style>
 div > p:first-child {
     margin-top: 0;
@@ -65,12 +66,12 @@ ul > li.separator {
 <ul>
     <li>
         <input id="deleteCookies" type="checkbox" data-setting-bool><label data-i18n="privacyDeleteBlockedCookiesPrompt" for="deleteCookies"></label>
-        <span class="whatisthis"></span>
+        <span class="fa-icon whatisthis">question-circle</span>
         <div class="whatisthis-expandable para" data-i18n="privacyDeleteBlockedCookiesHelp"></div>
     <li>
         <input id="deleteUnusedSessionCookies" type="checkbox" data-setting-bool><label data-i18n="privacyDeleteNonBlockedSessionCookiesPrompt1" for="deleteUnusedSessionCookies"></label>
         <input id="deleteUnusedSessionCookiesAfter" type="text" value="60" size="3"><span data-i18n="privacyDeleteNonBlockedSessionCookiesPrompt2"></span>
-        <span class="whatisthis"></span>
+        <span class="fa-icon whatisthis">question-circle</span>
         <div class="whatisthis-expandable para" data-i18n="privacyDeleteNonBlockedSessionCookiesHelp"></div>
     <!--
         Delete non-blocked session cookies x minutes after the last time they have been used.
@@ -95,24 +96,25 @@ ul > li.separator {
     <li>
         <input id="clearBrowserCache" type="checkbox" data-setting-bool><label data-i18n="privacyClearCachePrompt1" for="clearBrowserCache"></label> 
         <input id="clearBrowserCacheAfter" type="text" value="60" size="3"> <label data-i18n="privacyClearCachePrompt2" for="clearBrowserCacheAfter"></label>
-        <span class="whatisthis"></span>
+        <span class="fa-icon whatisthis">question-circle</span>
         <div class="whatisthis-expandable para" data-i18n="privacyClearCacheHelp"></div>
     <li>
         <input id="processReferer" type="checkbox" data-matrix-switch="referrer-spoof"><label data-i18n="privacyProcessRefererPrompt" for="processReferer"></label>
-        <span class="whatisthis"></span>
+        <span class="fa-icon whatisthis">question-circle</span>
         <div class="whatisthis-expandable para" data-i18n="privacyProcessRefererHelp"></div>
     <li>
         <input id="noMixedContent" type="checkbox" data-matrix-switch="https-strict"><label data-i18n="privacyNoMixedContentPrompt" for="noMixedContent"></label>
-        <span class="whatisthis"></span>
+        <span class="fa-icon whatisthis">question-circle</span>
         <div class="whatisthis-expandable para" data-i18n="privacyNoMixedContentHelp"></div>
     <li>
         <input id="processHyperlinkAuditing" type="checkbox" data-setting-bool><label data-i18n="privacyProcessHyperlinkAuditingPrompt" for="processHyperlinkAuditing"></label>
-        <span class="whatisthis"></span>
+        <span class="fa-icon whatisthis">question-circle</span>
         <div class="whatisthis-expandable para" data-i18n="privacyProcessHyperlinkAuditingHelp"></div>
 </ul>
 
 </div><!-- end of div.body -->
 
+<script src="js/fa-icons.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>

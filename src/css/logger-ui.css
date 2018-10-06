@@ -14,6 +14,9 @@ body {
     font-size: 150%;
     padding: 0.4em 0.6em;
     }
+.fa-icon:hover {
+    background-color: #eee;
+    }
 #toolbar {
     background-color: white;
     border: 0;
@@ -61,22 +64,6 @@ body.popupPanelOn #popupPanelContainer {
 #popupPanelContainer.hide {
     width: 6em !important;
 }
-#popupPanelContainer > div {
-    background: #888;
-    border: 0;
-    display: none;
-    text-align: right;
-    }
-#popupPanelContainer > div > span {
-    color: #ccc;
-    cursor: pointer;
-    display: inline-block;
-    font: 14px FontAwesome;
-    padding: 3px;
-    }
-#popupPanelContainer > div > span:hover {
-    color: white;
-    }
 #popupPanelContainer > iframe {
     border: 0;
     padding: 0;

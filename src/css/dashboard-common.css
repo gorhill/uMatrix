@@ -22,6 +22,8 @@ a {
     text-decoration: none;
     }
 button {
+    align-items: center;
+    display: inline-flex;
     padding: 0.3em 0.5em;
     }
 input[disabled] + label {
@@ -31,16 +33,24 @@ input[disabled] + label {
     width: 40em;
     }
 
-.whatisthis {
-    margin: 0 0 0 8px;
-    border: 0;
-    font-family: FontAwesome;
-    padding: 0 0 4px 0;
-    cursor: pointer;
-    opacity: 0.4;
+.fa-icon.info {
+    opacity: 0.25;
+    vertical-align: middle;
     }
-.whatisthis:before {
-    content: '\f059';
+.fa-icon.info:hover {
+    opacity: 1;
+    }
+.fa-icon.info.important {
+    color: red;
+    fill: red;
+    }
+
+.whatisthis {
+    border: 0;
+    cursor: pointer;
+    margin: 0 0 0 0.2em;
+    opacity: 0.25;
+    vertical-align: middle;
     }
 .whatisthis:hover {
     opacity: 1.0;

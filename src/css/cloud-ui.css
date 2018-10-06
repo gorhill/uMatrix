@@ -9,15 +9,9 @@
     display: none;
     }
 #cloudWidget > button {
-    display: inline-block;
-    font-family: FontAwesome;
-    font-size: 160%;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding: 0.2em 0.25em 0.1em 0.25em;
+    font-size: 180%;
+    padding: 0 0.25em;
     position: relative;
-    vertical-align: baseline;
     }
 #cloudWidget > button[disabled] {
     visibility: hidden;
@@ -25,22 +19,14 @@
 #cloudWidget > button.error {
     color: red;
     }
-#cloudPush:after {
-    content: '\f0ee';
-    }
-#cloudPull:before,
-#cloudPullAndMerge:before {
-    content: '\f0ed';
-}
 #cloudPullAndMerge {
     margin: 0 0.25em;
     }
-#cloudPullAndMerge:after {
-    content: '\f067';
+#cloudPullAndMerge > span:nth-of-type(2) {
     font-size: 50%;
     position: absolute;
     right: 0;
-    top: 10%;
+    top: 0;
     }
 #cloudWidget > span {
     color: gray;
@@ -61,11 +47,10 @@
     }
 #cloudWidget > #cloudCog {
     cursor: pointer;
-    display: inline-block;
     font-size: 110%;
     margin: 0;
     opacity: 0.5;
-    padding: 4px;
+    padding: 0.2em;
     position: absolute;
     top: 0;
     }
