@@ -1,119 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
-<link rel="stylesheet" href="css/common.css" type="text/css">
-<style>
-body {
-    font-family: sans-serif;
-    font-size: large;
-    text-align: center;
-    }
-body > div {
-    margin: 1.5em 0;
-    }
-body > div > p {
-    margin: 4px 0;
-    }
-body > div > p:first-child {
-    margin: 1.5em 0 0 0;
-    }
-.code {
-    background-color: rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    font-family: monospace;
-    font-size: large;
-    line-height: 1.2;
-    padding: 2px 4px;
-    word-break: break-all;
-    }
-button {
-    cursor: pointer;
-    margin: 0 1em 0.25em 1em;
-    padding: 0.25em 0.5em;
-    font-size: inherit;
-    }
-#theURL {
-    margin: 0.25em 0;
-    padding: 0;
-    }
-#theURL > * {
-    margin: 0;
-    }
-#theURL > p {
-    position: relative;
-    z-index: 10;
-    }
-#theURL > p > span {
-    background-color: transparent;
-    top: 100%;
-    box-sizing: border-box;
-    cursor: pointer;
-    opacity: 0.5;
-    padding: 0.2em;
-    position: absolute;
-    transform: translate(0, -50%);
-    }
-body[dir="ltr"] #theURL > p > span {
-    right: 0;
-    }
-body[dir="rtl"] #theURL > p > span {
-    left: 0;
-    }
-#theURL > p:hover > span {
-    opacity: 1;
-    }
-#theURL > p > span:before {
-    content: '\f010';
-    }
-#theURL.collapsed > p > span:before {
-    content: '\f00e';
-    }
-#parsed {
-    background-color: #f8f8f8;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-top: none;
-    color: gray;
-    font-size: small;
-    overflow-x: hidden;
-    padding: 4px;
-    text-align: initial;
-    text-overflow: ellipsis; 
-    }
-#theURL.collapsed > #parsed {
-    display: none;
-    }
-#parsed ul, #parsed li {
-    list-style-type: none;
-    }
-#parsed li {
-    white-space: nowrap;
-    }
-#parsed span {
-    display: inline-block;
-    }
-#parsed span:first-of-type {
-    font-weight: bold;
-    }
-#warningSign {
-    margin: 1e, 0;
-    opacity: 1;
-    pointer-events: none;
-    width: 100%;
-    }
-#warningSign > span {
-    color: #f2a500;
-    font-size: 180px;
-    }
-</style>
+<link rel="stylesheet" href="css/fa-icons.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/main-blocked.css">
 </head>
 <body>
-<div id="warningSign"><span class="fa">&#xf071;</span></div>
+<div id="warningSign"><span class="fa-icon">exclamation-triangle</span></div>
 <div>
     <p data-i18n="mainBlockedPrompt1"></p>
     <div id="theURL" class="collapsed">
-        <p class="what code"></p>
+        <p>
+            <span class="what code"></span>
+            <span class="fa-icon expand">search-plus</span>
+            <span class="fa-icon collapse">search-minus</span>
+        </p>
         <ul id="parsed"></ul>
         </div>
     </div>
@@ -129,6 +33,7 @@ body[dir="rtl"] #theURL > p > span {
     <button id="bye" data-i18n="mainBlockedClose" type="button"></button></p>
     </div>
 
+<script src="js/fa-icons.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>

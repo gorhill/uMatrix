@@ -35,6 +35,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     let µm = µMatrix;
     let desURL = details.url;
     let desHn = µm.URI.hostnameFromURI(desURL);
+    let type = requestTypeNormalizer[details.type] || 'other';
     let tabId = details.tabId;
 
     µm.tabContextManager.push(tabId, desURL);
@@ -43,13 +44,13 @@ var onBeforeRootFrameRequestHandler = function(details) {
     let srcHn = tabContext.rootHostname;
 
     // Disallow request as per matrix?
-    let blocked = µm.mustBlock(srcHn, desHn, 'doc');
+    let blocked = µm.mustBlock(srcHn, desHn, type);
 
     let pageStore = µm.pageStoreFromTabId(tabId);
-    pageStore.recordRequest('doc', desURL, blocked);
+    pageStore.recordRequest(type, desURL, blocked);
     pageStore.perLoadAllowedRequestCount = 0;
     pageStore.perLoadBlockedRequestCount = 0;
-    µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type: 'doc', blocked });
+    µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type, blocked });
 
     // Not blocked
     if ( !blocked ) {
@@ -62,7 +63,7 @@ var onBeforeRootFrameRequestHandler = function(details) {
     }
 
     // Blocked
-    let query = btoa(JSON.stringify({ url: desURL, hn: desHn, why: '?' }));
+    let query = btoa(JSON.stringify({ url: desURL, hn: desHn, type, why: '?' }));
 
     vAPI.tabs.replace(tabId, vAPI.getURL('main-blocked.html?details=') + query);
 
@@ -343,12 +344,18 @@ var onHeadersReceived = function(details) {
     let µm = µMatrix,
         tabId = details.tabId,
         requestURL = details.url,
-        requestType = requestTypeNormalizer[details.type] || 'other';
+        requestType = requestTypeNormalizer[details.type] || 'other',
+        headers = details.responseHeaders;
 
     // https://github.com/gorhill/uMatrix/issues/145
     // Check if the main_frame is a download
     if ( requestType === 'doc' ) {
         µm.tabContextManager.push(tabId, requestURL);
+        let contentType = typeFromHeaders(headers);
+        if ( contentType !== undefined ) {
+            details.type = contentType;
+            return onBeforeRootFrameRequestHandler(details);
+        }
     }
 
     let tabContext = µm.tabContextManager.lookup(tabId);
@@ -382,7 +389,6 @@ var onHeadersReceived = function(details) {
     //   if the current environment does not support merging headers:
     //   Firefox 58/webext and less can't merge CSP headers, so we will merge
     //   them here.
-    var headers = details.responseHeaders;
 
     if ( csp.length !== 0 ) {
         let cspRight = csp.join(', ');
@@ -461,6 +467,20 @@ var headerIndexFromName = function(headerName, headers) {
         }
     }
     return -1;
+};
+
+/******************************************************************************/
+
+// Extract request type from content headers.
+
+let typeFromHeaders = function(headers) {
+    let i = headerIndexFromName('content-type', headers);
+    if ( i === -1 ) { return; }
+    let mime = headers[i].value.toLowerCase();
+    if ( mime.startsWith('image/') ) { return 'image'; }
+    if ( mime.startsWith('video/') || mime.startsWith('audio/') ) {
+        return 'media';
+    }
 };
 
 /******************************************************************************/

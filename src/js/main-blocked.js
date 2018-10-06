@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to block requests.
-    Copyright (C) 2015-2017 Raymond Hill
+    Copyright (C) 2015-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,10 +29,10 @@
 
 /******************************************************************************/
 
-var details = {};
+let details = {};
 
 (function() {
-    var matches = /details=([^&]+)/.exec(window.location.search);
+    let matches = /details=([^&]+)/.exec(window.location.search);
     if ( matches === null ) { return; }
     try {
         details = JSON.parse(atob(matches[1]));
@@ -52,17 +52,15 @@ uDom('.what').text(details.url);
 //   https://github.com/gorhill/uBlock/blob/master/src/js/document-blocked.js
 
 (function() {
-    if ( typeof URL !== 'function' ) { return; }
+    let reURL = /^https?:\/\//;
 
-    var reURL = /^https?:\/\//;
-
-    var liFromParam = function(name, value) {
+    let liFromParam = function(name, value) {
         if ( value === '' ) {
             value = name;
             name = '';
         }
-        var li = document.createElement('li');
-        var span = document.createElement('span');
+        let li = document.createElement('li');
+        let span = document.createElement('span');
         span.textContent = name;
         li.appendChild(span);
         if ( name !== '' && value !== '' ) {
@@ -70,7 +68,7 @@ uDom('.what').text(details.url);
         }
         span = document.createElement('span');
         if ( reURL.test(value) ) {
-            var a = document.createElement('a');
+            let a = document.createElement('a');
             a.href = a.textContent = value;
             span.appendChild(a);
         } else {
@@ -80,7 +78,7 @@ uDom('.what').text(details.url);
         return li;
     };
 
-    var safeDecodeURIComponent = function(s) {
+    let safeDecodeURIComponent = function(s) {
         try {
             s = decodeURIComponent(s);
         } catch (ex) {
@@ -88,31 +86,30 @@ uDom('.what').text(details.url);
         return s;
     };
 
-    var renderParams = function(parentNode, rawURL) {
-        var a = document.createElement('a');
+    let renderParams = function(parentNode, rawURL) {
+        let a = document.createElement('a');
         a.href = rawURL;
         if ( a.search.length === 0 ) { return false; }
 
-        var pos = rawURL.indexOf('?');
-        var li = liFromParam(
-            vAPI.i18n('docblockedNoParamsPrompt'),
+        let pos = rawURL.indexOf('?');
+        let li = liFromParam(
+            vAPI.i18n('mainBlockedNoParamsPrompt'),
             rawURL.slice(0, pos)
         );
         parentNode.appendChild(li);
 
-        var params = a.search.slice(1).split('&');
-        var param, name, value, ul;
+        let params = a.search.slice(1).split('&');
         for ( var i = 0; i < params.length; i++ ) {
-            param = params[i];
-            pos = param.indexOf('=');
+            let param = params[i];
+            let pos = param.indexOf('=');
             if ( pos === -1 ) {
                 pos = param.length;
             }
-            name = safeDecodeURIComponent(param.slice(0, pos));
-            value = safeDecodeURIComponent(param.slice(pos + 1));
+            let name = safeDecodeURIComponent(param.slice(0, pos));
+            let value = safeDecodeURIComponent(param.slice(pos + 1));
             li = liFromParam(name, value);
             if ( reURL.test(value) ) {
-                ul = document.createElement('ul');
+                let ul = document.createElement('ul');
                 renderParams(ul, value);
                 li.appendChild(ul);
             }
@@ -121,25 +118,30 @@ uDom('.what').text(details.url);
         return true;
     };
 
-    if ( renderParams(uDom.nodeFromId('parsed'), details.url) === false ) {
-        return;
-    }
+    let hasParams = renderParams(uDom.nodeFromId('parsed'), details.url);
+    if ( hasParams === false ) { return; }
 
-    var toggler = document.createElement('span');
-    toggler.className = 'fa';
-    uDom('#theURL > p').append(toggler);
-
-    uDom(toggler).on('click', function() {
-        var collapsed = uDom.nodeFromId('theURL').classList.toggle('collapsed');
-        vAPI.localStorage.setItem(
-            'document-blocked-collapse-url',
-            collapsed.toString()
-        );
-    });
-
-    uDom.nodeFromId('theURL').classList.toggle(
+    let theURLNode = document.getElementById('theURL');
+    theURLNode.classList.add('hasParams');
+    theURLNode.classList.toggle(
         'collapsed',
         vAPI.localStorage.getItem('document-blocked-collapse-url') === 'true'
+    );
+
+    let toggleCollapse = function() {
+        vAPI.localStorage.setItem(
+            'document-blocked-collapse-url',
+            theURLNode.classList.toggle('collapsed').toString()
+        );
+    };
+
+    theURLNode.querySelector('.collapse').addEventListener(
+        'click',
+        toggleCollapse
+    );
+    theURLNode.querySelector('.expand').addEventListener(
+        'click',
+        toggleCollapse
     );
 })();
 
@@ -161,8 +163,8 @@ vAPI.messaging.send('main-blocked.js', {
     what: 'mustBlock',
     scope: details.hn,
     hostname: details.hn,
-    type: 'doc'
-}, function(response) {
+    type: details.type
+}, response => {
     if ( response === false ) {
         window.location.replace(details.url);
     }
