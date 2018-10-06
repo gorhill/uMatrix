@@ -687,9 +687,10 @@ var popupPanel = (function() {
             popupObserver.disconnect();
         }
         popup.setAttribute('src', 'popup.html?tabId=' + tabId);
-        if ( popup.parentNode === null ) {
-            container.appendChild(popup);
-        }
+        if ( popup.parentNode !== null ) { return; }
+        let rect = document.getElementById('toolbar').getBoundingClientRect();
+        container.style.top = rect.height + 'px';
+        container.appendChild(popup);
     };
 
     let stop = function() {

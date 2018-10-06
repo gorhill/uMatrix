@@ -44,12 +44,14 @@ body[dir="rtl"] {
     color: black;
     content: attr(data-tip);
     font: 12px sans-serif;
+    left: -10vw;
     line-height: 140%;
     min-width: 25vw;
     opacity: 1;
     padding: 4px 6px;
     pointer-events: none;
     position: absolute;
+    right: 10vw;
     text-align: start;
     top: 110%;
     -webkit-transition: opacity 0.15s 0.5s;
@@ -59,11 +61,13 @@ body[dir="rtl"] {
     }
 body[dir="ltr"] .tip-anchor-left[data-i18n-tip]:hover::after,
 body[dir="rtl"] .tip-anchor-right[data-i18n-tip]:hover::after {
-    left: -3vw;
+    left: 0;
+    right: unset;
     }
 body[dir="ltr"] .tip-anchor-right[data-i18n-tip]:hover::after,
 body[dir="rtl"] .tip-anchor-left[data-i18n-tip]:hover::after {
-    right: -3vw;
+    left: unset;
+    right: 0;
     }
 body.noTooltips *[data-i18n-tip]::after {
     display: none;

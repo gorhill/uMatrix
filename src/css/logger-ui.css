@@ -53,7 +53,6 @@ body {
     overflow: hidden;
     position: fixed;
     right: 0;
-    /*top: 0;*/
     z-index: 2000;
     }
 body.popupPanelOn #popupPanelContainer {
@@ -68,6 +67,7 @@ body.popupPanelOn #popupPanelContainer {
     border: 0;
     padding: 0;
     margin: 0;
+    overflow: hidden;
     width: 100%;
     }
 #popupPanelContainer.hide > iframe {
