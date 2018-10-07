@@ -182,6 +182,14 @@ body.compactView #content tr:not(.vExpanded) td {
     direction: rtl;
     text-align: right;
     }
+#content table tr[data-tabid="-1"] td:nth-of-type(2):not([colspan]) {
+    position: relative;
+    }
+#content table tr[data-tabid="-1"] td:nth-of-type(2):not([colspan])::after {
+    content: '\2B1A';
+    position: absolute;
+    left: 0.2em;
+}
 #content table tr.tab:not(.canMtx) {
     opacity: 0.3;
     }
