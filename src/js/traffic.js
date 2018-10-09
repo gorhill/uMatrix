@@ -122,25 +122,30 @@ var onBeforeRequestHandler = function(details) {
     let tabContext = µm.tabContextManager.mustLookup(details.tabId),
         tabId = tabContext.tabId,
         srcHn = tabContext.rootHostname,
+        desHn = µmuri.hostnameFromURI(desURL),
+        docURL = details.documentUrl,
         specificity = 0;
 
-    // https://github.com/gorhill/uMatrix/issues/995
-    //   For now we will not reclassify behind-the-scene contexts which are not
-    //   network-based URIs. Once the logger is able to provide context
-    //   information, the reclassification will be allowed.
-    if (
-        tabId < 0 &&
-        details.documentUrl !== undefined &&
-        µmuri.isNetworkURI(details.documentUrl)
-    ) {
-        tabId = µm.tabContextManager.tabIdFromURL(details.documentUrl);
-        srcHn = µmuri.hostnameFromURI(
-            µm.normalizePageURL(0, details.documentUrl)
-        );
+    if ( docURL !== undefined ) {
+        // https://github.com/gorhill/uMatrix/issues/995
+        //   For now we will not reclassify behind-the-scene contexts which
+        //   are not network-based URIs. Once the logger is able to provide
+        //   context information, the reclassification will be allowed.
+        if ( tabId < 0 ) {
+            srcHn = µmuri.hostnameFromURI(µm.normalizePageURL(0, docURL));
+        }
+        // https://github.com/uBlockOrigin/uMatrix-issues/issues/72
+        //   Workaround of weird Firefox behavior: when a service worker exists
+        //   for a site, the `doc` requests when loading a page from that site
+        //   are not being made: this potentially prevents uMatrix to properly
+        //   keep track of the context in which requests are made.
+        else if (
+            details.parentFrameId === -1 &&
+            docURL !== tabContext.rawURL
+        ) {
+            srcHn = µmuri.hostnameFromURI(µm.normalizePageURL(0, docURL));
+        }
     }
-
-    // Filter through matrix
-    let desHn = µmuri.hostnameFromURI(desURL);
 
     let blocked = µm.tMatrix.mustBlock(srcHn, desHn, type);
     if ( blocked ) {
@@ -196,6 +201,8 @@ var onBeforeSendHeadersHandler = function(details) {
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
     let tabId = details.tabId,
         pageStore = µm.mustPageStoreFromTabId(tabId),
+        srcHn = pageStore.pageHostname,
+        desHn = µmuri.hostnameFromURI(desURL),
         requestType = requestTypeNormalizer[details.type] || 'other',
         requestHeaders = details.requestHeaders;
 
@@ -226,7 +233,7 @@ var onBeforeSendHeadersHandler = function(details) {
         if ( headerValue !== '' ) {
             let blocked = µm.userSettings.processHyperlinkAuditing;
             pageStore.recordRequest('other', desURL + '{Ping-To:' + headerValue + '}', blocked);
-            µm.logger.writeOne({ tabId, desURL, type: 'ping', blocked });
+            µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type: 'ping', blocked });
             if ( blocked ) {
                 µm.hyperlinkAuditingFoiledCounter += 1;
                 return { 'cancel': true };
@@ -237,9 +244,7 @@ var onBeforeSendHeadersHandler = function(details) {
     // If we reach this point, request is not blocked, so what is left to do
     // is to sanitize headers.
 
-    let srcHn = pageStore.pageHostname,
-        desHn = µmuri.hostnameFromURI(desURL),
-        modified = false;
+    let modified = false;
         
     // Process `Cookie` header.
 
