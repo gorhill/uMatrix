@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — ログ表示",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -140,7 +140,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixLoggerMenuEntry": {
-        "message": "Logger を開く",
+        "message": "ログを表示",
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry": {
@@ -260,7 +260,7 @@
         "description": ""
     },
     "statsPageDetailed": {
-        "message": "Logger",
+        "message": "ログ表示",
         "description": ""
     },
     "statsPageLogSizePrompt1": {
@@ -640,7 +640,7 @@
         "description": "English: Because of the following rule"
     },
     "mainBlockedNoParamsPrompt": {
-        "message": "without parameters",
+        "message": "パラメータを除いたURL",
         "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
@@ -696,7 +696,7 @@
         "description": "Appears in Firefox's add-on preferences"
     },
     "showLoggerButton": {
-        "message": "Logger",
+        "message": "ログ表示",
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
