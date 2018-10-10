@@ -127,10 +127,7 @@ var onBeforeRequestHandler = function(details) {
         specificity = 0;
 
     if ( docURL !== undefined ) {
-        // https://github.com/gorhill/uMatrix/issues/995
-        //   For now we will not reclassify behind-the-scene contexts which
-        //   are not network-based URIs. Once the logger is able to provide
-        //   context information, the reclassification will be allowed.
+        // Extract context from initiator for behind-the-scene requests.
         if ( tabId < 0 ) {
             srcHn = µmuri.hostnameFromURI(µm.normalizePageURL(0, docURL));
         }
