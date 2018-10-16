@@ -369,12 +369,7 @@ var matrixSnapshotFromTabId = function(details, callback) {
             callback('ENOTFOUND');
             return;
         }
-
-        // Allow examination of behind-the-scene requests
-        var tabId = tab.url.lastIndexOf(vAPI.getURL('dashboard.html'), 0) !== 0 ?
-            tab.id :
-            vAPI.noTabId;
-        matrixSnapshotIf(tabId, details);
+        matrixSnapshotIf(tab.id, details);
     };
 
     vAPI.tabs.get(null, onTabReady);

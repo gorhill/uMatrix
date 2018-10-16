@@ -556,7 +556,7 @@ var pageSelectorChanged = function() {
         );
     }
     document.getElementById('reloadTab').classList.toggle('disabled', tabId <= 0);
-    document.getElementById('popupPanelButton').classList.toggle('disabled', tabId === 0);
+    document.getElementById('popupPanelButton').classList.toggle('disabled', tabId <= 0);
     popupPanel.update();
 };
 
@@ -672,7 +672,7 @@ var popupPanel = (function() {
 
     let start = function() {
         let newTabId = tabIdFromPageSelector();
-        if ( newTabId === 0 ) {
+        if ( newTabId <= 0 ) {
             return stop();
         }
         if ( newTabId === tabId ) { return; }

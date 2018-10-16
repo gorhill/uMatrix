@@ -208,6 +208,8 @@ PageStore.prototype = {
     },
 
     recordRequest: function(type, url, block) {
+        if ( this.tabId <= 0 ) { return; }
+
         if ( block ) {
             this.perLoadBlockedRequestCount++;
         } else {
