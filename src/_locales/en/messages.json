@@ -327,11 +327,11 @@
         "description": "Scope will be full hostname of site"
     },
     "settingsCollapseBlocked" : {
-        "message": "Collapse placeholder of blocked elements",
-        "description": "English: Collapse placeholder of blocked elements"
+        "message": "Hide placeholder of blocked elements",
+        "description": "A setting in the dashboard's Settings pane"
     },
     "settingsCollapseBlacklisted" : {
-        "message": "Collapse placeholder of blacklisted elements",
+        "message": "Hide placeholder of blacklisted elements",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed" : {
