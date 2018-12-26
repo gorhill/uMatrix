@@ -44,7 +44,7 @@
         "description": "a tab in dashboard"
     },
     "allPrettyName": {
-        "message": "все",
+        "message": "all",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "cookiePrettyName": {
@@ -84,7 +84,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "matrixNoNetTrafficPrompt": {
-        "message": "Нет сетевой активности на этой вкладке.",
+        "message": "Сетевой трафик для этой вкладки пока не замечен.",
         "description": ""
     },
     "matrixLocalScopeTip": {
@@ -108,7 +108,7 @@
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Перезагрузить страницу.\nУдерживайте Shift, чтобы проигнорировать кэш.",
+        "message": "Перезагрузить страницу. \nУдерживайте Shift, чтобы проигнорировать кэш браузера.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -116,11 +116,11 @@
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
-        "message": "запрещённые сайты: {{count}}",
+        "message": "{{count}} хостов запрещено",
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Только HTTPS",
+        "message": "Запретить смешанное содержимое",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
@@ -128,7 +128,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Подмена referrer",
+        "message": "Подмена заголовка <code>Referer<\/code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
@@ -212,7 +212,7 @@
         "description": "header for the stat type column"
     },
     "statsPageAllowed": {
-        "message": "Принято",
+        "message": "Разрешено",
         "description": "header for the allowed requests column"
     },
     "statsPageBlocked": {
@@ -228,7 +228,7 @@
         "description": ""
     },
     "statsPageCookies": {
-        "message": "Файлы cookie",
+        "message": "Cookies",
         "description": ""
     },
     "statsPageCSS": {
@@ -248,7 +248,7 @@
         "description": ""
     },
     "statsPageXHRs": {
-        "message": "XHR",
+        "message": "XHRs",
         "description": ""
     },
     "statsPageFrames": {
@@ -320,11 +320,11 @@
         "description": "Scope will be full hostname of site"
     },
     "settingsCollapseBlocked": {
-        "message": "Скрывать оставшееся от заблокированных элементов место",
+        "message": "Скрывать заполнитель заблокированных элементов",
         "description": "English: Collapse placeholder of blocked elements"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Скрывать оставшееся место от элементов из черного списка",
+        "message": "Скрывать заполнитель элементов из чёрного списка",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
@@ -488,7 +488,7 @@
         "description": ""
     },
     "hostsFilesExternalListsHint": {
-        "message": "Вставьте ссылки на сторонние списки правил:\nОдна ссылка на строку. Некорректные ссылки будут пропущены.",
+        "message": "Вставьте ссылки на сторонние списки правил: \nОдна ссылка на строку; неправильные ссылки будут пропущены.",
         "description": ""
     },
     "hostsFilesExternalListsParse": {
@@ -616,7 +616,7 @@
         "description": "Appears as a tooltip when hovering the input field"
     },
     "loggerEntryCookieDeleted": {
-        "message": "куки удален: {{value}}",
+        "message": "cookie удалено: {{value}}",
         "description": "An entry for when a cookie is deleted"
     },
     "loggerEntryDeleteCookieError": {
@@ -656,11 +656,11 @@
         "description": ""
     },
     "commandWhitelistPageDomain": {
-        "message": "Временно разрешить загрузку страницы",
+        "message": "Временно разрешить домен страницы",
         "description": ""
     },
     "commandWhitelistAll": {
-        "message": "Временно добавить все в белый список",
+        "message": "Временно разрешить всё",
         "description": ""
     },
     "commandOpenDashboard": {

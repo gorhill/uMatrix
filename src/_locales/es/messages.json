@@ -88,7 +88,7 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Seleccione un ámbito local para ver\/crear reglas que se aplican sólo en ese ámbito",
+        "message": "Seleccione un ámbito local para ver\/crear reglas que se aplican solo en ese ámbito",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
@@ -112,7 +112,7 @@
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
-        "message": "dominio actual",
+        "message": "peticiones del dominio",
         "description": "1st-party"
     },
     "matrixBlacklistedHostnames": {
@@ -144,7 +144,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry": {
-        "message": "Ir al Panel de control",
+        "message": "Ir al panel de control",
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
@@ -264,7 +264,7 @@
         "description": ""
     },
     "statsPageLogSizePrompt1": {
-        "message": "Recordar última(s)",
+        "message": "Recordar últimas",
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Falsificar etiquetas <code><noscript><\/code> cuando se bloquean scripts del dominio actual",
+        "message": "Falsificar etiquetas <code><noscript><\/code> cuando se bloquean scripts del dominio",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -664,7 +664,7 @@
         "description": ""
     },
     "commandOpenDashboard": {
-        "message": "Abrir Panel de control",
+        "message": "Abrir panel de control",
         "description": ""
     },
     "elapsedOneMinuteAgo": {
@@ -696,7 +696,7 @@
         "description": "Appears in Firefox's add-on preferences"
     },
     "showLoggerButton": {
-        "message": "Registro",
+        "message": "Registro de peticiones",
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
