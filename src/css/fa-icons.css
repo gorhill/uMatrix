@@ -3,10 +3,12 @@
     background-color: transparent;
     border: 0;
     display: inline-flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 0;
     padding: 0.1em;
     position: relative;
+    user-select: none;
+    -webkit-user-select: none;
     }
 .fa-icon > * {
     pointer-events: none;
@@ -44,49 +46,61 @@
     width: 1em;
     }
 .fa-icon > .fa-icon_cloud-download-alt,
-.fa-icon > .fa-icon_cloud-upload-alt {
-    width: calc(1em * 640 / 512);
+.fa-icon > .fa-icon_cloud-upload-alt,
+.fa-icon > .fa-icon_eraser {
+    width: calc(1em * 1920 / 1792);
     }
-.fa-icon > .fa-icon_exclamation-triangle,
-.fa-icon > .fa-icon_home,
+.fa-icon > .fa-icon_exclamation-triangle {
+    width: calc(1em * 1794 / 1792);
+    }
+.fa-icon > .fa-icon_list-alt,
+.fa-icon > .fa-icon_reply,
+.fa-icon > .fa-icon_reply-all,
+.fa-icon > .fa-icon_th {
+    width: calc(1em * 1792 / 1792);
+    }
+.fa-icon > .fa-icon_spinner {
+    width: calc(1em * 1728 / 1792);
+    }
+.fa-icon > .fa-icon_download,
 .fa-icon > .fa-icon_puzzle-piece,
-.fa-icon > .fa-icon_reply-all {
-    width: calc(1em * 576 / 512);
+.fa-icon > .fa-icon_search-minus,
+.fa-icon > .fa-icon_search-plus,
+.fa-icon > .fa-icon_unlink {
+    width: calc(1em * 1664 / 1792);
+    }
+.fa-icon > .fa-icon_home {
+    width: calc(1em * 1612 / 1792);
     }
 .fa-icon > .fa-icon_clock,
 .fa-icon > .fa-icon_cog,
-.fa-icon > .fa-icon_download,
-.fa-icon > .fa-icon_eraser,
-.fa-icon > .fa-icon_filter,
 .fa-icon > .fa-icon_info-circle,
-.fa-icon > .fa-icon_list-alt,
 .fa-icon > .fa-icon_power-off,
 .fa-icon > .fa-icon_question-circle,
-.fa-icon > .fa-icon_reply,
-.fa-icon > .fa-icon_search-minus,
-.fa-icon > .fa-icon_search-plus,
-.fa-icon > .fa-icon_spinner,
-.fa-icon > .fa-icon_sync-alt,
-.fa-icon > .fa-icon_th,
-.fa-icon > .fa-icon_th-list,
-.fa-icon > .fa-icon_unlink {
-    width: calc(1em * 512 / 512);
+.fa-icon > .fa-icon_refresh {
+    width: calc(1em * 1536 / 1792);
     }
-.fa-icon > .fa-icon_arrow-left,
-.fa-icon > .fa-icon_arrow-right,
-.fa-icon > .fa-icon_lock,
+.fa-icon > .fa-icon_arrow-left {
+    width: calc(1em * 1472 / 1792);
+    }
+.fa-icon > .fa-icon_filter {
+    width: calc(1em * 1410 / 1792);
+    }
 .fa-icon > .fa-icon_plus,
-.fa-icon > .fa-icon_unlock,
-.fa-icon > .fa-icon_trash-alt {
-    width: calc(1em * 448 / 512);
+.fa-icon > .fa-icon_trash-o {
+    width: calc(1em * 1408 / 1792);
     }
 .fa-icon > .fa-icon_times {
-    width: calc(1em * 352 / 512);
+    width: calc(1em * 1188 / 1792);
+    }
+.fa-icon > .fa-icon_lock,
+.fa-icon > .fa-icon_unlock {
+    width: calc(1em *  1152 / 1792);
     }
 .fa-icon > .fa-icon_angle-up,
-.fa-icon > .fa-icon_angle-double-up {
-    width: calc(1em * 320 / 512);
+.fa-icon > .fa-icon_double-angle-up {
+    width: calc(1em *  998 / 1792);
     }
 .fa-icon > .fa-icon_ellipsis-v {
-    width: calc(1em * 192 / 512);
+    width: calc(1em * 384 / 1792);
     }

@@ -116,7 +116,7 @@ input:focus {
     width: 4.6em;
     }
 #content table > colgroup > col:nth-of-type(2) {
-    width: 30%;
+    width: 25%;
     }
 #content table > colgroup > col:nth-of-type(3) {
     width: 2.2em;
@@ -125,7 +125,7 @@ input:focus {
     width: 5.4em;
     }
 #content table > colgroup > col:nth-of-type(5) {
-    width: calc(100% - 4.6em - 30% - 2.2em - 5.4em - 1.8em);
+    width: calc(100% - 4.6em - 25% - 2.2em - 5.4em - 1.8em);
     }
 #content table > colgroup > col:nth-of-type(6) {
     width: 1.8em;
@@ -185,11 +185,22 @@ body.compactView #content tr:not(.vExpanded) td {
 #content table tr[data-tabid="-1"] td:nth-of-type(2):not([colspan]) {
     position: relative;
     }
-#content table tr[data-tabid="-1"] td:nth-of-type(2):not([colspan])::after {
-    content: '\2B1A';
+#content table tr td:nth-of-type(3) {
+    position: relative;
+    }
+/* visual for tabless network requests */
+#content table tr[data-tabid="-1"] td:nth-of-type(3)::before {
+    border: 5px solid #bbb;
+    border-bottom: 0;
+    border-top: 0;
+    bottom: 0;
+    content: '\00a0';
+    left: 0;
     position: absolute;
-    left: 0.2em;
-}
+    right: 0;
+    top: 0;
+    width: calc(100% - 10px);
+    }
 #content table tr.tab:not(.canMtx) {
     opacity: 0.3;
     }
