@@ -519,10 +519,6 @@ body.powerOff .matRow.rw .matCell {
     opacity: 0.6;
     }
 
-.top {
-    font-weight: bold;
-    }
-
 #cellHotspots {
     margin: 0;
     border: 0;

@@ -1,7 +1,29 @@
 <!--
-Font Awesome Free 5.3.1 by @fontawesome - https://fontawesome.com
-License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+
+    The SVG definitions were imported piecemeal from:
+        https://github.com/FortAwesome/Font-Awesome/releases/tag/v4.7.0
+        
 -->
+
+<!--
+
+Font Awesome v4.7.0 by Dave Gandy
+https://github.com/FortAwesome/Font-Awesome/tree/a8386aae19e200ddb0f6845b5feeee5eb7013687#font-awesome-v470
+
+License - https://github.com/FortAwesome/Font-Awesome/tree/a8386aae19e200ddb0f6845b5feeee5eb7013687#license:
+
+- The Font Awesome font is licensed under the SIL OFL 1.1:
+  - http://scripts.sil.org/OFL
+- Font Awesome CSS, LESS, and Sass files are licensed under the MIT License:
+  - https://opensource.org/licenses/mit-license.html
+- The Font Awesome documentation is licensed under the CC BY 3.0 License:
+  - http://creativecommons.org/licenses/by/3.0/
+- Attribution is no longer required as of Font Awesome 3.0, but much appreciated:
+  - `Font Awesome by Dave Gandy - http://fontawesome.io`
+- Full details: http://fontawesome.io/license/
+
+-->
+
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none;">
     <defs>
     <symbol id="angle-up"             viewBox="0 0  998  582"><path d="m 998,499 q 0,13 -10,23 l -50,50 q -10,10 -23,10 -13,0 -23,-10 L 499,179 106,572 Q 96,582 83,582 70,582 60,572 L 10,522 Q 0,512 0,499 0,486 10,476 L 476,10 q 10,-10 23,-10 13,0 23,10 l 466,466 q 10,10 10,23 z"/></symbol>
@@ -37,8 +59,3 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <symbol id="unlock"               viewBox="0 0 1152 1536"><path d="m 1056,768 q 40,0 68,28 28,28 28,68 l 0,576 q 0,40 -28,68 -28,28 -68,28 l -960,0 Q 56,1536 28,1508 0,1480 0,1440 L 0,864 q 0,-40 28,-68 28,-28 68,-28 l 32,0 0,-320 Q 128,263 259.5,131.5 391,0 576,0 761,0 892.5,131.5 1024,263 1024,448 q 0,26 -19,45 -19,19 -45,19 l -64,0 q -26,0 -45,-19 -19,-19 -19,-45 0,-106 -75,-181 -75,-75 -181,-75 -106,0 -181,75 -75,75 -75,181 l 0,320 736,0 z"/></symbol>
     </defs>
 </svg>
-
-<!--
-    The above definitions were imported piecemeal from:
-        fontawesome-free-5.3.1-web.zip/sprites
--->

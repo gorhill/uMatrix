@@ -45,8 +45,8 @@
     height: 1em;
     width: 1em;
     }
-.fa-icon > .fa-icon_cloud-download-alt,
-.fa-icon > .fa-icon_cloud-upload-alt,
+.fa-icon > .fa-icon_cloud-download,
+.fa-icon > .fa-icon_cloud-upload,
 .fa-icon > .fa-icon_eraser {
     width: calc(1em * 1920 / 1792);
     }

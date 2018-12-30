@@ -39,6 +39,7 @@
         }
         details.popup = this.userSettings.alwaysDetachLogger;
     }
+    details.index = -1;
     details.select = true;
     vAPI.tabs.open(details);
 };
