@@ -12,7 +12,6 @@ mkdir -p $DES
 bash ./tools/make-assets.sh $DES
 
 cp -R ./src/*                               $DES/
-cp    platform/chromium/*.html              $DES/
 cp    platform/chromium/*.js                $DES/js/
 cp -R platform/chromium/img/*               $DES/img/
 cp    LICENSE.txt                           $DES/

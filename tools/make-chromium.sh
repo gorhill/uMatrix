@@ -13,7 +13,6 @@ bash ./tools/make-assets.sh $DES
 
 cp -R ./src/*                           $DES/
 cp -R $DES/_locales/nb                  $DES/_locales/no # Chrome store quirk
-cp    ./platform/chromium/*.html        $DES/
 cp    ./platform/chromium/*.js          $DES/js/
 cp -R ./platform/chromium/img/*         $DES/img/
 cp    ./platform/chromium/manifest.json $DES/
