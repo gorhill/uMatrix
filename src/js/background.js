@@ -32,53 +32,6 @@ var oneMinute = 60 * oneSecond;
 var oneHour = 60 * oneMinute;
 var oneDay = 24 * oneHour;
 
-/******************************************************************************/
-/******************************************************************************/
-
-var _RequestStats = function() {
-    this.reset();
-};
-
-_RequestStats.prototype.reset = function() {
-    this.all = 
-    this.doc =
-    this.frame =
-    this.script =
-    this.css =
-    this.image =
-    this.media =
-    this.xhr =
-    this.other =
-    this.cookie = 0;
-};
-
-/******************************************************************************/
-
-var RequestStats = function() {
-    this.allowed = new _RequestStats();
-    this.blocked = new _RequestStats();
-};
-
-RequestStats.prototype.reset = function() {
-    this.blocked.reset();
-    this.allowed.reset();
-};
-
-RequestStats.prototype.record = function(type, blocked) {
-    // Remember: always test against **false**
-    if ( blocked !== false ) {
-        this.blocked[type] += 1;
-        this.blocked.all += 1;
-    } else {
-        this.allowed[type] += 1;
-        this.allowed.all += 1;
-    }
-};
-
-var requestStatsFactory = function() {
-    return new RequestStats();
-};
-
 /*******************************************************************************
 
     SVG-based icons below were extracted from
@@ -231,8 +184,6 @@ return {
     ubiquitousBlacklist: null,
 
     // various stats
-    requestStatsFactory: requestStatsFactory,
-    requestStats: requestStatsFactory(),
     cookieRemovedCounter: 0,
     localStorageRemovedCounter: 0,
     cookieHeaderFoiledCounter: 0,

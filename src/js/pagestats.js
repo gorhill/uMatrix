@@ -104,8 +104,6 @@ var PageStore = function(tabContext) {
     this.hostnameTypeCells = new Map();
     this.domains = new Set();
     this.blockedCollapsibles = new BlockedCollapsibles();
-    this.requestStats = µm.requestStatsFactory();
-    this.off = false;
     this.init(tabContext);
 };
 
@@ -125,8 +123,6 @@ PageStore.prototype = {
         this.domains.clear();
         this.allHostnamesString = ' ';
         this.blockedCollapsibles.reset();
-        this.requestStats.reset();
-        this.distinctRequestCount = 0;
         this.perLoadAllowedRequestCount = 0;
         this.perLoadBlockedRequestCount = 0;
         this.perLoadBlockedReferrerCount = 0;
@@ -232,15 +228,8 @@ PageStore.prototype = {
         if ( uids.has(uid) ) { return; }
         uids.add(uid);
 
-        // Count blocked/allowed requests
-        this.requestStats.record(type, block);
-
-        // https://github.com/gorhill/httpswitchboard/issues/306
-        // If it is recorded locally, record globally
-        µm.requestStats.record(type, block);
         µm.updateBadgeAsync(this.tabId);
 
-        this.distinctRequestCount++;
         this.mtxCountModifiedTime = Date.now();
 
         if ( this.domains.has(hostname) === false ) {
