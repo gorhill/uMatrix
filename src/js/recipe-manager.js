@@ -29,15 +29,14 @@
     let rawRecipes = [];
     let recipeIdGenerator = 1;
     let recipeBook = new Map();
-    let reValidRecipeFile = /^! uMatrix: Ruleset recipes [0-9.]+\n/;
     let reNoUnicode = /^[\x00-\x7F]$/;
 
-    var authorFromHeader = function(header) {
-        let match = /^! +maintainer: +([^\n]+)/im.exec(header);
+    const authorFromHeader = function(header) {
+        let match = /^! +maintainer: +([^\n\r]+)/im.exec(header);
         return match !== null ? match[1].trim() : '';
     };
 
-    var conditionMatch = function(condition, srcHostname, desHostnames) {
+    const conditionMatch = function(condition, srcHostname, desHostnames) {
         let i = condition.indexOf(' ');
         if ( i === -1 ) { return false; }
         let targetHostname = condition.slice(0, i).trim();
@@ -63,7 +62,7 @@
         return false;
     };
 
-    var toASCII = function(rule) {
+    const toASCII = function(rule) {
         if ( reNoUnicode.test(rule) ) { return rule; }
         let parts = rule.split(/\s+/);
         for ( let i = 0; i < parts.length; i++ ) {
@@ -72,17 +71,17 @@
         return parts.join(' ');
     };
 
-    var compareLength = function(a, b) {
+    const compareLength = function(a, b) {
         return b.length - a.length;
     };
 
-    var getTokens = function(s) {
+    const getTokens = function(s) {
         let tokens = s.match(/[a-z0-9]+/gi);
         if ( tokens === null ) { return []; }
         return tokens;
     };
 
-    var addRecipe = function(recipe) {
+    const addRecipe = function(recipe) {
         let tokens = getTokens(recipe.condition);
         tokens.sort(compareLength);
         let token = tokens[0];
@@ -93,14 +92,15 @@
         recipes.push(recipe);
     };
 
-    var fromString = function(raw) {
+    const fromString = function(raw) {
+        const reValidRecipeFile = /^! uMatrix: Ruleset recipes [0-9.]+[\n\r]+/;
+        const rawHeader = raw.slice(0, 1024);
+        if ( reValidRecipeFile.test(rawHeader) === false ) { return; }
+        const reComment = /^[!#]/;
+        let maintainer = authorFromHeader(rawHeader);
         let recipeName,
             recipeCondition,
             recipeRuleset;
-        let reComment = /^[!#]/;
-        let rawHeader = raw.slice(0, 1024);
-        if ( reValidRecipeFile.test(rawHeader) === false ) { return; }
-        let maintainer = authorFromHeader(rawHeader);
         let lineIter = new µMatrix.LineIterator(raw);
         for (;;) {
             let line = lineIter.next().trim();
@@ -142,7 +142,7 @@
         }
     };
 
-    var fromPendingStrings = function() {
+    const fromPendingStrings = function() {
         if ( rawRecipes.length === 0 ) { return; }
         for ( var raw of rawRecipes ) {
             fromString(raw);
@@ -151,22 +151,22 @@
     };
 
     // true = blocked, false = not blocked
-    var evaluateRuleParts = function(matrix, scope, parts) {
+    const evaluateRuleParts = function(matrix, scope, parts) {
         if ( parts[0].endsWith(':') ) {
             return matrix.evaluateSwitchZ(parts[0].slice(0, -1), scope);
         }
         return matrix.evaluateCellZXY(scope, parts[1], parts[2]) === 1;
     };
 
-    var api = {};
+    const api = {};
 
     api.apply = function(details) {
-        let µm = µMatrix;
-        let tMatrix = µm.tMatrix;
-        let pMatrix = µm.pMatrix;
+        const reComment = /^[!#]/;
+        const µm = µMatrix;
+        const tMatrix = µm.tMatrix;
+        const pMatrix = µm.pMatrix;
         let mustPersist = false;
-        let reComment = /^[!#]/;
-        for ( let rule of details.ruleset.split('\n') ) {
+        for ( const rule of details.ruleset.split('\n') ) {
             if ( reComment.test(rule) ) { continue; }
             let parts = rule.split(/\s+/);
             if ( parts.length < 2 ) { continue; }
