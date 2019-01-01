@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global objectAssign, punycode, publicSuffixList */
+/* global punycode, publicSuffixList */
 
 'use strict';
 
@@ -147,35 +147,43 @@
 
 /******************************************************************************/
 
-µMatrix.loadRawSettings = function() {
-    var µm = this;
+µMatrix.loadRawSettings = function(callback) {
+    if ( typeof callback !== 'function' ) {
+        callback = this.noopFunc;
+    }
 
-    var onLoaded = function(bin) {
-        if ( !bin || bin.rawSettings instanceof Object === false ) { return; }
-        for ( var key of Object.keys(bin.rawSettings) ) {
+    const onLoaded = bin => {
+        if (
+            bin instanceof Object === false ||
+            bin.rawSettings instanceof Object === false
+        ) {
+            return callback();
+        }
+        for ( const key of Object.keys(bin.rawSettings) ) {
             if (
-                µm.rawSettings.hasOwnProperty(key) === false ||
-                typeof bin.rawSettings[key] !== typeof µm.rawSettings[key]
+                this.rawSettings.hasOwnProperty(key) === false ||
+                typeof bin.rawSettings[key] !== typeof this.rawSettings[key]
             ) {
                 continue;
             }
-            µm.rawSettings[key] = bin.rawSettings[key];
+            this.rawSettings[key] = bin.rawSettings[key];
         }
-        µm.rawSettingsWriteTime = Date.now();
+        this.rawSettingsWriteTime = Date.now();
+        callback();
     };
 
     vAPI.storage.get('rawSettings', onLoaded);
 };
 
 µMatrix.saveRawSettings = function(rawSettings, callback) {
-    var keys = Object.keys(rawSettings);
+    const keys = Object.keys(rawSettings);
     if ( keys.length === 0 ) {
         if ( typeof callback === 'function' ) {
             callback();
         }
         return;
     }
-    for ( var key of keys ) {
+    for ( const key of keys ) {
         if (
             this.rawSettingsDefault.hasOwnProperty(key) &&
             typeof rawSettings[key] === typeof this.rawSettingsDefault[key]
@@ -184,6 +192,7 @@
         }
     }
     vAPI.storage.set({ rawSettings: this.rawSettings }, callback);
+    this.saveImmediateHiddenSettings();
     this.rawSettingsWriteTime = Date.now();
 };
 
@@ -232,11 +241,23 @@
 };
 
 µMatrix.stringFromRawSettings = function() {
-    var out = [];
-    for ( var key of Object.keys(this.rawSettings).sort() ) {
+    const out = [];
+    for ( const key of Object.keys(this.rawSettings).sort() ) {
         out.push(key + ' ' + this.rawSettings[key]);
     }
     return out.join('\n');
+};
+
+// These settings must be available immediately on startup, without delay
+// through the vAPI.localStorage. Add/remove settings as needed.
+
+µMatrix.saveImmediateHiddenSettings = function() {
+    vAPI.localStorage.setItem(
+        'immediateRawSettings',
+        JSON.stringify({
+            suspendTabsUntilReady: this.rawSettings.suspendTabsUntilReady,
+        })
+    );
 };
 
 /******************************************************************************/
@@ -249,17 +270,16 @@
     if ( typeof callback !== 'function' ) {
         callback = this.noopFunc;
     }
-    let µm = this;
-    let onLoaded = function(bin) {
+    const onLoaded = bin => {
         if ( bin instanceof Object === false ) {
             return callback();
         }
         if ( typeof bin.userMatrix === 'string' ) {
-            µm.pMatrix.fromString(bin.userMatrix);
+            this.pMatrix.fromString(bin.userMatrix);
         } else if ( Array.isArray(bin.userMatrix) ) {
-            µm.pMatrix.fromArray(bin.userMatrix);
+            this.pMatrix.fromArray(bin.userMatrix);
         }
-        µm.tMatrix.assign(µm.pMatrix);
+        this.tMatrix.assign(this.pMatrix);
         callback();
     };
     vAPI.storage.get('userMatrix', onLoaded);
@@ -413,7 +433,7 @@
                 µm.assets.remove(assetKey);
                 continue;
             }
-            availableHostsFiles.set(assetKey, objectAssign({}, entry));
+            availableHostsFiles.set(assetKey, Object.assign({}, entry));
         }
 
         vAPI.storage.get('liveHostsFiles', onHostsFilesDataReady);
@@ -455,7 +475,7 @@
                 µm.assets.remove(assetKey);
                 continue;
             }
-            availableRecipeFiles.set(assetKey, objectAssign({}, entry));
+            availableRecipeFiles.set(assetKey, Object.assign({}, entry));
         }
 
         for ( let asseyKey of µm.userSettings.selectedRecipeFiles ) {
@@ -474,40 +494,39 @@
 /******************************************************************************/
 
 µMatrix.loadHostsFiles = function(callback) {
-    var µm = µMatrix;
-    var hostsFileLoadCount;
+    let hostsFileLoadCount;
 
     if ( typeof callback !== 'function' ) {
         callback = this.noopFunc;
     }
 
-    var loadHostsFilesEnd = function(fromSelfie) {
+    const loadHostsFilesEnd = fromSelfie => {
         if ( fromSelfie !== true ) {
-            µm.ubiquitousBlacklist.freeze();
-            vAPI.storage.set({ liveHostsFiles: Array.from(µm.liveHostsFiles) });
-            µm.hostsFilesSelfie.create();
+            this.ubiquitousBlacklist.freeze();
+            vAPI.storage.set({ liveHostsFiles: Array.from(this.liveHostsFiles) });
+            this.hostsFilesSelfie.create();
         }
         vAPI.messaging.broadcast({ what: 'loadHostsFilesCompleted' });
-        µm.getBytesInUse();
+        this.getBytesInUse();
         callback();
     };
 
-    var mergeHostsFile = function(details) {
-        µm.mergeHostsFile(details);
+    const mergeHostsFile = details => {
+        this.mergeHostsFile(details);
         hostsFileLoadCount -= 1;
         if ( hostsFileLoadCount === 0 ) {
             loadHostsFilesEnd();
         }
     };
 
-    var loadHostsFilesStart = function(hostsFiles) {
-        µm.liveHostsFiles = hostsFiles;
-        µm.ubiquitousBlacklist.reset();
-        hostsFileLoadCount = µm.userSettings.selectedHostsFiles.length;
+    const loadHostsFilesStart = hostsFiles => {
+        this.liveHostsFiles = hostsFiles;
+        this.ubiquitousBlacklist.reset();
+        hostsFileLoadCount = this.userSettings.selectedHostsFiles.length;
 
         // Load all hosts file which are not disabled.
-        for ( let assetKey of µm.userSettings.selectedHostsFiles ) {
-            µm.assets.get(assetKey, mergeHostsFile);
+        for ( const assetKey of this.userSettings.selectedHostsFiles ) {
+            this.assets.get(assetKey, mergeHostsFile);
         }
 
         // https://github.com/gorhill/uMatrix/issues/2
@@ -517,11 +536,11 @@
         }
     };
 
-    var onSelfieReady = function(status) {
+    const onSelfieReady = status => {
         if ( status === true ) {
             return loadHostsFilesEnd(true);
         }
-        µm.getAvailableHostsFiles(loadHostsFilesStart);
+        this.getAvailableHostsFiles(loadHostsFilesStart);
     };
 
     this.hostsFilesSelfie.load(onSelfieReady);

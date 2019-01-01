@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a browser extension to block requests.
-    Copyright (C) 2014-2018 The uMatrix/uBlock Origin authors
+    uMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2014-present The uMatrix/uBlock Origin authors
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,6 +22,14 @@
 // For background page or non-background pages
 
 'use strict';
+
+/******************************************************************************/
+
+if ( self.browser instanceof Object ) {
+    self.chrome = self.browser;
+} else {
+    self.browser = self.chrome;
+}
 
 /******************************************************************************/
 /******************************************************************************/

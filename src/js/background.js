@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@
 
 /******************************************************************************/
 
-var µMatrix = (function() { // jshint ignore:line
+const µMatrix = (function() { // jshint ignore:line
 
 /******************************************************************************/
 
-var oneSecond = 1000;
-var oneMinute = 60 * oneSecond;
-var oneHour = 60 * oneMinute;
-var oneDay = 24 * oneHour;
+const oneSecond = 1000;
+const oneMinute = 60 * oneSecond;
+const oneHour = 60 * oneMinute;
+const oneDay = 24 * oneHour;
 
 /*******************************************************************************
 
@@ -53,7 +53,7 @@ var oneDay = 24 * oneHour;
 
 */
 
-var rawSettingsDefault = {
+const rawSettingsDefault = {
     contributorMode: false,
     disableCSPReportInjection: false,
     enforceEscapedFragment: true,
@@ -111,6 +111,7 @@ var rawSettingsDefault = {
             '</body></html>'
         ].join(''),
     framePlaceholderBackground: 'default',
+    suspendTabsUntilReady: false
 };
 
 /******************************************************************************/
@@ -154,7 +155,25 @@ return {
     },
 
     rawSettingsDefault: rawSettingsDefault,
-    rawSettings: Object.assign({}, rawSettingsDefault),
+    rawSettings: (function() {
+        let out = Object.assign({}, rawSettingsDefault),
+            json = vAPI.localStorage.getItem('immediateRawSettings');
+        if ( typeof json === 'string' ) {
+            try {
+                let o = JSON.parse(json);
+                if ( o instanceof Object ) {
+                    for ( const k in o ) {
+                        if ( out.hasOwnProperty(k) ) {
+                            out[k] = o[k];
+                        }
+                    }
+                }
+            }
+            catch(ex) {
+            }
+        }
+        return out;
+    })(),
     rawSettingsWriteTime: 0,
 
     clearBrowserCacheCycle: 0,

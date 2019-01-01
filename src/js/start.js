@@ -52,24 +52,6 @@ var processCallbackQueue = function(queue, callback) {
 var onAllDone = function() {
     µm.webRequest.start();
 
-    vAPI.cloud.start([ 'myRulesPane' ]);
-};
-
-/******************************************************************************/
-
-var onTabsReady = function(tabs) {
-    let i = tabs.length;
-    while ( i-- ) {
-        let tab = tabs[i];
-        µm.tabContextManager.push(tab.id, tab.url, 'newURL');
-    }
-    onAllDone();
-};
-
-/******************************************************************************/
-
-var onUserSettingsLoaded = function() {
-    µm.loadHostsFiles();
     µm.loadRecipes();
 
     // https://github.com/uBlockOrigin/uMatrix-issues/issues/63
@@ -77,30 +59,53 @@ var onUserSettingsLoaded = function() {
     //   asset updater.
     µm.assets.addObserver(µm.assetObserver.bind(µm));
     µm.scheduleAssetUpdater(µm.userSettings.autoUpdate ? 7 * 60 * 1000 : 0);
+
+    vAPI.cloud.start([ 'myRulesPane' ]);
 };
 
 /******************************************************************************/
 
 var onPSLReady = function() {
-    µm.loadUserSettings(onUserSettingsLoaded);
-    µm.loadRawSettings();
-    µm.loadMatrix();
+    // TODO: Promisify
+    let count = 4;
+    const countdown = ( ) => {
+        count -= 1;
+        if ( count !== 0 ) { return; }
+        onAllDone();
+    };
 
-    // rhill 2013-11-24: bind behind-the-scene virtual tab/url manually, since the
-    // normal way forbid binding behind the scene tab.
-    // https://github.com/gorhill/httpswitchboard/issues/67
-    let pageStore =
-        µm.pageStoreFactory(µm.tabContextManager.mustLookup(vAPI.noTabId));
-    pageStore.title = vAPI.i18n('statsPageDetailedBehindTheScenePage');
-    µm.pageStores.set(vAPI.noTabId, pageStore);
+    µm.loadRawSettings(countdown);
+    µm.loadMatrix(countdown);
+    µm.loadHostsFiles(countdown);
 
-    vAPI.tabs.getAll(onTabsReady);
+    vAPI.tabs.getAll(tabs => {
+        const pageStore =
+            µm.pageStoreFactory(µm.tabContextManager.mustLookup(vAPI.noTabId));
+        pageStore.title = vAPI.i18n('statsPageDetailedBehindTheScenePage');
+        µm.pageStores.set(vAPI.noTabId, pageStore);
+
+        if ( Array.isArray(tabs) ) {
+            for ( const tab of tabs ) {
+                µm.tabContextManager.push(tab.id, tab.url, 'newURL');
+            }
+        }
+        countdown();
+    });
 };
 
 /******************************************************************************/
 
 processCallbackQueue(µm.onBeforeStartQueue, function() {
-    µm.publicSuffixList.load(onPSLReady);
+    // TODO: Promisify
+    let count = 2;
+    const countdown = ( ) => {
+        count -= 1;
+        if ( count !== 0 ) { return; }
+        onPSLReady();
+    };
+
+    µm.publicSuffixList.load(countdown);
+    µm.loadUserSettings(countdown);
 });
 
 /******************************************************************************/

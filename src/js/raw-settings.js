@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a browser extension to block requests.
-    Copyright (C) 2018 Raymond Hill
+    uMatrix - a browser extension to black/white list requests.
+    Copyright (C) 2018-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

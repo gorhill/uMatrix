@@ -504,90 +504,59 @@ vAPI.messaging.broadcast = function(message) {
 /******************************************************************************/
 /******************************************************************************/
 
-vAPI.net = {};
-
-/******************************************************************************/
-
-vAPI.net.registerListeners = function() {
-    var µm = µMatrix;
-
-    // Normalizing request types
-    // >>>>>>>>
-    var extToTypeMap = new Map([
-        ['eot','font'],['otf','font'],['svg','font'],['ttf','font'],['woff','font'],['woff2','font'],
-        ['mp3','media'],['mp4','media'],['webm','media'],
-        ['gif','image'],['ico','image'],['jpeg','image'],['jpg','image'],['png','image'],['webp','image']
-    ]);
-
-    var normalizeRequestDetails = function(details) {
-        if (
-            details.tabId === -1 &&
-            details.documentUrl === undefined &&
-            details.initiator !== undefined
-        ) {
-            details.documentUrl = details.initiator;
-        }
-
-        // The rest of the function code is to normalize request type
-        if ( details.type !== 'other' ) { return; }
-
-        // Try to map known "extension" part of URL to request type.
-        var path = µm.URI.pathFromURI(details.url),
-            pos = path.indexOf('.', path.length - 6);
-        if ( pos !== -1 ) {
-            var type = extToTypeMap.get(path.slice(pos + 1));
-            if ( type !== undefined ) {
-                details.type = type;
+vAPI.net = {
+    listenerMap: new WeakMap(),
+    // legacy Chromium understands only these network request types.
+    validTypes: (function() {
+        let types = new Set([
+            'main_frame',
+            'sub_frame',
+            'stylesheet',
+            'script',
+            'image',
+            'object',
+            'xmlhttprequest',
+            'other'
+        ]);
+        let wrrt = browser.webRequest.ResourceType;
+        if ( wrrt instanceof Object ) {
+            for ( let typeKey in wrrt ) {
+                if ( wrrt.hasOwnProperty(typeKey) ) {
+                    types.add(wrrt[typeKey]);
+                }
             }
         }
-    };
-    // <<<<<<<<
-    // End of: Normalizing request types
-
-    // Network event handlers
-    // >>>>>>>>
-    var onBeforeRequestClient = this.onBeforeRequest.callback;
-    chrome.webRequest.onBeforeRequest.addListener(
-        function(details) {
-            normalizeRequestDetails(details);
-            return onBeforeRequestClient(details);
-        },
-        {
-            'urls': this.onBeforeRequest.urls || [ '<all_urls>' ],
-            'types': this.onBeforeRequest.types || undefined
-        },
-        this.onBeforeRequest.extra
-    );
-
-    var onBeforeSendHeadersClient = this.onBeforeSendHeaders.callback;
-    var onBeforeSendHeaders = function(details) {
-        normalizeRequestDetails(details);
-        return onBeforeSendHeadersClient(details);
-    };
-    chrome.webRequest.onBeforeSendHeaders.addListener(
-        onBeforeSendHeaders,
-        {
-            'urls': this.onBeforeSendHeaders.urls || [ '<all_urls>' ],
-            'types': this.onBeforeSendHeaders.types || undefined
-        },
-        this.onBeforeSendHeaders.extra
-    );
-
-    var onHeadersReceivedClient = this.onHeadersReceived.callback;
-    var onHeadersReceived = function(details) {
-        normalizeRequestDetails(details);
-        return onHeadersReceivedClient(details);
-    };
-    chrome.webRequest.onHeadersReceived.addListener(
-        onHeadersReceived,
-        {
-            'urls': this.onHeadersReceived.urls || [ '<all_urls>' ],
-            'types': this.onHeadersReceived.types || undefined
-        },
-        this.onHeadersReceived.extra
-    );
-    // <<<<<<<<
-    // End of: Network event handlers
+        return types;
+    })(),
+    denormalizeFilters: null,
+    normalizeDetails: null,
+    addListener: function(which, clientListener, filters, options) {
+        if ( typeof this.denormalizeFilters === 'function' ) {
+            filters = this.denormalizeFilters(filters);
+        }
+        let actualListener;
+        if ( typeof this.normalizeDetails === 'function' ) {
+            actualListener = function(details) {
+                vAPI.net.normalizeDetails(details);
+                return clientListener(details);
+            };
+            this.listenerMap.set(clientListener, actualListener);
+        }
+        browser.webRequest[which].addListener(
+            actualListener || clientListener,
+            filters,
+            options
+        );
+    },
+    removeListener: function(which, clientListener) {
+        let actualListener = this.listenerMap.get(clientListener);
+        if ( actualListener !== undefined ) {
+            this.listenerMap.delete(clientListener);
+        }
+        browser.webRequest[which].removeListener(
+            actualListener || clientListener
+        );
+    },
 };
 
 /******************************************************************************/

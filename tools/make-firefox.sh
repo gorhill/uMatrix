@@ -16,8 +16,7 @@ cp    platform/chromium/*.js                $DES/js/
 cp -R platform/chromium/img/*               $DES/img/
 cp    LICENSE.txt                           $DES/
 
-cp    platform/firefox/polyfill.js          $DES/js/
-cp    platform/firefox/vapi-cachestorage.js $DES/js/
+cp    platform/firefox/*.js                 $DES/js/
 cp    platform/firefox/manifest.json        $DES/
 
 echo "*** uMatrix.firefox: Generating meta..."

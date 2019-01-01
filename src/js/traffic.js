@@ -341,7 +341,7 @@ var onBeforeSendHeadersHandler = function(details) {
 // This fixes:
 // https://github.com/gorhill/httpswitchboard/issues/35
 
-var onHeadersReceived = function(details) {
+var onHeadersReceivedHandler = function(details) {
     // Ignore schemes other than 'http...'
     let µm = µMatrix,
         tabId = details.tabId,
@@ -502,25 +502,6 @@ var requestTypeNormalizer = {
     'xmlhttprequest': 'xhr'
 };
 
-/******************************************************************************/
-
-vAPI.net.onBeforeRequest = {
-    extra: [ 'blocking' ],
-    callback: onBeforeRequestHandler
-};
-
-vAPI.net.onBeforeSendHeaders = {
-    extra: [ 'blocking', 'requestHeaders' ],
-    callback: onBeforeSendHeadersHandler
-};
-
-vAPI.net.onHeadersReceived = {
-    urls: [ 'http://*/*', 'https://*/*' ],
-    types: [ 'main_frame', 'sub_frame' ],
-    extra: [ 'blocking', 'responseHeaders' ],
-    callback: onHeadersReceived
-};
-
 /*******************************************************************************
 
  Use a `http-equiv` `meta` tag to enforce CSP directives for documents
@@ -614,15 +595,58 @@ vAPI.net.onHeadersReceived = {
 
 /******************************************************************************/
 
-var start = function() {
-    vAPI.net.registerListeners();
-};
+const start = (function() {
+    if (
+        vAPI.net.onBeforeReady instanceof Object &&
+        (
+            vAPI.net.onBeforeReady.experimental !== true ||
+            µMatrix.rawSettings.suspendTabsUntilReady
+        )
+    ) {
+        vAPI.net.onBeforeReady.start();
+    }
 
-/******************************************************************************/
+    return function() {
+        vAPI.net.addListener(
+            'onBeforeRequest',
+            onBeforeRequestHandler,
+            { },
+            [ 'blocking' ]
+        );
 
-return {
-    start: start
-};
+        // https://github.com/uBlockOrigin/uMatrix-issues/issues/74#issuecomment-450687707
+        // https://groups.google.com/a/chromium.org/forum/#!topic/chromium-extensions/vYIaeezZwfQ
+        //   Chromium 72+: use `extraHeaders` to keep the ability to access
+        //   the `Cookie`, `Referer` headers.
+        const beforeSendHeadersExtra = [ 'blocking', 'requestHeaders' ];
+        const wrObsho = browser.webRequest.OnBeforeSendHeadersOptions;
+        if (
+            wrObsho instanceof Object &&
+            wrObsho.hasOwnProperty('EXTRA_HEADERS')
+        ) {
+            beforeSendHeadersExtra.push(wrObsho.EXTRA_HEADERS);
+        }
+        vAPI.net.addListener(
+            'onBeforeSendHeaders',
+            onBeforeSendHeadersHandler,
+            { },
+            beforeSendHeadersExtra
+        );
+
+        vAPI.net.addListener(
+            'onHeadersReceived',
+            onHeadersReceivedHandler,
+            { types: [ 'main_frame', 'sub_frame' ] },
+            [ 'blocking', 'responseHeaders' ]
+        );
+
+        if ( vAPI.net.onBeforeReady instanceof Object ) {
+            vAPI.net.onBeforeReady.stop(onBeforeRequestHandler);
+        }
+    };
+})();
+
+return { start };
 
 /******************************************************************************/
 
