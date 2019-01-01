@@ -510,14 +510,14 @@ vAPI.net.onBeforeRequest = {
 };
 
 vAPI.net.onBeforeSendHeaders = {
-    extra: [ 'blocking', 'requestHeaders' ],
+    extra: [ 'blocking', 'requestHeaders', 'extraHeaders' ],
     callback: onBeforeSendHeadersHandler
 };
 
 vAPI.net.onHeadersReceived = {
     urls: [ 'http://*/*', 'https://*/*' ],
     types: [ 'main_frame', 'sub_frame' ],
-    extra: [ 'blocking', 'responseHeaders' ],
+    extra: [ 'blocking', 'responseHeaders', 'extraHeaders' ],
     callback: onHeadersReceived
 };
 
