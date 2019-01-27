@@ -294,31 +294,9 @@ vAPI.tabs.replace = function(tabId, url) {
 
 /******************************************************************************/
 
-vAPI.tabs.remove = function(tabId) {
-    chrome.tabs.remove(tabId, resetLastError);
-};
-
-/******************************************************************************/
-
 vAPI.tabs.reload = function(tabId, bypassCache) {
     if ( typeof tabId !== 'number' || tabId < 0 ) { return; }
     chrome.tabs.reload(tabId, { bypassCache: bypassCache === true });
-};
-
-/******************************************************************************/
-
-vAPI.tabs.injectScript = function(tabId, details, callback) {
-    var onScriptExecuted = function() {
-        resetLastError();
-        if ( typeof callback === 'function' ) {
-            callback();
-        }
-    };
-    if ( tabId ) {
-        chrome.tabs.executeScript(tabId, details, onScriptExecuted);
-    } else {
-        chrome.tabs.executeScript(details, onScriptExecuted);
-    }
 };
 
 /******************************************************************************/
@@ -562,45 +540,8 @@ vAPI.net = {
 /******************************************************************************/
 /******************************************************************************/
 
-vAPI.contextMenu = {
-    create: function(details, callback) {
-        this.menuId = details.id;
-        this.callback = callback;
-        chrome.contextMenus.create(details);
-        chrome.contextMenus.onClicked.addListener(this.callback);
-    },
-    remove: function() {
-        chrome.contextMenus.onClicked.removeListener(this.callback);
-        chrome.contextMenus.remove(this.menuId);
-    }
-};
-
-/******************************************************************************/
-
 vAPI.lastError = function() {
     return chrome.runtime.lastError;
-};
-
-/******************************************************************************/
-/******************************************************************************/
-
-// This is called only once, when everything has been loaded in memory after
-// the extension was launched. It can be used to inject content scripts
-// in already opened web pages, to remove whatever nuisance could make it to
-// the web pages before uBlock was ready.
-
-vAPI.onLoadAllCompleted = function() {
-};
-
-/******************************************************************************/
-/******************************************************************************/
-
-vAPI.punycodeHostname = function(hostname) {
-    return hostname;
-};
-
-vAPI.punycodeURL = function(url) {
-    return url;
 };
 
 /******************************************************************************/
@@ -614,17 +555,6 @@ vAPI.browserData = {};
 
 vAPI.browserData.clearCache = function(callback) {
     chrome.browsingData.removeCache({ since: 0 }, callback);
-};
-
-/******************************************************************************/
-
-// Not supported on Chromium
-
-vAPI.browserData.clearOrigin = function(domain, callback) {
-    // unsupported on Chromium
-    if ( typeof callback === 'function' ) {
-        callback(undefined);
-    }
 };
 
 /******************************************************************************/

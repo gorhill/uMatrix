@@ -23,12 +23,6 @@
 
 /******************************************************************************/
 
-µMatrix.gotoURL = function(details) {
-    vAPI.tabs.open(details);
-};
-
-/******************************************************************************/
-
 µMatrix.gotoExtensionURL = function(details) {
     if ( details.url.startsWith('logger-ui.html') ) {
         if ( details.shiftKey ) {
@@ -81,26 +75,6 @@
     eot: function() {
         return this.offset >= this.textLen;
     }
-};
-
-/******************************************************************************/
-
-µMatrix.setToArray = typeof Array.from === 'function' ?
-    Array.from :
-    function(dict) {
-        var out = [],
-            entries = dict.values(),
-            entry;
-        for (;;) {
-            entry = entries.next();
-            if ( entry.done ) { break; }
-            out.push(entry.value);
-        }
-        return out;
-    };
-
-µMatrix.setFromArray = function(arr) {
-    return new Set(arr);
 };
 
 /******************************************************************************/

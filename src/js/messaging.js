@@ -106,10 +106,6 @@ function onMessage(request, sender, callback) {
         µm.gotoExtensionURL(request);
         break;
 
-    case 'gotoURL':
-        µm.gotoURL(request);
-        break;
-
     case 'graylistMatrixCell':
         µm.tMatrix.graylistCell(
             request.srcHostname,
