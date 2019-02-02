@@ -1426,17 +1426,17 @@ var onMatrixSnapshotReady = function(response) {
 
 /******************************************************************************/
 
-var matrixSnapshotPoller = (function() {
-    var timer = null;
+const matrixSnapshotPoller = (function() {
+    let timer;
 
-    var preprocessMatrixSnapshot = function(snapshot) {
+    const preprocessMatrixSnapshot = function(snapshot) {
         if ( Array.isArray(snapshot.headerIndices) ) {
             snapshot.headerIndices = new Map(snapshot.headerIndices);
         }
         return snapshot;
     };
 
-    var processPollResult = function(response) {
+    const processPollResult = function(response) {
         if ( typeof response !== 'object' ) {
             return;
         }
@@ -1448,8 +1448,9 @@ var matrixSnapshotPoller = (function() {
         ) {
             return;
         }
-        matrixSnapshot = preprocessMatrixSnapshot(response);
-
+        if ( response instanceof Object ) {
+            matrixSnapshot = preprocessMatrixSnapshot(response);
+        }
         if ( response.mtxContentModified ) {
             makeMenu();
             return;
@@ -1468,12 +1469,12 @@ var matrixSnapshotPoller = (function() {
         }
     };
 
-    var onPolled = function(response) {
+    const onPolled = function(response) {
         processPollResult(response);
         pollAsync();
     };
 
-    var pollNow = function() {
+    const pollNow = function() {
         unpollAsync();
         vAPI.messaging.send('popup.js', {
             what: 'matrixSnapshot',
@@ -1487,25 +1488,22 @@ var matrixSnapshotPoller = (function() {
         }, onPolled);
     };
 
-    var poll = function() {
-        timer = null;
-        pollNow();
+    const pollAsync = function() {
+        if ( timer !== undefined ) { return; }
+        if ( document.defaultView === null ) { return; }
+        timer = vAPI.setTimeout(
+            ( ) => {
+                timer = undefined;
+                pollNow();
+            },
+            1414
+        );
     };
 
-    var pollAsync = function() {
-        if ( timer !== null ) {
-            return;
-        }
-        if ( document.defaultView === null ) {
-            return;
-        }
-        timer = vAPI.setTimeout(poll, 1414);
-    };
-
-    var unpollAsync = function() {
-        if ( timer !== null ) {
+    const unpollAsync = function() {
+        if ( timer !== undefined ) {
             clearTimeout(timer);
-            timer = null;
+            timer = undefined;
         }
     };
 
@@ -1514,7 +1512,7 @@ var matrixSnapshotPoller = (function() {
 
         // If no tab id yet, see if there is one specified in our URL
         if ( tabId === undefined ) {
-            var matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
+            const matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
             if ( matches !== null ) {
                 tabId = parseInt(matches[1], 10);
                 // No need for logger button when embedded in logger
@@ -1522,8 +1520,8 @@ var matrixSnapshotPoller = (function() {
             }
         }
 
-        var snapshotFetched = function(response) {
-            if ( typeof response === 'object' ) {
+        const snapshotFetched = function(response) {
+            if ( response instanceof Object ) {
                 matrixSnapshot = preprocessMatrixSnapshot(response);
             }
             onMatrixSnapshotReady(response);
