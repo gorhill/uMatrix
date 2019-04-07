@@ -883,7 +883,7 @@ var restoreUserData = function(userData) {
 
     // If we are going to restore all, might as well wipe out clean local
     // storage
-    µm.XAL.keyvalRemoveAll(onAllRemoved);
+    vAPI.storage.clear(onAllRemoved);
 };
 
 /******************************************************************************/
@@ -892,7 +892,7 @@ var resetUserData = function() {
     var onAllRemoved = function() {
         vAPI.app.restart();
     };
-    µm.XAL.keyvalRemoveAll(onAllRemoved);
+    vAPI.storage.clear(onAllRemoved);
 };
 
 /******************************************************************************/

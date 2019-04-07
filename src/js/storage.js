@@ -41,7 +41,7 @@
 /******************************************************************************/
 
 µMatrix.saveUserSettings = function() {
-    this.XAL.keyvalSetMany(
+    vAPI.storage.set(
         this.userSettings,
         this.getBytesInUse.bind(this)
     );
