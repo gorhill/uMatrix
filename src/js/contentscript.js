@@ -124,6 +124,7 @@ var collapser = (function() {
         reURLPlaceholder = /\{\{url\}\}/g;
     var src1stProps = {
         'embed': 'src',
+        'frame': 'src',
         'iframe': 'src',
         'img': 'src',
         'object': 'data'
@@ -133,6 +134,7 @@ var collapser = (function() {
     };
     var tagToTypeMap = {
         embed: 'media',
+        frame: 'frame',
         iframe: 'frame',
         img: 'image',
         object: 'media'
@@ -187,6 +189,7 @@ var collapser = (function() {
                 continue;
             }
             switch ( tag ) {
+            case 'frame':
             case 'iframe':
                 if ( placeholders.frame !== true ) { break; }
                 let docurl =
@@ -321,11 +324,11 @@ var collapser = (function() {
         while ( i-- ) {
             node = nodeList[i];
             if ( node.nodeType !== 1 ) { continue; }
-            if ( node.localName === 'iframe' ) {
+            if ( node.localName === 'iframe' || node.localName === 'frame' ) {
                 addIFrame(node);
             }
             if ( node.childElementCount !== 0 ) {
-                addIFrames(node.querySelectorAll('iframe'));
+                addIFrames(node.querySelectorAll('iframe, frame'));
             }
         }
     };
@@ -456,7 +459,7 @@ var collapser = (function() {
     }
 
     collapser.addMany(document.querySelectorAll('img'));
-    collapser.addIFrames(document.querySelectorAll('iframe'));
+    collapser.addIFrames(document.querySelectorAll('iframe, frame'));
     collapser.process();
 })();
 
