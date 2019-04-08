@@ -384,7 +384,7 @@
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Falsificar información de <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> en las peticiones a nombres de dominio de terceros",
+        "message": "Falsificar cadenas <a href='https:\/\/es.wikipedia.org\/wiki\/Referer_%28Cabecera_HTTP%29'>HTTP referer<\/a> en las peticiones de terceros",
         "description": ""
     },
     "privacyProcessRefererHelp": {
@@ -404,7 +404,7 @@
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>La auditoría de hipervínculos o enlaces es un mecanismo que permite a alguien, <b>cualquiera<\/b>, ser informado acerca de a que enlace accedió un usuario en una página web particular. Es esencialmente un mecanismo de rastreo: permite a un sitio web, o a un tercero, ser informado sobre cuales enlaces, en cuales páginas, fueron accedidos por el usuario. Su único motivo es rastrear la actividad de navegación del usuario.<\/p>",
+        "message": "<p>La auditoría de hipervínculos o enlaces es un mecanismo que permite a alguien, <b>cualquiera<\/b>, ser informado acerca de a que enlace accedió un usuario en una página web particular. Es esencialmente un mecanismo de rastreo: permite a un sitio web, o cualquier tercero, ser informado sobre cuales enlaces, en cuales páginas, fueron accedidos por el usuario. Su único motivo es rastrear la actividad de navegación del usuario.<\/p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -528,7 +528,7 @@
         "description": ""
     },
     "rawSettingsWarning": {
-        "message": "¡Alerta! Cambie estas configuraciones bajo su propio riesgo.",
+        "message": "¡Atención! Cambie estas configuraciones bajo su propio riesgo.",
         "description": ""
     },
     "aboutChangelog": {

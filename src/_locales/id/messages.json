@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Pilih lingkup lokal untuk melihat\/mambuat aturan yang diterapkan hanya pada lingkup tersebut",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Pilih lingkup global untuk melihat\/membuat aturan yang diterapkan semua situs",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -544,7 +544,7 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Perizinan<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Perizinan<\/a>",
         "description": ""
     },
     "aboutCode": {
@@ -552,7 +552,7 @@
         "description": ""
     },
     "aboutIssues": {
-        "message": "Kutu dan masalah",
+        "message": "Pelacak masalah",
         "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
@@ -640,7 +640,7 @@
         "description": "English: Because of the following rule"
     },
     "mainBlockedNoParamsPrompt": {
-        "message": "without parameters",
+        "message": "tanpa parameter",
         "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {

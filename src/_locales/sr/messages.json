@@ -88,11 +88,11 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Изабери локални опсег да би видео\/створио правила која се примењују само у том опсегу",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Изабери глобални опсег да би видео\/створио правила која се примењују свуда",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
@@ -640,7 +640,7 @@
         "description": "English: Because of the following rule"
     },
     "mainBlockedNoParamsPrompt": {
-        "message": "without parameters",
+        "message": "без параметара",
         "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
