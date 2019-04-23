@@ -181,6 +181,7 @@ body.compactView #content tr:not(.vExpanded) td {
 #content table tr td:nth-of-type(2):not([colspan]) {
     direction: rtl;
     text-align: right;
+    unicode-bidi: plaintext;
     }
 #content table tr[data-tabid="-1"] td:nth-of-type(2):not([colspan]) {
     position: relative;
