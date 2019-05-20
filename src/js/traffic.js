@@ -196,12 +196,16 @@ var onBeforeSendHeadersHandler = function(details) {
     // to scope on unknown scheme? Etc.
     // https://github.com/gorhill/httpswitchboard/issues/191
     // https://github.com/gorhill/httpswitchboard/issues/91#issuecomment-37180275
-    let tabId = details.tabId,
-        pageStore = µm.mustPageStoreFromTabId(tabId),
-        srcHn = pageStore.pageHostname,
-        desHn = µmuri.hostnameFromURI(desURL),
-        requestType = requestTypeNormalizer[details.type] || 'other',
-        requestHeaders = details.requestHeaders;
+    const tabId = details.tabId;
+    const pageStore = µm.mustPageStoreFromTabId(tabId);
+    const desHn = µmuri.hostnameFromURI(desURL);
+    const requestType = requestTypeNormalizer[details.type] || 'other';
+    const requestHeaders = details.requestHeaders;
+
+    // https://github.com/uBlockOrigin/uMatrix-issues/issues/155
+    //   TODO: import all filtering context improvements from uBO.
+    const srcHn = µmuri.hostnameFromURI(details.documentUrl) ||
+                  pageStore.pageHostname;
 
     // https://github.com/gorhill/httpswitchboard/issues/342
     // Is this hyperlink auditing?

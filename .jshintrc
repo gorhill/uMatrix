@@ -10,6 +10,7 @@
 		"vAPI": false,
 		"µMatrix": false
 	},
+	"laxbreak": true,
 	"strict": "global",
 	"undef": true,
 	"unused": true,
