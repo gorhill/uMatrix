@@ -71,16 +71,20 @@
     const parsedURL = new URL('https://www.example.org/');
 
     vAPI.net.normalizeDetails = function(details) {
+        let type = details.type;
+
+        // https://github.com/uBlockOrigin/uMatrix-issues/issues/156#issuecomment-494427094
+        if ( type === 'main_frame' ) {
+            details.documentUrl = details.url;
+        }
         // Chromium 63+ supports the `initiator` property, which contains
         // the URL of the origin from which the network request was made.
-        if (
+        else if (
             typeof details.initiator === 'string' &&
             details.initiator !== 'null'
         ) {
             details.documentUrl = details.initiator;
         }
-
-        let type = details.type;
 
         // https://github.com/gorhill/uBlock/issues/1493
         // Chromium 49+/WebExtensions support a new request type: `ping`,
