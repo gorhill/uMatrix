@@ -205,9 +205,11 @@ var onBeforeSendHeadersHandler = function(details) {
     // https://github.com/uBlockOrigin/uMatrix-issues/issues/155
     // https://github.com/uBlockOrigin/uMatrix-issues/issues/159
     //   TODO: import all filtering context improvements from uBO.
-    const srcHn = tabId >= 0
-        ? pageStore.pageHostname
-        : µmuri.hostnameFromURI(details.documentUrl) || pageStore.pageHostname;
+    const srcHn = tabId < 0 ||
+          details.parentFrameId < 0 ||
+          details.parentFrameId === 0 && details.type === 'sub_frame'
+        ? µmuri.hostnameFromURI(details.documentUrl) || pageStore.pageHostname
+        : pageStore.pageHostname;
 
     // https://github.com/gorhill/httpswitchboard/issues/342
     // Is this hyperlink auditing?
