@@ -12,7 +12,7 @@
         "description": ""
     },
     "loggerPageName": {
-        "message": "uMatrix — Logger",
+        "message": "uMatrix — Журнал",
         "description": "Title for the logger window"
     },
     "settingsPageName": {
@@ -32,7 +32,7 @@
         "description": "a tab in dashboard"
     },
     "ubiquitousRulesPageName": {
-        "message": "Assets",
+        "message": "Ресурси",
         "description": "a tab in dashboard"
     },
     "rawSettingsPageName": {
@@ -100,15 +100,15 @@
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
-        "message": "Запис на всички временни промени в тази област.",
+        "message": "Запазва временните промени в тази област",
         "description": "Tool tip for the persist button"
     },
     "matrixRevertButtonTip": {
-        "message": "Revert temporary changes for this scope.",
+        "message": "Отхвърля временните промени в тази област",
         "description": "Tool tip for the revert local permission button"
     },
     "matrixReloadButton": {
-        "message": "Презареждане на страницата.",
+        "message": "Презарежда страницата.\nС натискане на Shift прескача буфера на четеца.",
         "description": "Tool tip for the reload button"
     },
     "matrix1stPartyLabel": {
@@ -120,7 +120,7 @@
         "description": "Appears in the metadata row of bottom-most group: **mind the limited width**"
     },
     "matrixSwitchNoMixedContent": {
-        "message": "Само HTTPS",
+        "message": "Без смесено съдържание",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
@@ -136,19 +136,19 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
-        "message": "Отмяна на всички временни промени",
+        "message": "Отхвърля всички временни промени",
         "description": "A menu entry in the matrix popup"
     },
     "matrixLoggerMenuEntry": {
-        "message": "Go to logger",
+        "message": "Отваря журнала",
         "description": "A menu entry in the matrix popup"
     },
     "matrixDashboardMenuEntry": {
-        "message": "Към контролното табло",
+        "message": "Към таблото",
         "description": "A menu entry in the matrix popup"
     },
     "matrixNoTabFound": {
-        "message": "Няма намерена уеб страница",
+        "message": "Не е намерена уеб страница",
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
@@ -156,7 +156,7 @@
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
-        "message": "Запис на правилата",
+        "message": "Запазва правилата",
         "description": "Used as a tooltip for the recipe padlock button"
     },
     "statsPageTitle": {
@@ -260,7 +260,7 @@
         "description": ""
     },
     "statsPageDetailed": {
-        "message": "Logger",
+        "message": "Журнал",
         "description": ""
     },
     "statsPageLogSizePrompt1": {
@@ -392,7 +392,7 @@
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
-        "message": "Само HTTPS: забранено е смесено съдържание.",
+        "message": "Само HTTPS: забранено е смесено съдържание",
         "description": ""
     },
     "privacyNoMixedContentHelp": {
@@ -428,7 +428,7 @@
         "description": "Will enable manual-edit mode (textarea)"
     },
     "userRulesEditSave": {
-        "message": "Запис",
+        "message": "Запазване",
         "description": "Will save manually-edited content and exit manual-edit mode"
     },
     "userRulesEditDicard": {
@@ -444,7 +444,7 @@
         "description": ""
     },
     "userRulesFormatHint": {
-        "message": "Правилата за синтаксиса можете да видите на тази страница.",
+        "message": "Синтаксиса на правилата можете да видите на тази страница.",
         "description": ""
     },
     "userRulesDefaultFileName": {
@@ -456,7 +456,7 @@
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
-        "message": "Всички сайтове във файла с хостове са заредени като блокирани на глобално ниво.",
+        "message": "Всички сайтове във файла с хостове са заредени като блокирани в глобалната област.",
         "description": ""
     },
     "hostsFilesStats": {
@@ -480,11 +480,11 @@
         "description": ""
     },
     "hostsFilesUpdateNow": {
-        "message": "Обновяване сега",
+        "message": "Обновяване",
         "description": ""
     },
     "hostsFilesPurgeAll": {
-        "message": "Очистване на всичкия кеш",
+        "message": "Изчистване на буферите",
         "description": ""
     },
     "hostsFilesExternalListsHint": {
@@ -496,11 +496,11 @@
         "description": ""
     },
     "hostsFilesExternalListPurge": {
-        "message": "очистване на кеша",
+        "message": "изчистване на буфери",
         "description": ""
     },
     "hostsFilesExternalListNew": {
-        "message": "налична е нова версия",
+        "message": "налично е ново издание",
         "description": ""
     },
     "hostsFilesExternalListObsolete": {
@@ -528,7 +528,7 @@
         "description": ""
     },
     "rawSettingsWarning": {
-        "message": "Внимание! Промяната на тези настройки на конфигурацията е на ваш собствен риск.",
+        "message": "Внимание! Промяната на тези настройки е на ваша отговорност.",
         "description": ""
     },
     "aboutChangelog": {
@@ -544,7 +544,7 @@
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Позволения<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Права<\/a>",
         "description": ""
     },
     "aboutCode": {
@@ -552,7 +552,7 @@
         "description": ""
     },
     "aboutIssues": {
-        "message": "Бъгове и проблеми",
+        "message": "Система за дефекти",
         "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
@@ -564,7 +564,7 @@
         "description": ""
     },
     "aboutIssueContributors": {
-        "message": "Проблеми:",
+        "message": "Дефекти:",
         "description": ""
     },
     "aboutTranslationContributors": {
@@ -576,7 +576,7 @@
         "description": ""
     },
     "aboutBackupButton": {
-        "message": "Правене на резервно копие...",
+        "message": "Резервно копие във файл…",
         "description": ""
     },
     "aboutBackupFilename": {
@@ -584,7 +584,7 @@
         "description": "default filename to use"
     },
     "aboutRestoreButton": {
-        "message": "Възстановяване от файл...",
+        "message": "Възстановяване от файл…",
         "description": ""
     },
     "aboutRestoreConfirm": {
@@ -592,11 +592,11 @@
         "description": "Message asking user to confirm restore"
     },
     "aboutRestoreError": {
-        "message": "Данните не могат да се прочетат или имат грешки",
+        "message": "Данните не могат да бъдат разчетени или са недействителни",
         "description": ""
     },
     "aboutOr": {
-        "message": "... или ...",
+        "message": "… или …",
         "description": "English: ... or ..."
     },
     "aboutResetButton": {
@@ -604,7 +604,7 @@
         "description": "English: Reset to default settings"
     },
     "aboutResetConfirm": {
-        "message": "Внимание! Това ще премахне всичките ви ръчни настройки. Наистина ли искате да продължите?",
+        "message": "Внимание! Така ще бъдат заличени всички ръчни настройки. Наистина ли искате да продължите?",
         "description": "Message asking user to confirm reset"
     },
     "loggerFilterInputPlaceholder": {
@@ -616,11 +616,11 @@
         "description": "Appears as a tooltip when hovering the input field"
     },
     "loggerEntryCookieDeleted": {
-        "message": "бисквитката е изтрита: {{value}}",
+        "message": "изтрити бисквитки: {{value}}",
         "description": "An entry for when a cookie is deleted"
     },
     "loggerEntryDeleteCookieError": {
-        "message": "пропадна изтриването на бисквитката: {{value}}",
+        "message": "грешка при изтриване на бисквитки: {{value}}",
         "description": "An entry for when the browser cache is cleared"
     },
     "loggerEntryBrowserCacheCleared": {
@@ -632,7 +632,7 @@
         "description": "An entry for when an asset was updated"
     },
     "mainBlockedPrompt1": {
-        "message": "uMatrix попречи зареждането на следната страница:",
+        "message": "uMatrix попречи на зареждането на следната страница:",
         "description": "English: uMatrix has prevented the following page from loading:"
     },
     "mainBlockedPrompt2": {
@@ -644,7 +644,7 @@
         "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
-        "message": "Обратно",
+        "message": "Назад",
         "description": "English: Go back"
     },
     "mainBlockedClose": {
@@ -664,7 +664,7 @@
         "description": ""
     },
     "commandOpenDashboard": {
-        "message": "Отваряне на контролното табло",
+        "message": "Отваряне на таблото",
         "description": ""
     },
     "elapsedOneMinuteAgo": {
@@ -688,15 +688,15 @@
         "description": "English: a day ago"
     },
     "elapsedManyDaysAgo": {
-        "message": "преди {{value}} дни",
+        "message": "преди {{value}} дена",
         "description": "English: {{value}} days ago"
     },
     "showDashboardButton": {
-        "message": "Контролно табло",
+        "message": "Табло",
         "description": "Appears in Firefox's add-on preferences"
     },
     "showLoggerButton": {
-        "message": "Logger",
+        "message": "Журнал",
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
@@ -712,7 +712,7 @@
         "description": ""
     },
     "cloudDeviceNamePrompt": {
-        "message": "Името на това устройство:",
+        "message": "Името на устройството:",
         "description": "used as a prompt for the user to provide a custom device name"
     },
     "genericSubmit": {

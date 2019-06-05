@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Journal des changements (en Anglais)<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Journal des changements<\/a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,19 +540,19 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation (en Anglais)<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentation<\/a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Permissions (en Anglais)<\/a>",
+        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Permissions<\/a>",
         "description": ""
     },
     "aboutCode": {
-        "message": "Code Source (Licence GPLv3, en Anglais)",
+        "message": "Code Source (Licence GPLv3)",
         "description": ""
     },
     "aboutIssues": {
-        "message": "Suivi des problèmes (en Anglais)",
+        "message": "Suivi des problèmes",
         "description": "Text for a link to official issue tracker"
     },
     "aboutContributors": {
