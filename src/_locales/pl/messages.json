@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "Kliknij by za\/odblokować jakikolwiek połączenia wykonywane przez przeglądarkę. Blokuj skrypty, ramki, reklamy, fecebooka itp.",
+        "message": "Kliknij by za/odblokować jakikolwiek połączenia wykonywane przez przeglądarkę. Blokuj skrypty, ramki, reklamy, fecebooka itp.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Wybierz kontekst lokalny, by widzieć\/tworzyć reguły które działają tylko na tej stronie",
+        "message": "Wybierz kontekst lokalny, by widzieć/tworzyć reguły które działają tylko na tej stronie",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Wybierz kontekst globalny, by widzieć\/tworzyć reguły które działają wszędzie",
+        "message": "Wybierz kontekst globalny, by widzieć/tworzyć reguły które działają wszędzie",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Wyłącz\/włącz filtrowanie matrycowe dla tego kontekstu.",
+        "message": "Wyłącz/włącz filtrowanie matrycowe dla tego kontekstu.",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -128,11 +128,11 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Podrabianie nagłówka <code>referer<\/code>",
+        "message": "Podrabianie nagłówka <code>referer</code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Podrabianie tagów <code><noscript><\/code>",
+        "message": "Podrabianie tagów <code><noscript></code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "Powstrzymane nagłówki <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_cookie'>ciasteczek<\/a>: {{count}}",
+        "message": "Powstrzymane nagłówki <a href='https://pl.wikipedia.org/wiki/HTTP_cookie'>ciasteczek</a>: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "Powstrzymane nagłówki <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a>: {{count}}",
+        "message": "Powstrzymane nagłówki <a href='https://pl.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a>: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "Powstrzymane próby <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>: {{count}}",
+        "message": "Powstrzymane próby <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>audytowania linków [ang.]</a>: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "Opróżnione <a href='http:\/\/diveintohtml5.info\/storage.html'>magazyny lokalne<\/a>: {{count}}",
+        "message": "Opróżnione <a href='http://diveintohtml5.info/storage.html'>magazyny lokalne</a>: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "żądań HTTP <b>na stronę<\/b>.",
+        "message": "żądań HTTP <b>na stronę</b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>Możesz kontrolować szczegóły ostatnich żądań HTTP, które zostały wykonane przez daną stronę (zobacz niżej).<\/p><p>Jest to przydatne dla zaawansowanych użytkowników, którzy chcieliby zobaczyć co dokładnie jest pobierane. Jednakże rejestrowanie żądań HTTP wymaga pamięci RAM, więc jeśli nie zależy Ci na tej technicznej informacji, pamięć jest po prostu marnowana.<\/p><p>Stąd to pole, które pozwoli Ci dostosować ilość ostatnich żądań HTTP które zostaną zarejestrowane.<\/p><p>Wpisz &ldquo;<code>0<\/code>&rdquo;, aby wyłączyć szczegółowe rejestrowanie (dzięki temu zmniejszysz użycie pamięci RAM przez <i>uMatrix<\/i>).<\/p>",
+        "message": "<p>Możesz kontrolować szczegóły ostatnich żądań HTTP, które zostały wykonane przez daną stronę (zobacz niżej).</p><p>Jest to przydatne dla zaawansowanych użytkowników, którzy chcieliby zobaczyć co dokładnie jest pobierane. Jednakże rejestrowanie żądań HTTP wymaga pamięci RAM, więc jeśli nie zależy Ci na tej technicznej informacji, pamięć jest po prostu marnowana.</p><p>Stąd to pole, które pozwoli Ci dostosować ilość ostatnich żądań HTTP które zostaną zarejestrowane.</p><p>Wpisz &ldquo;<code>0</code>&rdquo;, aby wyłączyć szczegółowe rejestrowanie (dzięki temu zmniejszysz użycie pamięci RAM przez <i>uMatrix</i>).</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Podrabiaj tagi <code><noscript><\/code> gdy skrypty z aktualnej domeny są zablokowane",
+        "message": "Podrabiaj tagi <code><noscript></code> gdy skrypty z aktualnej domeny są zablokowane",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p><i>uMatrix<\/i>nie zapobiega dostawaniu się ciasteczek z czarnej listy do twojej przeglądarki. Jednakże zapobiega opuszczaniu jej przez nie, co ostatecznie się liczy. Nieblokowanie ciasteczek zanim dotrą do twojej przeglądarki, daje możliwość poinformowania cię gdy strona próbuje używać ciastek, a nawet pozwala przejrzeć ich zawartość gdy tego chcesz.<\/p><p>Kiedy te czarnolistowane ciasteczka zostaną sklasyfikowane przez <i>uMatrix<\/i>, mogą, jeśli sobie tego życzysz, zostać usunięte z przeglądarki.<\/p><p><b>Ważna informacja:<\/b> Rozszerzenia mogą wykonywać żądania sieciowe podczas ich normalnej pracy. Te żądania mogą spowodować zapisanie ciasteczek w przeglądarce. Jeśli nazwa hosta z której pochodzi ciasteczko nie jest na białej liście, ciasteczko zostanie usunięte z przeglądarki przez <i>uMatrix<\/i> jeśli ta opcja jest zaznaczona. Upewnij się, że nazwy hostów z którymi komunikuje się rozszerzenie są na białej liście.<\/p>",
+        "message": "<p><i>uMatrix</i>nie zapobiega dostawaniu się ciasteczek z czarnej listy do twojej przeglądarki. Jednakże zapobiega opuszczaniu jej przez nie, co ostatecznie się liczy. Nieblokowanie ciasteczek zanim dotrą do twojej przeglądarki, daje możliwość poinformowania cię gdy strona próbuje używać ciastek, a nawet pozwala przejrzeć ich zawartość gdy tego chcesz.</p><p>Kiedy te czarnolistowane ciasteczka zostaną sklasyfikowane przez <i>uMatrix</i>, mogą, jeśli sobie tego życzysz, zostać usunięte z przeglądarki.</p><p><b>Ważna informacja:</b> Rozszerzenia mogą wykonywać żądania sieciowe podczas ich normalnej pracy. Te żądania mogą spowodować zapisanie ciasteczek w przeglądarce. Jeśli nazwa hosta z której pochodzi ciasteczko nie jest na białej liście, ciasteczko zostanie usunięte z przeglądarki przez <i>uMatrix</i> jeśli ta opcja jest zaznaczona. Upewnij się, że nazwy hostów z którymi komunikuje się rozszerzenie są na białej liście.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C [ang.]<\/a>: &ldquo;Ciasteczko sesyjne ... jest usuwane kiedy kończysz sesję przeglądarki. Ciasteczko sesyjne przechowywane jest w pamięci tymczasowej i nie jest zachowywane po zamknięciu przeglądarki.&rdquo;<\/p><p>Poza tym, że <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>nie zawsze to  działa<\/a> w niektórych przeglądarkach. Również, dla niektórych użytkowników, zamknięcie przeglądarki by usunąć ciasteczka może nie być wystarczająco szybkie.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C [ang.]</a>: &ldquo;Ciasteczko sesyjne ... jest usuwane kiedy kończysz sesję przeglądarki. Ciasteczko sesyjne przechowywane jest w pamięci tymczasowej i nie jest zachowywane po zamknięciu przeglądarki.&rdquo;</p><p>Poza tym, że <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>nie zawsze to  działa</a> w niektórych przeglądarkach. Również, dla niektórych użytkowników, zamknięcie przeglądarki by usunąć ciasteczka może nie być wystarczająco szybkie.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Usuwaj zawartość <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>local storage<\/a> ustawioną przez zablokowane hosty",
+        "message": "Usuwaj zawartość <a href='https://en.wikipedia.org/wiki/Web_storage'>local storage</a> ustawioną przez zablokowane hosty",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Niektóre witryny internetowe są tak zdecydowane by cię śledzić, że używają niezbyt ładnych trików aby obejść jakiekolwiek zabezpieczenia zastosujesz, by nie być śledzonym.<\/p><p>Kilka z tych trików<sup>[1, 2]<\/sup> opiera się na wykorzystaniu <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>pamięci podręcznej przeglądarki [ang.]<\/a>, której zawartość jest często dostępna bardzo długo, ponieważ użytkownicy rzadko ją usuwają.<\/p><p>Wady regularnego czyszczenia pamięci podręcznej są niewielkie (prawdopodobnie nie zauważysz, gdy to się stanie), a zaletą jest zapobieganie tym nieznośnym szpiegom naruszania twojej prywatności.<\/p><p>Zaznacz tą opcję by <i>uMatrix<\/i> robił to za ciebie, z częstotliwością jaką sobie życzysz.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Zapobieganie śledzeniu z wykorzystaniem pamięci podręcznej przeglądarki&rdquo; [ang.]<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Bezciasteczkowe ciasteczka&rdquo;[ang.]<\/a><\/p>",
+        "message": "<p>Niektóre witryny internetowe są tak zdecydowane by cię śledzić, że używają niezbyt ładnych trików aby obejść jakiekolwiek zabezpieczenia zastosujesz, by nie być śledzonym.</p><p>Kilka z tych trików<sup>[1, 2]</sup> opiera się na wykorzystaniu <a href='https://en.wikipedia.org/wiki/Web_cache'>pamięci podręcznej przeglądarki [ang.]</a>, której zawartość jest często dostępna bardzo długo, ponieważ użytkownicy rzadko ją usuwają.</p><p>Wady regularnego czyszczenia pamięci podręcznej są niewielkie (prawdopodobnie nie zauważysz, gdy to się stanie), a zaletą jest zapobieganie tym nieznośnym szpiegom naruszania twojej prywatności.</p><p>Zaznacz tą opcję by <i>uMatrix</i> robił to za ciebie, z częstotliwością jaką sobie życzysz.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Zapobieganie śledzeniu z wykorzystaniem pamięci podręcznej przeglądarki&rdquo; [ang.]</a>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Bezciasteczkowe ciasteczka&rdquo;[ang.]</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Fałszuj nagłówek <a href='https:\/\/pl.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> dla domen zewnętrznych.",
+        "message": "Fałszuj nagłówek <a href='https://pl.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> dla domen zewnętrznych.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "Z Wikipedii [ang.]:<blockquote>HTTP referer jest nagłówkiem HTTP który identyfikuje adres strony która linkuje do zasobu będącego wywoływanym. ... <b>Ponieważ informacje o stronie odsyłającej mogą zagrażać prywatności, niektóre przeglądarki pozwalają na wyłączenie wysyłania tej informacji.<\/b><\/blockquote>Jeśli ta opcja jest zaznaczona, <i>uMatrix<\/i> będzie fałszował informację o refererze jeśli domena referera jest inna niż domena żądania sieciowego.",
+        "message": "Z Wikipedii [ang.]:<blockquote>HTTP referer jest nagłówkiem HTTP który identyfikuje adres strony która linkuje do zasobu będącego wywoływanym. ... <b>Ponieważ informacje o stronie odsyłającej mogą zagrażać prywatności, niektóre przeglądarki pozwalają na wyłączenie wysyłania tej informacji.</b></blockquote>Jeśli ta opcja jest zaznaczona, <i>uMatrix</i> będzie fałszował informację o refererze jeśli domena referera jest inna niż domena żądania sieciowego.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>Z <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network [ang.]<\/a>:<\/p><blockquote>Jeżeli strona HTTPS zawiera elementy pobrane przez zwykły, nie szyfrowany protokół HTTP, połączenie szyfrowane jest tylko częściowo: elementy nieszyfrowane są podatne na podsłuch i mogą być zmodyfikowane w ataku man-in-the-middle, i dlatego połączenie nie jest już bezpieczne.<\/blockquote>",
+        "message": "<p>Z <a href='https://developer.mozilla.org/en-US/docs/Security/MixedContent'>Mozilla Developer Network [ang.]</a>:</p><blockquote>Jeżeli strona HTTPS zawiera elementy pobrane przez zwykły, nie szyfrowany protokół HTTP, połączenie szyfrowane jest tylko częściowo: elementy nieszyfrowane są podatne na podsłuch i mogą być zmodyfikowane w ataku man-in-the-middle, i dlatego połączenie nie jest już bezpieczne.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Blokuj wszystkie próby <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>audytowania linków [ang.]<\/a>.",
+        "message": "Blokuj wszystkie próby <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>audytowania linków [ang.]</a>.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Audytowanie linków to mechanizm wysyłający informację o linkach klikniętych przez użytkownika na stronie internetowej. Jest to funkcja przeznaczona głównie do śledzenia: pozwala witrynie internetowej lub dowolnej stronie trzeciej, być informowanym o linkach jakie kliknąłeś na stronie internetowej. Jedynym celem jest śledzenie twojej aktywności w sieci.<\/p>",
+        "message": "<p>Audytowanie linków to mechanizm wysyłający informację o linkach klikniętych przez użytkownika na stronie internetowej. Jest to funkcja przeznaczona głównie do śledzenia: pozwala witrynie internetowej lub dowolnej stronie trzeciej, być informowanym o linkach jakie kliknąłeś na stronie internetowej. Jedynym celem jest śledzenie twojej aktywności w sieci.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Zestawy reguł są importowane z panelu popup <em>na żądanie<\/em> użytkownika i <b>tylko<\/b> przy jego interakcji.",
+        "message": "Zestawy reguł są importowane z panelu popup <em>na żądanie</em> użytkownika i <b>tylko</b> przy jego interakcji.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Historia zmian<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Historia zmian</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentacja<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Dokumentacja</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Uprawnienia<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Permissions'>Uprawnienia</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "bez parametrów",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Wstecz",

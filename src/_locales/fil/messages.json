@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "Ituro at i-click ang pagbawalan \/ pahintulutan ang anumang uri ng mga kahilingan na ginawa ng iyong browser. Gamitin ito upang i-block ang mga script, iframe, ad, facebook, atbp.",
+        "message": "Ituro at i-click ang pagbawalan / pahintulutan ang anumang uri ng mga kahilingan na ginawa ng iyong browser. Gamitin ito upang i-block ang mga script, iframe, ad, facebook, atbp.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Select a local scope to see/create rules which apply only in that scope",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Select the global scope to see/create rules which apply everywhere",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Huwag paganahin \/ paganahin ang pag-filter ng matris para sa saklaw na ito.",
+        "message": "Huwag paganahin / paganahin ang pag-filter ng matris para sa saklaw na ito.",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -128,11 +128,11 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Spoof <code>Referer<\/code> header",
+        "message": "Spoof <code>Referer</code> header",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Spoof <code><noscript><\/code> tags",
+        "message": "Spoof <code><noscript></code> tags",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_cookie'>HTTP cookie</a> headers foiled: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> hinabol ang mga header: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> hinabol ang mga header: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> ang mga pagtatangka ay napawalang-saysay:{{count}}",
+        "message": "<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>Hyperlink auditing</a> ang mga pagtatangka ay napawalang-saysay:{{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href = 'http: \/\/diveintohtml5.info\/storage.html'> Mga lokal na storage <\/a> ay walang laman: {{count}}",
+        "message": "<a href = 'http: //diveintohtml5.info/storage.html'> Mga lokal na storage </a> ay walang laman: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "Hinihiling ng HTTP sa <b> bawat pahina <\/ b>.",
+        "message": "Hinihiling ng HTTP sa <b> bawat pahina </ b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p> Maaari mong siyasatin ang mga detalye ng pinakahuling mga kahilingan sa HTTP na ginawa ng isang web page (tingnan sa ibaba). <\/p> <p> Ito ay kapaki-pakinabang sa mga advanced na user na nais mag-imbestiga nang eksakto kung ano ang ginagawa ng isang web page. Ngunit ang pag-log ng mga kahilingan sa HTTP ay nangangailangan ng memorya, at kung hindi mo pinapahalagahan ang tungkol sa teknikal na impormasyon, pagkatapos ay ang memory ay nasayang. <\/p> <p> Samakatuwid ang patlang na ito na nagpapahintulot sa iyo na ayusin ang maximum na bilang ng mga pinakahuling mga kahilingan sa HTTP ay dapat ma-log para sa karagdagang inspeksyon. <\/p> <p> Ipasok ang &ldquo; <code> 0 <\/code> &rdquo; upang patayin ang detalyadong pag-log (at dahil dito ay bawasan ang memory footprint ng <i> uMatrix <\/i>). <\/p>",
+        "message": "<p> Maaari mong siyasatin ang mga detalye ng pinakahuling mga kahilingan sa HTTP na ginawa ng isang web page (tingnan sa ibaba). </p> <p> Ito ay kapaki-pakinabang sa mga advanced na user na nais mag-imbestiga nang eksakto kung ano ang ginagawa ng isang web page. Ngunit ang pag-log ng mga kahilingan sa HTTP ay nangangailangan ng memorya, at kung hindi mo pinapahalagahan ang tungkol sa teknikal na impormasyon, pagkatapos ay ang memory ay nasayang. </p> <p> Samakatuwid ang patlang na ito na nagpapahintulot sa iyo na ayusin ang maximum na bilang ng mga pinakahuling mga kahilingan sa HTTP ay dapat ma-log para sa karagdagang inspeksyon. </p> <p> Ipasok ang &ldquo; <code> 0 </code> &rdquo; upang patayin ang detalyadong pag-log (at dahil dito ay bawasan ang memory footprint ng <i> uMatrix </i>). </p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> na mga tag kapag naka-block ang mga script ng 1st-party",
+        "message": "Spoof <code><noscript></code> na mga tag kapag naka-block ang mga script ng 1st-party",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p> Ang mga blacklist na cookies ay hindi napigilan ng <i>uMatrix<\/i> mula sa pagpasok ng iyong browser. Gayunpaman, pinigilan sila sa pag-alis ng iyong browser, na kung saan ay talagang mahalaga. Ang hindi pagharang ng mga cookies bago sila ipasok ang iyong browser ay nagbibigay sa iyo ng pagkakataong maabisuhan na sinubukan ng isang site na gumamit ng mga cookies, at higit pa upang siyasatin ang mga nilalaman nito kung nais mo. <\/p><p> Kapag ang mga naka-blacklist na cookies ay na-accounted sa pamamagitan ng <i>uMatrix<\/i>, maaari silang alisin mula sa iyong browser kung nais mo. <\/p><p><b>Mahalagang paalala: <\/b> Maaaring gawing mga extension ang mga kahilingan sa web sa panahon ng kanilang normal na operasyon. Ang mga kahilingan na ito ay maaaring magresulta sa mga cookies na nilikha sa browser. Kung ang hostname mula sa kung saan ang isang cookie na nagmula ay hindi whitelisted, ang cookie ay aalisin mula sa browser sa pamamagitan ng <i> uMatrix <\/i> kung naka-check ang opsyong ito. Kaya siguraduhin na ang (mga) host na kung saan ang isang extension na nakikipag-ugnay ay whitelisted. <\/p>",
+        "message": "<p> Ang mga blacklist na cookies ay hindi napigilan ng <i>uMatrix</i> mula sa pagpasok ng iyong browser. Gayunpaman, pinigilan sila sa pag-alis ng iyong browser, na kung saan ay talagang mahalaga. Ang hindi pagharang ng mga cookies bago sila ipasok ang iyong browser ay nagbibigay sa iyo ng pagkakataong maabisuhan na sinubukan ng isang site na gumamit ng mga cookies, at higit pa upang siyasatin ang mga nilalaman nito kung nais mo. </p><p> Kapag ang mga naka-blacklist na cookies ay na-accounted sa pamamagitan ng <i>uMatrix</i>, maaari silang alisin mula sa iyong browser kung nais mo. </p><p><b>Mahalagang paalala: </b> Maaaring gawing mga extension ang mga kahilingan sa web sa panahon ng kanilang normal na operasyon. Ang mga kahilingan na ito ay maaaring magresulta sa mga cookies na nilikha sa browser. Kung ang hostname mula sa kung saan ang isang cookie na nagmula ay hindi whitelisted, ang cookie ay aalisin mula sa browser sa pamamagitan ng <i> uMatrix </i> kung naka-check ang opsyong ito. Kaya siguraduhin na ang (mga) host na kung saan ang isang extension na nakikipag-ugnay ay whitelisted. </p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Ang session cookie ... ay mabubura kapag tinapos mo ang session ng browser. Ang session cookie ay naka-imbak sa pansamantalang memorya at hindi mananatili pagkatapos na sarado ang browser.&rdquo;<\/p><p>Maliban na ito <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>maaaring hindi nangyayari<\/a>sa ilang mga browser. Gayundin, sa ilang, ang pagkakaroon ng pagsara sa browser upang ang mga cookies ng cookies ay maaring hindi maaaring maagang maaga.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;Ang session cookie ... ay mabubura kapag tinapos mo ang session ng browser. Ang session cookie ay naka-imbak sa pansamantalang memorya at hindi mananatili pagkatapos na sarado ang browser.&rdquo;</p><p>Maliban na ito <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>maaaring hindi nangyayari</a>sa ilang mga browser. Gayundin, sa ilang, ang pagkakaroon ng pagsara sa browser upang ang mga cookies ng cookies ay maaring hindi maaaring maagang maaga.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Tanggalin ang nilalamang <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'> lokal na imbakan <\/a> na itinakda ng mga naka-block na mga hostname",
+        "message": "Tanggalin ang nilalamang <a href='https://en.wikipedia.org/wiki/Web_storage'> lokal na imbakan </a> na itinakda ng mga naka-block na mga hostname",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Ang ilang mga web site ay tunay na baluktot sa pagsubaybay sa iyo, kaya magkano na sila ay gumamit ng hindi-magandang-trick upang gumana sa paligid ng anumang mga panukala mong gawin upang hindi masubaybayan.<\/p><p>Ang ilan sa mga trick na ito ay umaasa<sup>[1, 2]<\/sup> sa <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, kung aling nilalaman ay madalas na matagal na dahil hindi gaanong magagawa ng mga gumagamit ang oras upang regular na i-clear ang cache ng kanilang browser.<\/p><p>May kaunting abala na regular na i-clear ang cache ng browser (posibilidad na hindi mo mapansin kapag nangyari ito), at ang benepisyo ay upang maiwasan ang mga kasuklam-suklam na tagasubaybay mula sa pagsalakay sa iyong privacy.<\/p><p>Suriin ang opsyong ito upang magkaroon ng <i> uMatrix <\/i> gawin ito para sa iyo, sa pagitan na nais mo.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Ppag-iwas sa Pagsubaybay sa Web sa pamamagitan ng Cache Browser&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>Ang ilang mga web site ay tunay na baluktot sa pagsubaybay sa iyo, kaya magkano na sila ay gumamit ng hindi-magandang-trick upang gumana sa paligid ng anumang mga panukala mong gawin upang hindi masubaybayan.</p><p>Ang ilan sa mga trick na ito ay umaasa<sup>[1, 2]</sup> sa <a href='https://en.wikipedia.org/wiki/Web_cache'>browser cache</a>, kung aling nilalaman ay madalas na matagal na dahil hindi gaanong magagawa ng mga gumagamit ang oras upang regular na i-clear ang cache ng kanilang browser.</p><p>May kaunting abala na regular na i-clear ang cache ng browser (posibilidad na hindi mo mapansin kapag nangyari ito), at ang benepisyo ay upang maiwasan ang mga kasuklam-suklam na tagasubaybay mula sa pagsalakay sa iyong privacy.</p><p>Suriin ang opsyong ito upang magkaroon ng <i> uMatrix </i> gawin ito para sa iyo, sa pagitan na nais mo.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Ppag-iwas sa Pagsubaybay sa Web sa pamamagitan ng Cache Browser&rdquo;</a>\n[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'> HTTP referrer <\/a> string ng mga kahilingan ng third-party.",
+        "message": "Spoof <a href='https://en.wikipedia.org/wiki/HTTP_referer'> HTTP referrer </a> string ng mga kahilingan ng third-party.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "Mula sa Wikipedia:<blockquote> Ang HTTP referer ay isang header ng HTTP na nagpapakilala sa address ng webpage na naka-link sa mapagkukunan na hiniling. ...<b>Dahil ang impormasyon ng referer ay maaaring lumalabag sa privacy, pinapayagan ng ilang mga browser ng web ang gumagamit na huwag paganahin ang pagpapadala ng impormasyon ng referer.<\/b><\/blockquote>Kung naka-check ang setting na ito,<i>uMatrix<\/i>ay i-spoof ang impormasyon ng HTTP referrer kung ang pangalan ng domain ng HTTP referrer ay third-party sa pangalan ng domain na net request.",
+        "message": "Mula sa Wikipedia:<blockquote> Ang HTTP referer ay isang header ng HTTP na nagpapakilala sa address ng webpage na naka-link sa mapagkukunan na hiniling. ...<b>Dahil ang impormasyon ng referer ay maaaring lumalabag sa privacy, pinapayagan ng ilang mga browser ng web ang gumagamit na huwag paganahin ang pagpapadala ng impormasyon ng referer.</b></blockquote>Kung naka-check ang setting na ito,<i>uMatrix</i>ay i-spoof ang impormasyon ng HTTP referrer kung ang pangalan ng domain ng HTTP referrer ay third-party sa pangalan ng domain na net request.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>Mula sa <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Kung ang [a] pahina ng HTTPS ay kinabibilangan ng nilalaman na nakuha sa pamamagitan ng regular, cleartext HTTP, at pagkatapos ang koneksyon ay bahagyang naka-encrypt lamang: ang hindi naka-encrypt na nilalaman ay naa-access sa mga sniffer at maaaring mabago ng mga man-in-the-middle attackers, at samakatuwid ang koneksyon ay hindi na-safeguarded ngayon. Kapag nagpapakita ang isang webpage ng pag-uugali na ito, ito ay tinatawag na isang halo-halong pahina ng nilalaman.<\/blockquote>",
+        "message": "<p>Mula sa <a href='https://developer.mozilla.org/en-US/docs/Security/MixedContent'>Mozilla Developer Network</a>:</p><blockquote>Kung ang [a] pahina ng HTTPS ay kinabibilangan ng nilalaman na nakuha sa pamamagitan ng regular, cleartext HTTP, at pagkatapos ang koneksyon ay bahagyang naka-encrypt lamang: ang hindi naka-encrypt na nilalaman ay naa-access sa mga sniffer at maaaring mabago ng mga man-in-the-middle attackers, at samakatuwid ang koneksyon ay hindi na-safeguarded ngayon. Kapag nagpapakita ang isang webpage ng pag-uugali na ito, ito ay tinatawag na isang halo-halong pahina ng nilalaman.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Harangan ang lahat ng<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>pag-audit ng hyperlink<\/a> mga pagtatangka.",
+        "message": "Harangan ang lahat ng<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>pag-audit ng hyperlink</a> mga pagtatangka.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p> Ang pag-audit ng hyperlink ay isang mekanismo na nagbibigay-daan sa isang partido, <b> anumang partido <\/b>, na ipaalam kung anong link ang na-click ng isang user sa isang partikular na web page. Ito ay talagang isang tampok sa pagsubaybay: pinapayagan nito ang isang web site, o anumang ikatlong partido sa web site na iyon, na ipaalam kung aling link ang iyong na-click sa alin sa mga web page nito. Ang tanging layunin ay upang masubaybayan ang iyong aktibidad sa pagba-browse. <\/p>",
+        "message": "<p> Ang pag-audit ng hyperlink ay isang mekanismo na nagbibigay-daan sa isang partido, <b> anumang partido </b>, na ipaalam kung anong link ang na-click ng isang user sa isang partikular na web page. Ito ay talagang isang tampok sa pagsubaybay: pinapayagan nito ang isang web site, o anumang ikatlong partido sa web site na iyon, na ipaalam kung aling link ang iyong na-click sa alin sa mga web page nito. Ang tanging layunin ay upang masubaybayan ang iyong aktibidad sa pagba-browse. </p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand</em>, i.e. <b>only</b> through user interaction.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Change log</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentasyon<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Dokumentasyon</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Mga Pahintulot<\/a>",
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Mga Pahintulot</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "without parameters",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Bumalik",

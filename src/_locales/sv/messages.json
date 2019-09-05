@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Välj ett lokalt omfång för att se\/skapa regler för det specifika omfånget",
+        "message": "Välj ett lokalt omfång för att se/skapa regler för det specifika omfånget",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Välj ett globalt omfång för att se\/skapa som gäller överallt",
+        "message": "Välj ett globalt omfång för att se/skapa som gäller överallt",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Stäng av\/sätt på matrisfiltrering i detta omfång.",
+        "message": "Stäng av/sätt på matrisfiltrering i detta omfång.",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Förvanska <code><noscript><\/code>-taggar",
+        "message": "Förvanska <code><noscript></code>-taggar",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP-kaksidhuvuden<\/a> förhindrade: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_cookie'>HTTP-kaksidhuvuden</a> förhindrade: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-referenssidhuvuden<\/a> förhindrade: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP-referenssidhuvuden</a> förhindrade: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "Försök till <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>granskning av hyperlänkar<\/a> förhindrade: {{count}}",
+        "message": "Försök till <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>granskning av hyperlänkar</a> förhindrade: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "Tömda <a href='http:\/\/diveintohtml5.info\/storage.html'>lokala lagringar<\/a>: {{count}}",
+        "message": "Tömda <a href='http://diveintohtml5.info/storage.html'>lokala lagringar</a>: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "HTTP-förfrågningar <b>per sida<\/b>.",
+        "message": "HTTP-förfrågningar <b>per sida</b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>Du kan inspektera de senaste råa HTTP-frågningarna gjorda från en sida (se nedan).<\/p><p>Det är mest till för erfarna användare som vill undersöka exakt vad webbsidan har gjort. Loggningen kräver dock plats och om du inte bryr dig om tekniska detaljer så kommer det slösa på minnet.<\/p><p>Därför finns detta fält som låter dig justera hur många av de senaste HTTP-förfrågningarna som som loggas.<\/p><p>Ange &ldquo;<code>0<\/code>&rdquo; för att stänga av detaljerad loggning (och således minska minneskravet från <i>uMatrix<\/i>).<\/p>",
+        "message": "<p>Du kan inspektera de senaste råa HTTP-frågningarna gjorda från en sida (se nedan).</p><p>Det är mest till för erfarna användare som vill undersöka exakt vad webbsidan har gjort. Loggningen kräver dock plats och om du inte bryr dig om tekniska detaljer så kommer det slösa på minnet.</p><p>Därför finns detta fält som låter dig justera hur många av de senaste HTTP-förfrågningarna som som loggas.</p><p>Ange &ldquo;<code>0</code>&rdquo; för att stänga av detaljerad loggning (och således minska minneskravet från <i>uMatrix</i>).</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Förvaska <code><noscript><\/code>-taggar när skript från första part är blockerade",
+        "message": "Förvaska <code><noscript></code>-taggar när skript från första part är blockerade",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p>Svartlistade kakor hindras inte från att hamna i din webbläsare av <i>uMatrix<\/i>. De är dock skyddade från att lämna webbläsaren, vilket är det som räknas. Genom att inte blockera kakor från att hamna i din webbläsare får du möjligheten att se om en sida försökt att använda sig av kakor och du kan undersöka kakornas innehåll.<\/p><p>När kakorna har passerat <i>uMatrix<\/i>, kan de raderas om du så önskar.<\/p><p><b>Viktigt:<\/b> Webbläsartillägg kan göra förfrågningar till webben medan de arbetar. Dessa förfrågningar kan resultera i att kakor skapas i webbläsaren. Om värdnamnet för vilken en kaka kommer ifrån inte är vitlistat kommer kakan att tas bort av <i>uMatrix<\/i> om det är så inställt. Därför är det viktigt att kontrollera att värdnamnen som tillägg använder för att kommunicera är vitlistade.<\/p>",
+        "message": "<p>Svartlistade kakor hindras inte från att hamna i din webbläsare av <i>uMatrix</i>. De är dock skyddade från att lämna webbläsaren, vilket är det som räknas. Genom att inte blockera kakor från att hamna i din webbläsare får du möjligheten att se om en sida försökt att använda sig av kakor och du kan undersöka kakornas innehåll.</p><p>När kakorna har passerat <i>uMatrix</i>, kan de raderas om du så önskar.</p><p><b>Viktigt:</b> Webbläsartillägg kan göra förfrågningar till webben medan de arbetar. Dessa förfrågningar kan resultera i att kakor skapas i webbläsaren. Om värdnamnet för vilken en kaka kommer ifrån inte är vitlistat kommer kakan att tas bort av <i>uMatrix</i> om det är så inställt. Därför är det viktigt att kontrollera att värdnamnen som tillägg använder för att kommunicera är vitlistade.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;En sessionskaka ... raderas efter webbläsarens session avslutas. Sessionskakan lagras i ett temporärt minne och sparas inte när webbläsaren stängs.&rdquo;<\/p><p>Förutom att det <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>kanske inte alltid fungerar så<\/a> i vissa webbläsare. För vissa personer är det inte tidigt nog att rensa kakorna när webbläsaren stängs.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;En sessionskaka ... raderas efter webbläsarens session avslutas. Sessionskakan lagras i ett temporärt minne och sparas inte när webbläsaren stängs.&rdquo;</p><p>Förutom att det <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>kanske inte alltid fungerar så</a> i vissa webbläsare. För vissa personer är det inte tidigt nog att rensa kakorna när webbläsaren stängs.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Radera <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>lokala lagringar<\/a> för blockerade värdar",
+        "message": "Radera <a href='https://en.wikipedia.org/wiki/Web_storage'>lokala lagringar</a> för blockerade värdar",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Vissa webbplatser är fast beslutna att spåra dig, till den grad att de använda osjysta metoder för att ta sig runt dina försök att inte bli spårad.<\/p><p>Några av dessa metoder<sup style='font-size:smaller'>[1, 2]<\/sup> förlitar sig på <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>webbläsarcachen<\/a>, vars innehåll ofta är långvarigt eftersom användare sällar tar sig tiden att regelbundet rensa deras cache.<\/p><p>Det finns knappt några nackdelar med att rensa cachet i webbläsar regelbundet (troligen märker du inte ens när det sker) och fördelen är att du förhindrar att dessa irriterande förföljare kränker din integritet.<\/p><p>Kryssa i detta alternativ för att låta <i>uMatrix<\/i> göra detta åt dig, i det intervall du ställer in.<\/p><p style='font-size:smaller'>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a><br>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>Vissa webbplatser är fast beslutna att spåra dig, till den grad att de använda osjysta metoder för att ta sig runt dina försök att inte bli spårad.</p><p>Några av dessa metoder<sup style='font-size:smaller'>[1, 2]</sup> förlitar sig på <a href='https://en.wikipedia.org/wiki/Web_cache'>webbläsarcachen</a>, vars innehåll ofta är långvarigt eftersom användare sällar tar sig tiden att regelbundet rensa deras cache.</p><p>Det finns knappt några nackdelar med att rensa cachet i webbläsar regelbundet (troligen märker du inte ens när det sker) och fördelen är att du förhindrar att dessa irriterande förföljare kränker din integritet.</p><p>Kryssa i detta alternativ för att låta <i>uMatrix</i> göra detta åt dig, i det intervall du ställer in.</p><p style='font-size:smaller'>[1]<a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a><br>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Förvanska <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-hänvisning<\/a> för tredjepartsförfrågningar.",
+        "message": "Förvanska <a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP-hänvisning</a> för tredjepartsförfrågningar.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "<p>Översatt från Wikipedia:<\/p><blockquote>En HTTP-hänvisning (s.k. referer) är den delen i ett HTTP-sidhuvud som identifierar adressen på den sida som länkade till den nuvarande sidan som begärs. ... <b>Eftersom hänvisningen kan inskränka på integriteten tillåter vissa webbläsare användare att låta bli att skicka hänvisningsinformationen.<\/b><\/blockquote><p>Om inställningen är påslagen kommer <i>uMatrix<\/i> att lura domänen med en annan HTTP-hänvisningnsinformation i sidhuvudet, om det gäller en tredje partsdomän till domänen som gjort nätförfrågan.",
+        "message": "<p>Översatt från Wikipedia:</p><blockquote>En HTTP-hänvisning (s.k. referer) är den delen i ett HTTP-sidhuvud som identifierar adressen på den sida som länkade till den nuvarande sidan som begärs. ... <b>Eftersom hänvisningen kan inskränka på integriteten tillåter vissa webbläsare användare att låta bli att skicka hänvisningsinformationen.</b></blockquote><p>Om inställningen är påslagen kommer <i>uMatrix</i> att lura domänen med en annan HTTP-hänvisningnsinformation i sidhuvudet, om det gäller en tredje partsdomän till domänen som gjort nätförfrågan.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>Översatt från <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Om en HTTPS-sida innehåller material som hämtas med oskyddad HTTP, kommer anslutningen endast vara delvis krypterad: det okrypterade materialet kan användas av nätverksanalyseringsprogram och ändras av en okänd mellanhand. Därför är inte anslutningen längre säker. När en webbsida har detta beteende, kallas det för en sida med blandat innehåll.<\/blockquote>",
+        "message": "<p>Översatt från <a href='https://developer.mozilla.org/en-US/docs/Security/MixedContent'>Mozilla Developer Network</a>:</p><blockquote>Om en HTTPS-sida innehåller material som hämtas med oskyddad HTTP, kommer anslutningen endast vara delvis krypterad: det okrypterade materialet kan användas av nätverksanalyseringsprogram och ändras av en okänd mellanhand. Därför är inte anslutningen längre säker. När en webbsida har detta beteende, kallas det för en sida med blandat innehåll.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Blockera alla försök till <a href='http:\/\/www.whatwg.org\/specs\/web-apps\/current-work\/multipage\/links.html#hyperlink-auditing'>granskning av hyperlänkar<\/a>.",
+        "message": "Blockera alla försök till <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#hyperlink-auditing'>granskning av hyperlänkar</a>.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Granskning av hyperlänkar är en mekanism som tillåter en part, <b>vilken som helst<\/b>, att få tillgång till information om en användare har klickat på en särskild webbplats. Det är praktiskt taget en spårningsfunktion: det möjliggör för en websida, eller en tredjepart till den sidan, att få information om vilken sida du var på och vilken länk du har tryckt på. Syftet är endast att kartlägga ditt beteende när du surfar.<\/p>",
+        "message": "<p>Granskning av hyperlänkar är en mekanism som tillåter en part, <b>vilken som helst</b>, att få tillgång till information om en användare har klickat på en särskild webbplats. Det är praktiskt taget en spårningsfunktion: det möjliggör för en websida, eller en tredjepart till den sidan, att få information om vilken sida du var på och vilken länk du har tryckt på. Syftet är endast att kartlägga ditt beteende när du surfar.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Regelrecept har importerats från popuppanelen <em>på begäran<\/em>, dvs. <b>endast<\/b> genom användarinteraktion.",
+        "message": "Regelrecept har importerats från popuppanelen <em>på begäran</em>, dvs. <b>endast</b> genom användarinteraktion.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Ändringslogg<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Ändringslogg</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentation<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Dokumentation</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Tillstånd<\/a>",
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Tillstånd</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "utan parametrar",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Gå tillbaka",

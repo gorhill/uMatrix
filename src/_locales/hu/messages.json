@@ -96,7 +96,7 @@
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Mátrixszűrés engedélyezése\/tiltása ebben a hatáskörben.",
+        "message": "Mátrixszűrés engedélyezése/tiltása ebben a hatáskörben.",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -128,11 +128,11 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "<code>Referer<\/code> header hamisítása",
+        "message": "<code>Referer</code> header hamisítása",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> tagek felülírása",
+        "message": "<code><noscript></code> tagek felülírása",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "<a href='https:\/\/hu.wikipedia.org\/wiki\/HTTP_cookie'>HTTP süti<\/a> header-ek blokkolva: {{count}}",
+        "message": "<a href='https://hu.wikipedia.org/wiki/HTTP_cookie'>HTTP süti</a> header-ek blokkolva: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "<a href='https:\/\/hu.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> header-ek blokkolva: {{count}}",
+        "message": "<a href='https://hu.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> header-ek blokkolva: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "<a href='https:\/\/html.spec.whatwg.org\/multipage\/links.html#hyperlink-auditing'>Hiperlink-auditálási<\/a> kísérletek blokkolva: {{count}}",
+        "message": "<a href='https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing'>Hiperlink-auditálási</a> kísérletek blokkolva: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>Helyi tárolók<\/a> kiürítve: {{count}}",
+        "message": "<a href='http://diveintohtml5.info/storage.html'>Helyi tárolók</a> kiürítve: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "darab HTTP kérésre <b>oldalanként<\/b>.",
+        "message": "darab HTTP kérésre <b>oldalanként</b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>A <i>uMatrix<\/i> lehetőséget ad a weboldalak által generált legutóbbi nyers HTTP lekérések részleteinek megtekintésére.<\/p><p>Ez leginkább haladó felhasználók számára hasznos, akik szeretnének képben lenni a weboldal tényleges működésével.<\/p><p>Természetesen a HTTP lekérések naplózása memóriát foglal, ezért amennyiben ilyen részletes technikai információkra nincs szükség, abban az esetben érdemes ezt a funkciót kikapcsolni memóriamegtakarítás céljából.<\/p><p>Ebben a mezőben megadható a maximálisan eltárolt HTTP lekérések száma; &ldquo;<code>0<\/code>&rdquo;-ra állítva ez a funkció kikapcsolásra kerül.<\/p>",
+        "message": "<p>A <i>uMatrix</i> lehetőséget ad a weboldalak által generált legutóbbi nyers HTTP lekérések részleteinek megtekintésére.</p><p>Ez leginkább haladó felhasználók számára hasznos, akik szeretnének képben lenni a weboldal tényleges működésével.</p><p>Természetesen a HTTP lekérések naplózása memóriát foglal, ezért amennyiben ilyen részletes technikai információkra nincs szükség, abban az esetben érdemes ezt a funkciót kikapcsolni memóriamegtakarítás céljából.</p><p>Ebben a mezőben megadható a maximálisan eltárolt HTTP lekérések száma; &ldquo;<code>0</code>&rdquo;-ra állítva ez a funkció kikapcsolásra kerül.</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "<code><noscript><\/code> tagek tartalmának felülírása, ha az aktuális domain szkriptjei blokkolva vannak",
+        "message": "<code><noscript></code> tagek tartalmának felülírása, ha az aktuális domain szkriptjei blokkolva vannak",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p>A <i>uMatrix<\/i> a tiltólistás sütik böngészőből való távozását tiltja csak meg, a böngészőbe érkezésüket nem akadályozza meg. Ezúton tudomás szerezhető arról, ha egy oldal sütiket akar tárolni, valamint azok tartalma is megtekinthetővé válik.<\/p><p>Ezen opció bejelölésével a <i>uMatrix<\/i> automatikusan eltávolítja a beérkezett tiltott sütiket.<\/p><p><b>Fontos:<\/b> Nemcsak oldalak, hanem kiegészítők is indíthatnak lekérdezéseket működésük során, amelyek sütik létrehozásához vezethetnek. Amennyiben ez az opció engedélyezve van, továbbá a lekérésekhez tartozó hostneveken a sütik blokkolva vannak, akkor azok el lesznek távolítva a <i>uMatrix<\/i> által. Ez egyes kiegészítőknél hibás működést eredményezhet, amíg az általuk használt hostnevekről kapott sütik nincsenek engedélyezve.<\/p>",
+        "message": "<p>A <i>uMatrix</i> a tiltólistás sütik böngészőből való távozását tiltja csak meg, a böngészőbe érkezésüket nem akadályozza meg. Ezúton tudomás szerezhető arról, ha egy oldal sütiket akar tárolni, valamint azok tartalma is megtekinthetővé válik.</p><p>Ezen opció bejelölésével a <i>uMatrix</i> automatikusan eltávolítja a beérkezett tiltott sütiket.</p><p><b>Fontos:</b> Nemcsak oldalak, hanem kiegészítők is indíthatnak lekérdezéseket működésük során, amelyek sütik létrehozásához vezethetnek. Amennyiben ez az opció engedélyezve van, továbbá a lekérésekhez tartozó hostneveken a sütik blokkolva vannak, akkor azok el lesznek távolítva a <i>uMatrix</i> által. Ez egyes kiegészítőknél hibás működést eredményezhet, amíg az általuk használt hostnevekről kapott sütik nincsenek engedélyezve.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A munkamenet süti ... eltávolításra kerül a böngészési munkamenettel befejezően. A munkamenet süti ideiglenes memóriában tárolódik és a böngésző bezárásával törlésre kerül.&rdquo;<\/p><p>Viszont pár böngészőnél <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>előfordulhat, hogy nem ez történik<\/a>, valamint nem minden esetben elfogadható megoldás a böngésző csak a munkamenet sütik törléséért való bezárása.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;A munkamenet süti ... eltávolításra kerül a böngészési munkamenettel befejezően. A munkamenet süti ideiglenes memóriában tárolódik és a böngésző bezárásával törlésre kerül.&rdquo;</p><p>Viszont pár böngészőnél <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>előfordulhat, hogy nem ez történik</a>, valamint nem minden esetben elfogadható megoldás a böngésző csak a munkamenet sütik törléséért való bezárása.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Blokkolt hostnevek által <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>helyileg tárolt<\/a> adatok törlése",
+        "message": "Blokkolt hostnevek által <a href='https://en.wikipedia.org/wiki/Web_storage'>helyileg tárolt</a> adatok törlése",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Egyes weboldalak annyira elszántan követni szeretnék a felhasználóikat, hogy képesek nem kifejezetten szép trükköket is bevetni a követés ellen tett lépéseik kikerülése érdekében.<\/p><p>Pár ilyen trükk<sup>[1, 2]<\/sup> a <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>böngésző gyorsítótárát<\/a> használja fel, tekintve, hogy a felhasználók ritkán ürítik ki azt, így gyakran sokáig eltárolásra kerülnek ezek a követők.<\/p><p>A böngésző gyorsítótárának gyakori ürítése kevés hátránnyal jár, (legtöbbször fel sem tűnik,) ráadásul megállítja ezeket az ellenszenves követéseket a személyes adatok védelme érdekében.<\/p><p>Ezen opció engedélyezésekor a <i>uMatrix<\/i> kiüríti a böngészó gyorsítótárát a megadott időközönként.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>Egyes weboldalak annyira elszántan követni szeretnék a felhasználóikat, hogy képesek nem kifejezetten szép trükköket is bevetni a követés ellen tett lépéseik kikerülése érdekében.</p><p>Pár ilyen trükk<sup>[1, 2]</sup> a <a href='https://en.wikipedia.org/wiki/Web_cache'>böngésző gyorsítótárát</a> használja fel, tekintve, hogy a felhasználók ritkán ürítik ki azt, így gyakran sokáig eltárolásra kerülnek ezek a követők.</p><p>A böngésző gyorsítótárának gyakori ürítése kevés hátránnyal jár, (legtöbbször fel sem tűnik,) ráadásul megállítja ezeket az ellenszenves követéseket a személyes adatok védelme érdekében.</p><p>Ezen opció engedélyezésekor a <i>uMatrix</i> kiüríti a böngészó gyorsítótárát a megadott időközönként.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a>\n[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "A <a href='https:\/\/hu.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> header meghamisítása harmadik fél felé küldött lekérések esetében.",
+        "message": "A <a href='https://hu.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> header meghamisítása harmadik fél felé küldött lekérések esetében.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "Wikipediából:<blockquote>A Referer egy olyan HTTP header, ami meghatározza annak a weboldalnak címét, ami a lekért oldalra mutatott. ... <b>Mivel ez az információ a személyes adatok védelmét sértheti, néhány böngésző megengedi a felhasználóknak, hogy kikapcsolják ennek az információnak az elküldését.<\/b><\/blockquote>Ezen beállítás engedélyezésekor a <i>uMatrix<\/i> meg fogja hamisítani a referer információt abban az esetben, ha a referer domain neve harmadik félnek számít a lekérés domain nevéhez képest.",
+        "message": "Wikipediából:<blockquote>A Referer egy olyan HTTP header, ami meghatározza annak a weboldalnak címét, ami a lekért oldalra mutatott. ... <b>Mivel ez az információ a személyes adatok védelmét sértheti, néhány böngésző megengedi a felhasználóknak, hogy kikapcsolják ennek az információnak az elküldését.</b></blockquote>Ezen beállítás engedélyezésekor a <i>uMatrix</i> meg fogja hamisítani a referer információt abban az esetben, ha a referer domain neve harmadik félnek számít a lekérés domain nevéhez képest.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>A <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>ből:<\/p><blockquote>Amennyiben [egy] HTTPS oldal sima, szöveges HTTP lekérésen kereszül elért elemeket tartalmaz, akkor a kapcsolat csak részben titkosított: a titkosítatlan tartalom a kapcsolatot lehallgató egyének számára is elérhető, valamint megváltoztatható man-in-the-middle támadás által, ezért a kapcsolat nem tekinthető védettnek ezek fényében. Amikor egy oldal ilyen jelenséget produkál, akkor azt kevert tartalmú oldalnak hívjuk.<\/blockquote>",
+        "message": "<p>A <a href='https://developer.mozilla.org/en-US/docs/Security/MixedContent'>Mozilla Developer Network</a>ből:</p><blockquote>Amennyiben [egy] HTTPS oldal sima, szöveges HTTP lekérésen kereszül elért elemeket tartalmaz, akkor a kapcsolat csak részben titkosított: a titkosítatlan tartalom a kapcsolatot lehallgató egyének számára is elérhető, valamint megváltoztatható man-in-the-middle támadás által, ezért a kapcsolat nem tekinthető védettnek ezek fényében. Amikor egy oldal ilyen jelenséget produkál, akkor azt kevert tartalmú oldalnak hívjuk.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Minden <a href='https:\/\/html.spec.whatwg.org\/multipage\/links.html#hyperlink-auditing'>hiperlink-auditálási<\/a> kísérlet blokkolása.",
+        "message": "Minden <a href='https://html.spec.whatwg.org/multipage/links.html#hyperlink-auditing'>hiperlink-auditálási</a> kísérlet blokkolása.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>A hiperlink-auditálás egy olyan mechanizmus, ami egy hardmadik- <b>vagy bármely<\/b> fél számára lehetővé teszi, hogy visszajelzést kapjanak egy a felhasználó által az oldalon lévő linkre történő kattintásról. Lényegében ez egy követési módszer: lehetővé teszi egy oldalnak, vagy bármely harmadik fél számára, hogy tudomást szerezzenek arról, hogy a felhasználó melyik linkre kattintott az oldalon. Egyetlen célja, hogy a felhasználó böngészési aktivitását nyomonkövesse.<\/p>",
+        "message": "<p>A hiperlink-auditálás egy olyan mechanizmus, ami egy hardmadik- <b>vagy bármely</b> fél számára lehetővé teszi, hogy visszajelzést kapjanak egy a felhasználó által az oldalon lévő linkre történő kattintásról. Lényegében ez egy követési módszer: lehetővé teszi egy oldalnak, vagy bármely harmadik fél számára, hogy tudomást szerezzenek arról, hogy a felhasználó melyik linkre kattintott az oldalon. Egyetlen célja, hogy a felhasználó böngészési aktivitását nyomonkövesse.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Szabálysablonok importálása a felugró panelen <b>kizárólag<\/b> <em>felhasználói igény szerint<\/em> történik.",
+        "message": "Szabálysablonok importálása a felugró panelen <b>kizárólag</b> <em>felhasználói igény szerint</em> történik.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Változási napló<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Változási napló</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Dokumentáció<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Dokumentáció</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/About-the-required-permissions'>Engedélyek<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/About-the-required-permissions'>Engedélyek</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "paraméterek nélkül",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Vissza",

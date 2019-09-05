@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Een lokaal bereik selecteren om regels te zien\/maken die alleen in dat gebied van toepassing zijn",
+        "message": "Een lokaal bereik selecteren om regels te zien/maken die alleen in dat gebied van toepassing zijn",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Het globale bereik selecteren om regels te zien\/maken die overal van toepassing zijn",
+        "message": "Het globale bereik selecteren om regels te zien/maken die overal van toepassing zijn",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Matrixfiltering voor dit bereik in-\/uitschakelen",
+        "message": "Matrixfiltering voor dit bereik in-/uitschakelen",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -128,11 +128,11 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "<code>Referer<\/code>-header vervalsen",
+        "message": "<code>Referer</code>-header vervalsen",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code>-tags vervalsen",
+        "message": "<code><noscript></code>-tags vervalsen",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "Geweerde <a href='https:\/\/nl.wikipedia.org\/wiki\/HTTP_cookie'>HTTP-cookie<\/a>-headers: {{count}}",
+        "message": "Geweerde <a href='https://nl.wikipedia.org/wiki/HTTP_cookie'>HTTP-cookie</a>-headers: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "Geweerde <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-referer<\/a>-headers: {{count}}",
+        "message": "Geweerde <a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP-referer</a>-headers: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "Verijdelde <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a>-pogingen: {{count}}",
+        "message": "Verijdelde <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>Hyperlink auditing</a>-pogingen: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "Gewiste <a href='http:\/\/diveintohtml5.info\/storage.html'>lokale opslagcaches<\/a>: {{count}}",
+        "message": "Gewiste <a href='http://diveintohtml5.info/storage.html'>lokale opslagcaches</a>: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "HTTP-aanvragen <b>per pagina<\/b> onthouden",
+        "message": "HTTP-aanvragen <b>per pagina</b> onthouden",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>Van de meest recente HTTP-aanvragen die door een website zijn gedaan, kunt u de details inspecteren.<\/p><p>Dit is vooral nuttig voor nieuwsgierige (ook ervaren) gebruikers die willen onderzoeken wat een webpagina precies heeft gedaan. Het registreren van deze HTTP-aanvragen vereist echter geheugen, en als u niets om deze technische informatie geeft, wordt geheugen verspild.<\/p><p>Vandaar dit veld, waarmee u het maximale aantal meest recente HTTP-aanvragen kunt instellen dat voor nader onderzoek wordt geregistreerd.<\/p><p>Vul &lsquo;<code>0<\/code>&rsquo; in om gedetailleerde registratie uit te zetten (en daardoor de geheugenfootprint van <i>uMatrix<\/i> te verlagen).<\/p>",
+        "message": "<p>Van de meest recente HTTP-aanvragen die door een website zijn gedaan, kunt u de details inspecteren.</p><p>Dit is vooral nuttig voor nieuwsgierige (ook ervaren) gebruikers die willen onderzoeken wat een webpagina precies heeft gedaan. Het registreren van deze HTTP-aanvragen vereist echter geheugen, en als u niets om deze technische informatie geeft, wordt geheugen verspild.</p><p>Vandaar dit veld, waarmee u het maximale aantal meest recente HTTP-aanvragen kunt instellen dat voor nader onderzoek wordt geregistreerd.</p><p>Vul &lsquo;<code>0</code>&rsquo; in om gedetailleerde registratie uit te zetten (en daardoor de geheugenfootprint van <i>uMatrix</i> te verlagen).</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "<code><noscript><\/code>-tags vervalsen wanneer scripts van het huidige domein worden geblokkeerd",
+        "message": "<code><noscript></code>-tags vervalsen wanneer scripts van het huidige domein worden geblokkeerd",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p><i>uMatrix<\/i> voorkomt niet dat geblackliste cookies door uw browser worden ontvangen. Er wordt echter wel voorkomen dat ze uw browser verlaten, wat het belangrijkste is. Het niet blokkeren van cookies voordat ze door uw browser worden ontvangen biedt de mogelijkheid te worden geïnformeerd wanneer een website cookies probeerde te gebruiken, en daarnaast eventueel de inhoud ervan te inspecteren.<\/p><p>Als deze geblackliste cookies eenmaal door <i>uMatrix<\/i> zijn verwerkt, kunnen ze desgewenst uit uw browser worden verwijderd.<\/p><p><b>Belangrijke opmerking:<\/b> extensies kunnen tijdens hun normale werking webaanvragen doen. Door deze aanvragen kunnen cookies in de browser worden aangemaakt. Als de hostnaam waarvan een cookie afkomstig is zich niet op de whitelist bevindt, zal het cookie als deze optie is aangevinkt door <i>uMatrix<\/i> uit de browser worden verwijderd. Zorg er daarom voor dat de namen van de hosts waarmee een extensie communiceert zich op de whitelist bevinden.<\/p>",
+        "message": "<p><i>uMatrix</i> voorkomt niet dat geblackliste cookies door uw browser worden ontvangen. Er wordt echter wel voorkomen dat ze uw browser verlaten, wat het belangrijkste is. Het niet blokkeren van cookies voordat ze door uw browser worden ontvangen biedt de mogelijkheid te worden geïnformeerd wanneer een website cookies probeerde te gebruiken, en daarnaast eventueel de inhoud ervan te inspecteren.</p><p>Als deze geblackliste cookies eenmaal door <i>uMatrix</i> zijn verwerkt, kunnen ze desgewenst uit uw browser worden verwijderd.</p><p><b>Belangrijke opmerking:</b> extensies kunnen tijdens hun normale werking webaanvragen doen. Door deze aanvragen kunnen cookies in de browser worden aangemaakt. Als de hostnaam waarvan een cookie afkomstig is zich niet op de whitelist bevindt, zal het cookie als deze optie is aangevinkt door <i>uMatrix</i> uit de browser worden verwijderd. Zorg er daarom voor dat de namen van de hosts waarmee een extensie communiceert zich op de whitelist bevinden.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Een sessiecookie wordt gewist zodra u de browsersessie beëindigt. Een sessiecookie wordt in tijdelijk geheugen opgeslagen en niet behouden nadat de browser wordt gesloten.&rdquo;<\/p><p>Het is mogelijk dat dit <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>niet in alle browsers gebeurt<\/a>. Ook vinden sommige gebruikers het moeten sluiten van de browser om sessiecookies te wissen misschien niet vroeg genoeg.",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;Een sessiecookie wordt gewist zodra u de browsersessie beëindigt. Een sessiecookie wordt in tijdelijk geheugen opgeslagen en niet behouden nadat de browser wordt gesloten.&rdquo;</p><p>Het is mogelijk dat dit <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>niet in alle browsers gebeurt</a>. Ook vinden sommige gebruikers het moeten sluiten van de browser om sessiecookies te wissen misschien niet vroeg genoeg.",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Inhoud van <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>lokale opslag<\/a> die door geblokkeerde hostnamen is ingesteld verwijderen",
+        "message": "Inhoud van <a href='https://en.wikipedia.org/wiki/Web_storage'>lokale opslag</a> die door geblokkeerde hostnamen is ingesteld verwijderen",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Sommige websites zijn er zo op gericht om u te traceren dat ze onvriendelijke trucs gebruiken om maatregelen die u neemt om niet te worden gevolgd te omzeilen.<\/p><p>Sommige van deze trucs gebruiken<sup>[1, 2]<\/sup> de <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browsercache<\/a>, waarvan de inhoud vaak lang aanwezig is, aangezien gebruikers zelden de tijd nemen om hun browsercache regelmatig te wissen.<\/p><p>Het regelmatig wissen van de browsercache biedt weinig ongemakken (waarschijnlijk merkt u het niet als dit gebeurt), en het voordeel is dat wordt voorkomen dat deze onaangename trackers inbreuk op uw privacy maken.<\/p><p>Vink deze optie aan om dit met een gewenst interval door <i>uMatrix<\/i> te laten doen.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&lsquo;Preventing Web Tracking via the Browser Cache&rsquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&lsquo;Cookieless cookies&rsquo;<\/a><\/p>",
+        "message": "<p>Sommige websites zijn er zo op gericht om u te traceren dat ze onvriendelijke trucs gebruiken om maatregelen die u neemt om niet te worden gevolgd te omzeilen.</p><p>Sommige van deze trucs gebruiken<sup>[1, 2]</sup> de <a href='https://en.wikipedia.org/wiki/Web_cache'>browsercache</a>, waarvan de inhoud vaak lang aanwezig is, aangezien gebruikers zelden de tijd nemen om hun browsercache regelmatig te wissen.</p><p>Het regelmatig wissen van de browsercache biedt weinig ongemakken (waarschijnlijk merkt u het niet als dit gebeurt), en het voordeel is dat wordt voorkomen dat deze onaangename trackers inbreuk op uw privacy maken.</p><p>Vink deze optie aan om dit met een gewenst interval door <i>uMatrix</i> te laten doen.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&lsquo;Preventing Web Tracking via the Browser Cache&rsquo;</a>\n[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&lsquo;Cookieless cookies&rsquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP-referer<\/a>-string van aanvragen van derden vervalsen",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP-referer</a>-string van aanvragen van derden vervalsen",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "Van Wikipedia:<blockquote>Een HTTP-referer is een HTTP-headerveld dat het adres aanduidt van de webpagina die naar de opgevraagde bron verwijst. ... <b>Omdat referer-informatie de privacy kan schenden, kunnen gebruikers in sommige webbrowsers het verzenden van de referer-informatie uitschakelen.<\/b><\/blockquote>Als deze optie is aangevinkt, zal <i>uMatrix<\/i> de HTTP-referer vervalsen (lees: manipuleren) als de domeinnaam van de HTTP-referer een derde partij is voor de domeinnaam van de netwerkaanvraag.",
+        "message": "Van Wikipedia:<blockquote>Een HTTP-referer is een HTTP-headerveld dat het adres aanduidt van de webpagina die naar de opgevraagde bron verwijst. ... <b>Omdat referer-informatie de privacy kan schenden, kunnen gebruikers in sommige webbrowsers het verzenden van de referer-informatie uitschakelen.</b></blockquote>Als deze optie is aangevinkt, zal <i>uMatrix</i> de HTTP-referer vervalsen (lees: manipuleren) als de domeinnaam van de HTTP-referer een derde partij is voor de domeinnaam van de netwerkaanvraag.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>Van <a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Als een HTTPS-pagina inhoud bevat die door normale cleartext-HTTP is opgehaald, is de verbinding slechts gedeeltelijk versleuteld: de onversleutelde inhoud is toegankelijk voor ‘sniffers’ en kan door ‘man-in-the-middle’-aanvallers worden aangepast, en de verbinding is daarom niet meer beschermd. Wanneer een webpagina dit gedrag vertoont, wordt deze een pagina met gemengde inhoud genoemd.<\/blockquote>",
+        "message": "<p>Van <a href='https://developer.mozilla.org/docs/Security/MixedContent'>Mozilla Developer Network</a>:</p><blockquote>Als een HTTPS-pagina inhoud bevat die door normale cleartext-HTTP is opgehaald, is de verbinding slechts gedeeltelijk versleuteld: de onversleutelde inhoud is toegankelijk voor ‘sniffers’ en kan door ‘man-in-the-middle’-aanvallers worden aangepast, en de verbinding is daarom niet meer beschermd. Wanneer een webpagina dit gedrag vertoont, wordt deze een pagina met gemengde inhoud genoemd.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Alle <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a>-pogingen blokkeren",
+        "message": "Alle <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>hyperlink auditing</a>-pogingen blokkeren",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Hyperlink auditing is een mechanisme waarmee een partij, <b>ongeacht welke<\/b>, kan worden geïnformeerd over de koppeling op een bepaalde webpagina waarop een gebruiker heeft geklikt. Dit is in essentie een trackingfunctie: het kan een website of derde partijen ten opzichte van die website informeren over op welke koppeling en op welke pagina’s van de website u hebt geklikt. Het enige doel ervan is het volgen van uw browseractiviteit.<\/p>",
+        "message": "<p>Hyperlink auditing is een mechanisme waarmee een partij, <b>ongeacht welke</b>, kan worden geïnformeerd over de koppeling op een bepaalde webpagina waarop een gebruiker heeft geklikt. Dit is in essentie een trackingfunctie: het kan een website of derde partijen ten opzichte van die website informeren over op welke koppeling en op welke pagina’s van de website u hebt geklikt. Het enige doel ervan is het volgen van uw browseractiviteit.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Regelsetrecepten worden <em>op aanvraag<\/em> vanuit het pop-uppaneel geïmporteerd, d.w.z. <b>alleen<\/b> via gebruikersinteractie.",
+        "message": "Regelsetrecepten worden <em>op aanvraag</em> vanuit het pop-uppaneel geïmporteerd, d.w.z. <b>alleen</b> via gebruikersinteractie.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Wijzigingenlogboek<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Wijzigingenlogboek</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Documentatie<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Documentatie</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Toestemmingen<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Permissions'>Toestemmingen</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "zonder parameters",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Teruggaan",

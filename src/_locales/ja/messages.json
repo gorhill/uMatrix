@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "マウス一つでどんな種類のリクエストでも拒否\/許可することができます。スクリプト、Iframe、広告、Facebookなどをブロックします。",
+        "message": "マウス一つでどんな種類のリクエストでも拒否/許可することができます。スクリプト、Iframe、広告、Facebookなどをブロックします。",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -96,7 +96,7 @@
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "このスコープの Matrix フィルタの有効\/無効を切り替える",
+        "message": "このスコープの Matrix フィルタの有効/無効を切り替える",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> タグの偽装",
+        "message": "<code><noscript></code> タグの偽装",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "拒否した <a href='https:\/\/ja.wikipedia.org\/wiki\/HTTP_cookie'>Cookie<\/a> の数: {{count}}",
+        "message": "拒否した <a href='https://ja.wikipedia.org/wiki/HTTP_cookie'>Cookie</a> の数: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "拒否した <a href='https:\/\/ja.wikipedia.org\/wiki\/HTTP%E3%83%AA%E3%83%95%E3%82%A1%E3%83%A9'>リファラ<\/a> の数: {{count}}",
+        "message": "拒否した <a href='https://ja.wikipedia.org/wiki/HTTP%E3%83%AA%E3%83%95%E3%82%A1%E3%83%A9'>リファラ</a> の数: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "拒否した <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> の数: {{count}}",
+        "message": "拒否した <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>ハイパーリンク監査</a> の数: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storage<\/a> を空にした数: {{count}}",
+        "message": "<a href='http://diveintohtml5.info/storage.html'>Local storage</a> を空にした数: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -272,7 +272,7 @@
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>Web ページ（下記参照）による直近の HTTP リクエストの詳細を調べることができます。<\/p><p>これは、Web ページが何をしていたかを正確に調べたい上級ユーザーにとってとても便利です。しかし、これらの HTTP リクエストをログに記録するのは多くのメモリーを必要とします。もしあなたがこの技術情報を必要としない場合、メモリーが浪費されています。<\/p><p>このフィールドではログに記録される直近の HTTP リクエストの上限を調整することができます。<\/p><p>ログ記録を無効化したい（そして <i>uMatrix<\/i> のメモリー消費量を削減したい）場合は &ldquo;<code>0<\/code>&rdquo; を入力してください。<\/p>",
+        "message": "<p>Web ページ（下記参照）による直近の HTTP リクエストの詳細を調べることができます。</p><p>これは、Web ページが何をしていたかを正確に調べたい上級ユーザーにとってとても便利です。しかし、これらの HTTP リクエストをログに記録するのは多くのメモリーを必要とします。もしあなたがこの技術情報を必要としない場合、メモリーが浪費されています。</p><p>このフィールドではログに記録される直近の HTTP リクエストの上限を調整することができます。</p><p>ログ記録を無効化したい（そして <i>uMatrix</i> のメモリー消費量を削減したい）場合は &ldquo;<code>0</code>&rdquo; を入力してください。</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "訪れているサイトのスクリプトがブロックされている場合に <code><noscript><\/code> タグを偽装する",
+        "message": "訪れているサイトのスクリプトがブロックされている場合に <code><noscript></code> タグを偽装する",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p><i>uMatrix<\/i> は、ブロックされる設定の Cookie であってもブラウザに入ってくることは許可し、出て行くことをブロックします（後者が本当に必要なことです）。ブラウザに入ってくるのを許可することで、そのサイトが Cookie を使おうとしていることをユーザが確認でき、さらにその内容を調べることもできます。<\/p><p><i>uMatrix<\/i> でこれらの Cookie について確認したあと、必要であればそれらをブラウザから削除しても構いません。<\/p><p><b>重要な注意点：<\/b> ブラウザの拡張機能はその機能の一部として Web リクエストをおこなうことがあり、場合によってはブラウザ内に Cookie が保存されます。このオプションをオンにした場合、該当のホストを許可しておかないと <i>uMatrix<\/i> によって Cookie が削除されます。拡張機能が通信するホストを許可しておくことを忘れないでください。<\/p>",
+        "message": "<p><i>uMatrix</i> は、ブロックされる設定の Cookie であってもブラウザに入ってくることは許可し、出て行くことをブロックします（後者が本当に必要なことです）。ブラウザに入ってくるのを許可することで、そのサイトが Cookie を使おうとしていることをユーザが確認でき、さらにその内容を調べることもできます。</p><p><i>uMatrix</i> でこれらの Cookie について確認したあと、必要であればそれらをブラウザから削除しても構いません。</p><p><b>重要な注意点：</b> ブラウザの拡張機能はその機能の一部として Web リクエストをおこなうことがあり、場合によってはブラウザ内に Cookie が保存されます。このオプションをオンにした場合、該当のホストを許可しておかないと <i>uMatrix</i> によって Cookie が削除されます。拡張機能が通信するホストを許可しておくことを忘れないでください。</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>： &ldquo;ブラウザを終了するとセッション Cookie は消去されます。セッション Cookie は一時的に保存され、ブラウザが閉じられた後には保持されません。&rdquo;<\/p><p><a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>この動きをしない<\/a> ブラウザもあります。また、セッション Cookie を消去するためだけに、ブラウザを閉じたくないということがあるかもしれません。<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>： &ldquo;ブラウザを終了するとセッション Cookie は消去されます。セッション Cookie は一時的に保存され、ブラウザが閉じられた後には保持されません。&rdquo;</p><p><a href='https://code.google.com/p/chromium/issues/detail?id=128513'>この動きをしない</a> ブラウザもあります。また、セッション Cookie を消去するためだけに、ブラウザを閉じたくないということがあるかもしれません。</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "ブロックしているホストが保存した <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Local storage<\/a> を削除する",
+        "message": "ブロックしているホストが保存した <a href='https://en.wikipedia.org/wiki/Web_storage'>Local storage</a> を削除する",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>ユーザの行動を追跡するのに必死な Web サイトもあります。こうした Web サイトは行儀の悪い方法を使って、追跡されないようにするための対策を回避しようとします。<\/p><p>こうした手法の一部は、<a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>ブラウザのキャッシュ<\/a>に依存 <sup>[1, 2]<\/sup> しています。なぜなら、ブラウザのキャッシュを消去する人はまれで、多くの場合に長期間にわたって残り続けるためです。<\/p><p>定期的にブラウザのキャッシュを消去することによる不都合はほとんどありません（あるとすれば、消去されるときユーザが気づかないということです）。メリットは、こうした不愉快なトラッカーによってあなたのプライバシーが侵害されるのを防げるという点です。<\/p><p>このオプションを設定することで、任意の間隔で <i>uMatrix<\/i> がブラウザのキャッシュを消去するようになります。<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>ユーザの行動を追跡するのに必死な Web サイトもあります。こうした Web サイトは行儀の悪い方法を使って、追跡されないようにするための対策を回避しようとします。</p><p>こうした手法の一部は、<a href='https://en.wikipedia.org/wiki/Web_cache'>ブラウザのキャッシュ</a>に依存 <sup>[1, 2]</sup> しています。なぜなら、ブラウザのキャッシュを消去する人はまれで、多くの場合に長期間にわたって残り続けるためです。</p><p>定期的にブラウザのキャッシュを消去することによる不都合はほとんどありません（あるとすれば、消去されるときユーザが気づかないということです）。メリットは、こうした不愉快なトラッカーによってあなたのプライバシーが侵害されるのを防げるという点です。</p><p>このオプションを設定することで、任意の間隔で <i>uMatrix</i> がブラウザのキャッシュを消去するようになります。</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "サードパーティーリクエストの <a href='https:\/\/ja.wikipedia.org\/wiki\/HTTP%E3%83%AA%E3%83%95%E3%82%A1%E3%83%A9'>HTTP リファラ<\/a> を偽装する",
+        "message": "サードパーティーリクエストの <a href='https://ja.wikipedia.org/wiki/HTTP%E3%83%AA%E3%83%95%E3%82%A1%E3%83%A9'>HTTP リファラ</a> を偽装する",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "Wikipedia から引用：<blockquote>HTTP リファラは、要求しているリソースにリンクしたウェブページのアドレスを識別する HTTP ヘッダのフィールドです。<b>リファラはプライバシーを侵害するおそれがあるため、一部の Web ブラウザでは、ユーザーがリファラの送信を無効にすることができます<\/b>。<\/blockquote>この設定をオンにすると、HTTP リファラのドメイン名がアクセスしている Web サイトのドメイン名と異なる場合（サードパーティリクエストである場合）、<i>uMatrix<\/i> は HTTP リファラを偽装します。",
+        "message": "Wikipedia から引用：<blockquote>HTTP リファラは、要求しているリソースにリンクしたウェブページのアドレスを識別する HTTP ヘッダのフィールドです。<b>リファラはプライバシーを侵害するおそれがあるため、一部の Web ブラウザでは、ユーザーがリファラの送信を無効にすることができます</b>。</blockquote>この設定をオンにすると、HTTP リファラのドメイン名がアクセスしている Web サイトのドメイン名と異なる場合（サードパーティリクエストである場合）、<i>uMatrix</i> は HTTP リファラを偽装します。",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p><a href='https:\/\/developer.mozilla.org\/ja\/docs\/Security\/%E6%B7%B7%E5%9C%A8%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84'>Mozilla Developer Network<\/a> から引用：<\/p><blockquote>HTTPS のページの中に平文の HTTP で送られてくるコンテンツが含まれている場合、混在コンテンツと呼ばれます。このようなページは部分的にしか暗号化されておらず、盗聴者や中間者攻撃者が暗号化されていないコンテンツにアクセスできてしまいます。つまり、ページは安全ではありません。<\/blockquote>",
+        "message": "<p><a href='https://developer.mozilla.org/ja/docs/Security/%E6%B7%B7%E5%9C%A8%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84'>Mozilla Developer Network</a> から引用：</p><blockquote>HTTPS のページの中に平文の HTTP で送られてくるコンテンツが含まれている場合、混在コンテンツと呼ばれます。このようなページは部分的にしか暗号化されておらず、盗聴者や中間者攻撃者が暗号化されていないコンテンツにアクセスできてしまいます。つまり、ページは安全ではありません。</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "すべての <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>ハイパーリンク監査<\/a> を拒否する",
+        "message": "すべての <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>ハイパーリンク監査</a> を拒否する",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か<\/b> に通知することを可能にする仕組みです。これは本質的にトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。<\/p>",
+        "message": "<p>ハイパーリンクの監査は、ユーザーが特定の Web ページ上でどのリンクをクリックしたかを <b>不特定の誰か</b> に通知することを可能にする仕組みです。これは本質的にトラッキングの機能です。あなたがあるリンクをクリックしたとき、それを Web サイト（または第三者）に通知します。この機能の唯一の目的は、あなたのブラウジングを追跡することです。</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "ルールレシピは、ポップアップパネルで<b>ユーザーが選択して初めて<\/b>、ルールに追加されます。",
+        "message": "ルールレシピは、ポップアップパネルで<b>ユーザーが選択して初めて</b>、ルールに追加されます。",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>変更履歴<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>変更履歴</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>ドキュメント<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>ドキュメント</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>パーミッションについて<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Permissions'>パーミッションについて</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "パラメータを除いたURL",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "戻る",

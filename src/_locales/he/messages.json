@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "כוון & לחץ על מנת לחסום\/להרשות כל סוג של בקשות שיצאו מהדפדפן שלך. השתמש בזה על מנת לחסום סקריפטים, מסגרות, פרסומות, פייסבוק, וכו'.",
+        "message": "כוון & לחץ על מנת לחסום/להרשות כל סוג של בקשות שיצאו מהדפדפן שלך. השתמש בזה על מנת לחסום סקריפטים, מסגרות, פרסומות, פייסבוק, וכו'.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "בחר טווח לוקאלי על מנת לראות\/ליצור חוקים אשר חלים אך ורק לטווח זה",
+        "message": "בחר טווח לוקאלי על מנת לראות/ליצור חוקים אשר חלים אך ורק לטווח זה",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "בחר טווח גלובאלי על מנת לראות\/ליצור חוקים אשר חלים בכל מקום",
+        "message": "בחר טווח גלובאלי על מנת לראות/ליצור חוקים אשר חלים בכל מקום",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "כבה\/אפשר מטריצת פילטור עבור טווח זה",
+        "message": "כבה/אפשר מטריצת פילטור עבור טווח זה",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "זיוף תגיות <code><noscript><\/code>",
+        "message": "זיוף תגיות <code><noscript></code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> שסוכלו: {{count}}",
+        "message": "כותרות (Headers) <a href='https://en.wikipedia.org/wiki/HTTP_cookie'>HTTP cookie</a> שסוכלו: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "כותרות (Headers) <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> שסוכלו: {{count}}",
+        "message": "כותרות (Headers) <a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> שסוכלו: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "ניסיונות <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> שסוכלו: {{count}}",
+        "message": "ניסיונות <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>Hyperlink auditing</a> שסוכלו: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "ריקונים של <a href='http:\/\/diveintohtml5.info\/storage.html'>אחסונים לוקליים<\/a>: {{count}}",
+        "message": "ריקונים של <a href='http://diveintohtml5.info/storage.html'>אחסונים לוקליים</a>: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "בקשות ה HTTP <b>פר עמוד<\/b>.",
+        "message": "בקשות ה HTTP <b>פר עמוד</b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>אתה יכול לבדוק את הפרטים של רוב בקשות HTTP הגולמיות האחרונות אשר יצאו מדף אינטרנט (ראה להלן).<\/p><p>זה שימושי בעיקר למשתמשים מתקדמים שרוצים לחקור בדיוק מה דף האינטרנט עשה. אבל רישום בקשות ה HTTP הללו דורש זיכרון, ואם לא אכפת לך מהמידע הטכני הזה, אז הזיכרון מתבזבז.<\/p><p>לכן קיימת אפשרות זו המאפשרת לך להתאים את המספר המרבי של בקשות ה HTTP הכי האחרונות שמיועדות להירשם לבדיקה נוספת.<\/p><p>הזן &ldquo;<code>0<\/code>&rdquo; כדי לכבות את הרישום המפורט (וכתוצאה מכך להפחית את השימוש בזיכרון של <i>uMatrix<\/i>).<\/p>",
+        "message": "<p>אתה יכול לבדוק את הפרטים של רוב בקשות HTTP הגולמיות האחרונות אשר יצאו מדף אינטרנט (ראה להלן).</p><p>זה שימושי בעיקר למשתמשים מתקדמים שרוצים לחקור בדיוק מה דף האינטרנט עשה. אבל רישום בקשות ה HTTP הללו דורש זיכרון, ואם לא אכפת לך מהמידע הטכני הזה, אז הזיכרון מתבזבז.</p><p>לכן קיימת אפשרות זו המאפשרת לך להתאים את המספר המרבי של בקשות ה HTTP הכי האחרונות שמיועדות להירשם לבדיקה נוספת.</p><p>הזן &ldquo;<code>0</code>&rdquo; כדי לכבות את הרישום המפורט (וכתוצאה מכך להפחית את השימוש בזיכרון של <i>uMatrix</i>).</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "זייף תגיות <code><noscript><\/code> כאשר סקריפטים צד-1 חסומים",
+        "message": "זייף תגיות <code><noscript></code> כאשר סקריפטים צד-1 חסומים",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p>עוגיות ברשימה השחורה לא נמנעות על ידי <i>uMatrix<\/i> מלהיכנס לדפדפן שלך. אולם הן כן מנועות מלצאת מהדפדפן שלך, וזה מה שחשוב באמת. לא לחסום עוגיות לפני שהן נכנסות לדפדפן שלך נותן לך את ההזדמנות להיות מודע לכך שאתר ניסה להשתמש בעוגיות, ויתר על כן כדי לבדוק את תוכנם, אם תרצה.<\/p><p>כאשר <i>uMatrix<\/i> נתקל בעוגייה שברשימה השחורה, הן יכולות להיות מוסרות מהדפדפן שלך אם תרצה בכך.<\/p><p><b>הערה חשובה:<\/b> תוספים יכולים לבצע בקשות רשת במהלך פעולתם הרגילה. בקשות אלה יכולות לגרום לכך שעוגיות יווצרו בדפדפן. אם הדומיין שממנה העוגייה הגיעה לא ברשימה הלבנה, העוגייה תמחק מהדפדפן על ידי <i>µMatrix<\/i> אם אפשרות זו מאופשרת. אז תהיה בטוח לגבי זה שהדומיין(ים) אשר איתם התוסף יכול לתקשר נמצא(ים) ברשימה הלבנה.<\/p>",
+        "message": "<p>עוגיות ברשימה השחורה לא נמנעות על ידי <i>uMatrix</i> מלהיכנס לדפדפן שלך. אולם הן כן מנועות מלצאת מהדפדפן שלך, וזה מה שחשוב באמת. לא לחסום עוגיות לפני שהן נכנסות לדפדפן שלך נותן לך את ההזדמנות להיות מודע לכך שאתר ניסה להשתמש בעוגיות, ויתר על כן כדי לבדוק את תוכנם, אם תרצה.</p><p>כאשר <i>uMatrix</i> נתקל בעוגייה שברשימה השחורה, הן יכולות להיות מוסרות מהדפדפן שלך אם תרצה בכך.</p><p><b>הערה חשובה:</b> תוספים יכולים לבצע בקשות רשת במהלך פעולתם הרגילה. בקשות אלה יכולות לגרום לכך שעוגיות יווצרו בדפדפן. אם הדומיין שממנה העוגייה הגיעה לא ברשימה הלבנה, העוגייה תמחק מהדפדפן על ידי <i>µMatrix</i> אם אפשרות זו מאופשרת. אז תהיה בטוח לגבי זה שהדומיין(ים) אשר איתם התוסף יכול לתקשר נמצא(ים) ברשימה הלבנה.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;עוגיית סשן ... נמחקת כאשר אתה מסיים הסשן של הדפדפן. עוגיית הסשן מאוכסנת בזיכרון זמני ולא נשמרת לאחר שהדפדפן נסגר.&rdquo;<\/p><p>אלא שהדבר <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>יכול לא לקרות<\/a> בדפדפנים מסויימים. כמו כן, לחלק, הפעולה של לסגור את הדפדפן על מנת שעוגיות הסשן יימחקו יכולה להיות  פעולה מספיק מוקדמת.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;עוגיית סשן ... נמחקת כאשר אתה מסיים הסשן של הדפדפן. עוגיית הסשן מאוכסנת בזיכרון זמני ולא נשמרת לאחר שהדפדפן נסגר.&rdquo;</p><p>אלא שהדבר <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>יכול לא לקרות</a> בדפדפנים מסויימים. כמו כן, לחלק, הפעולה של לסגור את הדפדפן על מנת שעוגיות הסשן יימחקו יכולה להיות  פעולה מספיק מוקדמת.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "מחק <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>איחסונים לוקאליים<\/a> שנרשמו על ידי דומיינים חסומים",
+        "message": "מחק <a href='https://en.wikipedia.org/wiki/Web_storage'>איחסונים לוקאליים</a> שנרשמו על ידי דומיינים חסומים",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>יש אתרי אינטרנט שממש רוצים לעקוב אחרייך, כל כך שהם ישתמשו בטריקים לא כל כך יפים על מנת לעקוף את כל הדברים שאתה עושה כדי לא להיות במעקב.<\/p><p>כמה מהטריקים האלה מתבססים<sup>[1, 2]<\/sup> על <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>הזיכרון מטמון של הדפדפן<\/a>, אשר תוכנו לרוב נמצא הרבה זמן על המחשב מכיוון שלעיתים רחוקות משתמשים ישקיעו מזמנם לנקות באופן קבוע את הזיכרון מטמון של הדפדפן שלהם.<\/p><p>יש אי נעימות קלה לנקות את הזיכרון מטמון של הדפדפן באופן קבוע (רוב הסיכויים שלא תשים לב כשזה קורה), והתועלת היא במניעה של העוקבים הנתעבים האלה מחדירה לפרטיות שלך.<\/p><p>סמן אפשרות זו בשביל ש <i>uMatrix<\/i> יעשה זאת בשבילך, כל כמה זמן שתרצה.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;מניעה מעקב אינטרנטי על ידי שימוש בזיכרון מטמון של הדפדפן&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;עוגיות חסרי העוגיות&rdquo;<\/a><\/p>",
+        "message": "<p>יש אתרי אינטרנט שממש רוצים לעקוב אחרייך, כל כך שהם ישתמשו בטריקים לא כל כך יפים על מנת לעקוף את כל הדברים שאתה עושה כדי לא להיות במעקב.</p><p>כמה מהטריקים האלה מתבססים<sup>[1, 2]</sup> על <a href='https://en.wikipedia.org/wiki/Web_cache'>הזיכרון מטמון של הדפדפן</a>, אשר תוכנו לרוב נמצא הרבה זמן על המחשב מכיוון שלעיתים רחוקות משתמשים ישקיעו מזמנם לנקות באופן קבוע את הזיכרון מטמון של הדפדפן שלהם.</p><p>יש אי נעימות קלה לנקות את הזיכרון מטמון של הדפדפן באופן קבוע (רוב הסיכויים שלא תשים לב כשזה קורה), והתועלת היא במניעה של העוקבים הנתעבים האלה מחדירה לפרטיות שלך.</p><p>סמן אפשרות זו בשביל ש <i>uMatrix</i> יעשה זאת בשבילך, כל כמה זמן שתרצה.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;מניעה מעקב אינטרנטי על ידי שימוש בזיכרון מטמון של הדפדפן&rdquo;</a>\n[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;עוגיות חסרי העוגיות&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "זייף את ה <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> של בקשות צד שלישי.",
+        "message": "זייף את ה <a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a> של בקשות צד שלישי.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "מתוך ויקיפדיה:<blockquote>HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לפגוע בפרטיות, מספר דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע של המפנה.<\/b><\/blockquote>אם אפשרות זו מאופשרת, <i>uMatrix<\/i> יזייף את המידע של ה HTTP referrer אם שם הדומיין של ה HTTP referrer הוא צד שלישי לשם הדומיין של בקשת הרשת.",
+        "message": "מתוך ויקיפדיה:<blockquote>HTTP referer זוהי כותרת (header) של בקשת HTTP אשר מזהה את הכתובת של דף האינטרנט שמקושר למשאב שמבוקש. ... <b>משום שהמידע על המפנה (referer) יכול לפגוע בפרטיות, מספר דפדפנים מאפשרים למשתמש לבטל את השליחה של המידע של המפנה.</b></blockquote>אם אפשרות זו מאופשרת, <i>uMatrix</i> יזייף את המידע של ה HTTP referrer אם שם הדומיין של ה HTTP referrer הוא צד שלישי לשם הדומיין של בקשת הרשת.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>מתוך <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p>אם דף HTTPS (מאובטח) מכיל בתוכו תוכן שהובא באמצעות בקשת HTTP, אז החיבור מוצפן באופן חלקי בלבד: התוכן הלא מוצפן נגיש להסנפה ותוקפים שנמצאים באמצע יכולים לשנות אותו, ולכן החיבור כבר לא בטוח. כאשר דף אינטרנט מציג התנהגות זו, זה נקרא דף עם תוכן מעורב.<\/blockquote>",
+        "message": "<p>מתוך <a href='https://developer.mozilla.org/en-US/docs/Security/MixedContent'>Mozilla Developer Network</a>:</p>אם דף HTTPS (מאובטח) מכיל בתוכו תוכן שהובא באמצעות בקשת HTTP, אז החיבור מוצפן באופן חלקי בלבד: התוכן הלא מוצפן נגיש להסנפה ותוקפים שנמצאים באמצע יכולים לשנות אותו, ולכן החיבור כבר לא בטוח. כאשר דף אינטרנט מציג התנהגות זו, זה נקרא דף עם תוכן מעורב.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "חסום את כל הניסיונות ל<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a>.",
+        "message": "חסום את כל הניסיונות ל<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>Hyperlink auditing</a>.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Hyperlink auditing זהו מנגנון אשר מאפשר לצד, <b>כל צד<\/b>, להיות מודע על איזה קישור בדיוק המשתמש לחץ בדף אינטרנט ספציפי. במהות שלו זוהי תכונת מעקב: היא מאפשרת לדף אינטרנט, או לכל אתר צד שלישי לדף אינטרנט זה, להיות מודע לגבי איזה קישור לחצת באיזה דף של האתר שלהם. המטרה היחידה היא לעקוב אחר פעילות הגלישה שלך.<\/p>",
+        "message": "<p>Hyperlink auditing זהו מנגנון אשר מאפשר לצד, <b>כל צד</b>, להיות מודע על איזה קישור בדיוק המשתמש לחץ בדף אינטרנט ספציפי. במהות שלו זוהי תכונת מעקב: היא מאפשרת לדף אינטרנט, או לכל אתר צד שלישי לדף אינטרנט זה, להיות מודע לגבי איזה קישור לחצת באיזה דף של האתר שלהם. המטרה היחידה היא לעקוב אחר פעילות הגלישה שלך.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "אוסף החוקים מיובאים מהחלון הקופץ <em>לפי דרישה<\/em>, כלומר <b>אך ורק<\/b> באמצעות אינטראקציה של המשתמש.",
+        "message": "אוסף החוקים מיובאים מהחלון הקופץ <em>לפי דרישה</em>, כלומר <b>אך ורק</b> באמצעות אינטראקציה של המשתמש.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>רשימת שינויים<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>רשימת שינויים</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>דוקומנטציה<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>דוקומנטציה</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>הרשאות<\/a>",
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>הרשאות</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "without parameters",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "חזור",

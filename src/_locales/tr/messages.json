@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Yalnızca bu kapsamda geçerli olan kuralları görmek\/oluşturmak için yerel bir kapsam seçin",
+        "message": "Yalnızca bu kapsamda geçerli olan kuralları görmek/oluşturmak için yerel bir kapsam seçin",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Her yere uygulanan kuralları görmek\/oluşturmak için genel kapsamı seçin",
+        "message": "Her yere uygulanan kuralları görmek/oluşturmak için genel kapsamı seçin",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Bu kapsam için matris süzgecini devre dışı bırak\/etkinleştir.",
+        "message": "Bu kapsam için matris süzgecini devre dışı bırak/etkinleştir.",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "<code><noscript><\/code> etiketlerini aldat",
+        "message": "<code><noscript></code> etiketlerini aldat",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP çerez<\/a> başlığı önlendi: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_cookie'>HTTP çerez</a> başlığı önlendi: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP başvuran<\/a> başlığı önlendi: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP başvuran</a> başlığı önlendi: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hiperbağlaç denetim<\/a> girişimi önlendi: {{count}}",
+        "message": "<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>Hiperbağlaç denetim</a> girişimi önlendi: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>Yerel depolar<\/a> boşaltıldı: {{count}}",
+        "message": "<a href='http://diveintohtml5.info/storage.html'>Yerel depolar</a> boşaltıldı: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -264,7 +264,7 @@
         "description": ""
     },
     "statsPageLogSizePrompt1": {
-        "message": "<b>Sayfa başına<\/b> son",
+        "message": "<b>Sayfa başına</b> son",
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
@@ -272,7 +272,7 @@
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>Bir web sayfası tarafından en son yapılan işlenmemiş HTTP isteklerinin ayrıntılarını denetleyebilirsiniz (aşağıya bakın).<\/p><p>Bu en çok ileri düzey kullanıcıların bir web sayfasının tam olarak ne yaptığını incelemerinde kullanışlı olur. Fakat bu HTTP istek günlüklüklerinin tutulması bellek kullanımı arttırır ve bu teknik bilgiye ihtiyacınız yoksa bellek boşa kullanılmış olur.<\/p><p>Bundan dolayı en fazla günlüğü tutulacak HTTP istek sayısını bu alandan ayarlayabilirsiniz.<\/p><p>&ldquo;<code>0<\/code>&rdquo; girerek ayrıntılı günlük tutulmasını kapatabilirsiniz (ve netice olarak <i>uMatrix'in<\/i> bellek kullanımını düşürürsünüz).<\/p>",
+        "message": "<p>Bir web sayfası tarafından en son yapılan işlenmemiş HTTP isteklerinin ayrıntılarını denetleyebilirsiniz (aşağıya bakın).</p><p>Bu en çok ileri düzey kullanıcıların bir web sayfasının tam olarak ne yaptığını incelemerinde kullanışlı olur. Fakat bu HTTP istek günlüklüklerinin tutulması bellek kullanımı arttırır ve bu teknik bilgiye ihtiyacınız yoksa bellek boşa kullanılmış olur.</p><p>Bundan dolayı en fazla günlüğü tutulacak HTTP istek sayısını bu alandan ayarlayabilirsiniz.</p><p>&ldquo;<code>0</code>&rdquo; girerek ayrıntılı günlük tutulmasını kapatabilirsiniz (ve netice olarak <i>uMatrix'in</i> bellek kullanımını düşürürsünüz).</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "1. taraf betikler engellendiğinde <code><noscript><\/code> etiketlerini aldat",
+        "message": "1. taraf betikler engellendiğinde <code><noscript></code> etiketlerini aldat",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p>Kara listelenmiş çerezlerin tarayıcınıza girmesi <i>uMatrix<\/i> tarafından önlenmez. Ancak tarayıcınızdan çıkışları önlenir, önemli olan da budur. Çerezlerin tarayıcınıza girişi önlenmeyerek sitenin çerez kullanımı hakkında bilgi sahibi olma fırsatını elde edersiniz ve üstelik dilerseniz içeriklerini de denetleyebilirsiniz.<\/p><p>Bu engellenmiş çerezler bir kere <i>uMatrix<\/i> tarafından raporlandıktan sonra eğer isterseniz tabi tarayıcınızdan kaldırılabilir.<\/p><p><b>Önemli not:<\/b> Eklentiler normal işleyişleri sırasında web isteği yapabilir. Bu istekler tarayıcınızda çerez oluşumuna neden olur. Bu seçenek işaretli ve çerezin geldiği alan adı beyaz listede değilse bu çerez <i>uMatrix<\/i> tarafından tarayıcınızdan kaldırılacaktır. Bu yüzden eklentilerin iletişim kurduğu alan ad(lar)ının beyaz listede bulunduğundan emin olunuz.<\/p>",
+        "message": "<p>Kara listelenmiş çerezlerin tarayıcınıza girmesi <i>uMatrix</i> tarafından önlenmez. Ancak tarayıcınızdan çıkışları önlenir, önemli olan da budur. Çerezlerin tarayıcınıza girişi önlenmeyerek sitenin çerez kullanımı hakkında bilgi sahibi olma fırsatını elde edersiniz ve üstelik dilerseniz içeriklerini de denetleyebilirsiniz.</p><p>Bu engellenmiş çerezler bir kere <i>uMatrix</i> tarafından raporlandıktan sonra eğer isterseniz tabi tarayıcınızdan kaldırılabilir.</p><p><b>Önemli not:</b> Eklentiler normal işleyişleri sırasında web isteği yapabilir. Bu istekler tarayıcınızda çerez oluşumuna neden olur. Bu seçenek işaretli ve çerezin geldiği alan adı beyaz listede değilse bu çerez <i>uMatrix</i> tarafından tarayıcınızdan kaldırılacaktır. Bu yüzden eklentilerin iletişim kurduğu alan ad(lar)ının beyaz listede bulunduğundan emin olunuz.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Bir oturum çerezi ... tarayıcı oturumu sonlandığında silinir. Oturum çerezi geçici bellekte depolanır ve tarayıcı kapandıktan sonra muhafaza edilmez.&rdquo;<\/p><p>Bazı tarayıcıları kullanırken <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>bu durum gerçekleşmeyebilir.<\/a> Ayrıca, bazılarımız için, oturum çerezlerinin temizlenmesi için tarayıcının kapatılması yeteri kadar erken olmayabilir.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;Bir oturum çerezi ... tarayıcı oturumu sonlandığında silinir. Oturum çerezi geçici bellekte depolanır ve tarayıcı kapandıktan sonra muhafaza edilmez.&rdquo;</p><p>Bazı tarayıcıları kullanırken <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>bu durum gerçekleşmeyebilir.</a> Ayrıca, bazılarımız için, oturum çerezlerinin temizlenmesi için tarayıcının kapatılması yeteri kadar erken olmayabilir.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Engellenmiş alan adları tarafından oluşturulmuş <a href='https:\/\/en.wikipedia.org\/wiki\/Web_storage'>Yerel depolama<\/a> içeriğini sil",
+        "message": "Engellenmiş alan adları tarafından oluşturulmuş <a href='https://en.wikipedia.org/wiki/Web_storage'>Yerel depolama</a> içeriğini sil",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Bazı web siteleri sizi izlemekte çok kararlıdır, izlenmemek için aldığınız her ne önlem varsa bunları aşmak için hoş olmayan hileli yöntemler kullanacaklardır.<\/p><p>Bu hilelerden bazıları <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>tarayıcı önbelleği<\/a> <sup>[1, 2]<\/sup>'ye dayalıdır, kullanıcı düzenli olarak tarayıcısının geçmişini temizlemediği için içerik çok uzun süre tarayıcıda kalır.<\/p><p>Tarayıcı önbelleğini düzenli olarak temizlemek biraz zahmetlidir (temizlendiğinde ise muhtemelen farkına varmazsınız) ve faydası ise kötü izleyicilerin gizliliğinizi ihlal etmesinin önüne geçmiş olursunuz.<\/p><p>Bu seçeneği işaretleyerek belirli aralıklarla bu işlemi sizin yerinize <i>uMatrix<\/i> yapabilir.<\/p><p>[1]<a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Tarayıcı Önbelleği ile Web İzlemesini Önlemek&rdquo;<\/a>\n[2]<a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Çerezsiz çerezler&rdquo;<\/a><\/p>",
+        "message": "<p>Bazı web siteleri sizi izlemekte çok kararlıdır, izlenmemek için aldığınız her ne önlem varsa bunları aşmak için hoş olmayan hileli yöntemler kullanacaklardır.</p><p>Bu hilelerden bazıları <a href='https://en.wikipedia.org/wiki/Web_cache'>tarayıcı önbelleği</a> <sup>[1, 2]</sup>'ye dayalıdır, kullanıcı düzenli olarak tarayıcısının geçmişini temizlemediği için içerik çok uzun süre tarayıcıda kalır.</p><p>Tarayıcı önbelleğini düzenli olarak temizlemek biraz zahmetlidir (temizlendiğinde ise muhtemelen farkına varmazsınız) ve faydası ise kötü izleyicilerin gizliliğinizi ihlal etmesinin önüne geçmiş olursunuz.</p><p>Bu seçeneği işaretleyerek belirli aralıklarla bu işlemi sizin yerinize <i>uMatrix</i> yapabilir.</p><p>[1]<a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Tarayıcı Önbelleği ile Web İzlemesini Önlemek&rdquo;</a>\n[2]<a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Çerezsiz çerezler&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Üçüncü taraf isteklerin <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP başvuran<\/a> bilgisini aldat.",
+        "message": "Üçüncü taraf isteklerin <a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP başvuran</a> bilgisini aldat.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "Wikipedia'dan:<blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.<\/b><\/blockquote>Bu ayar işaretliyse, <i>uMatrix<\/i> HTTP başvuran bilgisinin alan adı, istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
+        "message": "Wikipedia'dan:<blockquote>HTTP başvuran bilgisi bir web sayfasına hangi bağlantıdan geldiğinizi içeren HTTP başlığıdır. ... <b>Çünkü başvuran bilgisi gizliliğinizi ihlal edebilir, bazı web tarayıcıları bu bilginin gönderimini devre dışı bırakmanıza izin verebilir.</b></blockquote>Bu ayar işaretliyse, <i>uMatrix</i> HTTP başvuran bilgisinin alan adı, istek yapılan alan adına göre üçüncü taraf ise bu bilgiyi aldatacaktır.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p><a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Geliştiriciler Ağ'ından<\/a>:<\/p><blockquote>HTTPS sayfası sıradan bir içerik barındırıyorsa, düz metin HTTP, o bağlantı yalnızca kısmen şifrelenmiştir: şifrelenmemiş içerik, koklayıcı erişimine açık ve araya giren saldırıları tarafından değiştirilebilir durumdadır, bu nedenle artık bağlantı güvence altında değildir. Bu davranışı sergileyen web sayfasına, karışık içerikli sayfa denir.<\/blockquote>",
+        "message": "<p><a href='https://developer.mozilla.org/en-US/docs/Security/MixedContent'>Mozilla Geliştiriciler Ağ'ından</a>:</p><blockquote>HTTPS sayfası sıradan bir içerik barındırıyorsa, düz metin HTTP, o bağlantı yalnızca kısmen şifrelenmiştir: şifrelenmemiş içerik, koklayıcı erişimine açık ve araya giren saldırıları tarafından değiştirilebilir durumdadır, bu nedenle artık bağlantı güvence altında değildir. Bu davranışı sergileyen web sayfasına, karışık içerikli sayfa denir.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Tüm <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hiperbağlaç denetim<\/a> girişimlerini engelle.",
+        "message": "Tüm <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>hiperbağlaç denetim</a> girişimlerini engelle.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Köprü denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa<\/b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü tarafın o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.<\/p>",
+        "message": "<p>Köprü denetimi, kullanıcının web sayfasında hangi bağlantıya tıkladığını bir tarafa bildiren, <b>herhangi bir tarafa</b>, mekanizmadır. Esasen bir izleme özelliğidir: Bir web sitesinin veya o siteye bağlı üçüncü tarafın o sitenin hangi sayfasında hangi bağlantıya tıkladığınızı bilmesine olanak sağlar. Bunun tek amacı sizin tarayıcı etkinliğinizi izlemektir.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Kural seti tarifleri <em>isteğe bağlı olarak<\/em>, <b>yalnızca<\/b> kullanıcı etkileşimi yoluyla, açılır panelden içe aktarılır.",
+        "message": "Kural seti tarifleri <em>isteğe bağlı olarak</em>, <b>yalnızca</b> kullanıcı etkileşimi yoluyla, açılır panelden içe aktarılır.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Değişim günlüğü<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Değişim günlüğü</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Belgeler<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Belgeler</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>İzinler<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Permissions'>İzinler</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "değişkensiz",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Geri git",

@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Выберите локальную область для просмотра\/создания правил, которые применяются только к этой области",
+        "message": "Выберите локальную область для просмотра/создания правил, которые применяются только к этой области",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Выберите глобальную область для просмотра\/создания правил, которые применяются повсеместно",
+        "message": "Выберите глобальную область для просмотра/создания правил, которые применяются повсеместно",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Откл\/вкл фильтрацию запросов для данной области",
+        "message": "Откл/вкл фильтрацию запросов для данной области",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -128,11 +128,11 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Подмена заголовка <code>Referer<\/code>",
+        "message": "Подмена заголовка <code>Referer</code>",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Подмена <code><noscript><\/code> тегов",
+        "message": "Подмена <code><noscript></code> тегов",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "Обработано заголовков <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a>: {{count}}",
+        "message": "Обработано заголовков <a href='https://ru.wikipedia.org/wiki/HTTP_cookie'>HTTP cookie</a>: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "Обработано заголовков <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a>: {{count}}",
+        "message": "Обработано заголовков <a href='https://ru.wikipedia.org/wiki/HTTP_referer'>HTTP referrer</a>: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "Обработано попыток <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>аудита гиперссылок<\/a>: {{count}}",
+        "message": "Обработано попыток <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>аудита гиперссылок</a>: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "Очищено <a href='http:\/\/diveintohtml5.info\/storage.html'>локальных хранилищ<\/a>: {{count}}",
+        "message": "Очищено <a href='http://diveintohtml5.info/storage.html'>локальных хранилищ</a>: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "HTTP запросов <b>на страницу<\/b>.",
+        "message": "HTTP запросов <b>на страницу</b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>Вы можете детально изучить последние необработанные HTTP запросы, которые были сделаны веб-страницей (см. ниже).<\/p><p>Это особенно полезно для продвинутых пользователей, которые хотят узнать, что конкретно делала веб-страница. Однако журналирование этих HTTP запросов увеличивает потребление памяти, и если вас не интересует эта техническая информация, то это - трата памяти.<\/p><p>Это поле позволяет вам настроить максимальное число последних HTTP запросов, которые будут храниться в журнале для последующего изучения.<\/p><p>Введите &ldquo;<code>0<\/code>&rdquo; чтобы отключить журналирование (и соответственно уменьшить потребление памяти <i>uMatrix<\/i>).<\/p>",
+        "message": "<p>Вы можете детально изучить последние необработанные HTTP запросы, которые были сделаны веб-страницей (см. ниже).</p><p>Это особенно полезно для продвинутых пользователей, которые хотят узнать, что конкретно делала веб-страница. Однако журналирование этих HTTP запросов увеличивает потребление памяти, и если вас не интересует эта техническая информация, то это - трата памяти.</p><p>Это поле позволяет вам настроить максимальное число последних HTTP запросов, которые будут храниться в журнале для последующего изучения.</p><p>Введите &ldquo;<code>0</code>&rdquo; чтобы отключить журналирование (и соответственно уменьшить потребление памяти <i>uMatrix</i>).</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Подменять <code><noscript><\/code> теги, когда скрипты главного домена заблокированы",
+        "message": "Подменять <code><noscript></code> теги, когда скрипты главного домена заблокированы",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p>Запрещенные куки не блокируются <i>uMatrix<\/i> при входе в ваш браузер. Однако их передача из браузера предотвращается - вот что действительно важно. Неблокировка куки файлов до того, как они сохраняются браузером дает вам возможность узнать, что сайт пытался использовать куки, и потом изучить их содержимое, если вы хотите.<\/p><p>Как только эти запрещенные куки составлены <i>uMatrix<\/i>, они могут быть удалены из браузера, по вашему желанию.<\/p><p><b>Важное замечание:<\/b> Расширения могут осуществлять веб-запросы во время своей обычной работы. Эти запросы могут порождать создание куки файлов в браузере. Если имя хоста (сайта), от которого создается куки не в белом списке, то <i>uMatrix<\/i> удалит эти куки из браузера, если эта опция включена. Поэтому убедитесь, что имена хостов (сайтов) с которыми соединяется расширение добавлено в белый список.<\/p>",
+        "message": "<p>Запрещенные куки не блокируются <i>uMatrix</i> при входе в ваш браузер. Однако их передача из браузера предотвращается - вот что действительно важно. Неблокировка куки файлов до того, как они сохраняются браузером дает вам возможность узнать, что сайт пытался использовать куки, и потом изучить их содержимое, если вы хотите.</p><p>Как только эти запрещенные куки составлены <i>uMatrix</i>, они могут быть удалены из браузера, по вашему желанию.</p><p><b>Важное замечание:</b> Расширения могут осуществлять веб-запросы во время своей обычной работы. Эти запросы могут порождать создание куки файлов в браузере. Если имя хоста (сайта), от которого создается куки не в белом списке, то <i>uMatrix</i> удалит эти куки из браузера, если эта опция включена. Поэтому убедитесь, что имена хостов (сайтов) с которыми соединяется расширение добавлено в белый список.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;Сеансовые файлы cookie... удаляются при завершении сеанса браузера. Они хранятся во временной памяти и не сохраняются после закрытия браузера.&rdquo;<\/p><p>Однако в некоторых браузерах этого <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>может не произойти<\/a>. Кроме того, может возникнуть потребность в удалении сеансовых файлов cookie до закрытия браузера.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;Сеансовые файлы cookie... удаляются при завершении сеанса браузера. Они хранятся во временной памяти и не сохраняются после закрытия браузера.&rdquo;</p><p>Однако в некоторых браузерах этого <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>может не произойти</a>. Кроме того, может возникнуть потребность в удалении сеансовых файлов cookie до закрытия браузера.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Удалять содержимое <a href='https:\/\/ru.wikipedia.org\/wiki\/Web_storage'>локального хранилища<\/a> заблокированных сайтов.",
+        "message": "Удалять содержимое <a href='https://ru.wikipedia.org/wiki/Web_storage'>локального хранилища</a> заблокированных сайтов.",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые меры, предпринятые для защиты от отслеживания.<\/p><p>Некоторые ухищрения основаны<sup>[1, 2]<\/sup> на использовании <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>кэша браузера<\/a>, содержимое которого зачастую хранится длительное время, потому что пользователи нерегулярно его очищают.<\/p><p>Регулярная очистка кэша предотвращает отслеживание, однако делать это вручную не всегда удобно.<\/p><p>Включение данной опции позволит <i>uMatrix<\/i> делать это за вас с заданным интервалом времени.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>Некоторые сайты идут на всевозможные ухищрения для того, чтобы обойти любые меры, предпринятые для защиты от отслеживания.</p><p>Некоторые ухищрения основаны<sup>[1, 2]</sup> на использовании <a href='https://en.wikipedia.org/wiki/Web_cache'>кэша браузера</a>, содержимое которого зачастую хранится длительное время, потому что пользователи нерегулярно его очищают.</p><p>Регулярная очистка кэша предотвращает отслеживание, однако делать это вручную не всегда удобно.</p><p>Включение данной опции позволит <i>uMatrix</i> делать это за вас с заданным интервалом времени.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a>[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Подменять строку <a href='https:\/\/ru.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> в запросах к сторонним источникам.",
+        "message": "Подменять строку <a href='https://ru.wikipedia.org/wiki/HTTP_referer'>HTTP referrer</a> в запросах к сторонним источникам.",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "Материал из Википедии:<blockquote>HTTP referer — это HTTP заголовок, который указывает адрес страницы, содержащей ссылку на запрошенный ресурс. ... <b>Поскольку эта информация может нарушать конфиденциальность, некоторые браузеры позволяют запретить её передачу.<\/b><\/blockquote>Если эта опция включена, <i>uMatrix<\/i> будет подменять HTTP referer, если сайт, указанный в HTTP referer, является сторонним по отношению к запрашиваемому ресурсу.",
+        "message": "Материал из Википедии:<blockquote>HTTP referer — это HTTP заголовок, который указывает адрес страницы, содержащей ссылку на запрошенный ресурс. ... <b>Поскольку эта информация может нарушать конфиденциальность, некоторые браузеры позволяют запретить её передачу.</b></blockquote>Если эта опция включена, <i>uMatrix</i> будет подменять HTTP referer, если сайт, указанный в HTTP referer, является сторонним по отношению к запрашиваемому ресурсу.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>Материал из <a href='https:\/\/developer.mozilla.org\/ru-RU\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>Если страница, переданная по HTTPS, содержит контент, передаваемый по обычному, открытому HTTP, соединение считается частично зашифрованным: то, что передаётся по HTTP, можно перехватить и изменить, вследствие чего соединение уже не считается защищённым. Такие страницы называются <em>страницами со смешанным содержимым<\/em>.<\/blockquote>",
+        "message": "<p>Материал из <a href='https://developer.mozilla.org/ru-RU/docs/Security/MixedContent'>Mozilla Developer Network</a>:</p><blockquote>Если страница, переданная по HTTPS, содержит контент, передаваемый по обычному, открытому HTTP, соединение считается частично зашифрованным: то, что передаётся по HTTP, можно перехватить и изменить, вследствие чего соединение уже не считается защищённым. Такие страницы называются <em>страницами со смешанным содержимым</em>.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Блокировать все попытки <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>аудита гиперссылок<\/a>.",
+        "message": "Блокировать все попытки <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>аудита гиперссылок</a>.",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Проверка гиперссылок — это механизм, позволяющий <b>любой стороне<\/b> получать информацию о том, по каким ссылкам переходил пользователь на каждой конкретной веб-странице. Единственная цель — отслеживание вашей интернет-активности.<\/p>",
+        "message": "<p>Проверка гиперссылок — это механизм, позволяющий <b>любой стороне</b> получать информацию о том, по каким ссылкам переходил пользователь на каждой конкретной веб-странице. Единственная цель — отслеживание вашей интернет-активности.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -512,7 +512,7 @@
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Наборы правил импортируются из всплывающей панели <em>по требованию<\/em>, т.е. <b>только<\/b> после запроса пользователя.",
+        "message": "Наборы правил импортируются из всплывающей панели <em>по требованию</em>, т.е. <b>только</b> после запроса пользователя.",
         "description": ""
     },
     "assetsImportLabel": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Список изменений<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Список изменений</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документация<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Документация</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>Разрешения<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Permissions'>Разрешения</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "без параметров",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Назад",

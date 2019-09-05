@@ -132,7 +132,7 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "模擬 <code><noscript><\/code> 元素",
+        "message": "模擬 <code><noscript></code> 元素",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -168,15 +168,15 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "已阻止<a href='https:\/\/zh.wikipedia.org\/wiki\/Cookie'>Cookie<\/a>檔頭請求：{{count}}次",
+        "message": "已阻止<a href='https://zh.wikipedia.org/wiki/Cookie'>Cookie</a>檔頭請求：{{count}}次",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "已阻止<a href='https:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP參照位址<\/a>檔頭請求：{{count}}次",
+        "message": "已阻止<a href='https://zh.wikipedia.org/wiki/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP參照位址</a>檔頭請求：{{count}}次",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "已阻止<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>超連結審查<\/a>：{{count}}次",
+        "message": "已阻止<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>超連結審查</a>：{{count}}次",
         "description": ""
     },
     "statsPageCookiesRemoved": {
@@ -184,7 +184,7 @@
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>本地儲存<\/a>清空次數：{{count}}",
+        "message": "<a href='http://diveintohtml5.info/storage.html'>本地儲存</a>清空次數：{{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -264,7 +264,7 @@
         "description": ""
     },
     "statsPageLogSizePrompt1": {
-        "message": "記住<b>每頁<\/b>最近",
+        "message": "記住<b>每頁</b>最近",
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
@@ -272,7 +272,7 @@
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>您可以查看最近期網絡頁面所發出的請求之詳情（見下）。<\/p><p>這對於想了解網絡頁面的確切行為的進階使用者較為實用，惟記錄HTTP請求將耗用記憶體，如您並不在意技術細節則等同浪費記憶體。<\/p><p>故此欄將容許閣下調整用作進一歲檢查的近期HTTP請求之記錄數字。<\/p><p>輸入「<code>0<\/code>」將禁用詳細日誌（從而減少<i>uMatrix<\/i>所佔用之記憶體）。<\/p>",
+        "message": "<p>您可以查看最近期網絡頁面所發出的請求之詳情（見下）。</p><p>這對於想了解網絡頁面的確切行為的進階使用者較為實用，惟記錄HTTP請求將耗用記憶體，如您並不在意技術細節則等同浪費記憶體。</p><p>故此欄將容許閣下調整用作進一歲檢查的近期HTTP請求之記錄數字。</p><p>輸入「<code>0</code>」將禁用詳細日誌（從而減少<i>uMatrix</i>所佔用之記憶體）。</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -328,7 +328,7 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "當第一方指令碼被阻擋時嘗試模擬還原 <code><noscript><\/code> 網頁元素",
+        "message": "當第一方指令碼被阻擋時嘗試模擬還原 <code><noscript></code> 網頁元素",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p><i>uMatrix<\/i> 預設不會阻止黑名單中的 Cookie 進入您的瀏覽器，而是阻止它们離開开您的瀏覽器，因後者更具有意義。不於 Cookie 進入瀏覽器之前阻止它們將使您有機會得知網站正嘗試使用 Cookie，以便您有需要時進一步查看。<\/p><p>若黑名單中的 Cookie 被 <i>uMatrix<\/i> 所計入則可按閱下意願將其移除。<\/p><p><b>重要提示：<\/b>附加元件於其運作期間作出網絡請求之時將可能產生 Cookie。如果 Cookie 所在域名並未被列入白名單，則 <i>uMatrix<\/i> 會於該選項開啟之時移除這些 Cookie。請確保用於附加元件通訊的域名處於白名單內。<\/p>",
+        "message": "<p><i>uMatrix</i> 預設不會阻止黑名單中的 Cookie 進入您的瀏覽器，而是阻止它们離開开您的瀏覽器，因後者更具有意義。不於 Cookie 進入瀏覽器之前阻止它們將使您有機會得知網站正嘗試使用 Cookie，以便您有需要時進一步查看。</p><p>若黑名單中的 Cookie 被 <i>uMatrix</i> 所計入則可按閱下意願將其移除。</p><p><b>重要提示：</b>附加元件於其運作期間作出網絡請求之時將可能產生 Cookie。如果 Cookie 所在域名並未被列入白名單，則 <i>uMatrix</i> 會於該選項開啟之時移除這些 Cookie。請確保用於附加元件通訊的域名處於白名單內。</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>萬維網聯盟<\/a> 告知：「會話 Cookie……將於瀏覽器會話結束時被清除。會話 Cookie 儲存於記憶體中，瀏覽器關閉後將不再保留。」<\/p><p>不過在使用某些瀏覽器時，此行為<a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>未必發生<\/a>。另外，對某些人而言，於瀏覽器將閉後才清除會話 Cookie 可能太遲。<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>萬維網聯盟</a> 告知：「會話 Cookie……將於瀏覽器會話結束時被清除。會話 Cookie 儲存於記憶體中，瀏覽器關閉後將不再保留。」</p><p>不過在使用某些瀏覽器時，此行為<a href='https://code.google.com/p/chromium/issues/detail?id=128513'>未必發生</a>。另外，對某些人而言，於瀏覽器將閉後才清除會話 Cookie 可能太遲。</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "連同被屏蔽的 Cookie 一並刪除相關域名下的<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8#.E6.9C.AC.E5.9C.B0.E5.8F.8A.E6.9C.83.E8.A9.B1.E5.AD.98.E5.84.B2'>本地存储<\/a>數據",
+        "message": "連同被屏蔽的 Cookie 一並刪除相關域名下的<a href='https://zh.wikipedia.org/wiki/%E7%BD%91%E9%A1%B5%E5%AD%98%E5%82%A8#.E6.9C.AC.E5.9C.B0.E5.8F.8A.E6.9C.83.E8.A9.B1.E5.AD.98.E5.84.B2'>本地存储</a>數據",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>某些網站特别熱衷於追蹤，以至於為規避您的反跟蹤舉措，會使用一些不太光彩的手段。<\/p><p>一部分詭計利用了<a href='https:\/\/zh.wikipedia.org\/wiki\/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>瀏覽器快取<\/a><sup>[1, 2]<\/sup>，因為快取內容通常會長期儲留，用戶也基本不會去親自清理。<\/p><p>定期清理瀏覽器快取其實並不怎麼麻煩（甚至很可能不會被注意到），且貴在可以保護您的隱私免受追蹤者侵犯。<\/p><p>啟用該設定將容許 <i>uMatrix<\/i> 依您指定的時間定期為您完成此項工作。<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用瀏覽器快取進行網絡追蹤」<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>「Cookieless Cookies」<\/a><\/p>",
+        "message": "<p>某些網站特别熱衷於追蹤，以至於為規避您的反跟蹤舉措，會使用一些不太光彩的手段。</p><p>一部分詭計利用了<a href='https://zh.wikipedia.org/wiki/%E7%BD%91%E9%A1%B5%E5%BF%AB%E7%85%A7'>瀏覽器快取</a><sup>[1, 2]</sup>，因為快取內容通常會長期儲留，用戶也基本不會去親自清理。</p><p>定期清理瀏覽器快取其實並不怎麼麻煩（甚至很可能不會被注意到），且貴在可以保護您的隱私免受追蹤者侵犯。</p><p>啟用該設定將容許 <i>uMatrix</i> 依您指定的時間定期為您完成此項工作。</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>「阻止利用瀏覽器快取進行網絡追蹤」</a>\n[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>「Cookieless Cookies」</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "偽造網頁第三方請求中的 <a href='https:\/\/zh.wikipedia.org\/wiki\/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP 參照位址<\/a>",
+        "message": "偽造網頁第三方請求中的 <a href='https://zh.wikipedia.org/wiki/HTTP%E5%8F%83%E7%85%A7%E4%BD%8D%E5%9D%80'>HTTP 參照位址</a>",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "維基百科：<blockquote>HTTP 位址參照是一個用於辨識請求來源網頁網址的內容標識。……<b>由於位址參照可能會洩漏隱私，某些瀏覽器容許使用者禁止傳送位址參照。<\/b><\/blockquote>若啟用該設定，<i>uMatrix<\/i> 則會於來源網頁請求的 HTTP 位址參照中包含的域名與請求資源所在域名有差別時偽造位址參照。",
+        "message": "維基百科：<blockquote>HTTP 位址參照是一個用於辨識請求來源網頁網址的內容標識。……<b>由於位址參照可能會洩漏隱私，某些瀏覽器容許使用者禁止傳送位址參照。</b></blockquote>若啟用該設定，<i>uMatrix</i> 則會於來源網頁請求的 HTTP 位址參照中包含的域名與請求資源所在域名有差別時偽造位址參照。",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p><a href='https:\/\/developer.mozilla.org\/docs\/Security\/MixedContent'>Mozilla 開發者網絡<\/a>告知：<\/p><blockquote>若 HTTPS 頁面包含未經加密的普通 HTTP 網頁內容，則當前連結只是部分加密；未加密的部分或會遭他人窺視甚至篡改內容，故連結並非完全安全。當此情況發生時，該頁面即為混合內容頁面。<\/blockquote>",
+        "message": "<p><a href='https://developer.mozilla.org/docs/Security/MixedContent'>Mozilla 開發者網絡</a>告知：</p><blockquote>若 HTTPS 頁面包含未經加密的普通 HTTP 網頁內容，則當前連結只是部分加密；未加密的部分或會遭他人窺視甚至篡改內容，故連結並非完全安全。當此情況發生時，該頁面即為混合內容頁面。</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "禁止<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>超連結審查<\/a>",
+        "message": "禁止<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>超連結審查</a>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>超連結審查容許<b>任何人<\/b>獲知用戶於特定網頁上點擊了某個連結。其本質為一種追蹤手段：經由容許網站或任何第三方獲告知您於哪個頁面點擊了哪個連結，以達到追蹤您的瀏覽動向此一特定目的。<\/p>",
+        "message": "<p>超連結審查容許<b>任何人</b>獲知用戶於特定網頁上點擊了某個連結。其本質為一種追蹤手段：經由容許網站或任何第三方獲告知您於哪個頁面點擊了哪個連結，以達到追蹤您的瀏覽動向此一特定目的。</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -464,7 +464,7 @@
         "description": ""
     },
     "hostsFilesPerFileStats": {
-        "message": "{{used}}\/{{total}} 使用中",
+        "message": "{{used}}/{{total}} 使用中",
         "description": ""
     },
     "hostsFilesLastUpdate": {
@@ -532,7 +532,7 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>更新日誌<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>更新日誌</a>",
         "description": ""
     },
     "aboutStorageUsed": {
@@ -540,11 +540,11 @@
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>幫助文檔<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>幫助文檔</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki\/Permissions'>權限說明<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki/Permissions'>權限說明</a>",
         "description": ""
     },
     "aboutCode": {
@@ -641,7 +641,7 @@
     },
     "mainBlockedNoParamsPrompt": {
         "message": "不帶參數",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "返回",

@@ -4,7 +4,7 @@
         "description": ""
     },
     "extShortDesc": {
-        "message": "Point & click to forbid\/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
+        "message": "Point & click to forbid/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.",
         "description": "this will be used as short description in web stores: MUST BE 132 characters OR LESS"
     },
     "dashboardPageName": {
@@ -88,15 +88,15 @@
         "description": ""
     },
     "matrixLocalScopeTip": {
-        "message": "Select a local scope to see\/create rules which apply only in that scope",
+        "message": "Изберете локален scope, за да видите/създадете правила, които се прилагат само в този обхват(scope)",
         "description": "Tool tip for the local scope button"
     },
     "matrixGlobalScopeTip": {
-        "message": "Select the global scope to see\/create rules which apply everywhere",
+        "message": "Изберете глобалният scope, за да видите/създадете правил, които се прилагат навсякъде",
         "description": "Tool tip for the global scope button"
     },
     "matrixMtxButtonTip": {
-        "message": "Disable\/enable matrix filtering for this scope",
+        "message": "Деактивирайте/активирайте матричното филтриране за този обхват",
         "description": "Tool tip for matrix button"
     },
     "matrixPersistButtonTip": {
@@ -124,15 +124,15 @@
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoWorker": {
-        "message": "Forbid web workers",
+        "message": "Забрани web workers",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchReferrerSpoof": {
-        "message": "Spoof <code>Referer<\/code> header",
+        "message": "Фалшифицирайте <code>Referer</code> хедъра",
         "description": "A menu entry in the matrix popup"
     },
     "matrixSwitchNoscriptSpoof": {
-        "message": "Spoof <code><noscript><\/code> tags",
+        "message": "Фалшифицирайте <code><noscript></code> таговете",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -152,7 +152,7 @@
         "description": "Displays in place of matrix when no data is found for the current page"
     },
     "matrixRecipeImportTip": {
-        "message": "Import rules",
+        "message": "Правила за импортиране",
         "description": "Used as a tooltip for the recipe import button"
     },
     "matrixRecipeSaveTip": {
@@ -168,23 +168,23 @@
         "description": ""
     },
     "statsPageCookieHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_cookie'>HTTP cookie<\/a> headers foiled: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_cookie'>HTTP cookie</a> хедъри контрирани: {{count}}",
         "description": ""
     },
     "statsPageRefererHeadersFoiled": {
-        "message": "<a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referer<\/a> headers foiled: {{count}}",
+        "message": "<a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP референтни</a> хедъри контрирани: {{count}}",
         "description": ""
     },
     "statsPageHyperlinkAuditingFoiled": {
-        "message": "<a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>Hyperlink auditing<\/a> attempts foiled: {{count}}",
+        "message": "<a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>Hyperlink auditing</a> attempts foiled: {{count}}",
         "description": ""
     },
     "statsPageCookiesRemoved": {
-        "message": "Local cookies removed: {{count}}",
+        "message": "Брой премахнати локални бисквитки: {{count}}",
         "description": ""
     },
     "statsPageLocalStoragesCleared": {
-        "message": "<a href='http:\/\/diveintohtml5.info\/storage.html'>Local storages<\/a> emptied: {{count}}",
+        "message": "<a href='http://diveintohtml5.info/storage.html'>Локални хранилища (Local Storages)</a> изпразнени: {{count}}",
         "description": ""
     },
     "statsPageBrowserCacheCleared": {
@@ -268,11 +268,11 @@
         "description": "First part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizePrompt2": {
-        "message": "HTTP заявки <b>за страница<\/b>.",
+        "message": "HTTP заявки <b>за страница</b>.",
         "description": "Second part of Remember the last [n] HTTP requests per page"
     },
     "statsPageLogSizeHelp": {
-        "message": "<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).<\/p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.<\/p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.<\/p><p>Enter &ldquo;<code>0<\/code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix<\/i>).<\/p>",
+        "message": "<p>You can inspect details of the most recent raw HTTP requests which have been made by a web page (see below).</p><p>This is mostly useful to advanced users who want to investigate exactly what a web page has been doing. But logging these HTTP requests requires memory, and if you don't care about this technical information, then memory is being wasted.</p><p>Hence this field which lets you adjust the maximum number of the most recent HTTP requests which are to be logged for further inspection.</p><p>Enter &ldquo;<code>0</code>&rdquo; to turn off detailed logging (and consequently reduce the memory footprint of <i>uMatrix</i>).</p>",
         "description": "To help user understand the purpose of the log size value"
     },
     "statsPageRefresh": {
@@ -292,7 +292,7 @@
         "description": ""
     },
     "settingsIconBadgeEnabled": {
-        "message": "Show the number of blocked resources on the icon",
+        "message": "Покажи броя на блокирани ресурси върху иконката",
         "description": ""
     },
     "settingsMatrixDisplayColorBlind": {
@@ -304,7 +304,7 @@
         "description": "English: Convenience"
     },
     "settingsDefaultScopeLevel": {
-        "message": "Default scope level:",
+        "message": "Ниво на обхват по подразбиране:",
         "description": "Label for default scope level selector in Settings pane"
     },
     "settingsDefaultScopeLevel0": {
@@ -328,11 +328,11 @@
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
-        "message": "Spoof <code><noscript><\/code> tags when 1st-party scripts are blocked",
+        "message": "Фалшифицирайте <code><noscript></code> тагове, когато скриптовете от първа страна са блокирани",
         "description": "This appears in the Settings pane in the dashboard"
     },
     "settingsCloudStorageEnabled": {
-        "message": "Enable cloud storage support",
+        "message": "Активиране на поддръжката за облачно съхранение",
         "description": ""
     },
     "settingsMatrixNoTooltips": {
@@ -348,7 +348,7 @@
         "description": ""
     },
     "privacyDeleteBlockedCookiesHelp": {
-        "message": "<p>Blacklisted cookies are not prevented by <i>uMatrix<\/i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.<\/p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix<\/i>, they can be removed from your browser if you wish so.<\/p><p><b>Important note:<\/b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix<\/i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.<\/p>",
+        "message": "<p>Blacklisted cookies are not prevented by <i>uMatrix</i> from entering your browser. However they are prevented from leaving your browser, which is what really matters. Not blocking cookies before they enter your browser gives you the opportunity to be informed that a site tried to use cookies, and furthermore to inspect their contents if you wish.</p><p>Once these blacklisted cookies have been accounted for by <i>uMatrix</i>, they can be removed from your browser if you wish so.</p><p><b>Important note:</b> Extensions can make web requests during the course of their normal operation. These requests can result in cookies being created in the browser. If the hostname from where a cookie originate is not whitelisted, the cookie will be removed from the browser by <i>uMatrix</i> if this option is checked. So be sure that the hostname(s) with which an extension communicate is whitelisted.</p>",
         "description": ""
     },
     "privacyDeleteNonBlockedSessionCookiesPrompt1": {
@@ -360,11 +360,11 @@
         "description": "Second part of 'Delete non-blocked session cookies [n] minutes after the last time they have been used'"
     },
     "privacyDeleteNonBlockedSessionCookiesHelp": {
-        "message": "<p><a href='http:\/\/www.w3.org\/2001\/tag\/2010\/09\/ClientSideStorage.html'>W3C<\/a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;<\/p><p>Except that this <a href='https:\/\/code.google.com\/p\/chromium\/issues\/detail?id=128513'>might not be happening<\/a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.<\/p>",
+        "message": "<p><a href='http://www.w3.org/2001/tag/2010/09/ClientSideStorage.html'>W3C</a>: &ldquo;A session cookie ... is erased when you end the browser session. The session cookie is stored in temporary memory and is not retained after the browser is closed.&rdquo;</p><p>Except that this <a href='https://code.google.com/p/chromium/issues/detail?id=128513'>might not be happening</a> in some browsers. Also, to some, having to close the browser in order for the session cookies to clear might not be early enough.</p>",
         "description": ""
     },
     "privacyDeleteBlockedLocalStoragePrompt": {
-        "message": "Изтрийте съдържанието на <a href='https:\/\/ru.wikipedia.org\/wiki\/Web_storage'>локалното хранилище<\/a> от блокирани имена на хостове",
+        "message": "Изтрийте съдържанието на <a href='https://ru.wikipedia.org/wiki/Web_storage'>локалното хранилище</a> от блокирани имена на хостове",
         "description": ""
     },
     "privacyDeleteBlockedLocalStorageHelp": {
@@ -380,15 +380,15 @@
         "description": "Second part of 'Clear browser cache every [n] minutes'"
     },
     "privacyClearCacheHelp": {
-        "message": "<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.<\/p><p>A few of these tricks rely<sup>[1, 2]<\/sup> on the <a href='https:\/\/en.wikipedia.org\/wiki\/Web_cache'>browser cache<\/a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.<\/p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.<\/p><p>Check this option to have <i>uMatrix<\/i> do it for you, at the interval you wish.<\/p><p>[1] <a href='https:\/\/grepular.com\/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;<\/a>\n[2] <a href='http:\/\/lucb1e.com\/rp\/cookielesscookies\/'>&ldquo;Cookieless cookies&rdquo;<\/a><\/p>",
+        "message": "<p>Some web sites are really bent on tracking you, so much that they will use not-so-nice tricks to work around whatever measures you take in order to not be tracked.</p><p>A few of these tricks rely<sup>[1, 2]</sup> on the <a href='https://en.wikipedia.org/wiki/Web_cache'>browser cache</a>, which content is often long lasting since rarely will users take the time to regularly clear their browser cache.</p><p>There is little inconvenience to clear the browser cache regularly (likelihood is that you won't notice when it happens), and the benefit is to prevent these obnoxious trackers from invading your privacy.</p><p>Check this option to have <i>uMatrix</i> do it for you, at the interval you wish.</p><p>[1] <a href='https://grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache'>&ldquo;Preventing Web Tracking via the Browser Cache&rdquo;</a>\n[2] <a href='http://lucb1e.com/rp/cookielesscookies/'>&ldquo;Cookieless cookies&rdquo;</a></p>",
         "description": ""
     },
     "privacyProcessRefererPrompt": {
-        "message": "Spoof <a href='https:\/\/en.wikipedia.org\/wiki\/HTTP_referer'>HTTP referrer<\/a> string of third-party requests",
+        "message": "Spoof <a href='https://en.wikipedia.org/wiki/HTTP_referer'>HTTP referrer</a> string of third-party requests",
         "description": ""
     },
     "privacyProcessRefererHelp": {
-        "message": "From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.<\/b><\/blockquote>If this setting is checked, <i>uMatrix<\/i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
+        "message": "From Wikipedia:<blockquote>HTTP referer is an HTTP header field that identifies the address of the webpage that linked to the resource being requested. ... <b>Because referer information can violate privacy, some web browsers allow the user to disable the sending of referer information.</b></blockquote>If this setting is checked, <i>uMatrix</i> will spoof the HTTP referrer information if the domain name of the HTTP referrer is third-party to the domain name of net request.",
         "description": ""
     },
     "privacyNoMixedContentPrompt": {
@@ -396,15 +396,15 @@
         "description": ""
     },
     "privacyNoMixedContentHelp": {
-        "message": "<p>From <a href='https:\/\/developer.mozilla.org\/en-US\/docs\/Security\/MixedContent'>Mozilla Developer Network<\/a>:<\/p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.<\/blockquote>",
+        "message": "<p>From <a href='https://developer.mozilla.org/en-US/docs/Security/MixedContent'>Mozilla Developer Network</a>:</p><blockquote>If [a] HTTPS page includes content retrieved through regular, cleartext HTTP, then the connection is only partially encrypted: the unencrypted content is accessible to sniffers and can be modified by man-in-the-middle attackers, and therefore the connection is not safeguarded anymore. When a webpage exhibits this behavior, it is called a mixed content page.</blockquote>",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingPrompt": {
-        "message": "Block all <a href='https:\/\/html.spec.whatwg.org\/multipage\/semantics.html#hyperlink-auditing'>hyperlink auditing<\/a> attempts",
+        "message": "Block all <a href='https://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing'>hyperlink auditing</a> attempts",
         "description": ""
     },
     "privacyProcessHyperlinkAuditingHelp": {
-        "message": "<p>Hyperlink auditing is a mechanism which allow a party, <b>any party<\/b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.<\/p>",
+        "message": "<p>Hyperlink auditing is a mechanism which allow a party, <b>any party</b>, to be informed about which link a user clicked on a particular web page. It is essentially a tracking feature: it allows a web site, or any third-party to that web site, to be informed about which link you clicked on which one of its web pages. The sole purpose is to track your browsing activity.</p>",
         "description": ""
     },
     "userRulesPermanentHeader": {
@@ -420,7 +420,7 @@
         "description": "Will remove all temporary rules"
     },
     "userRulesCommit": {
-        "message": "Commit",
+        "message": "Публикуване",
         "description": "Will save all temporary rules"
     },
     "userRulesEdit": {
@@ -432,15 +432,15 @@
         "description": "Will save manually-edited content and exit manual-edit mode"
     },
     "userRulesEditDicard": {
-        "message": "Discard",
+        "message": "Откажи",
         "description": "Will discard manually-edited content and exit manual-edit mode"
     },
     "userRulesImport": {
-        "message": "Import from file...",
+        "message": "Импортиране от файл...",
         "description": ""
     },
     "userRulesExport": {
-        "message": "Export to file...",
+        "message": "Експортиране към файл...",
         "description": ""
     },
     "userRulesFormatHint": {
@@ -452,7 +452,7 @@
         "description": "default file name to use"
     },
     "assetsHostsSection": {
-        "message": "Hosts files",
+        "message": "Hosts файлове",
         "description": "header to identify the hosts files section"
     },
     "hostsFilesPrompt": {
@@ -508,23 +508,23 @@
         "description": ""
     },
     "assetsRecipesSection": {
-        "message": "Ruleset recipes",
+        "message": "Рецепти на набори от правила",
         "description": "header to identify the ruleset files section"
     },
     "assetsRecipesSummary": {
-        "message": "Ruleset recipes are imported from the popup panel <em>on demand<\/em>, i.e. <b>only<\/b> through user interaction.",
+        "message": "Ruleset recipes are imported from the popup panel <em>on demand</em>, i.e. <b>only</b> through user interaction.",
         "description": ""
     },
     "assetsImportLabel": {
-        "message": "Import...",
+        "message": "Импортиране...",
         "description": ""
     },
     "assetsInlineHostsLabel": {
-        "message": "My hosts",
+        "message": "Моите хостове",
         "description": ""
     },
     "assetsInlineRecipesLabel": {
-        "message": "My recipes",
+        "message": "Моите рецепти",
         "description": ""
     },
     "rawSettingsWarning": {
@@ -532,19 +532,19 @@
         "description": ""
     },
     "aboutChangelog": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/releases'>Change log<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/releases'>Регистър на промените</a>",
         "description": ""
     },
     "aboutStorageUsed": {
-        "message": "Storage used: {{storageUsed}} bytes",
+        "message": "Използвано място: {{storageUsed}} байта",
         "description": ""
     },
     "aboutDoc": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/uMatrix\/wiki'>Документация<\/a>",
+        "message": "<a href='https://github.com/gorhill/uMatrix/wiki'>Документация</a>",
         "description": ""
     },
     "aboutPermissions": {
-        "message": "<a href='https:\/\/github.com\/gorhill\/httpswitchboard\/wiki\/Permissions'>Права<\/a>",
+        "message": "<a href='https://github.com/gorhill/httpswitchboard/wiki/Permissions'>Права</a>",
         "description": ""
     },
     "aboutCode": {
@@ -588,7 +588,7 @@
         "description": ""
     },
     "aboutRestoreConfirm": {
-        "message": "All your settings will be overwritten using data backed up on {{time}}, and uMatrix will restart.\n\nOverwrite all existing settings using backed up data?",
+        "message": "Всичките Ви настройки ще бъдат презаписани с данните бекъпнати на {{time}} и uMatrix ще се рестартира.\n\nИскате ли да презапишете всички настройки използвайки бекъпнатите данни?",
         "description": "Message asking user to confirm restore"
     },
     "aboutRestoreError": {
@@ -608,7 +608,7 @@
         "description": "Message asking user to confirm reset"
     },
     "loggerFilterInputPlaceholder": {
-        "message": "filter expression(s)",
+        "message": "филтърен израз(и)",
         "description": "Appears in the input filed where filter expressions are entered"
     },
     "loggerMaxEntriesTip": {
@@ -640,8 +640,8 @@
         "description": "English: Because of the following rule"
     },
     "mainBlockedNoParamsPrompt": {
-        "message": "without parameters",
-        "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+        "message": "без параметри",
+        "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
     },
     "mainBlockedBack": {
         "message": "Назад",
@@ -652,7 +652,7 @@
         "description": "English: Close"
     },
     "commandRevertAll": {
-        "message": "Revert all temporary changes",
+        "message": "Ревъртни всички временни промени",
         "description": ""
     },
     "commandWhitelistPageDomain": {
@@ -700,11 +700,11 @@
         "description": "Appears in Firefox's add-on preferences"
     },
     "cloudPush": {
-        "message": "Export to cloud storage",
+        "message": "Експортирай в облачно хранилище",
         "description": "tooltip"
     },
     "cloudPull": {
-        "message": "Import from cloud storage",
+        "message": "Импортирай от облачно хранилище",
         "description": "tooltip"
     },
     "cloudNoData": {
