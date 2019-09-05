@@ -440,9 +440,7 @@ vAPI.tabs.registerListeners();
     // Do not create a page store for URLs which are of no interests
     // Example: dev console
     let tabContext = this.tabContextManager.lookup(tabId);
-    if ( tabContext === null ) {
-        throw new Error('Unmanaged tab id: ' + tabId);
-    }
+    if ( tabContext === null ) { return; }
 
     // rhill 2013-11-24: Never ever rebind behind-the-scene
     // virtual tab.
