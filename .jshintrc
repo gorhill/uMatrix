@@ -2,11 +2,13 @@
 	"browser": true,
 	"devel": true,
 	"eqeqeq": true,
-	"esnext": true,
+	"esversion": 8,
 	"globals": {
 		"browser": false,    // global variable in Firefox, Edge
 		"self": false,
 		"chrome": false,
+		"log": false,
+		"webext": false,
 		"vAPI": false,
 		"µMatrix": false
 	},

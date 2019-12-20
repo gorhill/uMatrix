@@ -25,37 +25,38 @@
 
 /******************************************************************************/
 
-(function() {
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
-var cachedSettings = {};
+let cachedSettings = {};
 
 /******************************************************************************/
 
-function changeUserSettings(name, value) {
-    vAPI.messaging.send('settings.js', {
+const changeUserSettings = function(name, value) {
+    vAPI.messaging.send('dashboard', {
         what: 'userSettings',
-        name: name,
-        value: value
+        name,
+        value
     });
-}
+};
 
 /******************************************************************************/
 
-function changeMatrixSwitch(name, state) {
-    vAPI.messaging.send('settings.js', {
+const changeMatrixSwitch = function(switchName, state) {
+    vAPI.messaging.send('dashboard', {
         what: 'setMatrixSwitch',
-        switchName: name,
-        state: state
+        switchName,
+        state
     });
-}
+};
 
 /******************************************************************************/
 
-function onChangeValueHandler(elem, setting, min, max) {
-    var oldVal = cachedSettings.userSettings[setting];
-    var newVal = Math.round(parseFloat(elem.value));
+const onChangeValueHandler = function (elem, setting, min, max) {
+    const oldVal = cachedSettings.userSettings[setting];
+    let newVal = Math.round(parseFloat(elem.value));
     if ( typeof newVal !== 'number' ) {
         newVal = oldVal;
     } else {
@@ -66,11 +67,11 @@ function onChangeValueHandler(elem, setting, min, max) {
     if ( newVal !== oldVal ) {
         changeUserSettings(setting, newVal);
     }
-}
+};
 
 /******************************************************************************/
 
-function prepareToDie() {
+const prepareToDie = function() {
     onChangeValueHandler(
         uDom.nodeFromId('deleteUnusedSessionCookiesAfter'),
         'deleteUnusedSessionCookiesAfter',
@@ -81,12 +82,12 @@ function prepareToDie() {
         'clearBrowserCacheAfter',
         15, 1440
     );
-}
+};
 
 /******************************************************************************/
 
-function onInputChanged(ev) {
-    var target = ev.target;
+const onInputChanged = function(ev) {
+    const target = ev.target;
 
     switch ( target.id ) {
     case 'displayTextSize':
@@ -133,63 +134,60 @@ function onInputChanged(ev) {
     default:
         break;
     }
-}
+};
 
 /******************************************************************************/
 
-function synchronizeWidgets() {
-    var e1, e2;
-
-    e1 = uDom.nodeFromId('collapseBlocked');
-    e2 = uDom.nodeFromId('collapseBlacklisted');
+const synchronizeWidgets = function() {
+    const e1 = uDom.nodeFromId('collapseBlocked');
+    const e2 = uDom.nodeFromId('collapseBlacklisted');
     if ( e1.checked ) {
         e2.setAttribute('disabled', '');
     } else {
         e2.removeAttribute('disabled');
     }
+};
+
+/******************************************************************************/
+
+vAPI.messaging.send('dashboard', {
+    what: 'getUserSettings'
+}).then(settings => {
+    // Cache copy
+    cachedSettings = settings;
+
+    const userSettings = settings.userSettings;
+    const matrixSwitches = settings.matrixSwitches;
+
+    uDom('[data-setting-bool]').forEach(function(elem){
+        elem.prop('checked', userSettings[elem.prop('id')] === true);
+    });
+
+    uDom('[data-matrix-switch]').forEach(function(elem){
+        const switchName = elem.attr('data-matrix-switch');
+        if ( typeof switchName === 'string' && switchName !== '' ) {
+            elem.prop('checked', matrixSwitches[switchName] === true);
+        }
+    });
+
+    uDom.nodeFromId('displayTextSize').value =
+        parseInt(userSettings.displayTextSize, 10) || 14;
+
+    uDom.nodeFromId('popupScopeLevel').value = userSettings.popupScopeLevel;
+    uDom.nodeFromId('deleteUnusedSessionCookiesAfter').value =
+        userSettings.deleteUnusedSessionCookiesAfter;
+    uDom.nodeFromId('clearBrowserCacheAfter').value =
+        userSettings.clearBrowserCacheAfter;
+
+    synchronizeWidgets();
+
+    document.addEventListener('change', onInputChanged);
+
+    // https://github.com/gorhill/httpswitchboard/issues/197
+    uDom(window).on('beforeunload', prepareToDie);
+});
+
+/******************************************************************************/
+
+// <<<<< end of local scope
 }
-
-/******************************************************************************/
-
-vAPI.messaging.send(
-    'settings.js',
-    { what: 'getUserSettings' },
-    function onSettingsReceived(settings) {
-        // Cache copy
-        cachedSettings = settings;
-
-        var userSettings = settings.userSettings;
-        var matrixSwitches = settings.matrixSwitches;
-
-        uDom('[data-setting-bool]').forEach(function(elem){
-            elem.prop('checked', userSettings[elem.prop('id')] === true);
-        });
-
-        uDom('[data-matrix-switch]').forEach(function(elem){
-            var switchName = elem.attr('data-matrix-switch');
-            if ( typeof switchName === 'string' && switchName !== '' ) {
-                elem.prop('checked', matrixSwitches[switchName] === true);
-            }
-        });
-
-        uDom.nodeFromId('displayTextSize').value =
-            parseInt(userSettings.displayTextSize, 10) || 14;
-
-        uDom.nodeFromId('popupScopeLevel').value = userSettings.popupScopeLevel;
-        uDom.nodeFromId('deleteUnusedSessionCookiesAfter').value =
-            userSettings.deleteUnusedSessionCookiesAfter;
-        uDom.nodeFromId('clearBrowserCacheAfter').value =
-            userSettings.clearBrowserCacheAfter;
-
-        synchronizeWidgets();
-
-        document.addEventListener('change', onInputChanged);
-
-        // https://github.com/gorhill/httpswitchboard/issues/197
-        uDom(window).on('beforeunload', prepareToDie);
-    }
-);
-
-/******************************************************************************/
-
-})();

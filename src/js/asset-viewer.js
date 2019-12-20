@@ -1,7 +1,7 @@
 /*******************************************************************************
 
-    uMatrix - a Chromium browser extension to block requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    uBlock Origin - a browser extension to block requests.
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,30 +16,41 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uMatrix
+    Home: https://github.com/gorhill/uBlock
 */
+
+/* global CodeMirror, uBlockDashboard */
 
 'use strict';
 
 /******************************************************************************/
 
-(function() {
+(async ( ) => {
+    const params = new URL(document.location).searchParams;
+    const assetKey = params.get('url');
+    if ( assetKey === null ) { return; }
 
-    var onAssetContentReceived = function(details) {
-        document.getElementById('content').textContent =
-            details && (details.content || '');
-    };
-
-    var q = window.location.search;
-    var matches = q.match(/^\?url=([^&]+)/);
-    if ( !matches || matches.length !== 2 ) {
-        return;
-    }
-
-    vAPI.messaging.send(
-        'asset-viewer.js',
-        { what : 'getAssetContent', url: matches[1] },
-        onAssetContentReceived
+    const cmEditor = new CodeMirror(
+        document.getElementById('content'),
+        {
+            autofocus: true,
+            lineNumbers: true,
+            lineWrapping: true,
+            readOnly: true,
+            styleActiveLine: true,
+        }
     );
 
+    uBlockDashboard.patchCodeMirrorEditor(cmEditor);
+
+    const details = await vAPI.messaging.send('default', {
+        what : 'getAssetContent',
+        url: assetKey,
+    });
+    cmEditor.setValue(details && details.content || '');
+    if ( details.sourceURL ) {
+        const a = document.querySelector('.cm-search-widget .sourceURL');
+        a.setAttribute('href', details.sourceURL);
+        a.setAttribute('title', details.sourceURL);
+    }
 })();

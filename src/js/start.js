@@ -19,37 +19,56 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-// ORDER IS IMPORTANT
-
-/******************************************************************************/
-
-// Load everything
-
-(function() {
-
 'use strict';
 
 /******************************************************************************/
 
-var µm = µMatrix;
+(async ( ) => {
+    const µm = µMatrix;
 
-/******************************************************************************/
+    await Promise.all([
+        µm.loadPublicSuffixList(),
+        µm.loadUserSettings(),
+    ]);
+    log.info(`PSL and user settings ready ${Date.now()-vAPI.T0} ms after launch`);
 
-var processCallbackQueue = function(queue, callback) {
-    var processOne = function() {
-        var fn = queue.pop();
-        if ( fn ) {
-            fn(processOne);
-        } else if ( typeof callback === 'function' ) {
-            callback();
+    {
+        let trieDetails;
+        try {
+            trieDetails = JSON.parse(
+                vAPI.localStorage.getItem('ubiquitousBlacklist.trieDetails')
+            );
+        } catch(ex) {
         }
-    };
-    processOne();
-};
+        µm.ubiquitousBlacklist = new µm.HNTrieContainer(trieDetails);
+        µm.ubiquitousBlacklist.initWASM();
+    }
+    log.info(`Ubiquitous block container ready ${Date.now()-vAPI.T0} ms after launch`);
 
-/******************************************************************************/
+    await Promise.all([
+        µm.loadRawSettings(),
+        µm.loadMatrix(),
+        µm.loadHostsFiles(),
+    ]);
+    log.info(`Ubiquitous block rules ready ${Date.now()-vAPI.T0} ms after launch`);
 
-var onAllDone = function() {
+    {
+        const pageStore =
+            µm.pageStoreFactory(µm.tabContextManager.mustLookup(vAPI.noTabId));
+        pageStore.title = vAPI.i18n('statsPageDetailedBehindTheScenePage');
+        µm.pageStores.set(vAPI.noTabId, pageStore);
+    }
+
+    const tabs = await vAPI.tabs.query({ url: '<all_urls>' });
+    if ( Array.isArray(tabs) ) {
+        for ( const tab of tabs ) {
+            µm.tabContextManager.push(tab.id, tab.url, 'newURL');
+            µm.bindTabToPageStats(tab.id);
+            µm.setPageStoreTitle(tab.id, tab.title);
+        }
+    }
+    log.info(`Tab stores ready ${Date.now()-vAPI.T0} ms after launch`);
+
     µm.webRequest.start();
 
     µm.loadRecipes();
@@ -59,57 +78,6 @@ var onAllDone = function() {
     //   asset updater.
     µm.assets.addObserver(µm.assetObserver.bind(µm));
     µm.scheduleAssetUpdater(µm.userSettings.autoUpdate ? 7 * 60 * 1000 : 0);
-
-    vAPI.cloud.start([ 'myRulesPane' ]);
-};
-
-/******************************************************************************/
-
-var onPSLReady = function() {
-    // TODO: Promisify
-    let count = 4;
-    const countdown = ( ) => {
-        count -= 1;
-        if ( count !== 0 ) { return; }
-        onAllDone();
-    };
-
-    µm.loadRawSettings(countdown);
-    µm.loadMatrix(countdown);
-    µm.loadHostsFiles(countdown);
-
-    vAPI.tabs.getAll(tabs => {
-        const pageStore =
-            µm.pageStoreFactory(µm.tabContextManager.mustLookup(vAPI.noTabId));
-        pageStore.title = vAPI.i18n('statsPageDetailedBehindTheScenePage');
-        µm.pageStores.set(vAPI.noTabId, pageStore);
-
-        if ( Array.isArray(tabs) ) {
-            for ( const tab of tabs ) {
-                µm.tabContextManager.push(tab.id, tab.url, 'newURL');
-            }
-        }
-        countdown();
-    });
-};
-
-/******************************************************************************/
-
-processCallbackQueue(µm.onBeforeStartQueue, function() {
-    // TODO: Promisify
-    let count = 2;
-    const countdown = ( ) => {
-        count -= 1;
-        if ( count !== 0 ) { return; }
-        onPSLReady();
-    };
-
-    µm.publicSuffixList.load(countdown);
-    µm.loadUserSettings(countdown);
-});
-
-/******************************************************************************/
-
 })();
 
 /******************************************************************************/

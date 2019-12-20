@@ -33,58 +33,59 @@
 // Use cached-context approach rather than object-based approach, as details
 // of the implementation do not need to be visible
 
-µMatrix.cookieHunter = (function() {
+µMatrix.cookieHunter = (( ) => {
 
 /******************************************************************************/
 
-var µm = µMatrix;
+const µm = µMatrix;
 
-var recordPageCookiesQueue = new Map();
-var removeCookieQueue = new Set();
-var cookieDict = new Map();
-var cookieEntryJunkyard = [];
-var processRemoveQueuePeriod = 2 * 60 * 1000;
-var processCleanPeriod = 10 * 60 * 1000;
-var processPageRecordQueueTimer = null;
-
-/******************************************************************************/
-
-var CookieEntry = function(cookie) {
-    this.usedOn = new Set();
-    this.init(cookie);
-};
-
-CookieEntry.prototype.init = function(cookie) {
-    this.secure = cookie.secure;
-    this.session = cookie.session;
-    this.anySubdomain = cookie.domain.charAt(0) === '.';
-    this.hostname = this.anySubdomain ? cookie.domain.slice(1) : cookie.domain;
-    this.domain = µm.URI.domainFromHostname(this.hostname) || this.hostname;
-    this.path = cookie.path;
-    this.name = cookie.name;
-    this.value = cookie.value;
-    this.tstamp = Date.now();
-    this.usedOn.clear();
-    return this;
-};
-
-// Release anything which may consume too much memory
-
-CookieEntry.prototype.dispose = function() {
-    this.hostname = '';
-    this.domain = '';
-    this.path = '';
-    this.name = '';
-    this.value = '';
-    this.usedOn.clear();
-    return this;
-};
+const recordPageCookiesQueue = new Map();
+const removeCookieQueue = new Set();
+const cookieDict = new Map();
+const cookieEntryJunkyard = [];
+const processRemoveQueuePeriod = 2 * 60 * 1000;
+const processCleanPeriod = 10 * 60 * 1000;
+let processPageRecordQueueTimer = null;
 
 /******************************************************************************/
 
-var addCookieToDict = function(cookie) {
-    var cookieKey = cookieKeyFromCookie(cookie),
-        cookieEntry = cookieDict.get(cookieKey);
+const CookieEntry = class {
+    constructor(cookie) {
+        this.usedOn = new Set();
+        this.init(cookie);
+    }
+
+    init(cookie) {
+        this.secure = cookie.secure;
+        this.session = cookie.session;
+        this.anySubdomain = cookie.domain.charAt(0) === '.';
+        this.hostname = this.anySubdomain ? cookie.domain.slice(1) : cookie.domain;
+        this.domain = µm.URI.domainFromHostname(this.hostname) || this.hostname;
+        this.path = cookie.path;
+        this.name = cookie.name;
+        this.value = cookie.value;
+        this.tstamp = Date.now();
+        this.usedOn.clear();
+        return this;
+    }
+
+    // Reset any property which indirectly consumes memory
+    dispose() {
+        this.hostname = '';
+        this.domain = '';
+        this.path = '';
+        this.name = '';
+        this.value = '';
+        this.usedOn.clear();
+        return this;
+    }
+};
+
+/******************************************************************************/
+
+const addCookieToDict = function(cookie) {
+    const cookieKey = cookieKeyFromCookie(cookie);
+    let cookieEntry = cookieDict.get(cookieKey);
     if ( cookieEntry === undefined ) {
         cookieEntry = cookieEntryJunkyard.pop();
         if ( cookieEntry ) {
@@ -99,17 +100,8 @@ var addCookieToDict = function(cookie) {
 
 /******************************************************************************/
 
-var addCookiesToDict = function(cookies) {
-    var i = cookies.length;
-    while ( i-- ) {
-        addCookieToDict(cookies[i]);
-    }
-};
-
-/******************************************************************************/
-
-var removeCookieFromDict = function(cookieKey) {
-    var cookieEntry = cookieDict.get(cookieKey);
+const removeCookieFromDict = function(cookieKey) {
+    const cookieEntry = cookieDict.get(cookieKey);
     if ( cookieEntry === undefined ) { return false; }
     cookieDict.delete(cookieKey);
     if ( cookieEntryJunkyard.length < 25 ) {
@@ -120,7 +112,7 @@ var removeCookieFromDict = function(cookieKey) {
 
 /******************************************************************************/
 
-var cookieKeyBuilder = [
+const cookieKeyBuilder = [
     '', // 0 = scheme
     '://',
     '', // 2 = domain
@@ -132,8 +124,8 @@ var cookieKeyBuilder = [
     '}'
 ];
 
-var cookieKeyFromCookie = function(cookie) {
-    var cb = cookieKeyBuilder;
+const cookieKeyFromCookie = function(cookie) {
+    const cb = cookieKeyBuilder;
     cb[0] = cookie.secure ? 'https' : 'http';
     cb[2] = cookie.domain.charAt(0) === '.' ? cookie.domain.slice(1) : cookie.domain;
     cb[3] = cookie.path;
@@ -142,9 +134,9 @@ var cookieKeyFromCookie = function(cookie) {
     return cb.join('');
 };
 
-var cookieKeyFromCookieURL = function(url, type, name) {
-    var µmuri = µm.URI.set(url);
-    var cb = cookieKeyBuilder;
+const cookieKeyFromCookieURL = function(url, type, name) {
+    const µmuri = µm.URI.set(url);
+    const cb = cookieKeyBuilder;
     cb[0] = µmuri.scheme;
     cb[2] = µmuri.hostname;
     cb[3] = µmuri.path;
@@ -155,7 +147,7 @@ var cookieKeyFromCookieURL = function(url, type, name) {
 
 /******************************************************************************/
 
-var cookieURLFromCookieEntry = function(entry) {
+const cookieURLFromCookieEntry = function(entry) {
     if ( !entry ) {
         return '';
     }
@@ -164,13 +156,11 @@ var cookieURLFromCookieEntry = function(entry) {
 
 /******************************************************************************/
 
-var cookieMatchDomains = function(cookieKey, allHostnamesString) {
-    var cookieEntry = cookieDict.get(cookieKey);
+const cookieMatchDomains = function(cookieKey, allHostnamesString) {
+    const cookieEntry = cookieDict.get(cookieKey);
     if ( cookieEntry === undefined ) { return false; }
     if ( allHostnamesString.indexOf(' ' + cookieEntry.hostname + ' ') < 0 ) {
-        if ( !cookieEntry.anySubdomain ) {
-            return false;
-        }
+        if ( !cookieEntry.anySubdomain ) { return false; }
         if ( allHostnamesString.indexOf('.' + cookieEntry.hostname + ' ') < 0 ) {
             return false;
         }
@@ -182,7 +172,7 @@ var cookieMatchDomains = function(cookieKey, allHostnamesString) {
 
 // Look for cookies to record for a specific web page
 
-var recordPageCookiesAsync = function(pageStore) {
+const recordPageCookiesAsync = function(pageStore) {
     // Store the page stats objects so that it doesn't go away
     // before we handle the job.
     // rhill 2013-10-19: pageStore could be nil, for example, this can
@@ -195,17 +185,17 @@ var recordPageCookiesAsync = function(pageStore) {
 
 /******************************************************************************/
 
-var recordPageCookie = (function() {
-    let queue = new Map();
+const recordPageCookie = (( ) => {
+    const queue = new Map();
+    const cookieLogEntryBuilder = [ '', '{', '', '-cookie:', '', '}' ];
     let queueTimer;
-    let cookieLogEntryBuilder = [ '', '{', '', '-cookie:', '', '}' ];
 
-    let process = function() {
+    const process = function() {
         queueTimer = undefined;
-        for ( let qentry of queue ) {
-            let pageStore = qentry[0];
+        for ( const qentry of queue ) {
+            const pageStore = qentry[0];
             if ( pageStore.tabId === '' ) { continue; }
-            for ( let cookieKey of qentry[1] ) {
+            for ( const cookieKey of qentry[1] ) {
                 let cookieEntry = cookieDict.get(cookieKey);
                 if ( cookieEntry === undefined ) { continue; }
                 let blocked = µm.mustBlock(
@@ -221,22 +211,24 @@ var recordPageCookie = (function() {
                     cookieEntry.session ? 'session' : 'persistent';
                 cookieLogEntryBuilder[4] =
                     encodeURIComponent(cookieEntry.name);
-                let cookieURL = cookieLogEntryBuilder.join('');
+                const cookieURL = cookieLogEntryBuilder.join('');
                 pageStore.recordRequest('cookie', cookieURL, blocked);
-                µm.logger.writeOne({
-                    tabId: pageStore.tabId,
-                    srcHn: pageStore.pageHostname,
-                    desHn: cookieEntry.hostname,
-                    desURL: cookieURL,
-                    type: 'cookie',
-                    blocked
-                });
+                if ( µm.logger.enabled ) {
+                    µm.filteringContext
+                      .duplicate()
+                      .fromTabId(pageStore.tabId)
+                      .setType('cookie')
+                      .setURL(cookieURL)
+                      .setFilter(blocked)
+                      .setRealm('network')
+                      .toLogger();
+                }
                 cookieEntry.usedOn.add(pageStore.pageHostname);
                 if ( !blocked ) { continue; }
                 if ( µm.userSettings.deleteCookies ) {
                     removeCookieAsync(cookieKey);
                 }
-                µm.updateBadgeAsync(pageStore.tabId);
+                µm.updateToolbarIcon(pageStore.tabId);
             }
         }
         queue.clear();
@@ -260,27 +252,29 @@ var recordPageCookie = (function() {
 
 // Candidate for removal
 
-var removeCookieAsync = function(cookieKey) {
+const removeCookieAsync = function(cookieKey) {
     removeCookieQueue.add(cookieKey);
 };
 
 /******************************************************************************/
 
-var chromeCookieRemove = function(cookieEntry, name) {
-    var url = cookieURLFromCookieEntry(cookieEntry);
+const browserCookieRemove = function(cookieEntry, name) {
+    const url = cookieURLFromCookieEntry(cookieEntry);
     if ( url === '' ) { return; }
 
-    var sessionCookieKey = cookieKeyFromCookieURL(url, 'session', name);
-    var persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
-    var callback = function(details) {
-        var success = !!details;
-        var template = success ? i18nCookieDeleteSuccess : i18nCookieDeleteFailure;
+    const sessionCookieKey = cookieKeyFromCookieURL(url, 'session', name);
+    const persistCookieKey = cookieKeyFromCookieURL(url, 'persistent', name);
+
+    vAPI.cookies.remove({ url, name }).then(details => {
+        const success = !!details;
+        const template = success ? i18nCookieDeleteSuccess : i18nCookieDeleteFailure;
         if ( removeCookieFromDict(sessionCookieKey) ) {
             if ( success ) {
                 µm.cookieRemovedCounter += 1;
             }
             µm.logger.writeOne({
-                info: template.replace('{{value}}', sessionCookieKey)
+                realm: 'message',
+                text: template.replace('{{value}}', sessionCookieKey)
             });
         }
         if ( removeCookieFromDict(persistCookieKey) ) {
@@ -288,23 +282,22 @@ var chromeCookieRemove = function(cookieEntry, name) {
                 µm.cookieRemovedCounter += 1;
             }
             µm.logger.writeOne({
-                info: template.replace('{{value}}', persistCookieKey)
+                realm: 'message',
+                text: template.replace('{{value}}', persistCookieKey)
             });
         }
-    };
-
-    vAPI.cookies.remove({ url: url, name: name }, callback);
+    });
 };
 
-var i18nCookieDeleteSuccess = vAPI.i18n('loggerEntryCookieDeleted');
-var i18nCookieDeleteFailure = vAPI.i18n('loggerEntryDeleteCookieError');
+const i18nCookieDeleteSuccess = vAPI.i18n('loggerEntryCookieDeleted');
+const i18nCookieDeleteFailure = vAPI.i18n('loggerEntryDeleteCookieError');
 
 /******************************************************************************/
 
-var processPageRecordQueue = function() {
+const processPageRecordQueue = function() {
     processPageRecordQueueTimer = null;
 
-    for ( var pageStore of recordPageCookiesQueue.values() ) {
+    for ( const pageStore of recordPageCookiesQueue.values() ) {
         findAndRecordPageCookies(pageStore);
     }
     recordPageCookiesQueue.clear();
@@ -314,39 +307,36 @@ var processPageRecordQueue = function() {
 
 // Effectively remove cookies.
 
-var processRemoveQueue = function() {
-    var userSettings = µm.userSettings;
-    var deleteCookies = userSettings.deleteCookies;
+const processRemoveQueue = function() {
+    const userSettings = µm.userSettings;
+    const deleteCookies = userSettings.deleteCookies;
 
     // Session cookies which timestamp is *after* tstampObsolete will
     // be left untouched
     // https://github.com/gorhill/httpswitchboard/issues/257
-    var tstampObsolete = userSettings.deleteUnusedSessionCookies ?
+    const tstampObsolete = userSettings.deleteUnusedSessionCookies ?
         Date.now() - userSettings.deleteUnusedSessionCookiesAfter * 60 * 1000 :
         0;
 
-    var srcHostnames;
-    var cookieEntry;
+    let srcHostnames;
 
-    for ( var cookieKey of removeCookieQueue ) {
+    for ( const cookieKey of removeCookieQueue ) {
         // rhill 2014-05-12: Apparently this can happen. I have to
         // investigate how (A session cookie has same name as a
         // persistent cookie?)
-        cookieEntry = cookieDict.get(cookieKey);
+        const cookieEntry = cookieDict.get(cookieKey);
         if ( cookieEntry === undefined ) { continue; }
 
         // Delete obsolete session cookies: enabled.
         if ( tstampObsolete !== 0 && cookieEntry.session ) {
             if ( cookieEntry.tstamp < tstampObsolete ) {
-                chromeCookieRemove(cookieEntry, cookieEntry.name);
+                browserCookieRemove(cookieEntry, cookieEntry.name);
                 continue;
             }
         }
 
         // Delete all blocked cookies: disabled.
-        if ( deleteCookies === false ) {
-            continue;
-        }
+        if ( deleteCookies === false ) { continue; }
 
         // Query scopes only if we are going to use them
         if ( srcHostnames === undefined ) {
@@ -357,7 +347,7 @@ var processRemoveQueue = function() {
         // happen that a cookie is blacklisted on one web page while
         // being whitelisted on another (because of per-page permissions).
         if ( canRemoveCookie(cookieKey, srcHostnames) ) {
-            chromeCookieRemove(cookieEntry, cookieEntry.name);
+            browserCookieRemove(cookieEntry, cookieEntry.name);
         }
     }
 
@@ -374,12 +364,12 @@ var processRemoveQueue = function() {
 // Remove only some of the cookies which are candidate for removal: who knows,
 // maybe a user has 1000s of cookies sitting in his browser...
 
-var processClean = function() {
-    var us = µm.userSettings;
+const processClean = function() {
+    const us = µm.userSettings;
     if ( us.deleteCookies || us.deleteUnusedSessionCookies ) {
-        var cookieKeys = Array.from(cookieDict.keys()),
-            len = cookieKeys.length,
-            step, offset, n;
+        const cookieKeys = Array.from(cookieDict.keys());
+        const len = cookieKeys.length;
+        let step, offset, n;
         if ( len > 25 ) {
             step = len / 25;
             offset = Math.floor(Math.random() * len);
@@ -389,7 +379,7 @@ var processClean = function() {
             offset = 0;
             n = len;
         }
-        var i = offset;
+        let i = offset;
         while ( n-- ) {
             removeCookieAsync(cookieKeys[Math.floor(i % len)]);
             i += step;
@@ -401,8 +391,8 @@ var processClean = function() {
 
 /******************************************************************************/
 
-var findAndRecordPageCookies = function(pageStore) {
-    for ( var cookieKey of cookieDict.keys() ) {
+const findAndRecordPageCookies = function(pageStore) {
+    for ( const cookieKey of cookieDict.keys() ) {
         if ( cookieMatchDomains(cookieKey, pageStore.allHostnamesString) ) {
             recordPageCookie(pageStore, cookieKey);
         }
@@ -411,14 +401,13 @@ var findAndRecordPageCookies = function(pageStore) {
 
 /******************************************************************************/
 
-var canRemoveCookie = function(cookieKey, srcHostnames) {
-    var cookieEntry = cookieDict.get(cookieKey);
+const canRemoveCookie = function(cookieKey, srcHostnames) {
+    const cookieEntry = cookieDict.get(cookieKey);
     if ( cookieEntry === undefined ) { return false; }
 
-    var cookieHostname = cookieEntry.hostname;
-    var srcHostname;
+    const cookieHostname = cookieEntry.hostname;
 
-    for ( srcHostname of cookieEntry.usedOn ) {
+    for ( const srcHostname of cookieEntry.usedOn ) {
         if ( µm.mustAllow(srcHostname, cookieHostname, 'cookie') ) {
             return false;
         }
@@ -427,21 +416,17 @@ var canRemoveCookie = function(cookieKey, srcHostnames) {
     // For example, if I am logged in into `github.com`, I do not want to be 
     // logged out just because I did not yet open a `github.com` page after 
     // re-starting the browser.
-    srcHostname = cookieHostname;
-    var pos;
+    let srcHostname = cookieHostname;
     for (;;) {
-        if ( srcHostnames.has(srcHostname) ) {
-            if ( µm.mustAllow(srcHostname, cookieHostname, 'cookie') ) {
-                return false;
-            }
+        if (
+            srcHostnames.has(srcHostname) &&
+            µm.mustAllow(srcHostname, cookieHostname, 'cookie')
+        ) {
+            return false;
         }
-        if ( srcHostname === cookieEntry.domain ) {
-            break;
-        }
-        pos = srcHostname.indexOf('.');
-        if ( pos === -1 ) {
-            break;
-        }
+        if ( srcHostname === cookieEntry.domain ) { break; }
+        const pos = srcHostname.indexOf('.');
+        if ( pos === -1 ) { break; }
         srcHostname = srcHostname.slice(pos + 1);
     }
     return true;
@@ -454,27 +439,27 @@ var canRemoveCookie = function(cookieKey, srcHostnames) {
 // https://github.com/gorhill/httpswitchboard/issues/79
 //  If cookie value didn't change, no need to record.
 
-vAPI.cookies.onChanged = (function() {
-    let queue = new Map();
+vAPI.cookies.onChanged = (( ) => {
+    const queue = new Map();
     let queueTimer;
 
     // Go through all pages and update if needed, as one cookie can be used
     // by many web pages, so they need to be recorded for all these pages.
 
-    let process = function() {
+    const process = function() {
         queueTimer = undefined;
-        let now = Date.now();
-        let cookieKeys = [];
-        for ( let qentry of queue ) {
+        const now = Date.now();
+        const cookieKeys = [];
+        for ( const qentry of queue ) {
             if ( qentry[1] > now ) { continue; }
             if ( cookieDict.has(qentry[0]) === false ) { continue; }
             cookieKeys.push(qentry[0]);
             queue.delete(qentry[0]);
         }
         if ( cookieKeys.length !== 0 ) {
-            for ( let pageStore of µm.pageStores.values() ) {
-                let allHostnamesString = pageStore.allHostnamesString;
-                for ( let cookieKey of cookieKeys ) {
+            for ( const pageStore of µm.pageStores.values() ) {
+                const allHostnamesString = pageStore.allHostnamesString;
+                for ( const cookieKey of cookieKeys ) {
                     if ( cookieMatchDomains(cookieKey, allHostnamesString) ) {
                         recordPageCookie(pageStore, cookieKey);
                     }
@@ -487,7 +472,7 @@ vAPI.cookies.onChanged = (function() {
     };
 
     return function(cookie) {
-        let cookieKey = cookieKeyFromCookie(cookie);
+        const cookieKey = cookieKeyFromCookie(cookie);
         let cookieEntry = cookieDict.get(cookieKey);
         if ( cookieEntry === undefined ) {
             cookieEntry = addCookieToDict(cookie);
@@ -509,10 +494,11 @@ vAPI.cookies.onChanged = (function() {
 // Listen to any change in cookieland, we will update page stats accordingly.
 
 vAPI.cookies.onRemoved = function(cookie) {
-    var cookieKey = cookieKeyFromCookie(cookie);
+    const cookieKey = cookieKeyFromCookie(cookie);
     if ( removeCookieFromDict(cookieKey) ) {
         µm.logger.writeOne({
-            info: i18nCookieDeleteSuccess.replace('{{value}}', cookieKey),
+            realm: 'message',
+            text: i18nCookieDeleteSuccess.replace('{{value}}', cookieKey),
             prettify: 'cookie'
         });
     }
@@ -523,10 +509,11 @@ vAPI.cookies.onRemoved = function(cookie) {
 // Listen to any change in cookieland, we will update page stats accordingly.
 
 vAPI.cookies.onAllRemoved = function() {
-    for ( var cookieKey of cookieDict.keys() ) {
+    for ( const cookieKey of cookieDict.keys() ) {
         if ( removeCookieFromDict(cookieKey) ) {
             µm.logger.writeOne({
-                info: i18nCookieDeleteSuccess.replace('{{value}}', cookieKey),
+                realm: 'message',
+                text: i18nCookieDeleteSuccess.replace('{{value}}', cookieKey),
                 prettify: 'cookie'
             });
         }
@@ -535,7 +522,11 @@ vAPI.cookies.onAllRemoved = function() {
 
 /******************************************************************************/
 
-vAPI.cookies.getAll(addCookiesToDict);
+vAPI.cookies.getAll().then(cookies => {
+    for ( const cookie of cookies ) {
+        addCookieToDict(cookie);
+    }
+});
 vAPI.cookies.start();
 
 vAPI.setTimeout(processRemoveQueue, processRemoveQueuePeriod);

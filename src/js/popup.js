@@ -20,30 +20,31 @@
 */
 
 /* global punycode, uDom, uMatrixScopeWidget */
-/* jshint esnext: true, bitwise: false */
 
 'use strict';
 
 /******************************************************************************/
 /******************************************************************************/
 
-(function() {
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 /******************************************************************************/
 
 // Stuff which is good to do very early so as to avoid visual glitches.
 
-(function() {
-    var paneContentPaddingTop = vAPI.localStorage.getItem('paneContentPaddingTop'),
-        touchDevice = vAPI.localStorage.getItem('touchDevice');
-
-    if ( typeof paneContentPaddingTop === 'string' ) {
-        document.querySelector('.paneContent').style.setProperty(
-            'padding-top',
-            paneContentPaddingTop
-        );
+{
+    const url = new URL(self.location.href);
+    const params = url.searchParams;
+    if ( params.has('tabid') || params.has('rule') ) {
+        document.body.classList.add('embedded');
     }
+    if ( params.has('rule') ) {
+        document.body.classList.add('tabless');
+    }
+
+    const touchDevice = vAPI.localStorage.getItem('touchDevice');
     if ( touchDevice === 'true' ) {
         document.body.setAttribute('data-touch', 'true');
     } else {
@@ -51,38 +52,45 @@
             document.removeEventListener(ev.type, onTouched);
             document.body.setAttribute('data-touch', 'true');
             vAPI.localStorage.setItem('touchDevice', 'true');
-            resizePopup();
         });
     }
-})();
+}
 
-var popupWasResized = function() {
+const popupWasResized = function() {
     document.body.setAttribute('data-resize-popup', '');
 };
 
-var resizePopup = (function() {
-    var timer;
-    var fix = function() {
+const resizePopup = (( ) => {
+    let timer;
+
+    // The purpose of `fix` is to make it so that the popup panel can still
+    // function properly in a horizontally-restricted viewport: in such case
+    // we need an horizontal scrollbar.
+    const fix = function() {
         timer = undefined;
-        var doc = document;
-        // Manually adjust the position of the main matrix according to the
-        // height of the toolbar/matrix header.
-        var paddingTop = (doc.querySelector('.paneHead').clientHeight + 2) + 'px',
-            paneContent = doc.querySelector('.paneContent');
-        if ( paddingTop !== paneContent.style.paddingTop ) {
-            paneContent.style.setProperty('padding-top', paddingTop);
-            vAPI.localStorage.setItem('paneContentPaddingTop', paddingTop);
-        }
         document.body.classList.toggle(
             'hConstrained',
             window.innerWidth < document.body.clientWidth
         );
         popupWasResized();
     };
+
+    // The purpose of `xobserver` is to initiate the resize handler only
+    // when the popup panel is actually visible.
+    let xobserver = new IntersectionObserver(intersections => {
+        if ( intersections.length === 0 ) { return; }
+        if ( intersections[0].isIntersecting === false ) { return; }
+        xobserver.disconnect();
+        xobserver = null;
+        resizePopup();
+    });
+    xobserver.observe(document.body);
+
     return function() {
         if ( timer !== undefined ) {
             clearTimeout(timer);
         }
+        if ( xobserver !== null ) { return; }
         timer = vAPI.setTimeout(fix, 97);
     };
 })();
@@ -91,100 +99,89 @@ var resizePopup = (function() {
 /******************************************************************************/
 
 // Must be consistent with definitions in matrix.js
-var Dark      = 0x80;
-var Red       = 1;
-var Green     = 2;
-var DarkRed   = Dark | Red;
-var DarkGreen = Dark | Green;
+const Dark      = 0x80;
+const Red       = 1;
+const Green     = 2;
+const DarkRed   = Dark | Red;
+const DarkGreen = Dark | Green;
 
-var matrixSnapshot = {};
-var groupsSnapshot = [];
-var allHostnamesSnapshot = 'do not leave this initial string empty';
+let matrixSnapshot = {};
+let groupsSnapshot = [];
+let allHostnamesSnapshot = 'do not leave this initial string empty';
 
-var matrixCellHotspots = null;
+let matrixCellHotspots = null;
 
-var matrixHeaderPrettyNames = {
+const matrixHeaderPrettyNames = {
     'all': '',
     'cookie': '',
     'css': '',
     'image': '',
     'media': '',
     'script': '',
-    'xhr': '',
+    'fetch': '',
     'frame': '',
     'other': ''
 };
 
-var firstPartyLabel = '';
-var blacklistedHostnamesLabel = '';
+let firstPartyLabel = '';
+let blacklistedHostnamesLabel = '';
 
-var expandosIdGenerator = 1;
-var nodeToExpandosMap = (function() {
-    if ( typeof window.Map === 'function' ) {
-        return new window.Map();
-    }
-})();
+const nodeToExpandosMap = new Map();
+let expandosIdGenerator = 1;
 
-var expandosFromNode = function(node) {
+const expandosFromNode = function(node) {
     if (
         node instanceof HTMLElement === false &&
         typeof node.nodeAt === 'function'
     ) {
         node = node.nodeAt(0);
     }
-    if ( nodeToExpandosMap ) {
-        var expandosId = node.getAttribute('data-expandos');
-        if ( !expandosId ) {
-            expandosId = '' + (expandosIdGenerator++);
-            node.setAttribute('data-expandos', expandosId);
-        }
-        var expandos = nodeToExpandosMap.get(expandosId);
-        if ( expandos === undefined ) {
-            nodeToExpandosMap.set(expandosId, (expandos = Object.create(null)));
-        }
-        return expandos;
+    if ( node.hasAttribute('data-expandos') === false ) {
+        const expandosId = '' + (expandosIdGenerator++);
+        node.setAttribute('data-expandos', expandosId);
+        nodeToExpandosMap.set(expandosId, Object.create(null));
     }
-    return node;
+    return nodeToExpandosMap.get(node.getAttribute('data-expandos'));
 };
 
 /******************************************************************************/
 /******************************************************************************/
 
-function getUserSetting(setting) {
-        return matrixSnapshot.userSettings[setting];
-    }
+const getUserSetting = function(setting) {
+    return matrixSnapshot.userSettings[setting];
+};
 
-function setUserSetting(setting, value) {
+const setUserSetting = function(setting, value) {
     matrixSnapshot.userSettings[setting] = value;
     vAPI.messaging.send('popup.js', {
         what: 'userSettings',
         name: setting,
         value: value
     });
-}
+};
 
 /******************************************************************************/
 
-function getUISetting(setting) {
+const getUISetting = function(setting) {
     var r = vAPI.localStorage.getItem(setting);
     if ( typeof r !== 'string' ) {
         return undefined;
     }
     return JSON.parse(r);
-}
+};
 
-function setUISetting(setting, value) {
+const setUISetting = function(setting, value) {
     vAPI.localStorage.setItem(
         setting,
         JSON.stringify(value)
     );
-}
+};
 
 /******************************************************************************/
 
-function updateMatrixSnapshot() {
+const updateMatrixSnapshot = function() {
     matrixSnapshotPoller.pollNow();
-}
+};
 
 /******************************************************************************/
 
@@ -195,11 +192,10 @@ function updateMatrixSnapshot() {
 // 3rd: graylisted
 // 4th: blacklisted
 
-function getGroupStats() {
-
+const getGroupStats = function() {
     // Try to not reshuffle groups around while popup is opened if
     // no new hostname added.
-    var latestDomainListSnapshot = Object.keys(matrixSnapshot.rows).sort().join();
+    const latestDomainListSnapshot = Object.keys(matrixSnapshot.rows).sort().join();
     if ( latestDomainListSnapshot === allHostnamesSnapshot ) {
         return groupsSnapshot;
     }
@@ -207,31 +203,23 @@ function getGroupStats() {
 
     // First, group according to whether at least one node in the domain
     // hierarchy is white or blacklisted
-    var pageDomain = matrixSnapshot.domain;
-    var rows = matrixSnapshot.rows;
-    var anyTypeOffset = matrixSnapshot.headerIndices.get('*');
-    var hostname, domain;
-    var row, color, count, groupIndex;
-    var domainToGroupMap = {};
+    const pageDomain = matrixSnapshot.domain;
+    const rows = matrixSnapshot.rows;
+    const anyTypeOffset = matrixSnapshot.headerIndices.get('*');
+    const domainToGroupMap = {};
 
     // These have hard-coded position which cannot be overriden
     domainToGroupMap['1st-party'] = 0;
     domainToGroupMap[pageDomain] = 1;
 
     // 1st pass: domain wins if it has an explicit rule or a count
-    for ( hostname in rows ) {
-        if ( rows.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        if ( hostname === '*' || hostname === '1st-party' ) {
-            continue;
-        }
-        domain = rows[hostname].domain;
-        if ( domain === pageDomain || hostname !== domain ) {
-            continue;
-        }
-        row = rows[domain];
-        color = row.temporary[anyTypeOffset];
+    for ( const hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) { continue; }
+        if ( hostname === '*' || hostname === '1st-party' ) { continue; }
+        const domain = rows[hostname].domain;
+        if ( domain === pageDomain || hostname !== domain ) { continue; }
+        const row = rows[domain];
+        const color = row.temporary[anyTypeOffset];
         if ( color === DarkGreen ) {
             domainToGroupMap[domain] = 2;
             continue;
@@ -240,83 +228,62 @@ function getGroupStats() {
             domainToGroupMap[domain] = 4;
             continue;
         }
-        count = row.counts[anyTypeOffset];
+        const count = row.counts[anyTypeOffset];
         if ( count !== 0 ) {
             domainToGroupMap[domain] = 3;
             continue;
         }
     }
     // 2nd pass: green wins
-    for ( hostname in rows ) {
-        if ( rows.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        row = rows[hostname];
-        domain = row.domain;
-        if ( domainToGroupMap.hasOwnProperty(domain) ) {
-            continue;
-        }
-        color = row.temporary[anyTypeOffset];
+    for ( const hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) { continue; }
+        const row = rows[hostname];
+        const domain = row.domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) { continue; }
+        const color = row.temporary[anyTypeOffset];
         if ( color === DarkGreen ) {
             domainToGroupMap[domain] = 2;
         }
     }
     // 3rd pass: gray with count wins
-    for ( hostname in rows ) {
-        if ( rows.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        row = rows[hostname];
-        domain = row.domain;
-        if ( domainToGroupMap.hasOwnProperty(domain) ) {
-            continue;
-        }
-        color = row.temporary[anyTypeOffset];
-        count = row.counts[anyTypeOffset];
+    for ( const hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) { continue; }
+        const row = rows[hostname];
+        const domain = row.domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) { continue; }
+        const color = row.temporary[anyTypeOffset];
+        const count = row.counts[anyTypeOffset];
         if ( color !== DarkRed && count !== 0 ) {
             domainToGroupMap[domain] = 3;
         }
     }
     // 4th pass: red wins whatever is left
-    for ( hostname in rows ) {
-        if ( rows.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        row = rows[hostname];
-        domain = row.domain;
-        if ( domainToGroupMap.hasOwnProperty(domain) ) {
-            continue;
-        }
-        color = row.temporary[anyTypeOffset];
+    for ( const hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) { continue; }
+        const row = rows[hostname];
+        const domain = row.domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) { continue; }
+        const color = row.temporary[anyTypeOffset];
         if ( color === DarkRed ) {
             domainToGroupMap[domain] = 4;
         }
     }
     // 5th pass: gray wins whatever is left
-    for ( hostname in rows ) {
-        if ( rows.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        domain = rows[hostname].domain;
-        if ( domainToGroupMap.hasOwnProperty(domain) ) {
-            continue;
-        }
+    for ( const hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) { continue; }
+        const domain = rows[hostname].domain;
+        if ( domainToGroupMap.hasOwnProperty(domain) ) { continue; }
         domainToGroupMap[domain] = 3;
     }
 
     // Last pass: put each domain in a group
-    var groups = [ {}, {}, {}, {}, {} ];
-    var group;
-    for ( hostname in rows ) {
-        if ( rows.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        if ( hostname === '*' ) {
-            continue;
-        }
-        domain = rows[hostname].domain;
-        groupIndex = domainToGroupMap[domain];
-        group = groups[groupIndex];
+    const groups = [ {}, {}, {}, {}, {} ];
+    for ( const hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) { continue; }
+        if ( hostname === '*' ) { continue; }
+        const domain = rows[hostname].domain;
+        const groupIndex = domainToGroupMap[domain];
+        const group = groups[groupIndex];
         if ( group.hasOwnProperty(domain) === false ) {
             group[domain] = {};
         }
@@ -326,26 +293,28 @@ function getGroupStats() {
     groupsSnapshot = groups;
 
     return groups;
-}
+};
 
 /******************************************************************************/
 
 // helpers
 
-function getTemporaryColor(hostname, type) {
-    return matrixSnapshot.rows[hostname].temporary[matrixSnapshot.headerIndices.get(type)];
-}
+const getTemporaryColor = function(hostname, type) {
+    return matrixSnapshot.rows[hostname]
+                         .temporary[matrixSnapshot.headerIndices.get(type)];
+};
 
-function getPermanentColor(hostname, type) {
-    return matrixSnapshot.rows[hostname].permanent[matrixSnapshot.headerIndices.get(type)];
-}
+const getPermanentColor = function(hostname, type) {
+    return matrixSnapshot.rows[hostname]
+                         .permanent[matrixSnapshot.headerIndices.get(type)];
+};
 
-function addCellClass(cell, hostname, type) {
-    var cl = cell.classList;
+const addCellClass = function(cell, hostname, type) {
+    const cl = cell.classList;
     cl.add('matCell');
     cl.add('t' + getTemporaryColor(hostname, type).toString(16));
     cl.add('p' + getPermanentColor(hostname, type).toString(16));
-}
+};
 
 /******************************************************************************/
 
@@ -353,50 +322,45 @@ function addCellClass(cell, hostname, type) {
 // the user might have collapsed/expanded one or more domains, and we don't
 // want to lose all his hardwork.
 
-function getCollapseState(domain) {
-    var states = getUISetting('popupCollapseSpecificDomains');
+const getCollapseState = function(domain) {
+    const states = getUISetting('popupCollapseSpecificDomains');
     if ( typeof states === 'object' && states[domain] !== undefined ) {
         return states[domain];
     }
     return matrixSnapshot.collapseAllDomains === true;
-}
+};
 
-function toggleCollapseState(elem) {
+const toggleCollapseState = function(elem) {
     if ( elem.ancestors('#matHead.collapsible').length > 0 ) {
         toggleMainCollapseState(elem);
     } else {
         toggleSpecificCollapseState(elem);
     }
     popupWasResized();
-}
+};
 
-function toggleMainCollapseState(uelem) {
-    var matHead = uelem.ancestors('#matHead.collapsible').toggleClass('collapsed');
-    var collapsed = matrixSnapshot.collapseAllDomains = matHead.hasClass('collapsed');
+const toggleMainCollapseState = function(uelem) {
+    const matHead = uelem.ancestors('#matHead.collapsible').toggleClass('collapsed');
+    const collapsed = matrixSnapshot.collapseAllDomains = matHead.hasClass('collapsed');
     uDom('#matList .matSection.collapsible').toggleClass('collapsed', collapsed);
     setUserSetting('popupCollapseAllDomains', collapsed);
-
-    var specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
-    var domains = Object.keys(specificCollapseStates);
-    var i = domains.length;
-    var domain;
-    while ( i-- ) {
-        domain = domains[i];
+    const specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
+    for ( const domain of Object.keys(specificCollapseStates) ) {
         if ( specificCollapseStates[domain] === collapsed ) {
             delete specificCollapseStates[domain];
         }
     }
     setUISetting('popupCollapseSpecificDomains', specificCollapseStates);
-}
+};
 
-function toggleSpecificCollapseState(uelem) {
+const toggleSpecificCollapseState = function(uelem) {
     // Remember collapse state forever, but only if it is different
     // from main collapse switch.
-    var section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed'),
-        domain = expandosFromNode(section).domain,
-        collapsed = section.hasClass('collapsed'),
-        mainCollapseState = matrixSnapshot.collapseAllDomains === true,
-        specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
+    const section = uelem.ancestors('.matSection.collapsible').toggleClass('collapsed');
+    const domain = expandosFromNode(section).domain;
+    const collapsed = section.hasClass('collapsed');
+    const mainCollapseState = matrixSnapshot.collapseAllDomains === true;
+    const specificCollapseStates = getUISetting('popupCollapseSpecificDomains') || {};
     if ( collapsed !== mainCollapseState ) {
         specificCollapseStates[domain] = collapsed;
         setUISetting('popupCollapseSpecificDomains', specificCollapseStates);
@@ -404,56 +368,52 @@ function toggleSpecificCollapseState(uelem) {
         delete specificCollapseStates[domain];
         setUISetting('popupCollapseSpecificDomains', specificCollapseStates);
     }
-}
+};
 
 /******************************************************************************/
 
 // Update count value of matrix cells(s)
 
-function updateMatrixCounts() {
-    var matCells = uDom('.matrix .matRow.rw > .matCell'),
-        i = matCells.length,
-        matRow, matCell, count, counts,
-        headerIndices = matrixSnapshot.headerIndices,
-        rows = matrixSnapshot.rows,
-        expandos;
+const updateMatrixCounts = function() {
+    const matCells = uDom('.matrix .matRow.rw > .matCell');
+    const headerIndices = matrixSnapshot.headerIndices;
+    const rows = matrixSnapshot.rows;
+    let i = matCells.length;
     while ( i-- ) {
-        matCell = matCells.nodeAt(i);
-        expandos = expandosFromNode(matCell);
+        const matCell = matCells.nodeAt(i);
+        const expandos = expandosFromNode(matCell);
         if ( expandos.hostname === '*' || expandos.reqType === '*' ) {
             continue;
         }
-        matRow = matCell.parentNode;
-        counts = matRow.classList.contains('meta') ? 'totals' : 'counts';
-        count = rows[expandos.hostname][counts][headerIndices.get(expandos.reqType)];
+        const matRow = matCell.parentNode;
+        const counts = matRow.classList.contains('meta') ? 'totals' : 'counts';
+        const count = rows[expandos.hostname][counts][headerIndices.get(expandos.reqType)];
         if ( count === expandos.count ) { continue; }
         expandos.count = count;
         matCell.textContent = cellTextFromCount(count);
     }
-}
+};
 
-function cellTextFromCount(count) {
+const cellTextFromCount = function(count) {
     if ( count === 0 ) { return '\u00A0'; }
     if ( count < 100 ) { return count; }
     return '99+';
-}
+};
 
 /******************************************************************************/
 
 // Update color of matrix cells(s)
 // Color changes when rules change
 
-function updateMatrixColors() {
-    var cells = uDom('.matrix .matRow.rw > .matCell').removeClass(),
-        i = cells.length,
-        cell, expandos;
-    while ( i-- ) {
-        cell = cells.nodeAt(i);
-        expandos = expandosFromNode(cell);
+const updateMatrixColors = function() {
+    const cells = uDom('.matrix .matRow.rw > .matCell').removeClass();
+    for ( let i = 0; i < cells.length; i++ ) {
+        const cell = cells.nodeAt(i);
+        const expandos = expandosFromNode(cell);
         addCellClass(cell, expandos.hostname, expandos.reqType);
     }
     popupWasResized();
-}
+};
 
 /******************************************************************************/
 
@@ -463,91 +423,97 @@ function updateMatrixColors() {
 //   - There is no explicit rule anywhere in the subdomain cells AND
 //   - It is not part of group 3 (blacklisted hostnames)
 
-function updateMatrixBehavior() {
+const updateMatrixBehavior = function() {
     matrixList = matrixList || uDom('#matList');
-    var sections = matrixList.descendants('.matSection');
-    var i = sections.length;
-    var section, subdomainRows, j, subdomainRow;
+    const sections = matrixList.descendants('.matSection');
+    let i = sections.length;
     while ( i-- ) {
-        section = sections.at(i);
-        subdomainRows = section.descendants('.l2:not(.g4)');
-        j = subdomainRows.length;
+        const section = sections.at(i);
+        const subdomainRows = section.descendants('.l2:not(.g4)');
+        let j = subdomainRows.length;
         while ( j-- ) {
-            subdomainRow = subdomainRows.at(j);
-            subdomainRow.toggleClass('collapsible', subdomainRow.descendants('.t81,.t82').length === 0);
+            const subdomainRow = subdomainRows.at(j);
+            subdomainRow.toggleClass(
+                'collapsible',
+                subdomainRow.descendants('.t81,.t82').length === 0
+            );
         }
-        section.toggleClass('collapsible', subdomainRows.filter('.collapsible').length > 0);
+        section.toggleClass(
+            'collapsible',
+            subdomainRows.filter('.collapsible').length > 0
+        );
     }
-}
+};
 
 /******************************************************************************/
 
 // handle user interaction with filters
 
-function getCellAction(hostname, type, leaning) {
-    var temporaryColor = getTemporaryColor(hostname, type);
-    var hue = temporaryColor & 0x03;
+const getCellAction = function(hostname, type, leaning) {
+    const temporaryColor = getTemporaryColor(hostname, type);
+    const hue = temporaryColor & 0x03;
     // Special case: root toggle only between two states
     if ( type === '*' && hostname === '*' ) {
         return hue === Green ? 'blacklistMatrixCell' : 'whitelistMatrixCell';
     }
     // When explicitly blocked/allowed, can only graylist
-    var saturation = temporaryColor & 0x80;
+    const saturation = temporaryColor & 0x80;
     if ( saturation === Dark ) {
         return 'graylistMatrixCell';
     }
     return leaning === 'whitelisting' ? 'whitelistMatrixCell' : 'blacklistMatrixCell';
-}
+};
 
-function handleFilter(button, leaning) {
+const handleFilter = function(button, leaning) {
     // our parent cell knows who we are
-    let cell = button.ancestors('div.matCell'),
-        expandos = expandosFromNode(cell),
-        type = expandos.reqType,
-        desHostname = expandos.hostname;
+    const cell = button.ancestors('div.matCell');
+    const expandos = expandosFromNode(cell);
+    const type = expandos.reqType;
+    const desHostname = expandos.hostname;
     // https://github.com/gorhill/uMatrix/issues/24
     // No hostname can happen -- like with blacklist meta row
     if ( desHostname === '' ) { return; }
-    let request = {
+    vAPI.messaging.send('default', {
         what: getCellAction(desHostname, type, leaning),
         srcHostname: matrixSnapshot.scope,
         desHostname: desHostname,
         type: type
-    };
-    vAPI.messaging.send('default', request, updateMatrixSnapshot);
-}
+    }).then(( ) => {
+        updateMatrixSnapshot();
+    });
+};
 
-function handleWhitelistFilter(button) {
+const handleWhitelistFilter = function(button) {
     handleFilter(button, 'whitelisting');
-}
+};
 
-function handleBlacklistFilter(button) {
+const handleBlacklistFilter = function(button) {
     handleFilter(button, 'blacklisting');
-}
+};
 
 /******************************************************************************/
 
-var matrixRowPool = [];
-var matrixSectionPool = [];
-var matrixGroupPool = [];
-var matrixRowTemplate = null;
-var matrixList = null;
+let matrixRowPool = [];
+let matrixSectionPool = [];
+let matrixGroupPool = [];
+let matrixRowTemplate = null;
+let matrixList = null;
 
-var startMatrixUpdate = function() {
+const startMatrixUpdate = function() {
     matrixList =  matrixList || uDom('#matList');
     matrixList.detach();
-    var rows = matrixList.descendants('.matRow');
+    const rows = matrixList.descendants('.matRow');
     rows.detach();
     matrixRowPool = matrixRowPool.concat(rows.toArray());
-    var sections = matrixList.descendants('.matSection');
+    const sections = matrixList.descendants('.matSection');
     sections.detach();
     matrixSectionPool = matrixSectionPool.concat(sections.toArray());
-    var groups = matrixList.descendants('.matGroup');
+    const groups = matrixList.descendants('.matGroup');
     groups.detach();
     matrixGroupPool = matrixGroupPool.concat(groups.toArray());
 };
 
-var endMatrixUpdate = function() {
+const endMatrixUpdate = function() {
     // https://github.com/gorhill/httpswitchboard/issues/246
     // If the matrix has no rows, we need to insert a dummy one, invisible,
     // to ensure the extension pop-up is properly sized. This is needed because
@@ -561,24 +527,24 @@ var endMatrixUpdate = function() {
     matrixList.appendTo('.paneContent');
 };
 
-var createMatrixGroup = function() {
-    var group = matrixGroupPool.pop();
+const createMatrixGroup = function() {
+    const group = matrixGroupPool.pop();
     if ( group ) {
         return uDom(group).removeClass().addClass('matGroup');
     }
     return uDom(document.createElement('div')).addClass('matGroup');
 };
 
-var createMatrixSection = function() {
-    var section = matrixSectionPool.pop();
+const createMatrixSection = function() {
+    const section = matrixSectionPool.pop();
     if ( section ) {
         return uDom(section).removeClass().addClass('matSection');
     }
     return uDom(document.createElement('div')).addClass('matSection');
 };
 
-var createMatrixRow = function() {
-    var row = matrixRowPool.pop();
+const createMatrixRow = function() {
+    let row = matrixRowPool.pop();
     if ( row ) {
         row.style.visibility = '';
         row = uDom(row);
@@ -594,12 +560,13 @@ var createMatrixRow = function() {
 
 /******************************************************************************/
 
-function renderMatrixHeaderRow() {
-    var matHead = uDom('#matHead.collapsible');
+const renderMatrixHeaderRow = function() {
+    const matHead = uDom('#matHead.collapsible');
     matHead.toggleClass('collapsed', matrixSnapshot.collapseAllDomains === true);
-    var cells = matHead.descendants('.matCell'), cell, expandos;
-    cell = cells.nodeAt(0);
-    expandos = expandosFromNode(cell);
+    const cells = matHead.descendants('.matCell');
+    cells.removeClass();
+    let cell = cells.nodeAt(0);
+    let expandos = expandosFromNode(cell);
     expandos.reqType = '*';
     expandos.hostname = '*';
     addCellClass(cell, '*', '*');
@@ -630,9 +597,9 @@ function renderMatrixHeaderRow() {
     addCellClass(cell, '*', 'script');
     cell = cells.nodeAt(6);
     expandos = expandosFromNode(cell);
-    expandos.reqType = 'xhr';
+    expandos.reqType = 'fetch';
     expandos.hostname = '*';
-    addCellClass(cell, '*', 'xhr');
+    addCellClass(cell, '*', 'fetch');
     cell = cells.nodeAt(7);
     expandos = expandosFromNode(cell);
     expandos.reqType = 'frame';
@@ -644,111 +611,111 @@ function renderMatrixHeaderRow() {
     expandos.hostname = '*';
     addCellClass(cell, '*', 'other');
     uDom('#matHead .matRow').css('display', '');
-}
+};
 
 /******************************************************************************/
 
-function renderMatrixCellDomain(cell, domain) {
-    var expandos = expandosFromNode(cell);
+const renderMatrixCellDomain = function(cell, domain) {
+    const expandos = expandosFromNode(cell);
     expandos.hostname = domain;
     expandos.reqType = '*';
     addCellClass(cell.nodeAt(0), domain, '*');
-    var contents = cell.contents();
+    const contents = cell.contents();
     contents.nodeAt(0).textContent = domain === '1st-party' ?
         firstPartyLabel :
         punycode.toUnicode(domain);
     contents.nodeAt(1).textContent = ' ';
-}
+};
 
-function renderMatrixCellSubdomain(cell, domain, subomain) {
-    var expandos = expandosFromNode(cell);
+const renderMatrixCellSubdomain = function(cell, domain, subomain) {
+    const expandos = expandosFromNode(cell);
     expandos.hostname = subomain;
     expandos.reqType = '*';
     addCellClass(cell.nodeAt(0), subomain, '*');
-    var contents = cell.contents();
+    const contents = cell.contents();
     contents.nodeAt(0).textContent = punycode.toUnicode(subomain.slice(0, subomain.lastIndexOf(domain)-1)) + '.';
     contents.nodeAt(1).textContent = punycode.toUnicode(domain);
-}
+};
 
-function renderMatrixMetaCellDomain(cell, domain) {
-    var expandos = expandosFromNode(cell);
+const renderMatrixMetaCellDomain = function(cell, domain) {
+    const expandos = expandosFromNode(cell);
     expandos.hostname = domain;
     expandos.reqType = '*';
     addCellClass(cell.nodeAt(0), domain, '*');
-    var contents = cell.contents();
+    const contents = cell.contents();
     contents.nodeAt(0).textContent = '\u2217.' + punycode.toUnicode(domain);
     contents.nodeAt(1).textContent = ' ';
-}
+};
 
-function renderMatrixCellType(cell, hostname, type, count) {
-    var node = cell.nodeAt(0),
-        expandos = expandosFromNode(node);
+const renderMatrixCellType = function(cell, hostname, type, count) {
+    const node = cell.nodeAt(0);
+    const expandos = expandosFromNode(node);
     expandos.hostname = hostname;
     expandos.reqType = type;
     expandos.count = count;
     addCellClass(node, hostname, type);
     node.textContent = cellTextFromCount(count);
-}
+};
 
-function renderMatrixCellTypes(cells, hostname, countName) {
-    var counts = matrixSnapshot.rows[hostname][countName];
-    var headerIndices = matrixSnapshot.headerIndices;
+const renderMatrixCellTypes = function(cells, hostname, countName) {
+    const counts = matrixSnapshot.rows[hostname][countName];
+    const headerIndices = matrixSnapshot.headerIndices;
     renderMatrixCellType(cells.at(1), hostname, 'cookie', counts[headerIndices.get('cookie')]);
     renderMatrixCellType(cells.at(2), hostname, 'css', counts[headerIndices.get('css')]);
     renderMatrixCellType(cells.at(3), hostname, 'image', counts[headerIndices.get('image')]);
     renderMatrixCellType(cells.at(4), hostname, 'media', counts[headerIndices.get('media')]);
     renderMatrixCellType(cells.at(5), hostname, 'script', counts[headerIndices.get('script')]);
-    renderMatrixCellType(cells.at(6), hostname, 'xhr', counts[headerIndices.get('xhr')]);
+    renderMatrixCellType(cells.at(6), hostname, 'fetch', counts[headerIndices.get('fetch')]);
     renderMatrixCellType(cells.at(7), hostname, 'frame', counts[headerIndices.get('frame')]);
     renderMatrixCellType(cells.at(8), hostname, 'other', counts[headerIndices.get('other')]);
-}
+};
 
 /******************************************************************************/
 
-function makeMatrixRowDomain(domain) {
-    var matrixRow = createMatrixRow().addClass('rw');
-    var cells = matrixRow.descendants('.matCell');
+const makeMatrixRowDomain = function(domain) {
+    const matrixRow = createMatrixRow().addClass('rw');
+    const cells = matrixRow.descendants('.matCell');
     renderMatrixCellDomain(cells.at(0), domain);
     renderMatrixCellTypes(cells, domain, 'counts');
     return matrixRow;
-}
+};
 
-function makeMatrixRowSubdomain(domain, subdomain) {
-    var matrixRow = createMatrixRow().addClass('rw');
-    var cells = matrixRow.descendants('.matCell');
+const makeMatrixRowSubdomain = function(domain, subdomain) {
+    const matrixRow = createMatrixRow().addClass('rw');
+    const cells = matrixRow.descendants('.matCell');
     renderMatrixCellSubdomain(cells.at(0), domain, subdomain);
     renderMatrixCellTypes(cells, subdomain, 'counts');
     return matrixRow;
-}
+};
 
-function makeMatrixMetaRowDomain(domain) {
-    var matrixRow = createMatrixRow().addClass('rw');
-    var cells = matrixRow.descendants('.matCell');
+const makeMatrixMetaRowDomain = function(domain) {
+    const matrixRow = createMatrixRow().addClass('rw');
+    const cells = matrixRow.descendants('.matCell');
     renderMatrixMetaCellDomain(cells.at(0), domain);
     renderMatrixCellTypes(cells, domain, 'totals');
     return matrixRow;
-}
+};
 
 /******************************************************************************/
 
-function renderMatrixMetaCellType(cell, count) {
+const renderMatrixMetaCellType = function(cell, count) {
     // https://github.com/gorhill/uMatrix/issues/24
     // Don't forget to reset cell properties
-    var node = cell.nodeAt(0),
-        expandos = expandosFromNode(node);
+    const node = cell.nodeAt(0);
+    const expandos = expandosFromNode(node);
     expandos.hostname = '';
     expandos.reqType = '';
     expandos.count = count;
     cell.addClass('t1');
     node.textContent = cellTextFromCount(count);
-}
+};
 
-function makeMatrixMetaRow(totals) {
-    var headerIndices = matrixSnapshot.headerIndices,
-        matrixRow = createMatrixRow().at(0).addClass('ro'),
-        cells = matrixRow.descendants('.matCell'),
-        contents = cells.at(0).addClass('t81').contents(),
-        expandos = expandosFromNode(cells.nodeAt(0));
+const makeMatrixMetaRow = function(totals) {
+    const headerIndices = matrixSnapshot.headerIndices;
+    const matrixRow = createMatrixRow().at(0).addClass('ro');
+    const cells = matrixRow.descendants('.matCell');
+    const contents = cells.at(0).addClass('t81').contents();
+    const expandos = expandosFromNode(cells.nodeAt(0));
     expandos.hostname = '';
     expandos.reqType = '*';
     contents.nodeAt(0).textContent = ' ';
@@ -761,42 +728,33 @@ function makeMatrixMetaRow(totals) {
     renderMatrixMetaCellType(cells.at(3), totals[headerIndices.get('image')]);
     renderMatrixMetaCellType(cells.at(4), totals[headerIndices.get('media')]);
     renderMatrixMetaCellType(cells.at(5), totals[headerIndices.get('script')]);
-    renderMatrixMetaCellType(cells.at(6), totals[headerIndices.get('xhr')]);
+    renderMatrixMetaCellType(cells.at(6), totals[headerIndices.get('fetch')]);
     renderMatrixMetaCellType(cells.at(7), totals[headerIndices.get('frame')]);
     renderMatrixMetaCellType(cells.at(8), totals[headerIndices.get('other')]);
     return matrixRow;
-}
+};
 
 /******************************************************************************/
 
-function computeMatrixGroupMetaStats(group) {
-    var headerIndices = matrixSnapshot.headerIndices,
-        anyTypeIndex = headerIndices.get('*'),
-        n = headerIndices.size,
-        totals = new Array(n),
-        i = n;
-    while ( i-- ) {
-        totals[i] = 0;
-    }
-    var rows = matrixSnapshot.rows, row;
-    for ( var hostname in rows ) {
-        if ( rows.hasOwnProperty(hostname) === false ) {
-            continue;
-        }
-        row = rows[hostname];
-        if ( group.hasOwnProperty(row.domain) === false ) {
-            continue;
-        }
-        if ( row.counts[anyTypeIndex] === 0 ) {
-            continue;
-        }
+const computeMatrixGroupMetaStats = function(group) {
+    const headerIndices = matrixSnapshot.headerIndices;
+    const anyTypeIndex = headerIndices.get('*');
+    const n = headerIndices.size;
+    const totals = new Array(n);
+    totals.fill(0);
+    const rows = matrixSnapshot.rows;
+    for ( const hostname in rows ) {
+        if ( rows.hasOwnProperty(hostname) === false ) { continue; }
+        const row = rows[hostname];
+        if ( group.hasOwnProperty(row.domain) === false ) { continue; }
+        if ( row.counts[anyTypeIndex] === 0 ) { continue; }
         totals[0] += 1;
-        for ( i = 1; i < n; i++ ) {
+        for ( let i = 1; i < n; i++ ) {
             totals[i] += row.counts[i];
         }
     }
     return totals;
-}
+};
 
 /******************************************************************************/
 
@@ -804,110 +762,111 @@ function computeMatrixGroupMetaStats(group) {
 // top-most < bottom-most, take into account whether IP address or
 // named hostname
 
-function hostnameCompare(a,b) {
+const hostnameCompare = function(a,b) {
     // Normalize: most significant parts first
     if ( !a.match(/^\d+(\.\d+){1,3}$/) ) {
-        var aa = a.split('.');
+        const aa = a.split('.');
         a = aa.slice(-2).concat(aa.slice(0,-2).reverse()).join('.');
     }
     if ( !b.match(/^\d+(\.\d+){1,3}$/) ) {
-        var bb = b.split('.');
+        const bb = b.split('.');
         b = bb.slice(-2).concat(bb.slice(0,-2).reverse()).join('.');
     }
     return a.localeCompare(b);
-}
+};
 
 /******************************************************************************/
 
-function makeMatrixGroup0SectionDomain() {
+const makeMatrixGroup0SectionDomain = function() {
     return makeMatrixRowDomain('1st-party').addClass('g0 l1');
-}
+};
 
-function makeMatrixGroup0Section() {
-    var domainDiv = createMatrixSection();
+const makeMatrixGroup0Section = function() {
+    const domainDiv = createMatrixSection();
     expandosFromNode(domainDiv).domain = '1st-party';
     makeMatrixGroup0SectionDomain().appendTo(domainDiv);
     return domainDiv;
-}
+};
 
-function makeMatrixGroup0() {
+const makeMatrixGroup0 = function() {
     // Show literal "1st-party" row only if there is 
     // at least one 1st-party hostname
     if ( Object.keys(groupsSnapshot[1]).length === 0 ) {
         return;
     }
-    var groupDiv = createMatrixGroup().addClass('g0');
+    const groupDiv = createMatrixGroup().addClass('g0');
     makeMatrixGroup0Section().appendTo(groupDiv);
     groupDiv.appendTo(matrixList);
-}
+};
 
 /******************************************************************************/
 
-function makeMatrixGroup1SectionDomain(domain) {
+const makeMatrixGroup1SectionDomain = function(domain) {
     return makeMatrixRowDomain(domain)
         .addClass('g1 l1');
-}
+};
 
-function makeMatrixGroup1SectionSubomain(domain, subdomain) {
+const makeMatrixGroup1SectionSubomain = function(domain, subdomain) {
     return makeMatrixRowSubdomain(domain, subdomain)
         .addClass('g1 l2');
-}
+};
 
-function makeMatrixGroup1SectionMetaDomain(domain) {
-    return makeMatrixMetaRowDomain(domain).addClass('g1 l1 meta');
-}
+const makeMatrixGroup1SectionMetaDomain = function(domain) {
+    return makeMatrixMetaRowDomain(domain)
+        .addClass('g1 l1 meta');
+};
 
-function makeMatrixGroup1Section(hostnames) {
-    var domain = hostnames[0];
-    var domainDiv = createMatrixSection()
-        .toggleClass('collapsed', getCollapseState(domain));
+const makeMatrixGroup1Section = function(hostnames) {
+    const domain = hostnames[0];
+    const domainDiv = createMatrixSection().toggleClass(
+        'collapsed',
+        getCollapseState(domain)
+    );
     expandosFromNode(domainDiv).domain = domain;
     if ( hostnames.length > 1 ) {
-        makeMatrixGroup1SectionMetaDomain(domain)
-            .appendTo(domainDiv);
+        makeMatrixGroup1SectionMetaDomain(domain).appendTo(domainDiv);
     }
-    makeMatrixGroup1SectionDomain(domain)
-        .appendTo(domainDiv);
-    for ( var i = 1; i < hostnames.length; i++ ) {
+    makeMatrixGroup1SectionDomain(domain).appendTo(domainDiv);
+    for ( let i = 1; i < hostnames.length; i++ ) {
         makeMatrixGroup1SectionSubomain(domain, hostnames[i])
             .appendTo(domainDiv);
     }
     return domainDiv;
-}
+};
 
-function makeMatrixGroup1(group) {
-    var domains = Object.keys(group).sort(hostnameCompare);
+const makeMatrixGroup1 = function(group) {
+    const domains = Object.keys(group).sort(hostnameCompare);
     if ( domains.length ) {
-        var groupDiv = createMatrixGroup().addClass('g1');
+        const groupDiv = createMatrixGroup().addClass('g1');
         makeMatrixGroup1Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
             .appendTo(groupDiv);
-        for ( var i = 1; i < domains.length; i++ ) {
+        for ( let i = 1; i < domains.length; i++ ) {
             makeMatrixGroup1Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
                 .appendTo(groupDiv);
         }
         groupDiv.appendTo(matrixList);
     }
-}
+};
 
 /******************************************************************************/
 
-function makeMatrixGroup2SectionDomain(domain) {
+const makeMatrixGroup2SectionDomain = function(domain) {
     return makeMatrixRowDomain(domain)
         .addClass('g2 l1');
-}
+};
 
-function makeMatrixGroup2SectionSubomain(domain, subdomain) {
+const makeMatrixGroup2SectionSubomain = function(domain, subdomain) {
     return makeMatrixRowSubdomain(domain, subdomain)
         .addClass('g2 l2');
-}
+};
 
-function makeMatrixGroup2SectionMetaDomain(domain) {
+const makeMatrixGroup2SectionMetaDomain = function(domain) {
     return makeMatrixMetaRowDomain(domain).addClass('g2 l1 meta');
-}
+};
 
-function makeMatrixGroup2Section(hostnames) {
-    var domain = hostnames[0];
-    var domainDiv = createMatrixSection()
+const makeMatrixGroup2Section = function(hostnames) {
+    const domain = hostnames[0];
+    const domainDiv = createMatrixSection()
         .toggleClass('collapsed', getCollapseState(domain));
     expandosFromNode(domainDiv).domain = domain;
     if ( hostnames.length > 1 ) {
@@ -915,47 +874,47 @@ function makeMatrixGroup2Section(hostnames) {
     }
     makeMatrixGroup2SectionDomain(domain)
         .appendTo(domainDiv);
-    for ( var i = 1; i < hostnames.length; i++ ) {
+    for ( let i = 1; i < hostnames.length; i++ ) {
         makeMatrixGroup2SectionSubomain(domain, hostnames[i])
             .appendTo(domainDiv);
     }
     return domainDiv;
-}
+};
 
-function makeMatrixGroup2(group) {
-    var domains = Object.keys(group).sort(hostnameCompare);
+const makeMatrixGroup2 = function(group) {
+    const domains = Object.keys(group).sort(hostnameCompare);
     if ( domains.length) {
-        var groupDiv = createMatrixGroup()
+        const groupDiv = createMatrixGroup()
             .addClass('g2');
         makeMatrixGroup2Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
             .appendTo(groupDiv);
-        for ( var i = 1; i < domains.length; i++ ) {
+        for ( let i = 1; i < domains.length; i++ ) {
             makeMatrixGroup2Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
                 .appendTo(groupDiv);
         }
         groupDiv.appendTo(matrixList);
     }
-}
+};
 
 /******************************************************************************/
 
-function makeMatrixGroup3SectionDomain(domain) {
+const makeMatrixGroup3SectionDomain = function(domain) {
     return makeMatrixRowDomain(domain)
         .addClass('g3 l1');
-}
+};
 
-function makeMatrixGroup3SectionSubomain(domain, subdomain) {
+const makeMatrixGroup3SectionSubomain = function(domain, subdomain) {
     return makeMatrixRowSubdomain(domain, subdomain)
         .addClass('g3 l2');
-}
+};
 
-function makeMatrixGroup3SectionMetaDomain(domain) {
+const makeMatrixGroup3SectionMetaDomain = function(domain) {
     return makeMatrixMetaRowDomain(domain).addClass('g3 l1 meta');
-}
+};
 
-function makeMatrixGroup3Section(hostnames) {
-    var domain = hostnames[0];
-    var domainDiv = createMatrixSection()
+const makeMatrixGroup3Section = function(hostnames) {
+    const domain = hostnames[0];
+    const domainDiv = createMatrixSection()
         .toggleClass('collapsed', getCollapseState(domain));
     expandosFromNode(domainDiv).domain = domain;
     if ( hostnames.length > 1 ) {
@@ -963,59 +922,57 @@ function makeMatrixGroup3Section(hostnames) {
     }
     makeMatrixGroup3SectionDomain(domain)
         .appendTo(domainDiv);
-    for ( var i = 1; i < hostnames.length; i++ ) {
+    for ( let i = 1; i < hostnames.length; i++ ) {
         makeMatrixGroup3SectionSubomain(domain, hostnames[i])
             .appendTo(domainDiv);
     }
     return domainDiv;
-}
+};
 
-function makeMatrixGroup3(group) {
-    var domains = Object.keys(group).sort(hostnameCompare);
+const makeMatrixGroup3 = function(group) {
+    const domains = Object.keys(group).sort(hostnameCompare);
     if ( domains.length) {
-        var groupDiv = createMatrixGroup()
+        const groupDiv = createMatrixGroup()
             .addClass('g3');
         makeMatrixGroup3Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
             .appendTo(groupDiv);
-        for ( var i = 1; i < domains.length; i++ ) {
+        for ( let i = 1; i < domains.length; i++ ) {
             makeMatrixGroup3Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
                 .appendTo(groupDiv);
         }
         groupDiv.appendTo(matrixList);
     }
-}
+};
 
 /******************************************************************************/
 
-function makeMatrixGroup4SectionDomain(domain) {
+const makeMatrixGroup4SectionDomain = function(domain) {
     return makeMatrixRowDomain(domain)
         .addClass('g4 l1');
-}
+};
 
-function makeMatrixGroup4SectionSubomain(domain, subdomain) {
+const makeMatrixGroup4SectionSubomain = function(domain, subdomain) {
     return makeMatrixRowSubdomain(domain, subdomain)
         .addClass('g4 l2');
-}
+};
 
-function makeMatrixGroup4Section(hostnames) {
-    var domain = hostnames[0];
-    var domainDiv = createMatrixSection();
+const makeMatrixGroup4Section = function(hostnames) {
+    const domain = hostnames[0];
+    const domainDiv = createMatrixSection();
     expandosFromNode(domainDiv).domain = domain;
     makeMatrixGroup4SectionDomain(domain)
         .appendTo(domainDiv);
-    for ( var i = 1; i < hostnames.length; i++ ) {
+    for ( let i = 1; i < hostnames.length; i++ ) {
         makeMatrixGroup4SectionSubomain(domain, hostnames[i])
             .appendTo(domainDiv);
     }
     return domainDiv;
-}
+};
 
-function makeMatrixGroup4(group) {
-    var domains = Object.keys(group).sort(hostnameCompare);
-    if ( domains.length === 0 ) {
-        return;
-    }
-    var groupDiv = createMatrixGroup().addClass('g4');
+const makeMatrixGroup4 = function(group) {
+    const domains = Object.keys(group).sort(hostnameCompare);
+    if ( domains.length === 0 ) { return; }
+    const groupDiv = createMatrixGroup().addClass('g4');
     createMatrixSection()
         .addClass('g4Meta')
         .toggleClass('g4Collapsed', !!matrixSnapshot.collapseBlacklistedDomains)
@@ -1024,17 +981,17 @@ function makeMatrixGroup4(group) {
         .appendTo(groupDiv);
     makeMatrixGroup4Section(Object.keys(group[domains[0]]).sort(hostnameCompare))
         .appendTo(groupDiv);
-    for ( var i = 1; i < domains.length; i++ ) {
+    for ( let i = 1; i < domains.length; i++ ) {
         makeMatrixGroup4Section(Object.keys(group[domains[i]]).sort(hostnameCompare))
             .appendTo(groupDiv);
     }
     groupDiv.appendTo(matrixList);
-}
+};
 
 /******************************************************************************/
 
-var makeMenu = function() {
-    var groupStats = getGroupStats();
+const makeMenu = function() {
+    const groupStats = getGroupStats();
 
     if ( Object.keys(groupStats).length === 0 ) { return; }
 
@@ -1067,7 +1024,7 @@ var makeMenu = function() {
 
 // Do all the stuff that needs to be done before building menu et al.
 
-function initMenuEnvironment() {
+const initMenuEnvironment = function() {
     document.body.style.setProperty(
         'font-size',
         getUserSetting('displayTextSize')
@@ -1082,42 +1039,40 @@ function initMenuEnvironment() {
         getUserSetting('noTooltips')
     );
 
-    var prettyNames = matrixHeaderPrettyNames;
-    var keys = Object.keys(prettyNames);
-    var i = keys.length;
-    var cell, key, text;
+    const prettyNames = matrixHeaderPrettyNames;
+    const keys = Object.keys(prettyNames);
+    let i = keys.length;
     while ( i-- ) {
-        key = keys[i];
-        cell = uDom('#matHead .matCell[data-req-type="'+ key +'"]');
-        text = vAPI.i18n(key + 'PrettyName');
+        const key = keys[i];
+        const cell = uDom('#matHead .matCell[data-req-type="'+ key +'"]');
+        const text = vAPI.i18n(key + 'PrettyName');
         cell.text(text);
         prettyNames[key] = text;
     }
 
     firstPartyLabel = uDom('[data-i18n="matrix1stPartyLabel"]').text();
     blacklistedHostnamesLabel = uDom('[data-i18n="matrixBlacklistedHostnames"]').text();
-}
+};
 
 /******************************************************************************/
 
-function scopeChangeHandler(ev) {
-    let newScope = ev.detail.scope;
+const scopeChangeHandler = function(ev) {
+    const newScope = ev.detail.scope;
     if ( !newScope || matrixSnapshot.scope === newScope ) { return; }
     matrixSnapshot.scope = newScope;
     matrixSnapshot.tMatrixModifiedTime = undefined;
     updateMatrixSnapshot();
     dropDownMenuHide();
-}
+};
 
 /******************************************************************************/
 
-function updateMatrixSwitches() {
-    var count = 0,
-        enabled,
-        switches = matrixSnapshot.tSwitches;
-    for ( var switchName in switches ) {
+const updateMatrixSwitches = function() {
+    const switches = matrixSnapshot.tSwitches;
+    let count = 0;
+    for ( const switchName in switches ) {
         if ( switches.hasOwnProperty(switchName) === false ) { continue; }
-        enabled = switches[switchName];
+        const enabled = switches[switchName];
         if ( enabled && switchName !== 'matrix-off' ) {
             count += 1;
         }
@@ -1125,107 +1080,114 @@ function updateMatrixSwitches() {
     }
     uDom.nodeFromId('mtxSwitch_https-strict').classList.toggle(
         'relevant',
-        matrixSnapshot.hasMixedContent
+        matrixSnapshot.hasMixedContent === true
     );
     uDom.nodeFromId('mtxSwitch_no-workers').classList.toggle(
         'relevant',
-        matrixSnapshot.hasWebWorkers
+        matrixSnapshot.hasWebWorkers === true
     );
     uDom.nodeFromId('mtxSwitch_referrer-spoof').classList.toggle(
         'relevant',
-        matrixSnapshot.has3pReferrer
+        matrixSnapshot.has3pReferrer === true
     );
     uDom.nodeFromId('mtxSwitch_noscript-spoof').classList.toggle(
         'relevant',
-        matrixSnapshot.hasNoscriptTags
+        matrixSnapshot.hasNoscriptTags === true
+    );
+    uDom.nodeFromId('mtxSwitch_cname-reveal').classList.toggle(
+        'relevant',
+        matrixSnapshot.hasHostnameAliases === true
     );
     uDom.nodeFromSelector('#buttonMtxSwitches .fa-icon-badge').textContent =
         count.toLocaleString();
     uDom.nodeFromSelector('#mtxSwitch_matrix-off .fa-icon-badge').textContent =
         matrixSnapshot.blockedCount.toLocaleString();
     document.body.classList.toggle('powerOff', switches['matrix-off']);
-}
+};
 
-function toggleMatrixSwitch(ev) {
+const toggleMatrixSwitch = function(ev) {
     if ( ev.target.localName === 'a' ) { return; }
-    var elem = ev.currentTarget;
-    var pos = elem.id.indexOf('_');
+    const elem = ev.currentTarget;
+    const pos = elem.id.indexOf('_');
     if ( pos === -1 ) { return; }
-    var switchName = elem.id.slice(pos + 1);
-    var request = {
+    const switchName = elem.id.slice(pos + 1);
+    vAPI.messaging.send('popup.js', {
         what: 'toggleMatrixSwitch',
         switchName: switchName,
-        srcHostname: matrixSnapshot.scope
-    };
-    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
-}
+        srcHostname: matrixSnapshot.scope,
+    }).then(( ) => {
+        updateMatrixSnapshot();
+    });
+};
 
 /******************************************************************************/
 
-function updatePersistButton() {
-    var diffCount = matrixSnapshot.diff.length;
-    var button = uDom('#buttonPersist');
+const updatePersistButton = function() {
+    const diffCount = matrixSnapshot.diff.length;
+    const button = uDom('#buttonPersist');
     button.contents()
           .filter(function(){return this.nodeType===3;})
           .first()
           .text(diffCount > 0 ? '\uf13e' : '\uf023');
     button.descendants('.fa-icon-badge').text(diffCount > 0 ? diffCount : '');
-    var disabled = diffCount === 0;
+    const disabled = diffCount === 0;
     button.toggleClass('disabled', disabled);
     uDom('#buttonRevertScope').toggleClass('disabled', disabled);
-}
+};
 
 /******************************************************************************/
 
-function persistMatrix() {
-    var request = {
+const persistMatrix = function() {
+    vAPI.messaging.send('popup.js', {
         what: 'applyDiffToPermanentMatrix',
-        diff: matrixSnapshot.diff
-    };
-    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
-}
+        diff: matrixSnapshot.diff,
+    }).then(( ) => {
+        updateMatrixSnapshot();
+    });
+};
 
 /******************************************************************************/
 
 // rhill 2014-03-12: revert completely ALL changes related to the
 // current page, including scopes.
 
-function revertMatrix() {
-    var request = {
+const revertMatrix = function() {
+    vAPI.messaging.send('popup.js', {
         what: 'applyDiffToTemporaryMatrix',
-        diff: matrixSnapshot.diff
-    };
-    vAPI.messaging.send('popup.js', request, updateMatrixSnapshot);
-}
+        diff: matrixSnapshot.diff,
+    }).then(( ) => {
+        updateMatrixSnapshot();
+    });
+};
 
 /******************************************************************************/
 
 // Buttons which are affected by any changes in the matrix
 
-function updateMatrixButtons() {
+const updateMatrixButtons = function() {
     uMatrixScopeWidget.update(matrixSnapshot.scope);
     updateMatrixSwitches();
     updatePersistButton();
-}
+};
 
 /******************************************************************************/
 
-function buttonReloadHandler(ev) {
+uDom('#buttonReload').on('click', ev => {
     vAPI.messaging.send('default', {
         what: 'forceReloadTab',
         tabId: matrixSnapshot.tabId,
         bypassCache: ev.ctrlKey || ev.metaKey || ev.shiftKey
     });
-}
+});
 
 /******************************************************************************/
 
-let recipeManager = (function() {
+const recipeManager = (( ) => {
+    const reScopeAlias = /(^|\s+)_(\s+|$)/g;
     let recipes = [];
-    let reScopeAlias = /(^|\s+)_(\s+|$)/g;
 
-    function createEntry(name, ruleset, parent) {
-        let li = document.querySelector('#templates li.recipe')
+    const createEntry = function(name, ruleset, parent) {
+        const li = document.querySelector('#templates li.recipe')
                          .cloneNode(true);
         li.querySelector('.name').textContent = name;
         li.querySelector('.ruleset').textContent = ruleset;
@@ -1233,9 +1195,9 @@ let recipeManager = (function() {
             parent.appendChild(li);
         }
         return li;
-    }
+    };
 
-    function apply(ev) {
+    const apply = function(ev) {
         if (
             ev.target.classList.contains('expander') ||
             ev.target.classList.contains('name')
@@ -1249,29 +1211,27 @@ let recipeManager = (function() {
         ) {
             return;
         }
-        let root = ev.currentTarget;
-        let ruleset = root.querySelector('.ruleset');
-        let commit = ev.target.classList.contains('committer');
-        vAPI.messaging.send(
-            'popup.js',
-            {
-                what: 'applyRecipe',
-                ruleset: ruleset.textContent,
-                commit: commit
-            },
-            updateMatrixSnapshot
-        );
+        const root = ev.currentTarget;
+        const ruleset = root.querySelector('.ruleset');
+        const commit = ev.target.classList.contains('committer');
+        vAPI.messaging.send('popup.js', {
+            what: 'applyRecipe',
+            ruleset: ruleset.textContent,
+            commit,
+        }).then(( ) => {
+            updateMatrixSnapshot();
+        });
         root.classList.remove('mustImport');
         if ( commit ) {
             root.classList.remove('mustCommit');
         }
         //dropDownMenuHide();
-    }
+    };
 
-    function show(details) {
-        let root = document.querySelector('#dropDownMenuRecipes .dropdown-menu');
-        let ul = document.createElement('ul');
-        for ( let recipe of details.recipes ) {
+    const show = function(details) {
+        const root = document.querySelector('#dropDownMenuRecipes .dropdown-menu');
+        const ul = document.createElement('ul');
+        for ( const recipe of details.recipes ) {
             let li = createEntry(
                 recipe.name,
                 recipe.ruleset.replace(reScopeAlias, '$1' + details.scope + '$2'),
@@ -1283,121 +1243,117 @@ let recipeManager = (function() {
         }
         root.replaceChild(ul, root.querySelector('ul'));
         dropDownMenuShow(uDom.nodeFromId('buttonRecipes'));
-    }
+    };
 
-    function beforeShow() {
+    const beforeShow = async function() {
         if ( recipes.length === 0 ) { return; }
-        vAPI.messaging.send(
-            'popup.js',
-            {
-                what: 'fetchRecipeCommitStatuses',
-                scope: matrixSnapshot.scope,
-                recipes: recipes
-            },
-            show
-        );
-    }
+        const details = await vAPI.messaging.send('popup.js', {
+            what: 'fetchRecipeCommitStatuses',
+            scope: matrixSnapshot.scope,
+            recipes: recipes,
+        });
+        show(details);
+    };
 
-    function fetch() {
-        let onResponse = function(response) {
-            recipes = Array.isArray(response) ? response : [];
-            let button = uDom.nodeFromId('buttonRecipes');
-            if ( recipes.length === 0 ) {
-                button.classList.add('disabled');
-                return;
-            }
-            button.classList.remove('disabled');
-            button.querySelector('.fa-icon-badge').textContent = recipes.length;
-        };
-
-        let desHostnames = [];
-        for ( let hostname in matrixSnapshot.rows ) {
+    const fetch = async function() {
+        const desHostnames = [];
+        for ( const hostname in matrixSnapshot.rows ) {
             if ( matrixSnapshot.rows.hasOwnProperty(hostname) === false ) {
                 continue;
             }
-            let row = matrixSnapshot.rows[hostname];
+            const row = matrixSnapshot.rows[hostname];
             if ( row.domain === matrixSnapshot.domain ) { continue; }
             if ( row.counts[0] !== 0 || row.domain === hostname ) {
                 desHostnames.push(hostname);
             }
         }
-
-        vAPI.messaging.send('popup.js',
-            {
-                what: 'fetchRecipes',
-                srcHostname: matrixSnapshot.hostname,
-                desHostnames: desHostnames
-            },
-            onResponse
-        );
-    }
-
-    return {
-        fetch: fetch,
-        show: beforeShow,
-        apply: apply
+        const response = await vAPI.messaging.send('popup.js', {
+            what: 'fetchRecipes',
+            srcHostname: matrixSnapshot.hostname,
+            desHostnames: desHostnames
+        });
+        recipes = Array.isArray(response) ? response : [];
+        const button = uDom.nodeFromId('buttonRecipes');
+        if ( recipes.length === 0 ) {
+            button.classList.add('disabled');
+            return;
+        }
+        button.classList.remove('disabled');
+        button.querySelector('.fa-icon-badge').textContent = recipes.length;
     };
+
+    return { fetch, show: beforeShow, apply };
 })();
 
 /******************************************************************************/
 
-function revertAll() {
-    vAPI.messaging.send(
-        'popup.js',
-        { what: 'revertTemporaryMatrix' },
-        updateMatrixSnapshot
-    );
-}
+const revertAll = function() {
+    vAPI.messaging.send('popup.js', {
+        what: 'revertTemporaryMatrix'
+    }).then(( ) => {
+        updateMatrixSnapshot();
+    });
+};
 
 /******************************************************************************/
 
-function mouseenterMatrixCellHandler(ev) {
+const mouseenterMatrixCellHandler = function(ev) {
     matrixCellHotspots.appendTo(ev.target);
-}
+};
 
-function mouseleaveMatrixCellHandler() {
+const mouseleaveMatrixCellHandler = function() {
     matrixCellHotspots.detach();
-}
+};
 
 /******************************************************************************/
 
-function gotoExtensionURL(ev) {
-    var url = uDom(ev.currentTarget).attr('data-extension-url');
-    if ( url ) {
-        vAPI.messaging.send('popup.js', {
-            what: 'gotoExtensionURL',
-            url: url,
-            shiftKey: ev.shiftKey
-        });
+const gotoExtensionURL = function(ev) {
+    const target = ev.currentTarget;
+    if ( target.hasAttribute('data-extension-url') === false ) { return; }
+    let url = target.getAttribute('data-extension-url');
+    if ( url === '' ) { return; }
+    if (
+        url === 'logger-ui.html#_' &&
+        typeof matrixSnapshot.tabId === 'number'
+    ) {
+        url += '+' + matrixSnapshot.tabId;
     }
+    vAPI.messaging.send('popup.js', {
+        what: 'gotoExtensionURL',
+        url,
+        select: true,
+        shiftKey: ev.shiftKey,
+    });
     dropDownMenuHide();
     vAPI.closePopup();
-}
+};
 
 /******************************************************************************/
 
-function dropDownMenuShow(button) {
-    var menuOverlay = document.getElementById(button.getAttribute('data-dropdown-menu'));
-    var butnRect = button.getBoundingClientRect();
-    var viewRect = document.body.getBoundingClientRect();
-    var butnNormalLeft = butnRect.left / (viewRect.width - butnRect.width);
+const dropDownMenuShow = function(button) {
+    const menuOverlay = document.getElementById(
+        button.getAttribute('data-dropdown-menu')
+    );
+    const butnRect = button.getBoundingClientRect();
+    const viewRect = document.body.getBoundingClientRect();
+    const butnNormalLeft = butnRect.left / (viewRect.width - butnRect.width);
     menuOverlay.classList.add('show');
-    var menu = menuOverlay.querySelector('.dropdown-menu');
-    var menuRect = menu.getBoundingClientRect();
-    var menuLeft = butnNormalLeft * (viewRect.width - menuRect.width);
+    const menu = menuOverlay.querySelector('.dropdown-menu');
+    const menuRect = menu.getBoundingClientRect();
+    const menuLeft = butnNormalLeft * (viewRect.width - menuRect.width);
     menu.style.top = butnRect.bottom + 'px';
     if ( menuOverlay.classList.contains('dropdown-menu-centered') === false ) {
         menu.style.left = menuLeft.toFixed(0) + 'px';
     }
-}
+};
 
-function dropDownMenuHide() {
+const dropDownMenuHide = function() {
     uDom('.dropdown-menu-capture').removeClass('show');
-}
+};
 
 /******************************************************************************/
 
-var onMatrixSnapshotReady = function(response) {
+const onMatrixSnapshotReady = function(response) {
     if ( response === 'ENOTFOUND' ) {
         uDom.nodeFromId('noTabFound').textContent =
             vAPI.i18n('matrixNoTabFound');
@@ -1426,7 +1382,7 @@ var onMatrixSnapshotReady = function(response) {
 
 /******************************************************************************/
 
-const matrixSnapshotPoller = (function() {
+const matrixSnapshotPoller = (( ) => {
     let timer;
 
     const preprocessMatrixSnapshot = function(snapshot) {
@@ -1437,9 +1393,7 @@ const matrixSnapshotPoller = (function() {
     };
 
     const processPollResult = function(response) {
-        if ( typeof response !== 'object' ) {
-            return;
-        }
+        if ( typeof response !== 'object' ) { return; }
         if (
             response.mtxContentModified === false &&
             response.mtxCountModified === false &&
@@ -1485,12 +1439,15 @@ const matrixSnapshotPoller = (function() {
             mtxDiffCount: matrixSnapshot.diff.length,
             pMatrixModifiedTime: matrixSnapshot.pMatrixModifiedTime,
             tMatrixModifiedTime: matrixSnapshot.tMatrixModifiedTime,
-        }, onPolled);
+        }).then(response => {
+            onPolled(response);
+        });
     };
 
     const pollAsync = function() {
         if ( timer !== undefined ) { return; }
         if ( document.defaultView === null ) { return; }
+        //if ( typeof matrixSnapshot.tabId !== 'number' ) { return; }
         timer = vAPI.setTimeout(
             ( ) => {
                 timer = undefined;
@@ -1507,32 +1464,16 @@ const matrixSnapshotPoller = (function() {
         }
     };
 
-    (function() {
-        let tabId = matrixSnapshot.tabId;
-
-        // If no tab id yet, see if there is one specified in our URL
-        if ( tabId === undefined ) {
-            const matches = window.location.search.match(/(?:\?|&)tabId=([^&]+)/);
-            if ( matches !== null ) {
-                tabId = parseInt(matches[1], 10);
-                // No need for logger button when embedded in logger
-                uDom('[data-extension-url="logger-ui.html"]').remove();
-            }
+    vAPI.messaging.send('popup.js', {
+        what: 'matrixSnapshot',
+        tabId: matrixSnapshot.tabId,
+    }).then(response => {
+        if ( response instanceof Object ) {
+            matrixSnapshot = preprocessMatrixSnapshot(response);
         }
-
-        const snapshotFetched = function(response) {
-            if ( response instanceof Object ) {
-                matrixSnapshot = preprocessMatrixSnapshot(response);
-            }
-            onMatrixSnapshotReady(response);
-            pollAsync();
-        };
-
-        vAPI.messaging.send('popup.js', {
-            what: 'matrixSnapshot',
-            tabId: tabId
-        }, snapshotFetched);
-    })();
+        onMatrixSnapshotReady(response);
+        pollAsync();
+    });
 
     return {
         pollNow: pollNow
@@ -1574,8 +1515,7 @@ uDom('#buttonRecipes').on('click', function() {
 });
 
 uDom('#buttonRevertAll').on('click', revertAll);
-uDom('#buttonReload').on('click', buttonReloadHandler);
-uDom('.extensionURL').on('click', gotoExtensionURL);
+uDom('[data-extension-url]').on('click', gotoExtensionURL);
 uDom('body').on('click', '.dropdown-menu-capture', dropDownMenuHide);
 
 uDom('#matList').on('click', '.g4Meta', function(ev) {
@@ -1589,4 +1529,5 @@ uDom('#matList').on('click', '.g4Meta', function(ev) {
 
 /******************************************************************************/
 
-})();
+// <<<<< end of local scope
+}

@@ -25,18 +25,19 @@
 
 /******************************************************************************/
 
-(function() {
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
-var listDetails = {},
-    lastUpdateTemplateString = vAPI.i18n('hostsFilesLastUpdate'),
-    hostsFilesSettingsHash,
-    reValidExternalList = /^[a-z-]+:\/\/\S*\/\S+$/m;
+const lastUpdateTemplateString = vAPI.i18n('hostsFilesLastUpdate');
+const reValidExternalList = /^[a-z-]+:\/\/\S*\/\S+$/m;
+let listDetails = {};
+let hostsFilesSettingsHash;
 
 /******************************************************************************/
 
-vAPI.messaging.addListener(function onMessage(msg) {
+vAPI.broadcastListener.add(msg => {
     switch ( msg.what ) {
     case 'assetUpdated':
         updateAssetStatus(msg);
@@ -58,27 +59,27 @@ vAPI.messaging.addListener(function onMessage(msg) {
 
 /******************************************************************************/
 
-var renderNumber = function(value) {
+const renderNumber = function(value) {
     return value.toLocaleString();
 };
 
 /******************************************************************************/
 
-var renderHostsFiles = function(soft) {
-    var listEntryTemplate = uDom('#templates .listEntry'),
-        listStatsTemplate = vAPI.i18n('hostsFilesPerFileStats'),
-        renderElapsedTimeToString = vAPI.i18n.renderElapsedTimeToString,
-        reExternalHostFile = /^https?:/;
+const renderHostsFiles = function(soft) {
+    const listEntryTemplate = uDom('#templates .listEntry');
+    const listStatsTemplate = vAPI.i18n('hostsFilesPerFileStats');
+    const renderElapsedTimeToString = vAPI.i18n.renderElapsedTimeToString;
+    const reExternalHostFile = /^https?:/;
 
     // Assemble a pretty list name if possible
-    var listNameFromListKey = function(collection, listKey) {
+    const listNameFromListKey = function(collection, listKey) {
         let list = collection.get(listKey);
         return list && list.title || listKey;
     };
 
-    var liFromListEntry = function(collection, listKey, li) {
-        var entry = collection.get(listKey),
-            elem;
+    const liFromListEntry = function(collection, listKey, li) {
+        const entry = collection.get(listKey);
+        let elem;
         if ( !li ) {
             li = listEntryTemplate.clone().nodeAt(0);
         }
@@ -106,7 +107,7 @@ var renderHostsFiles = function(soft) {
             elem.checked = entry.selected === true;
         }
         elem = li.querySelector('span.counts');
-        var text = '';
+        let text = '';
         if ( !isNaN(+entry.entryUsedCount) && !isNaN(+entry.entryCount) ) {
             text = listStatsTemplate
                 .replace('{{used}}', renderNumber(entry.selected ? entry.entryUsedCount : 0))
@@ -114,8 +115,8 @@ var renderHostsFiles = function(soft) {
         }
         elem.textContent = text;
         // https://github.com/chrisaljoudi/uBlock/issues/104
-        var asset = listDetails.cache[listKey] || {};
-        var remoteURL = asset.remoteURL;
+        const asset = listDetails.cache[listKey] || {};
+        const remoteURL = asset.remoteURL;
         li.classList.toggle(
             'unsecure',
             typeof remoteURL === 'string' && remoteURL.lastIndexOf('http:', 0) === 0
@@ -132,50 +133,50 @@ var renderHostsFiles = function(soft) {
         li.classList.remove('discard');
         return li;
     };
-    var onRenderAssetFiles = function(collection, listSelector) {
+    const onRenderAssetFiles = function(collection, listSelector) {
         // Incremental rendering: this will allow us to easily discard unused
         // DOM list entries.
         uDom(listSelector + ' .listEntry:not(.notAnAsset)').addClass('discard');
 
-        var assetKeys = Array.from(collection.keys());
+        const assetKeys = Array.from(collection.keys());
 
         // Sort works this way:
         // - Send /^https?:/ items at the end (custom hosts file URL)
         assetKeys.sort(function(a, b) {
-            let ea = collection.get(a),
-                eb = collection.get(b);
+            const ea = collection.get(a);
+            const eb = collection.get(b);
             if ( ea.submitter !== eb.submitter ) {
                 return ea.submitter !== 'user' ? -1 : 1;
             }
-            let ta = ea.title || a,
-                tb = eb.title || b;
+            const ta = ea.title || a;
+            const tb = eb.title || b;
             if ( reExternalHostFile.test(ta) === reExternalHostFile.test(tb) ) {
                 return ta.localeCompare(tb);
             }
             return reExternalHostFile.test(tb) ? -1 : 1;
         });
 
-        let ulList = document.querySelector(listSelector),
-            liLast = ulList.querySelector('.notAnAsset');
+        const ulList = document.querySelector(listSelector);
+        const liLast = ulList.querySelector('.notAnAsset');
 
         for ( let i = 0; i < assetKeys.length; i++ ) {
-            let liReuse = i < ulList.childElementCount ?
-                ulList.children[i] :
-                null;
+            let liReuse = i < ulList.childElementCount
+                ? ulList.children[i]
+                : null;
             if (
                 liReuse !== null &&
                 liReuse.classList.contains('notAnAsset')
             ) {
                 liReuse = null;
             }
-            let liEntry = liFromListEntry(collection, assetKeys[i], liReuse);
+            const liEntry = liFromListEntry(collection, assetKeys[i], liReuse);
             if ( liEntry.parentElement === null ) {
                 ulList.insertBefore(liEntry, liLast);
             }
         }
     };
 
-    var onAssetDataReceived = function(details) {
+    const onAssetDataReceived = function(details) {
         // Preprocess.
         details.hosts = new Map(details.hosts);
         details.recipes = new Map(details.recipes);
@@ -213,16 +214,16 @@ var renderHostsFiles = function(soft) {
         renderWidgets();
     };
 
-    vAPI.messaging.send(
-        'hosts-files.js',
-        { what: 'getAssets' },
-        onAssetDataReceived
-    );
+    vAPI.messaging.send('dashboard', {
+        what: 'getAssets',
+    }).then(details => {
+        onAssetDataReceived(details);
+    });
 };
 
 /******************************************************************************/
 
-var renderWidgets = function() {
+const renderWidgets = function() {
     uDom('#buttonUpdate').toggleClass('disabled', document.querySelector('body:not(.updating) .assets .listEntry.obsolete > input[type="checkbox"]:checked') === null);
     uDom('#buttonPurgeAll').toggleClass('disabled', document.querySelector('.assets .listEntry.cached') === null);
     uDom('#buttonApply').toggleClass('disabled', hostsFilesSettingsHash === hashFromCurrentFromSettings());
@@ -230,8 +231,8 @@ var renderWidgets = function() {
 
 /******************************************************************************/
 
-var updateAssetStatus = function(details) {
-    var li = document.querySelector('.assets .listEntry[data-listkey="' + details.key + '"]');
+const updateAssetStatus = function(details) {
+    const li = document.querySelector('.assets .listEntry[data-listkey="' + details.key + '"]');
     if ( li === null ) { return; }
     li.classList.toggle('failed', !!details.failed);
     li.classList.toggle('obsolete', !details.cached);
@@ -255,12 +256,12 @@ var updateAssetStatus = function(details) {
 
 **/
 
-var hashFromCurrentFromSettings = function() {
-    let listHash = [],
-        listEntries = document.querySelectorAll(
-            '.assets .listEntry[data-listkey]:not(.toRemove)'
-        );
-    for ( let liEntry of listEntries ) {
+const hashFromCurrentFromSettings = function() {
+    const listHash = [];
+    const listEntries = document.querySelectorAll(
+        '.assets .listEntry[data-listkey]:not(.toRemove)'
+    );
+    for ( const liEntry of listEntries ) {
         if ( liEntry.querySelector('input[type="checkbox"]:checked') !== null ) {
             listHash.push(liEntry.getAttribute('data-listkey'));
         }
@@ -289,7 +290,7 @@ var hashFromCurrentFromSettings = function() {
 
 /******************************************************************************/
 
-var textFromTextarea = function(textarea) {
+const textFromTextarea = function(textarea) {
     if ( typeof textarea === 'string' ) {
         textarea = document.querySelector(textarea);
     }
@@ -298,15 +299,15 @@ var textFromTextarea = function(textarea) {
 
 /******************************************************************************/
 
-var onHostsFilesSettingsChanged = function() {
+const onHostsFilesSettingsChanged = function() {
     renderWidgets();
 };
 
 /******************************************************************************/
 
-var onRemoveExternalAsset = function(ev) {
-    var liEntry = uDom(this).ancestors('[data-listkey]'),
-        listKey = liEntry.attr('data-listkey');
+const onRemoveExternalAsset = function(ev) {
+    const liEntry = uDom(this).ancestors('[data-listkey]');
+    const listKey = liEntry.attr('data-listkey');
     if ( listKey ) {
         liEntry.toggleClass('toRemove');
         renderWidgets();
@@ -316,13 +317,16 @@ var onRemoveExternalAsset = function(ev) {
 
 /******************************************************************************/
 
-var onPurgeClicked = function() {
-    var button = uDom(this),
-        liEntry = button.ancestors('[data-listkey]'),
-        listKey = liEntry.attr('data-listkey');
+const onPurgeClicked = function(ev) {
+    const button = uDom(ev.target);
+    const liEntry = button.ancestors('[data-listkey]');
+    const listKey = liEntry.attr('data-listkey');
     if ( !listKey ) { return; }
 
-    vAPI.messaging.send('hosts-files.js', { what: 'purgeCache', assetKey: listKey });
+    vAPI.messaging.send('dashboard', {
+        what: 'purgeCache',
+        assetKey: listKey,
+    });
     liEntry.addClass('obsolete');
     liEntry.removeClass('cached');
 
@@ -333,9 +337,9 @@ var onPurgeClicked = function() {
 
 /******************************************************************************/
 
-var selectAssets = function(callback) {
-    var prepareChanges = function(listSelector) {
-        var out = {
+const selectAssets = function() {
+    const prepareChanges = function(listSelector) {
+        const out = {
             toSelect: [],
             toImport: '',
             toRemove: [],
@@ -345,13 +349,13 @@ var selectAssets = function(callback) {
             }
         };
 
-        let root = document.querySelector(listSelector);
+        const root = document.querySelector(listSelector);
 
         // Lists to select or remove
-        let liEntries = root.querySelectorAll(
+        const liEntries = root.querySelectorAll(
             '.listEntry[data-listkey]:not(.notAnAsset)'
         );
-        for ( let liEntry of liEntries ) {
+        for ( const liEntry of liEntries ) {
             if ( liEntry.classList.contains('toRemove') ) {
                 out.toRemove.push(liEntry.getAttribute('data-listkey'));
             } else if ( liEntry.querySelector('input[type="checkbox"]:checked') ) {
@@ -360,11 +364,11 @@ var selectAssets = function(callback) {
         }
 
         // External hosts files to import
-        let input = root.querySelector(
+        const input = root.querySelector(
             '.toImport > input[type="checkbox"]:checked'
         );
         if ( input !== null ) {
-            let textarea = root.querySelector('.toImport textarea');
+            const textarea = root.querySelector('.toImport textarea');
             out.toImport = textarea.value.trim();
             textarea.value = '';
             input.checked = false;
@@ -379,29 +383,26 @@ var selectAssets = function(callback) {
         return out;
     };
 
-    vAPI.messaging.send(
-        'hosts-files.js',
-        {
-            what: 'selectAssets',
-            hosts: prepareChanges('#hosts'),
-            recipes: prepareChanges('#recipes')
-        },
-        callback
-    );
-
     hostsFilesSettingsHash = hashFromCurrentFromSettings();
+
+    return vAPI.messaging.send('dashboard', {
+        what: 'selectAssets',
+        hosts: prepareChanges('#hosts'),
+        recipes: prepareChanges('#recipes'),
+    });
 };
 
 /******************************************************************************/
 
-var buttonApplyHandler = function() {
+const buttonApplyHandler = function() {
     uDom('#buttonApply').removeClass('enabled');
-    selectAssets(function(response) {
-        if ( response && response.hostsChanged ) {
-            vAPI.messaging.send('hosts-files.js', { what: 'reloadHostsFiles' });
+    selectAssets().then(response => {
+        if ( response instanceof Object === false ) { return; }
+        if ( response.hostsChanged ) {
+            vAPI.messaging.send('dashboard', { what: 'reloadHostsFiles' });
         }
-        if ( response && response.recipesChanged ) {
-            vAPI.messaging.send('hosts-files.js', { what: 'reloadRecipeFiles' });
+        if ( response.recipesChanged ) {
+            vAPI.messaging.send('dashboard', { what: 'reloadRecipeFiles' });
         }
     });
     renderWidgets();
@@ -409,11 +410,11 @@ var buttonApplyHandler = function() {
 
 /******************************************************************************/
 
-var buttonUpdateHandler = function() {
+const buttonUpdateHandler = function() {
     uDom('#buttonUpdate').removeClass('enabled');
-    selectAssets(function() {
+    selectAssets().then(( ) => {
         document.body.classList.add('updating');
-        vAPI.messaging.send('hosts-files.js', { what: 'forceUpdateAssets' });
+        vAPI.messaging.send('dashboard', { what: 'forceUpdateAssets' });
         renderWidgets();
     });
     renderWidgets();
@@ -421,28 +422,23 @@ var buttonUpdateHandler = function() {
 
 /******************************************************************************/
 
-var buttonPurgeAllHandler = function() {
+const buttonPurgeAllHandler = function() {
     uDom('#buttonPurgeAll').removeClass('enabled');
-    vAPI.messaging.send(
-        'hosts-files.js',
-        { what: 'purgeAllCaches' },
-        function() {
-            renderHostsFiles(true);
-        }
-    );
+    vAPI.messaging.send('dashboard', {
+        what: 'purgeAllCaches',
+    }).then(( ) => {
+        renderHostsFiles(true);
+    });
 };
 
 /******************************************************************************/
 
-var autoUpdateCheckboxChanged = function() {
-    vAPI.messaging.send(
-        'hosts-files.js',
-        {
-            what: 'userSettings',
-            name: 'autoUpdate',
-            value: this.checked
-        }
-    );
+const autoUpdateCheckboxChanged = function(ev) {
+    vAPI.messaging.send('dashboard', {
+        what: 'userSettings',
+        name: 'autoUpdate',
+        value: ev.target.checked,
+    });
 };
 
 /******************************************************************************/
@@ -460,5 +456,5 @@ renderHostsFiles();
 
 /******************************************************************************/
 
-})();
-
+// <<<<< end of local scope
+}

@@ -19,16 +19,15 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global vAPI, uDom */
+'use strict';
 
 /******************************************************************************/
 
 // This file should always be included at the end of the `body` tag, so as
 // to ensure all i18n targets are already loaded.
 
-(function() {
-
-'use strict';
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
@@ -41,26 +40,16 @@
 //   No HTML entities are allowed, there is code to handle existing HTML
 //   entities already present in translation files until they are all gone.
 
-var reSafeTags = /^([\s\S]*?)<(b|blockquote|code|em|i|kbd|span|sup)>(.+?)<\/\2>([\s\S]*)$/,
-    reSafeInput = /^([\s\S]*?)<(input type="[^"]+")>(.*?)([\s\S]*)$/,
-    reInput = /^input type=(['"])([a-z]+)\1$/,
-    reSafeLink = /^([\s\S]*?)<(a href=['"]https?:\/\/[^'" <>]+['"])>(.+?)<\/a>([\s\S]*)$/,
-    reLink = /^a href=(['"])(https?:\/\/[^'"]+)\1$/;
+const reSafeTags = /^([\s\S]*?)<(b|code|em|i|span)>(.+?)<\/\2>([\s\S]*)$/;
+const reSafeLink = /^([\s\S]*?)<(a href=['"]https:\/\/[^'" <>]+['"])>(.+?)<\/a>([\s\S]*)$/;
+const reLink = /^a href=(['"])(https:\/\/[^'"]+)\1$/;
 
-var safeTextToTagNode = function(text) {
-    var matches, node;
+const safeTextToTagNode = function(text) {
     if ( text.lastIndexOf('a ', 0) === 0 ) {
-        matches = reLink.exec(text);
+        const matches = reLink.exec(text);
         if ( matches === null ) { return null; }
-        node = document.createElement('a');
+        const node = document.createElement('a');
         node.setAttribute('href', matches[2]);
-        return node;
-    }
-    if ( text.lastIndexOf('input ', 0) === 0 ) {
-        matches = reInput.exec(text);
-        if ( matches === null ) { return null; }
-        node = document.createElement('input');
-        node.setAttribute('type', matches[2]);
         return node;
     }
     // Firefox extension validator warns if using a variable as argument for
@@ -87,92 +76,162 @@ var safeTextToTagNode = function(text) {
     }
 };
 
-var safeTextToTextNode = function(text) {
-    // TODO: remove once no more HTML entities in translation files.
-    if ( text.indexOf('&') !== -1 ) {
-        text = text.replace(/&ldquo;/g, '“')
-                   .replace(/&rdquo;/g, '”')
-                   .replace(/&lsquo;/g, '‘')
-                   .replace(/&rsquo;/g, '’');
-    }
-    return document.createTextNode(text);
-};
+const safeTextToTextNode = (( ) => {
+    const entities = new Map([
+        // TODO: Remove quote entities once no longer present in translation
+        // files. Other entities must stay.
+        [ '&ldquo;', '“' ],
+        [ '&rdquo;', '”' ],
+        [ '&lsquo;', '‘' ],
+        [ '&rsquo;', '’' ],
+        [ '&lt;', '<' ],
+        [ '&gt;', '>' ],
+    ]);
+    const decodeEntities = match => {
+        return entities.get(match) || match;
+    };
+    return function(text) {
+        if ( text.indexOf('&') !== -1 ) {
+            text = text.replace(/&[a-z]+;/g, decodeEntities);
+        }
+        return document.createTextNode(text);
+    };
+})();
 
-var safeTextToDOM = function(text, parent) {
+const safeTextToDOM = function(text, parent) {
     if ( text === '' ) { return; }
+
     // Fast path (most common).
     if ( text.indexOf('<') === -1 ) {
-        return parent.appendChild(safeTextToTextNode(text));
+        parent.appendChild(safeTextToTextNode(text));
+        return;
     }
     // Slow path.
-    // `<p>` no longer allowed. Code below can be remove once all <p>'s are
+    // `<p>` no longer allowed. Code below can be removed once all <p>'s are
     // gone from translation files.
     text = text.replace(/^<p>|<\/p>/g, '')
                .replace(/<p>/g, '\n\n');
     // Parse allowed HTML tags.
-    var matches,
-        matches1 = reSafeTags.exec(text),
-        matches2 = reSafeLink.exec(text);
-    if ( matches1 !== null && matches2 !== null ) {
-        matches = matches1.index < matches2.index ? matches1 : matches2;
-    } else if ( matches1 !== null ) {
-        matches = matches1;
-    } else if ( matches2 !== null ) {
-        matches = matches2;
-    } else {
-        matches = reSafeInput.exec(text);
-    }
+    let matches = reSafeTags.exec(text);
     if ( matches === null ) {
-        parent.appendChild(safeTextToTextNode(text));
-        return;
+        matches = reSafeLink.exec(text);
+        if ( matches === null ) {
+            parent.appendChild(safeTextToTextNode(text));
+            return;
+        }
     }
-    safeTextToDOM(matches[1], parent);
-    var node = safeTextToTagNode(matches[2]) || parent;
+    const fragment = document.createDocumentFragment();
+    safeTextToDOM(matches[1], fragment);
+    let node = safeTextToTagNode(matches[2]);
     safeTextToDOM(matches[3], node);
-    parent.appendChild(node);
-    safeTextToDOM(matches[4], parent);
+    fragment.appendChild(node);
+    safeTextToDOM(matches[4], fragment);
+    parent.appendChild(fragment);
+};
+
+/******************************************************************************/
+
+vAPI.i18n.safeTemplateToDOM = function(id, dict, parent) {
+    if ( parent === undefined ) {
+        parent = document.createDocumentFragment();
+    }
+    let textin = vAPI.i18n(id);
+    if ( textin === '' ) {
+        return parent;
+    }
+    if ( textin.indexOf('{{') === -1 ) {
+        safeTextToDOM(textin, parent);
+        return parent;
+    }
+    const re = /\{\{\w+\}\}/g;
+    let textout = '';
+    for (;;) {
+        let match = re.exec(textin);
+        if ( match === null ) {
+            textout += textin;
+            break;
+        }
+        textout += textin.slice(0, match.index);
+        let prop = match[0].slice(2, -2);
+        if ( dict.hasOwnProperty(prop) ) {
+            textout += dict[prop].replace(/</g, '&lt;')
+                                 .replace(/>/g, '&gt;');
+        } else {
+            textout += prop;
+        }
+        textin = textin.slice(re.lastIndex);
+    }
+    safeTextToDOM(textout, parent);
+    return parent;
 };
 
 /******************************************************************************/
 
 // Helper to deal with the i18n'ing of HTML files.
 vAPI.i18n.render = function(context) {
-    var docu = document,
-        root = context || docu,
-        elems, n, i, elem, text;
+    const docu = document;
+    const root = context || docu;
 
-    elems = root.querySelectorAll('[data-i18n]');
-    n = elems.length;
-    for ( i = 0; i < n; i++ ) {
-        elem = elems[i];
-        text = vAPI.i18n(elem.getAttribute('data-i18n'));
+    for ( const elem of root.querySelectorAll('[data-i18n]') ) {
+        let text = vAPI.i18n(elem.getAttribute('data-i18n'));
         if ( !text ) { continue; }
-        // TODO: remove once it's all replaced with <input type="...">
-        if ( text.indexOf('{') !== -1 ) {
-            text = text.replace(/\{\{input:([^}]+)\}\}/g, '<input type="$1">');
+        if ( text.indexOf('{{') === -1 ) {
+            safeTextToDOM(text, elem);
+            continue;
         }
-        safeTextToDOM(text, elem);
+        // Handle selector-based placeholders: these placeholders tell where
+        // existing child DOM element are to be positioned relative to the
+        // localized text nodes.
+        const parts = text.split(/(\{\{[^}]+\}\})/);
+        const fragment = document.createDocumentFragment();
+        let textBefore = '';
+        for ( let part of parts ) {
+            if ( part === '' ) { continue; }
+            if ( part.startsWith('{{') && part.endsWith('}}') ) {
+                // TODO: remove detection of ':' once it no longer appears
+                //       in translation files.
+                const pos = part.indexOf(':');
+                if ( pos !== -1 ) {
+                    part = part.slice(0, pos) + part.slice(-2);
+                }
+                const node = elem.querySelector(part.slice(2, -2));
+                if ( node !== null ) {
+                    safeTextToDOM(textBefore, fragment);
+                    fragment.appendChild(node);
+                    textBefore = '';
+                    continue;
+                }
+            }
+            textBefore += part;
+        }
+        if ( textBefore !== '' ) {
+            safeTextToDOM(textBefore, fragment);
+        }
+        elem.appendChild(fragment);
     }
 
-    uDom('[title]', context).forEach(function(elem) {
-        var title = vAPI.i18n(elem.attr('title'));
-        if ( title ) {
-            elem.attr('title', title);
-        }
-    });
+    for ( const elem of root.querySelectorAll('[data-i18n-title]') ) {
+        const text = vAPI.i18n(elem.getAttribute('data-i18n-title'));
+        if ( !text ) { continue; }
+        elem.setAttribute('title', text);
+    }
 
-    uDom('[placeholder]', context).forEach(function(elem) {
-        elem.attr('placeholder', vAPI.i18n(elem.attr('placeholder')));
-    });
-
-    uDom('[data-i18n-tip]', context).forEach(function(elem) {
-        elem.attr(
-            'data-tip',
-            vAPI.i18n(elem.attr('data-i18n-tip'))
-                .replace(/<br>/g, '\n')
-                .replace(/\n{3,}/g, '\n\n')
+    for ( const elem of root.querySelectorAll('[placeholder]') ) {
+        elem.setAttribute(
+            'placeholder',
+            vAPI.i18n(elem.getAttribute('placeholder'))
         );
-    });
+    }
+
+    for ( const elem of root.querySelectorAll('[data-i18n-tip]') ) {
+        const text = vAPI.i18n(elem.getAttribute('data-i18n-tip'))
+                   .replace(/<br>/g, '\n')
+                   .replace(/\n{3,}/g, '\n\n');
+        elem.setAttribute('data-tip', text);
+        if ( elem.getAttribute('aria-label') === 'data-tip' ) {
+            elem.setAttribute('aria-label', text);
+        }
+    }
 };
 
 vAPI.i18n.render();
@@ -180,7 +239,7 @@ vAPI.i18n.render();
 /******************************************************************************/
 
 vAPI.i18n.renderElapsedTimeToString = function(tstamp) {
-    var value = (Date.now() - tstamp) / 60000;
+    let value = (Date.now() - tstamp) / 60000;
     if ( value < 2 ) {
         return vAPI.i18n('elapsedOneMinuteAgo');
     }
@@ -203,6 +262,7 @@ vAPI.i18n.renderElapsedTimeToString = function(tstamp) {
 
 /******************************************************************************/
 
-})();
+// <<<<< end of local scope
+}
 
 /******************************************************************************/

@@ -23,7 +23,7 @@
 
 /******************************************************************************/
 
-µMatrix.LiquidDict = (function() {
+µMatrix.LiquidDict = (( ) => {
 
 /******************************************************************************/
 
@@ -164,7 +164,7 @@ LiquidDict.prototype.reset = function() {
 
 /******************************************************************************/
 
-let selfieVersion = 1;
+const selfieVersion = 1;
 
 LiquidDict.prototype.toSelfie = function() {
     this.freeze();

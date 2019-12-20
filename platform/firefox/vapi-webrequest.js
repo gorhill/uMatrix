@@ -25,12 +25,14 @@
 
 /******************************************************************************/
 
-(function() {
+(( ) => {
+    // https://github.com/uBlockOrigin/uBlock-issues/issues/407
+    if ( vAPI.webextFlavor.soup.has('firefox') === false ) { return; }
 
     // https://github.com/gorhill/uBlock/issues/2950
     // Firefox 56 does not normalize URLs to ASCII, uBO must do this itself.
     // https://bugzilla.mozilla.org/show_bug.cgi?id=945240
-    const evalMustPunycode = function() {
+    const evalMustPunycode = ( ) => {
         return vAPI.webextFlavor.soup.has('firefox') &&
                vAPI.webextFlavor.major < 57;
     };
@@ -43,142 +45,218 @@
         mustPunycode = evalMustPunycode();
     }, { once: true });
 
-    const denormalizeTypes = function(aa) {
-        if ( aa.length === 0 ) {
-            return Array.from(vAPI.net.validTypes);
-        }
-        const out = new Set();
-        let i = aa.length;
-        while ( i-- ) {
-            let type = aa[i];
-            if ( vAPI.net.validTypes.has(type) ) {
-                out.add(type);
-            }
-            if ( type === 'image' && vAPI.net.validTypes.has('imageset') ) {
-                out.add('imageset');
-            }
-            if ( type === 'sub_frame' ) {
-                out.add('object');
-            }
-        }
-        return Array.from(out);
-    };
-
     const punycode = self.punycode;
     const reAsciiHostname  = /^https?:\/\/[0-9a-z_.:@-]+[/?#]/;
     const parsedURL = new URL('about:blank');
 
-    vAPI.net.normalizeDetails = function(details) {
-        if ( mustPunycode && !reAsciiHostname.test(details.url) ) {
-            parsedURL.href = details.url;
-            details.url = details.url.replace(
-                parsedURL.hostname,
-                punycode.toASCII(parsedURL.hostname)
-            );
+    // Related issues:
+    // - https://github.com/gorhill/uBlock/issues/1327
+    // - https://github.com/uBlockOrigin/uBlock-issues/issues/128
+    // - https://bugzilla.mozilla.org/show_bug.cgi?id=1503721
+
+    // Extend base class to normalize as per platform.
+
+    vAPI.Net = class extends vAPI.Net {
+        constructor() {
+            super();
+            this.pendingRequests = [];
+            this.cnames = new Map([ [ '', '' ] ]);
+            this.cnameIgnoreList = null;
+            this.cnameIgnore1stParty = true;
+            this.cnameIgnoreExceptions = true;
+            this.cnameIgnoreRootDocument = true;
+            this.cnameMaxTTL = 60;
+            this.cnameReplayFullURL = false;
+            this.cnameTimer = undefined;
+            this.canRevealCNAME = browser.dns instanceof Object;
         }
-
-        const type = details.type;
-
-        // https://github.com/gorhill/uBlock/issues/1493
-        //   Chromium 49+/WebExtensions support a new request type: `ping`,
-        //   which is fired as a result of using `navigator.sendBeacon`.
-        if ( type === 'ping' ) {
-            details.type = 'beacon';
-            return;
+        setOptions(options) {
+            super.setOptions(options);
+            this.cnameIgnoreList = this.regexFromStrList(options.cnameIgnoreList);
+            this.cnameIgnore1stParty = options.cnameIgnore1stParty !== false;
+            this.cnameIgnoreExceptions = options.cnameIgnoreExceptions !== false;
+            this.cnameIgnoreRootDocument = options.cnameIgnoreRootDocument !== false;
+            this.cnameMaxTTL = options.cnameMaxTTL || 120;
+            this.cnameReplayFullURL = options.cnameReplayFullURL === true;
+            this.cnames.clear(); this.cnames.set('', '');
         }
+        normalizeDetails(details) {
+            if ( mustPunycode && !reAsciiHostname.test(details.url) ) {
+                parsedURL.href = details.url;
+                details.url = details.url.replace(
+                    parsedURL.hostname,
+                    punycode.toASCII(parsedURL.hostname)
+                );
+            }
 
-        if ( type === 'imageset' ) {
-            details.type = 'image';
-            return;
-        }
+            const type = details.type;
 
-        // https://github.com/uBlockOrigin/uBlock-issues/issues/345
-        //   Re-categorize an embedded object as a `sub_frame` if its
-        //   content type is that of a HTML document.
-        if ( type === 'object' && Array.isArray(details.responseHeaders) ) {
-            for ( const header of details.responseHeaders ) {
-                if ( header.name.toLowerCase() === 'content-type' ) {
-                    if ( header.value.startsWith('text/html') ) {
-                        details.type = 'sub_frame';
+            if ( type === 'imageset' ) {
+                details.type = 'image';
+                return;
+            }
+
+            // https://github.com/uBlockOrigin/uBlock-issues/issues/345
+            //   Re-categorize an embedded object as a `sub_frame` if its
+            //   content type is that of a HTML document.
+            if ( type === 'object' && Array.isArray(details.responseHeaders) ) {
+                for ( const header of details.responseHeaders ) {
+                    if ( header.name.toLowerCase() === 'content-type' ) {
+                        if ( header.value.startsWith('text/html') ) {
+                            details.type = 'sub_frame';
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
-    };
-
-    vAPI.net.denormalizeFilters = function(filters) {
-        const urls = filters.urls || [ '<all_urls>' ];
-        let types = filters.types;
-        if ( Array.isArray(types) ) {
-            types = denormalizeTypes(types);
-        }
-        if (
-            (vAPI.net.validTypes.has('websocket')) &&
-            (types === undefined || types.indexOf('websocket') !== -1) &&
-            (urls.indexOf('<all_urls>') === -1)
-        ) {
-            if ( urls.indexOf('ws://*/*') === -1 ) {
-                urls.push('ws://*/*');
+        denormalizeTypes(types) {
+            if ( types.length === 0 ) {
+                return Array.from(this.validTypes);
             }
-            if ( urls.indexOf('wss://*/*') === -1 ) {
-                urls.push('wss://*/*');
+            const out = new Set();
+            for ( const type of types ) {
+                if ( this.validTypes.has(type) ) {
+                    out.add(type);
+                }
+                if ( type === 'image' && this.validTypes.has('imageset') ) {
+                    out.add('imageset');
+                }
+                if ( type === 'sub_frame' ) {
+                    out.add('object');
+                }
             }
+            return Array.from(out);
         }
-        return { types, urls };
-    };
-})();
-
-/******************************************************************************/
-
-// Related issues:
-// - https://github.com/gorhill/uBlock/issues/1327
-// - https://github.com/uBlockOrigin/uBlock-issues/issues/128
-// - https://bugzilla.mozilla.org/show_bug.cgi?id=1503721
-
-vAPI.net.onBeforeReady = (function() {
-    let pendings;
-
-    const handler = function(details) {
-        if ( pendings === undefined ) { return; }
-        if ( details.tabId < 0 ) { return; }
-
-        //console.log(`Deferring tab ${details.tabId}: ${details.type} ${details.url}`);
-
-        const pending = {
-            details: Object.assign({}, details),
-            resolve: undefined,
-            promise: undefined
-        };
-
-        pending.promise = new Promise(function(resolve) {
-            pending.resolve = resolve;
-        });
-
-        pendings.push(pending);
-
-        return pending.promise;
-    };
-
-    return {
-        start: function() {
-            pendings = [];
-            browser.webRequest.onBeforeRequest.addListener(
-                handler,
-                { urls: [ 'http://*/*', 'https://*/*' ] },
-                [ 'blocking' ]
+        processCanonicalName(hn, cn, details) {
+            const hnBeg = details.url.indexOf(hn);
+            if ( hnBeg === -1 ) { return; }
+            const oldURL = details.url;
+            let newURL = oldURL.slice(0, hnBeg) + cn;
+            const hnEnd = hnBeg + hn.length;
+            if ( this.cnameReplayFullURL ) {
+                newURL += oldURL.slice(hnEnd);
+            } else {
+                const pathBeg = oldURL.indexOf('/', hnEnd);
+                if ( pathBeg !== -1 ) {
+                    newURL += oldURL.slice(hnEnd, pathBeg + 1);
+                }
+            }
+            details.url = newURL;
+            details.aliasURL = oldURL;
+            return super.onBeforeSuspendableRequest(details);
+        }
+        recordCanonicalName(hn, record) {
+            let cname =
+                typeof record.canonicalName === 'string' &&
+                record.canonicalName !== hn
+                    ? record.canonicalName
+                    : '';
+            if (
+                cname !== '' &&
+                this.cnameIgnore1stParty &&
+                vAPI.domainFromHostname(cname) === vAPI.domainFromHostname(hn)
+            ) {
+                cname = '';
+            }
+            if (
+                cname !== '' &&
+                this.cnameIgnoreList !== null &&
+                this.cnameIgnoreList.test(cname)
+            ) {
+                cname = '';
+            }
+            this.cnames.set(hn, cname);
+            if ( this.cnameTimer === undefined ) {
+                this.cnameTimer = self.setTimeout(
+                    ( ) => {
+                        this.cnameTimer = undefined;
+                        this.cnames.clear(); this.cnames.set('', '');
+                    },
+                    this.cnameMaxTTL * 60000
+                );
+            }
+            return cname;
+        }
+        regexFromStrList(list) {
+            if (
+                typeof list !== 'string' ||
+                list.length === 0 ||
+                list === 'unset' ||
+                browser.dns instanceof Object === false
+            ) {
+                return null;
+            }
+            if ( list === '*' ) {
+                return /^./;
+            }
+            return new RegExp(
+                '(?:^|\.)(?:' +
+                list.trim()
+                    .split(/\s+/)
+                    .map(a => a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+                    .join('|') +
+                ')$'
             );
-        },
-        stop: function(resolver) {
-            if ( pendings === undefined ) { return; }
-            for ( const pending of pendings ) {
-                const details = pending.details;
-                vAPI.net.normalizeDetails(details);
-                //console.log(`Processing tab ${details.tabId}: ${details.type} ${details.url}`);
-                pending.resolve(resolver(details));
+        }
+        onBeforeSuspendableRequest(details) {
+            const r = super.onBeforeSuspendableRequest(details);
+            if ( this.canRevealCNAME === false ) { return r; }
+            if ( r !== undefined ) {
+                if ( r.cancel === false ) { return; }
+                if (
+                    r.cancel === true ||
+                    r.redirectUrl !== undefined ||
+                    this.cnameIgnoreExceptions
+                ) {
+                    return r;
+                }
             }
-            pendings = undefined;
-        },
+            if (
+                details.type === 'main_frame' &&
+                this.cnameIgnoreRootDocument
+            ) {
+                return;
+            }
+            const hn = vAPI.hostnameFromNetworkURL(details.url);
+            const cname = this.cnames.get(hn);
+            if ( cname === '' ) { return; }
+            if ( cname !== undefined ) {
+                return this.processCanonicalName(hn, cname, details);
+            }
+            return browser.dns.resolve(hn, [ 'canonical_name' ]).then(
+                rec => {
+                    const cname = this.recordCanonicalName(hn, rec);
+                    if ( cname === '' ) { return; }
+                    return this.processCanonicalName(hn, cname, details);
+                },
+                ( ) => {
+                    this.cnames.set(hn, '');
+                }
+            );
+        }
+        suspendOneRequest(details) {
+            const pending = {
+                details: Object.assign({}, details),
+                resolve: undefined,
+                promise: undefined
+            };
+            pending.promise = new Promise(resolve => {
+                pending.resolve = resolve;
+            });
+            this.pendingRequests.push(pending);
+            return pending.promise;
+        }
+        unsuspendAllRequests() {
+            const pendingRequests = this.pendingRequests;
+            this.pendingRequests = [];
+            for ( const entry of pendingRequests ) {
+                entry.resolve(this.onBeforeSuspendableRequest(entry.details));
+            }
+        }
+        canSuspend() {
+            return true;
+        }
     };
 })();
 

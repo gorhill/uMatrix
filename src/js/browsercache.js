@@ -23,24 +23,21 @@
 
 /******************************************************************************/
 
-(function() {
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
 // Browser data jobs
 
-var clearCache = function() {
+const clearCache = function() {
     vAPI.setTimeout(clearCache, 15 * 60 * 1000);
 
-    var µm = µMatrix;
-    if ( !µm.userSettings.clearBrowserCache ) {
-        return;
-    }
+    const µm = µMatrix;
+    if ( µm.userSettings.clearBrowserCache !== true ) { return; }
 
     µm.clearBrowserCacheCycle -= 15;
-    if ( µm.clearBrowserCacheCycle > 0 ) {
-        return;
-    }
+    if ( µm.clearBrowserCacheCycle > 0 ) { return; }
 
     vAPI.browserData.clearCache();
 
@@ -48,15 +45,17 @@ var clearCache = function() {
     µm.browserCacheClearedCounter++;
 
     // TODO: i18n
-    µm.logger.writeOne({ info: vAPI.i18n('loggerEntryBrowserCacheCleared') });
-
-    //console.debug('clearBrowserCacheCallback()> vAPI.browserData.clearCache() called');
+    µm.logger.writeOne({
+        realm: 'message',
+        text: vAPI.i18n('loggerEntryBrowserCacheCleared'),
+    });
 };
 
 vAPI.setTimeout(clearCache, 15 * 60 * 1000);
 
 /******************************************************************************/
 
-})();
+// <<<<< end of local scope
+}
 
 /******************************************************************************/

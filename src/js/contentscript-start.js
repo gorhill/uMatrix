@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2017-2018 Raymond Hill
+    Copyright (C) 2017-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,15 +26,15 @@
 
 // Injected into content pages
 
-(function() {
+(( ) => {
 
     if ( typeof vAPI !== 'object' ) { return; }
 
     vAPI.selfWorkerSrcReported = vAPI.selfWorkerSrcReported || false;
 
-    var reGoodWorkerSrc = /(?:child|worker)-src[^;,]+?'none'/;
+    const reGoodWorkerSrc = /(?:child|worker)-src[^;,]+?'none'/;
 
-    var handler = function(ev) {
+    const handler = function(ev) {
         if (
             ev.isTrusted !== true ||
             ev.originalPolicy.includes('report-uri about:blank') === false
@@ -69,28 +69,21 @@
             vAPI.selfWorkerSrcReported = true;
         }
 
-        vAPI.messaging.send(
-            'contentscript.js',
-            {
-                what: 'securityPolicyViolation',
-                directive: 'worker-src',
-                blockedURI: ev.blockedURI,
-                documentURI: ev.documentURI,
-                blocked: ev.disposition === 'enforce'
-            }
-        );
+        vAPI.messaging.send('contentscript.js', {
+            what: 'securityPolicyViolation',
+            directive: 'worker-src',
+            blockedURI: ev.blockedURI,
+            documentURI: ev.documentURI,
+            blocked: ev.disposition === 'enforce',
+        });
 
         return true;
     };
 
-    document.addEventListener(
-        'securitypolicyviolation',
-        function(ev) {
-            if ( !handler(ev) ) { return; }
-            ev.stopPropagation();
-            ev.preventDefault();
-        },
-        true
-    );
+    document.addEventListener('securitypolicyviolation', ev => {
+        if ( !handler(ev) ) { return; }
+        ev.stopPropagation();
+        ev.preventDefault();
+    }, true);
 
 })();

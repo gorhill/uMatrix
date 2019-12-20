@@ -27,24 +27,28 @@
 /******************************************************************************/
 
 // Default handler
+//      priviledged
 
-(function() {
+{
+// >>>>> start of local scope
 
-var µm = µMatrix;
+const µm = µMatrix;
 
-/******************************************************************************/
-
-// Default is for commonly used message.
-
-function onMessage(request, sender, callback) {
+const onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
     case 'getAssetContent':
-        µm.assets.get(request.url, { dontCache: true }, callback);
+        µm.assets.get(request.url, {
+            dontCache: true,
+        }).then(response => {
+            callback(response);
+        });
         return;
 
     case 'selectAssets':
-        µm.selectAssets(request, callback);
+        µm.selectAssets(request).then(response => {
+            callback(response);
+        });
         return;
 
     default:
@@ -52,7 +56,7 @@ function onMessage(request, sender, callback) {
     }
 
     // Sync
-    var response;
+    let response;
 
     switch ( request.what ) {
     case 'blacklistMatrixCell':
@@ -73,9 +77,9 @@ function onMessage(request, sender, callback) {
         break;
 
     case 'getCellColors':
-        let ruleParts = request.ruleParts;
-        let tColors = [];
-        let pColors = [];
+        const ruleParts = request.ruleParts;
+        const tColors = [];
+        const pColors = [];
         for ( let i = 0, n = ruleParts.length; i < n; i += 3 ) {
             tColors.push(µm.tMatrix.evaluateCellZXY(
                 ruleParts[i+0],
@@ -89,6 +93,15 @@ function onMessage(request, sender, callback) {
             ));
         }
         response = { tColors, pColors };
+        break;
+
+    case 'getDomainNames':
+        response = request.targets.map(target => {
+            if ( typeof target !== 'string' ) { return ''; }
+            return target.indexOf('/') !== -1
+                ? vAPI.domainFromURI(target) || ''
+                : vAPI.domainFromHostname(target) || target;
+        });
         break;
 
     case 'getUserSettings':
@@ -175,30 +188,26 @@ function onMessage(request, sender, callback) {
     }
 
     callback(response);
-}
-
-/******************************************************************************/
+};
 
 vAPI.messaging.setup(onMessage);
 
-/******************************************************************************/
-
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-(function() {
-
-// popup.js
-
-var µm = µMatrix;
+// <<<<< end of local scope
+}
 
 /******************************************************************************/
+/******************************************************************************/
 
-// Constructor is faster than object literal
+// Channel:
+//      popupPanel
+//      privileged
 
-var RowSnapshot = function(srcHostname, desHostname, desDomain) {
+{
+// >>>>> start of local scope
+
+const µm = µMatrix;
+
+const RowSnapshot = function(srcHostname, desHostname, desDomain) {
     this.domain = desDomain;
     this.temporary = µm.tMatrix.evaluateRowZXY(srcHostname, desHostname);
     this.permanent = µm.pMatrix.evaluateRowZXY(srcHostname, desHostname);
@@ -206,21 +215,19 @@ var RowSnapshot = function(srcHostname, desHostname, desDomain) {
     this.totals = RowSnapshot.counts.slice();
 };
 
-RowSnapshot.counts = (function() {
-    var aa = [];
-    for ( var i = 0, n = µm.Matrix.columnHeaderIndices.size; i < n; i++ ) {
+RowSnapshot.counts = (( ) => {
+    const aa = [];
+    for ( let i = 0, n = µm.Matrix.columnHeaderIndices.size; i < n; i++ ) {
         aa[i] = 0;
     }
     return aa;
 })();
 
-/******************************************************************************/
+const matrixSnapshotFromPage = function(pageStore, details) {
+    const µmuser = µm.userSettings;
+    const headerIndices = µm.Matrix.columnHeaderIndices;
 
-var matrixSnapshot = function(pageStore, details) {
-    let µmuser = µm.userSettings;
-    let headerIndices = µm.Matrix.columnHeaderIndices;
-
-    let r = {
+    const r = {
         appVersion: vAPI.app.version,
         blockedCount: pageStore.perLoadBlockedRequestCount,
         collapseAllDomains: µmuser.popupCollapseAllDomains,
@@ -231,6 +238,7 @@ var matrixSnapshot = function(pageStore, details) {
         hasMixedContent: pageStore.hasMixedContent,
         hasNoscriptTags: pageStore.hasNoscriptTags,
         hasWebWorkers: pageStore.hasWebWorkers,
+        hasHostnameAliases: pageStore.hasHostnameAliases,
         headerIndices: Array.from(headerIndices),
         hostname: pageStore.pageHostname,
         mtxContentModified: pageStore.mtxContentModifiedTime !== details.mtxContentModifiedTime,
@@ -267,7 +275,7 @@ var matrixSnapshot = function(pageStore, details) {
         r.scope = r.domain;
     }
 
-    for ( let switchName of µm.Matrix.switchNames ) {
+    for ( const switchName of µm.Matrix.switchNames ) {
         r.tSwitches[switchName] = µm.tMatrix.evaluateSwitchZ(switchName, r.scope);
         r.pSwitches[switchName] = µm.pMatrix.evaluateSwitchZ(switchName, r.scope);
     }
@@ -277,8 +285,8 @@ var matrixSnapshot = function(pageStore, details) {
     r.rows['1st-party'] = new RowSnapshot(r.scope, '1st-party', '1st-party');
     r.rowCount += 1;
 
-    let µmuri = µm.URI;
-    let anyIndex = headerIndices.get('*');
+    const µmuri = µm.URI;
+    const anyIndex = headerIndices.get('*');
 
     // Ensure that the current scope is also reported in the matrix. This may
     // not be the case for documents which are fetched without going through
@@ -287,16 +295,16 @@ var matrixSnapshot = function(pageStore, details) {
         pageStore.hostnameTypeCells.set(r.hostname + ' doc', new Set([ 0 ]));
     }
 
-    for ( let entry of pageStore.hostnameTypeCells ) {
-        let pos = entry[0].indexOf(' ');
-        let reqHostname = entry[0].slice(0, pos);
-        let reqType = entry[0].slice(pos + 1);
+    for ( const [ rule, urls ] of pageStore.hostnameTypeCells ) {
+        const pos = rule.indexOf(' ');
+        let reqHostname = rule.slice(0, pos);
         // rhill 2013-10-23: hostname can be empty if the request is a data url
         // https://github.com/gorhill/httpswitchboard/issues/26
         if ( reqHostname === '' ) {
-            reqHostname = pageStore.pageHostname;
+            reqHostname = r.hostname;
         }
-        let reqDomain = µmuri.domainFromHostname(reqHostname) || reqHostname;
+        const reqType = rule.slice(pos + 1);
+        const reqDomain = µmuri.domainFromHostname(reqHostname) || reqHostname;
 
         // We want rows of self and ancestors
         let desHostname = reqHostname;
@@ -306,13 +314,13 @@ var matrixSnapshot = function(pageStore, details) {
             r.rows[desHostname] = new RowSnapshot(r.scope, desHostname, reqDomain);
             r.rowCount += 1;
             if ( desHostname === reqDomain ) { break; }
-            pos = desHostname.indexOf('.');
+            const pos = desHostname.indexOf('.');
             if ( pos === -1 ) { break; }
             desHostname = desHostname.slice(pos + 1);
         }
 
-        let count = entry[1].size;
-        let typeIndex = headerIndices.get(reqType);
+        const count = urls.size;
+        const typeIndex = headerIndices.get(reqType);
         let row = r.rows[reqHostname];
         row.counts[typeIndex] += count;
         row.counts[anyIndex] += count;
@@ -329,51 +337,155 @@ var matrixSnapshot = function(pageStore, details) {
     return r;
 };
 
-/******************************************************************************/
+const matrixSnapshotFromTabId = function(tabId, details) {
+    const pageStore = µm.pageStoreFromTabId(tabId);
+    if ( pageStore === null ) { return 'ENOTFOUND'; }
+    return matrixSnapshotFromPage(pageStore, details);
+};
 
-var matrixSnapshotFromTabId = function(details, callback) {
-    var matrixSnapshotIf = function(tabId, details) {
-        var pageStore = µm.pageStoreFromTabId(tabId);
-        if ( pageStore === null ) {
-            callback('ENOTFOUND');
-            return;
+const matrixSnapshotFromRule = function(rule, details) {
+    const µmuser = µm.userSettings;
+    const headerIndices = µm.Matrix.columnHeaderIndices;
+    const [ srchn, deshn, type ] = rule.trim().split(/\s+/);
+    const now = Date.now();
+
+    const r = {
+        appVersion: vAPI.app.version,
+        blockedCount: 0,
+        collapseAllDomains: µmuser.popupCollapseAllDomains,
+        collapseBlacklistedDomains: µmuser.popupCollapseBlacklistedDomains,
+        diff: [],
+        domain: vAPI.domainFromHostname(srchn),
+        headerIndices: Array.from(headerIndices),
+        hostname: srchn,
+        mtxContentModified: false,
+        mtxCountModified: false,
+        mtxContentModifiedTime: now,
+        mtxCountModifiedTime: now,
+        pMatrixModified: µm.pMatrix.modifiedTime !== details.pMatrixModifiedTime,
+        pMatrixModifiedTime: µm.pMatrix.modifiedTime,
+        pSwitches: {},
+        rows: {},
+        rowCount: 0,
+        scope: '*',
+        tMatrixModified: µm.tMatrix.modifiedTime !== details.tMatrixModifiedTime,
+        tMatrixModifiedTime: µm.tMatrix.modifiedTime,
+        tSwitches: {},
+        url: `https://${srchn}/`,
+        userSettings: {
+            colorBlindFriendly: µmuser.colorBlindFriendly,
+            displayTextSize: µmuser.displayTextSize,
+            noTooltips: µmuser.noTooltips,
+            popupScopeLevel: µmuser.popupScopeLevel
+        }
+    };
+
+    if (
+        (typeof details.scope === 'string') &&
+        (details.scope === '*' || r.hostname.endsWith(details.scope))
+    ) {
+        r.scope = details.scope;
+    } else if ( µmuser.popupScopeLevel === 'site' ) {
+        r.scope = r.hostname;
+    } else if ( µmuser.popupScopeLevel === 'domain' ) {
+        r.scope = r.domain;
+    }
+
+    for ( const switchName of µm.Matrix.switchNames ) {
+        r.tSwitches[switchName] = µm.tMatrix.evaluateSwitchZ(switchName, r.scope);
+        r.pSwitches[switchName] = µm.pMatrix.evaluateSwitchZ(switchName, r.scope);
+    }
+
+    // These rows always exist
+    r.rows['*'] = new RowSnapshot(r.scope, '*', '*');
+    r.rows['1st-party'] = new RowSnapshot(r.scope, '1st-party', '1st-party');
+    r.rowCount += 1;
+
+    const µmuri = µm.URI;
+    const anyIndex = headerIndices.get('*');
+
+    const hostnameTypeCells = new Map();
+    hostnameTypeCells.set(`${srchn} doc`, new Set([ 0 ]));
+    hostnameTypeCells.set(`${deshn} ${type}`, new Set([ 1 ]));
+
+    for ( const [ rule, urls ] of hostnameTypeCells ) {
+        const pos = rule.indexOf(' ');
+        const reqHostname = rule.slice(0, pos);
+        const reqType = rule.slice(pos + 1);
+        const reqDomain = µmuri.domainFromHostname(reqHostname) || reqHostname;
+
+        // We want rows of self and ancestors
+        let desHostname = reqHostname;
+        for (;;) {
+            // If row exists, ancestors exist
+            if ( r.rows.hasOwnProperty(desHostname) !== false ) { break; }
+            r.rows[desHostname] = new RowSnapshot(r.scope, desHostname, reqDomain);
+            r.rowCount += 1;
+            if ( desHostname === reqDomain ) { break; }
+            const pos = desHostname.indexOf('.');
+            if ( pos === -1 ) { break; }
+            desHostname = desHostname.slice(pos + 1);
         }
 
-        // First verify whether we must return data or not.
+        const count = urls.size;
+        const typeIndex = headerIndices.get(reqType);
+        let row = r.rows[reqHostname];
+        row.counts[typeIndex] += count;
+        row.counts[anyIndex] += count;
+        row = r.rows[reqDomain];
+        row.totals[typeIndex] += count;
+        row.totals[anyIndex] += count;
+        row = r.rows['*'];
+        row.totals[typeIndex] += count;
+        row.totals[anyIndex] += count;
+    }
+
+    r.diff = µm.tMatrix.diff(µm.pMatrix, r.hostname, Object.keys(r.rows));
+
+    return r;
+};
+
+const matrixSnapshotFromAny = async function(sender, details) {
+    // Specific tab id?
+    if ( typeof details.tabId === 'number' && details.tabId !== 0 ) {
+        const pageStore = µm.pageStoreFromTabId(details.tabId);
+        if ( pageStore === null ) { return 'ENOTFOUND'; }
         if (
             µm.tMatrix.modifiedTime === details.tMatrixModifiedTime &&
             µm.pMatrix.modifiedTime === details.pMatrixModifiedTime &&
             pageStore.mtxContentModifiedTime === details.mtxContentModifiedTime &&
             pageStore.mtxCountModifiedTime === details.mtxCountModifiedTime
         ) {
-            callback('ENOCHANGE');
-            return ;
+            return 'ENOCHANGE';
         }
+        return matrixSnapshotFromPage(pageStore, details);
+    }
 
-        callback(matrixSnapshot(pageStore, details));
-    };
-
-    // Specific tab id requested?
-    if ( details.tabId ) {
-        matrixSnapshotIf(details.tabId, details);
-        return;
+    // Target encoded in URL?
+    if ( typeof sender.url === 'string' ) {
+        const url = new URL(sender.url);
+        const params = url.searchParams;
+        if ( params.has('tabid') ) {
+            const tabId = parseInt(params.get('tabid'), 10);
+            if ( isNaN(tabId) === false ) {
+                return matrixSnapshotFromTabId(tabId, details);
+            }
+        }
+        if ( params.has('rule') ) {
+            return matrixSnapshotFromRule(params.get('rule'), details);
+        }
     }
 
     // Fall back to currently active tab
-    var onTabReady = function(tab) {
-        if ( tab instanceof Object === false ) {
-            callback('ENOTFOUND');
-            return;
-        }
-        matrixSnapshotIf(tab.id, details);
-    };
-
-    vAPI.tabs.get(null, onTabReady);
+    const tab = await vAPI.tabs.getCurrent();
+    return tab instanceof Object !== false
+        ? matrixSnapshotFromTabId(tab.id, details)
+        : 'ENOTFOUND';
 };
 
 /******************************************************************************/
 
-var onMessage = function(request, sender, callback) {
+const onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
     case 'fetchRecipes':
@@ -385,7 +497,9 @@ var onMessage = function(request, sender, callback) {
         return;
 
     case 'matrixSnapshot':
-        matrixSnapshotFromTabId(request, callback);
+        matrixSnapshotFromAny(sender, request).then(response => {
+            callback(response);
+        });
         return;
 
     default:
@@ -393,7 +507,7 @@ var onMessage = function(request, sender, callback) {
     }
 
     // Sync
-    var response;
+    let response;
 
     switch ( request.what ) {
     case 'applyRecipe':
@@ -433,65 +547,87 @@ var onMessage = function(request, sender, callback) {
     callback(response);
 };
 
-vAPI.messaging.listen('popup.js', onMessage);
+vAPI.messaging.listen({
+    name: 'popup.js',
+    listener: onMessage,
+    privileged: true,
+});
 
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// content scripts
-
-(function() {
-
-var µm = µMatrix;
+// <<<<< end of local scope
+}
 
 /******************************************************************************/
+/******************************************************************************/
 
-var foundInlineCode = function(tabId, pageStore, details, type) {
+// Channel:
+//      contentscript
+//      unprivileged
+
+{
+// >>>>> start of local scope
+
+const µm = µMatrix;
+
+/******************************************************************************/
+
+const foundInlineCode = function(tabId, pageStore, details, type) {
     if ( pageStore === null ) { return; }
 
-    let srcHn = pageStore.pageHostname,
-        µmuri = µm.URI.set(details.documentURI),
-        desHn = µmuri.hostname,
-        frameURL = µmuri.normalizedURI();
+    const srcHn = pageStore.pageHostname;
+    const docOrigin = µm.URI.originFromURI(details.documentURI);
+    const desHn = vAPI.hostnameFromURI(docOrigin);
 
     let blocked = details.blocked;
     if ( blocked === undefined ) {
         blocked = µm.mustBlock(srcHn, desHn, type);
     }
 
-    let mapTo = {
+    const mapTo = {
         css: 'style',
         script: 'script'
     };
 
     // https://github.com/gorhill/httpswitchboard/issues/333
     //   Look-up here whether inline scripting is blocked for the frame.
-    let desURL = frameURL + '{inline_' + mapTo[type] + '}';
+    const desURL = `${docOrigin}/{inline_${mapTo[type]}}`;
     pageStore.recordRequest(type, desURL, blocked);
-    µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type, blocked });
+    if ( µm.logger.enabled ) {
+        µm.filteringContext.duplicate()
+          .fromTabId(tabId)
+          .setRealm('network')
+          .setURL(desURL)
+          .setType(type)
+          .setFilter(blocked)
+          .toLogger();
+    }
 };
 
 /******************************************************************************/
 
-var contentScriptLocalStorageHandler = function(tabId, originURL) {
-    let tabContext = µm.tabContextManager.lookup(tabId);
+const contentScriptLocalStorageHandler = function(tabId, originURL) {
+    const tabContext = µm.tabContextManager.lookup(tabId);
     if ( tabContext === null ) { return; }
 
-    let srcHn = tabContext.rootHostname,
-        desHn = µm.URI.hostnameFromURI(originURL),
-        type = 'cookie',
-        blocked = µm.mustBlock(srcHn, desHn, type);
+    const srcHn = tabContext.rootHostname;
+    const desHn = vAPI.hostnameFromURI(originURL);
+    const blocked = µm.mustBlock(srcHn, desHn, 'cookie');
 
-    let pageStore = µm.pageStoreFromTabId(tabId);
+    const pageStore = µm.pageStoreFromTabId(tabId);
     if ( pageStore !== null ) {
-        let desURL = originURL + '/{localStorage}';
-        pageStore.recordRequest(type, desURL, blocked);
-        µm.logger.writeOne({ tabId, srcHn, desHn, desURL, type, blocked });
+        const desURL = `${originURL}/{localStorage}`;
+        pageStore.recordRequest('cookie', desURL, blocked);
+        if ( µm.logger.enabled ) {
+            µm.filteringContext.duplicate()
+              .fromTabId(tabId)
+              .setRealm('network')
+              .setURL(desURL)
+              .setType('cookie')
+              .setFilter(blocked)
+              .toLogger();
+        }
     }
 
-    var removeStorage = blocked && µm.userSettings.deleteLocalStorage;
+    const removeStorage = blocked && µm.userSettings.deleteLocalStorage;
     if ( removeStorage ) {
         µm.localStorageRemovedCounter++;
     }
@@ -503,7 +639,7 @@ var contentScriptLocalStorageHandler = function(tabId, originURL) {
 
 // Evaluate many URLs against the matrix.
 
-var lookupBlockedCollapsibles = function(tabId, requests) {
+const lookupBlockedCollapsibles = function(tabId, requests) {
     if ( placeholdersReadTime < µm.rawSettingsWriteTime ) {
         placeholders = undefined;
     }
@@ -560,7 +696,7 @@ var placeholders,
 
 /******************************************************************************/
 
-var onMessage = function(request, sender, callback) {
+const onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
     default:
@@ -592,10 +728,6 @@ var onMessage = function(request, sender, callback) {
         if ( pageStore !== null ) {
             pageStore.hasNoscriptTags = true;
         }
-        // https://github.com/gorhill/uMatrix/issues/225
-        //   A good place to force an update of the page title, as at
-        //   this point the DOM has been loaded.
-        µm.updateTitle(tabId);
         break;
 
     case 'securityPolicyViolation':
@@ -610,15 +742,14 @@ var onMessage = function(request, sender, callback) {
                 pageStore.hasWebWorkers = true;
                 pageStore.recordRequest('script', desURL, request.blocked);
             }
-            if ( tabContext !== null ) {
-                µm.logger.writeOne({
-                    tabId,
-                    srcHn,
-                    desHn,
-                    desURL,
-                    type: 'worker',
-                    blocked: request.blocked
-                });
+            if ( tabContext !== null && µm.logger.enabled ) {
+                µm.filteringContext.duplicate()
+                  .fromTabId(tabId)
+                  .setRealm('network')
+                  .setURL(desURL)
+                  .setType('worker')
+                  .setFilter(request.blocked)
+                  .toLogger();
             }
         } else if ( request.directive === 'script-src' ) {
             foundInlineCode(tabId, pageStore, request, 'script');
@@ -640,26 +771,27 @@ var onMessage = function(request, sender, callback) {
     callback(response);
 };
 
-vAPI.messaging.listen('contentscript.js', onMessage);
+vAPI.messaging.listen({
+    name: 'contentscript.js',
+    listener: onMessage,
+});
+
+// <<<<< end of local scope
+}
 
 /******************************************************************************/
-
-})();
-
-/******************************************************************************/
 /******************************************************************************/
 
-// cloud-ui.js
+// Channel:
+//      cloudWidget
+//      privileged
 
-(function() {
+{
+// >>>>> start of local scope
 
-/******************************************************************************/
+const µm = µMatrix;
 
-var µm = µMatrix;
-
-/******************************************************************************/
-
-var onMessage = function(request, sender, callback) {
+const onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
     case 'cloudGetOptions':
@@ -700,22 +832,28 @@ var onMessage = function(request, sender, callback) {
     callback(response);
 };
 
+vAPI.messaging.listen({
+    name: 'cloud-ui.js',
+    listener: onMessage,
+    privileged: true,
+});
+
+// <<<<< end of local scope
+}
+
+/******************************************************************************/
 /******************************************************************************/
 
-vAPI.messaging.listen('cloud-ui.js', onMessage);
+// Channel:
+//      dashboard
+//      privileged
 
-})();
+{
+// >>>>> start of local scope
 
-/******************************************************************************/
-/******************************************************************************/
+const µm = µMatrix;
 
-// user-rules.js
-
-(function() {
-
-var µm = µMatrix;
-
-var modifyRuleset = function(details) {
+const modifyRuleset = function(details) {
     let ruleset = details.permanent ? µm.pMatrix : µm.tMatrix,
         modifiedTime = ruleset.modifiedTime;
     let toRemove = new Set(details.toRemove.trim().split(/\s*[\n\r]+\s*/));
@@ -731,181 +869,82 @@ var modifyRuleset = function(details) {
     }
 };
 
-/******************************************************************************/
-
-var onMessage = function(request, sender, callback) {
-
-    // Async
-    switch ( request.what ) {
-    default:
-        break;
-    }
-
-    // Sync
-    var response;
-
-    switch ( request.what ) {
-    case 'modifyRuleset':
-        modifyRuleset(request);
-        /* falls through */
-
-    case 'getRuleset':
-        response = {
-            temporaryRules: µm.tMatrix.toArray(),
-            permanentRules: µm.pMatrix.toArray()
+const getAssets = function() {
+    return Promise.all([
+        µm.getAvailableHostsFiles(),
+        µm.getAvailableRecipeFiles(),
+        µm.assets.metadata(),
+    ]).then(results => {
+        return {
+            autoUpdate: µm.userSettings.autoUpdate,
+            blockedHostnameCount: µm.ubiquitousBlacklistRef.addedCount,
+            hosts: Array.from(results[0]),
+            recipes: Array.from(results[1]),
+            userRecipes: µm.userSettings.userRecipes,
+            cache: results[2],
+            contributor: µm.rawSettings.contributorMode
         };
-        break;
+    });
+};
 
-    default:
-        return vAPI.messaging.UNHANDLED;
+const restoreUserData = async function(userData) {
+    await Promise.all([
+        µMatrix.cacheStorage.clear(),
+        vAPI.storage.clear(),
+    ]);
+
+    const promises = [
+        vAPI.storage.set(userData.settings)
+    ];
+    const bin = { userMatrix: userData.rules };
+    if ( userData.hostsFiles instanceof Object ) {
+        bin.liveHostsFiles = userData.hostsFiles;
     }
+    promises.push(vAPI.storage.set(bin));
+    if ( userData.rawSettings instanceof Object ) {
+        promises.push(µMatrix.saveRawSettings(userData.rawSettings));
+    }
+    await Promise.all(promises);
 
-    callback(response);
+    vAPI.app.restart();
 };
 
-vAPI.messaging.listen('user-rules.js', onMessage);
+const resetUserData = async function() {
+    await Promise.all([
+        µMatrix.cacheStorage.clear(),
+        vAPI.storage.clear(),
+    ]);
 
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// hosts-files.js
-
-(function() {
-
-var µm = µMatrix;
-
-/******************************************************************************/
-
-var getAssets = function(callback) {
-    var r = {
-        autoUpdate: µm.userSettings.autoUpdate,
-        blockedHostnameCount: µm.ubiquitousBlacklist.count,
-        hosts: null,
-        recipes: null,
-        userRecipes: µm.userSettings.userRecipes,
-        cache: null,
-        contributor: µm.rawSettings.contributorMode
-    };
-    var onMetadataReady = function(entries) {
-        r.cache = entries;
-        callback(r);
-    };
-    var onAvailableRecipeFilesReady = function(collection) {
-        r.recipes = Array.from(collection);
-        µm.assets.metadata(onMetadataReady);
-    };
-    var onAvailableHostsFilesReady = function(collection) {
-        r.hosts = Array.from(collection);
-        µm.getAvailableRecipeFiles(onAvailableRecipeFilesReady);
-    };
-    µm.getAvailableHostsFiles(onAvailableHostsFilesReady);
+    vAPI.app.restart();
 };
 
 /******************************************************************************/
 
-var onMessage = function(request, sender, callback) {
-    var µm = µMatrix;
+const onMessage = function(request, sender, callback) {
 
     // Async
     switch ( request.what ) {
     case 'getAssets':
-        return getAssets(callback);
+        getAssets().then(response => {
+            callback(response);
+        });
+        return;
+
+    case 'getSomeStats':
+        µm.getBytesInUse().then(bytesInUse => {
+            callback({
+                version: vAPI.app.version,
+                storageUsed: bytesInUse,
+            });
+        });
+        return;
 
     default:
         break;
     }
 
     // Sync
-    var response;
-
-    switch ( request.what ) {
-    case 'purgeCache':
-        µm.assets.purge(request.assetKey);
-        µm.assets.remove('compiled/' + request.assetKey);
-        break;
-
-    case 'purgeAllCaches':
-        if ( request.hard ) {
-            µm.assets.remove(/./);
-        } else {
-            µm.assets.purge(/./, 'public_suffix_list.dat');
-        }
-        break;
-
-    default:
-        return vAPI.messaging.UNHANDLED;
-    }
-
-    callback(response);
-};
-
-vAPI.messaging.listen('hosts-files.js', onMessage);
-
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-// about.js
-
-(function() {
-
-var µm = µMatrix;
-
-/******************************************************************************/
-
-var restoreUserData = function(userData) {
-    var countdown = 0;
-    var onCountdown = function() {
-        countdown -= 1;
-        if ( countdown === 0 ) {
-            vAPI.app.restart();
-        }
-    };
-
-    var onAllRemoved = function() {
-        let µm = µMatrix;
-        countdown += 1;
-        vAPI.storage.set(userData.settings, onCountdown);
-        countdown += 1;
-        let bin = { userMatrix: userData.rules };
-        if ( userData.hostsFiles instanceof Object ) {
-            bin.liveHostsFiles = userData.hostsFiles;
-        }
-        vAPI.storage.set(bin, onCountdown);
-        if ( userData.rawSettings instanceof Object ) {
-            countdown += 1;
-            µm.saveRawSettings(userData.rawSettings, onCountdown);
-        }
-    };
-
-    // If we are going to restore all, might as well wipe out clean local
-    // storage
-    vAPI.storage.clear(onAllRemoved);
-};
-
-/******************************************************************************/
-
-var resetUserData = function() {
-    var onAllRemoved = function() {
-        vAPI.app.restart();
-    };
-    vAPI.storage.clear(onAllRemoved);
-};
-
-/******************************************************************************/
-
-var onMessage = function(request, sender, callback) {
-    // Async
-    switch ( request.what ) {
-    default:
-        break;
-    }
-
-    // Sync
-    var response;
+    let response;
 
     switch ( request.what ) {
     case 'getAllUserData':
@@ -919,19 +958,36 @@ var onMessage = function(request, sender, callback) {
         };
         break;
 
-    case 'getSomeStats':
+    case 'modifyRuleset':
+        modifyRuleset(request);
+        /* falls through */
+
+    case 'getRuleset':
         response = {
-            version: vAPI.app.version,
-            storageUsed: µm.storageUsed
+            temporaryRules: µm.tMatrix.toArray(),
+            permanentRules: µm.pMatrix.toArray()
         };
         break;
 
-    case 'restoreAllUserData':
-        restoreUserData(request.userData);
+    case 'purgeCache':
+        µm.assets.purge(request.assetKey);
+        µm.assets.remove('compiled/' + request.assetKey);
+        break;
+
+    case 'purgeAllCaches':
+        if ( request.hard ) {
+            µm.assets.remove(/./);
+        } else {
+            µm.assets.purge(/./, 'public_suffix_list.dat');
+        }
         break;
 
     case 'resetAllUserData':
         resetUserData();
+        break;
+
+    case 'restoreAllUserData':
+        restoreUserData(request.userData);
         break;
 
     default:
@@ -941,31 +997,102 @@ var onMessage = function(request, sender, callback) {
     callback(response);
 };
 
-vAPI.messaging.listen('about.js', onMessage);
+vAPI.messaging.listen({
+    name: 'dashboard',
+    listener: onMessage,
+    privileged: true,
+});
+
+// <<<<< end of local scope
+}
 
 /******************************************************************************/
 /******************************************************************************/
 
-// logger-ui.js
+// Channel:
+//      loggerUI
+//      privileged
 
-(function() {
-
-/******************************************************************************/
-
-var µm = µMatrix,
-    loggerURL = vAPI.getURL('logger-ui.html');
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
-var onMessage = function(request, sender, callback) {
+const µm = µMatrix;
+const extensionOriginURL = vAPI.getURL('');
+
+const getLoggerData = async function(details, activeTabId) {
+    const response = {
+        activeTabId,
+        colorBlind: µm.userSettings.colorBlindFriendly,
+        entries: µm.logger.readAll(details.ownerId),
+        pageStoresToken: µm.pageStoresToken
+    };
+    if ( µm.pageStoresToken !== details.pageStoresToken ) {
+        const pageStores = new Map();
+        for ( const [ tabId, pageStore ] of µm.pageStores ) {
+            if ( pageStore.rawURL.startsWith(extensionOriginURL) ) { continue; }
+            let title = pageStore.title;
+            if ( title === '' ) {
+                title = pageStore.rawURL;
+            }
+            pageStores.set(tabId, title);
+        }
+        response.pageStores = Array.from(pageStores);
+    }
+    if ( activeTabId ) {
+        const pageStore = µm.pageStoreFromTabId(activeTabId);
+        if (
+            pageStore === null ||
+            pageStore.rawURL.startsWith(extensionOriginURL)
+        ) {
+            response.activeTabId = undefined;
+        }
+    }
+    if ( details.popupLoggerBoxChanged && vAPI.windows instanceof Object ) {
+        const tabs = await vAPI.tabs.query({
+            url: vAPI.getURL('/logger-ui.html?popup=1')
+        });
+        if ( tabs.length !== 0 ) {
+            const win = await vAPI.windows.get(tabs[0].windowId);
+            if ( win ) {
+                vAPI.localStorage.setItem('popupLoggerBox', JSON.stringify({
+                    left: win.left,
+                    top: win.top,
+                    width: win.width,
+                    height: win.height,
+                }));
+            }
+        }
+    }
+    return response;
+};
+
+/******************************************************************************/
+
+const onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
-        default:
-            break;
+    case 'readAll':
+        if (
+            µm.logger.ownerId !== undefined &&
+            µm.logger.ownerId !== request.ownerId
+        ) {
+            return callback({ unavailable: true });
+        }
+        vAPI.tabs.getCurrent().then(tab => {
+            return getLoggerData(request, tab && tab.id);
+        }).then(response => {
+            callback(response);
+        });
+        return;
+
+    default:
+        break;
     }
 
     // Sync
-    var response;
+    let response;
 
     switch ( request.what ) {
     case 'getPublicSuffixListData':
@@ -976,34 +1103,6 @@ var onMessage = function(request, sender, callback) {
         response = {
             colorBlindFriendly: µm.userSettings.colorBlindFriendly,
             popupScopeLevel: µm.userSettings.popupScopeLevel
-        };
-        break;
-
-    case 'readMany':
-        if (
-            µm.logger.ownerId !== undefined &&
-            request.ownerId !== µm.logger.ownerId
-        ) {
-            response = { unavailable: true };
-            break;
-        }
-        let pageStores;
-        if ( request.pageStoresToken !== µm.pageStoresToken ) {
-            pageStores = [];
-            for ( let entry of µm.pageStores ) {
-                let tabId = entry[0];
-                let pageStore = entry[1];
-                if ( pageStore.rawURL.startsWith(loggerURL) ) { continue; }
-                pageStores.push([ tabId, pageStore.title || pageStore.rawURL ]);
-            }
-        }
-        response = {
-            colorBlind: false,
-            entries: µm.logger.readAll(request.ownerId),
-            maxLoggedRequests: µm.userSettings.maxLoggedRequests,
-            noTabId: vAPI.noTabId,
-            pageStores: pageStores,
-            pageStoresToken: µm.pageStoresToken
         };
         break;
 
@@ -1020,15 +1119,14 @@ var onMessage = function(request, sender, callback) {
     callback(response);
 };
 
-vAPI.messaging.listen('logger-ui.js', onMessage);
+vAPI.messaging.listen({
+    name: 'loggerUI',
+    listener: onMessage,
+    privileged: true,
+});
+
+// <<<<< end of local scope
+}
 
 /******************************************************************************/
-
-})();
-
-/******************************************************************************/
-/******************************************************************************/
-
-})();
-
 /******************************************************************************/

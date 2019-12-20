@@ -23,7 +23,7 @@
 
 /******************************************************************************/
 
-const µMatrix = (function() { // jshint ignore:line
+const µMatrix = (( ) => { // jshint ignore:line
 
 /******************************************************************************/
 
@@ -54,9 +54,22 @@ const oneDay = 24 * oneHour;
 */
 
 const rawSettingsDefault = {
+    assetFetchBypassBrowserCache: false,
+    assetFetchTimeout: 30,
+    autoUpdateAssetFetchPeriod: 120,
+    cnameIgnoreList: 'unset',
+    cnameIgnore1stParty: true,
+    cnameIgnoreExceptions: true,
+    cnameIgnoreRootDocument: true,
+    cnameMaxTTL: 60,
+    cnameReplayFullURL: false,
+    consoleLogLevel: 'unset',
     contributorMode: false,
     disableCSPReportInjection: false,
+    disableWebAssembly: false,
     enforceEscapedFragment: true,
+    loggerPopupType: 'popup',
+    manualUpdateAssetFetchPeriod: 500,
     placeholderBackground:
         [
             'url("data:image/png;base64,',
@@ -136,7 +149,6 @@ return {
         externalHostsFiles: [],
         externalRecipeFiles: [],
         iconBadgeEnabled: true,
-        maxLoggedRequests: 1000,
         noTooltips: false,
         popupCollapseAllDomains: false,
         popupCollapseBlacklistedDomains: false,
@@ -155,22 +167,25 @@ return {
     },
 
     rawSettingsDefault: rawSettingsDefault,
-    rawSettings: (function() {
-        let out = Object.assign({}, rawSettingsDefault),
-            json = vAPI.localStorage.getItem('immediateRawSettings');
-        if ( typeof json === 'string' ) {
-            try {
-                let o = JSON.parse(json);
-                if ( o instanceof Object ) {
-                    for ( const k in o ) {
-                        if ( out.hasOwnProperty(k) ) {
-                            out[k] = o[k];
-                        }
-                    }
+    rawSettings: (( ) => {
+        const out = Object.assign({}, rawSettingsDefault);
+        const json = vAPI.localStorage.getItem('immediateRawSettings');
+        if ( typeof json !== 'string' ) { return out; }
+        try {
+            const o = JSON.parse(json);
+            if ( o instanceof Object ) {
+                for ( const k in o ) {
+                    if ( out.hasOwnProperty(k) ) { out[k] = o[k]; }
+                }
+                self.log.verbosity = out.consoleLogLevel;
+                if ( typeof out.suspendTabsUntilReady === 'boolean' ) {
+                    out.suspendTabsUntilReady = out.suspendTabsUntilReady
+                        ? 'yes'
+                        : 'unset';
                 }
             }
-            catch(ex) {
-            }
+        }
+        catch(ex) {
         }
         return out;
     })(),
@@ -201,6 +216,7 @@ return {
     pMatrix: null,
 
     ubiquitousBlacklist: null,
+    ubiquitousBlacklistRef: null,
 
     // various stats
     cookieRemovedCounter: 0,
@@ -208,7 +224,6 @@ return {
     cookieHeaderFoiledCounter: 0,
     hyperlinkAuditingFoiledCounter: 0,
     browserCacheClearedCounter: 0,
-    storageUsed: 0,
 
     // record what the browser is doing behind the scene
     behindTheSceneScope: 'behind-the-scene',

@@ -12,7 +12,7 @@
 }
 
 body {
-    font-size: 14px;
+    font: 14px sans-serif;
     }
 body[dir="ltr"] {
     direction: ltr;
@@ -110,4 +110,36 @@ button.custom[disabled] {
     }
 code {
     font-size: 90%;
+    }
+
+.px-icon {
+    align-items: center;
+    background-color: transparent;
+    border: 0;
+    display: inline-flex;
+    filter: grayscale(100%);
+    justify-content: center;
+    margin: 0;
+    padding: 0.1em;
+    position: relative;
+    }
+.px-icon > * {
+    pointer-events: none;
+    }
+.px-icon.disabled,
+.disabled > .px-icon,
+.px-icon[disabled],
+[disabled] > .px-icon {
+    color: #000;
+    fill: #000;
+    opacity: 0.25;
+    stroke: #888;
+    pointer-events: none;
+    }
+.px-icon > img {
+    height: 1em;
+    width: 1em;
+    }
+.px-icon.active {
+    filter: none;
     }

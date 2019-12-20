@@ -25,7 +25,7 @@
 
 /******************************************************************************/
 
-(function() {
+(( ) => {
 
 /******************************************************************************/
 
@@ -39,19 +39,15 @@ self.cloud = {
 
 /******************************************************************************/
 
-var widget = uDom.nodeFromId('cloudWidget');
-if ( widget === null ) {
-    return;
-}
+const widget = uDom.nodeFromId('cloudWidget');
+if ( widget === null ) { return; }
 
 self.cloud.datakey = widget.getAttribute('data-cloud-entry') || '';
-if ( self.cloud.datakey === '' ) {
-    return;
-}
+if ( self.cloud.datakey === '' ) { return; }
 
 /******************************************************************************/
 
-var onCloudDataReceived = function(entry) {
+const onCloudDataReceived = function(entry) {
     if ( entry instanceof Object === false ) { return; }
 
     self.cloud.data = entry.data;
@@ -59,7 +55,7 @@ var onCloudDataReceived = function(entry) {
     uDom.nodeFromId('cloudPull').removeAttribute('disabled');
     uDom.nodeFromId('cloudPullAndMerge').removeAttribute('disabled');
 
-    let timeOptions = {
+    const timeOptions = {
         weekday: 'short',
         year: 'numeric',
         month: 'short',
@@ -70,7 +66,7 @@ var onCloudDataReceived = function(entry) {
         timeZoneName: 'short'
     };
 
-    let time = new Date(entry.tstamp);
+    const time = new Date(entry.tstamp);
     widget.querySelector('[data-i18n="cloudNoData"]').textContent =
         entry.source + '\n' +
         time.toLocaleString('fullwide', timeOptions);
@@ -78,37 +74,31 @@ var onCloudDataReceived = function(entry) {
 
 /******************************************************************************/
 
-var fetchCloudData = function() {
-    vAPI.messaging.send(
-        'cloud-ui.js',
-        {
-            what: 'cloudPull',
-            datakey: self.cloud.datakey
-        },
-        onCloudDataReceived
-    );
+const fetchCloudData = function() {
+    vAPI.messaging.send('cloud-ui.js', {
+        what: 'cloudPull',
+        datakey: self.cloud.datakey
+    }).then(response => {
+        onCloudDataReceived(response);
+    });
 };
 
 /******************************************************************************/
 
-var pushData = function() {
-    if ( typeof self.cloud.onPush !== 'function' ) {
-        return;
-    }
-    vAPI.messaging.send(
-        'cloud-ui.js',
-        {
-            what: 'cloudPush',
-            datakey: self.cloud.datakey,
-            data: self.cloud.onPush()
-        },
-        fetchCloudData
-    );
+const pushData = function() {
+    if ( typeof self.cloud.onPush !== 'function' ) { return; }
+    vAPI.messaging.send('cloud-ui.js', {
+        what: 'cloudPush',
+        datakey: self.cloud.datakey,
+        data: self.cloud.onPush()
+    }).then(( ) => {
+        fetchCloudData();
+    });
 };
 
 /******************************************************************************/
 
-var pullData = function(ev) {
+const pullData = function(ev) {
     if ( typeof self.cloud.onPull === 'function' ) {
         self.cloud.onPull(self.cloud.data, ev.shiftKey);
     }
@@ -116,7 +106,7 @@ var pullData = function(ev) {
 
 /******************************************************************************/
 
-var pullAndMergeData = function() {
+const pullAndMergeData = function() {
     if ( typeof self.cloud.onPull === 'function' ) {
         self.cloud.onPull(self.cloud.data, true);
     }
@@ -124,8 +114,8 @@ var pullAndMergeData = function() {
 
 /******************************************************************************/
 
-var openOptions = function() {
-    let input = uDom.nodeFromId('cloudDeviceName');
+const openOptions = function() {
+    const input = uDom.nodeFromId('cloudDeviceName');
     input.value = self.cloud.options.deviceName;
     input.setAttribute('placeholder', self.cloud.options.defaultDeviceName);
     uDom.nodeFromId('cloudOptions').classList.add('show');
@@ -133,50 +123,46 @@ var openOptions = function() {
 
 /******************************************************************************/
 
-var closeOptions = function(ev) {
-    let root = uDom.nodeFromId('cloudOptions');
-    if ( ev.target !== root ) {
-        return;
-    }
+const closeOptions = function(ev) {
+    const root = uDom.nodeFromId('cloudOptions');
+    if ( ev.target !== root ) { return; }
     root.classList.remove('show');
 };
 
 /******************************************************************************/
 
-var submitOptions = function() {
-    let onOptions = function(options) {
-        if ( typeof options !== 'object' || options === null ) {
-            return;
-        }
-        self.cloud.options = options;
-    };
-
+const submitOptions = function() {
     vAPI.messaging.send('cloud-ui.js', {
         what: 'cloudSetOptions',
         options: {
             deviceName: uDom.nodeFromId('cloudDeviceName').value
         }
-    }, onOptions);
+    }).then(options => {
+        if ( typeof options !== 'object' || options === null ) { return; }
+        self.cloud.options = options;
+    });
     uDom.nodeFromId('cloudOptions').classList.remove('show');
 };
 
 /******************************************************************************/
 
-var onInitialize = function(options) {
+vAPI.messaging.send('cloud-ui.js', {
+    what: 'cloudGetOptions'
+}).then(options => {
     if ( typeof options !== 'object' || options === null ) { return; }
 
     if ( !options.enabled ) { return; }
     self.cloud.options = options;
 
-    let xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open('GET', 'cloud-ui.html', true);
     xhr.overrideMimeType('text/html;charset=utf-8');
     xhr.responseType = 'text';
     xhr.onload = function() {
         this.onload = null;
-        let parser = new DOMParser(),
-            parsed = parser.parseFromString(this.responseText, 'text/html'),
-            fromParent = parsed.body;
+        const parser = new DOMParser();
+        const parsed = parser.parseFromString(this.responseText, 'text/html');
+        const fromParent = parsed.body;
         while ( fromParent.firstElementChild !== null ) {
             widget.appendChild(
                 document.adoptNode(fromParent.firstElementChild)
@@ -198,12 +184,8 @@ var onInitialize = function(options) {
         fetchCloudData();
     };
     xhr.send();
-};
-
-vAPI.messaging.send('cloud-ui.js', { what: 'cloudGetOptions' }, onInitialize);
+});
 
 /******************************************************************************/
-
-// https://www.youtube.com/watch?v=aQFp67VoiDA
 
 })();

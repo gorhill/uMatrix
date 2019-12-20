@@ -23,9 +23,13 @@ body {
     white-space: nowrap;
     background-color: white;
     }
-#dashboard-nav-widgets span {
+#dashboard-nav-widgets > span {
     padding: 0 0.5em;
     font-size: larger;
+    vertical-align: bottom;
+    }
+#dashboard-nav-widgets > span > img {
+    width: 1em;
     }
 .tabButton {
     margin: 0;

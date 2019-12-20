@@ -25,17 +25,18 @@
 
 /******************************************************************************/
 
-(function() {
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
 let details = {};
 
-(function() {
-    let matches = /details=([^&]+)/.exec(window.location.search);
+(( ) => {
+    const matches = /details=([^&]+)/.exec(window.location.search);
     if ( matches === null ) { return; }
     try {
-        details = JSON.parse(atob(matches[1]));
+        details = JSON.parse(decodeURIComponent(matches[1]));
     } catch(ex) {
     }
 })();
@@ -51,15 +52,15 @@ uDom('.what').text(details.url);
 //   Code below originally imported from:
 //   https://github.com/gorhill/uBlock/blob/master/src/js/document-blocked.js
 
-(function() {
-    let reURL = /^https?:\/\//;
+(( ) => {
+    const reURL = /^https?:\/\//;
 
-    let liFromParam = function(name, value) {
+    const liFromParam = function(name, value) {
         if ( value === '' ) {
             value = name;
             name = '';
         }
-        let li = document.createElement('li');
+        const li = document.createElement('li');
         let span = document.createElement('span');
         span.textContent = name;
         li.appendChild(span);
@@ -68,7 +69,7 @@ uDom('.what').text(details.url);
         }
         span = document.createElement('span');
         if ( reURL.test(value) ) {
-            let a = document.createElement('a');
+            const a = document.createElement('a');
             a.href = a.textContent = value;
             span.appendChild(a);
         } else {
@@ -78,7 +79,7 @@ uDom('.what').text(details.url);
         return li;
     };
 
-    let safeDecodeURIComponent = function(s) {
+    const safeDecodeURIComponent = function(s) {
         try {
             s = decodeURIComponent(s);
         } catch (ex) {
@@ -86,30 +87,30 @@ uDom('.what').text(details.url);
         return s;
     };
 
-    let renderParams = function(parentNode, rawURL) {
-        let a = document.createElement('a');
+    const renderParams = function(parentNode, rawURL) {
+        const a = document.createElement('a');
         a.href = rawURL;
         if ( a.search.length === 0 ) { return false; }
 
-        let pos = rawURL.indexOf('?');
-        let li = liFromParam(
+        const pos = rawURL.indexOf('?');
+        const li = liFromParam(
             vAPI.i18n('mainBlockedNoParamsPrompt'),
             rawURL.slice(0, pos)
         );
         parentNode.appendChild(li);
 
-        let params = a.search.slice(1).split('&');
-        for ( var i = 0; i < params.length; i++ ) {
-            let param = params[i];
+        const params = a.search.slice(1).split('&');
+        for ( let i = 0; i < params.length; i++ ) {
+            const param = params[i];
             let pos = param.indexOf('=');
             if ( pos === -1 ) {
                 pos = param.length;
             }
-            let name = safeDecodeURIComponent(param.slice(0, pos));
-            let value = safeDecodeURIComponent(param.slice(pos + 1));
-            li = liFromParam(name, value);
+            const name = safeDecodeURIComponent(param.slice(0, pos));
+            const value = safeDecodeURIComponent(param.slice(pos + 1));
+            const li = liFromParam(name, value);
             if ( reURL.test(value) ) {
-                let ul = document.createElement('ul');
+                const ul = document.createElement('ul');
                 renderParams(ul, value);
                 li.appendChild(ul);
             }
@@ -118,17 +119,17 @@ uDom('.what').text(details.url);
         return true;
     };
 
-    let hasParams = renderParams(uDom.nodeFromId('parsed'), details.url);
+    const hasParams = renderParams(uDom.nodeFromId('parsed'), details.url);
     if ( hasParams === false ) { return; }
 
-    let theURLNode = document.getElementById('theURL');
+    const theURLNode = document.getElementById('theURL');
     theURLNode.classList.add('hasParams');
     theURLNode.classList.toggle(
         'collapsed',
         vAPI.localStorage.getItem('document-blocked-collapse-url') === 'true'
     );
 
-    let toggleCollapse = function() {
+    const toggleCollapse = function() {
         vAPI.localStorage.setItem(
             'document-blocked-collapse-url',
             theURLNode.classList.toggle('collapsed').toString()
@@ -163,8 +164,8 @@ vAPI.messaging.send('main-blocked.js', {
     what: 'mustBlock',
     scope: details.hn,
     hostname: details.hn,
-    type: details.type
-}, response => {
+    type: details.type,
+}).then(response => {
     if ( response === false ) {
         window.location.replace(details.url);
     }
@@ -172,6 +173,7 @@ vAPI.messaging.send('main-blocked.js', {
 
 /******************************************************************************/
 
-})();
+// <<<<< end of local scope
+}
 
 /******************************************************************************/

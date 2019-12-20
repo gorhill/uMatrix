@@ -1,20 +1,16 @@
-div.body {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+html {
     height: 100vh;
-    justify-content: space-between;
     overflow: hidden;
     }
-p {
-    margin: 0.5em 0;
+body {
+    overflow: hidden;
     }
-textarea {
-    box-sizing: border-box;
-    flex-grow: 1;
-    resize: none;
+#rawSettings {
+    border-top: 1px solid #ddd;
+    height: 75vh;
     text-align: left;
-    white-space: pre;
     width: 100%;
-    word-wrap: normal;
+    }
+.CodeMirror-wrap pre {
+    word-break: break-all;
     }

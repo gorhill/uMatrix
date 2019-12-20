@@ -46,6 +46,7 @@
     "permissions": [
         "browsingData",
         "cookies",
+        "dns",
         "privacy",
         "storage",
         "tabs",

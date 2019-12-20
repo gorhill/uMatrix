@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a Chromium browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,83 +25,82 @@
 
 /******************************************************************************/
 
-uDom.onLoad(function() {
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
-var backupUserDataToFile = function() {
-    var userDataReady = function(userData) {
+const backupUserDataToFile = function() {
+    vAPI.messaging.send('dashboard', {
+        what: 'getAllUserData',
+    }).then(userData => {
         vAPI.download({
-            'url': 'data:text/plain,' + encodeURIComponent(JSON.stringify(userData, null, 2)),
-            'filename': uDom('[data-i18n="aboutBackupFilename"]').text()
+            url: 'data:text/plain,' + encodeURIComponent(
+                JSON.stringify(userData, null, 2)
+            ),
+            filename:
+                uDom.nodeFromSelector('[data-i18n="aboutBackupFilename"]')
+                    .textContent
         });
-    };
-
-    vAPI.messaging.send('about.js', { what: 'getAllUserData' }, userDataReady);
+    });
 };
 
 /******************************************************************************/
 
-function restoreUserDataFromFile() {
-    var validateBackup = function(s) {
-        var userData = null;
+const restoreUserDataFromFile = function() {
+    const validateBackup = function(s) {
+        let userData;
         try {
             userData = JSON.parse(s);
         }
-        catch (e) {
-            userData = null;
+        catch (ex) {
         }
-        if ( userData === null ) {
-            return null;
-        }
+        if ( userData === undefined ) { return; }
         if (
             typeof userData !== 'object' ||
             typeof userData.app !== 'string' ||
             typeof userData.version !== 'string' ||
             typeof userData.when !== 'number' ||
             typeof userData.settings !== 'object' ||
-            (typeof userData.rules !== 'string' &&
-                Array.isArray(userData.rules) === false)
+            typeof userData.rules !== 'string' &&
+                Array.isArray(userData.rules) === false
         ) {
-            return null;
+            return;
         }
         return userData;
     };
 
-    var fileReaderOnLoadHandler = function() {
-        var userData = validateBackup(this.result);
-        if ( !userData ) {
+    const fileReaderOnLoadHandler = function() {
+        const userData = validateBackup(this.result);
+        if ( userData instanceof Object === false ) {
             window.alert(uDom('[data-i18n="aboutRestoreError"]').text());
             return;
         }
-        var time = new Date(userData.when);
-        var msg = uDom('[data-i18n="aboutRestoreConfirm"]').text()
-            .replace('{{time}}', time.toLocaleString());
-        var proceed = window.confirm(msg);
+        const time = new Date(userData.when);
+        const msg = uDom.nodeFromSelector('[data-i18n="aboutRestoreConfirm"]')
+                        .textContent
+                        .replace('{{time}}', time.toLocaleString());
+        const proceed = window.confirm(msg);
         if ( proceed ) {
-            vAPI.messaging.send(
-                'about.js',
-                { what: 'restoreAllUserData', userData: userData }
-            );
+            vAPI.messaging.send('dashboard', {
+                what: 'restoreAllUserData',
+                userData
+            });
         }
     };
 
-    var file = this.files[0];
-    if ( file === undefined || file.name === '' ) {
-        return;
-    }
-    if ( file.type.indexOf('text') !== 0 ) {
-        return;
-    }
-    var fr = new FileReader();
+    const file = this.files[0];
+    if ( file === undefined || file.name === '' ) { return; }
+    if ( file.type.indexOf('text') !== 0 ) { return; }
+    const fr = new FileReader();
     fr.onload = fileReaderOnLoadHandler;
     fr.readAsText(file);
-}
+};
 
 /******************************************************************************/
 
-var startRestoreFilePicker = function() {
-    var input = document.getElementById('restoreFilePicker');
+const startRestoreFilePicker = function() {
+    const input = document.getElementById('restoreFilePicker');
     // Reset to empty string, this will ensure an change event is properly
     // triggered if the user pick a file, even if it is the same as the last
     // one picked.
@@ -111,28 +110,30 @@ var startRestoreFilePicker = function() {
 
 /******************************************************************************/
 
-var resetUserData = function() {
-    var proceed = window.confirm(uDom('[data-i18n="aboutResetConfirm"]').text());
-    if ( proceed ) {
-        vAPI.messaging.send('about.js', { what: 'resetAllUserData' });
-    }
+const resetUserData = function() {
+    const msg = uDom.nodeFromSelector('[data-i18n="aboutResetConfirm"]')
+                    .textContent;
+    const proceed = window.confirm(msg);
+    if ( proceed !== true ) { return; }
+    vAPI.messaging.send('dashboard', {
+        what: 'resetAllUserData',
+    });
 };
 
 /******************************************************************************/
 
-(function() {
-    var renderStats = function(details) {
-        document.getElementById('aboutVersion').textContent = details.version;
-        var template = uDom('[data-i18n="aboutStorageUsed"]').text();
-        var storageUsed = '?';
-        if ( typeof details.storageUsed === 'number' ) {
-            storageUsed = details.storageUsed.toLocaleString();
-        }
-        document.getElementById('aboutStorageUsed').textContent =
-            template.replace('{{storageUsed}}', storageUsed);
-    };
-    vAPI.messaging.send('about.js', { what: 'getSomeStats' }, renderStats);
-})();
+vAPI.messaging.send('dashboard', {
+    what: 'getSomeStats',
+}).then(details => {
+    document.getElementById('aboutVersion').textContent = details.version;
+    const template = uDom('[data-i18n="aboutStorageUsed"]').text();
+    let storageUsed = '?';
+    if ( typeof details.storageUsed === 'number' ) {
+        storageUsed = details.storageUsed.toLocaleString();
+    }
+    document.getElementById('aboutStorageUsed').textContent =
+        template.replace('{{storageUsed}}', storageUsed);
+});
 
 /******************************************************************************/
 
@@ -143,4 +144,5 @@ uDom('#resetUserDataButton').on('click', resetUserData);
 
 /******************************************************************************/
 
-});
+// <<<<< end of local scope
+}

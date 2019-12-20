@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uMatrix - a browser extension to black/white list requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 
 // Injected into content pages
 
-(function() {
+(( ) => {
 
 /******************************************************************************/
 
@@ -42,9 +42,7 @@ if (
 }
 
 // This can also happen (for example if script injected into a `data:` URI doc)
-if ( !window.location ) {
-    return;
-}
+if ( !window.location ) { return; }
 
 // This can happen
 if ( typeof vAPI !== 'object' ) {
@@ -65,8 +63,8 @@ vAPI.contentscriptEndInjected = true;
 
 // Executed only once.
 
-(function() {
-    var localStorageHandler = function(mustRemove) {
+{
+    const localStorageHandler = function(mustRemove) {
         if ( mustRemove ) {
             window.localStorage.clear();
             window.sessionStorage.clear();
@@ -78,15 +76,17 @@ vAPI.contentscriptEndInjected = true;
     // to site data is disabled.
     // https://github.com/gorhill/httpswitchboard/issues/215
     try {
-        var hasLocalStorage =
+        const hasLocalStorage =
             window.localStorage && window.localStorage.length !== 0;
-        var hasSessionStorage =
+        const hasSessionStorage =
             window.sessionStorage && window.sessionStorage.length !== 0;
         if ( hasLocalStorage || hasSessionStorage ) {
             vAPI.messaging.send('contentscript.js', {
                 what: 'contentScriptHasLocalStorage',
-                originURL: window.location.origin
-            }, localStorageHandler);
+                originURL: window.location.origin,
+            }).then(response => {
+                localStorageHandler(response);
+            });
         }
 
         // TODO: indexedDB
@@ -105,41 +105,41 @@ vAPI.contentscriptEndInjected = true;
     }
     catch (e) {
     }
-})();
+}
 
 /******************************************************************************/
 /******************************************************************************/
 
 // https://github.com/gorhill/uMatrix/issues/45
 
-var collapser = (function() {
-    var resquestIdGenerator = 1,
+const collapser = (( ) => {
+    let resquestIdGenerator = 1,
         processTimer,
         toProcess = [],
         toFilter = [],
-        toCollapse = new Map(),
         cachedBlockedMap,
         cachedBlockedMapHash,
-        cachedBlockedMapTimer,
-        reURLPlaceholder = /\{\{url\}\}/g;
-    var src1stProps = {
+        cachedBlockedMapTimer;
+    const toCollapse = new Map();
+    const reURLPlaceholder = /\{\{url\}\}/g;
+    const src1stProps = {
         'embed': 'src',
         'frame': 'src',
         'iframe': 'src',
         'img': 'src',
         'object': 'data'
     };
-    var src2ndProps = {
+    const src2ndProps = {
         'img': 'srcset'
     };
-    var tagToTypeMap = {
+    const tagToTypeMap = {
         embed: 'media',
         frame: 'frame',
         iframe: 'frame',
         img: 'image',
         object: 'media'
     };
-    var cachedBlockedSetClear = function() {
+    const cachedBlockedSetClear = function() {
         cachedBlockedMap =
         cachedBlockedMapHash =
         cachedBlockedMapTimer = undefined;
@@ -147,13 +147,13 @@ var collapser = (function() {
 
     // https://github.com/chrisaljoudi/uBlock/issues/174
     //   Do not remove fragment from src URL
-    var onProcessed = function(response) {
+    const onProcessed = function(response) {
         if ( !response ) { // This happens if uBO is disabled or restarted.
             toCollapse.clear();
             return;
         }
 
-        var targets = toCollapse.get(response.id);
+        const targets = toCollapse.get(response.id);
         if ( targets === undefined ) { return; }
         toCollapse.delete(response.id);
         if ( cachedBlockedMapHash !== response.hash ) {
@@ -168,10 +168,10 @@ var collapser = (function() {
             return;
         }
 
-        let placeholders = response.placeholders;
+        const placeholders = response.placeholders;
 
-        for ( let target of targets ) {
-            let tag = target.localName;
+        for ( const target of targets ) {
+            const tag = target.localName;
             let prop = src1stProps[tag];
             if ( prop === undefined ) { continue; }
             let src = target[prop];
@@ -181,7 +181,7 @@ var collapser = (function() {
                 src = target[prop];
                 if ( typeof src !== 'string' || src.length === 0 ) { continue; }
             }
-            let collapsed = cachedBlockedMap.get(tagToTypeMap[tag] + ' ' + src);
+            const collapsed = cachedBlockedMap.get(tagToTypeMap[tag] + ' ' + src);
             if ( collapsed === undefined ) { continue; }
             if ( collapsed ) {
                 target.style.setProperty('display', 'none', 'important');
@@ -192,7 +192,7 @@ var collapser = (function() {
             case 'frame':
             case 'iframe':
                 if ( placeholders.frame !== true ) { break; }
-                let docurl =
+                const docurl =
                     'data:text/html,' +
                     encodeURIComponent(
                         placeholders.frameDocument.replace(
@@ -244,22 +244,23 @@ var collapser = (function() {
         }
     };
 
-    var send = function() {
+    const send = function() {
         processTimer = undefined;
         toCollapse.set(resquestIdGenerator, toProcess);
-        var msg = {
+        vAPI.messaging.send('contentscript.js', {
             what: 'lookupBlockedCollapsibles',
             id: resquestIdGenerator,
             toFilter: toFilter,
-            hash: cachedBlockedMapHash
-        };
-        vAPI.messaging.send('contentscript.js', msg, onProcessed);
+            hash: cachedBlockedMapHash,
+        }).then(response => {
+            onProcessed(response);
+        });
         toProcess = [];
         toFilter = [];
         resquestIdGenerator += 1;
     };
 
-    var process = function(delay) {
+    const process = function(delay) {
         if ( toProcess.length === 0 ) { return; }
         if ( delay === 0 ) {
             if ( processTimer !== undefined ) {
@@ -271,7 +272,7 @@ var collapser = (function() {
         }
     };
 
-    var add = function(target) {
+    const add = function(target) {
         toProcess.push(target);
     };
 
@@ -282,20 +283,20 @@ var collapser = (function() {
         }
     };
 
-    var iframeSourceModified = function(mutations) {
-        var i = mutations.length;
+    const iframeSourceModified = function(mutations) {
+        let i = mutations.length;
         while ( i-- ) {
             addIFrame(mutations[i].target, true);
         }
         process();
     };
-    var iframeSourceObserver;
-    var iframeSourceObserverOptions = {
+    let iframeSourceObserver;
+    const iframeSourceObserverOptions = {
         attributes: true,
-        attributeFilter: [ 'src' ]
+        attributeFilter: [ 'src' ],
     };
 
-    var addIFrame = function(iframe, dontObserve) {
+    const addIFrame = function(iframe, dontObserve) {
         // https://github.com/gorhill/uBlock/issues/162
         // Be prepared to deal with possible change of src attribute.
         if ( dontObserve !== true ) {
@@ -304,25 +305,24 @@ var collapser = (function() {
             }
             iframeSourceObserver.observe(iframe, iframeSourceObserverOptions);
         }
-        var src = iframe.src;
+        const src = iframe.src;
         if ( src === '' || typeof src !== 'string' ) { return; }
         if ( src.startsWith('http') === false ) { return; }
         toFilter.push({ type: 'frame', url: iframe.src });
         add(iframe);
     };
 
-    var addIFrames = function(iframes) {
-        var i = iframes.length;
+    const addIFrames = function(iframes) {
+        let i = iframes.length;
         while ( i-- ) {
             addIFrame(iframes[i]);
         }
     };
 
-    var addNodeList = function(nodeList) {
-        var node,
-            i = nodeList.length;
+    const addNodeList = function(nodeList) {
+        let i = nodeList.length;
         while ( i-- ) {
-            node = nodeList[i];
+            const node = nodeList[i];
             if ( node.nodeType !== 1 ) { continue; }
             if ( node.localName === 'iframe' || node.localName === 'frame' ) {
                 addIFrame(node);
@@ -333,7 +333,7 @@ var collapser = (function() {
         }
     };
 
-    var onResourceFailed = function(ev) {
+    const onResourceFailed = function(ev) {
         if ( tagToTypeMap[ev.target.localName] !== undefined ) {
             add(ev.target);
             process();
@@ -354,10 +354,10 @@ var collapser = (function() {
     });
 
     return {
-        addMany: addMany,
-        addIFrames: addIFrames,
-        addNodeList: addNodeList,
-        process: process
+        addMany,
+        addIFrames,
+        addNodeList,
+        process,
     };
 })();
 
@@ -368,16 +368,16 @@ var collapser = (function() {
 
 // Added node lists will be cumulated here before being processed
 
-(function() {
+(( ) => {
     // This fixes http://acid3.acidtests.org/
     if ( !document.body ) { return; }
 
-    var addedNodeLists = [];
-    var addedNodeListsTimer;
+    let addedNodeLists = [];
+    let addedNodeListsTimer;
 
-    var treeMutationObservedHandler = function() {
+    const treeMutationObservedHandler = function() {
         addedNodeListsTimer = undefined;
-        var i = addedNodeLists.length;
+        let i = addedNodeLists.length;
         while ( i-- ) {
             collapser.addNodeList(addedNodeLists[i]);
         }
@@ -387,11 +387,10 @@ var collapser = (function() {
 
     // https://github.com/gorhill/uBlock/issues/205
     // Do not handle added node directly from within mutation observer.
-    var treeMutationObservedHandlerAsync = function(mutations) {
-        var iMutation = mutations.length,
-            nodeList;
+    const treeMutationObservedHandlerAsync = function(mutations) {
+        let iMutation = mutations.length;
         while ( iMutation-- ) {
-            nodeList = mutations[iMutation].addedNodes;
+            const nodeList = mutations[iMutation].addedNodes;
             if ( nodeList.length !== 0 ) {
                 addedNodeLists.push(nodeList);
             }
@@ -402,7 +401,7 @@ var collapser = (function() {
     };
 
     // https://github.com/gorhill/httpswitchboard/issues/176
-    var treeObserver = new MutationObserver(treeMutationObservedHandlerAsync);
+    let treeObserver = new MutationObserver(treeMutationObservedHandlerAsync);
     treeObserver.observe(document.body, {
         childList: true,
         subtree: true
@@ -437,7 +436,7 @@ var collapser = (function() {
 // https://github.com/gorhill/uMatrix/issues/924
 //   Report inline styles.
 
-(function() {
+{
     if (
         document.querySelector('script:not([src])') !== null ||
         document.querySelector('a[href^="javascript:"]') !== null ||
@@ -446,7 +445,7 @@ var collapser = (function() {
         vAPI.messaging.send('contentscript.js', {
             what: 'securityPolicyViolation',
             directive: 'script-src',
-            documentURI: window.location.href
+            documentURI: window.location.href,
         });
     }
 
@@ -454,14 +453,14 @@ var collapser = (function() {
         vAPI.messaging.send('contentscript.js', {
             what: 'securityPolicyViolation',
             directive: 'style-src',
-            documentURI: window.location.href
+            documentURI: window.location.href,
         });
     }
 
     collapser.addMany(document.querySelectorAll('img'));
     collapser.addIFrames(document.querySelectorAll('iframe, frame'));
     collapser.process();
-})();
+}
 
 /******************************************************************************/
 /******************************************************************************/
@@ -471,23 +470,23 @@ var collapser = (function() {
 // https://github.com/gorhill/uMatrix/issues/232
 //   Force `display` property, Firefox is still affected by the issue.
 
-(function() {
-    var noscripts = document.querySelectorAll('noscript');
+(( ) => {
+    const noscripts = document.querySelectorAll('noscript');
     if ( noscripts.length === 0 ) { return; }
 
-    var redirectTimer,
-        reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)([^'"]+)\2/i,
-        reSafeURL = /^https?:\/\//;
+    const reMetaContent = /^\s*(\d+)\s*;\s*url=(['"]?)([^'"]+)\2/i;
+    const reSafeURL = /^https?:\/\//;
+    let redirectTimer;
 
-    var autoRefresh = function(root) {
-        var meta = root.querySelector('meta[http-equiv="refresh"][content]');
+    const autoRefresh = function(root) {
+        const meta = root.querySelector('meta[http-equiv="refresh"][content]');
         if ( meta === null ) { return; }
-        var match = reMetaContent.exec(meta.getAttribute('content'));
+        const match = reMetaContent.exec(meta.getAttribute('content'));
         if ( match === null || match[3].trim() === '' ) { return; }
-        var url = new URL(match[3], document.baseURI);
+        const url = new URL(match[3], document.baseURI);
         if ( reSafeURL.test(url.href) === false ) { return; }
         redirectTimer = setTimeout(
-            function() {
+            ( ) => {
                 location.assign(url.href);
             },
             parseInt(match[1], 10) * 1000 + 1
@@ -495,29 +494,28 @@ var collapser = (function() {
         meta.parentNode.removeChild(meta);
     };
 
-    var morphNoscript = function(from) {
+    const morphNoscript = function(from) {
         if ( /^application\/(?:xhtml\+)?xml/.test(document.contentType) ) {
-            var to = document.createElement('span');
+            const to = document.createElement('span');
             while ( from.firstChild !== null ) {
                 to.appendChild(from.firstChild);
             }
             return to;
         }
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(
             '<span>' + from.textContent + '</span>',
             'text/html'
         );
         return document.adoptNode(doc.querySelector('span'));
     };
 
-    var renderNoscriptTags = function(response) {
+    const renderNoscriptTags = function(response) {
         if ( response !== true ) { return; }
-        var parent, span;
         for ( var noscript of noscripts ) {
-            parent = noscript.parentNode;
+            const parent = noscript.parentNode;
             if ( parent === null ) { continue; }
-            span = morphNoscript(noscript);
+            const span = morphNoscript(noscript);
             span.style.setProperty('display', 'inline', 'important');
             if ( redirectTimer === undefined ) {
                 autoRefresh(span);
@@ -526,25 +524,23 @@ var collapser = (function() {
         }
     };
 
-    vAPI.messaging.send(
-        'contentscript.js',
-        { what: 'mustRenderNoscriptTags?' },
-        renderNoscriptTags
-    );
+    vAPI.messaging.send('contentscript.js', {
+        what: 'mustRenderNoscriptTags?',
+    }).then(response => {
+        renderNoscriptTags(response);
+    });
 })();
 
 /******************************************************************************/
 /******************************************************************************/
 
-vAPI.messaging.send(
-    'contentscript.js',
-    { what: 'shutdown?' },
-    function(response) {
-        if ( response === true ) {
-            vAPI.shutdown.exec();
-        }
+vAPI.messaging.send('contentscript.js', {
+    what: 'shutdown?',
+}).then(response => {
+    if ( response === true ) {
+        vAPI.shutdown.exec();
     }
-);
+});
 
 /******************************************************************************/
 /******************************************************************************/

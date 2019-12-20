@@ -54,9 +54,7 @@ a {
     border: 0;
     color: #bbb;
     cursor: pointer;
-    display: block;
-    font-size: 12px;
-    line-height: 12px;
+    font: 12px/1 sans-serif;
     margin: 0;
     padding: 3px 0;
     position: relative;
@@ -65,17 +63,11 @@ a {
 
 .paneHead {
     background-color: white;
-    left: 0;
     padding: 0;
-    position: fixed;
-    right: 0;
+    position: sticky;
     top: 0;
     z-index: 100;
     }
-.paneContent {
-    padding-top: 5.5em;
-    }
-
 
 .paneHead > a:first-child {
     background-color: #444;
@@ -152,6 +144,9 @@ body .toolbar button.disabled {
     opacity: 1;
     stroke: none;
     }
+#mtxSwitches > li > svg > * {
+    fill: #bbb;
+    }
 #mtxSwitches > li.relevant > svg .dot {
     fill: #aaa;
     }
@@ -180,6 +175,13 @@ body .toolbar button.disabled {
     }
 #mtxSwitches > li > a:hover {
     opacity: 0.8;
+    }
+#mtxSwitches > li.unsupported {
+    cursor: default;
+    }
+#mtxSwitches > li.unsupported > svg .on,
+#mtxSwitches > li.unsupported > svg .off {
+    display: none;
     }
 
 .dropdown-menu-capture {
@@ -336,19 +338,23 @@ body[data-scope="*"] .toolbar .scopeRel.disabled {
     color: #ccc;
     }
 
+body.embedded [data-extension-url],
+body.tabless .needtab {
+    display: none;
+    }
+
 .matrix {
     text-align: left;
     }
 .matRow {
+    display: flex;
     white-space: nowrap;
     }
 .matCell {
     margin: 1px 1px 0 0;
-    border: 1px dotted rgba(0,0,0,0.2);
-    padding: 6px 1px 3px 1px;
+    padding: 6px 2px;
     display: inline-block;
     box-sizing: content-box;
-    -moz-box-sizing: content-box;
     width: 2.6em;
     white-space: nowrap;
     text-align: center;
@@ -357,9 +363,8 @@ body[data-scope="*"] .toolbar .scopeRel.disabled {
     }
 
 #matHead {
-    border-top: 1px dotted #ccc;
+    padding-bottom: 1px;
     padding-top: 1px;
-    margin: 1px 0 0 0;
     }
 .paneHead .matCell:nth-child(2) {
     letter-spacing: -0.3px;
@@ -383,17 +388,14 @@ body[data-scope="*"] .toolbar .scopeRel.disabled {
     direction: inherit;
     }
 .matrix .matRow.l2 > .matCell:first-child {
-    margin-left: 1px;
-    width: calc(16em - 1px);
     }
 .matrix .matRow > .matCell:hover {
-    border-style: solid;
     }
 .matrix .matGroup .matSection {
-    margin: 2px 0 0 0;
     border: 0;
     padding: 0;
-    /* background-color: rgba(0,0,0,0.05); */
+    }
+.matrix .matGroup .matSection:hover {
     }
 .matrix .matGroup.g0 .matSection:first-child {
     margin-top: 0;
@@ -406,7 +408,7 @@ body[data-scope="*"] .toolbar .scopeRel.disabled {
     display: none;
     }
 .matrix .matSection.collapsible.collapsed .matRow.meta {
-    display: block;
+    display: flex;
     }
 .matrix .matSection.collapsible.collapsed .matRow.l1:not(.meta) {
     display: none;
@@ -416,6 +418,9 @@ body[data-scope="*"] .toolbar .scopeRel.disabled {
     }
 
 /* Collapsing of blacklisted */
+.matrix .matGroup.g4 {
+    margin-bottom: 1px;
+    }
 .matrix .g4Meta {
     margin: 0;
     padding: 0;
@@ -443,7 +448,7 @@ body.powerOff .matrix .g4Meta.g4Collapsed ~ .matSection {
     display: none;
     }
 .matrix .g4Meta.g4Collapsed ~ .matRow.ro {
-    display: block;
+    display: flex;
     }
 body.powerOff .matrix .g4Meta.g4Collapsed ~ .matRow.ro {
     display: none;
@@ -463,12 +468,10 @@ body.powerOff .matrix .g4Meta.g4Collapsed ~ .matRow.ro {
     background-color: #080;
     }
 .t1 {
-    border-color: #debaba;
     color: black;
     background-color: #f8d0d0;
     }
 .t2 {
-    border-color: #bad6ba;
     color: black;
     background-color: #d0f0d0;
     }
@@ -489,17 +492,14 @@ body.colorblind .t81 {
     background-color: rgb(0, 19, 110);
     }
 body.colorblind .t82 {
-    border-color: rgb(255, 194, 57);
     color: black;
     background-color: rgb(255, 194, 57);
     }
 body.colorblind .t1 {
-    border-color: rgba(0, 19, 110, 0.3);
     color: black;
     background-color: rgba(0, 19, 110, 0.2);
     }
 body.colorblind .t2 {
-    border-color: rgba(255, 194, 57, 0.3);
     color: black;
     background-color: rgba(255, 194, 57, 0.2);
     }
@@ -612,7 +612,7 @@ body.colorblind .rw .matCell.t2 #blacklist:hover {
     }
 .matSection.collapsible .matRow.l1 .matCell:nth-of-type(1):hover #domainOnly,
 #matHead.collapsible .matRow .matCell:nth-of-type(1):hover #domainOnly {
-    display: inline-flex;
+    display: inline-block;
     }
 #domainOnly:hover {
     opacity: 1;
@@ -637,12 +637,6 @@ body.noTabFound #noTabFound {
 
 body.hConstrained {
     overflow-x: auto;
-    }
-body.hConstrained .paneHead {
-    left: auto;
-    position: absolute;
-    right: auto;
-    width: 100%;
     }
 body[data-touch="true"] .matCell {
     line-height: 200%;

@@ -23,42 +23,39 @@
 
 /******************************************************************************/
 
-µMatrix.pageStoreFactory = (function() {
+µMatrix.pageStoreFactory = (( ) => {
 
 /******************************************************************************/
 
-var µm = µMatrix;
+const µm = µMatrix;
 
 /******************************************************************************/
 
-var BlockedCollapsibles = function() {
-    this.boundPruneAsyncCallback = this.pruneAsyncCallback.bind(this);
-    this.blocked = new Map();
-    this.hash = 0;
-    this.timer = null;
-    this.tOrigin = Date.now();
-};
+const BlockedCollapsibles = class {
+    constructor() {
+        this.boundPruneAsyncCallback = this.pruneAsyncCallback.bind(this);
+        this.blocked = new Map();
+        this.hash = 0;
+        this.timer = null;
+        this.tOrigin = Date.now();
+    }
 
-BlockedCollapsibles.prototype = {
-
-    shelfLife: 10 * 1000,
-
-    add: function(type, url, isSpecific) {
+    add(type, url, isSpecific) {
         if ( this.blocked.size === 0 ) { this.pruneAsync(); }
         let tStamp = Date.now() - this.tOrigin;
         // The following "trick" is to encode the specifity into the lsb of the
         // time stamp so as to avoid to have to allocate a memory structure to
         // store both time stamp and specificity.
         if ( isSpecific ) {
-            tStamp |= 0x00000001;
+            tStamp |= 1;
         } else {
-            tStamp &= 0xFFFFFFFE;
+            tStamp &= ~1;
         }
         this.blocked.set(type + ' ' + url, tStamp);
         this.hash += 1;
-    },
+    }
 
-    reset: function() {
+    reset() {
         this.blocked.clear();
         this.hash = 0;
         if ( this.timer !== null ) {
@@ -66,23 +63,23 @@ BlockedCollapsibles.prototype = {
             this.timer = null;
         }
         this.tOrigin = Date.now();
-    },
+    }
 
-    pruneAsync: function() {
+    pruneAsync() {
         if ( this.timer === null ) {
             this.timer = vAPI.setTimeout(
                 this.boundPruneAsyncCallback,
                 this.shelfLife * 2
             );
         }
-    },
+    }
 
-    pruneAsyncCallback: function() {
+    pruneAsyncCallback() {
         this.timer = null;
-        let tObsolete = Date.now() - this.tOrigin - this.shelfLife;
-        for ( let entry of this.blocked ) {
-            if ( entry[1] <= tObsolete ) {
-                this.blocked.delete(entry[0]);
+        const tObsolete = Date.now() - this.tOrigin - this.shelfLife;
+        for ( const [ key, tStamp ] of this.blocked ) {
+            if ( tStamp <= tObsolete ) {
+                this.blocked.delete(key);
             }
         }
         if ( this.blocked.size !== 0 ) {
@@ -93,6 +90,8 @@ BlockedCollapsibles.prototype = {
     }
 };
 
+BlockedCollapsibles.prototype.shelfLife = 10 * 1000;
+
 /******************************************************************************/
 
 // Ref: Given a URL, returns a (somewhat) unique 32-bit value
@@ -100,19 +99,15 @@ BlockedCollapsibles.prototype = {
 // http://www.isthe.com/chongo/tech/comp/fnv/index.html#FNV-reference-source
 // The rest is custom, suited for uMatrix.
 
-var PageStore = function(tabContext) {
-    this.hostnameTypeCells = new Map();
-    this.domains = new Set();
-    this.blockedCollapsibles = new BlockedCollapsibles();
-    this.init(tabContext);
-};
+const PageStore = class {
+    constructor(tabContext) {
+        this.hostnameTypeCells = new Map();
+        this.domains = new Set();
+        this.blockedCollapsibles = new BlockedCollapsibles();
+        this.init(tabContext);
+    }
 
-PageStore.prototype = {
-
-    collapsibleTypes: new Set([ 'image' ]),
-    pageStoreJunkyard: [],
-
-    init: function(tabContext) {
+    init(tabContext) {
         this.tabId = tabContext.tabId;
         this.rawURL = tabContext.rawURL;
         this.pageUrl = tabContext.normalURL;
@@ -130,13 +125,14 @@ PageStore.prototype = {
         this.hasMixedContent = false;
         this.hasNoscriptTags = false;
         this.hasWebWorkers = false;
+        this.hasHostnameAliases = false;
         this.incinerationTimer = null;
         this.mtxContentModifiedTime = 0;
         this.mtxCountModifiedTime = 0;
         return this;
-    },
+    }
 
-    dispose: function() {
+    dispose() {
         this.tabId = '';
         this.rawURL = '';
         this.pageUrl = '';
@@ -154,9 +150,9 @@ PageStore.prototype = {
         if ( this.pageStoreJunkyard.length < 8 ) {
             this.pageStoreJunkyard.push(this);
         }
-    },
+    }
 
-    cacheBlockedCollapsible: function(type, url, specificity) {
+    cacheBlockedCollapsible(type, url, specificity) {
         if ( this.collapsibleTypes.has(type) ) {
             this.blockedCollapsibles.add(
                 type,
@@ -164,20 +160,20 @@ PageStore.prototype = {
                 specificity !== 0 && specificity < 5
             );
         }
-    },
+    }
 
-    lookupBlockedCollapsibles: function(request, response) {
-        var tabContext = µm.tabContextManager.lookup(this.tabId);
+    lookupBlockedCollapsibles(request, response) {
+        const tabContext = µm.tabContextManager.lookup(this.tabId);
         if ( tabContext === null ) { return; }
 
         if (
             Array.isArray(request.toFilter) &&
             request.toFilter.length !== 0
         ) {
-            let roothn = tabContext.rootHostname,
-                hnFromURI = µm.URI.hostnameFromURI,
-                tMatrix = µm.tMatrix;
-            for ( let entry of request.toFilter ) {
+            const roothn = tabContext.rootHostname;
+            const hnFromURI = vAPI.hostnameFromURI;
+            const tMatrix = µm.tMatrix;
+            for ( const entry of request.toFilter ) {
                 if ( tMatrix.mustBlock(roothn, hnFromURI(entry.url), entry.type) ) {
                     this.blockedCollapsibles.add(
                         entry.type,
@@ -191,19 +187,19 @@ PageStore.prototype = {
         if ( this.blockedCollapsibles.hash === response.hash ) { return; }
         response.hash = this.blockedCollapsibles.hash;
 
-        let collapseBlacklisted = µm.userSettings.collapseBlacklisted,
-            collapseBlocked = µm.userSettings.collapseBlocked,
-            blockedResources = response.blockedResources;
+        const collapseBlacklisted = µm.userSettings.collapseBlacklisted;
+        const collapseBlocked = µm.userSettings.collapseBlocked;
+        const blockedResources = response.blockedResources;
 
-        for ( let entry of this.blockedCollapsibles.blocked ) {
+        for ( const entry of this.blockedCollapsibles.blocked ) {
             blockedResources.push([
                 entry[0],
                 collapseBlocked || collapseBlacklisted && (entry[1] & 1) !== 0
             ]);
         }
-    },
+    }
 
-    recordRequest: function(type, url, block) {
+    recordRequest(type, url, block) {
         if ( this.tabId <= 0 ) { return; }
 
         if ( block ) {
@@ -216,19 +212,19 @@ PageStore.prototype = {
         // - remember which hostname/type were seen
         // - count the number of distinct URLs for any given
         //   hostname-type pair
-        var hostname = µm.URI.hostnameFromURI(url),
-            key = hostname + ' ' + type,
-            uids = this.hostnameTypeCells.get(key);
+        const hostname = vAPI.hostnameFromURI(url);
+        const key = hostname + ' ' + type;
+        let uids = this.hostnameTypeCells.get(key);
         if ( uids === undefined ) {
             this.hostnameTypeCells.set(key, (uids = new Set()));
         } else if ( uids.size > 99 ) {
             return;
         }
-        var uid = this.uidFromURL(url);
+        const uid = this.uidFromURL(url);
         if ( uids.has(uid) ) { return; }
         uids.add(uid);
 
-        µm.updateBadgeAsync(this.tabId);
+        µm.updateToolbarIcon(this.tabId);
 
         this.mtxCountModifiedTime = Date.now();
 
@@ -237,24 +233,27 @@ PageStore.prototype = {
             this.allHostnamesString += hostname + ' ';
             this.mtxContentModifiedTime = Date.now();
         }
-    },
+    }
 
-    uidFromURL: function(uri) {
-        var hint = 0x811c9dc5,
-            i = uri.length;
+    uidFromURL(uri) {
+        let hint = 0x811c9dc5;
+        let i = uri.length;
         while ( i-- ) {
-            hint ^= uri.charCodeAt(i) | 0;
-            hint += (hint<<1) + (hint<<4) + (hint<<7) + (hint<<8) + (hint<<24) | 0;
+            hint ^= uri.charCodeAt(i);
+            hint += (hint<<1) + (hint<<4) + (hint<<7) + (hint<<8) + (hint<<24);
             hint >>>= 0;
         }
         return hint;
     }
 };
 
+PageStore.prototype.collapsibleTypes = new Set([ 'image' ]);
+PageStore.prototype.pageStoreJunkyard = [];
+
 /******************************************************************************/
 
 return function pageStoreFactory(tabContext) {
-    var entry = PageStore.prototype.pageStoreJunkyard.pop();
+    const entry = PageStore.prototype.pageStoreJunkyard.pop();
     if ( entry ) {
         return entry.init(tabContext);
     }

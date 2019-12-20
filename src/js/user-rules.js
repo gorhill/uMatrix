@@ -25,21 +25,22 @@
 
 /******************************************************************************/
 
-(function() {
+{
+// >>>>> start of local scope
 
 /******************************************************************************/
 
 // Move to dashboard-common.js if needed
 
-(function() {
+{
     let timer;
-    let resize = function() {
+    const resize = ( ) => {
         timer = undefined;
-        let child = document.querySelector('.vfill-available');
+        const child = document.querySelector('.vfill-available');
         if ( child === null ) { return; }
-        let prect = document.documentElement.getBoundingClientRect();
-        let crect = child.getBoundingClientRect();
-        let cssHeight = Math.max(prect.bottom - crect.top, 80) + 'px';
+        const prect = document.documentElement.getBoundingClientRect();
+        const crect = child.getBoundingClientRect();
+        const cssHeight = Math.max(prect.bottom - crect.top, 80) + 'px';
         if ( child.style.height !== cssHeight ) {
             child.style.height = cssHeight;
             if ( typeof mergeView !== 'undefined' ) {
@@ -48,7 +49,7 @@
             }
         }
     };
-    let resizeAsync = function(delay) {
+    const resizeAsync = function(delay) {
         if ( timer === undefined ) {
             timer = vAPI.setTimeout(
                 resize,
@@ -57,17 +58,17 @@
         }
     };
     window.addEventListener('resize', resizeAsync);
-    var observer = new MutationObserver(resizeAsync);
+    const observer = new MutationObserver(resizeAsync);
     observer.observe(document.querySelector('.body'), {
         childList: true,
         subtree: true
     });
     resizeAsync(1);
-})();
+}
 
 /******************************************************************************/
 
-var mergeView = new CodeMirror.MergeView(
+const mergeView = new CodeMirror.MergeView(
     document.querySelector('.codeMirrorMergeContainer'),
     {
         allowEditingOriginals: true,
@@ -84,15 +85,15 @@ mergeView.editor().setOption('styleActiveLine', true);
 mergeView.editor().setOption('lineNumbers', false);
 mergeView.leftOriginal().setOption('readOnly', 'nocursor');
 
-var unfilteredRules = {
+const unfilteredRules = {
     orig: { doc: mergeView.leftOriginal(), rules: [] },
     edit: { doc: mergeView.editor(), rules: [] }
 };
 
-var cleanEditToken = 0;
-var cleanEditText = '';
+let cleanEditToken = 0;
+let cleanEditText = '';
 
-var differ;
+let differ;
 
 /******************************************************************************/
 
@@ -100,13 +101,13 @@ var differ;
 // https://github.com/codemirror/CodeMirror/blob/3e1bb5fff682f8f6cbfaef0e56c61d62403d4798/addon/search/search.js#L22
 // ... and modified as needed.
 
-var updateOverlay = (function() {
-    var reFilter;
-    var mode = {
+const updateOverlay = (function() {
+    let reFilter;
+    const mode = {
         token: function(stream) {
             if ( reFilter !== undefined ) {
                 reFilter.lastIndex = stream.pos;
-                var match = reFilter.exec(stream.string);
+                const match = reFilter.exec(stream.string);
                 if ( match !== null ) {
                     if ( match.index === stream.pos ) {
                         stream.pos += match[0].length || 1;
@@ -133,36 +134,36 @@ var updateOverlay = (function() {
 // - Scroll position preserved
 // - Minimum amount of text updated
 
-var rulesToDoc = function(clearHistory) {
-    for ( var key in unfilteredRules ) {
+const rulesToDoc = function(clearHistory) {
+    for ( const key in unfilteredRules ) {
         if ( unfilteredRules.hasOwnProperty(key) === false ) { continue; }
-        var doc = unfilteredRules[key].doc;
-        var rules = filterRules(key);
+        const doc = unfilteredRules[key].doc;
+        const rules = filterRules(key);
         if ( doc.lineCount() === 1 && doc.getValue() === '' || rules.length === 0 ) {
             doc.setValue(rules.length !== 0 ? rules.join('\n') : '');
             continue;
         }
         if ( differ === undefined ) { differ = new diff_match_patch(); }
-        var beforeText = doc.getValue();
-        var afterText = rules.join('\n');
-        var diffs = differ.diff_main(beforeText, afterText);
+        const beforeText = doc.getValue();
+        const afterText = rules.join('\n');
+        const diffs = differ.diff_main(beforeText, afterText);
         doc.startOperation();
-        var i = diffs.length,
-            iedit = beforeText.length;
+        let i = diffs.length;
+        let iedit = beforeText.length;
         while ( i-- ) {
-            var diff = diffs[i];
+            const diff = diffs[i];
             if ( diff[0] === 0 ) {
                 iedit -= diff[1].length;
                 continue;
             }
-            var end = doc.posFromIndex(iedit);
+            const end = doc.posFromIndex(iedit);
             if ( diff[0] === 1 ) {
                 doc.replaceRange(diff[1], end, end);
                 continue;
             }
             /* diff[0] === -1 */
             iedit -= diff[1].length;
-            var beg = doc.posFromIndex(iedit);
+            const beg = doc.posFromIndex(iedit);
             doc.replaceRange('', beg, end);
         }
         doc.endOperation();
@@ -176,12 +177,12 @@ var rulesToDoc = function(clearHistory) {
 
 /******************************************************************************/
 
-var filterRules = function(key) {
-    var rules = unfilteredRules[key].rules;
-    var filter = uDom('#ruleFilter input').val();
+const filterRules = function(key) {
+    const filter = uDom('#ruleFilter input').val();
+    let rules = unfilteredRules[key].rules;
     if ( filter !== '' ) {
         rules = rules.slice();
-        var i = rules.length;
+        let i = rules.length;
         while ( i-- ) {
             if ( rules[i].indexOf(filter) === -1 ) {
                 rules.splice(i, 1);
@@ -193,25 +194,20 @@ var filterRules = function(key) {
 
 /******************************************************************************/
 
-var renderRules = (function() {
-    var firstVisit = true;
-
-    return function(details) {
-        unfilteredRules.orig.rules = details.permanentRules.sort(directiveSort);
-        unfilteredRules.edit.rules = details.temporaryRules.sort(directiveSort);
-        rulesToDoc(firstVisit);
-        if ( firstVisit ) {
-            firstVisit = false;
-            mergeView.editor().execCommand('goNextDiff');
-        }
-        onTextChanged(true);
-    };
-})();
+const renderRules = function(details, firstVisit = false) {
+    unfilteredRules.orig.rules = details.permanentRules.sort(directiveSort);
+    unfilteredRules.edit.rules = details.temporaryRules.sort(directiveSort);
+    rulesToDoc(firstVisit);
+    if ( firstVisit ) {
+        mergeView.editor().execCommand('goNextDiff');
+    }
+    onTextChanged(true);
+};
 
 // Switches before, rules after
-var directiveSort = function(a, b) {
-    var aIsSwitch = a.indexOf(': ') !== -1;
-    var bIsSwitch = b.indexOf(': ') !== -1;
+const directiveSort = function(a, b) {
+    const aIsSwitch = a.indexOf(': ') !== -1;
+    const bIsSwitch = b.indexOf(': ') !== -1;
     if ( aIsSwitch === bIsSwitch ) {
         return a.localeCompare(b);
     }
@@ -220,17 +216,15 @@ var directiveSort = function(a, b) {
 
 /******************************************************************************/
 
-var applyDiff = function(permanent, toAdd, toRemove) {
-    vAPI.messaging.send(
-        'user-rules.js',
-        {
-            what: 'modifyRuleset',
-            permanent: permanent,
-            toAdd: toAdd,
-            toRemove: toRemove
-        },
-        renderRules
-    );
+const applyDiff = function(permanent, toAdd, toRemove) {
+    vAPI.messaging.send('dashboard', {
+        what: 'modifyRuleset',
+        permanent,
+        toAdd,
+        toRemove,
+    }).then(response => {
+        renderRules(response);
+    });
 };
 
 /******************************************************************************/
@@ -245,20 +239,20 @@ mergeView.options.revertChunk = function(
 ) {
     // https://github.com/gorhill/uBlock/issues/3611
     if ( document.body.getAttribute('dir') === 'rtl' ) {
-        var tmp;
+        let tmp;
         tmp = from; from = to; to = tmp;
         tmp = fromStart; fromStart = toStart; toStart = tmp;
         tmp = fromEnd; fromEnd = toEnd; toEnd = tmp;
     }
     if ( typeof fromStart.ch !== 'number' ) { fromStart.ch = 0; }
     if ( fromEnd.ch !== 0 ) { fromEnd.line += 1; }
-    var toAdd = from.getRange(
+    const toAdd = from.getRange(
         { line: fromStart.line, ch: 0 },
         { line: fromEnd.line, ch: 0 }
     );
     if ( typeof toStart.ch !== 'number' ) { toStart.ch = 0; }
     if ( toEnd.ch !== 0 ) { toEnd.line += 1; }
-    var toRemove = to.getRange(
+    const toRemove = to.getRange(
         { line: toStart.line, ch: 0 },
         { line: toEnd.line, ch: 0 }
     );
@@ -270,8 +264,8 @@ mergeView.options.revertChunk = function(
 // https://github.com/chrisaljoudi/uBlock/issues/757
 // Support RequestPolicy rule syntax
 
-var fromRequestPolicy = function(content) {
-    var matches = /\[origins-to-destinations\]([^\[]+)/.exec(content);
+const fromRequestPolicy = function(content) {
+    const matches = /\[origins-to-destinations\]([^\[]+)/.exec(content);
     if ( matches === null || matches.length !== 2 ) { return; }
     return matches[1].trim()
                      .replace(/\|/g, ' ')
@@ -282,8 +276,8 @@ var fromRequestPolicy = function(content) {
 
 // https://github.com/gorhill/uMatrix/issues/270
 
-var fromNoScript = function(content) {
-    var noscript = null;
+const fromNoScript = function(content) {
+    let noscript = null;
     try {
         noscript = JSON.parse(content);
     } catch (e) {
@@ -298,17 +292,16 @@ var fromNoScript = function(content) {
     ) {
         return;
     }
-    var out = new Set();
-    var reBad = /[a-z]+:\w*$/;
-    var reURL = /[a-z]+:\/\/([0-9a-z.-]+)/;
-    var directives = noscript.whitelist.split(/\s+/);
-    var i = directives.length;
-    var directive, matches;
+    const out = new Set();
+    const reBad = /[a-z]+:\w*$/;
+    const reURL = /[a-z]+:\/\/([0-9a-z.-]+)/;
+    const directives = noscript.whitelist.split(/\s+/);
+    let i = directives.length;
     while ( i-- ) {
-        directive = directives[i].trim();
+        let directive = directives[i].trim();
         if ( directive === '' ) { continue; }
         if ( reBad.test(directive) ) { continue; }
-        matches = reURL.exec(directive);
+        const matches = reURL.exec(directive);
         if ( matches !== null ) {
             directive = matches[1];
         }
@@ -321,12 +314,12 @@ var fromNoScript = function(content) {
 
 /******************************************************************************/
 
-var handleImportFilePicker = function() {
-    var fileReaderOnLoadHandler = function() {
+const handleImportFilePicker = function() {
+    const fileReaderOnLoadHandler = function() {
         if ( typeof this.result !== 'string' || this.result === '' ) {
             return;
         }
-        var result = fromRequestPolicy(this.result);
+        let result = fromRequestPolicy(this.result);
         if ( result === undefined ) {
             result = fromNoScript(this.result);
             if ( result === undefined ) {
@@ -336,20 +329,20 @@ var handleImportFilePicker = function() {
         if ( this.result === '' ) { return; }
         applyDiff(false, result, '');
     };
-    var file = this.files[0];
+    const file = this.files[0];
     if ( file === undefined || file.name === '' ) { return; }
     if ( file.type.indexOf('text') !== 0 && file.type !== 'application/json') {
         return;
     }
-    var fr = new FileReader();
+    const fr = new FileReader();
     fr.onload = fileReaderOnLoadHandler;
     fr.readAsText(file);
 };
 
 /******************************************************************************/
 
-var startImportFilePicker = function() {
-    var input = document.getElementById('importFilePicker');
+const startImportFilePicker = function() {
+    const input = document.getElementById('importFilePicker');
     // Reset to empty string, this will ensure an change event is properly
     // triggered if the user pick a file, even if it is the same as the last
     // one picked.
@@ -359,26 +352,26 @@ var startImportFilePicker = function() {
 
 /******************************************************************************/
 
-function exportUserRulesToFile() {
+const exportUserRulesToFile = function() {
     vAPI.download({
         url: 'data:text/plain,' + encodeURIComponent(
             mergeView.leftOriginal().getValue().trim() + '\n'
         ),
         filename: uDom('[data-i18n="userRulesDefaultFileName"]').text()
     });
-}
+};
 
 /******************************************************************************/
 
-var onFilterChanged = (function() {
-    var timer,
-        overlay = null,
-        last = '';
+const onFilterChanged = (function() {
+    let timer;
+    let overlay = null;
+    let last = '';
 
-    var process = function() {
+    const process = function() {
         timer = undefined;
         if ( mergeView.editor().isClean(cleanEditToken) === false ) { return; }
-        var filter = uDom('#ruleFilter input').val();
+        const filter = uDom('#ruleFilter input').val();
         if ( filter === last ) { return; }
         last = filter;
         if ( overlay !== null ) {
@@ -402,13 +395,13 @@ var onFilterChanged = (function() {
 
 /******************************************************************************/
 
-var onTextChanged = (function() {
-    var timer;
+const onTextChanged = (function() {
+    let timer;
 
-    var process = function(now) {
+    const process = function(now) {
         timer = undefined;
-        var isClean = mergeView.editor().isClean(cleanEditToken);
-        var diff = document.getElementById('diff');
+        const diff = document.getElementById('diff');
+        let isClean = mergeView.editor().isClean(cleanEditToken);
         if (
             now &&
             isClean === false &&
@@ -419,7 +412,7 @@ var onTextChanged = (function() {
         }
         diff.classList.toggle('editing', isClean === false);
         diff.classList.toggle('dirty', mergeView.leftChunks().length !== 0);
-        var input = document.querySelector('#ruleFilter input');
+        const input = document.querySelector('#ruleFilter input');
         if ( isClean ) {
             input.removeAttribute('disabled');
             CodeMirror.commands.save = undefined;
@@ -437,16 +430,16 @@ var onTextChanged = (function() {
 
 /******************************************************************************/
 
-var revertAllHandler = function() {
-    var toAdd = [], toRemove = [];
-    var left = mergeView.leftOriginal(),
-        edit = mergeView.editor();
-    for ( var chunk of mergeView.leftChunks() ) {
-        var addedLines = left.getRange(
+const revertAllHandler = function() {
+    const toAdd = [], toRemove = [];
+    const left = mergeView.leftOriginal();
+    const edit = mergeView.editor();
+    for ( const chunk of mergeView.leftChunks() ) {
+        const addedLines = left.getRange(
             { line: chunk.origFrom, ch: 0 },
             { line: chunk.origTo, ch: 0 }
         );
-        var removedLines = edit.getRange(
+        const removedLines = edit.getRange(
             { line: chunk.editFrom, ch: 0 },
             { line: chunk.editTo, ch: 0 }
         );
@@ -458,16 +451,16 @@ var revertAllHandler = function() {
 
 /******************************************************************************/
 
-var commitAllHandler = function() {
-    var toAdd = [], toRemove = [];
-    var left = mergeView.leftOriginal(),
-        edit = mergeView.editor();
-    for ( var chunk of mergeView.leftChunks() ) {
-        var addedLines = edit.getRange(
+const commitAllHandler = function() {
+    const toAdd = [], toRemove = [];
+    const left = mergeView.leftOriginal();
+    const edit = mergeView.editor();
+    for ( const chunk of mergeView.leftChunks() ) {
+        const addedLines = edit.getRange(
             { line: chunk.editFrom, ch: 0 },
             { line: chunk.editTo, ch: 0 }
         );
-        var removedLines = left.getRange(
+        const removedLines = left.getRange(
             { line: chunk.origFrom, ch: 0 },
             { line: chunk.origTo, ch: 0 }
         );
@@ -479,17 +472,17 @@ var commitAllHandler = function() {
 
 /******************************************************************************/
 
-var editSaveHandler = function() {
-    var editor = mergeView.editor();
-    var editText = editor.getValue().trim();
+const editSaveHandler = function() {
+    const editor = mergeView.editor();
+    const editText = editor.getValue().trim();
     if ( editText === cleanEditText ) {
         onTextChanged(true);
         return;
     }
     if ( differ === undefined ) { differ = new diff_match_patch(); }
-    var toAdd = [], toRemove = [];
-    var diffs = differ.diff_main(cleanEditText, editText);
-    for ( var diff of diffs ) {
+    const toAdd = [], toRemove = [];
+    const diffs = differ.diff_main(cleanEditText, editText);
+    for ( const diff of diffs ) {
         if ( diff[0] === 1 ) {
             toAdd.push(diff[1]);
         } else if ( diff[0] === -1 ) {
@@ -528,9 +521,14 @@ uDom('#ruleFilter input').on('input', onFilterChanged);
 // https://groups.google.com/forum/#!topic/codemirror/UQkTrt078Vs
 mergeView.editor().on('updateDiff', function() { onTextChanged(); });
 
-vAPI.messaging.send('user-rules.js', { what: 'getRuleset' }, renderRules);
+vAPI.messaging.send('dashboard', {
+    what: 'getRuleset',
+}).then(response => {
+    renderRules(response, true);
+});
 
 /******************************************************************************/
 
-})();
+// <<<<< end of local scope
+}
 

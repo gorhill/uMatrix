@@ -6,6 +6,10 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
 <style>
+div.body > ul {
+    padding-left: 0;
+    padding-right: 0;
+}
 ul {
     list-style-type: none;
 }
@@ -17,6 +21,8 @@ ul {
 
 <h3>uMatrix <span id="aboutVersion"></span></h3>
 <ul>
+    <li>Copyright (c) Raymond Hill 2013-present<br>
+    <li>&nbsp;
     <li><span id="aboutStorageUsed"></span><br>
     <li>&nbsp;
     <li><span data-i18n="aboutChangelog"></span><br>
@@ -55,6 +61,7 @@ ul {
     <span data-i18n="aboutResetConfirm"></span>
 </div>
 
+<script src="js/vapi.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>

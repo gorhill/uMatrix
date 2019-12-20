@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-    uMatrix - a browser extension to block requests.
+    uBlock Origin - a browser extension to block requests.
     Copyright (C) 2015-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
@@ -26,58 +26,57 @@
 
 µMatrix.logger = (function() {
 
-    let LogEntry = function(details) {
-        this.init(details);
-    };
-
-    LogEntry.prototype.init = function(details) {
-        this.tstamp = Date.now();
-        this.details = JSON.stringify(details);
-    };
-
     let buffer = null;
     let lastReadTime = 0;
     let writePtr = 0;
 
     // After 60 seconds without being read, a buffer will be considered
     // unused, and thus removed from memory.
-    let logBufferObsoleteAfter = 30 * 1000;
+    const logBufferObsoleteAfter = 30 * 1000;
 
-    let janitor = function() {
+    const janitor = ( ) => {
         if (
             buffer !== null &&
             lastReadTime < (Date.now() - logBufferObsoleteAfter)
         ) {
+            api.enabled = false;
             buffer = null;
             writePtr = 0;
             api.ownerId = undefined;
-            api.enabled = false;
+            vAPI.messaging.broadcast({ what: 'loggerDisabled' });
         }
         if ( buffer !== null ) {
             vAPI.setTimeout(janitor, logBufferObsoleteAfter);
         }
     };
 
-    let api = {
+    const boxEntry = function(details) {
+        if ( details.tstamp === undefined ) {
+            details.tstamp = Date.now();
+        }
+        return JSON.stringify(details);
+    };
+
+    const api = {
         enabled: false,
         ownerId: undefined,
         writeOne: function(details) {
             if ( buffer === null ) { return; }
             if ( writePtr === buffer.length ) {
-                buffer.push(new LogEntry(details));
+                buffer.push(boxEntry(details));
             } else {
-                buffer[writePtr].init(details);
+                buffer[writePtr] = boxEntry(details);
             }
             writePtr += 1;
         },
         readAll: function(ownerId) {
             this.ownerId = ownerId;
-            this.enabled = true;
             if ( buffer === null ) {
+                this.enabled = true;
                 buffer = [];
                 vAPI.setTimeout(janitor, logBufferObsoleteAfter);
             }
-            let out = buffer.slice(0, writePtr);
+            const out = buffer.slice(0, writePtr);
             writePtr = 0;
             lastReadTime = Date.now();
             return out;
@@ -85,6 +84,7 @@
     };
 
     return api;
+
 })();
 
 /******************************************************************************/

@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/png" href="img/icon_16.png">
 <title data-i18n="dashboardPageName"></title>
-<link href='css/dashboard.css' rel='stylesheet' type='text/css'>
-<link href='css/common.css' rel='stylesheet' type='text/css'>
+<link href="css/dashboard.css" rel="stylesheet" type="text/css">
+<link href="css/common.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <div id="dashboard-nav">
     <div id="dashboard-nav-widgets">
-        <span>uMatrix</span>
-        <a class="tabButton" id="settings" href="#settings" data-dashboard-panel-url="settings.html" data-i18n="settingsPageName"></a>
+        <span data-i18n-title="extName"><img src="img/icon_64.png"></span><!--
+        --><a class="tabButton" id="settings" href="#settings" data-dashboard-panel-url="settings.html" data-i18n="settingsPageName"></a>
         <a class="tabButton" id="user-rules" href="#user-rules" data-dashboard-panel-url="user-rules.html" data-i18n="userRulesPageName"></a>
         <a class="tabButton" id="hosts-files" href="#hosts-files" data-dashboard-panel-url="hosts-files.html" data-i18n="ubiquitousRulesPageName"></a>
         <a class="tabButton" id="raw-settings" href="#raw-settings" data-dashboard-panel-url="raw-settings.html" data-i18n="rawSettingsPageName"></a>
@@ -23,6 +23,7 @@
 
 <iframe src=""></iframe>
 
+<script src="js/vapi.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>

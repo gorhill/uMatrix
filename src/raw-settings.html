@@ -3,10 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title data-i18n="rawSettingsPageName"></title>
+
+<link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+
 <link rel="stylesheet" href="css/fa-icons.css">
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/dashboard-common.css">
 <link rel="stylesheet" href="css/raw-settings.css">
+<link rel="stylesheet" href="css/codemirror.css">
+
 <link rel="shortcut icon" type="image/png" href="img/icon_16.png"/>
 </head>
 
@@ -18,11 +23,17 @@
 <p><button id="rawSettingsApply" class="custom important" type="button" disabled="true" data-i18n="genericApplyChanges"></button>&ensp;
     </p>
 
-<textarea id="rawSettings" dir="auto" spellcheck="false"></textarea>
-
 </div><!-- end of div.body -->
 
+<div id="rawSettings" class="codeMirrorContainer codeMirrorFillVertical"></div>
+
+<script src="lib/codemirror/lib/codemirror.js"></script>
+<script src="lib/codemirror/addon/selection/active-line.js"></script>
+
+<script src="js/codemirror/mode/raw-settings.js"></script>
+
 <script src="js/fa-icons.js"></script>
+<script src="js/vapi.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>

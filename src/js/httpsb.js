@@ -19,14 +19,12 @@
     Home: https://github.com/gorhill/uMatrix
 */
 
-/* global chrome, µMatrix */
-
 'use strict';
 
 /******************************************************************************/
 
-(function() {
-    var µm = µMatrix;
+{
+    const µm = µMatrix;
     µm.pMatrix = new µm.Matrix();
     µm.pMatrix.setSwitch('matrix-off', 'about-scheme', 1);
     µm.pMatrix.setSwitch('matrix-off', 'chrome-extension-scheme', 1);
@@ -42,6 +40,7 @@
     // Global rules
     µm.pMatrix.setSwitch('referrer-spoof', '*', 1);
     µm.pMatrix.setSwitch('noscript-spoof', '*', 1);
+    µm.pMatrix.setSwitch('cname-reveal', '*', 1);
     µm.pMatrix.setCell('*', '*', '*', µm.Matrix.Red);
     µm.pMatrix.setCell('*', '*', 'css', µm.Matrix.Green);
     µm.pMatrix.setCell('*', '*', 'image', µm.Matrix.Green);
@@ -52,7 +51,7 @@
 
     µm.tMatrix = new µm.Matrix();
     µm.tMatrix.assign(µm.pMatrix);
-})();
+}
 
 /******************************************************************************/
 
