@@ -195,11 +195,14 @@ with open(unsigned_xpi_filepath, 'rb') as f:
     # Wait for signed package to be ready
     signing_check_url = signing_request_response['url']
     # TODO: use real time instead
-    countdown = 180 / 5
+    # https://blog.mozilla.org/addons/2019/11/11/security-improvements-in-amo-upload-tools/
+    #   "We recommend allowing up to 15 minutes."
+    interval = 30                   # check every 30 seconds
+    countdown = 15 * 60 / interval  # for at most 15 minutes
     while True:
         sys.stdout.write('.')
         sys.stdout.flush()
-        time.sleep(5)
+        time.sleep(interval)
         countdown -= 1
         if countdown <= 0:
             print('Error: AMO signing timed out')
@@ -217,7 +220,10 @@ with open(unsigned_xpi_filepath, 'rb') as f:
         if not signing_check_response['files'] or len(signing_check_response['files']) == 0:
             continue
         if not signing_check_response['files'][0]['signed']:
+            continue
+        if not signing_check_response['files'][0]['download_url']:
             print('Error: AMO signing failed')
+            print(response.text)
             exit(1)
         print('\r')
         print('Self-hosted xpi package successfully signed.')
