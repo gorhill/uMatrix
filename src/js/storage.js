@@ -158,7 +158,7 @@
                 this.rawSettings.suspendTabsUntilReady ? 'yes' : 'unset';
         }
     }
-    this.fireDOMEvent('hiddenSettingsChanged');
+    this.fireDOMEvent('rawSettingsChanged');
 };
 
 // Note: Save only the settings which values differ from the default ones.
@@ -175,11 +175,11 @@
             bin.rawSettings[prop] = this.rawSettings[prop];
         }
     }
-    vAPI.storage.set(bin);
     this.saveImmediateHiddenSettings();
+    return vAPI.storage.set(bin);
 };
 
-self.addEventListener('hiddenSettingsChanged', ( ) => {
+self.addEventListener('rawSettingsChanged', ( ) => {
     const µm = µMatrix;
     self.log.verbosity = µm.rawSettings.consoleLogLevel;
     vAPI.net.setOptions({
@@ -192,13 +192,74 @@ self.addEventListener('hiddenSettingsChanged', ( ) => {
     });
 });
 
+self.addEventListener('rawSettingsChanged', ( ) => {
+    const µm = µMatrix;
+    self.log.verbosity = µm.rawSettings.consoleLogLevel;
+    vAPI.net.setOptions({
+        cnameIgnoreList: µm.rawSettings.cnameIgnoreList,
+        cnameIgnore1stParty: µm.rawSettings.cnameIgnore1stParty,
+        cnameIgnoreExceptions: µm.rawSettings.cnameIgnoreExceptions,
+        cnameIgnoreRootDocument: µm.rawSettings.cnameIgnoreRootDocument,
+        cnameMaxTTL: µm.rawSettings.cnameMaxTTL,
+        cnameReplayFullURL: µm.rawSettings.cnameReplayFullURL,
+    });
+});
+
+/******************************************************************************/
+
+µMatrix.rawSettingsFromString = function(raw) {
+    const out = Object.assign({}, this.rawSettingsDefault);
+    const lineIter = new this.LineIterator(raw);
+    while ( lineIter.eot() === false ) {
+        const line = lineIter.next();
+        const matches = /^\s*(\S+)\s+(.+)$/.exec(line);
+        if ( matches === null || matches.length !== 3 ) { continue; }
+        const name = matches[1];
+        if ( out.hasOwnProperty(name) === false ) { continue; }
+        const value = matches[2].trim();
+        switch ( typeof out[name] ) {
+        case 'boolean':
+            if ( value === 'true' ) {
+                out[name] = true;
+            } else if ( value === 'false' ) {
+                out[name] = false;
+            }
+            break;
+        case 'string':
+            out[name] = value;
+            break;
+        case 'number': {
+            const i = parseInt(value, 10);
+            if ( isNaN(i) === false ) {
+                out[name] = i;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    this.rawSettings = out;
+    this.saveRawSettings();
+    this.fireDOMEvent('rawSettingsChanged');
+};
+
+µMatrix.stringFromRawSettings = function() {
+    const out = [];
+    for ( const key of Object.keys(this.rawSettings).sort() ) {
+        out.push(key + ' ' + this.rawSettings[key]);
+    }
+    return out.join('\n');
+};
+
+/******************************************************************************/
+
 // These settings must be available immediately on startup, without delay
 // through the vAPI.localStorage. Add/remove settings as needed.
 
 µMatrix.saveImmediateHiddenSettings = function() {
     const props = [
         'consoleLogLevel',
-        'disableWebAssembly',
         'suspendTabsUntilReady',
     ];
     const toSave = {};
@@ -215,110 +276,6 @@ self.addEventListener('hiddenSettingsChanged', ( ) => {
     } else {
         vAPI.localStorage.removeItem('immediateHiddenSettings');
     }
-};
-
-
-
-
-µMatrix.loadRawSettings = async function() {
-    const bin = await vAPI.storage.get('rawSettings');
-    if (
-        bin instanceof Object === false ||
-        bin.rawSettings instanceof Object === false
-    ) {
-        return;
-    }
-    for ( const key of Object.keys(bin.rawSettings) ) {
-        if (
-            this.rawSettings.hasOwnProperty(key) === false ||
-            typeof bin.rawSettings[key] !== typeof this.rawSettings[key]
-        ) {
-            continue;
-        }
-        this.rawSettings[key] = bin.rawSettings[key];
-    }
-    this.rawSettingsWriteTime = Date.now();
-};
-
-µMatrix.saveRawSettings = async function(rawSettings) {
-    const keys = Object.keys(rawSettings);
-    if ( keys.length === 0 ) { return; }
-
-    for ( const key of keys ) {
-        if (
-            this.rawSettingsDefault.hasOwnProperty(key) &&
-            typeof rawSettings[key] === typeof this.rawSettingsDefault[key]
-        ) {
-            this.rawSettings[key] = rawSettings[key];
-        }
-    }
-    this.saveImmediateHiddenSettings();
-    this.rawSettingsWriteTime = Date.now();
-
-    await vAPI.storage.set({ rawSettings: this.rawSettings });
-};
-
-µMatrix.rawSettingsFromString = function(raw) {
-    const result = {};
-    const lineIter = new this.LineIterator(raw);
-    while ( lineIter.eot() === false ) {
-        const line = lineIter.next().trim();
-        const matches = /^(\S+)(\s+(.+))?$/.exec(line);
-        if ( matches === null ) { continue; }
-        const name = matches[1];
-        if ( this.rawSettingsDefault.hasOwnProperty(name) === false ) {
-            continue;
-        }
-        let value = (matches[2] || '').trim();
-        switch ( typeof this.rawSettingsDefault[name] ) {
-        case 'boolean':
-            if ( value === 'true' ) {
-                value = true;
-            } else if ( value === 'false' ) {
-                value = false;
-            } else {
-                value = this.rawSettingsDefault[name];
-            }
-            break;
-        case 'string':
-            if ( value === '' ) {
-                value = this.rawSettingsDefault[name];
-            }
-            break;
-        case 'number':
-            value = parseInt(value, 10);
-            if ( isNaN(value) ) {
-                value = this.rawSettingsDefault[name];
-            }
-            break;
-        default:
-            break;
-        }
-        if ( this.rawSettings[name] !== value ) {
-            result[name] = value;
-        }
-    }
-    this.saveRawSettings(result);
-};
-
-µMatrix.stringFromRawSettings = function() {
-    const out = [];
-    for ( const key of Object.keys(this.rawSettings).sort() ) {
-        out.push(key + ' ' + this.rawSettings[key]);
-    }
-    return out.join('\n');
-};
-
-// These settings must be available immediately on startup, without delay
-// through the vAPI.localStorage. Add/remove settings as needed.
-
-µMatrix.saveImmediateHiddenSettings = function() {
-    vAPI.localStorage.setItem(
-        'immediateRawSettings',
-        JSON.stringify({
-            suspendTabsUntilReady: this.rawSettings.suspendTabsUntilReady,
-        })
-    );
 };
 
 /******************************************************************************/
@@ -816,6 +773,7 @@ self.addEventListener('hiddenSettingsChanged', ( ) => {
             );
             µm.ubiquitousBlacklistRef =
                 µm.ubiquitousBlacklist.createOne(bin.hostsFilesSelfie.trieref);
+            return true;
         },
         cancel: function() {
             if ( timer !== undefined ) {
@@ -831,10 +789,6 @@ self.addEventListener('hiddenSettingsChanged', ( ) => {
 µMatrix.loadPublicSuffixList = async function() {
     // TODO: remove once all users are way past 1.4.0.
     this.cacheStorage.remove('publicSuffixListSelfie');
-
-    if ( this.rawSettings.disableWebAssembly === false ) {
-        publicSuffixList.enableWASM();
-    }
 
     try {
         const result = await this.assets.get(`compiled/${this.pslAssetKey}`);

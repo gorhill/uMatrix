@@ -27,10 +27,22 @@
     const µm = µMatrix;
 
     await Promise.all([
-        µm.loadPublicSuffixList(),
+        µm.loadRawSettings(),
         µm.loadUserSettings(),
     ]);
-    log.info(`PSL and user settings ready ${Date.now()-vAPI.T0} ms after launch`);
+    log.info(`User settings ready ${Date.now()-vAPI.T0} ms after launch`);
+
+    const shouldWASM = µm.rawSettings.disableWebAssembly !== true;
+    if ( shouldWASM ) {
+        await Promise.all([
+            µm.HNTrieContainer.enableWASM(),
+            self.publicSuffixList.enableWASM(),
+        ]);
+        log.info(`WASM modules ready ${Date.now()-vAPI.T0} ms after launch`);
+    }
+
+    await µm.loadPublicSuffixList(),
+    log.info(`PSL ready ${Date.now()-vAPI.T0} ms after launch`);
 
     {
         let trieDetails;
@@ -41,16 +53,17 @@
         } catch(ex) {
         }
         µm.ubiquitousBlacklist = new µm.HNTrieContainer(trieDetails);
-        µm.ubiquitousBlacklist.initWASM();
+        if ( shouldWASM ) {
+            µm.ubiquitousBlacklist.initWASM();
+        }
     }
-    log.info(`Ubiquitous block container ready ${Date.now()-vAPI.T0} ms after launch`);
+    log.info(`Ubiquitous block rules container ready ${Date.now()-vAPI.T0} ms after launch`);
 
     await Promise.all([
-        µm.loadRawSettings(),
         µm.loadMatrix(),
         µm.loadHostsFiles(),
     ]);
-    log.info(`Ubiquitous block rules ready ${Date.now()-vAPI.T0} ms after launch`);
+    log.info(`All rules ready ${Date.now()-vAPI.T0} ms after launch`);
 
     {
         const pageStore =

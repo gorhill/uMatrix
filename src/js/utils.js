@@ -227,3 +227,15 @@
 })();
 
 /******************************************************************************/
+
+µMatrix.fireDOMEvent = function(name) {
+    if (
+        window instanceof Object &&
+        window.dispatchEvent instanceof Function &&
+        window.CustomEvent instanceof Function
+    ) {
+        window.dispatchEvent(new CustomEvent(name));
+    }
+};
+
+/******************************************************************************/

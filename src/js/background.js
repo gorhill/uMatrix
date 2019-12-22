@@ -166,7 +166,7 @@ return {
         }
     },
 
-    rawSettingsDefault: rawSettingsDefault,
+    rawSettingsDefault,
     rawSettings: (( ) => {
         const out = Object.assign({}, rawSettingsDefault);
         const json = vAPI.localStorage.getItem('immediateRawSettings');

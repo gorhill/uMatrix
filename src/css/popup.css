@@ -385,6 +385,7 @@ body.tabless .needtab {
     justify-content: flex-end;
     unicode-bidi: embed;
     width: 16em;
+    word-break: keep-all;
     }
 .matrix .matGroup.g4 .matRow.ro > .matCell:first-child {
     direction: inherit;
