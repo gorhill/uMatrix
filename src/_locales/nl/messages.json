@@ -71,8 +71,8 @@
         "message": "script",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "xhrPrettyName": {
-        "message": "XHR",
+    "fetchPrettyName": {
+        "message": "ophalen",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "framePrettyName": {
@@ -133,6 +133,10 @@
     },
     "matrixSwitchNoscriptSpoof": {
         "message": "<code><noscript></code>-tags vervalsen",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchRevealCname": {
+        "message": "Canonieke namen onthullen",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -279,6 +283,154 @@
         "message": "Vernieuwen",
         "description": ""
     },
+    "logAll": {
+        "message": "Alles",
+        "description": "Appears in the logger's tab selector"
+    },
+    "logBehindTheScene": {
+        "message": "Achter de schermen",
+        "description": "Pretty name for behind-the-scene network requests"
+    },
+    "loggerCurrentTab": {
+        "message": "Huidige tabblad",
+        "description": "Appears in the logger's tab selector"
+    },
+    "loggerReloadTip": {
+        "message": "De tabbladinhoud vernieuwen",
+        "description": "Tooltip for the reload button in the logger page"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "filterexpressie(s)",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "cookie verwijderd: {{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "cookie verwijderen mislukt: {{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "browsercache gewist",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "hosts-bestand bijgewerkt: {{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "loggerRowFiltererButtonTip": {
+        "message": "Loggerfiltering in-/uitschakelen",
+        "description": "Tooltip for the row filterer button in the logger page"
+    },
+    "logFilterPrompt": {
+        "message": "loggerinhoud filteren",
+        "description": "Placeholder string for logger output filtering input field"
+    },
+    "loggerPopupPanelTip": {
+        "message": "Het pop-uppaneel in-/uitschakelen",
+        "description": "Tooltip for the popup panel button in the logger page"
+    },
+    "loggerInfoTip": {
+        "message": "uMatrix-wiki: de logger",
+        "description": "Tooltip for the top-right info label in the logger page"
+    },
+    "loggerClearTip": {
+        "message": "Logger wissen",
+        "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+    },
+    "loggerPauseTip": {
+        "message": "Logger pauzeren (alle inkomende gegevens negeren)",
+        "description": "Tooltip for the pause button in the logger page"
+    },
+    "loggerUnpauseTip": {
+        "message": "Logger hervatten",
+        "description": "Tooltip for the play button in the logger page"
+    },
+    "loggerRowFiltererBuiltinTip": {
+        "message": "Opties voor loggerfiltering",
+        "description": "Tooltip for the button to bring up logger output filtering options"
+    },
+    "loggerRowFiltererBuiltinNot": {
+        "message": "Niet",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltinBlocked": {
+        "message": "geblokkeerd",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltinInfo": {
+        "message": "info",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltin1p": {
+        "message": "huidige domein",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltin3p": {
+        "message": "van derden",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerEntryDetailsHeader": {
+        "message": "Details",
+        "description": "Small header to identify the 'Details' pane for a specific logger entry"
+    },
+    "loggerEntryDetailsContext": {
+        "message": "Context",
+        "description": "Label to identify a context field (typically a hostname)"
+    },
+    "loggerEntryDetailsPartyness": {
+        "message": "1e/3e partij",
+        "description": "Label to identify a field providing partyness information"
+    },
+    "loggerEntryDetailsType": {
+        "message": "Type",
+        "description": "Label to identify the type of an entry"
+    },
+    "loggerEntryDetailsURL": {
+        "message": "URL",
+        "description": "Label to identify the URL of an entry"
+    },
+    "loggerEntryRuleHeader": {
+        "message": "Regel",
+        "description": "Small header to identify the 'Rule' pane for a specific logger entry"
+    },
+    "loggerSettingDiscardPrompt": {
+        "message": "Loggervermeldingen die niet aan alle drie de onderstaande voorwaarden voldoen, worden automatisch genegeerd:",
+        "description": "Logger setting: A sentence to describe the purpose of the settings below"
+    },
+    "loggerSettingPerEntryMaxAge": {
+        "message": "Vermeldingen van de laatste {{input}} minuten behouden",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerTabMaxLoads": {
+        "message": "Maximaal {{input}} paginaladingen per tabblad behouden",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerTabMaxEntries": {
+        "message": "Maximaal {{input}} vermeldingen per tabblad behouden",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerEntryLineCount": {
+        "message": "{{input}} regels per vermelding in verticaal uitgevouwen modus gebruiken",
+        "description": "A logger setting"
+    },
+    "loggerExportFormatList": {
+        "message": "Lijst",
+        "description": "Label for radio-button to pick export format"
+    },
+    "loggerExportFormatTable": {
+        "message": "Tabel",
+        "description": "Label for radio-button to pick export format"
+    },
+    "loggerExportEncodePlain": {
+        "message": "Plat",
+        "description": "Label for radio-button to pick export text format"
+    },
+    "loggerExportEncodeMarkdown": {
+        "message": "Markdown",
+        "description": "Label for radio-button to pick export text format"
+    },
     "settingsPageTitle": {
         "message": "uMatrix &ndash; Instellingen",
         "description": ""
@@ -320,11 +472,11 @@
         "description": "Scope will be full hostname of site"
     },
     "settingsCollapseBlocked": {
-        "message": "Tijdelijke aanduiding van geblokkeerde elementen samenvouwen",
-        "description": "English: Collapse placeholder of blocked elements"
+        "message": "Tijdelijke aanduiding van geblokkeerde elementen verbergen",
+        "description": "A setting in the dashboard's Settings pane"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Tijdelijke aanduiding van geblackliste elementen samenvouwen",
+        "message": "Tijdelijke aanduiding van geblackliste elementen verbergen",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
@@ -607,30 +759,6 @@
         "message": "Waarschuwing! Hierdoor worden alle aangepaste instellingen verwijderd. Weet u zeker dat u wilt doorgaan?",
         "description": "Message asking user to confirm reset"
     },
-    "loggerFilterInputPlaceholder": {
-        "message": "filterexpressie(s)",
-        "description": "Appears in the input filed where filter expressions are entered"
-    },
-    "loggerMaxEntriesTip": {
-        "message": "Maximale aantal vermeldingen",
-        "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryCookieDeleted": {
-        "message": "cookie verwijderd: {{value}}",
-        "description": "An entry for when a cookie is deleted"
-    },
-    "loggerEntryDeleteCookieError": {
-        "message": "cookie verwijderen mislukt: {{value}}",
-        "description": "An entry for when the browser cache is cleared"
-    },
-    "loggerEntryBrowserCacheCleared": {
-        "message": "browsercache gewist",
-        "description": "An entry for when a cookie can't be deleted"
-    },
-    "loggerEntryAssetUpdated": {
-        "message": "hosts-bestand bijgewerkt: {{value}}",
-        "description": "An entry for when an asset was updated"
-    },
     "mainBlockedPrompt1": {
         "message": "uMatrix heeft voorkomen dat de volgende pagina werd geladen:",
         "description": "English: uMatrix has prevented the following page from loading:"
@@ -730,5 +858,9 @@
     "genericApplyChanges": {
         "message": "Wijzigingen toepassen",
         "description": "for generic 'Apply changes' buttons"
+    },
+    "genericCopyToClipboard": {
+        "message": "Kopiëren naar klembord",
+        "description": "Label for buttons used to copy something to the clipboard"
     }
 }

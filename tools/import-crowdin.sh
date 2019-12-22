@@ -7,7 +7,7 @@ ARCDIR=$DLDIR/crowdin
 
 echo "*** uMatrix: Importing from Crowdin archive"
 rm -r $ARCDIR
-unzip -q $DLDIR/umatrix.zip -d $ARCDIR
+unzip -q $DLDIR/uMatrix.zip -d $ARCDIR
 
 # Add-on strings
 LOCALEDIR=src/_locales

@@ -71,8 +71,8 @@
         "message": "Script",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "xhrPrettyName": {
-        "message": "XHR",
+    "fetchPrettyName": {
+        "message": "Chercher",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "framePrettyName": {
@@ -133,6 +133,10 @@
     },
     "matrixSwitchNoscriptSpoof": {
         "message": "Modifier les balises <code><noscript></code>",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchRevealCname": {
+        "message": "Révéler les noms canoniques",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -279,6 +283,154 @@
         "message": "Actualiser",
         "description": ""
     },
+    "logAll": {
+        "message": "Tout",
+        "description": "Appears in the logger's tab selector"
+    },
+    "logBehindTheScene": {
+        "message": "En coulisses",
+        "description": "Pretty name for behind-the-scene network requests"
+    },
+    "loggerCurrentTab": {
+        "message": "Onglet courant",
+        "description": "Appears in the logger's tab selector"
+    },
+    "loggerReloadTip": {
+        "message": "Recharger le contenu de l'onglet",
+        "description": "Tooltip for the reload button in the logger page"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "Expression(s) de filtre",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "Cookie supprimé : {{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "Échec lors de la suppression du cookie : {{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "Cache du navigateur nettoyé",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "Élément mis à jour : {{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "loggerRowFiltererButtonTip": {
+        "message": "Commuter le filtrage du journal",
+        "description": "Tooltip for the row filterer button in the logger page"
+    },
+    "logFilterPrompt": {
+        "message": "Filtrer le contenu du journal",
+        "description": "Placeholder string for logger output filtering input field"
+    },
+    "loggerPopupPanelTip": {
+        "message": "Commuter le panneau pop-up",
+        "description": "Tooltip for the popup panel button in the logger page"
+    },
+    "loggerInfoTip": {
+        "message": "Wiki uBlock Origin : Le journal",
+        "description": "Tooltip for the top-right info label in the logger page"
+    },
+    "loggerClearTip": {
+        "message": "Vider le journal",
+        "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+    },
+    "loggerPauseTip": {
+        "message": "Mettre en pause le journal (ignorer les données entrantes)",
+        "description": "Tooltip for the pause button in the logger page"
+    },
+    "loggerUnpauseTip": {
+        "message": "Reprendre la journalisation",
+        "description": "Tooltip for the play button in the logger page"
+    },
+    "loggerRowFiltererBuiltinTip": {
+        "message": "Options de filtrage du journal",
+        "description": "Tooltip for the button to bring up logger output filtering options"
+    },
+    "loggerRowFiltererBuiltinNot": {
+        "message": "Non",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltinBlocked": {
+        "message": "Bloquée",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltinInfo": {
+        "message": "Information",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltin1p": {
+        "message": "Première partie",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltin3p": {
+        "message": "Tierce-partie",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerEntryDetailsHeader": {
+        "message": "Détails",
+        "description": "Small header to identify the 'Details' pane for a specific logger entry"
+    },
+    "loggerEntryDetailsContext": {
+        "message": "Contexte",
+        "description": "Label to identify a context field (typically a hostname)"
+    },
+    "loggerEntryDetailsPartyness": {
+        "message": "Niveau de partie",
+        "description": "Label to identify a field providing partyness information"
+    },
+    "loggerEntryDetailsType": {
+        "message": "Type",
+        "description": "Label to identify the type of an entry"
+    },
+    "loggerEntryDetailsURL": {
+        "message": "Lien",
+        "description": "Label to identify the URL of an entry"
+    },
+    "loggerEntryRuleHeader": {
+        "message": "Règle",
+        "description": "Small header to identify the 'Rule' pane for a specific logger entry"
+    },
+    "loggerSettingDiscardPrompt": {
+        "message": "Les entrées de journal ne remplissant aucune de ces trois conditions seront automatiquement rejetées :",
+        "description": "Logger setting: A sentence to describe the purpose of the settings below"
+    },
+    "loggerSettingPerEntryMaxAge": {
+        "message": "Conserver les entrées des {{input}} dernières minutes",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerTabMaxLoads": {
+        "message": "Conserver au maximum {{input}} chargements de page par onglet",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerTabMaxEntries": {
+        "message": "Conserver au maximum {{input}} entrées par onglet",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerEntryLineCount": {
+        "message": "Utiliser {{input}} lignes par entrée dans le mode verticalement étendu",
+        "description": "A logger setting"
+    },
+    "loggerExportFormatList": {
+        "message": "Liste",
+        "description": "Label for radio-button to pick export format"
+    },
+    "loggerExportFormatTable": {
+        "message": "Tableau",
+        "description": "Label for radio-button to pick export format"
+    },
+    "loggerExportEncodePlain": {
+        "message": "Simple",
+        "description": "Label for radio-button to pick export text format"
+    },
+    "loggerExportEncodeMarkdown": {
+        "message": "Markdown",
+        "description": "Label for radio-button to pick export text format"
+    },
     "settingsPageTitle": {
         "message": "uMatrix &ndash; Réglages",
         "description": ""
@@ -321,7 +473,7 @@
     },
     "settingsCollapseBlocked": {
         "message": "Cacher les espaces réservés aux éléments bloqués",
-        "description": "English: Collapse placeholder of blocked elements"
+        "description": "A setting in the dashboard's Settings pane"
     },
     "settingsCollapseBlacklisted": {
         "message": "Cacher les espaces réservés aux éléments de la liste noire",
@@ -607,30 +759,6 @@
         "message": "Attention ! Cela supprimera tous vos paramétrages personnels. Désirez-vous vraiment réinitialiser ?",
         "description": "Message asking user to confirm reset"
     },
-    "loggerFilterInputPlaceholder": {
-        "message": "Expression(s) de filtre",
-        "description": "Appears in the input filed where filter expressions are entered"
-    },
-    "loggerMaxEntriesTip": {
-        "message": "Nombre maximum d'entrées",
-        "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryCookieDeleted": {
-        "message": "Cookie supprimé : {{value}}",
-        "description": "An entry for when a cookie is deleted"
-    },
-    "loggerEntryDeleteCookieError": {
-        "message": "Échec lors de la suppression du cookie : {{value}}",
-        "description": "An entry for when the browser cache is cleared"
-    },
-    "loggerEntryBrowserCacheCleared": {
-        "message": "Cache du navigateur nettoyé",
-        "description": "An entry for when a cookie can't be deleted"
-    },
-    "loggerEntryAssetUpdated": {
-        "message": "Élément mis à jour : {{value}}",
-        "description": "An entry for when an asset was updated"
-    },
     "mainBlockedPrompt1": {
         "message": "uMatrix a empêché le chargement de cette page :",
         "description": "English: uMatrix has prevented the following page from loading:"
@@ -730,5 +858,9 @@
     "genericApplyChanges": {
         "message": "Appliquer",
         "description": "for generic 'Apply changes' buttons"
+    },
+    "genericCopyToClipboard": {
+        "message": "Copier dans le presse-papier",
+        "description": "Label for buttons used to copy something to the clipboard"
     }
 }

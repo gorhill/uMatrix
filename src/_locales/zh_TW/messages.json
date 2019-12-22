@@ -71,8 +71,8 @@
         "message": "指令",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
-    "xhrPrettyName": {
-        "message": "XHR",
+    "fetchPrettyName": {
+        "message": "fetch",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "framePrettyName": {
@@ -133,6 +133,10 @@
     },
     "matrixSwitchNoscriptSpoof": {
         "message": "模擬 <code><noscript></code> 元素",
+        "description": "A menu entry in the matrix popup"
+    },
+    "matrixSwitchRevealCname": {
+        "message": "顯示真實域名",
         "description": "A menu entry in the matrix popup"
     },
     "matrixRevertAllEntry": {
@@ -279,6 +283,154 @@
         "message": "重新整理",
         "description": ""
     },
+    "logAll": {
+        "message": "全部",
+        "description": "Appears in the logger's tab selector"
+    },
+    "logBehindTheScene": {
+        "message": "背景網路連線請求",
+        "description": "Pretty name for behind-the-scene network requests"
+    },
+    "loggerCurrentTab": {
+        "message": "目前分頁",
+        "description": "Appears in the logger's tab selector"
+    },
+    "loggerReloadTip": {
+        "message": "重新載入分頁內容",
+        "description": "Tooltip for the reload button in the logger page"
+    },
+    "loggerFilterInputPlaceholder": {
+        "message": "日誌過濾表達式",
+        "description": "Appears in the input filed where filter expressions are entered"
+    },
+    "loggerEntryCookieDeleted": {
+        "message": "已刪除 Cookie：{{value}}",
+        "description": "An entry for when a cookie is deleted"
+    },
+    "loggerEntryDeleteCookieError": {
+        "message": "無法刪除 Cookie：{{value}}",
+        "description": "An entry for when the browser cache is cleared"
+    },
+    "loggerEntryBrowserCacheCleared": {
+        "message": "瀏覽器快取清除完畢",
+        "description": "An entry for when a cookie can't be deleted"
+    },
+    "loggerEntryAssetUpdated": {
+        "message": "已更新資料：{{value}}",
+        "description": "An entry for when an asset was updated"
+    },
+    "loggerRowFiltererButtonTip": {
+        "message": "開閉記錄篩選",
+        "description": "Tooltip for the row filterer button in the logger page"
+    },
+    "logFilterPrompt": {
+        "message": "篩選記錄條目",
+        "description": "Placeholder string for logger output filtering input field"
+    },
+    "loggerPopupPanelTip": {
+        "message": "開閉彈出式面板",
+        "description": "Tooltip for the popup panel button in the logger page"
+    },
+    "loggerInfoTip": {
+        "message": "uBlock Origin wiki：記錄器",
+        "description": "Tooltip for the top-right info label in the logger page"
+    },
+    "loggerClearTip": {
+        "message": "清除記錄",
+        "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+    },
+    "loggerPauseTip": {
+        "message": "暫停記錄（丟棄所有傳入資料）",
+        "description": "Tooltip for the pause button in the logger page"
+    },
+    "loggerUnpauseTip": {
+        "message": "取消暫停記錄",
+        "description": "Tooltip for the play button in the logger page"
+    },
+    "loggerRowFiltererBuiltinTip": {
+        "message": "記錄器篩選設定",
+        "description": "Tooltip for the button to bring up logger output filtering options"
+    },
+    "loggerRowFiltererBuiltinNot": {
+        "message": "非",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltinBlocked": {
+        "message": "已封鎖",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltinInfo": {
+        "message": "提示信息",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltin1p": {
+        "message": "第一方",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerRowFiltererBuiltin3p": {
+        "message": "第三方",
+        "description": "A keyword in the built-in row filtering expression"
+    },
+    "loggerEntryDetailsHeader": {
+        "message": "詳細資料",
+        "description": "Small header to identify the 'Details' pane for a specific logger entry"
+    },
+    "loggerEntryDetailsContext": {
+        "message": "上下文",
+        "description": "Label to identify a context field (typically a hostname)"
+    },
+    "loggerEntryDetailsPartyness": {
+        "message": "第一方/第三方",
+        "description": "Label to identify a field providing partyness information"
+    },
+    "loggerEntryDetailsType": {
+        "message": "類型",
+        "description": "Label to identify the type of an entry"
+    },
+    "loggerEntryDetailsURL": {
+        "message": "URL",
+        "description": "Label to identify the URL of an entry"
+    },
+    "loggerEntryRuleHeader": {
+        "message": "規則",
+        "description": "Small header to identify the 'Rule' pane for a specific logger entry"
+    },
+    "loggerSettingDiscardPrompt": {
+        "message": "不符合以下任一狀況的記錄將會被自動清除：",
+        "description": "Logger setting: A sentence to describe the purpose of the settings below"
+    },
+    "loggerSettingPerEntryMaxAge": {
+        "message": "最多保留 {{input}} 分鐘以內的記錄",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerTabMaxLoads": {
+        "message": "每個分頁最多保留 {{input}} 次內容加載產生的記錄",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerTabMaxEntries": {
+        "message": "每個分頁最多保留 {{input}} 條記錄",
+        "description": "A logger setting"
+    },
+    "loggerSettingPerEntryLineCount": {
+        "message": "在垂直延展模式中每條記錄顯示 {{input}} 行",
+        "description": "A logger setting"
+    },
+    "loggerExportFormatList": {
+        "message": "列表",
+        "description": "Label for radio-button to pick export format"
+    },
+    "loggerExportFormatTable": {
+        "message": "表格",
+        "description": "Label for radio-button to pick export format"
+    },
+    "loggerExportEncodePlain": {
+        "message": "純文字",
+        "description": "Label for radio-button to pick export text format"
+    },
+    "loggerExportEncodeMarkdown": {
+        "message": "Markdown",
+        "description": "Label for radio-button to pick export text format"
+    },
     "settingsPageTitle": {
         "message": "uMatrix &ndash; 設定",
         "description": ""
@@ -320,11 +472,11 @@
         "description": "Scope will be full hostname of site"
     },
     "settingsCollapseBlocked": {
-        "message": "隱藏已阻擋請求所關聯的頁面內容",
-        "description": "English: Collapse placeholder of blocked elements"
+        "message": "隱藏已封鎖元素的佔位符",
+        "description": "A setting in the dashboard's Settings pane"
     },
     "settingsCollapseBlacklisted": {
-        "message": "隱藏因域名黑名單而遭遮蔽的內容",
+        "message": "隱藏被加入黑名單的元素的佔位符",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {
@@ -607,30 +759,6 @@
         "message": "小心！這將移除您的所有設定。確定要繼續？",
         "description": "Message asking user to confirm reset"
     },
-    "loggerFilterInputPlaceholder": {
-        "message": "規則過濾表達式",
-        "description": "Appears in the input filed where filter expressions are entered"
-    },
-    "loggerMaxEntriesTip": {
-        "message": "日誌條數限制",
-        "description": "Appears as a tooltip when hovering the input field"
-    },
-    "loggerEntryCookieDeleted": {
-        "message": "已刪除 Cookie：{{value}}",
-        "description": "An entry for when a cookie is deleted"
-    },
-    "loggerEntryDeleteCookieError": {
-        "message": "無法刪除 Cookie：{{value}}",
-        "description": "An entry for when the browser cache is cleared"
-    },
-    "loggerEntryBrowserCacheCleared": {
-        "message": "瀏覽器快取清除完畢",
-        "description": "An entry for when a cookie can't be deleted"
-    },
-    "loggerEntryAssetUpdated": {
-        "message": "已更新資料：{{value}}",
-        "description": "An entry for when an asset was updated"
-    },
     "mainBlockedPrompt1": {
         "message": "uMatrix 已阻止載入以下頁面：",
         "description": "English: uMatrix has prevented the following page from loading:"
@@ -730,5 +858,9 @@
     "genericApplyChanges": {
         "message": "應用變更",
         "description": "for generic 'Apply changes' buttons"
+    },
+    "genericCopyToClipboard": {
+        "message": "複製到剪貼簿",
+        "description": "Label for buttons used to copy something to the clipboard"
     }
 }
