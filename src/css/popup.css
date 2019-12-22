@@ -347,19 +347,19 @@ body.tabless .needtab {
     text-align: left;
     }
 .matRow {
+    align-items: flex-start;
     display: flex;
-    white-space: nowrap;
     }
 .matCell {
+    box-sizing: content-box;
+    display: inline-flex;
+    flex-shrink: 0;
+    justify-content: center;
+    line-height: 110%;
     margin: 1px 1px 0 0;
     padding: 6px 2px;
-    display: inline-block;
-    box-sizing: content-box;
-    width: 2.6em;
-    white-space: nowrap;
-    text-align: center;
-    line-height: 110%;
     position: relative;
+    width: 2.6em;
     }
 
 #matHead {
@@ -380,7 +380,9 @@ body.tabless .needtab {
 /* RFC 3987 Internationalized Resource Identifiers (IRIs) -- 4.4 */
 .matrix .matRow > .matCell:first-child {
     direction: ltr;
-    text-align: right;
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: flex-end;
     unicode-bidi: embed;
     width: 16em;
     }
