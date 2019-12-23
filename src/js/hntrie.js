@@ -519,12 +519,11 @@ const HNTrieContainer = class {
     }
 
     async initWASM() {
+        if ( this.wasmInstancePromise !== null ) {
+            return this.wasmInstancePromise;
+        }
         const module = await HNTrieContainer.enableWASM();
         if ( module instanceof WebAssembly.Module === false ) { return false; }
-
-        if ( this.wasmInstancePromise !== null ) {
-            return true;
-        }
         const memory = new WebAssembly.Memory({ initial: 2 });
         this.wasmInstancePromise = WebAssembly.instantiate(
             module,

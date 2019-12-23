@@ -32,7 +32,9 @@
     ]);
     log.info(`User settings ready ${Date.now()-vAPI.T0} ms after launch`);
 
-    const shouldWASM = µm.rawSettings.disableWebAssembly !== true;
+    const shouldWASM =
+        vAPI.canWASM === true &&
+        µm.rawSettings.disableWebAssembly !== true;
     if ( shouldWASM ) {
         await Promise.all([
             µm.HNTrieContainer.enableWASM(),
