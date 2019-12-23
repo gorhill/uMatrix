@@ -1,5 +1,5 @@
 {
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
             "id": "uMatrix@raymondhill.net",
             "strict_min_version": "56.0a1"
