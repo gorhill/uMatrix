@@ -42,6 +42,23 @@ if not os.path.isfile(version_filepath):
     print('Version file not found.')
     exit(1)
 
+# We need a version string to work with
+if len(sys.argv) >= 2 and sys.argv[1]:
+    tag_version = sys.argv[1]
+else:
+    tag_version = input('Github release version: ')
+tag_version.strip()
+match = re.search('^(\d+\.\d+\.\d+)(?:(b|rc)(\d+))?$', tag_version)
+if not match:
+    print('Error: Invalid version string.')
+    exit(1)
+ext_version = match.group(1);
+if match.group(2):
+    revision = int(match.group(3))
+    if match.group(2) == 'rc':
+        revision += 100;
+    ext_version += '.' + str(revision)
+
 extension_id = 'uMatrix@raymondhill.net'
 tmpdir = tempfile.TemporaryDirectory()
 raw_xpi_filename = 'uMatrix.firefox.xpi'
@@ -51,16 +68,6 @@ signed_xpi_filename = 'uMatrix.firefox.signed.xpi'
 signed_xpi_filepath = os.path.join(tmpdir.name, signed_xpi_filename)
 github_owner = 'gorhill'
 github_repo = 'uMatrix'
-
-# We need a version string to work with
-if len(sys.argv) >= 2 and sys.argv[1]:
-    version = sys.argv[1]
-else:
-    version = input('Github release version: ')
-version.strip()
-if not re.search('^\d+\.\d+\.\d+(b|rc)\d+$', version):
-    print('Error: Invalid version string.')
-    exit(1)
 
 # Load/save auth secrets
 # The build directory is excluded from git
@@ -99,7 +106,7 @@ github_auth = 'token ' + github_token
 
 # https://developer.github.com/v3/repos/releases/#get-a-single-release
 print('Downloading release info from GitHub...')
-release_info_url = 'https://api.github.com/repos/{0}/{1}/releases/tags/{2}'.format(github_owner, github_repo, version)
+release_info_url = 'https://api.github.com/repos/{0}/{1}/releases/tags/{2}'.format(github_owner, github_repo, tag_version)
 headers = { 'Authorization': github_auth, }
 response = requests.get(release_info_url, headers=headers)
 if response.status_code != 200:
@@ -154,7 +161,7 @@ with zipfile.ZipFile(raw_xpi_filepath, 'r') as zipin:
             data = zipin.read(item.filename)
             if item.filename == 'manifest.json':
                 manifest = json.loads(bytes.decode(data))
-                manifest['applications']['gecko']['update_url'] = 'https://raw.githubusercontent.com/{0}/{1}/master/dist/firefox/updates.json'.format(github_owner, github_repo)
+                manifest['browser_specific_settings']['gecko']['update_url'] = 'https://raw.githubusercontent.com/{0}/{1}/master/dist/firefox/updates.json'.format(github_owner, github_repo)
                 data = json.dumps(manifest, indent=2, separators=(',', ': '), sort_keys=True).encode()
             zipout.writestr(item, data)
 
@@ -181,7 +188,7 @@ with open(unsigned_xpi_filepath, 'rb') as f:
     headers = { 'Authorization': jwt_auth, }
     data = { 'channel': 'unlisted' }
     files = { 'upload': f, }
-    signing_url = 'https://addons.mozilla.org/api/v3/addons/{0}/versions/{1}/'.format(extension_id, version)
+    signing_url = 'https://addons.mozilla.org/api/v3/addons/{0}/versions/{1}/'.format(extension_id, ext_version)
     print('Submitting package to be signed...')
     response = requests.put(signing_url, headers=headers, data=data, files=files)
     if response.status_code != 202:
@@ -278,11 +285,11 @@ with open(updates_json_filepath) as f:
     updates_json = json.load(f)
     f.close()
     previous_version = updates_json['addons'][extension_id]['updates'][0]['version']
-    if LooseVersion(version) > LooseVersion(previous_version):
+    if LooseVersion(ext_version) > LooseVersion(previous_version):
         with open(os.path.join(projdir, 'dist', 'firefox', 'updates.template.json')) as f:
             template_json = Template(f.read())
             f.close()
-            updates_json = template_json.substitute(version=version)
+            updates_json = template_json.substitute(ext_version=ext_version, tag_version=tag_version)
             with open(updates_json_filepath, 'w') as f:
                 f.write(updates_json)
                 f.close()
@@ -296,7 +303,7 @@ with open(updates_json_filepath) as f:
         r = subprocess.run(['git', 'status', '-s', updates_json_filepath], stdout=subprocess.PIPE)
         rout = bytes.decode(r.stdout).strip()
         if len(rout) >= 2 and rout[0] == 'M':
-            subprocess.run(['git', 'commit', '-m', 'make Firefox dev build auto-update', updates_json_filepath])
-            subprocess.run(['git', 'push', 'origin', 'master'])
+            subprocess.run(['git', 'commit', '-m', 'Make Firefox dev build auto-update', updates_json_filepath])
+            subprocess.run(['git', 'push', 'origin', 'HEAD'])
 
 print('All done.')
