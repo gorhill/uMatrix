@@ -308,7 +308,7 @@
         "description": "An entry for when a cookie is deleted"
     },
     "loggerEntryDeleteCookieError": {
-        "message": "fallo intentando eliminar cookie: {{value}}",
+        "message": "error al eliminar cookie: {{value}}",
         "description": "An entry for when the browser cache is cleared"
     },
     "loggerEntryBrowserCacheCleared": {
@@ -332,7 +332,7 @@
         "description": "Tooltip for the popup panel button in the logger page"
     },
     "loggerInfoTip": {
-        "message": "uMatrix wiki: Registro de peticiones",
+        "message": "uBlock Origin wiki: Registro de peticiones",
         "description": "Tooltip for the top-right info label in the logger page"
     },
     "loggerClearTip": {
