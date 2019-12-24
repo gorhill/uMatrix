@@ -25,8 +25,8 @@
 // borrowed from NoScript:
 // https://github.com/hackademix/noscript/commit/6e80d3f130773fc9a9123c5c4c2e97d63e90fa2a
 
-(function() {
-    let html = document.documentElement;
+(( ) => {
+    const html = document.documentElement;
     if ( html instanceof HTMLElement === false ) { return; }
 
     let meta;
@@ -45,8 +45,8 @@
     //
     // The CSP directive is enforced as soon as the meta tag is inserted:
     // > Enforce the policy policy.
-    let head = document.head,
-        parent = head;
+    const head = document.head;
+    let parent = head;
     if ( parent === null ) {
         parent = document.createElement('head');
         html.appendChild(parent);
