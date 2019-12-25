@@ -3,10 +3,10 @@
   "uMatrix@raymondhill.net": {
    "updates": [
     {
-     "version": "1.4.1b1",
+     "version": "1.4.1.2",
      "browser_specific_settings": { "gecko": { "strict_min_version": "56" } },
-     "update_info_url": "https://github.com/gorhill/uMatrix/releases/tag/1.4.1b1",
-     "update_link": "https://github.com/gorhill/uMatrix/releases/download/1.4.1b1/uMatrix.firefox.signed.xpi"
+     "update_info_url": "https://github.com/gorhill/uMatrix/releases/tag/1.4.1b2",
+     "update_link": "https://github.com/gorhill/uMatrix/releases/download/1.4.1b2/uMatrix_1.4.1b2.firefox.signed.xpi"
     }
    ]
   }
