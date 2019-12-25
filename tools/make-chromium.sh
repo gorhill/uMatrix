@@ -26,6 +26,11 @@ if [ "$1" = all ]; then
     pushd $(dirname $DES/)
     zip uMatrix.chromium.zip -qr $(basename $DES/)/*
     popd
+elif [ -n "$1" ]; then
+    echo "*** uMatrix.chromium: Creating versioned package..."
+    pushd $(dirname $DES/) > /dev/null
+    zip uMatrix_"$1".chromium.zip -qr $(basename $DES/)/*
+    popd > /dev/null
 fi
 
 echo "*** uMatrix(Chromium): Package done."

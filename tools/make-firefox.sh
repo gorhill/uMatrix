@@ -5,7 +5,8 @@
 echo "*** uMatrix.firefox: Creating web store package"
 echo "*** uMatrix.firefox: Copying files"
 
-DES=dist/build/uMatrix.firefox
+BLDIR=dist/build
+DES="$BLDIR"/uMatrix.firefox
 rm -rf $DES
 mkdir -p $DES
 
@@ -27,6 +28,12 @@ if [ "$1" = all ]; then
     pushd $DES > /dev/null
     zip ../$(basename $DES).xpi -qr *
     popd > /dev/null
+elif [ -n "$1" ]; then
+    echo "*** uMatrix.firefox: Creating versioned package..."
+    pushd $DES > /dev/null
+    zip ../$(basename $DES).xpi -qr *
+    popd > /dev/null
+    mv "$BLDIR"/uMatrix.firefox.xpi "$BLDIR"/uMatrix_"$1".firefox.xpi
 fi
 
 echo "*** uMatrix.firefox: Package done."
