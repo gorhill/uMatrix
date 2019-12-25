@@ -1129,7 +1129,7 @@ const reloadTab = function(ev) {
 
     uDom('#netInspector').on(
         'click',
-        '.canDetails > span:nth-of-type(6)',
+        '.canDetails > span:nth-of-type(1),.canDetails > span:nth-of-type(3),.canDetails > span:nth-of-type(6)',
         ev => { toggleOn(ev); }
     );
 })();
