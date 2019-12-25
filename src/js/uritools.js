@@ -31,7 +31,7 @@ Naming convention from https://en.wikipedia.org/wiki/URI_scheme#Examples
 
 /******************************************************************************/
 
-µMatrix.URI = (function() {
+µMatrix.URI = (( ) => {
 
 /******************************************************************************/
 
@@ -70,7 +70,7 @@ const reHostFromNakedAuthority = /^[0-9a-z._-]+[0-9a-z]$/i;
 
 /******************************************************************************/
 
-var reset = function(o) {
+const reset = function(o) {
     o.scheme = '';
     o.hostname = '';
     o._ipv4 = undefined;
@@ -82,7 +82,7 @@ var reset = function(o) {
     return o;
 };
 
-var resetAuthority = function(o) {
+const resetAuthority = function(o) {
     o.hostname = '';
     o._ipv4 = undefined;
     o._ipv6 = undefined;
@@ -240,11 +240,11 @@ URI.isNetworkScheme = function(scheme) {
 
 /******************************************************************************/
 
-URI.isSecureScheme = function(scheme) {
-    return this.reSecureScheme.test(scheme);
-};
+const reSecureScheme = /^(?:http|ws|ftp)s\b/;
 
-URI.reSecureScheme = /^(?:https|wss|ftps)\b/;
+URI.isSecureScheme = function(scheme) {
+    return reSecureScheme.test(scheme);
+};
 
 /******************************************************************************/
 

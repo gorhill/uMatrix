@@ -180,9 +180,11 @@ housekeep itself.
         this.stack = [];
         this.rawURL =
         this.normalURL =
+        this.scheme =
         this.origin =
         this.rootHostname =
         this.rootDomain = '';
+        this.secure = false;
         this.commitTimer = null;
         this.gcTimer = null;
         this.onGCBarrier = false;
@@ -266,19 +268,23 @@ housekeep itself.
         if ( this.stack.length === 0 ) {
             this.rawURL =
             this.normalURL =
+            this.scheme =
             this.origin =
             this.rootHostname =
             this.rootDomain = '';
+            this.secure = false;
             return;
         }
         const stackEntry = this.stack[this.stack.length - 1];
         this.rawURL = stackEntry.url;
         this.normalURL = µm.normalizePageURL(this.tabId, this.rawURL);
+        this.scheme = µm.URI.schemeFromURI(this.rawURL);
         this.origin = µm.URI.originFromURI(this.normalURL);
         this.rootHostname = µm.URI.hostnameFromURI(this.origin);
         this.rootDomain =
             µm.URI.domainFromHostname(this.rootHostname) ||
             this.rootHostname;
+         this.secure = µm.URI.isSecureScheme(this.scheme);
     };
 
     // Called whenever a candidate root URL is spotted for the tab.
