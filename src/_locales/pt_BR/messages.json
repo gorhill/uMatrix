@@ -368,7 +368,7 @@
         "description": "A keyword in the built-in row filtering expression"
     },
     "loggerRowFiltererBuiltin3p": {
-        "message": "Terceiros",
+        "message": "3º nível",
         "description": "A keyword in the built-in row filtering expression"
     },
     "loggerEntryDetailsHeader": {
@@ -396,7 +396,7 @@
         "description": "Small header to identify the 'Rule' pane for a specific logger entry"
     },
     "loggerSettingDiscardPrompt": {
-        "message": "Entradas do registro que não preenchem todas três condições abaixo irão ser automaticamente descartadas:",
+        "message": "Entradas no registro que não preenchem todas três condições abaixo irão ser automaticamente descartadas:",
         "description": "Logger setting: A sentence to describe the purpose of the settings below"
     },
     "loggerSettingPerEntryMaxAge": {
@@ -404,15 +404,15 @@
         "description": "A logger setting"
     },
     "loggerSettingPerTabMaxLoads": {
-        "message": "Preserve, no máximo, {{input}} página carregada por aba",
+        "message": "Preservar, no máximo, {{input}} páginas carregadas por aba",
         "description": "A logger setting"
     },
     "loggerSettingPerTabMaxEntries": {
-        "message": "Preserve, no máximo, {{input}} entradas por aba",
+        "message": "Preservar, no máximo, {{input}} entradas por aba",
         "description": "A logger setting"
     },
     "loggerSettingPerEntryLineCount": {
-        "message": "Usar {{input}} linhas por entrada no modo expandida verticalmente",
+        "message": "Usar {{input}} linhas por entrada no modo expandido verticalmente",
         "description": "A logger setting"
     },
     "loggerExportFormatList": {
@@ -424,7 +424,7 @@
         "description": "Label for radio-button to pick export format"
     },
     "loggerExportEncodePlain": {
-        "message": "Simples",
+        "message": "Plano",
         "description": "Label for radio-button to pick export text format"
     },
     "loggerExportEncodeMarkdown": {
@@ -472,11 +472,11 @@
         "description": "Scope will be full hostname of site"
     },
     "settingsCollapseBlocked": {
-        "message": "Agrupar espaços reservados a elementos bloqueados",
+        "message": "Ocultar espaços de elementos bloqueados",
         "description": "A setting in the dashboard's Settings pane"
     },
     "settingsCollapseBlacklisted": {
-        "message": "Agrupar espaços reservados a elementos da lista negra",
+        "message": "Ocultar espaços de elementos da lista negra",
         "description": "A setting in the dashboard's Settings pane: 'blacklisted' means 'for which there is a specific block rule', 'specific' means 'a rule for which the destination hostname is not `*`'"
     },
     "settingsNoscriptTagsSpoofed": {

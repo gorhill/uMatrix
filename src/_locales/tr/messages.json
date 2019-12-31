@@ -284,7 +284,7 @@
         "description": ""
     },
     "logAll": {
-        "message": "Hepsi",
+        "message": "Tümü",
         "description": "Appears in the logger's tab selector"
     },
     "logBehindTheScene": {
@@ -380,7 +380,7 @@
         "description": "Label to identify a context field (typically a hostname)"
     },
     "loggerEntryDetailsPartyness": {
-        "message": "Aitlik",
+        "message": "Taraf",
         "description": "Label to identify a field providing partyness information"
     },
     "loggerEntryDetailsType": {
@@ -412,7 +412,7 @@
         "description": "A logger setting"
     },
     "loggerSettingPerEntryLineCount": {
-        "message": "Dikey olarak genişletilmiş modda girdi başına {{input}} satır kullan",
+        "message": "Dikey olarak genişletildiğinde girdi başına {{input}} satır kullan",
         "description": "A logger setting"
     },
     "loggerExportFormatList": {

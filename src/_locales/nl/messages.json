@@ -332,7 +332,7 @@
         "description": "Tooltip for the popup panel button in the logger page"
     },
     "loggerInfoTip": {
-        "message": "uMatrix-wiki: de logger",
+        "message": "uBlock Origin-wiki: de logger",
         "description": "Tooltip for the top-right info label in the logger page"
     },
     "loggerClearTip": {
