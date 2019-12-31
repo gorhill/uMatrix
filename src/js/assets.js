@@ -110,7 +110,7 @@ api.fetch = function(url, options = {}) {
 
     const onErrorEvent = function() {
         cleanup();
-        fail({ url }, errorCantConnectTo.replace('{{msg}}', url));
+        fail({ url }, errorCantConnectTo.replace('{{url}}', url));
     };
 
     const onTimeout = function() {
