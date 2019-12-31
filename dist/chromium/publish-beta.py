@@ -39,7 +39,7 @@ if not re.search('^\d+\.\d+\.\d+(b|rc)\d+$', version):
 
 cs_extension_id = 'eckgcipdkhcfghnmincccnhpdmnbefki'
 tmpdir = tempfile.TemporaryDirectory()
-raw_zip_filename = 'uMatrix.chromium.zip'
+raw_zip_filename = 'uMatrix_'+ version + '.chromium.zip'
 raw_zip_filepath = os.path.join(tmpdir.name, raw_zip_filename)
 github_owner = 'gorhill'
 github_repo = 'uMatrix'
