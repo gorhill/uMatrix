@@ -72,7 +72,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "fetchPrettyName": {
-        "message": "получить",
+        "message": "fetch",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "framePrettyName": {

@@ -72,7 +72,7 @@
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "fetchPrettyName": {
-        "message": "obter",
+        "message": "fetch",
         "description": "HAS TO FIT IN MATRIX HEADER!"
     },
     "framePrettyName": {
@@ -328,11 +328,11 @@
         "description": "Placeholder string for logger output filtering input field"
     },
     "loggerPopupPanelTip": {
-        "message": "Alternar o painel do popup",
+        "message": "Alternar o painel do pop-up",
         "description": "Tooltip for the popup panel button in the logger page"
     },
     "loggerInfoTip": {
-        "message": "uBlock Origin wiki: O Registro",
+        "message": "uBlock Origin wiki: Registros",
         "description": "Tooltip for the top-right info label in the logger page"
     },
     "loggerClearTip": {
@@ -628,7 +628,7 @@
         "description": ""
     },
     "hostsFilesAutoUpdatePrompt": {
-        "message": "Autoatualizar recursos",
+        "message": "Auto-atualizar recursos",
         "description": ""
     },
     "hostsFilesUpdateNow": {
