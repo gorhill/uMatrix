@@ -55,7 +55,7 @@ const µm = µMatrix;
     //   its APIs, but since this is not the case, uMatrix inherits the duty to
     //   make it seamless on its side.
     if ( pageURL.startsWith('wyciwyg:') ) {
-        let match = /^wyciwyg:\/\/\d+\//.exec(pageURL);
+        const match = /^wyciwyg:\/\/\d+\//.exec(pageURL);
         if ( match !== null ) {
             pageURL = pageURL.slice(match[0].length);
         }
@@ -64,18 +64,18 @@ const µm = µMatrix;
     // If the URL is that of our "blocked page" document, return the URL of
     // the blocked page.
     if ( pageURL.startsWith(vAPI.getURL('main-blocked.html')) ) {
-        let matches = /main-blocked\.html\?details=([^&]+)/.exec(pageURL);
-        if ( matches && matches.length === 2 ) {
+        const parsedURL = new URL(pageURL);
+        const details = parsedURL.searchParams.get('details');
+        if ( details ) {
             try {
-                let details = JSON.parse(atob(matches[1]));
-                pageURL = details.url;
-            } catch (e) {
+                pageURL = JSON.parse(decodeURIComponent(details)).url;
+            } catch (ex) {
             }
         }
     }
 
-    let uri = this.URI.set(pageURL);
-    let scheme = uri.scheme;
+    const uri = this.URI.set(pageURL);
+    const scheme = uri.scheme;
     if ( scheme === 'https' || scheme === 'http' ) {
         return uri.normalizedURI();
     }
