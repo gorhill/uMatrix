@@ -124,7 +124,7 @@ const rawSettingsDefault = {
             '</body></html>'
         ].join(''),
     framePlaceholderBackground: 'default',
-    suspendTabsUntilReady: false
+    suspendTabsUntilReady: 'unset'
 };
 
 /******************************************************************************/
