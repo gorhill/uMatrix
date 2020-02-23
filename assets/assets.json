@@ -50,10 +50,10 @@
 		"updateAfter": 11,
 		"title": "MVPS HOSTS",
 		"contentURL": [
-			"http://winhelp2002.mvps.org/hosts.txt",
+			"https://winhelp2002.mvps.org/hosts.txt",
 			"assets/thirdparties/winhelp2002.mvps.org/hosts.txt"
 		],
-		"supportURL": "http://winhelp2002.mvps.org/"
+		"supportURL": "https://winhelp2002.mvps.org/"
 	},
 	"plowe-0": {
 		"content": "filters",
