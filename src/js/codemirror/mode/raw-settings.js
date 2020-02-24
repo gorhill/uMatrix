@@ -23,7 +23,7 @@
 
 'use strict';
 
-CodeMirror.defineMode("raw-settings", function() {
+CodeMirror.defineMode('raw-settings', function() {
     return {
         token: function(stream) {
             if ( stream.sol() ) {
