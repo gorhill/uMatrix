@@ -57,6 +57,8 @@ const rawSettingsDefault = {
     assetFetchBypassBrowserCache: false,
     assetFetchTimeout: 30,
     autoUpdateAssetFetchPeriod: 120,
+    cacheStorageAPI: 'unset',
+    cacheStorageCompression: true,
     cnameIgnoreList: 'unset',
     cnameIgnore1stParty: true,
     cnameIgnoreExceptions: true,

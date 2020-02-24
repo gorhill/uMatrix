@@ -32,6 +32,11 @@
     ]);
     log.info(`User settings ready ${Date.now()-vAPI.T0} ms after launch`);
 
+    const cacheBackend = await µm.cacheStorage.select(
+        µm.rawSettings.cacheStorageAPI
+    );
+    log.info(`Backend storage for cache will be ${cacheBackend}`);
+
     const shouldWASM =
         vAPI.canWASM === true &&
         µm.rawSettings.disableWebAssembly !== true;

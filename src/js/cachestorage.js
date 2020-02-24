@@ -119,7 +119,7 @@
                     disconnect();
                 },
                 Math.max(
-                    µMatrix.hiddenSettings.autoUpdateAssetFetchPeriod * 2 * 1000,
+                    µMatrix.rawSettings.autoUpdateAssetFetchPeriod * 2 * 1000,
                     180000
                 )
             );
@@ -296,7 +296,7 @@
             const promises = [ getDb() ];
             const entries = [];
             const dontCompress =
-                µMatrix.hiddenSettings.cacheStorageCompression !== true;
+                µMatrix.rawSettings.cacheStorageCompression !== true;
             const handleEncodingResult = result => {
                 entries.push({ key: result.key, value: result.data });
             };
