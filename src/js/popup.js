@@ -77,6 +77,11 @@ const resizePopup = (( ) => {
 
     // The purpose of `xobserver` is to initiate the resize handler only
     // when the popup panel is actually visible.
+
+    // https://github.com/uBlockOrigin/uMatrix-issues/issues/235
+    if ( self.IntersectionObserver instanceof Object === false ) {
+        return ( ) => { };
+    }
     let xobserver = new IntersectionObserver(intersections => {
         if ( intersections.length === 0 ) { return; }
         if ( intersections[0].isIntersecting === false ) { return; }
