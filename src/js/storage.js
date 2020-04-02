@@ -496,9 +496,19 @@ self.addEventListener('rawSettingsChanged', ( ) => {
     const addedCount = this.ubiquitousBlacklistRef.addedCount;
     const addCount = this.ubiquitousBlacklistRef.addCount;
 
-    this.mergeHostsFileContent(details.content);
+    // https://www.reddit.com/r/uMatrix/comments/ftebgz/
+    //   Be ready to deal with a removed asset.
+
+    if ( typeof details.content === 'string' && details.content !== '' ) {
+        this.mergeHostsFileContent(details.content);
+    }
 
     const hostsFileMeta = this.liveHostsFiles.get(details.assetKey);
+    if ( hostsFileMeta === undefined ) {
+        this.liveHostsFiles.delete(details.assetKey);
+        return;
+    }
+
     hostsFileMeta.entryCount =
         this.ubiquitousBlacklistRef.addCount - addCount;
     hostsFileMeta.entryUsedCount =
