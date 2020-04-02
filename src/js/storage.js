@@ -552,12 +552,22 @@
     var usedCount = this.ubiquitousBlacklist.count;
     var duplicateCount = this.ubiquitousBlacklist.duplicateCount;
 
-    this.mergeHostsFileContent(details.content);
+    // https://www.reddit.com/r/uMatrix/comments/ftebgz/
+    //   Be ready to deal with a removed asset.
+
+    if ( typeof details.content === 'string' && details.content !== '' ) {
+        this.mergeHostsFileContent(details.content);
+    }
 
     usedCount = this.ubiquitousBlacklist.count - usedCount;
     duplicateCount = this.ubiquitousBlacklist.duplicateCount - duplicateCount;
 
-    let hostsFileMeta = this.liveHostsFiles.get(details.assetKey);
+    const hostsFileMeta = this.liveHostsFiles.get(details.assetKey);
+    if ( hostsFileMeta === undefined ) {
+        this.liveHostsFiles.delete(details.assetKey);
+        return;
+    }
+
     hostsFileMeta.entryCount = usedCount + duplicateCount;
     hostsFileMeta.entryUsedCount = usedCount;
 };
