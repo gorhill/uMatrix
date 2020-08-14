@@ -34,6 +34,6 @@ cp -R ./src/_locales/tr    $DES/_locales/
 cp -R ./src/_locales/zh_TW $DES/_locales/
 
 echo "*** uMatrix.opera: Generating meta..."
-python tools/make-opera-meta.py         $DES/
+python3 tools/make-opera-meta.py        $DES/
 
 echo "*** uMatrix.opera: Package done."
