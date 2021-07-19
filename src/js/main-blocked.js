@@ -86,7 +86,7 @@ uDom('.what').text(details.url);
         return s;
     };
 
-    let renderParams = function(parentNode, rawURL) {
+    let renderParams = function(parentNode, rawURL, depth = 0) {
         let a = document.createElement('a');
         a.href = rawURL;
         if ( a.search.length === 0 ) { return false; }
@@ -108,9 +108,9 @@ uDom('.what').text(details.url);
             let name = safeDecodeURIComponent(param.slice(0, pos));
             let value = safeDecodeURIComponent(param.slice(pos + 1));
             li = liFromParam(name, value);
-            if ( reURL.test(value) ) {
+            if ( depth < 2 && reURL.test(value) ) {
                 let ul = document.createElement('ul');
-                renderParams(ul, value);
+                renderParams(ul, value, depth + 1);
                 li.appendChild(ul);
             }
             parentNode.appendChild(li);
