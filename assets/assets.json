@@ -16,25 +16,6 @@
 			"assets/thirdparties/publicsuffix.org/list/effective_tld_names.dat"
 		]
 	},
-	"malware-0": {
-		"content": "filters",
-		"title": "Malware Domain List",
-		"contentURL": [
-			"https://www.malwaredomainlist.com/hostslist/hosts.txt",
-			"assets/thirdparties/www.malwaredomainlist.com/hostslist/hosts.txt"
-		]
-	},
-	"malware-1": {
-		"content": "filters",
-		"title": "Malware domains",
-		"contentURL": [
-			"https://mirror.cedia.org.ec/malwaredomains/justdomains",
-			"https://mirror1.malwaredomains.com/files/justdomains",
-			"assets/thirdparties/mirror1.malwaredomains.com/files/justdomains",
-			"assets/thirdparties/mirror1.malwaredomains.com/files/justdomains.txt"
-		],
-		"supportURL": "http://www.malwaredomains.com/"
-	},
 	"dpollock-0": {
 		"content": "filters",
 		"updateAfter": 11,
@@ -44,16 +25,6 @@
 			"assets/thirdparties/someonewhocares.org/hosts/hosts.txt"
 		],
 		"supportURL": "https://someonewhocares.org/hosts/"
-	},
-	"hphosts": {
-		"content": "filters",
-		"updateAfter": 11,
-		"title": "hpHosts’ Ad and tracking servers",
-		"contentURL": [
-			"https://hosts-file.net/.%5Cad_servers.txt",
-			"assets/thirdparties/hosts-file.net/ad_servers.txt"
-		],
-		"supportURL": "https://hosts-file.net/"
 	},
 	"mvps-0": {
 		"content": "filters",
