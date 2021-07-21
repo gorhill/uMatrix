@@ -347,10 +347,10 @@ body.tabless .needtab {
     text-align: left;
     }
 .matRow {
-    align-items: flex-start;
     display: flex;
     }
 .matCell {
+    align-items: center;
     box-sizing: content-box;
     display: inline-flex;
     flex-shrink: 0;
@@ -374,6 +374,7 @@ body.tabless .needtab {
     font-weight: 100;
     }
 .paneContent .matrix .matRow > .matCell:first-child > b {
+    display: contents;
     font-weight: normal;
     }
 
@@ -383,9 +384,10 @@ body.tabless .needtab {
     flex-grow: 1;
     flex-shrink: 1;
     justify-content: flex-end;
+    text-align: right;
     unicode-bidi: embed;
     width: 16em;
-    word-break: keep-all;
+    word-break: break-all;
     }
 .matrix .matGroup.g4 .matRow.ro > .matCell:first-child {
     direction: inherit;

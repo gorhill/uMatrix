@@ -1327,6 +1327,7 @@ const gotoExtensionURL = function(ev) {
         what: 'gotoExtensionURL',
         url,
         select: true,
+        index: -1,
         shiftKey: ev.shiftKey,
     });
     dropDownMenuHide();

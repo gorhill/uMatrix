@@ -388,7 +388,9 @@ Matrix.prototype.evaluateCellZ = function(srcHostname, desHostname, type) {
     // srcHostname is '*' at this point
 
     // Preset blacklisted hostnames are blacklisted in global scope
-    if ( type === '*' && µm.ubiquitousBlacklistRef.matches(desHostname) !== -1 ) {
+    // https://github.com/uBlockOrigin/uMatrix-issues/issues/284
+    //   Only consider hostname blocklisted if it's a full match.
+    if ( type === '*' && µm.ubiquitousBlacklistRef.matches(desHostname) === 0 ) {
         return 1;
     }
 
